@@ -77,7 +77,8 @@ trait VoaPropertyLinkingSpec
   }
 
   def preAuthenticatedStaticPage(
-        accounts: Option[Accounts] = Some(Accounts(groupAccount(false), detailedIndividualAccount))): StaticPageAction =
+        accounts: Option[Accounts] = Some(Accounts(groupAccount(false), detailedIndividualAccount))
+  ): StaticPageAction =
     new StaticPageAction(
       messageApi,
       mockBusinessRatesAuthorisation,
@@ -102,7 +103,8 @@ trait VoaPropertyLinkingSpec
     ) {
       override def invokeBlock[A](
             request: Request[A],
-            block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] =
+            block: BasicAuthenticatedRequest[A] => Future[Result]
+      ): Future[Result] =
         block(new BasicAuthenticatedRequest[A](groupAccount(userIsAgent), detailedIndividualAccount, request))
     }
 
@@ -111,10 +113,12 @@ trait VoaPropertyLinkingSpec
       messageApi,
       mockGovernmentGatewayProvider,
       mockAuthConnector,
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)) {
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
+    ) {
       override def invokeBlock[A](
             request: Request[A],
-            block: RequestWithUserDetails[A] => Future[Result]): Future[Result] =
+            block: RequestWithUserDetails[A] => Future[Result]
+      ): Future[Result] =
         block(new RequestWithUserDetails[A](userDetails, request))
     }
 
@@ -137,7 +141,8 @@ trait VoaPropertyLinkingSpec
     ) {
       override def invokeBlock[A](
             request: Request[A],
-            block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] = super.invokeBlock(request, block)
+            block: BasicAuthenticatedRequest[A] => Future[Result]
+      ): Future[Result] = super.invokeBlock(request, block)
     }
 
   def preEnrichedActionRefiner(): WithLinkingSession =
@@ -145,16 +150,19 @@ trait VoaPropertyLinkingSpec
 
   def preEnrichedActionRefinerWithStartDate(
         earliestStartDate: LocalDate,
-        userIsAgent: Boolean = true): WithLinkingSession =
+        userIsAgent: Boolean = true
+  ): WithLinkingSession =
     preEnrichedActionRefiner(
       UploadEvidenceData(fileInfo = None, attachments = None),
       earliestStartDate = earliestStartDate,
-      userIsAgent = userIsAgent)
+      userIsAgent = userIsAgent
+    )
 
   def preEnrichedActionRefinerFromCya(
         earliestStartDate: LocalDate = earliestEnglishStartDate,
         relationshipCapacity: CapacityType = Owner,
-        userIsAgent: Boolean = true): WithLinkingSession =
+        userIsAgent: Boolean = true
+  ): WithLinkingSession =
     preEnrichedActionRefiner(
       UploadEvidenceData(fileInfo = None, attachments = None),
       earliestStartDate = earliestStartDate,
@@ -170,9 +178,11 @@ trait VoaPropertyLinkingSpec
         earliestStartDate: LocalDate = earliestEnglishStartDate,
         propertyOwnership: Option[PropertyOwnership] = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
         propertyOccupancy: Option[PropertyOccupancy] = Some(
-          PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+          PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)
+        ),
         fromCya: Option[Boolean] = Some(false),
-        isSubmitted: Option[Boolean] = None): WithLinkingSession =
+        isSubmitted: Option[Boolean] = None
+  ): WithLinkingSession =
     new WithLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
 
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
@@ -201,7 +211,9 @@ trait VoaPropertyLinkingSpec
               individualAccount = request.individualAccount,
               organisationAccount = request.organisationAccount,
               request = request
-            )))
+            )
+          )
+        )
     }
 
   def submittedActionRefiner(
@@ -211,8 +223,10 @@ trait VoaPropertyLinkingSpec
         earliestStartDate: LocalDate = earliestEnglishStartDate,
         propertyOwnership: Option[PropertyOwnership] = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
         propertyOccupancy: Option[PropertyOccupancy] = Some(
-          PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
-        fromCya: Option[Boolean] = Some(true)): WithSubmittedLinkingSession =
+          PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)
+        ),
+        fromCya: Option[Boolean] = Some(true)
+  ): WithSubmittedLinkingSession =
     new WithSubmittedLinkingSession(mockCustomErrorHandler, mockSessionRepository) {
       override def refine[A](request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
         Future.successful(
@@ -240,7 +254,9 @@ trait VoaPropertyLinkingSpec
               individualAccount = request.individualAccount,
               organisationAccount = request.organisationAccount,
               request = request
-            )))
+            )
+          )
+        )
     }
 
   def verifyLoggedIn(html: Document, pageTitle: String): Unit = {

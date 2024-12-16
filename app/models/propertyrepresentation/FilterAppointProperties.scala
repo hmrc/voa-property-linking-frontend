@@ -23,7 +23,8 @@ import play.api.libs.json.{Json, OFormat}
 case class FilterAppointProperties(
       address: Option[String],
       agent: Option[String],
-      sortOrder: ExternalPropertyLinkManagementSortOrder = ExternalPropertyLinkManagementSortOrder.ASC)
+      sortOrder: ExternalPropertyLinkManagementSortOrder = ExternalPropertyLinkManagementSortOrder.ASC
+)
 
 object FilterAppointProperties {
   implicit val format: OFormat[FilterAppointProperties] = Json.format[FilterAppointProperties]

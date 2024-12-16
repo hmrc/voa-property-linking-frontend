@@ -42,18 +42,22 @@ object StubPropertyLinkConnector
 
   def stubOwnerAuthResult(reps: OwnerAuthResult) = stubbedOwnerAuthResult = reps
 
-  override def createPropertyLink(propertyLinkPayload: PropertyLinkPayload)(
-        implicit hc: HeaderCarrier): Future[HttpResponse] =
+  override def createPropertyLink(
+        propertyLinkPayload: PropertyLinkPayload
+  )(implicit hc: HeaderCarrier): Future[HttpResponse] =
     Future.successful(emptyJsonHttpResponse(200))
 
   override def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(
-        implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
+        implicit hc: HeaderCarrier
+  ): Future[OwnerAuthResult] =
     Future.successful(stubbedOwnerAuthResult)
 
-  override def clientPropertyLink(submissionId: String)(
-        implicit hc: HeaderCarrier): Future[Option[ClientPropertyLink]] = Future.successful {
-    stubbedClientPropertyLinks.find(p => p.submissionId == submissionId)
-  }
+  override def clientPropertyLink(
+        submissionId: String
+  )(implicit hc: HeaderCarrier): Future[Option[ClientPropertyLink]] =
+    Future.successful {
+      stubbedClientPropertyLinks.find(p => p.submissionId == submissionId)
+    }
 
   def stubLink(link: PropertyLink) =
     stubbedLinks :+= link

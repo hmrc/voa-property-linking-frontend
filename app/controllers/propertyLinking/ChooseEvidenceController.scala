@@ -35,37 +35,36 @@ import java.time.LocalDate
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class ChooseEvidenceController @Inject()(
+class ChooseEvidenceController @Inject() (
       val errorHandler: CustomErrorHandler,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
       chooseEvidenceView: views.html.propertyLinking.chooseEvidence,
       chooseOccupierEvidenceView: views.html.propertyLinking.chooseOccupierEvidence
-)(
-      implicit executionContext: ExecutionContext,
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def show: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    val form = request.ses.propertyRelationship match {
-      case Some(relationship) if relationship.isOccupier =>
-        request.ses.occupierEvidenceType.fold(OccupierEvidenceType.form)(OccupierEvidenceType.form.fillAndValidate)
-      case _ => request.ses.hasRatesBill.fold(ChooseEvidence.form)(ChooseEvidence.form.fillAndValidate)
-    }
+  def show: Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+      val form = request.ses.propertyRelationship match {
+        case Some(relationship) if relationship.isOccupier =>
+          request.ses.occupierEvidenceType.fold(OccupierEvidenceType.form)(OccupierEvidenceType.form.fillAndValidate)
+        case _ => request.ses.hasRatesBill.fold(ChooseEvidence.form)(ChooseEvidence.form.fillAndValidate)
+      }
 
-    for {
-      _ <- businessRatesAttachmentService.persistSessionData(request.ses.copy(fromCya = Some(false)))
-      backLink = backlink(request.ses)
-    } yield {
-      request.ses.propertyRelationship match {
+      for {
+        _ <- businessRatesAttachmentService.persistSessionData(request.ses.copy(fromCya = Some(false)))
+        backLink = backlink(request.ses)
+      } yield request.ses.propertyRelationship match {
         case Some(relationship) if relationship.isOccupier => Ok(chooseOccupierEvidenceView(form, Some(backLink)))
         case _                                             => Ok(chooseEvidenceView(form, Some(backLink)))
       }
     }
-  }
 
   private def backlink(session: LinkingSession): String =
     if (session.earliestStartDate.isAfter(LocalDate.now))
@@ -76,34 +75,36 @@ class ChooseEvidenceController @Inject()(
     else
       controllers.propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy.url
 
-  def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    ChooseEvidence.form
-      .bindFromRequest()
-      .fold(
-        errors => Future.successful(BadRequest(chooseEvidenceView(errors, Some(backlink(request.ses))))),
-        hasRatesBill => {
-          val evidence = if (hasRatesBill) RATES_BILL else OTHER
+  def submit: Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+      ChooseEvidence.form
+        .bindFromRequest()
+        .fold(
+          errors => Future.successful(BadRequest(chooseEvidenceView(errors, Some(backlink(request.ses))))),
+          hasRatesBill => {
+            val evidence = if (hasRatesBill) RATES_BILL else OTHER
 
-          request.ses.hasRatesBill match {
-            case Some(bool) if bool == hasRatesBill =>
-              if (hasRatesBill) {
-                request.ses.uploadEvidenceData.fileInfo match {
-                  case Some(CompleteFileInfo(_, evidenceType)) =>
-                    Future.successful(
-                      Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(evidenceType)))))
-                  case _ =>
-                    Future.successful(Redirect(routes.UploadController.show(evidence)))
-                }
-              } else Future.successful(Redirect(routes.UploadController.show(evidence)))
-            case _ =>
-              businessRatesAttachmentService
-                .persistSessionData(
-                  request.ses.copy(hasRatesBill = Some(hasRatesBill), uploadEvidenceData = UploadEvidenceData.empty))
-                .map(_ => Redirect(routes.UploadController.show(evidence)))
+            request.ses.hasRatesBill match {
+              case Some(bool) if bool == hasRatesBill =>
+                if (hasRatesBill)
+                  request.ses.uploadEvidenceData.fileInfo match {
+                    case Some(CompleteFileInfo(_, evidenceType)) =>
+                      Future
+                        .successful(Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(evidenceType)))))
+                    case _ =>
+                      Future.successful(Redirect(routes.UploadController.show(evidence)))
+                  }
+                else Future.successful(Redirect(routes.UploadController.show(evidence)))
+              case _ =>
+                businessRatesAttachmentService
+                  .persistSessionData(
+                    request.ses.copy(hasRatesBill = Some(hasRatesBill), uploadEvidenceData = UploadEvidenceData.empty)
+                  )
+                  .map(_ => Redirect(routes.UploadController.show(evidence)))
+            }
           }
-        }
-      )
-  }
+        )
+    }
 
   private def getEvidenceChoice(evidenceType: Option[EvidenceType] = None): EvidenceChoices =
     evidenceType match {
@@ -118,15 +119,15 @@ class ChooseEvidenceController @Inject()(
 
     }
 
-  def submitOccupierForm: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async {
-    implicit request =>
+  def submitOccupierForm: Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       def updateSession(newAnswer: EvidenceType): Future[Unit] =
         // if the same answer was already in the linking session, then do nothing
         if (request.ses.occupierEvidenceType.contains(newAnswer)) Future.successful((): Unit)
-        else {
+        else
           businessRatesAttachmentService.persistSessionData(
-            request.ses.copy(occupierEvidenceType = Some(newAnswer), uploadEvidenceData = UploadEvidenceData.empty))
-        }
+            request.ses.copy(occupierEvidenceType = Some(newAnswer), uploadEvidenceData = UploadEvidenceData.empty)
+          )
 
       OccupierEvidenceType.form
         .bindFromRequest()
@@ -138,19 +139,18 @@ class ChooseEvidenceController @Inject()(
                 if (formData == NoLeaseOrLicense) EvidenceChoices.NO_LEASE_OR_LICENSE
                 else if (formData == Lease) EvidenceChoices.LEASE
                 else EvidenceChoices.LICENSE
-              if (request.ses.evidenceType.contains(formData)) {
+              if (request.ses.evidenceType.contains(formData))
                 request.ses.uploadEvidenceData.fileInfo match {
                   case Some(CompleteFileInfo(_, _)) =>
                     Redirect(routes.UploadResultController.show(choice))
                   case _ =>
                     Redirect(routes.UploadController.show(choice))
                 }
-              } else {
+              else
                 Redirect(routes.UploadController.show(choice))
-              }
-          }
+            }
         )
-  }
+    }
 }
 
 object ChooseEvidence {

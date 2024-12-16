@@ -45,7 +45,8 @@ case class LinkingSession(
       occupierEvidenceType: Option[EvidenceType] = None,
       isSubmitted: Option[Boolean] = Some(false),
       preparedUpload: Option[PreparedUpload] = None,
-      attachment: Option[Attachment] = None)
+      attachment: Option[Attachment] = None
+)
 
 object LinkingSession {
   implicit val format: OFormat[LinkingSession] = Json.format[LinkingSession]

@@ -21,7 +21,7 @@ import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 
-class KeepAliveController @Inject()(
+class KeepAliveController @Inject() (
       authenticatedAction: AuthenticatedAction,
       override val controllerComponents: MessagesControllerComponents
 ) extends FrontendBaseController {

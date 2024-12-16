@@ -26,26 +26,27 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext
 
-class AddressLookup @Inject()(
+class AddressLookup @Inject() (
       val errorHandler: CustomErrorHandler,
       addresses: Addresses,
       override val controllerComponents: MessagesControllerComponents
-)(
-      implicit executionContext: ExecutionContext
+)(implicit
+      executionContext: ExecutionContext
 ) extends PropertyLinkingController with Logging {
 
-  def findByPostcode(postcode: String): Action[AnyContent] = Action.async { implicit request =>
-    addresses
-      .findByPostcode(postcode.trim)(hc)
-      .recover {
-        case t =>
-          logger.warn("Failed to find address by post code", t)
-          Seq.empty
-      }
-      .map {
-        case Seq()         => NotFound
-        case seq @ Seq(_*) => Ok(Json.toJson(seq))
-      }
-  }
+  def findByPostcode(postcode: String): Action[AnyContent] =
+    Action.async { implicit request =>
+      addresses
+        .findByPostcode(postcode.trim)(hc)
+        .recover {
+          case t =>
+            logger.warn("Failed to find address by post code", t)
+            Seq.empty
+        }
+        .map {
+          case Seq()         => NotFound
+          case seq @ Seq(_*) => Ok(Json.toJson(seq))
+        }
+    }
 
 }

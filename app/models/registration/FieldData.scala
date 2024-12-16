@@ -32,7 +32,8 @@ case class FieldData(
       nino: String = "",
       dob: Option[LocalDate] = None,
       mobilePhone: String = "",
-      selectedAddress: Option[String] = None)
+      selectedAddress: Option[String] = None
+)
 
 object FieldData {
 

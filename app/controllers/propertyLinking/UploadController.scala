@@ -41,7 +41,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
-class UploadController @Inject()(
+class UploadController @Inject() (
       val errorHandler: CustomErrorHandler,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
@@ -51,8 +51,8 @@ class UploadController @Inject()(
       uploadOtherEvidenceView: views.html.propertyLinking.uploadEvidence,
       uploadResultView: views.html.propertyLinking.upload_result,
       cannotProvideEvidenceView: views.html.propertyLinking.cannotProvideEvidence
-)(
-      implicit executionContext: ExecutionContext,
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       applicationConfig: ApplicationConfig
@@ -62,7 +62,8 @@ class UploadController @Inject()(
         evidence: EvidenceChoices,
         errorCode: Option[String],
         fileRemoved: Boolean,
-        removedFileName: Option[String]): Action[AnyContent] =
+        removedFileName: Option[String]
+  ): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
       evidence match {
@@ -73,33 +74,35 @@ class UploadController @Inject()(
           for {
             preparedUpload <- requestNewUpscanForm(evidence)
             _ <- businessRatesAttachmentsService.persistSessionData(
-                  request.ses
-                    .copy(fileReference = Some(preparedUpload.reference.value))
-                    .copy(evidenceType = Some(getEvidenceType(evidence))),
-                  request.ses.uploadEvidenceData.copy(linkBasis = linkBasis)
-                )
-          } yield {
-            Ok(
-              uploadView(
-                getEvidenceType(evidence),
-                evidence,
-                session.submissionId,
-                errorCode,
-                preparedUpload,
-                fileRemoved,
-                removedFileName
-              ))
-          }
+                   request.ses
+                     .copy(fileReference = Some(preparedUpload.reference.value))
+                     .copy(evidenceType = Some(getEvidenceType(evidence))),
+                   request.ses.uploadEvidenceData.copy(linkBasis = linkBasis)
+                 )
+          } yield Ok(
+            uploadView(
+              getEvidenceType(evidence),
+              evidence,
+              session.submissionId,
+              errorCode,
+              preparedUpload,
+              fileRemoved,
+              removedFileName
+            )
+          )
         case EvidenceChoices.OTHER | EvidenceChoices.NO_LEASE_OR_LICENSE =>
           Future.successful(
-            Ok(uploadOtherEvidenceView(
-              session.submissionId,
-              session.uploadEvidenceData.attachments.getOrElse(Map.empty),
-              session.uploadEvidenceData.fileInfo
-                .map(x => form.fill(x.evidenceType))
-                .getOrElse(form),
-              session
-            )))
+            Ok(
+              uploadOtherEvidenceView(
+                session.submissionId,
+                session.uploadEvidenceData.attachments.getOrElse(Map.empty),
+                session.uploadEvidenceData.fileInfo
+                  .map(x => form.fill(x.evidenceType))
+                  .getOrElse(form),
+                session
+              )
+            )
+          )
         case _ =>
           errorHandler.badRequestTemplate.map(html => BadRequest(html))
       }
@@ -135,12 +138,16 @@ class UploadController @Inject()(
         .bindFromRequest()
         .fold(
           hasErrors = _ =>
-            Future.successful(BadRequest(uploadOtherEvidenceView(
-              request.ses.submissionId,
-              request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
-              form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
-              request.ses
-            ))),
+            Future.successful(
+              BadRequest(
+                uploadOtherEvidenceView(
+                  request.ses.submissionId,
+                  request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
+                  form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
+                  request.ses
+                )
+              )
+            ),
           evidenceType => {
             val updatedSession = request.ses.copy(evidenceType = Some(evidenceType))
             val fileInfo = request.ses.uploadEvidenceData.fileInfo match {
@@ -156,60 +163,68 @@ class UploadController @Inject()(
 
             businessRatesAttachmentsService
               .persistSessionData(updatedSession, updatedUploadData)
-              .map(
-                _ =>
-                  Ok(
-                    uploadOtherEvidenceView(
-                      request.ses.submissionId,
-                      request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
-                      form.fill(evidenceType),
-                      request.ses
-                    )))
+              .map(_ =>
+                Ok(
+                  uploadOtherEvidenceView(
+                    request.ses.submissionId,
+                    request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
+                    form.fill(evidenceType),
+                    request.ses
+                  )
+                )
+              )
           }
         )
     }
 
-  def continue: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    form
-      .bindFromRequest()
-      .fold(
-        _ =>
-          Future.successful(BadRequest(uploadOtherEvidenceView(
-            submissionId = request.ses.submissionId,
-            uploadedFiles = request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
-            formEvidence =
-              form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
-            linkingSession = request.ses
-          ))), {
-          case UnableToProvide =>
-            businessRatesAttachmentsService
-              .persistSessionData(
-                request.ses.copy(evidenceType = Some(UnableToProvide)),
-                request.ses.uploadEvidenceData
-                  .copy(fileInfo = Some(PartialFileInfo(UnableToProvide))))
-              .map(_ => Redirect(routes.UploadController.cannotProvideEvidence))
-          case formData if request.ses.evidenceType.contains(formData) =>
-            request.ses.uploadEvidenceData.fileInfo match {
-              case Some(CompleteFileInfo(_, _)) =>
-                Future.successful(Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(formData)))))
-              case _ =>
-                Future.successful(Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
-            }
-          case formData =>
-            businessRatesAttachmentsService
-              .persistSessionData(
-                request.ses.copy(evidenceType = Some(formData)),
-                request.ses.uploadEvidenceData
-                  .copy(fileInfo = Some(PartialFileInfo(formData)), linkBasis = OtherEvidenceFlag)
+  def continue: Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          _ =>
+            Future.successful(
+              BadRequest(
+                uploadOtherEvidenceView(
+                  submissionId = request.ses.submissionId,
+                  uploadedFiles = request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
+                  formEvidence =
+                    form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
+                  linkingSession = request.ses
+                )
               )
-              .map(_ => Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
-        }
-      )
-  }
+            ),
+          {
+            case UnableToProvide =>
+              businessRatesAttachmentsService
+                .persistSessionData(
+                  request.ses.copy(evidenceType = Some(UnableToProvide)),
+                  request.ses.uploadEvidenceData
+                    .copy(fileInfo = Some(PartialFileInfo(UnableToProvide)))
+                )
+                .map(_ => Redirect(routes.UploadController.cannotProvideEvidence))
+            case formData if request.ses.evidenceType.contains(formData) =>
+              request.ses.uploadEvidenceData.fileInfo match {
+                case Some(CompleteFileInfo(_, _)) =>
+                  Future.successful(Redirect(routes.UploadResultController.show(getEvidenceChoice(Some(formData)))))
+                case _ =>
+                  Future.successful(Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
+              }
+            case formData =>
+              businessRatesAttachmentsService
+                .persistSessionData(
+                  request.ses.copy(evidenceType = Some(formData)),
+                  request.ses.uploadEvidenceData
+                    .copy(fileInfo = Some(PartialFileInfo(formData)), linkBasis = OtherEvidenceFlag)
+                )
+                .map(_ => Redirect(routes.UploadController.show(getEvidenceChoice(Some(formData)))))
+          }
+        )
+    }
 
-  private def requestNewUpscanForm(evidence: EvidenceChoices)(
-        implicit request: LinkingSessionRequest[_],
-        hc: HeaderCarrier): Future[PreparedUpload] = {
+  private def requestNewUpscanForm(
+        evidence: EvidenceChoices
+  )(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): Future[PreparedUpload] = {
     val initiateUploadRequest =
       UpscanInitiateRequest(
         successRedirect = applicationConfig.serviceUrl + routes.UploadResultController.show(evidence),
@@ -253,14 +268,16 @@ class UploadController @Inject()(
   def upscanFailure(
         evidence: EvidenceChoices,
         errorCode: Option[String],
-        errorMessage: Option[String]): Action[AnyContent] =
+        errorMessage: Option[String]
+  ): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val session = request.ses
       logger.info(s"Upscan failed with ErrorCode: $errorCode, ErrorMessage: $errorMessage ")
       businessRatesAttachmentsService
         .persistSessionData(
           session.copy(evidenceType = None),
-          session.uploadEvidenceData.copy(attachments = Some(Map.empty)))
+          session.uploadEvidenceData.copy(attachments = Some(Map.empty))
+        )
         .map(_ => Redirect(routes.UploadController.show(evidence, errorCode)))
     }
 
@@ -276,7 +293,8 @@ class UploadController @Inject()(
           request.ses,
           session.uploadEvidenceData.copy(
             fileInfo = Option(PartialFileInfo(getEvidenceType(evidence, request.ses.evidenceType))),
-            attachments = Some(Map.empty))
+            attachments = Some(Map.empty)
+          )
         )
         .map(_ => Redirect(routes.UploadController.show(evidence, fileRemoved = true, removedFileName = optFileName)))
     }

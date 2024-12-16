@@ -20,7 +20,7 @@ import play.api.Configuration
 
 import javax.inject.Inject
 
-class FeatureSwitch @Inject()(config: Configuration) {
+class FeatureSwitch @Inject() (config: Configuration) {
 
   private val prefix = "feature-switch"
 

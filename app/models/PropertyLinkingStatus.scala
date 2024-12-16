@@ -53,5 +53,6 @@ object PropertyLinkingStatus extends NamedEnumSupport[PropertyLinkingStatus] {
       PropertyLinkingPending,
       PropertyLinkingRevoked,
       PropertyLinkingDeclined,
-      PropertyLinkingMoreEvidenceRequired)
+      PropertyLinkingMoreEvidenceRequired
+    )
 }

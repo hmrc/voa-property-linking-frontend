@@ -74,8 +74,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(email = updatedEmail)
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
-      any[HeaderCarrier])
+    verify(mockIndividualAccounts)
+      .update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
   "The edit name page" should "require a non-empty first name" in {
@@ -113,8 +113,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(firstName = "Mr", lastName = "Person")
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
-      any[HeaderCarrier])
+    verify(mockIndividualAccounts)
+      .update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
   "The update phone number page" should "require the phone number to be non-empty" in {
@@ -136,8 +136,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(phone1 = "01234567890")
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
-      any[HeaderCarrier])
+    verify(mockIndividualAccounts)
+      .update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
   "The update address page" should "require a postcode" in {
@@ -171,8 +171,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(addressId = 1234567890)
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
-      any[HeaderCarrier])
+    verify(mockIndividualAccounts)
+      .update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
     verify(mockManageDetails)
       .updatePostcode(matching(detailedIndividualAccount.individualId), any(), matching(1234567890L))(any(), any())
   }
@@ -198,8 +198,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     val updatedDetails = detailedIndividualAccount.details.copy(addressId = addressId)
 
     verify(mockAddressConnector).create(matching(address))(any[HeaderCarrier])
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
-      any[HeaderCarrier])
+    verify(mockIndividualAccounts)
+      .update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
     verify(mockManageDetails)
       .updatePostcode(matching(detailedIndividualAccount.individualId), any(), matching(addressId))(any(), any())
   }
@@ -230,8 +230,8 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     redirectLocation(res) shouldBe Some(viewDetailsPage)
 
     val updatedDetails = detailedIndividualAccount.details.copy(phone2 = Some("01234567890"))
-    verify(mockIndividualAccounts).update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(
-      any[HeaderCarrier])
+    verify(mockIndividualAccounts)
+      .update(matching(detailedIndividualAccount.copy(details = updatedDetails)))(any[HeaderCarrier])
   }
 
   "The update mobile number page" should "throw BAD_REQUEST if they submit an invalid form" in {

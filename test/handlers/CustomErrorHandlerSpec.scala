@@ -45,7 +45,8 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
         technicalDifficultiesView,
         notFoundView,
         alreadySubmittedView,
-        mockDateTimeUtil)
+        mockDateTimeUtil
+      )
   }
 
   "standardErrorTemplate" should
@@ -55,26 +56,31 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
     await(result) shouldBe errorView("Test title", "Test heading", "Test message")(
       FakeRequest(),
       messagesApi.preferred(FakeRequest()),
-      appConfig)
+      appConfig
+    )
   }
 
   "internalServerErrorTemplate" should
     "display the technical difficulties page with the error reference and time" in new Setup {
     val result = testErrorHandler.internalServerErrorTemplate(
       FakeRequest()
-        .withHeaders(HeaderNames.xRequestId -> "govuk-tax-253f442d-1bb2-4d3c-9943-248f5d96a812"))
+        .withHeaders(HeaderNames.xRequestId -> "govuk-tax-253f442d-1bb2-4d3c-9943-248f5d96a812")
+    )
 
     await(result) shouldBe technicalDifficultiesView(
       Some("253f442d-1bb2-4d3c-9943-248f5d96a812"),
-      LocalDateTime.parse(mockTestTimeString))(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
+      LocalDateTime.parse(mockTestTimeString)
+    )(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
   }
   it should "display the technical difficulties page with the error reference and time with new requestId format" in new Setup {
     val result = testErrorHandler.internalServerErrorTemplate(
       FakeRequest()
-        .withHeaders(HeaderNames.xRequestId -> "05HyDTzoaHs5NmHMyzggyG-s3cURERsPiWvS6oD5XRVA9KGtYWzGkQ=="))
+        .withHeaders(HeaderNames.xRequestId -> "05HyDTzoaHs5NmHMyzggyG-s3cURERsPiWvS6oD5XRVA9KGtYWzGkQ==")
+    )
 
     await(result) shouldBe technicalDifficultiesView(
       Some("05HyDTzoaHs5NmHMyzggyG-s3cURERsPiWvS6oD5XRVA9KGtYWzGkQ=="),
-      LocalDateTime.parse(mockTestTimeString))(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
+      LocalDateTime.parse(mockTestTimeString)
+    )(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
   }
 }

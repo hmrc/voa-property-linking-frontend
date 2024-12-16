@@ -312,7 +312,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
         val res = await(
           ws.url(
-              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+            )
             .withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -329,8 +330,9 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
         submitSelectRatingListOptionCommonStubbing()
 
         stubFor {
-          get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-            .willReturn {
+          get(
+            "/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
+          ).willReturn {
               aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultNoProperties).toString())
             }
         }
@@ -339,7 +341,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
         val res = await(
           ws.url(
-              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+            )
             .withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -357,8 +360,9 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
         submitSelectRatingListOptionCommonStubbing()
 
         stubFor {
-          get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-            .willReturn {
+          get(
+            "/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
+          ).willReturn {
               aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
             }
         }
@@ -367,7 +371,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
         val res = await(
           ws.url(
-              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+            )
             .withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -385,8 +390,9 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
         submitSelectRatingListOptionCommonStubbing()
 
         stubFor {
-          get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-            .willReturn {
+          get(
+            "/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
+          ).willReturn {
               aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultMultipleProperty).toString())
             }
         }
@@ -395,7 +401,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
         val res = await(
           ws.url(
-              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+            )
             .withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -413,8 +420,9 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
         submitSelectRatingListOptionCommonStubbing()
 
         stubFor {
-          get("/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-            .willReturn {
+          get(
+            "/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
+          ).willReturn {
               aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResultMultipleProperty).toString())
             }
         }
@@ -423,7 +431,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
         val res = await(
           ws.url(
-              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+            )
             .withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -465,7 +474,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list$checkYourAnswers")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list$checkYourAnswers"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()

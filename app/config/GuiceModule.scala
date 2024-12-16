@@ -88,7 +88,7 @@ class GuiceModule(
     bindEndpoints(
       Map(
         "vmv.send-enquiry.url"            -> "resources.vmv.frontend.enquiry.path",
-        "vmv.estimator-dvr-valuation.url" -> "resources.vmv.frontend.estimator.dvr-valuation.path",
+        "vmv.estimator-dvr-valuation.url" -> "resources.vmv.frontend.estimator.dvr-valuation.path"
       ),
       servicesConfig.getString("vmv-frontend.url")
     )
@@ -96,7 +96,9 @@ class GuiceModule(
   protected def bindBoolean(path: String, name: String = ""): Unit =
     bindConstant()
       .annotatedWith(named(resolveAnnotationName(path, name)))
-      .to(Try(configuration.get[String](path).toBoolean).toOption.getOrElse(configException(path))) //We need to parse as string, due to the process of adding in from app-config-<env> it is seen as a string
+      .to(
+        Try(configuration.get[String](path).toBoolean).toOption.getOrElse(configException(path))
+      ) //We need to parse as string, due to the process of adding in from app-config-<env> it is seen as a string
 
   private def bindEndpoints(endpoints: Map[String, String], baseUrl: String): Unit =
     endpoints.toList.foreach {
@@ -108,10 +110,11 @@ class GuiceModule(
       .annotatedWith(named(resolveAnnotationName(path, name)))
       .to(s"$prefix${configuration.get[String](path)}")
 
-  private def resolveAnnotationName(path: String, name: String): String = name match {
-    case "" => path
-    case _  => name
-  }
+  private def resolveAnnotationName(path: String, name: String): String =
+    name match {
+      case "" => path
+      case _  => name
+    }
 
   private def configException(path: String) = throw new ConfigException.Missing(path)
 }

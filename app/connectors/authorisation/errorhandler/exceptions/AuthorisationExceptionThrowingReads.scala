@@ -41,7 +41,8 @@ trait AuthorisationExceptionThrowingReads extends Logging {
       e.statusCode match {
         case UNAUTHORIZED =>
           throw AuthorisationFailure(
-            authErrorMessage(response)(Json.reads[UnauthorisedErrorResponse]).getOrElse("Unexpected error."))
+            authErrorMessage(response)(Json.reads[UnauthorisedErrorResponse]).getOrElse("Unexpected error.")
+          )
         case _ => throw e
       }
     }

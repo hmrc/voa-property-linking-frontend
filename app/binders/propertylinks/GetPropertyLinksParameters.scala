@@ -46,7 +46,8 @@ object GetPropertyLinksParameters extends ValidationUtils {
 
     override def bind(
           key: String,
-          params: Map[String, Seq[String]]): Option[Either[String, GetPropertyLinksParameters]] =
+          params: Map[String, Seq[String]]
+    ): Option[Either[String, GetPropertyLinksParameters]] =
       Some(validate(params).leftMap(_.map(_.message).toList.mkString(", ")).toEither)
 
     override def unbind(key: String, value: GetPropertyLinksParameters): String = toQueryString(value)
@@ -61,14 +62,16 @@ object GetPropertyLinksParameters extends ValidationUtils {
         validateSortOrder("sortorder", params)
       ).mapN(GetPropertyLinksParameters.apply)
 
-    def validateSortOrder(
-          implicit key: String,
-          params: Params): ValidationResult[ExternalPropertyLinkManagementSortOrder] =
+    def validateSortOrder(implicit
+          key: String,
+          params: Params
+    ): ValidationResult[ExternalPropertyLinkManagementSortOrder] =
       readWithDefault("ASC")(key, params) andThen enumValue(ExternalPropertyLinkManagementSortOrder)
 
-    def validateSortField(
-          implicit key: String,
-          params: Params): ValidationResult[ExternalPropertyLinkManagementSortField] =
+    def validateSortField(implicit
+          key: String,
+          params: Params
+    ): ValidationResult[ExternalPropertyLinkManagementSortField] =
       readWithDefault("ADDRESS")(key, params) andThen enumValue(ExternalPropertyLinkManagementSortField)
 
     def validateString(implicit key: String, params: Params): ValidationResult[Option[String]] =

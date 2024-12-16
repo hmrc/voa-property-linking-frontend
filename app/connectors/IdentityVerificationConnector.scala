@@ -29,7 +29,7 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class IdentityVerificationConnector @Inject()(
+class IdentityVerificationConnector @Inject() (
       serverConfig: ServicesConfig,
       config: ApplicationConfig,
       http: DefaultHttpClient
@@ -38,20 +38,18 @@ class IdentityVerificationConnector @Inject()(
   val baseUrl = serverConfig.baseUrl("identity-verification")
 
   def verifySuccess(journeyId: String)(implicit hc: HeaderCarrier): Future[Boolean] =
-    if (config.ivEnabled) {
+    if (config.ivEnabled)
       http
         .GET[JsValue](s"$baseUrl/mdtp/journey/journeyId/$journeyId")
         .map(r => (r \ "result").asOpt[String].contains("Success"))
-    } else {
+    else
       Future.successful(true)
-    }
 
   def journeyStatus(journeyId: String)(implicit hc: HeaderCarrier): Future[IvResult] =
-    if (config.ivEnabled) {
+    if (config.ivEnabled)
       http.GET[JsObject](s"$baseUrl/mdtp/journey/journeyId/$journeyId").map { returnedObject =>
         IvResult.fromString((returnedObject \ "result").as[String]).getOrElse(IvFailure.TechnicalIssue)
       }
-    } else {
+    else
       Future.successful(IvFailure.TechnicalIssue)
-    }
 }

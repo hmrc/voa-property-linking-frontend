@@ -51,7 +51,8 @@ class AccountTypeControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe SEE_OTHER
 
     redirectLocation(res) shouldBe Some(
-      "http://localhost:8571/government-gateway-registration-frontend?accountType=individual&continue=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome&origin=voa")
+      "http://localhost:8571/government-gateway-registration-frontend?accountType=individual&continue=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome&origin=voa"
+    )
 
   }
 
@@ -60,6 +61,7 @@ class AccountTypeControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe SEE_OTHER
 
     redirectLocation(res) shouldBe Some(
-      "http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome&origin=voa")
+      "http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=http%3A%2F%2Flocalhost%3A9542%2Fbusiness-rates-dashboard%2Fhome&origin=voa"
+    )
   }
 }

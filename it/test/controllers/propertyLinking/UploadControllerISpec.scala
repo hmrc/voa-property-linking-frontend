@@ -216,7 +216,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Owner",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
 
       "should cache correct evidence type & link basis" in {
         await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(RatesBillType))
@@ -232,7 +233,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
 
       "should cache correct evidence type & link basis" in {
         await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(Lease))
@@ -248,7 +250,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
 
       "should cache correct evidence type & link basis" in {
         await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(License))
@@ -264,7 +267,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
 
       "should cache correct evidence type & link basis" in {
         await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(ServiceCharge))
@@ -280,7 +284,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
 
       "should cache correct evidence type & link basis" in {
         await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.evidenceType shouldBe Some(RatesBillType))
@@ -296,7 +301,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
 
       "should cache correct evidence type & link basis" in {
         await(mockPropertyLinkingSessionRepository.get[LinkingSession])
@@ -313,7 +319,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Owner and occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
 
       "should cache correct evidence type & link basis" in {
         await(mockPropertyLinkingSessionRepository.get[LinkingSession])
@@ -330,7 +337,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
 
       "should cache correct evidence type & link basis" in {
         await(mockPropertyLinkingSessionRepository.get[LinkingSession])
@@ -347,7 +355,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
 
       "should cache correct evidence type & link basis" in {
         await(mockPropertyLinkingSessionRepository.get[LinkingSession])
@@ -370,7 +379,8 @@ class UploadControllerISpec extends ISpecBase {
         language = English,
         relationship = "Owner and occupier",
         userIsAgent = false,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in English for an IP (Occupier) that has uploaded a Lease (from CYA)" which {
@@ -380,7 +390,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = true)
+        fromCya = true
+      )
     }
 
     "display the correct content in English for an IP (Owner) that has uploaded a business rates bill (from CYA)" which {
@@ -390,7 +401,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Owner",
         backLink = backToEvidenceQuestionHref,
-        fromCya = true)
+        fromCya = true
+      )
     }
 
     "display the correct content in English for an IP (Owner) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which {
@@ -405,7 +417,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Owner",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in English for an Agent (Occupier) that is uploading a lease" which {
@@ -415,7 +428,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in English for an Agent (Occupier) that is uploading a licence to occupy" which {
@@ -425,7 +439,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in English for an Agent (Occupier) that is uploading a service charge statement" which {
@@ -435,7 +450,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in English for an Agent (Owner) that is uploading a stamp duty land tax form" which {
@@ -445,7 +461,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in English for an Agent (Owner and occupier) that is uploading a land registry title" which {
@@ -455,7 +472,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Owner and occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in English for an Agent (Occupier) that is uploading a water rate demand" which {
@@ -465,7 +483,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in English for an Agent (Owner) that is uploading a utility bill" which {
@@ -475,7 +494,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in English for an Agent (Occupier) that is uploading other evidence (Occupier)" which {
@@ -491,7 +511,8 @@ class UploadControllerISpec extends ISpecBase {
         language = English,
         relationship = "Owner and occupier",
         userIsAgent = true,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in English for an Agent (Occupier) that has uploaded a licence to occupy (from CYA)" which {
@@ -501,7 +522,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = true)
+        fromCya = true
+      )
     }
 
     "display the correct content in English for an Agent (Owner) that has uploaded a water rate demand (from CYA)" which {
@@ -511,7 +533,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
-        fromCya = true)
+        fromCya = true
+      )
     }
 
     "display the correct content in English for an Agent (Owner) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which {
@@ -526,7 +549,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Owner",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an IP (Occupier) that is uploading a lease" which {
@@ -536,7 +560,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an IP (Occupier) that is uploading a licence to occupy" which {
@@ -546,7 +571,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an IP (Occupier) that is uploading a service charge statement" which {
@@ -556,7 +582,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an IP (Owner) that is uploading a stamp duty land tax form" which {
@@ -566,7 +593,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an IP (Owner and occupier) that is uploading a land registry title" which {
@@ -576,7 +604,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Owner and occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an IP (Occupier) that is uploading a water rate demand" which {
@@ -586,7 +615,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an IP (Owner) that is uploading a utility bill" which {
@@ -596,7 +626,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an IP (Occupier) that is uploading other evidence (Occupier)" which {
@@ -612,7 +643,8 @@ class UploadControllerISpec extends ISpecBase {
         language = Welsh,
         relationship = "Owner and occupier",
         userIsAgent = false,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an IP (Occupier) that has uploaded a Lease (from CYA)" which {
@@ -622,7 +654,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = true)
+        fromCya = true
+      )
     }
 
     "display the correct content in Welsh for an IP (Owner) that has uploaded a business rates bill (from CYA)" which {
@@ -632,7 +665,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = false,
         relationship = "Owner",
         backLink = backToEvidenceQuestionHref,
-        fromCya = true)
+        fromCya = true
+      )
     }
 
     "display the correct content in Welsh for an IP (Owner and occupier) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which {
@@ -647,7 +681,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Owner",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an Agent (Occupier) that is uploading a lease" which {
@@ -657,7 +692,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an Agent (Occupier) that is uploading a licence to occupy" which {
@@ -667,7 +703,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an Agent (Occupier) that is uploading a service charge statement" which {
@@ -677,7 +714,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an Agent (Owner) that is uploading a stamp duty land tax form" which {
@@ -687,7 +725,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an Agent (Owner and occupier) that is uploading a land registry title" which {
@@ -697,7 +736,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Owner and occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an Agent (Occupier) that is uploading a water rate demand" which {
@@ -707,7 +747,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Occupier",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an Agent (Owner) that is uploading a utility bill" which {
@@ -717,7 +758,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
-        fromCya = false)
+        fromCya = false
+      )
     }
 
     "display the correct content in Welsh for an Agent (Occupier) that is uploading other evidence (Occupier)" which {
@@ -739,7 +781,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Occupier",
         backLink = backToEvidenceQuestionHref,
-        fromCya = true)
+        fromCya = true
+      )
     }
 
     "display the correct content in Welsh for an Agent (Owner) that has uploaded a water rate demand (from CYA)" which {
@@ -749,7 +792,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent = true,
         relationship = "Owner",
         backLink = backToOtherEvidenceHref,
-        fromCya = true)
+        fromCya = true
+      )
     }
 
     "display the correct content in Welsh for an Agent (Owner and occupier) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which {
@@ -766,7 +810,8 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Owner",
         userIsAgent = false,
         fromCya = false,
-        errorPage = true)
+        errorPage = true
+      )
     }
 
     "display the 'Cannot provide evidence' page in English (Owner) when an IP selects 'I cannot provide evidence'" which {
@@ -779,7 +824,8 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Owner",
         userIsAgent = true,
         fromCya = false,
-        errorPage = true)
+        errorPage = true
+      )
     }
 
     "display the 'Cannot provide evidence' page in English when an Agent (Owner) selects 'I cannot provide evidence'" which {
@@ -792,7 +838,8 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Owner",
         userIsAgent = false,
         fromCya = false,
-        errorPage = true)
+        errorPage = true
+      )
     }
 
     "display the 'Cannot provide evidence' page in Welsh when an IP (Owner) selects 'I cannot provide evidence'" which {
@@ -805,7 +852,8 @@ class UploadControllerISpec extends ISpecBase {
         relationship = "Owner",
         userIsAgent = true,
         fromCya = false,
-        errorPage = true)
+        errorPage = true
+      )
     }
 
     "display the 'Cannot provide evidence' page in Welsh when an Agent (Owner) selects 'I cannot provide evidence'" which {
@@ -819,7 +867,8 @@ class UploadControllerISpec extends ISpecBase {
         "OTHER",
         userIsAgent = false,
         errorPage = false,
-        selectedEvidenceType = Some("Lease"))
+        selectedEvidenceType = Some("Lease")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -836,7 +885,8 @@ class UploadControllerISpec extends ISpecBase {
         "OTHER",
         userIsAgent = false,
         errorPage = false,
-        selectedEvidenceType = Some("License"))
+        selectedEvidenceType = Some("License")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -853,7 +903,8 @@ class UploadControllerISpec extends ISpecBase {
         "OTHER",
         userIsAgent = false,
         errorPage = false,
-        selectedEvidenceType = Some("StampDutyLandTaxForm"))
+        selectedEvidenceType = Some("StampDutyLandTaxForm")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -871,7 +922,8 @@ class UploadControllerISpec extends ISpecBase {
         "OTHER",
         userIsAgent = false,
         errorPage = false,
-        selectedEvidenceType = Some("LandRegistryTitle"))
+        selectedEvidenceType = Some("LandRegistryTitle")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -889,7 +941,8 @@ class UploadControllerISpec extends ISpecBase {
         "OTHER",
         userIsAgent = false,
         errorPage = false,
-        selectedEvidenceType = Some("WaterRateDemand"))
+        selectedEvidenceType = Some("WaterRateDemand")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -907,7 +960,8 @@ class UploadControllerISpec extends ISpecBase {
         "OTHER",
         userIsAgent = false,
         errorPage = false,
-        selectedEvidenceType = Some("OtherUtilityBill"))
+        selectedEvidenceType = Some("OtherUtilityBill")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -925,7 +979,8 @@ class UploadControllerISpec extends ISpecBase {
         "OTHER",
         userIsAgent = false,
         errorPage = false,
-        selectedEvidenceType = Some("ServiceCharge"))
+        selectedEvidenceType = Some("ServiceCharge")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -944,7 +999,8 @@ class UploadControllerISpec extends ISpecBase {
         "LEASE",
         userIsAgent = true,
         errorPage = false,
-        selectedEvidenceType = Some("Lease"))
+        selectedEvidenceType = Some("Lease")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -958,7 +1014,8 @@ class UploadControllerISpec extends ISpecBase {
         "LICENSE",
         userIsAgent = false,
         errorPage = false,
-        selectedEvidenceType = Some("License"))
+        selectedEvidenceType = Some("License")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -972,7 +1029,8 @@ class UploadControllerISpec extends ISpecBase {
         "SERVICE_CHARGE",
         userIsAgent = true,
         errorPage = false,
-        selectedEvidenceType = Some("ServiceCharge"))
+        selectedEvidenceType = Some("ServiceCharge")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -986,7 +1044,8 @@ class UploadControllerISpec extends ISpecBase {
         "STAMP_DUTY",
         userIsAgent = false,
         errorPage = false,
-        selectedEvidenceType = Some("StampDutyLandTaxForm"))
+        selectedEvidenceType = Some("StampDutyLandTaxForm")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -1000,7 +1059,8 @@ class UploadControllerISpec extends ISpecBase {
         "LAND_REGISTRY",
         userIsAgent = true,
         errorPage = false,
-        selectedEvidenceType = Some("LandRegistryTitle"))
+        selectedEvidenceType = Some("LandRegistryTitle")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -1014,7 +1074,8 @@ class UploadControllerISpec extends ISpecBase {
         "WATER_RATE",
         userIsAgent = false,
         errorPage = false,
-        selectedEvidenceType = Some("WaterRateDemand"))
+        selectedEvidenceType = Some("WaterRateDemand")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -1028,7 +1089,8 @@ class UploadControllerISpec extends ISpecBase {
         "UTILITY_RATE",
         userIsAgent = true,
         errorPage = false,
-        selectedEvidenceType = Some("OtherUtilityBill"))
+        selectedEvidenceType = Some("OtherUtilityBill")
+      )
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
@@ -1042,7 +1104,8 @@ class UploadControllerISpec extends ISpecBase {
         relationship: String,
         userIsAgent: Boolean,
         fromCya: Boolean,
-        fileUploaded: Boolean = false): Unit = {
+        fileUploaded: Boolean = false
+  ): Unit = {
     val authAccounts = if (userIsAgent) testAccounts else testIpAccounts
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -1066,8 +1129,10 @@ class UploadControllerISpec extends ISpecBase {
             .withBody(
               Json
                 .toJson(
-                  PreparedUpload(Reference("12345678910111213"), UploadFormTemplate("http://localhost/upscan", Map())))
-                .toString())
+                  PreparedUpload(Reference("12345678910111213"), UploadFormTemplate("http://localhost/upscan", Map()))
+                )
+                .toString()
+            )
         }
     }
 
@@ -1098,28 +1163,32 @@ class UploadControllerISpec extends ISpecBase {
         UploadEvidenceData(
           linkBasis = evidenceFlag,
           fileInfo = Some(CompleteFileInfo("test_file.pdf", Lease)),
-          attachments = Some(Map(FILE_REFERENCE -> uploadedFileDetails)))
+          attachments = Some(Map(FILE_REFERENCE -> uploadedFileDetails))
+        )
       else UploadEvidenceData.empty
 
     await(
-      mockPropertyLinkingSessionRepository.saveOrUpdate(LinkingSession(
-        address = "Test Address, Test Lane, T35 T3R",
-        uarn = 1L,
-        submissionId = "PL-123456",
-        personId = 1L,
-        earliestStartDate = LocalDate.of(2017, 4, 1),
-        propertyRelationship = Some(propertyRelationship),
-        propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 4, 1))),
-        propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true)),
-        hasRatesBill = hasRatesBill,
-        occupierEvidenceType = occupierEvidenceType,
-        uploadEvidenceData = uploadEvidenceData,
-        clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
-        localAuthorityReference = "2050466366770",
-        rtp = ClaimPropertyReturnToPage.FMBR,
-        fromCya = Some(fromCya),
-        isSubmitted = None
-      )))
+      mockPropertyLinkingSessionRepository.saveOrUpdate(
+        LinkingSession(
+          address = "Test Address, Test Lane, T35 T3R",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = Some(propertyRelationship),
+          propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 4, 1))),
+          propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true)),
+          hasRatesBill = hasRatesBill,
+          occupierEvidenceType = occupierEvidenceType,
+          uploadEvidenceData = uploadEvidenceData,
+          clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
+          localAuthorityReference = "2050466366770",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = Some(fromCya),
+          isSubmitted = None
+        )
+      )
+    )
   }
 
   private def getUploadEvidencePage(
@@ -1127,12 +1196,14 @@ class UploadControllerISpec extends ISpecBase {
         evidenceType: String,
         relationship: String,
         userIsAgent: Boolean,
-        fromCya: Boolean) = {
+        fromCya: Boolean
+  ) = {
     commonSetup(evidenceType, relationship, userIsAgent, fromCya)
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceType/upload")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceType/upload"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
@@ -1148,7 +1219,8 @@ class UploadControllerISpec extends ISpecBase {
         userIsAgent: Boolean,
         errorPage: Boolean,
         selectedEvidenceType: Option[String] = None,
-        relationship: String = "Owner") = {
+        relationship: String = "Owner"
+  ) = {
     commonSetup(evidenceType, relationship = relationship, userIsAgent, fromCya = false, fileUploaded = !errorPage)
 
     val body: JsObject =
@@ -1157,7 +1229,8 @@ class UploadControllerISpec extends ISpecBase {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/upload")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/upload"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .withFollowRedirects(follow = false)
@@ -1170,7 +1243,8 @@ class UploadControllerISpec extends ISpecBase {
         relationship: String,
         userIsAgent: Boolean,
         fromCya: Boolean,
-        errorPage: Boolean = false): Unit = {
+        errorPage: Boolean = false
+  ): Unit = {
 
     val evidenceType = if (relationship == "Occupier") "NO_LEASE_OR_LICENSE" else "OTHER"
 
@@ -1178,9 +1252,8 @@ class UploadControllerISpec extends ISpecBase {
       lazy val res = postUploadEvidencePage(language, evidenceType, userIsAgent, errorPage)
       res.status shouldBe BAD_REQUEST
       Jsoup.parse(res.body)
-    } else {
+    } else
       getUploadEvidencePage(language, evidenceType, relationship, userIsAgent, fromCya)
-    }
 
     val error = if (language == English) errorText else errorTextWelsh
     val title = {
@@ -1332,7 +1405,8 @@ class UploadControllerISpec extends ISpecBase {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/cannot-provide-evidence")
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/cannot-provide-evidence"
+          )
           .withCookies(languageCookie(language), getSessionCookie(testSessionId))
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .withFollowRedirects(follow = false)
@@ -1408,7 +1482,8 @@ class UploadControllerISpec extends ISpecBase {
         relationship: String,
         backLink: String,
         fromCya: Boolean,
-        errorPage: Boolean = false): Unit = {
+        errorPage: Boolean = false
+  ): Unit = {
 
     def getTitleAndHeading(): (String, String) = {
       val heading = (evidenceType, userIsAgent) match {
@@ -1460,9 +1535,8 @@ class UploadControllerISpec extends ISpecBase {
       lazy val res = postUploadEvidencePage(language, evidenceType, userIsAgent, errorPage)
       res.status shouldBe BAD_REQUEST
       Jsoup.parse(res.body)
-    } else {
+    } else
       getUploadEvidencePage(language, evidenceType, relationship, userIsAgent, fromCya)
-    }
 
     s"has a title of $title" in {
       document.title() shouldBe title
@@ -1514,7 +1588,8 @@ class UploadControllerISpec extends ISpecBase {
         relationship: String,
         backLink: String,
         fromCya: Boolean,
-        errorPage: Boolean = false): Unit = {
+        errorPage: Boolean = false
+  ): Unit = {
 
     def getTitleAndHeading(): (String, String) = {
       val heading = (evidenceType, userIsAgent) match {
@@ -1566,9 +1641,8 @@ class UploadControllerISpec extends ISpecBase {
       lazy val res = postUploadEvidencePage(language, evidenceType, userIsAgent, errorPage)
       res.status shouldBe BAD_REQUEST
       Jsoup.parse(res.body)
-    } else {
+    } else
       getUploadEvidencePage(language, evidenceType, relationship, userIsAgent, fromCya)
-    }
 
     s"has a title of $title" in {
       document.title() shouldBe title
@@ -1707,7 +1781,8 @@ class UploadControllerISpec extends ISpecBase {
     val optFileName = if (withFileName) "&removedFileName=image.png" else ""
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?fileRemoved=$fileRemoved$optFileName")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?fileRemoved=$fileRemoved$optFileName"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
@@ -1720,7 +1795,8 @@ class UploadControllerISpec extends ISpecBase {
     commonSetup(evidenceType = "RATES_BILL", relationship = "Owner", false, fromCya = false)
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorCode=$errorCode")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorCode=$errorCode"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()

@@ -99,7 +99,8 @@ class GgAuthenticatedActionSpec
     def user: UserDetails = userDetails()
 
     def success: Option[ItmpName] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[String] ~ Option[
-      AffinityGroup] ~ Option[CredentialRole] ~ ConfidenceLevel ~ Option[LocalDate] ~ Option[String] =
+      AffinityGroup
+    ] ~ Option[CredentialRole] ~ ConfidenceLevel ~ Option[LocalDate] ~ Option[String] =
       new ~(
         new ~(
           new ~(
@@ -132,9 +133,10 @@ class GgAuthenticatedActionSpec
     def exception: Option[Throwable] = None
 
     lazy val authConnector: AuthConnector = new AuthConnector {
-      override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(
-            implicit hc: HeaderCarrier,
-            ec: ExecutionContext): Future[A] =
+      override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(implicit
+            hc: HeaderCarrier,
+            ec: ExecutionContext
+      ): Future[A] =
         exception.fold(Future.successful(success.asInstanceOf[A]))(Future.failed(_))
     }
 
@@ -143,7 +145,8 @@ class GgAuthenticatedActionSpec
       messagesApi = messageApi,
       provider = mockGovernmentGatewayProvider,
       authConnector = authConnector,
-      invalidAccountTypeView = invalidAccountTypeView)
+      invalidAccountTypeView = invalidAccountTypeView
+    )
   }
 
 }

@@ -28,7 +28,8 @@ case class UpdatedOrganisationAccount(
       organisationEmailAddress: String,
       organisationTelephoneNumber: String,
       effectiveFrom: Instant,
-      changedByGGExternalId: String)
+      changedByGGExternalId: String
+)
 
 object UpdatedOrganisationAccount {
   implicit val format: Format[UpdatedOrganisationAccount] = Json.format[UpdatedOrganisationAccount]

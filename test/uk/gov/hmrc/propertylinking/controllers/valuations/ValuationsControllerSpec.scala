@@ -99,7 +99,8 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
 
     status(res) shouldBe SEE_OTHER
     header(LOCATION, res) shouldBe Some(
-      s"/business-rates-property-linking/property-link/$plSubId/assessments?owner=false")
+      s"/business-rates-property-linking/property-link/$plSubId/assessments?owner=false"
+    )
 
     verify(mockSessionRepository).start(mEq(AssessmentsPageSession(previousPage)))(any(), any())
   }
@@ -110,7 +111,8 @@ class ValuationsControllerSpec extends VoaPropertyLinkingSpec {
 
     status(res) shouldBe SEE_OTHER
     header(LOCATION, res) shouldBe Some(
-      s"/business-rates-property-linking/property-link/$plSubId/assessments?owner=false")
+      s"/business-rates-property-linking/property-link/$plSubId/assessments?owner=false"
+    )
 
     verify(mockSessionRepository).start(mEq(AssessmentsPageSession(previousPage)))(any(), any())
   }

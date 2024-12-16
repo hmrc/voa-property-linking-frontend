@@ -28,14 +28,14 @@ import uk.gov.hmrc.propertylinking.services.PropertyLinkService
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 
-class Assessments @Inject()(
+class Assessments @Inject() (
       val errorHandler: CustomErrorHandler,
       propertyLinkService: PropertyLinkService,
       authenticated: AuthenticatedAction,
       businessRatesValuations: BusinessRatesValuationConnector,
       override val controllerComponents: MessagesControllerComponents
-)(
-      implicit override val messagesApi: MessagesApi,
+)(implicit
+      override val messagesApi: MessagesApi,
       val config: ApplicationConfig,
       executionContext: ExecutionContext
 ) extends PropertyLinkingController {
@@ -48,55 +48,61 @@ class Assessments @Inject()(
         otherValuationId: Option[Long] = None,
         fromValuation: Option[Long] = None,
         challengeCaseRef: Option[String] = None
-  ): Action[AnyContent] = authenticated.async { implicit request =>
-    propertyLinkService.getSingularPropertyLink(submissionId, owner).flatMap {
-      case Some(propertyLink) =>
-        businessRatesValuations
-          .isViewable(propertyLink.uarn, assessmentRef, submissionId)
-          .map {
-            case true =>
-              if (owner) {
-                Redirect(config.businessRatesValuationFrontendUrl(
-                  s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${Seq(
-                    otherValuationId.fold("")("&otherValuationId=" + _),
-                    fromValuation.fold("")("&fromValuation=" + _),
-                    challengeCaseRef.fold("")("&challengeCaseRef=" + _)
-                  ).mkString}"))
-              } else {
-                Redirect(config.businessRatesValuationFrontendUrl(
-                  s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${Seq(
-                    otherValuationId.fold("")("&otherValuationId=" + _),
-                    fromValuation.fold("")("&fromValuation=" + _),
-                    challengeCaseRef.fold("")("&challengeCaseRef=" + _)
-                  ).mkString}"))
-              }
-            case false =>
-              Redirect(
+  ): Action[AnyContent] =
+    authenticated.async { implicit request =>
+      propertyLinkService.getSingularPropertyLink(submissionId, owner).flatMap {
+        case Some(propertyLink) =>
+          businessRatesValuations
+            .isViewable(propertyLink.uarn, assessmentRef, submissionId)
+            .map {
+              case true =>
                 if (owner)
-                  controllers.detailedvaluationrequest.routes.DvrController
-                    .myOrganisationRequestDetailValuationCheck(
-                      submissionId,
-                      assessmentRef,
-                      otherValuationId = otherValuationId,
-                      fromValuation = fromValuation,
-                      challengeCaseRef = challengeCaseRef,
-                      tabName = Some("valuation-tab")
+                  Redirect(
+                    config.businessRatesValuationFrontendUrl(
+                      s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${Seq(
+                        otherValuationId.fold("")("&otherValuationId=" + _),
+                        fromValuation.fold("")("&fromValuation=" + _),
+                        challengeCaseRef.fold("")("&challengeCaseRef=" + _)
+                      ).mkString}"
                     )
+                  )
                 else
-                  controllers.detailedvaluationrequest.routes.DvrController
-                    .myClientsRequestDetailValuationCheck(
-                      submissionId,
-                      assessmentRef,
-                      otherValuationId = otherValuationId,
-                      fromValuation = fromValuation,
-                      challengeCaseRef = challengeCaseRef,
-                      tabName = Some("valuation-tab")
+                  Redirect(
+                    config.businessRatesValuationFrontendUrl(
+                      s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${Seq(
+                        otherValuationId.fold("")("&otherValuationId=" + _),
+                        fromValuation.fold("")("&fromValuation=" + _),
+                        challengeCaseRef.fold("")("&challengeCaseRef=" + _)
+                      ).mkString}"
                     )
-              )
-          }
-      case None => notFound
+                  )
+              case false =>
+                Redirect(
+                  if (owner)
+                    controllers.detailedvaluationrequest.routes.DvrController
+                      .myOrganisationRequestDetailValuationCheck(
+                        submissionId,
+                        assessmentRef,
+                        otherValuationId = otherValuationId,
+                        fromValuation = fromValuation,
+                        challengeCaseRef = challengeCaseRef,
+                        tabName = Some("valuation-tab")
+                      )
+                  else
+                    controllers.detailedvaluationrequest.routes.DvrController
+                      .myClientsRequestDetailValuationCheck(
+                        submissionId,
+                        assessmentRef,
+                        otherValuationId = otherValuationId,
+                        fromValuation = fromValuation,
+                        challengeCaseRef = challengeCaseRef,
+                        tabName = Some("valuation-tab")
+                      )
+                )
+            }
+        case None => notFound
+      }
     }
-  }
 
 }
 
@@ -105,12 +111,14 @@ case class AssessmentsVM(
       backLink: String,
       address: String,
       capacity: Option[String],
-      clientOrgName: Option[String]) {
+      clientOrgName: Option[String]
+) {
 
   val localAuthorityReference = assessmentsWithLinks.headOption.map(_._2.billingAuthorityReference)
   val currentAssessments: Seq[(String, ApiAssessment)] =
     assessmentsWithLinks.filter(a =>
-      a._2.listType == ListType.CURRENT && a._2.currentFromDate.nonEmpty && a._2.currentToDate.isEmpty)
+      a._2.listType == ListType.CURRENT && a._2.currentFromDate.nonEmpty && a._2.currentToDate.isEmpty
+    )
   val draftAssessments: Seq[(String, ApiAssessment)] = assessmentsWithLinks.filter(a => a._2.listType == ListType.DRAFT)
   val historicAssessments: Seq[(String, ApiAssessment)] =
     assessmentsWithLinks.filterNot(currentAssessments.contains).filterNot(draftAssessments.contains)

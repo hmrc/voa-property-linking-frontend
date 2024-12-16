@@ -35,7 +35,8 @@ case class Message(
       effectiveDate: LocalDateTime,
       subject: String,
       lastRead: Option[LocalDateTime],
-      messageType: String)
+      messageType: String
+)
 
 object Message {
   implicit val format: Format[Message] = Json.format[Message]

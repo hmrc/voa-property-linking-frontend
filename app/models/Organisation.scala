@@ -27,7 +27,8 @@ case class Organisation(
       email: String,
       phone: String,
       isAgent: Boolean,
-      agentCode: Long)
+      agentCode: Long
+)
 
 object Organisation {
   val apiFormat: Reads[Organisation] = (

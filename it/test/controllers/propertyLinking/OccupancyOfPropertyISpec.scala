@@ -179,7 +179,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent = false,
         fromCya = false,
         owner = true,
-        occupier = true)
+        occupier = true
+      )
 
       s"has a title of '$titleText''" in {
         document.title() shouldBe titleText
@@ -226,7 +227,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent = false,
         fromCya = false,
         owner = true,
-        occupier = false)
+        occupier = false
+      )
 
       s"has a title of '$titleText''" in {
         document.title() shouldBe titleText
@@ -273,7 +275,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent = false,
         fromCya = true,
         owner = false,
-        occupier = true)
+        occupier = true
+      )
 
       s"has a title of '$titleText''" in {
         document.title() shouldBe titleText
@@ -320,7 +323,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent = true,
         fromCya = true,
         owner = true,
-        occupier = true)
+        occupier = true
+      )
 
       s"has a title of '$titleTextAgent''" in {
         document.title() shouldBe titleTextAgent
@@ -367,7 +371,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent = true,
         fromCya = false,
         owner = true,
-        occupier = false)
+        occupier = false
+      )
 
       s"has a title of '$titleTextAgent''" in {
         document.title() shouldBe titleTextAgent
@@ -414,7 +419,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent = true,
         fromCya = true,
         owner = false,
-        occupier = true)
+        occupier = true
+      )
 
       s"has a title of '$titleTextAgent''" in {
         document.title() shouldBe titleTextAgent
@@ -461,7 +467,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent = false,
         fromCya = false,
         owner = true,
-        occupier = true)
+        occupier = true
+      )
 
       s"has a title of '$titleText''" in {
         document.title() shouldBe titleTextWelsh
@@ -508,7 +515,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent = false,
         fromCya = false,
         owner = true,
-        occupier = false)
+        occupier = false
+      )
 
       s"has a title of '$titleText''" in {
         document.title() shouldBe titleTextWelsh
@@ -555,7 +563,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent = false,
         fromCya = true,
         owner = false,
-        occupier = true)
+        occupier = true
+      )
 
       s"has a title of '$titleText''" in {
         document.title() shouldBe titleTextWelsh
@@ -645,7 +654,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent = true,
         fromCya = false,
         owner = true,
-        occupier = false)
+        occupier = false
+      )
 
       s"has a title of '$titleTextWelshAgent''" in {
         document.title() shouldBe titleTextWelshAgent
@@ -733,24 +743,27 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
   "OccupancyOfPropertyController post method" should {
     "Redirect to the choose evidence page if the user chooses yes and has not come from cya" in {
       await(
-        mockRepository.saveOrUpdate(LinkingSession(
-          address = "LS",
-          uarn = 1L,
-          submissionId = "PL-123456",
-          personId = 1L,
-          earliestStartDate = LocalDate.of(2017, 4, 1),
-          propertyRelationship = Some(Owner).map(capacity => PropertyRelationship(capacity, 1L)),
-          propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
-          propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
-          hasRatesBill = Some(true),
-          uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
-          evidenceType = Some(RatesBillType),
-          clientDetails = Some(ClientDetails(100, "ABC")),
-          localAuthorityReference = "12341531531",
-          rtp = ClaimPropertyReturnToPage.FMBR,
-          fromCya = Some(false),
-          isSubmitted = None
-        )))
+        mockRepository.saveOrUpdate(
+          LinkingSession(
+            address = "LS",
+            uarn = 1L,
+            submissionId = "PL-123456",
+            personId = 1L,
+            earliestStartDate = LocalDate.of(2017, 4, 1),
+            propertyRelationship = Some(Owner).map(capacity => PropertyRelationship(capacity, 1L)),
+            propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
+            propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+            hasRatesBill = Some(true),
+            uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+            evidenceType = Some(RatesBillType),
+            clientDetails = Some(ClientDetails(100, "ABC")),
+            localAuthorityReference = "12341531531",
+            rtp = ClaimPropertyReturnToPage.FMBR,
+            fromCya = Some(false),
+            isSubmitted = None
+          )
+        )
+      )
 
       stubFor {
         get("/business-rates-authorisation/authenticate")
@@ -787,24 +800,27 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
 
     "Redirect to the choose evidence page if the user chooses no and has not come from cya" in {
       await(
-        mockRepository.saveOrUpdate(LinkingSession(
-          address = "LS",
-          uarn = 1L,
-          submissionId = "PL-123456",
-          personId = 1L,
-          earliestStartDate = LocalDate.of(2017, 4, 1),
-          propertyRelationship = Some(Owner).map(capacity => PropertyRelationship(capacity, 1L)),
-          propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
-          propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
-          hasRatesBill = Some(true),
-          uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
-          evidenceType = Some(RatesBillType),
-          clientDetails = Some(ClientDetails(100, "ABC")),
-          localAuthorityReference = "12341531531",
-          rtp = ClaimPropertyReturnToPage.FMBR,
-          fromCya = Some(false),
-          isSubmitted = None
-        )))
+        mockRepository.saveOrUpdate(
+          LinkingSession(
+            address = "LS",
+            uarn = 1L,
+            submissionId = "PL-123456",
+            personId = 1L,
+            earliestStartDate = LocalDate.of(2017, 4, 1),
+            propertyRelationship = Some(Owner).map(capacity => PropertyRelationship(capacity, 1L)),
+            propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
+            propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+            hasRatesBill = Some(true),
+            uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+            evidenceType = Some(RatesBillType),
+            clientDetails = Some(ClientDetails(100, "ABC")),
+            localAuthorityReference = "12341531531",
+            rtp = ClaimPropertyReturnToPage.FMBR,
+            fromCya = Some(false),
+            isSubmitted = None
+          )
+        )
+      )
 
       stubFor {
         get("/business-rates-authorisation/authenticate")
@@ -844,24 +860,27 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
 
     "Redirect to the choose evidence page if the user chooses yes and has come from cya" in {
       await(
-        mockRepository.saveOrUpdate(LinkingSession(
-          address = "LS",
-          uarn = 1L,
-          submissionId = "PL-123456",
-          personId = 1L,
-          earliestStartDate = LocalDate.of(2017, 4, 1),
-          propertyRelationship = Some(Owner).map(capacity => PropertyRelationship(capacity, 1L)),
-          propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
-          propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
-          hasRatesBill = Some(true),
-          uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
-          evidenceType = Some(RatesBillType),
-          clientDetails = Some(ClientDetails(100, "ABC")),
-          localAuthorityReference = "12341531531",
-          rtp = ClaimPropertyReturnToPage.FMBR,
-          fromCya = Some(true),
-          isSubmitted = None
-        )))
+        mockRepository.saveOrUpdate(
+          LinkingSession(
+            address = "LS",
+            uarn = 1L,
+            submissionId = "PL-123456",
+            personId = 1L,
+            earliestStartDate = LocalDate.of(2017, 4, 1),
+            propertyRelationship = Some(Owner).map(capacity => PropertyRelationship(capacity, 1L)),
+            propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
+            propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+            hasRatesBill = Some(true),
+            uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+            evidenceType = Some(RatesBillType),
+            clientDetails = Some(ClientDetails(100, "ABC")),
+            localAuthorityReference = "12341531531",
+            rtp = ClaimPropertyReturnToPage.FMBR,
+            fromCya = Some(true),
+            isSubmitted = None
+          )
+        )
+      )
 
       stubFor {
         get("/business-rates-authorisation/authenticate")
@@ -898,24 +917,27 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
 
     "Redirect to the choose evidence page if the user chooses no and has come from cya" in {
       await(
-        mockRepository.saveOrUpdate(LinkingSession(
-          address = "LS",
-          uarn = 1L,
-          submissionId = "PL-123456",
-          personId = 1L,
-          earliestStartDate = LocalDate.of(2017, 4, 1),
-          propertyRelationship = Some(Owner).map(capacity => PropertyRelationship(capacity, 1L)),
-          propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
-          propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
-          hasRatesBill = Some(true),
-          uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
-          evidenceType = Some(RatesBillType),
-          clientDetails = Some(ClientDetails(100, "ABC")),
-          localAuthorityReference = "12341531531",
-          rtp = ClaimPropertyReturnToPage.FMBR,
-          fromCya = Some(true),
-          isSubmitted = None
-        )))
+        mockRepository.saveOrUpdate(
+          LinkingSession(
+            address = "LS",
+            uarn = 1L,
+            submissionId = "PL-123456",
+            personId = 1L,
+            earliestStartDate = LocalDate.of(2017, 4, 1),
+            propertyRelationship = Some(Owner).map(capacity => PropertyRelationship(capacity, 1L)),
+            propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))),
+            propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)),
+            hasRatesBill = Some(true),
+            uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+            evidenceType = Some(RatesBillType),
+            clientDetails = Some(ClientDetails(100, "ABC")),
+            localAuthorityReference = "12341531531",
+            rtp = ClaimPropertyReturnToPage.FMBR,
+            fromCya = Some(true),
+            isSubmitted = None
+          )
+        )
+      )
 
       stubFor {
         get("/business-rates-authorisation/authenticate")
@@ -963,7 +985,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -990,7 +1013,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -1017,7 +1041,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -1044,7 +1069,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextAgent
@@ -1071,7 +1097,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextAgent
@@ -1098,7 +1125,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextAgent
@@ -1130,7 +1158,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -1162,7 +1191,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -1194,7 +1224,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -1226,7 +1257,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextAgent
@@ -1260,7 +1292,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextAgent
@@ -1292,7 +1325,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextAgent
@@ -1324,7 +1358,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -1356,7 +1391,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -1388,7 +1424,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -1420,7 +1457,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextAgent
@@ -1454,7 +1492,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextAgent
@@ -1486,7 +1525,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextAgent
@@ -1514,7 +1554,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -1545,7 +1586,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleText
@@ -1572,7 +1614,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -1599,7 +1642,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -1626,7 +1670,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -1653,7 +1698,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextWelshAgent
@@ -1680,7 +1726,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextWelshAgent
@@ -1707,7 +1754,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextWelshAgent
@@ -1739,7 +1787,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -1773,7 +1822,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -1807,7 +1857,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -1841,7 +1892,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextWelshAgent
@@ -1875,7 +1927,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextWelshAgent
@@ -1909,7 +1962,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextWelshAgent
@@ -1943,7 +1997,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -1977,7 +2032,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -2009,7 +2065,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -2043,7 +2100,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextWelshAgent
@@ -2077,7 +2135,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = true,
         occupier = false,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextWelshAgent
@@ -2111,7 +2170,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleTextAgent" in {
         document.title() shouldBe errorTitleTextWelshAgent
@@ -2141,7 +2201,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -2172,7 +2233,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya = false,
         owner = false,
         occupier = true,
-        postBody = requestBody)
+        postBody = requestBody
+      )
 
       s"has a title of $errorTitleText" in {
         document.title() shouldBe errorTitleTextWelsh
@@ -2196,7 +2258,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         userIsAgent: Boolean,
         fromCya: Boolean,
         owner: Boolean,
-        occupier: Boolean): Document = {
+        occupier: Boolean
+  ): Document = {
 
     val occupancyType: CapacityType =
       (owner, occupier) match {
@@ -2206,25 +2269,28 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
     await(
-      mockRepository.saveOrUpdate(LinkingSession(
-        address = "LS",
-        uarn = 1L,
-        submissionId = "PL-123456",
-        personId = 1L,
-        earliestStartDate = LocalDate.of(2017, 4, 1),
-        propertyRelationship = Some(occupancyType).map(capacity => PropertyRelationship(capacity, 1L)),
-        propertyOwnership = if (fromCya) Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))) else None,
-        propertyOccupancy =
-          if (fromCya) Some(PropertyOccupancy(stillOccupied = occupier, lastOccupiedDate = None)) else None,
-        hasRatesBill = Some(true),
-        uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
-        evidenceType = Some(RatesBillType),
-        clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
-        localAuthorityReference = "12341531531",
-        rtp = ClaimPropertyReturnToPage.FMBR,
-        fromCya = Some(fromCya),
-        isSubmitted = None
-      )))
+      mockRepository.saveOrUpdate(
+        LinkingSession(
+          address = "LS",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = Some(occupancyType).map(capacity => PropertyRelationship(capacity, 1L)),
+          propertyOwnership = if (fromCya) Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))) else None,
+          propertyOccupancy =
+            if (fromCya) Some(PropertyOccupancy(stillOccupied = occupier, lastOccupiedDate = None)) else None,
+          hasRatesBill = Some(true),
+          uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+          evidenceType = Some(RatesBillType),
+          clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
+          localAuthorityReference = "12341531531",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = Some(fromCya),
+          isSubmitted = None
+        )
+      )
+    )
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -2257,7 +2323,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
         fromCya: Boolean,
         owner: Boolean,
         occupier: Boolean,
-        postBody: JsObject): Document = {
+        postBody: JsObject
+  ): Document = {
 
     val occupancyType: CapacityType =
       (owner, occupier) match {
@@ -2267,25 +2334,28 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
     await(
-      mockRepository.saveOrUpdate(LinkingSession(
-        address = "LS",
-        uarn = 1L,
-        submissionId = "PL-123456",
-        personId = 1L,
-        earliestStartDate = LocalDate.of(2017, 4, 1),
-        propertyRelationship = Some(occupancyType).map(capacity => PropertyRelationship(capacity, 1L)),
-        propertyOwnership = if (fromCya) Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))) else None,
-        propertyOccupancy =
-          if (fromCya) Some(PropertyOccupancy(stillOccupied = occupier, lastOccupiedDate = None)) else None,
-        hasRatesBill = Some(true),
-        uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
-        evidenceType = Some(RatesBillType),
-        clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
-        localAuthorityReference = "12341531531",
-        rtp = ClaimPropertyReturnToPage.FMBR,
-        fromCya = Some(fromCya),
-        isSubmitted = None
-      )))
+      mockRepository.saveOrUpdate(
+        LinkingSession(
+          address = "LS",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = Some(occupancyType).map(capacity => PropertyRelationship(capacity, 1L)),
+          propertyOwnership = if (fromCya) Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1))) else None,
+          propertyOccupancy =
+            if (fromCya) Some(PropertyOccupancy(stillOccupied = occupier, lastOccupiedDate = None)) else None,
+          hasRatesBill = Some(true),
+          uploadEvidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
+          evidenceType = Some(RatesBillType),
+          clientDetails = if (userIsAgent) Some(ClientDetails(100, "ABC")) else None,
+          localAuthorityReference = "12341531531",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = Some(fromCya),
+          isSubmitted = None
+        )
+      )
+    )
 
     stubFor {
       get("/business-rates-authorisation/authenticate")

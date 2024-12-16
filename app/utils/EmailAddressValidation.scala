@@ -21,10 +21,11 @@ import play.api.data.Forms.text
 object EmailAddressValidation {
   final private val validEmail = """^([a-zA-Z0-9.!#$%&’'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+)$""".r
 
-  def isValid(email: String) = email match {
-    case validEmail(_, _) => true
-    case invalidEmail     => false
-  }
+  def isValid(email: String) =
+    email match {
+      case validEmail(_, _) => true
+      case invalidEmail     => false
+    }
 
   def isValidEmail =
     text

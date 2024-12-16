@@ -78,7 +78,8 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
           agentRepresentativeCode = 12312L,
           propertyLinks = Some(List("1")),
           listYears = Some(List("2017", "2023"))
-        ))
+        )
+      )
       res.futureValue shouldBe AgentAppointmentChangesResponse("some-change-id")
       verify(mockPropertyLinkConnector, times(1)).agentAppointmentChange(any())(any())
     }
@@ -99,7 +100,8 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
             propertyLinks = Some(List("1")),
             listYears = Some(List("2017", "2023"))
           )
-        ))
+        )
+      )
 
       res.futureValue should be(AgentAppointmentChangesResponse("some-change-id"))
 

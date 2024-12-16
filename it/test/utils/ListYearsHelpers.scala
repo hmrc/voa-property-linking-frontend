@@ -44,7 +44,8 @@ trait ListYearsHelpers extends ISpecBase with HtmlComponentHelpers {
                |  "scope": "LIST_YEAR",
                |  "listYears": ["$chosenListYear"]
                |}""".stripMargin
-          ))
+          )
+        )
     )
 
   def verifyRevokedListYears(amount: Int, chosenListYear: String): Unit =
@@ -59,7 +60,8 @@ trait ListYearsHelpers extends ISpecBase with HtmlComponentHelpers {
                |  "scope": "LIST_YEAR",
                |  "listYears": ["$chosenListYear"]
                |}""".stripMargin
-          ))
+          )
+        )
     )
 
   def setCurrentListYears(listYears: List[String]): Unit =
@@ -72,6 +74,8 @@ trait ListYearsHelpers extends ISpecBase with HtmlComponentHelpers {
           representativeCode = 100L,
           appointedDate = LocalDate.now(),
           propertyCount = 1
-        )))
+        )
+      )
+    )
 
 }

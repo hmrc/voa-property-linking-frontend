@@ -27,7 +27,8 @@ case class ScanResult(
       fileStatus: FileStatus,
       downloadUrl: Option[String],
       uploadDetails: Option[UploadDetails],
-      failureDetails: Option[FailureDetails])
+      failureDetails: Option[FailureDetails]
+)
 
 object ScanResult {
   implicit val format: OFormat[ScanResult] = Json.format

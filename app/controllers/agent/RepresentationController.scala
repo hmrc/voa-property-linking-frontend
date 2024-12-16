@@ -35,7 +35,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton()
-class RepresentationController @Inject()(
+class RepresentationController @Inject() (
       val errorHandler: CustomErrorHandler,
       reprConnector: PropertyRepresentationConnector,
       vmvConnector: VmvConnector,
@@ -44,30 +44,32 @@ class RepresentationController @Inject()(
       revokeClientPropertyView: views.html.propertyrepresentation.revokeClient,
       confirmRevokeClientPropertyView: views.html.propertyrepresentation.confirmRevokeClientProperty,
       override val controllerComponents: MessagesControllerComponents
-)(
-      implicit executionContext: ExecutionContext,
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       val config: ApplicationConfig
 ) extends PropertyLinkingController with ValidPagination {
 
-  def viewClientProperties: Action[AnyContent] = authenticated.asAgent { _ =>
-    Future.successful(Redirect(config.dashboardUrl("client-properties")))
-  }
-
-  def revokeClient(plSubmissionId: String): Action[AnyContent] = authenticated.async { implicit request =>
-    propertyLinkConnector.clientPropertyLink(plSubmissionId).flatMap {
-      case Some(property) => Future.successful(Ok(revokeClientPropertyView(property)))
-      case None           => notFound
+  def viewClientProperties: Action[AnyContent] =
+    authenticated.asAgent { _ =>
+      Future.successful(Redirect(config.dashboardUrl("client-properties")))
     }
-  }
 
-  def revokeClientPropertyConfirmed(uarn: Long, plSubmissionId: String): Action[AnyContent] = authenticated.async {
-    implicit request =>
+  def revokeClient(plSubmissionId: String): Action[AnyContent] =
+    authenticated.async { implicit request =>
+      propertyLinkConnector.clientPropertyLink(plSubmissionId).flatMap {
+        case Some(property) => Future.successful(Ok(revokeClientPropertyView(property)))
+        case None           => notFound
+      }
+    }
+
+  def revokeClientPropertyConfirmed(uarn: Long, plSubmissionId: String): Action[AnyContent] =
+    authenticated.async { implicit request =>
       for {
         property <- vmvConnector.getPropertyHistory(uarn)
         _        <- reprConnector.revokeClientProperty(plSubmissionId)
       } yield Ok(confirmRevokeClientPropertyView(property.addressFull))
-  }
+    }
 
 }
 
@@ -79,10 +81,12 @@ object BulkActionsForm {
       "action"     -> text,
       "requestIds" -> list(text).verifying(nonEmptyList),
       "complete"   -> optional(number)
-    )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply))
+    )(RepresentationBulkAction.apply)(RepresentationBulkAction.unapply)
+  )
 }
 
 case class ManageClientPropertiesVM(
       result: AgentAuthResult,
       totalPendingRequests: Long,
-      pagination: PaginationSearchSort)
+      pagination: PaginationSearchSort
+)

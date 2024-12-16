@@ -28,7 +28,8 @@ case class InitiateAttachmentPayload(
       successRedirect: String, //Labelling as optional's as these should not be on the screen
       errorRedirect: String, //Labelling as optional's as these should not be on the screen
       destination: Destinations, //Labelling as optional's as these should not be on the screen
-      data: Map[String, String] = Map()) {}
+      data: Map[String, String] = Map()
+) {}
 
 object InitiateAttachmentPayload {
 

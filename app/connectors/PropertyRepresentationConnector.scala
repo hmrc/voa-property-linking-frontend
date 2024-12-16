@@ -28,9 +28,9 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PropertyRepresentationConnector @Inject()(serverConfig: ServicesConfig, http: DefaultHttpClient)(
-      implicit ec: ExecutionContext)
-    extends Logging {
+class PropertyRepresentationConnector @Inject() (serverConfig: ServicesConfig, http: DefaultHttpClient)(implicit
+      ec: ExecutionContext
+) extends Logging {
   lazy val baseUrl: String = s"${serverConfig.baseUrl("property-linking")}/property-linking"
   def revokeClientProperty(submissionId: String)(implicit hc: HeaderCarrier): Future[Unit] = {
     import ExceptionThrowingReadsInstances._

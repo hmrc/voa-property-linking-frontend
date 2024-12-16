@@ -774,7 +774,9 @@ class CheckYourAnswersControllerFlagOffISpec extends ISpecBase {
           agentCode = agentCode,
           name = agentName,
           propertyLinkIds = List("123", "321"),
-          backLinkUrl = "some-back-link")),
+          backLinkUrl = "some-back-link"
+        )
+      ),
       filters = FilterAppointProperties(None, None)
     )
 
@@ -815,7 +817,8 @@ class CheckYourAnswersControllerFlagOffISpec extends ISpecBase {
         assignedProperties: Int,
         totalProperties: Int,
         backLink: Option[String],
-        errorPage: Boolean = false) = {
+        errorPage: Boolean = false
+  ) = {
     commonStubs(assignedProperties, totalProperties, backLink)
 
     if (errorPage) {
@@ -825,7 +828,8 @@ class CheckYourAnswersControllerFlagOffISpec extends ISpecBase {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
@@ -851,7 +855,8 @@ class CheckYourAnswersControllerFlagOffISpec extends ISpecBase {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
+        )
         .withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")

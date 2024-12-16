@@ -25,7 +25,8 @@ case class Journey(
       completionURL: String,
       failureURL: String,
       confidenceLevel: ConfidenceLevel,
-      userData: IVDetails)
+      userData: IVDetails
+)
 
 object Journey {
   implicit val formats: OFormat[Journey] = Json.format[Journey]

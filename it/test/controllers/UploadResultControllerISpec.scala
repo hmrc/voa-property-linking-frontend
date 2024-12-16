@@ -316,7 +316,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .toJson(
           FileStatus.READY,
           "test-file.jpeg",
-          "http://localhost:9570/upscan/download/3a0b10d9-a18b-4ed2-b67b-64861453f131")
+          "http://localhost:9570/upscan/download/3a0b10d9-a18b-4ed2-b67b-64861453f131"
+        )
         .toString
     }
 
@@ -336,7 +337,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
   private def getUploadResultPage(
         language: Language,
         evidenceChoice: EvidenceChoices,
-        fileStatus: FileStatus = READY): Document = {
+        fileStatus: FileStatus = READY
+  ): Document = {
     commonStubs
     fileStatus match {
       case READY     => fileUploadedStub
@@ -346,7 +348,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload/result")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload/result"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
@@ -359,7 +362,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
   private def submitUploadResultPage(
         evidenceChoice: EvidenceChoices,
         fileStatus: FileStatus = READY,
-        failureReason: Option[String] = None) = {
+        failureReason: Option[String] = None
+  ) = {
     commonStubs
     fileStatus match {
       case READY     => fileUploadedStub
@@ -369,7 +373,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload/result/$fileStatus")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload/result/$fileStatus"
+        )
         .withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -388,7 +393,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/scan-status")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/scan-status"
+        )
         .withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
@@ -460,7 +466,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
         |        "externalId" : "Ext-c4d0ec3a-4c37-488c-9cd3-8afcf51bde58",
         |        "groupId" : "ip-group-1"
         |    }
-        |}""".stripMargin)
+        |}""".stripMargin
+    )
 
     stubFor {
       get(s"/business-rates-attachments/attachments/$fileRef")
@@ -549,7 +556,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
     val userIsAgent = false
     val propertyOwnership: Option[PropertyOwnership] = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 1, 1)))
     val propertyOccupancy: Option[PropertyOccupancy] = Some(
-      PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None))
+      PropertyOccupancy(stillOccupied = false, lastOccupiedDate = None)
+    )
     await(
       mockRepository.saveOrUpdate[LinkingSession](
         LinkingSession(
@@ -570,7 +578,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
           fromCya = None,
           isSubmitted = None,
           fileReference = Some(fileRef)
-        ))
+        )
+      )
     )
     stubFor {
       get("/business-rates-authorisation/authenticate")

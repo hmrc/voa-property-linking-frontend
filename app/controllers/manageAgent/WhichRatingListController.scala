@@ -35,56 +35,60 @@ import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class WhichRatingListController @Inject()(
+class WhichRatingListController @Inject() (
       whichListView: views.html.manageAgent.whichRatingList,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction,
       featureSwitch: FeatureSwitch
-)(
-      implicit executionContext: ExecutionContext,
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig,
       val errorHandler: CustomErrorHandler
 ) extends PropertyLinkingController {
 
-  def show: Action[AnyContent] = authenticated.async { implicit request =>
-    if (featureSwitch.isAgentListYearsEnabled) {
-      manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, _, _, _, Some(listYears))) =>
-          Ok(whichListView(ratingListYears, currentRatingList = listYears.toList, backLink = getBackLink))
-        case _ => NotFound(errorHandler.notFoundErrorTemplate)
-      }
-    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
-  }
+  def show: Action[AnyContent] =
+    authenticated.async { implicit request =>
+      if (featureSwitch.isAgentListYearsEnabled)
+        manageAgentSessionRepository.get[AgentSummary].map {
+          case Some(AgentSummary(_, _, _, _, _, Some(listYears))) =>
+            Ok(whichListView(ratingListYears, currentRatingList = listYears.toList, backLink = getBackLink))
+          case _ => NotFound(errorHandler.notFoundErrorTemplate)
+        }
+      else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+    }
 
-  def submitRatingListYears: Action[AnyContent] = authenticated.async { implicit request =>
-    if (featureSwitch.isAgentListYearsEnabled) {
-      manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(agentSummary @ AgentSummary(_, _, _, _, _, Some(listYears))) =>
-          ratingListYears
-            .bindFromRequest()
-            .fold(
-              errors =>
-                BadRequest(whichListView(form = errors, currentRatingList = listYears.toList, backLink = getBackLink)),
-              formData =>
-                if (formData.multipleListYears) {
-                  Redirect(controllers.manageAgent.routes.AreYouSureController.show("2023").url)
-                } else {
-                  Redirect(controllers.manageAgent.routes.AreYouSureController.show("2017").url)
-              }
-            )
-        case _ => NotFound(errorHandler.notFoundErrorTemplate)
-      }
-    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
-  }
+  def submitRatingListYears: Action[AnyContent] =
+    authenticated.async { implicit request =>
+      if (featureSwitch.isAgentListYearsEnabled)
+        manageAgentSessionRepository.get[AgentSummary].map {
+          case Some(agentSummary @ AgentSummary(_, _, _, _, _, Some(listYears))) =>
+            ratingListYears
+              .bindFromRequest()
+              .fold(
+                errors =>
+                  BadRequest(
+                    whichListView(form = errors, currentRatingList = listYears.toList, backLink = getBackLink)
+                  ),
+                formData =>
+                  if (formData.multipleListYears)
+                    Redirect(controllers.manageAgent.routes.AreYouSureController.show("2023").url)
+                  else
+                    Redirect(controllers.manageAgent.routes.AreYouSureController.show("2017").url)
+              )
+          case _ => NotFound(errorHandler.notFoundErrorTemplate)
+        }
+      else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+    }
 
   def getBackLink: String = controllers.manageAgent.routes.ChooseRatingListController.show.url
 
   def ratingListYears: Form[RatingListYears] =
     Form(
       mapping(
-        "multipleListYears" -> mandatoryBoolean,
-      )(RatingListYears.apply)(RatingListYears.unapply))
+        "multipleListYears" -> mandatoryBoolean
+      )(RatingListYears.apply)(RatingListYears.unapply)
+    )
 
 }

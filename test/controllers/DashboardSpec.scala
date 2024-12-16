@@ -48,7 +48,8 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
         mockRepService,
         StubGroupAccountConnector,
         preAuthenticatedActionBuilders(),
-        stubMessagesControllerComponents())
+        stubMessagesControllerComponents()
+      )
 
   "home page" should "redirect to new dashboard" in {
     val res = TestDashboard.home()(request)

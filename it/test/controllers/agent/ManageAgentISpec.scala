@@ -262,7 +262,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/$agentCode/$agentName/to-all-properties")
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/$agentCode/$agentName/to-all-properties"
+          )
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -306,7 +307,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/$agentCode/$agentName/to-all-properties")
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/$agentCode/$agentName/to-all-properties"
+          )
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -346,8 +348,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     stubFor {
       get(
-        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
-        .willReturn {
+        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false"
+      ).willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
         }
     }
@@ -383,8 +385,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     stubFor {
       get(
-        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
-        .willReturn {
+        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false"
+      ).willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
         }
     }
@@ -437,8 +439,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     stubFor {
       get(
-        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
-        .willReturn {
+        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false"
+      ).willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult1).toString())
         }
     }

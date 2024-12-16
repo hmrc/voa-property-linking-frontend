@@ -40,13 +40,16 @@ class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
 
     //Test after merge and format date errors into only one common date error
     val formattedErrors = FrontendComponentHelper.formatErrorMessages(form.bind(inValidData), "interestedStartDate")(
-      messagesApi.preferred(Seq(defaultLang)))
+      messagesApi.preferred(Seq(defaultLang))
+    )
 
     formattedErrors.size shouldBe 1
     formattedErrors should contain(
       ErrorLink(
         href = Some("#interestedStartDate-day"),
-        content = Text(s"On what date did you become the owner or occupier? - Enter a valid date")))
+        content = Text(s"On what date did you become the owner or occupier? - Enter a valid date")
+      )
+    )
   }
 
   it should "be able to handle non-generic date errors while removing duplicates" in {
@@ -61,16 +64,21 @@ class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
 
     val formattedErrors =
       FrontendComponentHelper
-        .formatErrorMessages(form.bind(invalidData), "interestedStartDate", manualDateErrorHandler = {
-          case e @ "interestedStartDate.error.startDateMustBeBeforeEnd" => e.replace(".", "?")
-        })
+        .formatErrorMessages(
+          form.bind(invalidData),
+          "interestedStartDate",
+          manualDateErrorHandler = {
+            case e @ "interestedStartDate.error.startDateMustBeBeforeEnd" => e.replace(".", "?")
+          }
+        )
 
     formattedErrors.size shouldBe 1
     formattedErrors should contain(
       ErrorLink(
         href = Some("#interestedStartDate-day"),
         content = Text("interestedStartDate?error?startDateMustBeBeforeEnd")
-      ))
+      )
+    )
   }
 
   "valueWithId" should "return value wrapped in a span" in {
@@ -81,6 +89,7 @@ class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
 
   "summaryListMultiValues" should "return value wrapped in a paragraph with values" in {
     FrontendComponentHelper.summaryListMultiValues(id = "id", values = List("value-1", "value-2")) shouldBe HtmlContent(
-      s"""<p class="govuk-body" id="id">value-1<br>value-2</p>""")
+      s"""<p class="govuk-body" id="id">value-1<br>value-2</p>"""
+    )
   }
 }

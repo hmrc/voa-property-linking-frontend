@@ -45,8 +45,8 @@ trait StubMessageControllerComponents extends Configs {
         playBodyParsers: PlayBodyParsers = stubPlayBodyParsers(NoMaterializer),
         fileMimeTypes: FileMimeTypes = new DefaultFileMimeTypes(FileMimeTypesConfiguration()),
         messagesApi: MessagesApi = messagesApi
-  )(
-        implicit executionContext: ExecutionContext
+  )(implicit
+        executionContext: ExecutionContext
   ): MessagesControllerComponents =
     DefaultMessagesControllerComponents(
       new DefaultMessagesActionBuilderImpl(bodyParser, messagesApi),

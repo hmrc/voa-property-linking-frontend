@@ -26,7 +26,7 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 import scala.concurrent.Future
 
-class GovernmentGatewayProvider @Inject()(
+class GovernmentGatewayProvider @Inject() (
       val env: Environment,
       val config: Configuration
 )(applicationConfig: ApplicationConfig) { this: ServicesConfig =>

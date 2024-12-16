@@ -64,42 +64,48 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
   "WhichRatingListController post method" should {
     "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
       postRequest(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm")
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm"
+      )
     }
   }
 
   "AreYouSureSingleController show method" should {
     "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
       getRequest(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017")
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017"
+      )
     }
   }
 
   "AreYouSureSingleController post method" should {
     "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
       postRequest(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017")
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017"
+      )
     }
   }
 
   "AreYouSureMultipleController show method" should {
     "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
       getRequest(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple")
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple"
+      )
     }
   }
 
   "AreYouSureMultipleController post method" should {
     "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
       postRequest(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple")
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple"
+      )
     }
   }
 
   "RatingListConfirmedController show method" should {
     "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
       getRequest(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed")
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+      )
     }
   }
 
@@ -109,7 +115,8 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
       res.header("Location") shouldBe Some(
-        "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
+      )
     }
   }
 
@@ -119,7 +126,8 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
       res.header("Location") shouldBe Some(
-        "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property")
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"
+      )
     }
   }
 
@@ -129,7 +137,8 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
       res.header("Location") shouldBe Some(
-        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+        "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+      )
     }
   }
 
@@ -144,7 +153,9 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
           representativeCode = 100L,
           appointedDate = LocalDate.now(),
           propertyCount = 1
-        )))
+        )
+      )
+    )
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -182,7 +193,9 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
           representativeCode = 100L,
           appointedDate = LocalDate.now(),
           propertyCount = 1
-        )))
+        )
+      )
+    )
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -246,8 +259,8 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
 
     stubFor {
       get(
-        "/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-        .willReturn {
+        "/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
+      ).willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(authData).toString())
         }
     }
@@ -258,7 +271,8 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome"
+        )
         .withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")

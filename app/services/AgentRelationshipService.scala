@@ -33,24 +33,26 @@ import scala.concurrent.{ExecutionContext, Future}
 case class AppointRevokeException(message: String)
     extends Exception(s"Failed to appoint agent to multiple properties: $message")
 
-class AgentRelationshipService @Inject()(
+class AgentRelationshipService @Inject() (
       representations: PropertyRepresentationConnector,
       propertyLinks: PropertyLinkConnector,
-      @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo)(
-      implicit val executionContext: ExecutionContext)
+      @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo
+)(implicit val executionContext: ExecutionContext)
     extends Logging {
 
   def getMyOrganisationPropertyLinksWithAgentFiltering(
         params: GetPropertyLinksParameters,
         pagination: AgentPropertiesParameters,
         organisationId: Long,
-        agentOrganisationId: Long)(implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
+        agentOrganisationId: Long
+  )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
     propertyLinks.getMyOrganisationPropertyLinksWithAgentFiltering(
       params,
       PaginationParams(
         startPoint = pagination.startPoint,
         pageSize = pagination.pageSize,
-        requestTotalRowCount = false),
+        requestTotalRowCount = false
+      ),
       organisationId = organisationId,
       agentOrganisationId = agentOrganisationId,
       agentAppointed = Some(pagination.agentAppointed),
@@ -58,17 +60,21 @@ class AgentRelationshipService @Inject()(
     )
 
   def getMyAgentPropertyLinks(agentCode: Long, searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(
-        implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
+        implicit hc: HeaderCarrier
+  ): Future[OwnerAuthResult] =
     propertyLinks.getMyAgentPropertyLinks(agentCode, searchParams, pagination)
 
-  def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(
-        implicit hc: HeaderCarrier): Future[OwnerAuthResult] = {
+  def getMyOrganisationsPropertyLinks(searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(implicit
+        hc: HeaderCarrier
+  ): Future[OwnerAuthResult] = {
     val ownerAuthResult = propertyLinks.getMyOrganisationsPropertyLinks(searchParams, pagination)
 
-    ownerAuthResult.map(
-      oar =>
-        oar.copy(authorisations = oar.authorisations
-          .filter(auth => auth.agents.nonEmpty)))
+    ownerAuthResult.map(oar =>
+      oar.copy(authorisations =
+        oar.authorisations
+          .filter(auth => auth.agents.nonEmpty)
+      )
+    )
   }
 
   def getAgentNameAndAddress(agentCode: Long)(implicit hc: HeaderCarrier): Future[Option[AgentDetails]] =
@@ -80,8 +86,9 @@ class AgentRelationshipService @Inject()(
   def getMyOrganisationPropertyLinksCount()(implicit hc: HeaderCarrier): Future[Int] =
     propertyLinks.getMyOrganisationPropertyLinksCount()
 
-  def postAgentAppointmentChange(appointAgentRequest: AgentAppointmentChangeRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+  def postAgentAppointmentChange(
+        appointAgentRequest: AgentAppointmentChangeRequest
+  )(implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     propertyLinks.agentAppointmentChange(appointAgentRequest)
 
 }

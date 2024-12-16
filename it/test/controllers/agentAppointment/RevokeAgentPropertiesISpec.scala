@@ -118,7 +118,8 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val noPropertiesTextWelsh = "Nid oes eiddo i’w harddangos."
   val noAddressChoiceTextWelsh = "Dewis un eiddo neu fwy"
   val emptyAddressErrorTextWelsh = "Rhaid i chi nodi rhywbeth i chwilio amdano"
-  val emptyAddressErrorAboveLabelTextWelsh = "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano" //Should be the same as the above but for some reason its not
+  val emptyAddressErrorAboveLabelTextWelsh =
+    "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano" //Should be the same as the above but for some reason its not
 
   val backLinkHref = "/business-rates-property-linking/my-organisation/manage-agent"
   val clearSearchHref =
@@ -708,7 +709,8 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
   private def postRevokeAgentPropertiesPageWithNoSelection(
         language: Language,
-        multipleProps: Option[Boolean]): Document = {
+        multipleProps: Option[Boolean]
+  ): Document = {
 
     setupStubs(multipleProps)
 
@@ -720,8 +722,8 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
     stubFor {
       get(
-        s"/property-linking/my-organisation/agents/$agentCode/property-links?agent=gg-ext-id&sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-        .willReturn {
+        s"/property-linking/my-organisation/agents/$agentCode/property-links?agent=gg-ext-id&sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
+      ).willReturn {
           aResponse
             .withStatus(OK)
             .withBody(
@@ -733,13 +735,15 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
                     case None        => testOwnerAuthResultNoProperties
                   }
                 )
-                .toString())
+                .toString()
+            )
         }
     }
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/revoke/properties/create?page=1&pageSize=1&agentCode=$agentCode")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/revoke/properties/create?page=1&pageSize=1&agentCode=$agentCode"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -752,7 +756,8 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
   private def postRevokeAgentPropertiesPageWithEmptyAddress(
         language: Language,
-        multipleProps: Option[Boolean]): Document = {
+        multipleProps: Option[Boolean]
+  ): Document = {
 
     setupStubs(multipleProps)
 
@@ -764,8 +769,8 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
     stubFor {
       get(
-        s"/property-linking/my-organisation/agents/$agentCode/property-links?agent=gg-ext-id&sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-        .willReturn {
+        s"/property-linking/my-organisation/agents/$agentCode/property-links?agent=gg-ext-id&sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
+      ).willReturn {
           aResponse
             .withStatus(OK)
             .withBody(
@@ -777,13 +782,15 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
                     case None        => testOwnerAuthResultNoProperties
                   }
                 )
-                .toString())
+                .toString()
+            )
         }
     }
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/revoke/properties/filter?page=1&pageSize=15&agentCode=$agentCode")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/revoke/properties/filter?page=1&pageSize=15&agentCode=$agentCode"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -800,7 +807,8 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/revoke/properties?page=1&pageSize=15&agentCode=$agentCode")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/revoke/properties?page=1&pageSize=15&agentCode=$agentCode"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId")
@@ -837,8 +845,8 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
     stubFor {
       get(
-        s"/property-linking/my-organisation/agents/$agentCode/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-        .willReturn {
+        s"/property-linking/my-organisation/agents/$agentCode/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
+      ).willReturn {
           aResponse
             .withStatus(OK)
             .withBody(
@@ -850,7 +858,8 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
                     case None        => testOwnerAuthResultNoProperties
                   }
                 )
-                .toString())
+                .toString()
+            )
         }
     }
   }

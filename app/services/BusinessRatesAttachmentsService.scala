@@ -33,30 +33,31 @@ import utils.Cats
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
-class BusinessRatesAttachmentsService @Inject()(
+class BusinessRatesAttachmentsService @Inject() (
       businessRatesAttachmentsConnector: BusinessRatesAttachmentsConnector,
       @Named("propertyLinkingSession") sessionRepository: SessionRepo,
       auditingService: AuditingService
 )(implicit executionContext: ExecutionContext)
     extends Cats {
 
-  def initiateUpload(upscanRequest: UpscanInitiateRequest)(
-        implicit request: LinkingSessionRequest[_],
+  def initiateUpload(upscanRequest: UpscanInitiateRequest)(implicit
+        request: LinkingSessionRequest[_],
         hc: HeaderCarrier
   ): Future[PreparedUpload] =
     businessRatesAttachmentsConnector.initiateUpload(upscanRequest)
 
-  def initiateAttachmentUpload(initiateAttachmentRequest: InitiateAttachmentPayload, evidenceType: EvidenceType)(
-        implicit request: LinkingSessionRequest[_],
-        hc: HeaderCarrier): Future[PreparedUpload] =
+  def initiateAttachmentUpload(
+        initiateAttachmentRequest: InitiateAttachmentPayload,
+        evidenceType: EvidenceType
+  )(implicit request: LinkingSessionRequest[_], hc: HeaderCarrier): Future[PreparedUpload] =
     for {
       initiateAttachmentResult <- businessRatesAttachmentsConnector.initiateAttachmentUpload(initiateAttachmentRequest)
       updatedSessionData = updateSessionData(
-        sessionUploadEvidenceData = request.ses.uploadEvidenceData,
-        initiateAttachmentRequest = initiateAttachmentRequest,
-        initiateAttachmentResult = initiateAttachmentResult,
-        evidenceType = evidenceType
-      )
+                             sessionUploadEvidenceData = request.ses.uploadEvidenceData,
+                             initiateAttachmentRequest = initiateAttachmentRequest,
+                             initiateAttachmentResult = initiateAttachmentResult,
+                             evidenceType = evidenceType
+                           )
       _ <- persistSessionData(request.ses, updatedSessionData)
     } yield {
       auditingService.sendEvent(
@@ -76,7 +77,8 @@ class BusinessRatesAttachmentsService @Inject()(
         initiateAttachmentRequest: InitiateAttachmentPayload,
         initiateAttachmentResult: PreparedUpload,
         linkBasis: LinkBasis = NoEvidenceFlag,
-        evidenceType: EvidenceType): UploadEvidenceData =
+        evidenceType: EvidenceType
+  ): UploadEvidenceData =
     sessionUploadEvidenceData.copy(
       linkBasis = linkBasis,
       fileInfo = Some(CompleteFileInfo(initiateAttachmentRequest.fileName, evidenceType)),
@@ -84,35 +86,42 @@ class BusinessRatesAttachmentsService @Inject()(
         Map(
           initiateAttachmentResult.reference.value -> UploadedFileDetails(
             FileMetadata(initiateAttachmentRequest.fileName, initiateAttachmentRequest.mimeType),
-            initiateAttachmentResult)))
+            initiateAttachmentResult
+          )
+        )
+      )
     )
 
   def persistSessionData(linkingSession: LinkingSession)(implicit hc: HeaderCarrier): Future[Unit] =
     sessionRepository.saveOrUpdate[LinkingSession](linkingSession)
 
-  def persistSessionData(linkingSession: LinkingSession, updatedSessionData: UploadEvidenceData)(
-        implicit hc: HeaderCarrier): Future[Unit] =
+  def persistSessionData(linkingSession: LinkingSession, updatedSessionData: UploadEvidenceData)(implicit
+        hc: HeaderCarrier
+  ): Future[Unit] =
     sessionRepository.saveOrUpdate[LinkingSession](linkingSession.copy(uploadEvidenceData = updatedSessionData))
 
   def submit(
         submissionId: String,
         nonEmptyReferences: List[String],
         retryCount: Int = 0
-  )(
-        implicit request: LinkingSessionRequest[_],
-        hc: HeaderCarrier): EitherT[Future, AttachmentException, List[Attachment]] =
+  )(implicit
+        request: LinkingSessionRequest[_],
+        hc: HeaderCarrier
+  ): EitherT[Future, AttachmentException, List[Attachment]] =
     EitherT
       .fromEither[Future](Either.cond(nonEmptyReferences.nonEmpty, nonEmptyReferences, MissingRequiredNumberOfFiles))
       .semiflatMap(Future.traverse(_)(r => getAttachment(r).map(r -> _)))
-      .subflatMap(attachments => {
+      .subflatMap { attachments =>
         Either.cond(
           attachments
-            .count { case (_, attachment) => isAttachmentsHasMovedToUploadStatus(attachment) } != nonEmptyReferences.size,
+            .count {
+              case (_, attachment) => isAttachmentsHasMovedToUploadStatus(attachment)
+            } != nonEmptyReferences.size,
           attachments,
           AllFilesAreAlreadyUploaded(attachments.map(_._2))
         )
 
-      })
+      }
       .subflatMap { attachments =>
         val (uploaded, notuploaded) =
           attachments.partition(attachment => isAttachmentsHasMovedToUploadStatus(attachment._2))
@@ -120,11 +129,12 @@ class BusinessRatesAttachmentsService @Inject()(
       }
       .map(result => result.filter(_._2.state == MetadataPending))
       .subflatMap(filtered =>
-        Either.cond(filtered.size == nonEmptyReferences.size, filtered.map(_._1), NotAllFilesReadyToUpload))
+        Either.cond(filtered.size == nonEmptyReferences.size, filtered.map(_._1), NotAllFilesReadyToUpload)
+      )
       .semiflatMap(references => Future.traverse(references)(patchMetadata(submissionId, _)))
       .leftFlatMap {
         case AllFilesAreAlreadyUploaded(attachments) => EitherT.rightT(attachments)
-        case error @ SomeFilesAreAlreadyUploaded(references) if (retryCount < 5) =>
+        case error @ SomeFilesAreAlreadyUploaded(references) if retryCount < 5 =>
           submit(submissionId, references, retryCount + 1)
         case error => EitherT.leftT(error)
       }
@@ -132,15 +142,17 @@ class BusinessRatesAttachmentsService @Inject()(
   def getAttachment(reference: String)(implicit hc: HeaderCarrier): Future[Attachment] =
     businessRatesAttachmentsConnector.getAttachment(reference)
 
-  def patchMetadata(submissionId: String, reference: String)(
-        implicit request: LinkingSessionRequest[_],
-        hc: HeaderCarrier): Future[Attachment] = {
+  def patchMetadata(submissionId: String, reference: String)(implicit
+        request: LinkingSessionRequest[_],
+        hc: HeaderCarrier
+  ): Future[Attachment] = {
     auditingService.sendEvent(
       auditType = "property link evidence upload",
       obj = Json.obj(
         "ggGroupId"                -> request.organisationAccount.groupId,
         "ggExternalId"             -> request.individualAccount.externalId,
-        "propertyLinkSubmissionId" -> submissionId)
+        "propertyLinkSubmissionId" -> submissionId
+      )
     )
 
     businessRatesAttachmentsConnector.submitFile(reference, submissionId)

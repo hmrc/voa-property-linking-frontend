@@ -41,10 +41,12 @@ case class AssessmentsPageSessionRequest[A](
 object AssessmentsPageSessionRequest {
   def apply[A](
         assessmentsPageSession: AssessmentsPageSession,
-        basicAuthenticatedRequest: BasicAuthenticatedRequest[A]): AssessmentsPageSessionRequest[A] =
+        basicAuthenticatedRequest: BasicAuthenticatedRequest[A]
+  ): AssessmentsPageSessionRequest[A] =
     AssessmentsPageSessionRequest(
       assessmentsPageSession,
       basicAuthenticatedRequest.individualAccount,
       basicAuthenticatedRequest.organisationAccount,
-      basicAuthenticatedRequest)
+      basicAuthenticatedRequest
+    )
 }

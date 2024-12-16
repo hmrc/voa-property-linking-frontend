@@ -221,7 +221,8 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
     lazy val document = getAssignToMultiplePropertiesPage(
       language = English,
       fromCya = true,
-      cyaPreSelectedRadioButton = Some("choose_from_list"))
+      cyaPreSelectedRadioButton = Some("choose_from_list")
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -355,7 +356,8 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
     lazy val document = getAssignToMultiplePropertiesPage(
       language = Welsh,
       fromCya = true,
-      cyaPreSelectedRadioButton = Some("choose_from_list"))
+      cyaPreSelectedRadioButton = Some("choose_from_list")
+    )
 
     s"has a title of $titleText in Welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -611,7 +613,8 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
   private def getAssignToMultiplePropertiesPage(
         language: Language,
         fromCya: Boolean,
-        cyaPreSelectedRadioButton: Option[String]) = {
+        cyaPreSelectedRadioButton: Option[String]
+  ) = {
     stubAuth()
 
     if (fromCya) {
@@ -680,7 +683,8 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .withFollowRedirects(follow = false)

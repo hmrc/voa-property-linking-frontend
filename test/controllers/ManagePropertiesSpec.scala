@@ -50,7 +50,9 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
         size = numberOfLinks,
         total = numberOfLinks,
         filterTotal = numberOfLinks,
-        authorisations = arbitraryOwnerAuthorisation))
+        authorisations = arbitraryOwnerAuthorisation
+      )
+    )
   }
 
   private object TestDashboardController

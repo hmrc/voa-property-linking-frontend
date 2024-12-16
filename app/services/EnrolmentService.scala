@@ -27,16 +27,18 @@ import uk.gov.hmrc.http.HeaderCarrier
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class EnrolmentService @Inject()(
+class EnrolmentService @Inject() (
       taxEnrolmentsConnector: TaxEnrolmentConnector,
       addresses: Addresses,
-      auditingService: AuditingService) {
+      auditingService: AuditingService
+) {
 
   private val logger = play.api.Logger(this.getClass)
 
-  def enrol(personId: Long, addressId: Long)(
-        implicit hc: HeaderCarrier,
-        ex: ExecutionContext): Future[EnrolmentResult] = {
+  def enrol(personId: Long, addressId: Long)(implicit
+        hc: HeaderCarrier,
+        ex: ExecutionContext
+  ): Future[EnrolmentResult] = {
 
     def skipEnrolmentForBlankPostcode: Future[Unit] = {
       logger.info(s"Skipping enrolment for personId $personId, addressId $addressId because of a blank postcode")
@@ -50,7 +52,7 @@ class EnrolmentService @Inject()(
       optAddress <- addresses.findById(addressId)
       address    <- getAddress(optAddress)
       _ <- if (canEnrol(address.postcode)) taxEnrolmentsConnector.enrol(personId, address.postcode)
-          else skipEnrolmentForBlankPostcode
+           else skipEnrolmentForBlankPostcode
     } yield Success
 
     enrol.recover {
@@ -60,10 +62,11 @@ class EnrolmentService @Inject()(
     }
   }
 
-  private def getAddress(opt: Option[Address]): Future[Address] = opt match {
-    case None    => Future.failed(throw new IllegalArgumentException())
-    case Some(x) => Future.successful(x)
-  }
+  private def getAddress(opt: Option[Address]): Future[Address] =
+    opt match {
+      case None    => Future.failed(throw new IllegalArgumentException())
+      case Some(x) => Future.successful(x)
+    }
 }
 
 sealed trait EnrolmentResult

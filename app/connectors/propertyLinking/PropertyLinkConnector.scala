@@ -38,7 +38,7 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext)
+class PropertyLinkConnector @Inject() (config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext)
     extends Logging {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
   lazy val vmBaseUrl: String = config.baseUrl("vmv") + s"/vmv"
@@ -48,8 +48,9 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpC
     http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/property-links", propertyLinkPayload)
   }
 
-  def createPropertyLinkOnClientBehalf(propertyLinkPayload: PropertyLinkPayload, clientId: Long)(
-        implicit hc: HeaderCarrier): Future[HttpResponse] = {
+  def createPropertyLinkOnClientBehalf(propertyLinkPayload: PropertyLinkPayload, clientId: Long)(implicit
+        hc: HeaderCarrier
+  ): Future[HttpResponse] = {
     import ExceptionThrowingReadsInstances._
     http.POST[PropertyLinkPayload, HttpResponse](s"$baseUrl/clients/$clientId/property-links", propertyLinkPayload)
   }
@@ -58,7 +59,8 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpC
     http.GET[Option[PropertyLink]](s"$baseUrl/owner/property-links/$submissionId")
 
   def getMyAgentPropertyLinks(agentCode: Long, searchParams: GetPropertyLinksParameters, pagination: PaginationParams)(
-        implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
+        implicit hc: HeaderCarrier
+  ): Future[OwnerAuthResult] =
     http.GET[OwnerAuthResult](
       s"$baseUrl/my-organisation/agents/$agentCode/property-links",
       List(
@@ -108,12 +110,12 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpC
         agentAppointed: Option[String] = None,
         agentCode: Long
   )(implicit hc: HeaderCarrier): Future[OwnerAuthResult] =
-    if (agentAppointed.contains("NO")) {
-      getMyOrganisationsPropertyLinks(searchParams, pagination).map(oar => {
+    if (agentAppointed.contains("NO"))
+      getMyOrganisationsPropertyLinks(searchParams, pagination).map { oar =>
         val filteredAuthorisations = oar.authorisations.filter(auth => auth.agents.isEmpty)
         oar.copy(authorisations = filteredAuthorisations, filterTotal = filteredAuthorisations.size)
-      })
-    } else {
+      }
+    else
       http
         .GET[OwnerAuthResult](
           s"$baseUrl/my-organisation/agents/$agentCode/available-property-links",
@@ -129,7 +131,6 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpC
           )
         )
         .map(oar => oar.copy(authorisations = oar.authorisations.map(auth => auth.copy(agents = auth.agents))))
-    }
 
   def clientPropertyLink(plSubmissionId: String)(implicit hc: HeaderCarrier): Future[Option[ClientPropertyLink]] = {
     val url =
@@ -144,12 +145,14 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpC
   def getClientAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
     http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId")
 
-  def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isOwner: Boolean)(
-        implicit hc: HeaderCarrier): Future[Option[CanChallengeResponse]] = {
+  def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isOwner: Boolean)(implicit
+        hc: HeaderCarrier
+  ): Future[Option[CanChallengeResponse]] = {
     val interestedParty = if (isOwner) "client" else "agent"
     http
       .GET[HttpResponse](
-        s"$baseUrl/property-links/$plSubmissionId/check-cases/$caseRef/canChallenge?valuationId=$assessmentRef&party=$interestedParty")
+        s"$baseUrl/property-links/$plSubmissionId/check-cases/$caseRef/canChallenge?valuationId=$assessmentRef&party=$interestedParty"
+      )
       .map { resp =>
         resp.status match {
           case 200 =>
@@ -169,14 +172,17 @@ class PropertyLinkConnector @Inject()(config: ServicesConfig, http: DefaultHttpC
   def getMyOrganisationPropertyLinksCount()(implicit hc: HeaderCarrier): Future[Int] =
     http.GET[Int](s"$baseUrl/owner/property-links/count")
 
-  def agentAppointmentChange(agentAppointmentChangeRequest: AgentAppointmentChangeRequest)(
-        implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
+  def agentAppointmentChange(
+        agentAppointmentChangeRequest: AgentAppointmentChangeRequest
+  )(implicit hc: HeaderCarrier): Future[AgentAppointmentChangesResponse] =
     http.POST[AgentAppointmentChangeRequest, AgentAppointmentChangesResponse](
       s"$baseUrl/my-organisation/agent/submit-appointment-changes",
-      agentAppointmentChangeRequest)
+      agentAppointmentChangeRequest
+    )
 
-  def getMyOrganisationsCheckCases(propertyLinkSubmissionId: String)(
-        implicit hc: HeaderCarrier): Future[List[CaseDetails]] =
+  def getMyOrganisationsCheckCases(
+        propertyLinkSubmissionId: String
+  )(implicit hc: HeaderCarrier): Future[List[CaseDetails]] =
     http
       .GET[CheckCasesWithAgent](s"$baseUrl/check-cases/$propertyLinkSubmissionId/client")
       .map(_.checkCases.map(CaseDetails.apply))

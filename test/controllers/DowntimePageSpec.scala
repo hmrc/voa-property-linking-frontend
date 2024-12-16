@@ -31,7 +31,8 @@ class DowntimePageSpec extends VoaPropertyLinkingSpec {
       mockCustomErrorHandler,
       preAuthenticatedStaticPage(),
       stubMessagesControllerComponents(),
-      new downtimePage(mainLayout))
+      new downtimePage(mainLayout)
+    )
 
   "plannedImprovements" should "display the downtime page when user is logged in" in {
 
@@ -48,7 +49,8 @@ class DowntimePageSpec extends VoaPropertyLinkingSpec {
       mockCustomErrorHandler,
       preAuthenticatedStaticPage(accounts = None),
       stubMessagesControllerComponents(),
-      new downtimePage(mainLayout)).plannedImprovements()(FakeRequest())
+      new downtimePage(mainLayout)
+    ).plannedImprovements()(FakeRequest())
 
     status(result) shouldBe OK
     verifyNotLoggedIn(Jsoup.parse(contentAsString(result)), "Service unavailable - Valuation Office Agency - GOV.UK")

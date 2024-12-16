@@ -73,7 +73,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
 
     verify(mockGroups).update(
       matching(ga.id),
-      matching(updatedDetails(ga, ggExternalId, addressId = Some(1234567890L))))(any[HeaderCarrier])
+      matching(updatedDetails(ga, ggExternalId, addressId = Some(1234567890L)))
+    )(any[HeaderCarrier])
     verify(mockManageDetails).updatePostcode(any(), any(), matching(1234567890L))(any(), any())
   }
 
@@ -134,7 +135,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
 
     verify(mockGroups)
       .update(matching(ga.id), matching(updatedDetails(ga, ggExternalId, phone = Some("01234567890"))))(
-        any[HeaderCarrier])
+        any[HeaderCarrier]
+      )
   }
 
   "The update business email page" should "require a valid email address" in new Setup {
@@ -186,7 +188,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
 
     verify(mockGroups).update(
       matching(ga.id),
-      matching(updatedDetails(ga, ggExternalId, email = Some("email@example.com"))))(any[HeaderCarrier])
+      matching(updatedDetails(ga, ggExternalId, email = Some("email@example.com")))
+    )(any[HeaderCarrier])
   }
 
   "viewBusinessName" should "display the business name" in new Setup {
@@ -234,7 +237,8 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
           addressId: Option[Long] = None,
           name: Option[String] = None,
           email: Option[String] = None,
-          phone: Option[String] = None) =
+          phone: Option[String] = None
+    ) =
       UpdatedOrganisationAccount(
         governmentGatewayGroupId = org.groupId,
         addressUnitId = addressId.getOrElse(org.addressId),

@@ -32,7 +32,8 @@ class KeepAliveControllerSpec extends VoaPropertyLinkingSpec {
     "return keep alive returns 200" in {
     val (groupId, externalId): (String, String) = (shortString, shortString)
     StubIndividualAccountConnector.stubAccount(
-      arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = externalId))
+      arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = externalId)
+    )
     val res = TestRegistrationController$.keepAlive()(FakeRequest())
     status(res) shouldBe OK
   }

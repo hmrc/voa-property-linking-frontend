@@ -30,7 +30,8 @@ case class DraftCase(
       expirationDate: LocalDate,
       propertyLinkId: Long,
       assessmentRef: Long,
-      baRef: String)
+      baRef: String
+)
 
 object DraftCase {
   implicit val rds: Reads[DraftCase] = Json.reads[DraftCase]
@@ -60,7 +61,8 @@ object DraftCase {
         postalDistrict: Option[String],
         town: Option[String],
         county: Option[String],
-        postcode: Option[String]): PropertyAddress = {
+        postcode: Option[String]
+  ): PropertyAddress = {
 
     val firmNameNumber: Option[String] = Seq(firm, number, name).flatten.mkString(" ") match {
       case ""  => None

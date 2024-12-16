@@ -41,19 +41,21 @@ object AssistantUser {
     mapping(
       keys.firstName -> text.verifying("error.firstNameLength", txt => txt.trim.length < 101 && txt.trim.nonEmpty),
       keys.lastName  -> text.verifying("error.lastNameLength", txt => txt.trim.length < 101 && txt.trim.nonEmpty)
-    )(AssistantUserAccountDetails.apply)(AssistantUserAccountDetails.unapply))
+    )(AssistantUserAccountDetails.apply)(AssistantUserAccountDetails.unapply)
+  )
 
 }
 
 case class AssistantUserAccountDetails(firstName: String, lastName: String) extends AssistantUser {
 
-  def toGroupDetails(fieldData: FieldData) = GroupAccountDetails(
-    companyName = fieldData.businessName,
-    address = fieldData.businessAddress,
-    email = fieldData.email,
-    confirmedEmail = fieldData.email,
-    phone = fieldData.businessPhoneNumber,
-    isAgent = fieldData.isAgent
-  )
+  def toGroupDetails(fieldData: FieldData) =
+    GroupAccountDetails(
+      companyName = fieldData.businessName,
+      address = fieldData.businessAddress,
+      email = fieldData.email,
+      confirmedEmail = fieldData.email,
+      phone = fieldData.businessPhoneNumber,
+      isAgent = fieldData.isAgent
+    )
 
 }

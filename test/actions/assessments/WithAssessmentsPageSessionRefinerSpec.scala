@@ -61,7 +61,8 @@ class WithAssessmentsPageSessionRefinerSpec
   val actionThatReturnsEnrichedFieldsAsJson: AssessmentsPageSessionRequest[AnyContent] => Future[Result] =
     (req: AssessmentsPageSessionRequest[AnyContent]) =>
       Future.successful(
-        Results.Ok(Json.toJson(AddedToRequest(req.sessionData, req.individualAccount, req.groupAccount))))
+        Results.Ok(Json.toJson(AddedToRequest(req.sessionData, req.individualAccount, req.groupAccount)))
+      )
 
   "WithAssessmentsPageSessionRefiner" should {
     "add to request session data, individualAccount, and groupAccount to the request" when {

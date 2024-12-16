@@ -22,44 +22,48 @@ import play.api.i18n.Lang
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-class Application @Inject()(
+class Application @Inject() (
       val errorHandler: CustomErrorHandler,
       addUserToGGView: views.html.addUserToGG,
       invalidAccountTypeView: views.html.errors.invalidAccountType,
       startView: views.html.registration.start,
       startViewOldJourney: views.html.startOldJourney
-)(
-      implicit override val controllerComponents: MessagesControllerComponents,
+)(implicit
+      override val controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig
 ) extends PropertyLinkingController {
 
   private val fallbackUrl = config.dashboardUrl("home")
 
-  def addUserToGG: Action[AnyContent] = Action { implicit request =>
-    Ok(addUserToGGView())
-  }
+  def addUserToGG: Action[AnyContent] =
+    Action { implicit request =>
+      Ok(addUserToGGView())
+    }
 
   def manageBusinessTaxAccount: Action[AnyContent] = Action(Redirect(config.businessTaxAccountUrl("manage-account")))
 
-  def start: Action[AnyContent] = Action { implicit request =>
-    if (config.newRegistrationJourneyEnabled) {
-      Ok(startView(RegisterHelper.choiceForm))
-    } else {
-      Ok(startViewOldJourney(RegisterHelper.choiceForm))
+  def start: Action[AnyContent] =
+    Action { implicit request =>
+      if (config.newRegistrationJourneyEnabled)
+        Ok(startView(RegisterHelper.choiceForm))
+      else
+        Ok(startViewOldJourney(RegisterHelper.choiceForm))
     }
-  }
 
   def logOut: Action[AnyContent] = Action(Redirect(routes.Application.start).withNewSession)
 
-  def invalidAccountType: Action[AnyContent] = Action { implicit request =>
-    Unauthorized(invalidAccountTypeView())
-  }
+  def invalidAccountType: Action[AnyContent] =
+    Action { implicit request =>
+      Unauthorized(invalidAccountTypeView())
+    }
 
-  def displayWelsh: Action[AnyContent] = Action { implicit request =>
-    Redirect(url = request.headers.get(REFERER).getOrElse(fallbackUrl)).withLang(Lang("cy"))
-  }
+  def displayWelsh: Action[AnyContent] =
+    Action { implicit request =>
+      Redirect(url = request.headers.get(REFERER).getOrElse(fallbackUrl)).withLang(Lang("cy"))
+    }
 
-  def setDefaultLanguage: Action[AnyContent] = Action { implicit request =>
-    Redirect(url = request.headers.get(REFERER).getOrElse(fallbackUrl)).withoutLang
-  }
+  def setDefaultLanguage: Action[AnyContent] =
+    Action { implicit request =>
+      Redirect(url = request.headers.get(REFERER).getOrElse(fallbackUrl)).withoutLang
+    }
 }

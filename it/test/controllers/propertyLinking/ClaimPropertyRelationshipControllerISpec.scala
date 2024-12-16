@@ -662,7 +662,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = false,
       selectedRadio = Some("OWNER_OCCUPIER"),
-      fromCya = false)
+      fromCya = false
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -675,7 +676,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = false,
       selectedRadio = Some("OWNER"),
-      fromCya = false)
+      fromCya = false
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -688,7 +690,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = false,
       selectedRadio = Some("OCCUPIER"),
-      fromCya = false)
+      fromCya = false
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -701,7 +704,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = true,
       selectedRadio = Some("OWNER_OCCUPIER"),
-      fromCya = false)
+      fromCya = false
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -724,7 +728,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = true,
       selectedRadio = Some("OCCUPIER"),
-      fromCya = false)
+      fromCya = false
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -738,7 +743,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = false,
       selectedRadio = Some("OWNER_OCCUPIER"),
-      fromCya = true)
+      fromCya = true
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -761,7 +767,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = false,
       selectedRadio = Some("OCCUPIER"),
-      fromCya = true)
+      fromCya = true
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -774,7 +781,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = true,
       selectedRadio = Some("OWNER_OCCUPIER"),
-      fromCya = true)
+      fromCya = true
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -797,7 +805,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = true,
       selectedRadio = Some("OCCUPIER"),
-      fromCya = true)
+      fromCya = true
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -1548,22 +1557,25 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     }
 
     await(
-      mockPropertyLinkingSessionRepository.saveOrUpdate(LinkingSession(
-        address = "Test Address, Test Lane, T35 T3R",
-        uarn = 1L,
-        submissionId = "PL-123456",
-        personId = 1L,
-        earliestStartDate = LocalDate.of(2017, 4, 1),
-        propertyRelationship = relationship,
-        propertyOwnership = None,
-        propertyOccupancy = None,
-        hasRatesBill = None,
-        clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
-        localAuthorityReference = "2050466366770",
-        rtp = ClaimPropertyReturnToPage.FMBR,
-        fromCya = Some(fromCya),
-        isSubmitted = None
-      )))
+      mockPropertyLinkingSessionRepository.saveOrUpdate(
+        LinkingSession(
+          address = "Test Address, Test Lane, T35 T3R",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = relationship,
+          propertyOwnership = None,
+          propertyOccupancy = None,
+          hasRatesBill = None,
+          clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
+          localAuthorityReference = "2050466366770",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = Some(fromCya),
+          isSubmitted = None
+        )
+      )
+    )
   }
 
   private def getPropertyRelationshipPage(language: Language, userIsAgent: Boolean) = {
@@ -1571,7 +1583,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/capacity/relationship")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/capacity/relationship"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
@@ -1585,7 +1598,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
         language: Language,
         userIsAgent: Boolean,
         selectedRadio: Option[String],
-        fromCya: Boolean) = {
+        fromCya: Boolean
+  ) = {
     commonSetup(userIsAgent = userIsAgent, fromCya = fromCya)
 
     stubFor {
@@ -1603,7 +1617,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/capacity/relationship")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/capacity/relationship"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .withFollowRedirects(follow = false)
@@ -1615,7 +1630,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   private def getBackToPropertyRelationshipPage(
         language: Language,
         userIsAgent: Boolean,
-        selectedRadio: Option[String]) = {
+        selectedRadio: Option[String]
+  ) = {
     commonSetup(userIsAgent = userIsAgent, selectedOptionFromCya = selectedRadio, fromCya = true)
 
     val res = await(

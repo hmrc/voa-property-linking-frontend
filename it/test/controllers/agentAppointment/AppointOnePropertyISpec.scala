@@ -428,7 +428,8 @@ class AppointOnePropertyISpec extends ISpecBase with HtmlComponentHelpers {
   private def getAssignToOnePropertyPage(
         language: Language,
         fromCya: Boolean,
-        cyaPreSelectedRadioButton: Option[String]) = {
+        cyaPreSelectedRadioButton: Option[String]
+  ) = {
     stubAuth()
 
     if (fromCya) {

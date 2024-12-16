@@ -37,7 +37,7 @@ import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
-class PropertyLinkingService @Inject()(
+class PropertyLinkingService @Inject() (
       businessRatesAttachmentService: BusinessRatesAttachmentsService,
       propertyLinkConnector: PropertyLinkConnector,
       config: ApplicationConfig,
@@ -69,7 +69,8 @@ class PropertyLinkingService @Inject()(
     for {
       _ <- businessRatesAttachmentService.submit(propertyLinkRequest.submissionId, propertyLinkRequest.references)
       _ <- EitherT.liftF(
-            propertyLinkConnector.createPropertyLinkOnClientBehalf(PropertyLinkPayload(propertyLinkRequest), clientId))
+             propertyLinkConnector.createPropertyLinkOnClientBehalf(PropertyLinkPayload(propertyLinkRequest), clientId)
+           )
     } yield ()
 
   def findEarliestStartDate(propertyHistory: PropertyHistory): LocalDate = {
@@ -81,13 +82,14 @@ class PropertyLinkingService @Inject()(
       .getOrElse(if (propertyHistory.isWelsh) config.earliestWelshStartDate else config.earliestEnglishStartDate)
   }
 
-  def appointAndOrRevokeListYears(agentSummary: AgentSummary, chosenListYears: List[String])(
-        implicit hc: HeaderCarrier): Future[Result] = {
+  def appointAndOrRevokeListYears(agentSummary: AgentSummary, chosenListYears: List[String])(implicit
+        hc: HeaderCarrier
+  ): Future[Result] = {
     val currentListYears = agentSummary.listYears.getOrElse(throw new Exception("No list years"))
     for {
       _ <- {
         val yearsToAppoint = chosenListYears.filterNot(currentListYears.contains)
-        if (yearsToAppoint.nonEmpty) {
+        if (yearsToAppoint.nonEmpty)
           propertyLinkConnector.agentAppointmentChange(
             AgentAppointmentChangeRequest(
               agentRepresentativeCode = agentSummary.representativeCode,
@@ -97,13 +99,12 @@ class PropertyLinkingService @Inject()(
               listYears = Some(yearsToAppoint)
             )
           )
-        } else {
+        else
           Future.successful(AgentAppointmentChangesResponse("No appointment needed"))
-        }
       }
       listYearsToRevoke = currentListYears.filterNot(chosenListYears.contains)
       _ <- {
-        if (listYearsToRevoke.nonEmpty) {
+        if (listYearsToRevoke.nonEmpty)
           propertyLinkConnector.agentAppointmentChange(
             AgentAppointmentChangeRequest(
               agentRepresentativeCode = agentSummary.representativeCode,
@@ -113,13 +114,12 @@ class PropertyLinkingService @Inject()(
               listYears = Some(listYearsToRevoke.toList)
             )
           )
-        } else {
+        else
           Future.successful(AgentAppointmentChangesResponse("No revoke needed"))
-        }
       }
       _ <- manageAgentSessionRepository.saveOrUpdate[AgentSummary](
-            agentSummary.copy(listYears = Some(chosenListYears))
-          )
+             agentSummary.copy(listYears = Some(chosenListYears))
+           )
     } yield Redirect(controllers.manageAgent.routes.RatingListConfirmedController.show.url)
   }
 }

@@ -32,10 +32,14 @@ object AppointNewAgentForms {
       single(
         "isThisYourAgent" -> optional(boolean)
           .verifying("error.isThisYourAgent.required", _.isDefined)
-          .transform(_.get, Some.apply(_: Boolean))))
+          .transform(_.get, Some.apply(_: Boolean))
+      )
+    )
 
   val manageOneProperty: Form[AddAgentOptions] = Form(
-    Forms.single("oneProperty" -> EnumMapping(AddAgentOptions, "error.oneProperty.required")))
+    Forms.single("oneProperty" -> EnumMapping(AddAgentOptions, "error.oneProperty.required"))
+  )
   val manageMultipleProperties: Form[AddAgentOptions] = Form(
-    Forms.single("multipleProperties" -> EnumMapping(AddAgentOptions, "error.multipleProperties.required")))
+    Forms.single("multipleProperties" -> EnumMapping(AddAgentOptions, "error.multipleProperties.required"))
+  )
 }

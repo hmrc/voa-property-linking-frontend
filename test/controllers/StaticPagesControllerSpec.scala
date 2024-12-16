@@ -27,7 +27,8 @@ class StaticPagesControllerSpec extends VoaPropertyLinkingSpec {
         mockCustomErrorHandler,
         stubMessagesControllerComponents(),
         preAuthenticatedStaticPage(),
-        termsAndConditionsView)
+        termsAndConditionsView
+      )
 
   "Static page controller" should
     "return terms and conditions page and returns 200 when user is logged in" in {
@@ -42,7 +43,8 @@ class StaticPagesControllerSpec extends VoaPropertyLinkingSpec {
       mockCustomErrorHandler,
       stubMessagesControllerComponents(),
       preAuthenticatedStaticPage(accounts = None),
-      termsAndConditionsView).termsAndConditions()(FakeRequest())
+      termsAndConditionsView
+    ).termsAndConditions()(FakeRequest())
     status(res) shouldBe OK
     verifyNotLoggedIn(Jsoup.parse(contentAsString(res)), "Terms and conditions - Valuation Office Agency - GOV.UK")
   }

@@ -24,11 +24,13 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class BusinessRatesValuationConnector @Inject()(config: ServicesConfig, http: DefaultHttpClient)(
-      implicit val executionContext: ExecutionContext) {
+class BusinessRatesValuationConnector @Inject() (config: ServicesConfig, http: DefaultHttpClient)(implicit
+      val executionContext: ExecutionContext
+) {
 
-  def isViewable(uarn: Long, valuationId: Long, propertyLinkSubmissionId: String)(
-        implicit hc: HeaderCarrier): Future[Boolean] = {
+  def isViewable(uarn: Long, valuationId: Long, propertyLinkSubmissionId: String)(implicit
+        hc: HeaderCarrier
+  ): Future[Boolean] = {
 
     val url = config.baseUrl("business-rates-valuation")
 

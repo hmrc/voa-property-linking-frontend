@@ -40,19 +40,20 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
   lazy val withLinkingSession = new StubWithLinkingSession(mockSessionRepository)
 
-  private def testClaimProperty(userIsAgent: Boolean = true) = new ClaimPropertyRelationshipController(
-    errorHandler = mockCustomErrorHandler,
-    submissionIdConnector = StubSubmissionIdConnector,
-    sessionRepository = mockSessionRepository,
-    authenticatedAction = preAuthenticatedActionBuilders(),
-    withLinkingSession = preEnrichedActionRefinerWithStartDate(earliestEnglishStartDate, userIsAgent),
-    propertyLinkingService = mockPropertyLinkingService,
-    propertyLinksConnector = propertyLinkingConnector,
-    vmvConnector = vmvConnector,
-    runModeConfiguration = configuration,
-    relationshipToPropertyView = relationshipToPropertyView,
-    claimPropertyStartView = claimPropertyStartView
-  )
+  private def testClaimProperty(userIsAgent: Boolean = true) =
+    new ClaimPropertyRelationshipController(
+      errorHandler = mockCustomErrorHandler,
+      submissionIdConnector = StubSubmissionIdConnector,
+      sessionRepository = mockSessionRepository,
+      authenticatedAction = preAuthenticatedActionBuilders(),
+      withLinkingSession = preEnrichedActionRefinerWithStartDate(earliestEnglishStartDate, userIsAgent),
+      propertyLinkingService = mockPropertyLinkingService,
+      propertyLinksConnector = propertyLinkingConnector,
+      vmvConnector = vmvConnector,
+      runModeConfiguration = configuration,
+      relationshipToPropertyView = relationshipToPropertyView,
+      claimPropertyStartView = claimPropertyStartView
+    )
 
   private lazy val testClaimPropertyFromCya = new ClaimPropertyRelationshipController(
     errorHandler = mockCustomErrorHandler,
@@ -94,7 +95,8 @@ class ClaimPropertyRelationshipControllerSpec extends VoaPropertyLinkingSpec {
 
     val res = testClaimProperty()
       .showStart(positiveLong, Some(ClientDetails(positiveLong, shortString)), rtp = ClaimPropertyReturnToPage.FMBR)(
-        FakeRequest())
+        FakeRequest()
+      )
     status(res) shouldBe OK
 
     verify(mockSessionRepository).start(any())(any(), any())

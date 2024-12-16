@@ -49,7 +49,8 @@ object UserDetails {
         role: CredentialRole,
         confidenceLevel: ConfidenceLevel,
         dob: Option[LocalDate],
-        nino: Option[String]): UserDetails =
+        nino: Option[String]
+  ): UserDetails =
     UserDetails(
       firstName = name.flatMap(_.givenName),
       lastName = name.flatMap(_.familyName),

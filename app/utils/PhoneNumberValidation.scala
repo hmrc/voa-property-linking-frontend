@@ -34,6 +34,7 @@ object PhoneNumberValidation {
       .verifying("error.phoneNumber.invalidLength", num => if (num.nonEmpty) validPhoneNumberLength(num) else true)
       .verifying(
         "error.phoneNumber.invalidFormat",
-        num => if (num.nonEmpty && validPhoneNumberLength(num)) num.matches(phoneNumberRegex) else true)
+        num => if (num.nonEmpty && validPhoneNumberLength(num)) num.matches(phoneNumberRegex) else true
+      )
   }
 }

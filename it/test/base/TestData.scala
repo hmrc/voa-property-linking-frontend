@@ -49,7 +49,8 @@ trait TestData {
         email = "individual@test.com",
         phone1 = "",
         phone2 = None,
-        addressId = 12)
+        addressId = 12
+      )
     )
 
   def submissionId: String = ""
@@ -119,7 +120,8 @@ trait TestData {
   def testApiAssessments(
         assessments: List[ApiAssessment],
         connectionToProperty: String = "OWNER",
-        isAgent: Boolean = false) =
+        isAgent: Boolean = false
+  ) =
     ApiAssessments(
       authorisationId = propertyLinkId,
       submissionId = submissionId,
@@ -160,7 +162,8 @@ trait TestData {
       email = email,
       phone = phone,
       isAgent = agent,
-      agentCode = Some(100L).filter(_ => agent))
+      agentCode = Some(100L).filter(_ => agent)
+    )
 
   val testAccounts: Accounts = Accounts(groupAccount(agent = true), detailedIndividualAccount)
 
@@ -207,7 +210,8 @@ trait TestData {
         name = "Test Agent",
         appointedDate = LocalDate.parse("2023-01-01"),
         propertyCount = 0,
-        listYears = None)
+        listYears = None
+      )
     )
   )
 
@@ -221,7 +225,8 @@ trait TestData {
         appointedDate = LocalDate.parse("2023-01-01"),
         propertyCount = 0,
         listYears = Some(Seq("2023"))
-      ))
+      )
+    )
   )
   val testAgentListFor2017 = AgentList(
     resultCount = 1,
@@ -233,7 +238,8 @@ trait TestData {
         appointedDate = LocalDate.parse("2023-01-01"),
         propertyCount = 1,
         listYears = Some(Seq("2017"))
-      ))
+      )
+    )
   )
 
   val testAgentListForBoth = AgentList(
@@ -246,7 +252,8 @@ trait TestData {
         appointedDate = LocalDate.parse("2023-01-01"),
         propertyCount = 1,
         listYears = Some(Seq("2017", "2023"))
-      ))
+      )
+    )
   )
 
   val noAgentsList = AgentList(resultCount = 0, agents = List())
@@ -395,15 +402,18 @@ trait TestData {
             organisationId = 1L,
             organisationName = "Some Org name",
             agentCode = 1001
-          ))
-      ))
+          )
+        )
+      )
+    )
   )
 
   val someDvrDocumentFiles: Some[DvrDocumentFiles] = Some(
     DvrDocumentFiles(
       checkForm = Document(DocumentSummary("1L", "Check Document", now)),
       detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-    ))
+    )
+  )
 
   val testCheckCasesWithClient = CheckCasesWithClient(1, 100, 0, 0, List())
 

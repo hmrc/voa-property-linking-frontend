@@ -25,21 +25,20 @@ case class ClientDetails(organisationId: Long, organisationName: String)
 object ClientDetails extends ValidationUtils {
   implicit val format: OFormat[ClientDetails] = Json.format[ClientDetails]
 
-  implicit def queryStringBinder(
-        implicit strBinder: QueryStringBindable[String],
-        longBinder: QueryStringBindable[Long]): QueryStringBindable[Option[ClientDetails]] =
+  implicit def queryStringBinder(implicit
+        strBinder: QueryStringBindable[String],
+        longBinder: QueryStringBindable[Long]
+  ): QueryStringBindable[Option[ClientDetails]] =
     new QueryStringBindable[Option[ClientDetails]] {
       override def bind(key: String, params: Map[String, Seq[String]]): Option[Either[String, Option[ClientDetails]]] =
         for {
           organisationId   <- longBinder.bind("organisationId", params)
           organisationName <- strBinder.bind("organisationName", params)
-        } yield {
-          (organisationId, organisationName) match {
-            case (Right(organisationId), Right(organisationName)) =>
-              Right(Some(ClientDetails(organisationId = organisationId, organisationName = organisationName)))
-            case _ =>
-              Left("Unable to bind a ClientDetails")
-          }
+        } yield (organisationId, organisationName) match {
+          case (Right(organisationId), Right(organisationName)) =>
+            Right(Some(ClientDetails(organisationId = organisationId, organisationName = organisationName)))
+          case _ =>
+            Left("Unable to bind a ClientDetails")
         }
 
       override def unbind(key: String, params: Option[ClientDetails]): String =

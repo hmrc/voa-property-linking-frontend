@@ -23,8 +23,9 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TestService @Inject()(taxEnrolmentsConnector: TestTaxEnrolmentConnector)(
-      implicit executionContext: ExecutionContext) {
+class TestService @Inject() (taxEnrolmentsConnector: TestTaxEnrolmentConnector)(implicit
+      executionContext: ExecutionContext
+) {
 
   def deEnrolUser(personID: Long)(implicit hc: HeaderCarrier): Future[EnrolmentResult] =
     taxEnrolmentsConnector

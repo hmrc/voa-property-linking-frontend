@@ -24,7 +24,7 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TestCheckConnector @Inject()(config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext) {
+class TestCheckConnector @Inject() (config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext) {
 
   lazy val url = config.baseUrl("business-rates-check")
 

@@ -81,14 +81,16 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec with OptionV
       DvrDocumentFiles(
         checkForm = Document(DocumentSummary("1L", "Check Document", now)),
         detailedValuation = Document(DocumentSummary("2L", "Detailed Valuation Document", now))
-      ))
+      )
+    )
 
     when(
       mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any(), Matchers.any())(
         Matchers.any(),
         Matchers.any[HeaderCarrier](),
-        Matchers.any()))
-      .thenReturn(Future.successful(someDvrDocumentFiles))
+        Matchers.any()
+      )
+    ).thenReturn(Future.successful(someDvrDocumentFiles))
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
 
@@ -104,8 +106,9 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec with OptionV
       mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any(), Matchers.any())(
         Matchers.any(),
         Matchers.any[HeaderCarrier](),
-        Matchers.any()))
-      .thenReturn(Future.successful(None))
+        Matchers.any()
+      )
+    ).thenReturn(Future.successful(None))
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
     result shouldBe None

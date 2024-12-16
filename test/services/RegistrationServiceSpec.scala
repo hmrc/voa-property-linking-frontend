@@ -60,27 +60,24 @@ class RegistrationServiceSpec extends ServiceSpec {
           individualId = 2L,
           details =
             IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
-        ))
+        )
+      )
       implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
 
       val res: Future[RegistrationResult] = registrationService.create(
         groupAccountDetails,
         userDetails()
-      )(
+      )(_ =>
         _ =>
-          _ =>
-            opt =>
-              IndividualAccountSubmission(
-                externalId = "",
-                trustId = None,
-                organisationId = opt,
-                details = IndividualDetails(
-                  firstName = "",
-                  lastName = "",
-                  email = "",
-                  phone1 = "",
-                  phone2 = None,
-                  addressId = 12)))
+          opt =>
+            IndividualAccountSubmission(
+              externalId = "",
+              trustId = None,
+              organisationId = opt,
+              details =
+                IndividualDetails(firstName = "", lastName = "", email = "", phone1 = "", phone2 = None, addressId = 12)
+            )
+      )
 
       res.futureValue shouldBe RegistrationSuccess(2L)
       verify(mockEmailService).sendNewRegistrationSuccess(any(), any(), any(), any())(any(), any())

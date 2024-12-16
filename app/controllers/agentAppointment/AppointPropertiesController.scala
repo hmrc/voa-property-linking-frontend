@@ -39,7 +39,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import javax.inject.{Inject, Named}
 import scala.concurrent.ExecutionContext
 
-class AppointPropertiesController @Inject()(
+class AppointPropertiesController @Inject() (
       val errorHandler: CustomErrorHandler,
       accounts: GroupAccounts,
       authenticated: AuthenticatedAction,
@@ -48,8 +48,9 @@ class AppointPropertiesController @Inject()(
       @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
       @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
       @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
-      appointAgentPropertiesView: views.html.propertyrepresentation.appoint.appointAgentProperties)(
-      implicit override val messagesApi: MessagesApi,
+      appointAgentPropertiesView: views.html.propertyrepresentation.appoint.appointAgentProperties
+)(implicit
+      override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
       val config: ApplicationConfig
@@ -61,7 +62,8 @@ class AppointPropertiesController @Inject()(
         agentCode: Long,
         agentAppointed: Option[String],
         backLinkUrl: RedirectUrl,
-        fromManageAgentJourney: Boolean): Action[AnyContent] =
+        fromManageAgentJourney: Boolean
+  ): Action[AnyContent] =
     authenticated.async { implicit request =>
       appointAgentBulkActionForm
         .bindFromRequest()
@@ -72,13 +74,13 @@ class AppointPropertiesController @Inject()(
                 for {
                   agentList <- agentRelationshipService.getMyOrganisationAgents()
                   response <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
-                               GetPropertyLinksParameters(),
-                               AgentPropertiesParameters(agentCode),
-                               request.organisationAccount.id,
-                               group.id
-                             )
-                } yield
-                  BadRequest(appointAgentPropertiesView(
+                                GetPropertyLinksParameters(),
+                                AgentPropertiesParameters(agentCode),
+                                request.organisationAccount.id,
+                                group.id
+                              )
+                } yield BadRequest(
+                  appointAgentPropertiesView(
                     Some(errors),
                     AppointAgentPropertiesVM(group, response),
                     paginationParameters,
@@ -88,30 +90,34 @@ class AppointPropertiesController @Inject()(
                     agentList,
                     backLink = Some(config.safeRedirect(backLinkUrl)),
                     fromManageAgentJourney
-                  ))
+                  )
+                )
               case None => notFound
-          },
+            },
           success = (action: AgentAppointBulkAction) => {
             for {
               sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
               _ <- appointAgentPropertiesSession.saveOrUpdate[AppointAgentToSomePropertiesSession](
-                    sessionDataOpt.fold(AppointAgentToSomePropertiesSession(agentAppointAction = Some(action)))(data =>
-                      data.copy(agentAppointAction = Some(action))))
+                     sessionDataOpt.fold(AppointAgentToSomePropertiesSession(agentAppointAction = Some(action)))(data =>
+                       data.copy(agentAppointAction = Some(action))
+                     )
+                   )
               propertySelectionSize <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
               agentSessionData      <- appointNewAgentSession.get[AppointNewAgentSession]
               result <- agentSessionData match {
-                         case Some(data: ManagingProperty) =>
-                           appointNewAgentSession
-                             .saveOrUpdate(
-                               data.copy(
-                                 propertySelectedSize = action.propertyLinkIds.size,
-                                 totalPropertySelectionSize = propertySelectionSize,
-                                 backLink = Some(config.safeRedirect(backLinkUrl))
-                               ))
-                             .map(_ => Redirect(agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
-                         case _ =>
-                           errorHandler.notFoundTemplate.map(html => NotFound(html))
-                       }
+                          case Some(data: ManagingProperty) =>
+                            appointNewAgentSession
+                              .saveOrUpdate(
+                                data.copy(
+                                  propertySelectedSize = action.propertyLinkIds.size,
+                                  totalPropertySelectionSize = propertySelectionSize,
+                                  backLink = Some(config.safeRedirect(backLinkUrl))
+                                )
+                              )
+                              .map(_ => Redirect(agentAppointment.routes.CheckYourAnswersController.onPageLoad()))
+                          case _ =>
+                            errorHandler.notFoundTemplate.map(html => NotFound(html))
+                        }
             } yield result
           }
         )
@@ -124,5 +130,6 @@ class AppointPropertiesController @Inject()(
         "name"        -> text,
         "linkIds"     -> list(text).verifying(nonEmptyList),
         "backLinkUrl" -> text
-      )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unapply))
+      )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unapply)
+    )
 }

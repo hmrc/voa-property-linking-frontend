@@ -43,7 +43,7 @@ import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ClaimPropertyRelationshipController @Inject()(
+class ClaimPropertyRelationshipController @Inject() (
       val errorHandler: CustomErrorHandler,
       val submissionIdConnector: SubmissionIdConnector,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
@@ -54,8 +54,9 @@ class ClaimPropertyRelationshipController @Inject()(
       val vmvConnector: VmvConnector,
       val runModeConfiguration: Configuration,
       relationshipToPropertyView: views.html.propertyLinking.relationshipToProperty,
-      claimPropertyStartView: views.html.propertyLinking.claimPropertyStart)(
-      implicit executionContext: ExecutionContext,
+      claimPropertyStartView: views.html.propertyLinking.claimPropertyStart
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
@@ -63,14 +64,15 @@ class ClaimPropertyRelationshipController @Inject()(
 
   import ClaimPropertyRelationship._
 
-  def show(clientDetails: Option[ClientDetails] = None): Action[AnyContent] = authenticatedAction { implicit request =>
-    val uri = clientDetails match {
-      case Some(client) =>
-        s"search?organisationId=${client.organisationId}&organisationName=${client.organisationName}"
-      case _ => s"search"
+  def show(clientDetails: Option[ClientDetails] = None): Action[AnyContent] =
+    authenticatedAction { implicit request =>
+      val uri = clientDetails match {
+        case Some(client) =>
+          s"search?organisationId=${client.organisationId}&organisationName=${client.organisationName}"
+        case _ => s"search"
+      }
+      Redirect(s"${config.vmvUrl}/$uri")
     }
-    Redirect(s"${config.vmvUrl}/$uri")
-  }
 
   def backToClaimPropertyStart: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession) { implicit request =>
@@ -80,32 +82,36 @@ class ClaimPropertyRelationshipController @Inject()(
             relationshipForm,
             request.ses.address,
             request.ses.uarn,
-            request.ses.localAuthorityReference),
+            request.ses.localAuthorityReference
+          ),
           clientDetails = request.ses.clientDetails,
           backLinkToVmv(request.ses.rtp, request.ses.uarn, request.ses.valuationId)
-        ))
+        )
+      )
     }
 
   def showStart(
         uarn: Long,
         clientDetails: Option[ClientDetails] = None,
         rtp: ClaimPropertyReturnToPage,
-        valuationId: Option[Long] = None): Action[AnyContent] =
+        valuationId: Option[Long] = None
+  ): Action[AnyContent] =
     authenticatedAction.async { implicit request =>
       for {
         propertyHistory <- vmvConnector.getPropertyHistory(uarn)
         _               <- initialiseSession(uarn, clientDetails, rtp, valuationId, propertyHistory)
-      } yield
-        Ok(
-          claimPropertyStartView(
-            ClaimPropertyRelationshipVM(
-              relationshipForm,
-              propertyHistory.addressFull,
-              uarn,
-              propertyHistory.localAuthorityReference),
-            clientDetails = clientDetails,
-            backLinkToVmv(rtp, uarn, valuationId)
-          ))
+      } yield Ok(
+        claimPropertyStartView(
+          ClaimPropertyRelationshipVM(
+            relationshipForm,
+            propertyHistory.addressFull,
+            uarn,
+            propertyHistory.localAuthorityReference
+          ),
+          clientDetails = clientDetails,
+          backLinkToVmv(rtp, uarn, valuationId)
+        )
+      )
     }
 
   def showRelationship: Action[AnyContent] =
@@ -116,23 +122,27 @@ class ClaimPropertyRelationshipController @Inject()(
             relationshipForm,
             request.ses.address,
             request.ses.uarn,
-            request.ses.localAuthorityReference),
+            request.ses.localAuthorityReference
+          ),
           clientDetails = request.ses.clientDetails,
           controllers.propertyLinking.routes.ClaimPropertyRelationshipController.backToClaimPropertyStart.url
-        ))
+        )
+      )
     }
 
-  def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession) { implicit request =>
-    val form = request.ses.propertyRelationship.fold(relationshipForm) { relationship =>
-      relationshipForm.fillAndValidate(relationship)
+  def back: Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession) { implicit request =>
+      val form = request.ses.propertyRelationship.fold(relationshipForm) { relationship =>
+        relationshipForm.fillAndValidate(relationship)
+      }
+      Ok(
+        relationshipToPropertyView(
+          ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn, request.ses.localAuthorityReference),
+          request.ses.clientDetails,
+          getBackLink
+        )
+      )
     }
-    Ok(
-      relationshipToPropertyView(
-        ClaimPropertyRelationshipVM(form, request.ses.address, request.ses.uarn, request.ses.localAuthorityReference),
-        request.ses.clientDetails,
-        getBackLink
-      ))
-  }
 
   def submitRelationship: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
@@ -147,18 +157,20 @@ class ClaimPropertyRelationshipController @Inject()(
                     errors,
                     property.addressFull,
                     request.ses.uarn,
-                    property.localAuthorityReference),
+                    property.localAuthorityReference
+                  ),
                   request.ses.clientDetails,
                   getBackLink
-                ))
-          },
+                )
+              )
+            },
           formData =>
             sessionRepository
               .saveOrUpdate[LinkingSession](request.ses.copy(propertyRelationship = Some(formData)))
               .map { _ =>
                 if (request.ses.fromCya.contains(true)) Redirect(propertyLinking.routes.DeclarationController.show)
                 else Redirect(propertyLinking.routes.ClaimPropertyOwnershipController.showOwnership)
-            }
+              }
         )
     }
 
@@ -180,27 +192,29 @@ class ClaimPropertyRelationshipController @Inject()(
         clientDetails: Option[ClientDetails],
         rtp: ClaimPropertyReturnToPage,
         valuationId: Option[Long],
-        propertyHistory: PropertyHistory)(implicit request: AuthenticatedRequest[_]): Future[Unit] =
+        propertyHistory: PropertyHistory
+  )(implicit request: AuthenticatedRequest[_]): Future[Unit] =
     for {
       submissionId <- submissionIdConnector.get()
       earliestStartDate = propertyLinkingService.findEarliestStartDate(propertyHistory)
       _ <- sessionRepository.start[LinkingSession](
-            LinkingSession(
-              address = propertyHistory.addressFull,
-              uarn = uarn,
-              submissionId = submissionId,
-              personId = request.personId,
-              earliestStartDate = earliestStartDate,
-              propertyRelationship = None,
-              propertyOwnership = None,
-              propertyOccupancy = None,
-              hasRatesBill = None,
-              clientDetails = clientDetails,
-              localAuthorityReference = propertyHistory.localAuthorityReference,
-              rtp = rtp,
-              valuationId = valuationId,
-              fromCya = Some(false)
-            ))
+             LinkingSession(
+               address = propertyHistory.addressFull,
+               uarn = uarn,
+               submissionId = submissionId,
+               personId = request.personId,
+               earliestStartDate = earliestStartDate,
+               propertyRelationship = None,
+               propertyOwnership = None,
+               propertyOccupancy = None,
+               hasRatesBill = None,
+               clientDetails = clientDetails,
+               localAuthorityReference = propertyHistory.localAuthorityReference,
+               rtp = rtp,
+               valuationId = valuationId,
+               fromCya = Some(false)
+             )
+           )
     } yield ()
 
 }
@@ -210,7 +224,8 @@ object ClaimPropertyRelationship {
     mapping(
       "capacity" -> EnumMapping(CapacityType),
       "uarn"     -> longNumber
-    )(PropertyRelationship.apply)(PropertyRelationship.unapply))
+    )(PropertyRelationship.apply)(PropertyRelationship.unapply)
+  )
 }
 
 case class ClaimPropertyRelationshipVM(form: Form[_], address: String, uarn: Long, localAuthorityReference: String)

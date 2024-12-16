@@ -310,7 +310,8 @@ class ShowUnassignFromAllISpec extends ISpecBase with HtmlComponentHelpers {
     }
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId")

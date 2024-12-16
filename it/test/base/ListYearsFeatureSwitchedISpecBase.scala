@@ -59,7 +59,7 @@ trait ListYearsFeatureSwitchedISpecBase
   ) ++ mockedMicroservices.flatMap { serviceName =>
     Map(
       s"microservice.services.$serviceName.host" -> mockHost,
-      s"microservice.services.$serviceName.port" -> mockPort.toString,
+      s"microservice.services.$serviceName.port" -> mockPort.toString
     )
   }
 
@@ -77,10 +77,11 @@ trait ListYearsFeatureSwitchedISpecBase
   override def afterAll(): Unit =
     wireMockServer.stop()
 
-  def languageCookie(lang: Language): DefaultWSCookie = lang match {
-    case English => DefaultWSCookie("PLAY_LANG", "en")
-    case Welsh   => DefaultWSCookie("PLAY_LANG", "cy")
-  }
+  def languageCookie(lang: Language): DefaultWSCookie =
+    lang match {
+      case English => DefaultWSCookie("PLAY_LANG", "en")
+      case Welsh   => DefaultWSCookie("PLAY_LANG", "cy")
+    }
 
   def getSessionCookie(testSessionId: String): WSCookie = {
 

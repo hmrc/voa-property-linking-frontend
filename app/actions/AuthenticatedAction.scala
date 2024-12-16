@@ -35,7 +35,7 @@ import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class AuthenticatedAction @Inject()(
+class AuthenticatedAction @Inject() (
       override val messagesApi: MessagesApi,
       provider: GovernmentGatewayProvider,
       businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
@@ -43,8 +43,9 @@ class AuthenticatedAction @Inject()(
       override val authConnector: AuthConnector,
       errorView: views.html.errors.error,
       forbiddenView: views.html.errors.forbidden,
-      invalidAccountTypeView: views.html.errors.invalidAccountType)(
-      implicit controllerComponents: MessagesControllerComponents,
+      invalidAccountTypeView: views.html.errors.invalidAccountType
+)(implicit
+      controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig,
       override val executionContext: ExecutionContext
 ) extends ActionBuilder[BasicAuthenticatedRequest, AnyContent] with AuthorisedFunctions with I18nSupport
@@ -58,7 +59,8 @@ class AuthenticatedAction @Inject()(
 
   override def invokeBlock[A](
         request: Request[A],
-        block: BasicAuthenticatedRequest[A] => Future[Result]): Future[Result] =
+        block: BasicAuthenticatedRequest[A] => Future[Result]
+  ): Future[Result] =
     businessRatesAuthorisation.authenticate(hc(request)).flatMap { res =>
       handleResult(res, block)(request, hc(request))
     }
@@ -70,9 +72,10 @@ class AuthenticatedAction @Inject()(
         .getOrElse(Future.successful(Unauthorized(errorView("Bad Request", "Bad Request", "Agent account required"))))
     }
 
-  def success[A](accounts: Accounts, body: BasicAuthenticatedRequest[A] => Future[Result])(
-        implicit request: Request[A],
-        hc: HeaderCarrier): Future[Result] = {
+  def success[A](accounts: Accounts, body: BasicAuthenticatedRequest[A] => Future[Result])(implicit
+        request: Request[A],
+        hc: HeaderCarrier
+  ): Future[Result] = {
     def handleError: PartialFunction[Throwable, Future[Result]] = {
       case _: InsufficientEnrolments =>
         logger.info("CCA account holder with insufficient enrolments. Migrating")
@@ -87,19 +90,24 @@ class AuthenticatedAction @Inject()(
               BasicAuthenticatedRequest(
                 organisationAccount = accounts.organisation,
                 individualAccount = accounts.person,
-                request = request))
+                request = request
+              )
+            )
           case Failure =>
             logger.warn("Failed to enrol existing VOA user")
             body(
               BasicAuthenticatedRequest(
                 organisationAccount = accounts.organisation,
                 individualAccount = accounts.person,
-                request = request))
+                request = request
+              )
+            )
         }
       case ex: UnsupportedCredentialRole => //This case should not happen.
         logger.warn(
           s"unsupported credential role on existing VOA account, with message ${ex.msg}, for reason ${ex.reason}",
-          ex)
+          ex
+        )
         Future.successful(Ok(invalidAccountTypeView()))
       case _: UnsupportedAffinityGroup =>
         logger.warn("invalid account type already has a CCA account")
@@ -111,19 +119,25 @@ class AuthenticatedAction @Inject()(
         throw otherException
     }
 
-    authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual) and (Assistant or (Enrolment(
-      "HMRC-VOA-CCA") and User))) {
+    authorised(
+      AuthProviders(GovernmentGateway) and (Organisation or Individual) and (Assistant or (Enrolment(
+        "HMRC-VOA-CCA"
+      ) and User))
+    ) {
       body(
         BasicAuthenticatedRequest(
           organisationAccount = accounts.organisation,
           individualAccount = accounts.person,
-          request = request))
+          request = request
+        )
+      )
     }.recoverWith(handleError)
   }
 
-  private def handleResult[A](result: AuthorisationResult, body: BasicAuthenticatedRequest[A] => Future[Result])(
-        implicit request: Request[A],
-        hc: HeaderCarrier) = {
+  private def handleResult[A](
+        result: AuthorisationResult,
+        body: BasicAuthenticatedRequest[A] => Future[Result]
+  )(implicit request: Request[A], hc: HeaderCarrier) = {
     import AuthorisationResult._
     result match {
       case Authenticated(accounts) => success(accounts, body)(request, hc)

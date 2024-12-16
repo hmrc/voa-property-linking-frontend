@@ -24,11 +24,11 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-class ViewDetails @Inject()(
+class ViewDetails @Inject() (
       val errorHandler: CustomErrorHandler,
       authenticated: AuthenticatedAction
-)(
-      implicit override val messagesApi: MessagesApi,
+)(implicit
+      override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig
 ) extends PropertyLinkingController {

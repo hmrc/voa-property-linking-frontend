@@ -34,7 +34,8 @@ object QueryParamUtils {
         sym.name.toString -> (runtimeMirror.reflect(t).reflectMethod(classType.member(sym.name).asMethod)() match {
           case v: Option[Any] => v
           case any            => Some(any)
-        }))
+        })
+      )
       .collect { case (key, Some(value)) => s"$key=${uriEncode(value.toString)}" }
       .mkString("&")
   }

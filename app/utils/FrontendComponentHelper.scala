@@ -29,8 +29,8 @@ object FrontendComponentHelper {
         fieldName: String,
         messagesKeySuffix: String = "",
         ownershipStatusSuffix: String = "",
-        manualDateErrorHandler: PartialFunction[String, String] = PartialFunction.empty)(
-        implicit messages: Messages): Seq[ErrorLink] = {
+        manualDateErrorHandler: PartialFunction[String, String] = PartialFunction.empty
+  )(implicit messages: Messages): Seq[ErrorLink] = {
 
     def isDateFieldErrorsExists(error: FormError, fieldName: String) =
       Seq(fieldName, s"$fieldName.day", s"$fieldName.month", s"$fieldName.year").contains(error.key)
@@ -53,14 +53,12 @@ object FrontendComponentHelper {
               .applyOrElse(
                 error.message,
                 (_: String) =>
-                  if (ownershipStatusSuffix.isEmpty) {
+                  if (ownershipStatusSuffix.isEmpty)
                     s"${messages(s"label.${error.key}$messagesKeySuffix")} - ${messages(error.message, error.args.map(_.toString): _*)}"
-                  } else {
-                    s"${messages(s"label.${error.key}$messagesKeySuffix.$ownershipStatusSuffix")} - ${messages(
-                      error.message,
-                      error.args.map(_.toString): _*)}"
-                }
-              ))
+                  else
+                    s"${messages(s"label.${error.key}$messagesKeySuffix.$ownershipStatusSuffix")} - ${messages(error.message, error.args.map(_.toString): _*)}"
+              )
+          )
         )
       }
   }

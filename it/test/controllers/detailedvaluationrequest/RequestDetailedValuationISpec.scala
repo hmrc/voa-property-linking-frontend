@@ -468,13 +468,15 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/exists")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/exists"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
           "Csrf-Token"       -> "nocheck",
-          "Content-Type"     -> "application/x-www-form-urlencoded")
+          "Content-Type"     -> "application/x-www-form-urlencoded"
+        )
         .get()
     )
 

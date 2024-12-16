@@ -48,10 +48,12 @@ object StubIndividualAccountConnector
       }
     }
 
-  override def withExternalId(externalId: String)(
-        implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] = Future.successful {
-    stubbedIndividuals.find(_.externalId == externalId)
-  }
+  override def withExternalId(
+        externalId: String
+  )(implicit hc: HeaderCarrier): Future[Option[DetailedIndividualAccount]] =
+    Future.successful {
+      stubbedIndividuals.find(_.externalId == externalId)
+    }
 
   override def create(account: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Int] = {
     val personId = Random.nextInt(Int.MaxValue)
@@ -64,5 +66,6 @@ object StubIndividualAccountConnector
       account.trustId,
       account.organisationId.getOrElse(-1),
       personId,
-      account.details)
+      account.details
+    )
 }

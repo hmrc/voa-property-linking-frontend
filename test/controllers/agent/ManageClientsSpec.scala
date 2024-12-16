@@ -41,7 +41,8 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
     (1 to numberOfLinks) foreach { _ =>
       arbitraryAgentAuthorisation :+= arbitrary[AgentAuthorisation].copy(
         authorisedPartyId = groupAccount.id,
-        client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id))
+        client = arbitrary[AgentAuthClient].copy(organisationId = groupAccount.id)
+      )
     }
 
     StubPropertyRepresentationConnector.stubAgentAuthResult(
@@ -50,7 +51,9 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
         size = numberOfLinks,
         total = numberOfLinks,
         filterTotal = numberOfLinks,
-        authorisations = arbitraryAgentAuthorisation))
+        authorisations = arbitraryAgentAuthorisation
+      )
+    )
 
   }
 

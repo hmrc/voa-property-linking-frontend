@@ -61,7 +61,8 @@ class WithAppointAgentSessionRefinerSpec extends BaseUnitSpec with MockitoSugar 
   val actionThatReturnsEnrichedFieldsAsJson: AppointAgentSessionRequest[AnyContent] => Future[Result] =
     (req: AppointAgentSessionRequest[AnyContent]) =>
       Future.successful(
-        Results.Ok(Json.toJson(AddedToRequest(req.sessionData, req.individualAccount, req.groupAccount))))
+        Results.Ok(Json.toJson(AddedToRequest(req.sessionData, req.individualAccount, req.groupAccount)))
+      )
 
   "WithAssessmentsPageSessionRefiner" should {
     "add to request session data, individualAccount, and groupAccount to the request" when {

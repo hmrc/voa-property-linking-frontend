@@ -58,9 +58,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = Seq(testOwnerAuth))
 
     when(
-      mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
-        any[HeaderCarrier]))
-      .thenReturn(Future.successful(testOwnerAuthResult))
+      mockAppointRevokeService
+        .getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any[HeaderCarrier])
+    ).thenReturn(Future.successful(testOwnerAuthResult))
     when(mockAppointRevokeService.getMyOrganisationAgents()(any()))
       .thenReturn(Future.successful(organisationsAgentsListWithOneAgent))
 
@@ -74,7 +74,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val res = testController
       .getMyOrganisationPropertyLinksWithAgentFiltering(PaginationParameters(), agentCode, None, backLinkUrl, false)(
-        FakeRequest())
+        FakeRequest()
+      )
     status(res) shouldBe OK
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
@@ -82,7 +83,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   "getMyOrganisationPropertyLinksWithAgentFiltering" should "display correctly in English" in new UnfilteredResultsTestCase
-  with English {
+    with English {
     doc.title shouldBe s"Choose which of your properties you want to assign ${agent.companyName} to - Valuation Office Agency - GOV.UK"
     heading shouldBe s"Choose which of your properties you want to assign ${agent.companyName} to"
     explainerIntro shouldBe "For the properties you select, the agent will be able to:"
@@ -221,7 +222,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   it should "display the correct agent select placeholder option when only one selectable agent in English" in new UnfilteredResultsTestCase
-  with English {
+    with English {
     // one agent is currently being appointed, so is filtered out
     override lazy val getMyOrganisationAgentsResponse: AgentList = organisationsAgentsListWithTwoAgents
     agentSelect.value.children.first.text shouldBe "Choose from 1 agent"
@@ -231,7 +232,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   it should "display the correct agent select placeholder option when only one selectable agent in Welsh" in new UnfilteredResultsTestCase
-  with Welsh {
+    with Welsh {
     // one agent is currently being appointed, so is filtered out
     override lazy val getMyOrganisationAgentsResponse: AgentList = organisationsAgentsListWithTwoAgents
     agentSelect.value.children.first.text shouldBe "Dewis o 1 asiant"
@@ -241,7 +242,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   it should "hide the agent dropdown when assigning properties to a sole already-appointed agent" in new UnfilteredResultsTestCase
-  with English {
+    with English {
     override lazy val getMyOrganisationAgentsResponse: AgentList = organisationsAgentsListWithOneAgent
 
     agentSelectLabel should not be defined
@@ -249,7 +250,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   it should "display returned property links with assigned agents in English" in new UnfilteredResultsTestCase
-  with English {
+    with English {
     resultsAddresses should contain theSameElementsInOrderAs ownerAuthResult.authorisations.map { authorisation =>
       s"Appoint ${Formatters.capitalisedAddress(authorisation.address)}"
     }
@@ -261,7 +262,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   it should "display returned property links with assigned agents in Welsh" in new UnfilteredResultsTestCase
-  with Welsh {
+    with Welsh {
     resultsAddresses should contain theSameElementsInOrderAs ownerAuthResult.authorisations.map { authorisation =>
       s"Penodi ${Formatters.capitalisedAddress(authorisation.address)}"
     }
@@ -280,9 +281,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       OwnerAuthResult(start = 1, size = 15, filterTotal = 1, total = 1, authorisations = Seq(testOwnerAuth))
 
     when(
-      mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
-        any[HeaderCarrier]))
-      .thenReturn(Future.successful(testOwnerAuthResult))
+      mockAppointRevokeService
+        .getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any[HeaderCarrier])
+    ).thenReturn(Future.successful(testOwnerAuthResult))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
     when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
@@ -312,17 +313,25 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         size = 15,
         filterTotal = 2,
         total = 2,
-        authorisations = Seq(testOwnerAuth, testOwnerAuth2))
+        authorisations = Seq(testOwnerAuth, testOwnerAuth2)
+      )
 
     when(
-      mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
-        any[HeaderCarrier]))
-      .thenReturn(Future.successful(testOwnerAuthResult))
+      mockAppointRevokeService
+        .getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any[HeaderCarrier])
+    ).thenReturn(Future.successful(testOwnerAuthResult))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
     when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
-      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession(
-        filters = FilterAppointProperties(None, None, ExternalPropertyLinkManagementSortOrder.ASC)))))
+      .thenReturn(
+        Future.successful(
+          Some(
+            AppointAgentToSomePropertiesSession(
+              filters = FilterAppointProperties(None, None, ExternalPropertyLinkManagementSortOrder.ASC)
+            )
+          )
+        )
+      )
     when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any())(any(), any()))
       .thenReturn(Future.successful(()))
 
@@ -343,13 +352,14 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   "showFilterPropertiesForAppoint" should "display the filterPropertiesForAppoint page" in new UnfilteredResultsTestCase
-  with English {
+    with English {
     override lazy val result: Future[Result] = testController.showFilterPropertiesForAppoint(
       initialPaginationParams,
       agentCode,
       initialAgentAppointedQueryParam,
       backLinkQueryParam,
-      false)(fakeRequest)
+      false
+    )(fakeRequest)
 
     heading shouldBe s"Choose which of your properties you want to assign ${agent.companyName} to"
   }
@@ -362,9 +372,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       OwnerAuthResult(start = 1, size = 15, filterTotal = 2, total = 2, authorisations = Seq(testOwnerAuth))
 
     when(
-      mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(
-        any[HeaderCarrier]))
-      .thenReturn(Future.successful(testOwnerAuthResult))
+      mockAppointRevokeService
+        .getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any[HeaderCarrier])
+    ).thenReturn(Future.successful(testOwnerAuthResult))
 
     when(mockSessionRepo.saveOrUpdate(any)(any(), any())).thenReturn(Future.successful(()))
     when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any(), any()))
@@ -380,7 +390,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
           "address"     -> "address 1",
           "agentCode"   -> "12345",
           "backLinkUrl" -> backLinkUrl.unsafeValue
-        ))
+        )
+      )
 
     status(res) shouldBe OK
 
@@ -389,14 +400,14 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   it should "show an error when nothing is entered in English" in new FilterPropertiesToAppointEmptySearchTestCase
-  with English {
+    with English {
     status(errorResult) shouldBe BAD_REQUEST
     emptySearchError.value shouldBe "You must enter something to search for"
     errorDoc.title shouldBe s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
   }
 
   it should "show an error when nothing is entered in Welsh" in new FilterPropertiesToAppointEmptySearchTestCase
-  with Welsh {
+    with Welsh {
     status(errorResult) shouldBe BAD_REQUEST
     emptySearchError.value shouldBe "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano"
     errorDoc.title shouldBe s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Valuation Office Agency - GOV.UK"
@@ -428,7 +439,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
           "address"     -> "address 1",
           "agent"       -> "Some Agent Org",
           "backLinkUrl" -> backLinkUrl.unsafeValue
-        ))
+        )
+      )
 
     status(res) shouldBe OK
 
@@ -457,7 +469,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         "challengePermission" -> "StartAndContinue",
         "linkIds[]"           -> "1",
         "backLinkUrl"         -> backLinkUrl.unsafeValue
-      ))
+      )
+    )
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/appoint/properties/confirm")
@@ -510,7 +523,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("id")))
 
     val res = testController.appointAgentSummary(agentCode, None, backLinkUrl, fromManageAgentJourney = true)(
-      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode", "backLinkUrl" -> "/some/back/link"))
+      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode", "backLinkUrl" -> "/some/back/link")
+    )
 
     status(res) shouldBe BAD_REQUEST
 
@@ -526,21 +540,24 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val res = testController.appointAgentSummary(agentCode, None, backLinkUrl, fromManageAgentJourney = true)(
       FakeRequest()
-        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "linkIds[]" -> "1", "backLinkUrl" -> "/some/back/link"))
+        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "linkIds[]" -> "1", "backLinkUrl" -> "/some/back/link")
+    )
 
     status(res) shouldBe BAD_REQUEST
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainTable("#agentPropertiesTableBody")
     page.titleShouldMatch(
-      s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK")
+      s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
+    )
   }
 
   "showAppointAgentSummary" should "display the filterPropertiesForAppoint page" in new UnfilteredResultsTestCase
-  with English {
+    with English {
     override lazy val result: Future[Result] =
       testController.showAppointAgentSummary(agentCode, initialAgentAppointedQueryParam, backLinkQueryParam, false)(
-        fakeRequest)
+        fakeRequest
+      )
 
     heading shouldBe s"Choose which of your properties you want to assign ${agent.companyName} to"
   }
@@ -567,7 +584,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         FakeRequest().withFormUrlEncodedBody(
           "agentCode"      -> s"$agentCode",
           "agentCodeRadio" -> "1"
-        ))
+        )
+      )
 
     status(res) shouldBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
@@ -602,7 +620,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         welshFakeRequest.withFormUrlEncodedBody(
           "agentCode"      -> s"$agentCode",
           "agentCodeRadio" -> "1"
-        ))
+        )
+      )
 
     status(res) shouldBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
@@ -648,7 +667,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         size = 15,
         filterTotal = 2,
         total = 2,
-        authorisations = Seq(testOwnerAuth, testOwnerAuth2))
+        authorisations = Seq(testOwnerAuth, testOwnerAuth2)
+      )
 
     StubGroupAccountConnector.stubAccount(testAgentAccount)
     when(mockAppointRevokeService.getMyAgentPropertyLinks(any(), any(), any())(any[HeaderCarrier]))
@@ -688,7 +708,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val res = testController.filterPropertiesForRevoke(PaginationParameters(), agentCode)(
       FakeRequest().withFormUrlEncodedBody(
         "address" -> "address 1"
-      ))
+      )
+    )
 
     status(res) shouldBe OK
 
@@ -713,7 +734,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       FakeRequest().withFormUrlEncodedBody(
         "agentCode"      -> "1",
         "agentCodeRadio" -> "1"
-      ))
+      )
+    )
 
     status(res) shouldBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
@@ -737,7 +759,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         "name"        -> testAgentAccount.companyName,
         "linkIds[]"   -> ownerAuthorisation.submissionId,
         "backLinkUrl" -> backLinkUrl.unsafeValue
-      ))
+      )
+    )
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some("/business-rates-property-linking/my-organisation/revoke/properties/confirm")
@@ -758,7 +781,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         "name"      -> testAgentAccount.companyName,
         //"linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
         "backLinkUrl" -> backLinkUrl.unsafeValue
-      ))
+      )
+    )
 
     status(res) shouldBe BAD_REQUEST
 
@@ -782,7 +806,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         "name"      -> testAgentAccount.companyName,
         //"linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
         "backLinkUrl" -> backLinkUrl.unsafeValue
-      ))
+      )
+    )
 
     status(res) shouldBe BAD_REQUEST
 
@@ -807,7 +832,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         "name"        -> testAgentAccount.companyName,
         "linkIds[]"   -> ownerAuthorisation.submissionId,
         "backLinkUrl" -> backLinkUrl.unsafeValue
-      ))
+      )
+    )
     status(res) shouldBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainText("There is a problem You must enter something to search for")
@@ -831,7 +857,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         "name"        -> testAgentAccount.companyName,
         "linkIds[]"   -> ownerAuthorisation.submissionId,
         "backLinkUrl" -> backLinkUrl.unsafeValue
-      ))
+      )
+    )
     status(res) shouldBe BAD_REQUEST
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainText("Mae yna broblem Rhaid i chi nodi rhywbeth i chwilio amdano")
@@ -865,10 +892,12 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   private def verifyPageErrorTitle(page: HtmlPage, isWelsh: Boolean = false) =
     if (isWelsh)
       page.titleShouldMatch(
-        s"Gwall: O ba eiddo ydych chi am ddadneilltuo $ggExternalId? - Valuation Office Agency - GOV.UK")
+        s"Gwall: O ba eiddo ydych chi am ddadneilltuo $ggExternalId? - Valuation Office Agency - GOV.UK"
+      )
     else
       page.titleShouldMatch(
-        s"Error: Which of your properties do you want to unassign $ggExternalId from? - Valuation Office Agency - GOV.UK")
+        s"Error: Which of your properties do you want to unassign $ggExternalId from? - Valuation Office Agency - GOV.UK"
+      )
 
   private lazy val testController = new AppointAgentController(
     errorHandler = mockCustomErrorHandler,
@@ -902,7 +931,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       size = 15,
       filterTotal = 1,
       total = 1,
-      authorisations = Seq(ownerAuthorisation, ownerAuthorisation2, ownerAuthorisationWithNoAgent))
+      authorisations = Seq(ownerAuthorisation, ownerAuthorisation2, ownerAuthorisationWithNoAgent)
+    )
 
     lazy val ownerAuthResult: OwnerAuthResult = testOwnerAuthResult
 
@@ -926,7 +956,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       agentCode,
       initialAgentAppointedQueryParam,
       backLinkQueryParam,
-      false)(self.fakeRequest)
+      false
+    )(self.fakeRequest)
 
     val doc: Document = Jsoup.parse(contentAsString(result))
     val heading: String = doc.getElementsByTag("h1").text
@@ -974,7 +1005,8 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val errorResult: Future[Result] =
       testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLinkUrl, false)(
-        self.fakeRequest.withFormUrlEncodedBody("agentCode" -> "12345", "backLinkUrl" -> backLinkUrl.unsafeValue))
+        self.fakeRequest.withFormUrlEncodedBody("agentCode" -> "12345", "backLinkUrl" -> backLinkUrl.unsafeValue)
+      )
     val errorDoc: Document = Jsoup.parse(contentAsString(errorResult))
 
     val emptySearchError: Option[String] = Option(errorDoc.getElementsByAttributeValue("href", "#address")).map(_.text)

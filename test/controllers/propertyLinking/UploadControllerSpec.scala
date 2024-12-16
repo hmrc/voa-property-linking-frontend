@@ -48,15 +48,18 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
       preEnrichedActionRefiner(
         evidenceData = UploadEvidenceData(fileInfo = None, attachments = None),
         userIsAgent = false,
-        relationshipCapacity = Some(relationshipCapacity)))
+        relationshipCapacity = Some(relationshipCapacity)
+      )
+    )
 
   "RATES_BILL file initiate" should "return file upload initiate success" in {
     val request = FakeRequest(POST, "").withBody(
-      Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg", "evidenceType" -> RatesBillType.name))
+      Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg", "evidenceType" -> RatesBillType.name)
+    )
     when(
       mockBusinessRatesChallengeService
-        .initiateAttachmentUpload(any(), any())(any(), any[HeaderCarrier]))
-      .thenReturn(Future.successful(preparedUpload))
+        .initiateAttachmentUpload(any(), any())(any(), any[HeaderCarrier])
+    ).thenReturn(Future.successful(preparedUpload))
     val result =
       agentController.initiate(EvidenceChoices.RATES_BILL)(request)
     status(result) shouldBe OK
@@ -74,11 +77,12 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
 
   "OTHER Evidence file initiate" should "return file upload initiate success" in {
     val request = FakeRequest(POST, "").withBody(
-      Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg", "evidenceType" -> StampDutyLandTaxForm.name))
+      Json.obj("fileName" -> "test.jpg", "mimeType" -> "image/jpeg", "evidenceType" -> StampDutyLandTaxForm.name)
+    )
     when(
       mockBusinessRatesChallengeService
-        .initiateAttachmentUpload(any(), any())(any(), any[HeaderCarrier]))
-      .thenReturn(Future.successful(preparedUpload))
+        .initiateAttachmentUpload(any(), any())(any(), any[HeaderCarrier])
+    ).thenReturn(Future.successful(preparedUpload))
     val result =
       agentController.initiate(EvidenceChoices.OTHER)(request)
     status(result) shouldBe OK
@@ -113,8 +117,8 @@ class UploadControllerSpec extends VoaPropertyLinkingSpec {
 
   class TestFileUploadController(
         linkingSession: WithLinkingSession,
-        authenticatedAction: AuthenticatedAction = preAuthenticatedActionBuilders())
-      extends UploadController(
+        authenticatedAction: AuthenticatedAction = preAuthenticatedActionBuilders()
+  ) extends UploadController(
         mockCustomErrorHandler,
         authenticatedAction,
         linkingSession,

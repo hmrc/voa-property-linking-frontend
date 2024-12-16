@@ -44,7 +44,8 @@ class PropertyOwnershipFormSpec extends VoaPropertyLinkingSpec {
       form(endDate = Some(LocalDate.of(2017, 4, 19))),
       validData,
       field = "interestedStartDate",
-      error = "interestedStartDate.error.startDateMustBeBeforeEnd")
+      error = "interestedStartDate.error.startDateMustBeBeforeEnd"
+    )
   }
 
   it should "require the start date to be in the past" in {

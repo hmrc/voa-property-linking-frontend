@@ -39,7 +39,7 @@ import utils.PhoneNumberValidation.validatePhoneNumber
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class UpdatePersonalDetails @Inject()(
+class UpdatePersonalDetails @Inject() (
       val errorHandler: CustomErrorHandler,
       authenticated: AuthenticatedAction,
       addressesConnector: Addresses,
@@ -51,89 +51,100 @@ class UpdatePersonalDetails @Inject()(
       updateMobileView: views.html.details.updateMobile,
       updateEmailView: views.html.details.updateEmail,
       updateNameView: views.html.details.updateName
-)(
-      implicit executionContext: ExecutionContext,
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def viewEmail = authenticated { implicit request =>
-    Ok(updateEmailView(UpdateDetailsVM(emailForm, request.individualAccount.details)))
-  }
+  def viewEmail =
+    authenticated { implicit request =>
+      Ok(updateEmailView(UpdateDetailsVM(emailForm, request.individualAccount.details)))
+    }
 
-  def updateEmail = authenticated.async { implicit request =>
-    emailForm
-      .bindFromRequest()
-      .fold(
-        errors =>
-          Future.successful(BadRequest(updateEmailView(UpdateDetailsVM(errors, request.individualAccount.details)))),
-        email => updateDetails(email = Some(email))
-      )
-  }
+  def updateEmail =
+    authenticated.async { implicit request =>
+      emailForm
+        .bindFromRequest()
+        .fold(
+          errors =>
+            Future.successful(BadRequest(updateEmailView(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          email => updateDetails(email = Some(email))
+        )
+    }
 
-  def viewAddress = authenticated { implicit request =>
-    Ok(updateAddressView(UpdateDetailsVM(addressForm, request.individualAccount.details)))
-  }
+  def viewAddress =
+    authenticated { implicit request =>
+      Ok(updateAddressView(UpdateDetailsVM(addressForm, request.individualAccount.details)))
+    }
 
-  def updateAddress = authenticated.async { implicit request =>
-    addressForm
-      .bindFromRequest()
-      .fold(
-        errors =>
-          Future.successful(BadRequest(updateAddressView(UpdateDetailsVM(errors, request.individualAccount.details)))),
-        address =>
-          address.addressUnitId match {
-            case Some(id) => updateDetails(addressId = Some(id))
-            case None =>
-              addressesConnector.create(address) flatMap { id =>
-                updateDetails(addressId = Some(id))
-              }
-        }
-      )
-  }
+  def updateAddress =
+    authenticated.async { implicit request =>
+      addressForm
+        .bindFromRequest()
+        .fold(
+          errors =>
+            Future
+              .successful(BadRequest(updateAddressView(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          address =>
+            address.addressUnitId match {
+              case Some(id) => updateDetails(addressId = Some(id))
+              case None =>
+                addressesConnector.create(address) flatMap { id =>
+                  updateDetails(addressId = Some(id))
+                }
+            }
+        )
+    }
 
-  def viewPhone = authenticated { implicit request =>
-    Ok(updatePhoneView(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
-  }
+  def viewPhone =
+    authenticated { implicit request =>
+      Ok(updatePhoneView(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
+    }
 
-  def updatePhone = authenticated.async { implicit request =>
-    telephoneForm
-      .bindFromRequest()
-      .fold(
-        errors =>
-          Future.successful(BadRequest(updatePhoneView(UpdateDetailsVM(errors, request.individualAccount.details)))),
-        phone => updateDetails(phone = Some(phone))
-      )
-  }
+  def updatePhone =
+    authenticated.async { implicit request =>
+      telephoneForm
+        .bindFromRequest()
+        .fold(
+          errors =>
+            Future.successful(BadRequest(updatePhoneView(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          phone => updateDetails(phone = Some(phone))
+        )
+    }
 
-  def viewName = authenticated { implicit request =>
-    Ok(updateNameView(UpdateDetailsVM(nameForm, request.individualAccount.details)))
-  }
+  def viewName =
+    authenticated { implicit request =>
+      Ok(updateNameView(UpdateDetailsVM(nameForm, request.individualAccount.details)))
+    }
 
-  def updateName = authenticated.async { implicit request =>
-    nameForm
-      .bindFromRequest()
-      .fold(
-        errors =>
-          Future.successful(BadRequest(updateNameView(UpdateDetailsVM(errors, request.individualAccount.details)))),
-        name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
-      )
-  }
+  def updateName =
+    authenticated.async { implicit request =>
+      nameForm
+        .bindFromRequest()
+        .fold(
+          errors =>
+            Future.successful(BadRequest(updateNameView(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          name => updateDetails(firstName = Some(name.firstName), lastName = Some(name.lastName))
+        )
+    }
 
-  def viewMobile = authenticated { implicit request =>
-    Ok(updateMobileView(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
-  }
+  def viewMobile =
+    authenticated { implicit request =>
+      Ok(updateMobileView(UpdateDetailsVM(telephoneForm, request.individualAccount.details)))
+    }
 
-  def updateMobile = authenticated.async { implicit request =>
-    telephoneForm
-      .bindFromRequest()
-      .fold(
-        errors =>
-          Future.successful(BadRequest(updateMobileView(UpdateDetailsVM(errors, request.individualAccount.details)))),
-        mobile => updateDetails(mobile = Some(mobile))
-      )
-  }
+  def updateMobile =
+    authenticated.async { implicit request =>
+      telephoneForm
+        .bindFromRequest()
+        .fold(
+          errors =>
+            Future.successful(BadRequest(updateMobileView(UpdateDetailsVM(errors, request.individualAccount.details)))),
+          mobile => updateDetails(mobile = Some(mobile))
+        )
+    }
 
   private def updateDetails(
         firstName: Option[String] = None,
@@ -141,7 +152,8 @@ class UpdatePersonalDetails @Inject()(
         email: Option[String] = None,
         phone: Option[String] = None,
         mobile: Option[String] = None,
-        addressId: Option[Long] = None)(implicit request: BasicAuthenticatedRequest[_]): Future[Result] = {
+        addressId: Option[Long] = None
+  )(implicit request: BasicAuthenticatedRequest[_]): Future[Result] = {
 
     val currentDetails = request.individualAccount.details
     val updatedDetails = currentDetails.copy(
@@ -158,15 +170,18 @@ class UpdatePersonalDetails @Inject()(
       .update(updatedAccount)
       .flatMap(_ =>
         addressId.fold[Future[EnrolmentResult]](Future.successful(Success))(
-          manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)))
+          manageDetails.updatePostcode(request.individualAccount.individualId, currentDetails.addressId, _)
+        )
+      )
       .map { _ =>
         updateGroup(request.organisationAccount, updatedAccount)
         Redirect(controllers.manageDetails.routes.ViewDetails.show)
       }
   }
 
-  private def updateGroup(group: GroupAccount, updatedAccount: DetailedIndividualAccount)(
-        implicit hc: HeaderCarrier): Future[Unit] = {
+  private def updateGroup(group: GroupAccount, updatedAccount: DetailedIndividualAccount)(implicit
+        hc: HeaderCarrier
+  ): Future[Unit] = {
     val account =
       UpdatedOrganisationAccount(
         group.groupId,

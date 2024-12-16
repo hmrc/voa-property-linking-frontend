@@ -30,7 +30,8 @@ class AgentAppointmentChangesRequestSpec extends VoaPropertyLinkingSpec {
     shouldBindTo(
       form,
       validData,
-      AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "PROPERTY_LIST"))
+      AgentAppointmentChangesRequest(agentRepresentativeCode = 12345L, scope = "PROPERTY_LIST")
+    )
   }
 
   it should "bind when the inputs are all valid - ALL_PROPERTIES" in {

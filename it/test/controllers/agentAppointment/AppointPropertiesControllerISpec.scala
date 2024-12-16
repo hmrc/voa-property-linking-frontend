@@ -43,7 +43,8 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true")
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true"
+          )
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -67,7 +68,8 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true")
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true"
+          )
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -90,11 +92,13 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true")
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true"
+          )
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-          .post(body = requestBody))
+          .post(body = requestBody)
+      )
 
       res.status shouldBe NOT_FOUND
     }
@@ -112,7 +116,8 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=$backLink&fromManageAgentJourney=true")
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentCode&backLinkUrl=$backLink&fromManageAgentJourney=true"
+          )
           .withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -165,8 +170,8 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
 
     stubFor {
       get(
-        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
-        .willReturn {
+        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false"
+      ).willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
         }
     }

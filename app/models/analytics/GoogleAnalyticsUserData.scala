@@ -25,11 +25,13 @@ object GoogleAnalyticsUserData {
     GoogleAnalyticsUserData(
       personId = personId.fold("N/A")(_.toString),
       loggedIn = if (loggedIn) "Yes" else "No",
-      ccaAgent = ccaAgent.fold("N/A")(if (_) "Yes" else "No"))
+      ccaAgent = ccaAgent.fold("N/A")(if (_) "Yes" else "No")
+    )
 
   def apply(req: CcaWrappedRequest): GoogleAnalyticsUserData =
     GoogleAnalyticsUserData(
       req.optAccounts.map(_.person.individualId),
       req.isLoggedIn,
-      req.optAccounts.map(_.organisation.isAgent))
+      req.optAccounts.map(_.organisation.isAgent)
+    )
 }

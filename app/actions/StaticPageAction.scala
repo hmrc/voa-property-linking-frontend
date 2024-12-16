@@ -29,11 +29,12 @@ import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class StaticPageAction @Inject()(
+class StaticPageAction @Inject() (
       override val messagesApi: MessagesApi,
       businessRatesAuthorisation: BusinessRatesAuthorisationConnector,
-      override val authConnector: AuthConnector)(
-      implicit controllerComponents: MessagesControllerComponents,
+      override val authConnector: AuthConnector
+)(implicit
+      controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig,
       override val executionContext: ExecutionContext
 ) extends ActionBuilder[StaticPageRequest, AnyContent] with AuthorisedFunctions with I18nSupport with Logging {
@@ -49,9 +50,10 @@ class StaticPageAction @Inject()(
       handleResult(res, block)(request, hc(request))
     }
 
-  private def handleResult[A](result: AuthorisationResult, body: StaticPageRequest[A] => Future[Result])(
-        implicit request: Request[A],
-        hc: HeaderCarrier) = {
+  private def handleResult[A](result: AuthorisationResult, body: StaticPageRequest[A] => Future[Result])(implicit
+        request: Request[A],
+        hc: HeaderCarrier
+  ) = {
     import AuthorisationResult._
     result match {
       case Authenticated(accounts) =>

@@ -24,7 +24,7 @@ import uk.gov.hmrc.play.audit.model.ExtendedDataEvent
 
 import scala.concurrent.ExecutionContext
 
-class AuditingService @Inject()(val auditConnector: AuditConnector) {
+class AuditingService @Inject() (val auditConnector: AuditConnector) {
   def sendEvent[A: Writes](auditType: String, obj: A)(implicit ec: ExecutionContext, hc: HeaderCarrier): Unit = {
     val event = eventFor(auditType, obj)
     auditConnector.sendExtendedEvent(event)

@@ -30,7 +30,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext
 
-class AccountTypeController @Inject()(
+class AccountTypeController @Inject() (
       val errorHandler: CustomErrorHandler,
       accountTypeView: registration.accountType
 )(
@@ -42,20 +42,22 @@ class AccountTypeController @Inject()(
   def continue(accountType: String): Map[String, Seq[String]] =
     Map("accountType" -> Seq(accountType), "continue" -> Seq(config.dashboardUrl("home")), "origin" -> Seq("voa"))
 
-  def show: Action[AnyContent] = Action { implicit request =>
-    Ok(accountTypeView(AccountTypeIndividual.form))
-  }
+  def show: Action[AnyContent] =
+    Action { implicit request =>
+      Ok(accountTypeView(AccountTypeIndividual.form))
+    }
 
-  def submit: Action[AnyContent] = Action { implicit request =>
-    AccountTypeIndividual.form
-      .bindFromRequest()
-      .fold(
-        errors => BadRequest(accountTypeView(errors)),
-        accountTypeIndividual =>
-          if (accountTypeIndividual) Redirect(config.ggRegistrationUrl, continue("individual"))
-          else Redirect(config.ggRegistrationUrl, continue("organisation"))
-      )
-  }
+  def submit: Action[AnyContent] =
+    Action { implicit request =>
+      AccountTypeIndividual.form
+        .bindFromRequest()
+        .fold(
+          errors => BadRequest(accountTypeView(errors)),
+          accountTypeIndividual =>
+            if (accountTypeIndividual) Redirect(config.ggRegistrationUrl, continue("individual"))
+            else Redirect(config.ggRegistrationUrl, continue("organisation"))
+        )
+    }
 
   object AccountTypeIndividual {
     lazy val form = Form(single("accountTypeIndividual" -> mandatoryBoolean))

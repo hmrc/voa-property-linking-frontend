@@ -33,43 +33,43 @@ import java.time.Instant
 import uk.gov.hmrc.mongo.play.json.formats.MongoJavatimeFormats
 
 @Singleton
-class PersonalDetailsSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
+class PersonalDetailsSessionRepository @Inject() (mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("personDetails", mongo)
 
 @Singleton
-class PropertyLinkingSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
+class PropertyLinkingSessionRepository @Inject() (mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("propertyLinking", mongo)
 
 @Singleton
-class PropertyLinksSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
+class PropertyLinksSessionRepository @Inject() (mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("propertyLinks", mongo)
 
 @Singleton
-class AppointAgentSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
+class AppointAgentSessionRepository @Inject() (mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("appointNewAgent", mongo)
 
 @Singleton
-class RevokeAgentPropertiesSessionRepository @Inject()(mongo: MongoComponent)(
-      implicit executionContext: ExecutionContext)
-    extends SessionRepository("revokeAgentProperties", mongo)
+class RevokeAgentPropertiesSessionRepository @Inject() (mongo: MongoComponent)(implicit
+      executionContext: ExecutionContext
+) extends SessionRepository("revokeAgentProperties", mongo)
 
 @Singleton
-class AppointAgentPropertiesSessionRepository @Inject()(mongo: MongoComponent)(
-      implicit executionContext: ExecutionContext)
-    extends SessionRepository("appointAgentProperties", mongo)
+class AppointAgentPropertiesSessionRepository @Inject() (mongo: MongoComponent)(implicit
+      executionContext: ExecutionContext
+) extends SessionRepository("appointAgentProperties", mongo)
 
 @Singleton
-class AssessmentsPageSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
+class AssessmentsPageSessionRepository @Inject() (mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("assessmentPage", mongo)
 
 @Singleton
-class ManageAgentSessionRepository @Inject()(mongo: MongoComponent)(implicit executionContext: ExecutionContext)
+class ManageAgentSessionRepository @Inject() (mongo: MongoComponent)(implicit executionContext: ExecutionContext)
     extends SessionRepository("manageAgent", mongo)
 
 //TODO: investigate ttl being 2Hours(Other services session cache is set to 15mins - make config driven
-abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent)(
-      implicit executionContext: ExecutionContext)
-    extends PlayMongoRepository[SessionData](
+abstract class SessionRepository @Inject() (formId: String, mongo: MongoComponent)(implicit
+      executionContext: ExecutionContext
+) extends PlayMongoRepository[SessionData](
       collectionName = "sessions",
       mongoComponent = mongo,
       domainFormat = SessionData.format,
@@ -78,7 +78,9 @@ abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent
           Indexes.ascending("createdAt"),
           IndexOptions()
             .name("sessionTTL")
-            .expireAfter(2L, HOURS)))
+            .expireAfter(2L, HOURS)
+        )
+      )
     ) with SessionRepo {
 
   override def start[A](data: A)(implicit wts: Writes[A], hc: HeaderCarrier): Future[Unit] =
@@ -89,18 +91,16 @@ abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent
       for {
         sessionId <- getSessionId
         _ <- collection
-              .findOneAndUpdate(
-                filter = Filters.equal("_id", sessionId),
-                update = Updates.combine(
-                  Updates.set(s"data.$formId", Codecs.toBson(data)),
-                  Updates.setOnInsert("createdAt", Instant.now)
-                ),
-                options = FindOneAndUpdateOptions().upsert(true)
-              )
-              .toFuture()
-      } yield {
-        ()
-      }
+               .findOneAndUpdate(
+                 filter = Filters.equal("_id", sessionId),
+                 update = Updates.combine(
+                   Updates.set(s"data.$formId", Codecs.toBson(data)),
+                   Updates.setOnInsert("createdAt", Instant.now)
+                 ),
+                 options = FindOneAndUpdateOptions().upsert(true)
+               )
+               .toFuture()
+      } yield ()
     }
 
   override def get[A](implicit rds: Reads[A], hc: HeaderCarrier): Future[Option[A]] =
@@ -108,15 +108,14 @@ abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent
       for {
         sessionId   <- getSessionId
         maybeOption <- collection.find(Filters.equal("_id", sessionId)).headOption()
-      } yield {
-        maybeOption
-          .map(_.data \ formId)
-          .flatMap(x =>
-            x match {
-              case JsDefined(value) => Some(value.as[A])
-              case JsUndefined()    => None
-          })
-      }
+      } yield maybeOption
+        .map(_.data \ formId)
+        .flatMap(x =>
+          x match {
+            case JsDefined(value) => Some(value.as[A])
+            case JsUndefined()    => None
+          }
+        )
     }
 
   def findFirst(implicit hc: HeaderCarrier): Future[SessionData] =
@@ -132,9 +131,7 @@ abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent
       for {
         sessionId <- getSessionId
         -         <- collection.deleteOne(equal("_id", sessionId)).toFuture()
-      } yield {
-        ()
-      }
+      } yield ()
     }
 
   def removeAll()(implicit hc: HeaderCarrier): Future[Unit] =
@@ -142,9 +139,7 @@ abstract class SessionRepository @Inject()(formId: String, mongo: MongoComponent
       for {
         sessionId <- getSessionId
         -         <- collection.deleteMany(equal("_id", sessionId)).toFuture()
-      } yield {
-        ()
-      }
+      } yield ()
     }
 
   private val noSession = Future.failed[String](NoSessionException)

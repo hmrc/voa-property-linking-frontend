@@ -172,7 +172,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "owner",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "Lease")
+      evidenceChoice = "Lease"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -251,7 +252,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "occupier",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "License")
+      evidenceChoice = "License"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -330,7 +332,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "both",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "ServiceCharge")
+      evidenceChoice = "ServiceCharge"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -409,7 +412,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "owner",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "StampDutyLandTaxForm")
+      evidenceChoice = "StampDutyLandTaxForm"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -487,7 +491,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "occupier",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "WaterRateDemand")
+      evidenceChoice = "WaterRateDemand"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -565,7 +570,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "both",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "OtherUtilityBill")
+      evidenceChoice = "OtherUtilityBill"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -643,7 +649,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "owner",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "RatesBill")
+      evidenceChoice = "RatesBill"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -722,7 +729,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "occupier",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "LandRegistryTitle")
+      evidenceChoice = "LandRegistryTitle"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -801,7 +809,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "both",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "ServiceCharge")
+      evidenceChoice = "ServiceCharge"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -880,7 +889,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "owner",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "StampDutyLandTaxForm")
+      evidenceChoice = "StampDutyLandTaxForm"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -958,7 +968,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "occupier",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "WaterRateDemand")
+      evidenceChoice = "WaterRateDemand"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -1036,7 +1047,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "both",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "OtherUtilityBill")
+      evidenceChoice = "OtherUtilityBill"
+    )
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -1114,7 +1126,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "owner",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "Lease")
+      evidenceChoice = "Lease"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1193,7 +1206,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "occupier",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "License")
+      evidenceChoice = "License"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1272,7 +1286,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "both",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "ServiceCharge")
+      evidenceChoice = "ServiceCharge"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1351,7 +1366,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "owner",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "StampDutyLandTaxForm")
+      evidenceChoice = "StampDutyLandTaxForm"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1429,7 +1445,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "occupier",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "WaterRateDemand")
+      evidenceChoice = "WaterRateDemand"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1507,7 +1524,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = false,
       relationshipChoice = "both",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "OtherUtilityBill")
+      evidenceChoice = "OtherUtilityBill"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1585,7 +1603,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "owner",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "RatesBill")
+      evidenceChoice = "RatesBill"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1664,7 +1683,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "occupier",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "LandRegistryTitle")
+      evidenceChoice = "LandRegistryTitle"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1743,7 +1763,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "both",
       stillOwnedOccupiedChoice = false,
-      evidenceChoice = "ServiceCharge")
+      evidenceChoice = "ServiceCharge"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1822,7 +1843,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "owner",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "StampDutyLandTaxForm")
+      evidenceChoice = "StampDutyLandTaxForm"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1900,7 +1922,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "occupier",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "WaterRateDemand")
+      evidenceChoice = "WaterRateDemand"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -1978,7 +2001,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       userIsAgent = true,
       relationshipChoice = "both",
       stillOwnedOccupiedChoice = true,
-      evidenceChoice = "OtherUtilityBill")
+      evidenceChoice = "OtherUtilityBill"
+    )
 
     s"has a title of $titleText in welsh" in {
       document.title() shouldBe titleTextWelsh
@@ -2055,7 +2079,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     res.status shouldBe SEE_OTHER
     res.header("Location") shouldBe Some(
-      "/business-rates-property-linking/my-organisation/claim/property-links/confirmation")
+      "/business-rates-property-linking/my-organisation/claim/property-links/confirmation"
+    )
   }
 
   // This is weird behaviour but technically a user cant make the choice false as its a checkbox
@@ -2064,7 +2089,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     res.status shouldBe SEE_OTHER
     res.header("Location") shouldBe Some(
-      "/business-rates-property-linking/my-organisation/claim/property-links/confirmation")
+      "/business-rates-property-linking/my-organisation/claim/property-links/confirmation"
+    )
   }
 
   "DeclarationController submit method returns a bad request and shows an error on the page when a user doesn't click confirm and then clicks submit" which {
@@ -2248,7 +2274,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
         userIsAgent: Boolean,
         relationshipChoice: String,
         stillOwnedOccupiedChoice: Boolean,
-        evidenceChoice: String) = {
+        evidenceChoice: String
+  ) = {
     commonStubs
 
     val relationshipType: Option[PropertyRelationship] = relationshipChoice match {
@@ -2258,11 +2285,11 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
       case _          => None
     }
 
-    val stillOwnedOccupied: Option[PropertyOccupancy] = if (stillOwnedOccupiedChoice) {
-      Some(PropertyOccupancy(stillOccupied = true, Some(LocalDate.of(2017, 4, 3))))
-    } else {
-      Some(PropertyOccupancy(stillOccupied = false, Some(LocalDate.of(2017, 4, 3))))
-    }
+    val stillOwnedOccupied: Option[PropertyOccupancy] =
+      if (stillOwnedOccupiedChoice)
+        Some(PropertyOccupancy(stillOccupied = true, Some(LocalDate.of(2017, 4, 3))))
+      else
+        Some(PropertyOccupancy(stillOccupied = false, Some(LocalDate.of(2017, 4, 3))))
 
     val evidenceType: UploadEvidenceData = evidenceChoice match {
       case "Lease"         => UploadEvidenceData(fileInfo = Some(CompleteFileInfo("Test File", Lease)))
@@ -2277,23 +2304,26 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
     }
 
     await(
-      mockPropertyLinkingSessionRepository.saveOrUpdate(LinkingSession(
-        address = "Test Address, Test Lane, T35 T3R",
-        uarn = 1L,
-        submissionId = "PL-123456",
-        personId = 1L,
-        earliestStartDate = LocalDate.of(2017, 4, 1),
-        propertyRelationship = relationshipType,
-        propertyOwnership = Some(PropertyOwnership(LocalDate.of(2017, 4, 2))),
-        propertyOccupancy = stillOwnedOccupied,
-        hasRatesBill = Some(true),
-        uploadEvidenceData = evidenceType,
-        clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
-        localAuthorityReference = "2050466366770",
-        rtp = ClaimPropertyReturnToPage.FMBR,
-        fromCya = None,
-        isSubmitted = None
-      )))
+      mockPropertyLinkingSessionRepository.saveOrUpdate(
+        LinkingSession(
+          address = "Test Address, Test Lane, T35 T3R",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = relationshipType,
+          propertyOwnership = Some(PropertyOwnership(LocalDate.of(2017, 4, 2))),
+          propertyOccupancy = stillOwnedOccupied,
+          hasRatesBill = Some(true),
+          uploadEvidenceData = evidenceType,
+          clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
+          localAuthorityReference = "2050466366770",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = None,
+          isSubmitted = None
+        )
+      )
+    )
 
     val res = await(
       ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/summary")
@@ -2324,24 +2354,27 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
     }
 
     await(
-      mockPropertyLinkingSessionRepository.saveOrUpdate(LinkingSession(
-        address = "Test Address, Test Lane, T35 T3R",
-        uarn = 1L,
-        submissionId = "PL-123456",
-        personId = 1L,
-        earliestStartDate = LocalDate.of(2017, 4, 1),
-        propertyRelationship = Some(PropertyRelationship(Owner, 1L)),
-        propertyOwnership = Some(PropertyOwnership(LocalDate.of(2017, 4, 2))),
-        propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, Some(LocalDate.of(2017, 4, 3)))),
-        hasRatesBill = Some(true),
-        uploadEvidenceData = uploadRatesBillData,
-        evidenceType = Some(Lease),
-        clientDetails = None,
-        localAuthorityReference = "2050466366770",
-        rtp = ClaimPropertyReturnToPage.FMBR,
-        fromCya = None,
-        isSubmitted = None
-      )))
+      mockPropertyLinkingSessionRepository.saveOrUpdate(
+        LinkingSession(
+          address = "Test Address, Test Lane, T35 T3R",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = Some(PropertyRelationship(Owner, 1L)),
+          propertyOwnership = Some(PropertyOwnership(LocalDate.of(2017, 4, 2))),
+          propertyOccupancy = Some(PropertyOccupancy(stillOccupied = false, Some(LocalDate.of(2017, 4, 3)))),
+          hasRatesBill = Some(true),
+          uploadEvidenceData = uploadRatesBillData,
+          evidenceType = Some(Lease),
+          clientDetails = None,
+          localAuthorityReference = "2050466366770",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = None,
+          isSubmitted = None
+        )
+      )
+    )
 
     val requestBody: JsObject = Json.obj(
       "declaration" -> s"$declarationChoice"

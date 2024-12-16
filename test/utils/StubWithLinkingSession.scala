@@ -36,13 +36,15 @@ class StubWithLinkingSession(sessionRepository: SessionRepo)
     stubbedSession.fold(throw new Exception("Linking session not stubbed")) {
       case (linkingSession, person, organisation) =>
         Future.successful(
-          Right(LinkingSessionRequest(linkingSession, person.organisationId, person, organisation, request)))
+          Right(LinkingSessionRequest(linkingSession, person.organisationId, person, organisation, request))
+        )
     }
 
   def stubSession(
         linkingSession: LinkingSession,
         individualAccount: DetailedIndividualAccount,
-        groupAccount: GroupAccount) =
+        groupAccount: GroupAccount
+  ) =
     stubbedSession = Some((linkingSession, individualAccount, groupAccount))
 
   def reset() =

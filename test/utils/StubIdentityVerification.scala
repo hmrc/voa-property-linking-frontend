@@ -28,7 +28,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 object StubIdentityVerification
     extends IdentityVerificationConnector(servicesConfig, null, Mockito.mock(classOf[DefaultHttpClient]))(
-      ExecutionContext.global) {
+      ExecutionContext.global
+    ) {
 
   private var journeyResult: (String, IvResult) = ("", IvSuccess)
 

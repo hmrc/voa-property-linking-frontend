@@ -37,13 +37,14 @@ import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ClaimPropertyOccupancyController @Inject()(
+class ClaimPropertyOccupancyController @Inject() (
       val errorHandler: CustomErrorHandler,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
-      occupancyOfPropertyView: views.html.propertyLinking.occupancyOfProperty)(
-      implicit executionContext: ExecutionContext,
+      occupancyOfPropertyView: views.html.propertyLinking.occupancyOfProperty
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
@@ -60,15 +61,17 @@ class ClaimPropertyOccupancyController @Inject()(
     }
   }
 
-  def showOccupancy: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    {
+  def showOccupancy: Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       if (request.ses.earliestStartDate.isAfter(LocalDate.now()))
         sessionRepository
-          .saveOrUpdate[LinkingSession](request.ses.copy(
-            propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))))
+          .saveOrUpdate[LinkingSession](
+            request.ses.copy(propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None)))
+          )
           .map { _ =>
             Redirect(propertyLinking.routes.ChooseEvidenceController.show)
-          } else {
+          }
+      else {
         val form = request.ses.propertyOccupancy.fold(occupancyForm(request.ses.earliestStartDate)) { occupancy =>
           occupancyForm(startDate = occupancyStartDate)
             .fillAndValidate(occupancy)
@@ -76,7 +79,6 @@ class ClaimPropertyOccupancyController @Inject()(
         Future.successful(Ok(occupancyOfPropertyView(form, request.ses.clientDetails, getBackLink)))
       }
     }
-  }
 
   def submitOccupancy: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
@@ -92,7 +94,7 @@ class ClaimPropertyOccupancyController @Inject()(
                 if (request.ses.fromCya.contains(true))
                   Redirect(controllers.propertyLinking.routes.DeclarationController.show.url)
                 else Redirect(propertyLinking.routes.ChooseEvidenceController.show)
-            }
+              }
         )
     }
 }
@@ -109,7 +111,8 @@ object ClaimPropertyOccupancy {
             .verifying("interestedEndDate.error.dateInFuture", d => d.isBefore(LocalDate.now))
             .verifying("error.date.mustBeAfterStartDate", d => d.isAfter(startDate))
         )
-      )(PropertyOccupancy.apply)(PropertyOccupancy.unapply))
+      )(PropertyOccupancy.apply)(PropertyOccupancy.unapply)
+    )
 
   def getBackLink(implicit request: LinkingSessionRequest[_]): String =
     if (request.ses.fromCya.contains(true)) propertyLinking.routes.DeclarationController.show.url

@@ -55,13 +55,15 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
       "sortOrder"            -> "ASC",
       "startPoint"           -> "1",
       "pageSize"             -> "10",
-      "requestTotalRowCount" -> "false")
+      "requestTotalRowCount" -> "false"
+    )
     val expectedAgentParams = Seq(
       "sortField"            -> "ADDRESS",
       "sortOrder"            -> "ASC",
       "startPoint"           -> "1",
       "pageSize"             -> "10",
-      "requestTotalRowCount" -> "false")
+      "requestTotalRowCount" -> "false"
+    )
   }
 
   "get" should "return a property link" in new Setup {
@@ -139,7 +141,8 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthResultResponse)
     val res: Future[OwnerAuthResult] = connector.getMyOrganisationsPropertyLinks(
       GetPropertyLinksParameters(status = Some("APPROVED")),
-      PaginationParams(1, 10, requestTotalRowCount = false))
+      PaginationParams(1, 10, requestTotalRowCount = false)
+    )
     whenReady(res)(_ shouldBe ownerAuthResultResponse)
   }
 
@@ -150,7 +153,8 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
         size = 15,
         filterTotal = 1,
         total = 1,
-        authorisations = List(ownerAuthorisation, ownerAuthorisationNoAgents))
+        authorisations = List(ownerAuthorisation, ownerAuthorisationNoAgents)
+      )
 
     lazy val filterOwnerAuthResponse: OwnerAuthResult =
       OwnerAuthResult(
@@ -158,7 +162,8 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
         size = 15,
         filterTotal = 1,
         total = 1,
-        authorisations = List(ownerAuthorisationNoAgents))
+        authorisations = List(ownerAuthorisationNoAgents)
+      )
 
     mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthMockResponse)
     val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
@@ -175,7 +180,8 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
       .GET(url = eqs("tst-url/owner/property-links"), queryParams = eqs(expectedOwnerParams), headers = any())(
         any(),
         any(),
-        any())
+        any()
+      )
   }
 
   "Owner request for getMyOrganisationPropertyLinksWithAgentFiltering - address included in params" should "return OwnerAuthResult" in new Setup {
@@ -185,14 +191,16 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
         size = 15,
         filterTotal = 1,
         total = 1,
-        authorisations = List(ownerAuthorisation, ownerAuthorisationNoAgents))
+        authorisations = List(ownerAuthorisation, ownerAuthorisationNoAgents)
+      )
     lazy val ownerAuthResponse: OwnerAuthResult =
       OwnerAuthResult(
         start = 1,
         size = 15,
         filterTotal = 1,
         total = 1,
-        authorisations = List(ownerAuthorisationNoAgents))
+        authorisations = List(ownerAuthorisationNoAgents)
+      )
 
     mockHttpGETWithQueryParam[OwnerAuthResult]("tst-url", ownerAuthMockResponse)
     val res: Future[OwnerAuthResult] = connector.getMyOrganisationPropertyLinksWithAgentFiltering(
@@ -208,7 +216,8 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     verify(mockHttpClient, times(1)).GET(
       url = eqs("tst-url/owner/property-links"),
       queryParams = eqs(("address" -> "Some address") +: expectedOwnerParams),
-      headers = any())(any(), any(), any())
+      headers = any()
+    )(any(), any(), any())
   }
 
   "Agent request for getMyOrganisationPropertyLinksWithAgentFiltering" should "return OwnerAuthResult" in new Setup {
@@ -226,7 +235,8 @@ class PropertyLinkConnectorSpec extends VoaPropertyLinkingSpec {
     verify(mockHttpClient, times(1)).GET(
       url = eqs(s"tst-url/my-organisation/agents/$agentCode/available-property-links"),
       queryParams = eqs(expectedAgentParams),
-      headers = any())(any(), any(), any())
+      headers = any()
+    )(any(), any(), any())
   }
 
   "Agent request for getMyOrganisationPropertyLinksWithAgentFiltering - agent included in params" should "return OwnerAuthResult" in new Setup {

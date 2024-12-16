@@ -25,7 +25,8 @@ case class AgentAppointmentChangeRequest(
       action: AppointmentAction,
       scope: AppointmentScope,
       propertyLinks: Option[List[String]],
-      listYears: Option[List[String]])
+      listYears: Option[List[String]]
+)
 
 object AgentAppointmentChangeRequest {
 

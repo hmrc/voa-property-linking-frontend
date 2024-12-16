@@ -24,7 +24,7 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SubmissionIdConnector @Inject()(config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext) {
+class SubmissionIdConnector @Inject() (config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking"
 
   def get(prefix: String = "PL")(implicit hc: HeaderCarrier): Future[String] =

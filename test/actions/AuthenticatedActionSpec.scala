@@ -127,9 +127,10 @@ class AuthenticatedActionSpec
     def exception: Option[AuthorisationException] = None
 
     lazy val authConnector: AuthConnector = new AuthConnector {
-      override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(
-            implicit hc: HeaderCarrier,
-            ec: ExecutionContext): Future[A] =
+      override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(implicit
+            hc: HeaderCarrier,
+            ec: ExecutionContext
+      ): Future[A] =
         exception.fold(Future.successful(success().asInstanceOf[A]))(Future.failed(_))
     }
 
@@ -142,7 +143,7 @@ class AuthenticatedActionSpec
       authConnector,
       errorView = new views.html.errors.error(mainLayout),
       forbiddenView = new views.html.errors.forbidden(mainLayout),
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton),
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
     )
   }
 

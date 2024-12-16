@@ -26,10 +26,11 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TestTaxEnrolmentConnector @Inject()(
+class TestTaxEnrolmentConnector @Inject() (
       wSHttp: DefaultHttpClient,
       val runModeConfiguration: Configuration,
-      servicesConfig: ServicesConfig) {
+      servicesConfig: ServicesConfig
+) {
 
   private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
   private val emacUrl = servicesConfig.baseUrl("emac") + "/enrolment-store-proxy"
@@ -38,11 +39,13 @@ class TestTaxEnrolmentConnector @Inject()(
     wSHttp
       .POST[JsValue, HttpResponse](
         s"$serviceUrl/tax-enrolments/de-enrol/HMRC-VOA-CCA",
-        Json.obj("keepAgentAllocations" -> true))(
+        Json.obj("keepAgentAllocations" -> true)
+      )(
         implicitly[Writes[JsValue]],
         implicitly[HttpReads[HttpResponse]],
         hc.withExtraHeaders("Content-Type" -> "application/json"),
-        ex)
+        ex
+      )
       .map(_ => wSHttp.DELETE[HttpResponse](s"$emacUrl/enrolment-store/enrolments/HMRC-VOA-CCA~VOAPersonID~$personID"))
 
 }
