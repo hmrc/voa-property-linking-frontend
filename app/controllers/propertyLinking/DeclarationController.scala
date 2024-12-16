@@ -39,7 +39,7 @@ import javax.inject.Named
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class DeclarationController @Inject()(
+class DeclarationController @Inject() (
       val errorHandler: CustomErrorHandler,
       propertyLinkService: PropertyLinkingService,
       @Named("propertyLinkingSession") sessionRepository: SessionRepo,
@@ -48,8 +48,8 @@ class DeclarationController @Inject()(
       withSubmittedLinkingSession: WithSubmittedLinkingSession,
       declarationView: views.html.propertyLinking.declaration,
       linkingRequestSubmittedView: views.html.linkingRequestSubmitted
-)(
-      implicit executionContext: ExecutionContext,
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
@@ -58,83 +58,92 @@ class DeclarationController @Inject()(
   lazy val form = Form(Forms.single("declaration" -> mandatoryBoolean))
   lazy val formWithNoDeclaration = form.withError(FormError("declaration", "declaration.required"))
 
-  def show: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    sessionRepository
-      .saveOrUpdate(request.ses.copy(fromCya = Some(true)))
-      .map { _ =>
-        Ok(declarationView(DeclarationVM(form, request.ses.address, request.ses.localAuthorityReference)))
-      }
-  }
-
-  def back: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    sessionRepository
-      .saveOrUpdate(request.ses.copy(fromCya = Some(false)))
-      .map { _ =>
-        val evidenceType: Option[EvidenceType] = request.ses.uploadEvidenceData.fileInfo.map(_.evidenceType)
-        val capacityType: Option[CapacityType] = request.ses.propertyRelationship.map(_.capacity)
-        val evidenceChoice: Option[EvidenceChoices.Value] = evidenceType.zip(capacityType).headOption.map {
-          case (RatesBillType, Owner | OwnerOccupier | Occupier)        => EvidenceChoices.RATES_BILL
-          case (ServiceCharge, Owner | OwnerOccupier | Occupier)        => EvidenceChoices.SERVICE_CHARGE
-          case (StampDutyLandTaxForm, Owner | OwnerOccupier | Occupier) => EvidenceChoices.STAMP_DUTY
-          case (LandRegistryTitle, Owner | OwnerOccupier | Occupier)    => EvidenceChoices.LAND_REGISTRY
-          case (WaterRateDemand, Owner | OwnerOccupier | Occupier)      => EvidenceChoices.WATER_RATE
-          case (OtherUtilityBill, Owner | OwnerOccupier | Occupier)     => EvidenceChoices.UTILITY_RATE
-          case (Lease, Occupier | Owner | OwnerOccupier | Occupier)     => EvidenceChoices.LEASE
-          case (License, Occupier | Owner | OwnerOccupier | Occupier)   => EvidenceChoices.LICENSE
-          case (_, Owner | OwnerOccupier | Occupier)                    => EvidenceChoices.OTHER
+  def show: Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+      sessionRepository
+        .saveOrUpdate(request.ses.copy(fromCya = Some(true)))
+        .map { _ =>
+          Ok(declarationView(DeclarationVM(form, request.ses.address, request.ses.localAuthorityReference)))
         }
+    }
 
-        evidenceChoice.fold {
-          Redirect(
-            if (evidenceType.isEmpty) routes.ChooseEvidenceController.show
-            else routes.ClaimPropertyRelationshipController.back
-          )
-        } { choice =>
-          Redirect(routes.UploadResultController.show(choice))
+  def back: Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+      sessionRepository
+        .saveOrUpdate(request.ses.copy(fromCya = Some(false)))
+        .map { _ =>
+          val evidenceType: Option[EvidenceType] = request.ses.uploadEvidenceData.fileInfo.map(_.evidenceType)
+          val capacityType: Option[CapacityType] = request.ses.propertyRelationship.map(_.capacity)
+          val evidenceChoice: Option[EvidenceChoices.Value] = evidenceType.zip(capacityType).headOption.map {
+            case (RatesBillType, Owner | OwnerOccupier | Occupier)        => EvidenceChoices.RATES_BILL
+            case (ServiceCharge, Owner | OwnerOccupier | Occupier)        => EvidenceChoices.SERVICE_CHARGE
+            case (StampDutyLandTaxForm, Owner | OwnerOccupier | Occupier) => EvidenceChoices.STAMP_DUTY
+            case (LandRegistryTitle, Owner | OwnerOccupier | Occupier)    => EvidenceChoices.LAND_REGISTRY
+            case (WaterRateDemand, Owner | OwnerOccupier | Occupier)      => EvidenceChoices.WATER_RATE
+            case (OtherUtilityBill, Owner | OwnerOccupier | Occupier)     => EvidenceChoices.UTILITY_RATE
+            case (Lease, Occupier | Owner | OwnerOccupier | Occupier)     => EvidenceChoices.LEASE
+            case (License, Occupier | Owner | OwnerOccupier | Occupier)   => EvidenceChoices.LICENSE
+            case (_, Owner | OwnerOccupier | Occupier)                    => EvidenceChoices.OTHER
+          }
+
+          evidenceChoice.fold {
+            Redirect(
+              if (evidenceType.isEmpty) routes.ChooseEvidenceController.show
+              else routes.ClaimPropertyRelationshipController.back
+            )
+          } { choice =>
+            Redirect(routes.UploadResultController.show(choice))
+          }
         }
-      }
-  }
+    }
 
   /*
     We should have extra validation here to catch users that get by without supplying on the necessary information.
    */
-  def submit: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    form
-      .bindFromRequest()
-      .fold(
-        _ => {
-          Future.successful(
-            BadRequest(
-              declarationView(
-                DeclarationVM(
-                  formWithNoDeclaration,
-                  request.ses.address,
-                  request.ses.localAuthorityReference
-                ))))
-        },
-        _ =>
-          for {
-            submitResult <- propertyLinkService
-                             .submit(
-                               PropertyLinkRequest(request.ses, request.organisationId),
-                               request.ses.clientDetails.map(_.organisationId))
-                             .value
-          } yield {
-            submitResult.fold(
+  def submit: Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+      form
+        .bindFromRequest()
+        .fold(
+          _ =>
+            Future.successful(
+              BadRequest(
+                declarationView(
+                  DeclarationVM(
+                    formWithNoDeclaration,
+                    request.ses.address,
+                    request.ses.localAuthorityReference
+                  )
+                )
+              )
+            ),
+          _ =>
+            for {
+              submitResult <- propertyLinkService
+                                .submit(
+                                  PropertyLinkRequest(request.ses, request.organisationId),
+                                  request.ses.clientDetails.map(_.organisationId)
+                                )
+                                .value
+            } yield submitResult.fold(
               {
                 case NotAllFilesReadyToUpload =>
                   logger.warn(
-                    s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page")
+                    s"Not all files are ready for upload on submission for ${request.ses.submissionId}, redirecting back to declaration page"
+                  )
                   BadRequest(
                     declarationView(
                       DeclarationVM(
                         form.fill(true).withError("declaration", "declaration.file.receipt"),
                         request.ses.address,
-                        request.ses.localAuthorityReference)
-                    ))
+                        request.ses.localAuthorityReference
+                      )
+                    )
+                  )
                 case MissingRequiredNumberOfFiles =>
                   logger.warn(
-                    s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens.")
+                    s"Missing at least 1 evidence uploaded for ${request.ses.submissionId}, redirecting back to upload screens."
+                  )
                   request.ses.evidenceType match {
                     case Some(RatesBillType) =>
                       Redirect(routes.UploadController.show(EvidenceChoices.RATES_BILL))
@@ -146,13 +155,11 @@ class DeclarationController @Inject()(
               },
               _ => Redirect(routes.DeclarationController.confirmation)
             )
+        )
+    }
 
-        }
-      )
-  }
-
-  def confirmation: Action[AnyContent] = authenticatedAction.andThen(withSubmittedLinkingSession).async {
-    implicit request =>
+  def confirmation: Action[AnyContent] =
+    authenticatedAction.andThen(withSubmittedLinkingSession).async { implicit request =>
       sessionRepository
         .saveOrUpdate(request.ses.copy(isSubmitted = Some(true)))
         .map { _ =>
@@ -162,9 +169,12 @@ class DeclarationController @Inject()(
                 request.ses.address,
                 request.ses.submissionId,
                 request.ses.clientDetails,
-                request.ses.localAuthorityReference)))
+                request.ses.localAuthorityReference
+              )
+            )
+          )
         }
-  }
+    }
 }
 
 case class DeclarationVM(form: Form[_], address: String, localAuthorityReference: String)
@@ -173,4 +183,5 @@ case class RequestSubmittedVM(
       address: String,
       refId: String,
       clientDetails: Option[ClientDetails] = None,
-      localAuthorityReference: String)
+      localAuthorityReference: String
+)

@@ -141,7 +141,8 @@ trait FakeObjects {
       size = 15,
       filterTotal = 1,
       total = 1,
-      challengeCases = List(agentChallengeCase))
+      challengeCases = List(agentChallengeCase)
+    )
   lazy val assessmentPageSession: AssessmentsPageSession = AssessmentsPageSession(PreviousPage.SelectedClient)
   lazy val appointNewAgentSession: AppointNewAgentSession = SelectedAgent(
     agentCode = agentCode,
@@ -252,7 +253,8 @@ trait FakeObjects {
     firstName = "Billy-Bob",
     lastName = "AdminInExistingOrganisation",
     dob = dateOfBirth,
-    nino = nino)
+    nino = nino
+  )
   val adminOrganisationAccountDetails = AdminOrganisationAccountDetails(
     firstName = firstName,
     lastName = lastName,
@@ -538,12 +540,14 @@ trait FakeObjects {
       email = email,
       phone = phone,
       isAgent = agent,
-      agentCode = Some(300L).filter(_ => agent))
+      agentCode = Some(300L).filter(_ => agent)
+    )
 
   def userDetails(
         affinityGroup: AffinityGroup = AffinityGroup.Individual,
         credentialRole: CredentialRole = User,
-        confidenceLevel: ConfidenceLevel = ConfidenceLevel.L200): UserDetails =
+        confidenceLevel: ConfidenceLevel = ConfidenceLevel.L200
+  ): UserDetails =
     UserDetails(
       firstName = Some(firstName),
       lastName = Some(lastName),
@@ -578,7 +582,8 @@ trait FakeObjects {
         toDate: Option[LocalDate] = Some(april2017.plusMonths(2L)),
         listType: ListType = ListType.CURRENT,
         listYear: Int = 2017,
-        isWelsh: Boolean = false) =
+        isWelsh: Boolean = false
+  ) =
     ApiAssessments(
       authorisationId = a.authorisationId,
       submissionId = a.submissionId,
@@ -634,14 +639,14 @@ trait FakeObjects {
           currentToDate = None
         )
       ),
-      agents = a.agents.map(
-        agent =>
-          Party(
-            authorisedPartyId = agent.authorisedPartyId,
-            agentCode = agent.agentCode,
-            organisationName = agent.organisationName,
-            organisationId = agent.organisationId
-        ))
+      agents = a.agents.map(agent =>
+        Party(
+          authorisedPartyId = agent.authorisedPartyId,
+          agentCode = agent.agentCode,
+          organisationName = agent.organisationName,
+          organisationId = agent.organisationId
+        )
+      )
     )
 
   def apiAssessmentsNoRateableInfo(
@@ -649,7 +654,8 @@ trait FakeObjects {
         toDate: Option[LocalDate] = Some(april2017.plusMonths(2L)),
         listType: ListType = ListType.CURRENT,
         listYear: Int = 2017,
-        isWelsh: Boolean = false) =
+        isWelsh: Boolean = false
+  ) =
     ApiAssessments(
       authorisationId = a.authorisationId,
       submissionId = a.submissionId,
@@ -705,14 +711,14 @@ trait FakeObjects {
           currentToDate = None
         )
       ),
-      agents = a.agents.map(
-        agent =>
-          Party(
-            authorisedPartyId = agent.authorisedPartyId,
-            agentCode = agent.agentCode,
-            organisationName = agent.organisationName,
-            organisationId = agent.organisationId
-        ))
+      agents = a.agents.map(agent =>
+        Party(
+          authorisedPartyId = agent.authorisedPartyId,
+          agentCode = agent.agentCode,
+          organisationName = agent.organisationName,
+          organisationId = agent.organisationId
+        )
+      )
     )
 
   def clientApiAssessments(
@@ -720,7 +726,8 @@ trait FakeObjects {
         toDate: Option[LocalDate] = Some(april2017.plusMonths(2L)),
         listType: ListType = ListType.CURRENT,
         listYear: Int = 2017,
-        isWelsh: Boolean = false) =
+        isWelsh: Boolean = false
+  ) =
     ApiAssessments(
       authorisationId = a.authorisationId,
       submissionId = a.submissionId,
@@ -779,20 +786,21 @@ trait FakeObjects {
       agents = Seq.empty[Party]
     )
 
-  def apiAssessment(a: OwnerAuthorisation) = ApiAssessment(
-    authorisationId = a.authorisationId,
-    assessmentRef = 1L,
-    listYear = "2017",
-    uarn = a.uarn,
-    effectiveDate = Some(april2017),
-    rateableValue = Some(65433L),
-    address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
-    billingAuthorityReference = a.localAuthorityRef,
-    billingAuthorityCode = Some("2715"),
-    listType = ListType.CURRENT,
-    allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
-    currentFromDate = Some(april2017.plusMonths(2L)),
-    currentToDate = None
-  )
+  def apiAssessment(a: OwnerAuthorisation) =
+    ApiAssessment(
+      authorisationId = a.authorisationId,
+      assessmentRef = 1L,
+      listYear = "2017",
+      uarn = a.uarn,
+      effectiveDate = Some(april2017),
+      rateableValue = Some(65433L),
+      address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
+      billingAuthorityReference = a.localAuthorityRef,
+      billingAuthorityCode = Some("2715"),
+      listType = ListType.CURRENT,
+      allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION),
+      currentFromDate = Some(april2017.plusMonths(2L)),
+      currentToDate = None
+    )
 
 }

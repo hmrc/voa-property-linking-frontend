@@ -42,9 +42,10 @@ object StubSubmissionIdConnector
     extends SubmissionIdConnector(Configs.servicesConfig, mock(classOf[DefaultHttpClient])) {
   private var stubbedId: Option[String] = None
 
-  override def get(prefix: String)(implicit hc: HeaderCarrier): Future[String] = Future {
-    stubbedId.getOrElse(throw new Exception("submission id not stubbed"))
-  }
+  override def get(prefix: String)(implicit hc: HeaderCarrier): Future[String] =
+    Future {
+      stubbedId.getOrElse(throw new Exception("submission id not stubbed"))
+    }
 
   def stubId(submissionId: String) =
     stubbedId = Some(submissionId)

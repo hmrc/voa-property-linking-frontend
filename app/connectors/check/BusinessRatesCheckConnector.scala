@@ -33,8 +33,8 @@ import utils.HttpReads.createReads
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class BusinessRatesCheckConnector @Inject()(http: DefaultHttpClient, servicesConfig: ServicesConfig)(
-      implicit executionContext: ExecutionContext
+class BusinessRatesCheckConnector @Inject() (http: DefaultHttpClient, servicesConfig: ServicesConfig)(implicit
+      executionContext: ExecutionContext
 ) extends Logging with UriTemplateSyntax with PartialCheckFormats {
   protected lazy val serviceUrl: String = servicesConfig.baseUrl("business-rates-check")
 
@@ -59,8 +59,8 @@ class BusinessRatesCheckConnector @Inject()(http: DefaultHttpClient, servicesCon
       )
   }
 
-  def updateResumeCheckUrl(checkId: CheckId, resumeUrl: String)(
-        implicit hc: HeaderCarrier
+  def updateResumeCheckUrl(checkId: CheckId, resumeUrl: String)(implicit
+        hc: HeaderCarrier
   ): Future[Either[RequestFailure, HttpResponse]] = {
 
     implicit val httpReads = createReads(NO_CONTENT, Map(FORBIDDEN -> Forbidden, NOT_FOUND -> NotFound))

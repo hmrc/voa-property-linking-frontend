@@ -40,7 +40,7 @@ import scala.concurrent.{ExecutionContext, Future}
 //TODO this should really sit inside business-rates-valuation-frontend
 
 @Singleton
-class ValuationsController @Inject()(
+class ValuationsController @Inject() (
       val errorHandler: CustomErrorHandler,
       propertyLinks: PropertyLinkConnector,
       authenticated: AuthenticatedAction,
@@ -48,8 +48,8 @@ class ValuationsController @Inject()(
       @Named("assessmentPage") val sessionRepo: SessionRepo,
       withAssessmentsPageSession: WithAssessmentsPageSessionRefiner,
       override val controllerComponents: MessagesControllerComponents
-)(
-      implicit override val messagesApi: MessagesApi,
+)(implicit
+      override val messagesApi: MessagesApi,
       val config: ApplicationConfig,
       executionContext: ExecutionContext
 ) extends PropertyLinkingController with Logging {
@@ -59,14 +59,18 @@ class ValuationsController @Inject()(
       sessionRepo
         .start[AssessmentsPageSession](AssessmentsPageSession(PreviousPage.withName(previousPage)))
         .map(_ =>
-          Redirect(uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
-            .valuations(submissionId, owner)))
+          Redirect(
+            uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
+              .valuations(submissionId, owner)
+          )
+        )
     }
 
   private[controllers] def assessmentsWithLinks(
         apiAssessments: ApiAssessments,
         submissionId: String,
-        owner: Boolean): Seq[(String, ApiAssessment)] =
+        owner: Boolean
+  ): Seq[(String, ApiAssessment)] =
     apiAssessments.assessments
       .sortBy(ApiAssessment.sortCriteria)
       .collect {
@@ -84,7 +88,7 @@ class ValuationsController @Inject()(
       }
 
       def okResponse(assessments: ApiAssessments, backlink: String, address: String, localAuthorityRef: Option[String])
-        : Result = {
+            : Result = {
         val rateableNA = assessments.assessments.map(_.rateableValue).contains(None)
         val rtp = if (owner) "your_assessments" else "client_assessments"
         val vmvLink = s"${config.vmvUrl}/valuations/start/${assessments.uarn}?rtp=$rtp&submissionId=$submissionId"
@@ -102,32 +106,33 @@ class ValuationsController @Inject()(
             vmvLink,
             address,
             localAuthorityRef
-          ))
+          )
+        )
       }
       assessments
         .flatMap {
           case None => notFound
           case Some(assessments) =>
-            if (owner) {
+            if (owner)
               propertyLinks.getMyOrganisationPropertyLink(submissionId).flatMap {
                 case Some(propertyLink: PropertyLink) =>
-                  Future.successful(
-                    okResponse(assessments, backlink = calculateOwnerBackLink, propertyLink.address, None))
+                  Future
+                    .successful(okResponse(assessments, backlink = calculateOwnerBackLink, propertyLink.address, None))
                 case None => notFound
               }
-            } else {
+            else
               propertyLinks.clientPropertyLink(submissionId).flatMap {
                 case Some(clientPropertyLink: ClientPropertyLink) =>
-                  calculateAgentBackLink(submissionId).map(
-                    backlink =>
-                      okResponse(
-                        assessments,
-                        backlink,
-                        clientPropertyLink.address,
-                        Some(clientPropertyLink.localAuthorityRef)))
+                  calculateAgentBackLink(submissionId).map(backlink =>
+                    okResponse(
+                      assessments,
+                      backlink,
+                      clientPropertyLink.address,
+                      Some(clientPropertyLink.localAuthorityRef)
+                    )
+                  )
                 case None => notFound
               }
-            }
         }
     }
   private def linkAndAssessment(
@@ -145,7 +150,8 @@ class ValuationsController @Inject()(
     else config.dashboardUrl("return-to-your-properties")
 
   private def calculateAgentBackLink(
-        submissionId: String)(implicit request: AssessmentsPageSessionRequest[_], hc: HeaderCarrier): Future[String] =
+        submissionId: String
+  )(implicit request: AssessmentsPageSessionRequest[_], hc: HeaderCarrier): Future[String] =
     request.sessionData match {
       case AssessmentsPageSession(PreviousPage.Dashboard) => Future.successful(config.dashboardUrl("home"))
       case AssessmentsPageSession(PreviousPage.AllClients) =>
@@ -157,7 +163,8 @@ class ValuationsController @Inject()(
           case Some(clientPropertyLink) =>
             config.dashboardUrl(
               s"return-to-selected-client-properties?organisationId=${clientPropertyLink.client.organisationId}&organisationName=${URLEncoder
-                .encode(clientPropertyLink.client.organisationName, "UTF-8")}")
+                .encode(clientPropertyLink.client.organisationName, "UTF-8")}"
+            )
         }
     }
 }

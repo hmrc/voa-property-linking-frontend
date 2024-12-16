@@ -25,8 +25,9 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class IdentityVerificationProxyConnector @Inject()(serverConfig: ServicesConfig, http: DefaultHttpClient)(
-      implicit ec: ExecutionContext) {
+class IdentityVerificationProxyConnector @Inject() (serverConfig: ServicesConfig, http: DefaultHttpClient)(implicit
+      ec: ExecutionContext
+) {
   private lazy val url = serverConfig.baseUrl("identity-verification-proxy")
   private val path = "identity-verification-proxy/journey"
 

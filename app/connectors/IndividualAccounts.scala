@@ -28,7 +28,7 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class IndividualAccounts @Inject()(config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext) {
+class IndividualAccounts @Inject() (config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext) {
 
   lazy val baseUrl: String = config.baseUrl("property-linking") + s"/property-linking/individuals"
 

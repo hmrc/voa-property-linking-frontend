@@ -30,9 +30,9 @@ object Capacity {
       capacity = linkingSession.propertyRelationship
         .fold(throw PropertyRelationshipException("property claim relationship should not be empty"))(_.capacity),
       fromDate = linkingSession.propertyOwnership.fold(linkingSession.earliestStartDate) { propertyOwnership =>
-        if (propertyOwnership.fromDate.isBefore(linkingSession.earliestStartDate)) {
+        if (propertyOwnership.fromDate.isBefore(linkingSession.earliestStartDate))
           linkingSession.earliestStartDate
-        } else { propertyOwnership.fromDate }
+        else propertyOwnership.fromDate
       },
       toDate = linkingSession.propertyOccupancy.flatMap(_.lastOccupiedDate)
     )

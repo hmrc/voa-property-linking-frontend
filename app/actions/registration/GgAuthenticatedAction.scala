@@ -35,13 +35,13 @@ import uk.gov.hmrc.play.http.HeaderCarrierConverter.fromRequestAndSession
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class GgAuthenticatedAction @Inject()(
+class GgAuthenticatedAction @Inject() (
       override val messagesApi: MessagesApi,
       provider: GovernmentGatewayProvider,
       override val authConnector: AuthConnector,
       invalidAccountTypeView: views.html.errors.invalidAccountType
-)(
-      implicit override val executionContext: ExecutionContext,
+)(implicit
+      override val executionContext: ExecutionContext,
       controllerComponents: ControllerComponents,
       config: ApplicationConfig
 ) extends ActionBuilder[RequestWithUserDetails, AnyContent] with AuthorisedFunctions with I18nSupport with Logging {
@@ -50,7 +50,8 @@ class GgAuthenticatedAction @Inject()(
 
   override def invokeBlock[A](
         request: Request[A],
-        block: RequestWithUserDetails[A] => Future[Result]): Future[Result] = {
+        block: RequestWithUserDetails[A] => Future[Result]
+  ): Future[Result] = {
 
     implicit val req: Request[A] = request
     implicit val hc: HeaderCarrier = fromRequestAndSession(request, request.session)
@@ -62,7 +63,8 @@ class GgAuthenticatedAction @Inject()(
         provider.redirectToLogin
       case unsupportedAffinityGroup: UnsupportedAffinityGroup =>
         logger.warn(
-          s"invalid account type with message: ${unsupportedAffinityGroup.msg}, for reason: ${unsupportedAffinityGroup.reason}")
+          s"invalid account type with message: ${unsupportedAffinityGroup.msg}, for reason: ${unsupportedAffinityGroup.reason}"
+        )
         Future.successful(Ok(invalidAccountTypeView()))
       case otherException: Throwable =>
         logger.debug(s"Exception thrown on authorisation with message: ${otherException.getMessage}")
@@ -73,9 +75,10 @@ class GgAuthenticatedAction @Inject()(
       credentialRole and confidenceLevel and itmpDateOfBirth and nino
     authorised(AuthProviders(GovernmentGateway) and (Organisation or Individual))
       .retrieve(retrieval) {
-        case optItmpName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(affinityGroup) ~ Some(
-              role)
-              ~ confidenceLevel ~ itmpDateOfBirth ~ nino =>
+        case optItmpName ~ optEmail ~ optPostCode ~ Some(groupIdentifier) ~ Some(externalId) ~ Some(
+              affinityGroup
+            ) ~ Some(role)
+            ~ confidenceLevel ~ itmpDateOfBirth ~ nino =>
           block(
             new RequestWithUserDetails(
               UserDetails
@@ -92,7 +95,8 @@ class GgAuthenticatedAction @Inject()(
                   nino = nino
                 ),
               request
-            ))
+            )
+          )
       }
       .recoverWith(handleError)
   }

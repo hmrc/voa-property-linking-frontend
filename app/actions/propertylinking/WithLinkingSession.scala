@@ -30,7 +30,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
-class WithLinkingSession @Inject()(
+class WithLinkingSession @Inject() (
       errorHandler: CustomErrorHandler,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo
 )(implicit override val executionContext: ExecutionContext)
@@ -40,19 +40,23 @@ class WithLinkingSession @Inject()(
     HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
   override protected def refine[A](
-        request: BasicAuthenticatedRequest[A]): Future[Either[Result, LinkingSessionRequest[A]]] =
+        request: BasicAuthenticatedRequest[A]
+  ): Future[Either[Result, LinkingSessionRequest[A]]] =
     sessionRepository.get[LinkingSession](implicitly[Reads[LinkingSession]], hc(request)).flatMap {
       case Some(s) if s.isSubmitted == Some(true) =>
         Future.successful(Left(Forbidden(errorHandler.alreadySubmittedTemplate(request))))
       case Some(s) =>
         Future.successful(
-          Right(LinkingSessionRequest(
-            ses = s,
-            organisationId = request.organisationAccount.id,
-            individualAccount = request.individualAccount,
-            organisationAccount = request.organisationAccount,
-            request = request
-          )))
+          Right(
+            LinkingSessionRequest(
+              ses = s,
+              organisationId = request.organisationAccount.id,
+              individualAccount = request.individualAccount,
+              organisationAccount = request.organisationAccount,
+              request = request
+            )
+          )
+        )
       case None => errorHandler.notFoundTemplate(request).map(html => Left(NotFound(html)))
     }
 }

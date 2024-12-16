@@ -27,13 +27,14 @@ import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SessionUserDetailsAction @Inject()(
+class SessionUserDetailsAction @Inject() (
       val personalDetailsSessionRepo: PersonalDetailsSessionRepository
 )(implicit override val executionContext: ExecutionContext)
     extends ActionTransformer[RequestWithUserDetails, RequestWithSessionPersonDetails] {
 
   override protected def transform[A](
-        request: RequestWithUserDetails[A]): Future[RequestWithSessionPersonDetails[A]] = {
+        request: RequestWithUserDetails[A]
+  ): Future[RequestWithSessionPersonDetails[A]] = {
     implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
     personalDetailsSessionRepo.get[AdminUser].map {

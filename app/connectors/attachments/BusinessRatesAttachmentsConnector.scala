@@ -29,7 +29,7 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class BusinessRatesAttachmentsConnector @Inject()(
+class BusinessRatesAttachmentsConnector @Inject() (
       val http: DefaultHttpClient,
       val servicesConfig: ServicesConfig
 )(implicit executionContext: ExecutionContext)
@@ -41,23 +41,28 @@ class BusinessRatesAttachmentsConnector @Inject()(
   def initiateUpload(request: UpscanInitiateRequest)(implicit hc: HeaderCarrier): Future[PreparedUpload] =
     http.POST[UpscanInitiateRequest, PreparedUpload](
       url = s"$baseURL/business-rates-attachments/initiate-upload",
-      request)
+      request
+    )
 
-  def initiateAttachmentUpload(uploadSettings: InitiateAttachmentPayload)(
-        implicit headerCarrier: HeaderCarrier): Future[PreparedUpload] =
+  def initiateAttachmentUpload(
+        uploadSettings: InitiateAttachmentPayload
+  )(implicit headerCarrier: HeaderCarrier): Future[PreparedUpload] =
     http.POST[InitiateAttachmentPayload, PreparedUpload](
       s"$baseURL/business-rates-attachments/v2/initiate",
-      uploadSettings)
+      uploadSettings
+    )
 
   def getAttachment(reference: String)(implicit hc: HeaderCarrier): Future[Attachment] =
     http.GET[Attachment](s"$baseURL/business-rates-attachments/attachments/$reference")
 
-  def submitFile(fileReference: String, submissionId: String)(
-        implicit headerCarrier: HeaderCarrier): Future[Attachment] =
+  def submitFile(fileReference: String, submissionId: String)(implicit
+        headerCarrier: HeaderCarrier
+  ): Future[Attachment] =
     http
       .PATCH[MetaDataRequest, Attachment](
         s"$baseURL/business-rates-attachments/attachments/$fileReference",
-        MetaDataRequest(submissionId))
+        MetaDataRequest(submissionId)
+      )
       .recover {
         case ex: Exception =>
           logger.warn(s"File Submission failed for File Reference: $fileReference Response body", ex)

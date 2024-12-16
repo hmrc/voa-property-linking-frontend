@@ -79,7 +79,8 @@ object EvidenceType extends NamedEnumSupport[EvidenceType] {
       RatesBillType,
       LandRegistryTitle,
       UnableToProvide,
-      NoLeaseOrLicense)
+      NoLeaseOrLicense
+    )
 
   implicit val format: Format[EvidenceType] = EnumFormat(EvidenceType)
   lazy val form: Form[EvidenceType] = Form(single("evidenceType" -> EnumMapping(EvidenceType)))
@@ -95,5 +96,8 @@ object OccupierEvidenceType extends NamedEnumSupport[EvidenceType] {
       single(
         "occupierEvidenceType" -> EnumMapping(
           OccupierEvidenceType,
-          defaultErrorMessageKey = "error.chooseEvidence.occupier.option.required")))
+          defaultErrorMessageKey = "error.chooseEvidence.occupier.option.required"
+        )
+      )
+    )
 }

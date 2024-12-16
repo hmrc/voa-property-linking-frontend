@@ -103,7 +103,8 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
       .thenReturn(EitherT.apply[Future, AttachmentException, Unit](Future.successful(Left(NotAllFilesReadyToUpload))))
 
     val res = testDeclarationController(earliestEnglishStartDate).submit(
-      FakeRequest().withFormUrlEncodedBody("declaration" -> "true"))
+      FakeRequest().withFormUrlEncodedBody("declaration" -> "true")
+    )
     status(res) shouldBe BAD_REQUEST
   }
 

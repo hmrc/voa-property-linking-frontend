@@ -26,7 +26,8 @@ case class MessagePagination(
       pageNumber: Int = 1,
       pageSize: Int = 15,
       sortField: MessageSortField = MessageSortField.EffectiveDate,
-      sortOrder: SortOrder = SortOrder.Descending) {
+      sortOrder: SortOrder = SortOrder.Descending
+) {
 
   lazy val startPoint: Int = (pageNumber - 1) * pageSize + 1
 
@@ -65,12 +66,10 @@ object MessagePagination {
           pageSize        <- bindParam[Int]("pageSize")
           sortField       <- bindParam[MessageSortField]("sortField")
           sortOrder       <- bindParam[SortOrder]("sortOrder")
-        } yield {
-          (clientName, referenceNumber, address, pageNumber, pageSize, sortField, sortOrder) match {
-            case (Right(cn), Right(rn), Right(ad), Right(pn), Right(ps), Right(sf), Right(so)) =>
-              Right(MessagePagination(cn, rn, ad, pn, ps, sf, so))
-            case _ => Left("Unable to bind to MessagePagination")
-          }
+        } yield (clientName, referenceNumber, address, pageNumber, pageSize, sortField, sortOrder) match {
+          case (Right(cn), Right(rn), Right(ad), Right(pn), Right(ps), Right(sf), Right(so)) =>
+            Right(MessagePagination(cn, rn, ad, pn, ps, sf, so))
+          case _ => Left("Unable to bind to MessagePagination")
         }
       }
 

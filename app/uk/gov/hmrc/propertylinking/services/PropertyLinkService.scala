@@ -26,10 +26,11 @@ import scala.concurrent.Future
 /*
   TODO will move PropertyLinkingService into this.
  */
-class PropertyLinkService @Inject()(propertyLinkConnector: PropertyLinkConnector) {
+class PropertyLinkService @Inject() (propertyLinkConnector: PropertyLinkConnector) {
 
-  def getSingularPropertyLink(submissionId: String, isOwner: Boolean)(
-        implicit hc: HeaderCarrier): Future[Option[PropertyLink]] =
+  def getSingularPropertyLink(submissionId: String, isOwner: Boolean)(implicit
+        hc: HeaderCarrier
+  ): Future[Option[PropertyLink]] =
     if (isOwner)
       propertyLinkConnector.getMyOrganisationPropertyLink(submissionId)
     else

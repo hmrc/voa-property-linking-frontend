@@ -30,11 +30,12 @@ import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class IdentityVerificationService @Inject()(
+class IdentityVerificationService @Inject() (
       val errorHandler: CustomErrorHandler,
       registrationService: RegistrationService,
       val proxyConnector: IdentityVerificationProxyConnector,
-      implicit val config: ApplicationConfig) {
+      implicit val config: ApplicationConfig
+) {
 
   // lazy is required here to ensure that the reverse route lookup
   // includes the context (/business-rates-property-linking) in the URL
@@ -46,8 +47,9 @@ class IdentityVerificationService @Inject()(
     proxyConnector
       .start(Journey("voa-property-linking", successUrl, failureUrl, ConfidenceLevel.L200, userData))
 
-  def continue(journeyId: Option[String], userDetails: UserDetails)(
-        implicit hc: HeaderCarrier,
-        xec: ExecutionContext): Future[Option[RegistrationResult]] =
+  def continue(journeyId: Option[String], userDetails: UserDetails)(implicit
+        hc: HeaderCarrier,
+        xec: ExecutionContext
+  ): Future[Option[RegistrationResult]] =
     registrationService.continueUplift(journeyId, userDetails)
 }

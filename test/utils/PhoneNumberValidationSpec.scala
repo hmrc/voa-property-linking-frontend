@@ -52,11 +52,10 @@ class PhoneNumberValidationSpec extends BaseUnitSpec {
       TableDrivenPropertyChecks.forAll(lengths) { (phone, isValid) =>
         val res: Form[String] = form.bind(Map("phone" -> phone))
 
-        if (isValid) {
+        if (isValid)
           res.hasErrors shouldBe false
-        } else {
+        else
           res.errors(0).message shouldBe "error.phoneNumber.invalidLength"
-        }
       }
     }
 
@@ -73,7 +72,7 @@ class PhoneNumberValidationSpec extends BaseUnitSpec {
         ("9790 305 1234", false),
         ("0890456782a", false),
         ("+44-909-789-8973", false),
-        ("#447903067897", false),
+        ("#447903067897", false)
       )
 
       TableDrivenPropertyChecks.forAll(formats) { (phone, isValid) =>
@@ -92,11 +91,10 @@ class PhoneNumberValidationSpec extends BaseUnitSpec {
       TableDrivenPropertyChecks.forAll(isNumber) { (phone, isValid) =>
         val res: Form[String] = form.bind(Map("phone" -> phone))
 
-        if (isValid) {
+        if (isValid)
           res.hasErrors shouldBe false
-        } else {
+        else
           res.errors(0).message shouldBe "error.phoneNumber.required"
-        }
       }
     }
   }

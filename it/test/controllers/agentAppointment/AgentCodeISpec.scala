@@ -145,8 +145,8 @@ class AgentCodeISpec extends ISpecBase with HtmlComponentHelpers {
 
     stubFor {
       get(
-        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false")
-        .willReturn {
+        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false"
+      ).willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
         }
     }

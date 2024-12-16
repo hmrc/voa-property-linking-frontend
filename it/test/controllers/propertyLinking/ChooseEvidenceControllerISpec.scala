@@ -644,7 +644,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = English,
       userIsAgent = false,
       relationship = "Owner",
-      selectedOptionFromCya = Some("Business rates bill"))
+      selectedOptionFromCya = Some("Business rates bill")
+    )
 
     s"sets fromCya to false in the session" in {
       await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.fromCya shouldBe Some(false))
@@ -693,7 +694,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = English,
       userIsAgent = true,
       relationship = "Occupier",
-      selectedOptionFromCya = Some("Lease"))
+      selectedOptionFromCya = Some("Lease")
+    )
 
     s"sets fromCya to false in the session" in {
       await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.fromCya shouldBe Some(false))
@@ -748,7 +750,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = English,
       userIsAgent = true,
       relationship = "Occupier",
-      selectedOptionFromCya = Some("Licence to occupy"))
+      selectedOptionFromCya = Some("Licence to occupy")
+    )
 
     s"sets fromCya to false in the session" in {
       await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.fromCya shouldBe Some(false))
@@ -803,7 +806,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = true,
       relationship = "Owner and occupier",
-      selectedOptionFromCya = Some("No business rates bill"))
+      selectedOptionFromCya = Some("No business rates bill")
+    )
 
     s"sets fromCya to false in the session" in {
       await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.fromCya shouldBe Some(false))
@@ -852,7 +856,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = false,
       relationship = "Occupier",
-      selectedOptionFromCya = Some("No lease or licence to occupy"))
+      selectedOptionFromCya = Some("No lease or licence to occupy")
+    )
 
     s"sets fromCya to false in the session" in {
       await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.fromCya shouldBe Some(false))
@@ -965,7 +970,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = Welsh,
       userIsAgent = false,
       relationship = "Owner and occupier",
-      selectedOption = None)
+      selectedOption = None
+    )
     lazy val document = Jsoup.parse(res.body)
 
     "has a status of 400" in {
@@ -1025,7 +1031,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = English,
       userIsAgent = true,
       relationship = "Owner and occupier",
-      selectedOption = None)
+      selectedOption = None
+    )
     lazy val document = Jsoup.parse(res.body)
 
     "has a status of 400" in {
@@ -1141,7 +1148,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = English,
       userIsAgent = false,
       relationship = "Owner and occupier",
-      selectedOption = Some("Yes"))
+      selectedOption = Some("Yes")
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -1165,7 +1173,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       userIsAgent = true,
       relationship = "Owner and occupier",
       selectedOption = Some("Yes"),
-      fromCya = true)
+      fromCya = true
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -1179,7 +1188,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       userIsAgent = false,
       relationship = "Owner",
       selectedOption = Some("No"),
-      fromCya = true)
+      fromCya = true
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -1444,7 +1454,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = English,
       userIsAgent = false,
       relationship = "Occupier",
-      selectedOption = Some("Lease"))
+      selectedOption = Some("Lease")
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -1457,7 +1468,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = English,
       userIsAgent = true,
       relationship = "Occupier",
-      selectedOption = Some("Licence to occupy"))
+      selectedOption = Some("Licence to occupy")
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -1470,7 +1482,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       language = English,
       userIsAgent = false,
       relationship = "Occupier",
-      selectedOption = Some("No lease or licence to occupy"))
+      selectedOption = Some("No lease or licence to occupy")
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -1484,7 +1497,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       userIsAgent = true,
       relationship = "Occupier",
       selectedOption = Some("Lease"),
-      fromCya = true)
+      fromCya = true
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -1498,7 +1512,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       userIsAgent = false,
       relationship = "Occupier",
       selectedOption = Some("Licence to occupy"),
-      fromCya = true)
+      fromCya = true
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -1512,7 +1527,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       userIsAgent = true,
       relationship = "Occupier",
       selectedOption = Some("No lease or licence to occupy"),
-      fromCya = true)
+      fromCya = true
+    )
 
     "has the correct status and redirect location" in {
       res.status shouldBe SEE_OTHER
@@ -1523,7 +1539,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
   private def commonSetup(
         userIsAgent: Boolean,
         relationship: String,
-        selectedOptionFromCya: Option[String] = None): Unit = {
+        selectedOptionFromCya: Option[String] = None
+  ): Unit = {
     stubFor {
       get("/business-rates-authorisation/authenticate")
         .willReturn {
@@ -1554,30 +1571,34 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     }
 
     await(
-      mockPropertyLinkingSessionRepository.saveOrUpdate(LinkingSession(
-        address = "Test Address, Test Lane, T35 T3R",
-        uarn = 1L,
-        submissionId = "PL-123456",
-        personId = 1L,
-        earliestStartDate = LocalDate.of(2017, 4, 1),
-        propertyRelationship = Some(propertyRelationship),
-        propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 4, 1))),
-        propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true)),
-        hasRatesBill = hasRatesBill,
-        occupierEvidenceType = occupierEvidenceType,
-        clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
-        localAuthorityReference = "2050466366770",
-        rtp = ClaimPropertyReturnToPage.FMBR,
-        fromCya = Some(selectedOptionFromCya.isDefined),
-        isSubmitted = None
-      )))
+      mockPropertyLinkingSessionRepository.saveOrUpdate(
+        LinkingSession(
+          address = "Test Address, Test Lane, T35 T3R",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = Some(propertyRelationship),
+          propertyOwnership = Some(PropertyOwnership(fromDate = LocalDate.of(2017, 4, 1))),
+          propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true)),
+          hasRatesBill = hasRatesBill,
+          occupierEvidenceType = occupierEvidenceType,
+          clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
+          localAuthorityReference = "2050466366770",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = Some(selectedOptionFromCya.isDefined),
+          isSubmitted = None
+        )
+      )
+    )
   }
 
   private def getEvidencePage(
         language: Language,
         userIsAgent: Boolean,
         relationship: String,
-        selectedOptionFromCya: Option[String] = None): Document = {
+        selectedOptionFromCya: Option[String] = None
+  ): Document = {
     commonSetup(userIsAgent, relationship, selectedOptionFromCya)
 
     val url = if (relationship.equalsIgnoreCase("Occupier")) "occupier-evidence" else "evidence"
@@ -1598,7 +1619,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
         userIsAgent: Boolean,
         relationship: String,
         selectedOption: Option[String],
-        fromCya: Boolean = false) = {
+        fromCya: Boolean = false
+  ) = {
     val evidence = if (fromCya) Some("Evidence type") else None
     commonSetup(userIsAgent, relationship, selectedOptionFromCya = evidence)
 

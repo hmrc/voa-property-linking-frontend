@@ -25,7 +25,7 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class BusinessRatesAuthorisationConnector @Inject()(
+class BusinessRatesAuthorisationConnector @Inject() (
       config: ServicesConfig,
       http: DefaultHttpClient
 )(implicit executionContext: ExecutionContext)
@@ -43,13 +43,14 @@ class BusinessRatesAuthorisationConnector @Inject()(
         case AuthorisationFailure(err) => handleUnauthenticated(err)
       }
 
-  private def handleUnauthenticated(error: String) = error match {
-    case "INVALID_GATEWAY_SESSION" => InvalidGGSession
-    case "NO_CUSTOMER_RECORD"      => NoVOARecord
-    case "TRUST_ID_MISMATCH"       => IncorrectTrustId
-    case "INVALID_ACCOUNT_TYPE"    => InvalidAccountType
-    case "NON_GROUPID_ACCOUNT"     => NonGroupIDAccount
-  }
+  private def handleUnauthenticated(error: String) =
+    error match {
+      case "INVALID_GATEWAY_SESSION" => InvalidGGSession
+      case "NO_CUSTOMER_RECORD"      => NoVOARecord
+      case "TRUST_ID_MISMATCH"       => IncorrectTrustId
+      case "INVALID_ACCOUNT_TYPE"    => InvalidAccountType
+      case "NON_GROUPID_ACCOUNT"     => NonGroupIDAccount
+    }
 }
 
 sealed trait AuthorisationResult

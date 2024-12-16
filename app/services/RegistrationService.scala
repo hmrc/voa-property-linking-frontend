@@ -30,91 +30,98 @@ import uk.gov.hmrc.http.HeaderCarrier
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
-class RegistrationService @Inject()(
+class RegistrationService @Inject() (
       groupAccounts: GroupAccounts,
       individualAccounts: IndividualAccounts,
       enrolmentService: EnrolmentService,
       addresses: Addresses,
       emailService: EmailService,
       config: ApplicationConfig,
-      @Named("personSession") personalDetailsSessionRepo: SessionRepo)
-    extends Logging {
+      @Named("personSession") personalDetailsSessionRepo: SessionRepo
+) extends Logging {
 
   def create(
         groupDetails: GroupAccountDetails,
         userDetails: UserDetails,
         affinityGroupOpt: Option[AffinityGroup] = None
-  )(individual: UserDetails => Long => Option[Long] => IndividualAccountSubmission)(
-        implicit hc: HeaderCarrier,
-        ec: ExecutionContext): Future[RegistrationResult] =
+  )(
+        individual: UserDetails => Long => Option[Long] => IndividualAccountSubmission
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] =
     for {
       id <- addresses.registerAddress(groupDetails)
       _ <- register(
-            groupId = userDetails.groupIdentifier,
-            groupExists = acc => individualAccounts.create(individual(userDetails)(id)(Some(acc.id))),
-            noGroup = groupAccounts.create(
-              groupId = userDetails.groupIdentifier,
-              addressId = id,
-              details = groupDetails,
-              individualAccountSubmission = individual(userDetails)(id)(None))
-          )
+             groupId = userDetails.groupIdentifier,
+             groupExists = acc => individualAccounts.create(individual(userDetails)(id)(Some(acc.id))),
+             noGroup = groupAccounts.create(
+               groupId = userDetails.groupIdentifier,
+               addressId = id,
+               details = groupDetails,
+               individualAccountSubmission = individual(userDetails)(id)(None)
+             )
+           )
       personId     <- individualAccounts.withExternalId(userDetails.externalId)
       groupAccount <- groupAccounts.withGroupId(userDetails.groupIdentifier)
       res          <- enrol(personId, id, groupAccount, affinityGroupOpt)(userDetails)
     } yield res
 
-  def continue(journeyId: Option[String], userDetails: UserDetails)(
-        implicit hc: HeaderCarrier,
-        ec: ExecutionContext): Future[Option[RegistrationResult]] =
+  def continue(journeyId: Option[String], userDetails: UserDetails)(implicit
+        hc: HeaderCarrier,
+        ec: ExecutionContext
+  ): Future[Option[RegistrationResult]] =
     (userDetails.affinityGroup, userDetails.credentialRole) match {
       case (Organisation, role) if role != Assistant =>
         for {
           organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetails]
           organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
           registrationResult <- create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(
-                                 organisationDetails.toIndividualAccountSubmission(journeyId))
+                                  organisationDetails.toIndividualAccountSubmission(journeyId)
+                                )
         } yield Some(registrationResult)
       case (Individual, _) =>
         for {
           individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetails]
           individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
           registrationResult <- create(individualDetails.toGroupDetails, userDetails, Some(Individual))(
-                                 individualDetails.toIndividualAccountSubmission(journeyId))
+                                  individualDetails.toIndividualAccountSubmission(journeyId)
+                                )
         } yield Some(registrationResult)
     }
 
-  def continueUplift(journeyId: Option[String], userDetails: UserDetails)(
-        implicit hc: HeaderCarrier,
-        ec: ExecutionContext): Future[Option[RegistrationResult]] =
+  def continueUplift(journeyId: Option[String], userDetails: UserDetails)(implicit
+        hc: HeaderCarrier,
+        ec: ExecutionContext
+  ): Future[Option[RegistrationResult]] =
     (userDetails.affinityGroup, userDetails.credentialRole) match {
       case (Organisation, role) if role != Assistant =>
         for {
           organisationDetailsOpt <- personalDetailsSessionRepo.get[AdminOrganisationAccountDetailsUplift]
           organisationDetails = organisationDetailsOpt.getOrElse(throw new Exception("details not found"))
-          registrationResult <- create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(
-                                 organisationDetails.toIndividualAccountSubmissionUplift(
-                                   journeyId,
-                                   userDetails.firstName,
-                                   userDetails.lastName))
+          registrationResult <-
+            create(organisationDetails.toGroupDetails, userDetails, Some(Organisation))(
+              organisationDetails
+                .toIndividualAccountSubmissionUplift(journeyId, userDetails.firstName, userDetails.lastName)
+            )
         } yield Some(registrationResult)
       case (Individual, _) =>
         for {
           individualDetailsOpt <- personalDetailsSessionRepo.get[IndividualUserAccountDetailsUplift]
           individualDetails = individualDetailsOpt.getOrElse(throw new Exception("details not found"))
-          registrationResult <- create(
-                                 individualDetails.toGroupDetails(userDetails.firstName, userDetails.lastName),
-                                 userDetails,
-                                 Some(Individual))(
-                                 individualDetails.toIndividualAccountSubmissionUplift(
-                                   journeyId,
-                                   userDetails.firstName,
-                                   userDetails.lastName))
+          registrationResult <-
+            create(
+              individualDetails.toGroupDetails(userDetails.firstName, userDetails.lastName),
+              userDetails,
+              Some(Individual)
+            )(
+              individualDetails
+                .toIndividualAccountSubmissionUplift(journeyId, userDetails.firstName, userDetails.lastName)
+            )
         } yield Some(registrationResult)
     }
 
-  private def register(groupId: String, groupExists: GroupAccount => Future[Int], noGroup: => Future[Long])(
-        implicit hc: HeaderCarrier,
-        ec: ExecutionContext): Future[Long] =
+  private def register(groupId: String, groupExists: GroupAccount => Future[Int], noGroup: => Future[Long])(implicit
+        hc: HeaderCarrier,
+        ec: ExecutionContext
+  ): Future[Long] =
     groupAccounts.withGroupId(groupId).flatMap {
       case Some(acc) => groupExists(acc).map(_.toLong)
       case _         => noGroup
@@ -124,15 +131,15 @@ class RegistrationService @Inject()(
         option: Option[DetailedIndividualAccount],
         addressId: Long,
         groupAccount: Option[GroupAccount],
-        affinityGroupOpt: Option[AffinityGroup])(
-        userDetails: UserDetails)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] =
-    if (config.stubEnrolment) {
+        affinityGroupOpt: Option[AffinityGroup]
+  )(userDetails: UserDetails)(implicit hc: HeaderCarrier, ex: ExecutionContext): Future[RegistrationResult] =
+    if (config.stubEnrolment)
       option match {
         case Some(detailIndiv) =>
           registrationSuccess(userDetails, detailIndiv, groupAccount, affinityGroupOpt, enrolmentSuccess = true)
         case _ => Future.successful(DetailsMissing)
       }
-    } else {
+    else
       (option, userDetails.credentialRole) match {
         case (Some(detailIndiv), Assistant) =>
           registrationSuccess(userDetails, detailIndiv, groupAccount, affinityGroupOpt, enrolmentSuccess = true)
@@ -142,25 +149,26 @@ class RegistrationService @Inject()(
               registrationSuccess(userDetails, detailIndiv, groupAccount, affinityGroupOpt, enrolmentSuccess = true)
             case Failure =>
               logger.warn(
-                s"Failed to enrol VOA user organisation ID ${detailIndiv.organisationId}, individual ID ${detailIndiv.individualId}")
+                s"Failed to enrol VOA user organisation ID ${detailIndiv.organisationId}, individual ID ${detailIndiv.individualId}"
+              )
               registrationSuccess(userDetails, detailIndiv, groupAccount, affinityGroupOpt, enrolmentSuccess = false)
           }
         case (None, _) => Future.successful(DetailsMissing)
       }
-    }
 
   private def registrationSuccess(
         userDetails: UserDetails,
         detailedIndividualAccount: DetailedIndividualAccount,
         groupAccount: Option[GroupAccount],
         affinityGroupOpt: Option[AffinityGroup],
-        enrolmentSuccess: Boolean)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
-    if (enrolmentSuccess) {
+        enrolmentSuccess: Boolean
+  )(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[RegistrationResult] = {
+    if (enrolmentSuccess)
       logger.info(s"New ${userDetails.affinityGroup} ${userDetails.credentialRole} successfully registered for VOA")
-    } else {
+    else
       logger.warn(
-        s"${userDetails.affinityGroup} ${userDetails.credentialRole} registered for VOA although enrolment for CCA failed.")
-    }
+        s"${userDetails.affinityGroup} ${userDetails.credentialRole} registered for VOA although enrolment for CCA failed."
+      )
     emailService
       .sendNewRegistrationSuccess(userDetails.email, detailedIndividualAccount, groupAccount, affinityGroupOpt)
       .map(_ => RegistrationSuccess(detailedIndividualAccount.individualId))

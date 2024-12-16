@@ -195,7 +195,8 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("Location") shouldBe Some(
-          "/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code")
+          "/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code"
+        )
       }
     }
 
@@ -205,7 +206,8 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("Location") shouldBe Some(
-          "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list")
+          "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+        )
       }
     }
 
@@ -217,7 +219,8 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
@@ -233,7 +236,8 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fagent-code?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint-new-agent%2Fagent-code?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
@@ -250,8 +254,8 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     stubFor {
       get(
-        "/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false")
-        .willReturn {
+        "/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
+      ).willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult1).toString())
         }
     }
@@ -262,7 +266,8 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome"
+        )
         .withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")

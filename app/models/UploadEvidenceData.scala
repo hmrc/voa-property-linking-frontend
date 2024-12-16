@@ -22,7 +22,8 @@ import play.api.libs.json._
 case class UploadEvidenceData(
       linkBasis: LinkBasis = NoEvidenceFlag,
       fileInfo: Option[FileInfo] = None,
-      attachments: Option[Map[String, UploadedFileDetails]] = Some(Map()))
+      attachments: Option[Map[String, UploadedFileDetails]] = Some(Map())
+)
 
 object UploadEvidenceData {
   implicit val format: OFormat[UploadEvidenceData] = Json.format[UploadEvidenceData]

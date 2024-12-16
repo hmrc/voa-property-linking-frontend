@@ -24,7 +24,7 @@ import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
-class VmvConnector @Inject()(
+class VmvConnector @Inject() (
       http: DefaultHttpClient,
       @Named("vmv.singularPropertyUrl") propertyHistoryUrl: String
 )(implicit ec: ExecutionContext)

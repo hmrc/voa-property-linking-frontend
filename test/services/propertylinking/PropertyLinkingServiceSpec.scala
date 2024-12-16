@@ -41,7 +41,8 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
       mockBusinessRatesAttachmentsService,
       mockPropertyLinkConnector,
       mockApplicationConfig,
-      mockManageAgentSessionRepository)
+      mockManageAgentSessionRepository
+    )
 
   val httpResponse = emptyJsonHttpResponse(200)
   val clientId = 100
@@ -49,7 +50,8 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId("1111")))
 
   implicit def linkingSessionRequest(
-        clientDetails: Option[ClientDetails] = None): LinkingSessionRequest[AnyContentAsEmpty.type] =
+        clientDetails: Option[ClientDetails] = None
+  ): LinkingSessionRequest[AnyContentAsEmpty.type] =
     LinkingSessionRequest(
       LinkingSession(
         address = "some address",
@@ -117,17 +119,20 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
           propertyValuation1
             .copy(
               listType = ListType.CURRENT,
-              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(1))),
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(1))
+            ),
           propertyValuation1
             .copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList)),
           propertyValuation1
             .copy(
               listType = ListType.DRAFT,
-              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(2))),
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(2))
+            ),
           propertyValuation1
             .copy(
               listType = ListType.CURRENT,
-              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(3)))
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(3))
+            )
         )
         val history = propertyHistory.copy(history = propertyValuations, localAuthorityCode = "1English")
 
@@ -160,17 +165,20 @@ class PropertyLinkingServiceSpec extends ServiceSpec {
           propertyValuation1
             .copy(
               listType = ListType.CURRENT,
-              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(1))),
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(1))
+            ),
           propertyValuation1
             .copy(listType = ListType.DRAFT, propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList)),
           propertyValuation1
             .copy(
               listType = ListType.DRAFT,
-              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(2))),
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(2))
+            ),
           propertyValuation1
             .copy(
               listType = ListType.CURRENT,
-              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(3)))
+              propertyLinkEarliestStartDate = Some(earliestStartDateOfCurrentList.plusDays(3))
+            )
         )
         val history = propertyHistory.copy(history = propertyValuations, localAuthorityCode = "6Welsh")
 

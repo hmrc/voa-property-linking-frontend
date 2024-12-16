@@ -308,26 +308,30 @@ class DeclarationControllerConfirmationISpec extends ISpecBase {
     }
 
     await(
-      mockPropertyLinkingSessionRepository.saveOrUpdate(LinkingSession(
-        address = "Test Address, Test Lane, T35 T3R",
-        uarn = 1L,
-        submissionId = "PL-123456",
-        personId = 1L,
-        earliestStartDate = LocalDate.of(2017, 4, 1),
-        propertyRelationship = None,
-        propertyOwnership = None,
-        propertyOccupancy = None,
-        hasRatesBill = None,
-        clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
-        localAuthorityReference = "2050466366770",
-        rtp = ClaimPropertyReturnToPage.FMBR,
-        fromCya = None,
-        isSubmitted = None
-      )))
+      mockPropertyLinkingSessionRepository.saveOrUpdate(
+        LinkingSession(
+          address = "Test Address, Test Lane, T35 T3R",
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = None,
+          propertyOwnership = None,
+          propertyOccupancy = None,
+          hasRatesBill = None,
+          clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
+          localAuthorityReference = "2050466366770",
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = None,
+          isSubmitted = None
+        )
+      )
+    )
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/confirmation")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/confirmation"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()

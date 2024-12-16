@@ -55,7 +55,8 @@ class EmailServiceSpec extends BaseUnitSpec with MockitoSugar with HttpResponseU
           email = "email@email.com",
           phone = "01234567889",
           isAgent = true,
-          agentCode = Some(12345678L))
+          agentCode = Some(12345678L)
+        )
 
       when(config.baseUrl("email")).thenReturn("http://blah:2909/")
 
@@ -64,8 +65,9 @@ class EmailServiceSpec extends BaseUnitSpec with MockitoSugar with HttpResponseU
           any[Writes[PayLoad]](),
           any[HttpReads[HttpResponse]](),
           any[HeaderCarrier](),
-          any()))
-        .thenReturn(Future.successful(emptyJsonHttpResponse(OK)))
+          any()
+        )
+      ).thenReturn(Future.successful(emptyJsonHttpResponse(OK)))
 
       val individualDetails =
         IndividualDetails(
@@ -74,7 +76,8 @@ class EmailServiceSpec extends BaseUnitSpec with MockitoSugar with HttpResponseU
           email = "email@email.com",
           phone1 = "012345567788",
           phone2 = None,
-          addressId = 12345L)
+          addressId = 12345L
+        )
 
       Helpers.await(
         emailService.sendNewRegistrationSuccess(
@@ -84,10 +87,12 @@ class EmailServiceSpec extends BaseUnitSpec with MockitoSugar with HttpResponseU
             trustId = Some("trustId"),
             organisationId = 123L,
             individualId = 234L,
-            details = individualDetails),
+            details = individualDetails
+          ),
           Some(groupAccount),
           Some(Organisation)
-        ))
+        )
+      )
 
       verify(mockWSHttp)
         .POST(any, any, any)(any[Writes[PayLoad]](), any[HttpReads[HttpResponse]](), any[HeaderCarrier](), any())

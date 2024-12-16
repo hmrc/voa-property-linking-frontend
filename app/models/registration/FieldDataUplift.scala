@@ -26,7 +26,8 @@ case class FieldDataUplift(
       businessAddress: Address = Address.empty,
       isAgent: Boolean = false,
       mobilePhone: String = "",
-      selectedAddress: Option[String] = None)
+      selectedAddress: Option[String] = None
+)
 
 object FieldDataUplift {
 

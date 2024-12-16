@@ -26,6 +26,7 @@ object AgentPropertiesForm {
       "address"                 -> optional(text),
       "localAuthorityReference" -> optional(text)
     )(FilterAgentProperties.apply)(FilterAgentProperties.unapply)
-      .verifying("error.propertyRepresentation.agentProperties.filter", fields => fields.searchCriteriaExists))
+      .verifying("error.propertyRepresentation.agentProperties.filter", fields => fields.searchCriteriaExists)
+  )
 
 }

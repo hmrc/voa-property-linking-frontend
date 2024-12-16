@@ -28,7 +28,7 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class GroupAccounts @Inject()(config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext)
+class GroupAccounts @Inject() (config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext)
     extends Logging {
 
   val url: String = config.baseUrl("property-linking") + "/property-linking/groups"
@@ -54,7 +54,8 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: DefaultHttpClient)(i
         groupId: String,
         addressId: Long,
         details: GroupAccountDetails,
-        individualAccountSubmission: IndividualAccountSubmission)(implicit hc: HeaderCarrier): Future[Long] =
+        individualAccountSubmission: IndividualAccountSubmission
+  )(implicit hc: HeaderCarrier): Future[Long] =
     create(
       GroupAccountSubmission(
         groupId,
@@ -64,7 +65,8 @@ class GroupAccounts @Inject()(config: ServicesConfig, http: DefaultHttpClient)(i
         details.phone,
         details.isAgent,
         individualAccountSubmission
-      ))
+      )
+    )
 
   def update(orgId: Long, details: UpdatedOrganisationAccount)(implicit hc: HeaderCarrier): Future[Unit] =
     http.PUT[UpdatedOrganisationAccount, HttpResponse](s"$url/$orgId", details) map { _ =>

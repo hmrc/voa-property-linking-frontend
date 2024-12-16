@@ -22,7 +22,8 @@ case class IndividualAccountSubmission(
       externalId: String,
       trustId: Option[String],
       organisationId: Option[Long],
-      details: IndividualDetails)
+      details: IndividualDetails
+)
 object IndividualAccountSubmission {
   implicit val format: OFormat[IndividualAccountSubmission] = Json.format
 }
@@ -31,14 +32,16 @@ case class IndividualAccount(
       externalId: String,
       trustId: Option[String],
       organisationId: Long,
-      details: IndividualDetails)
+      details: IndividualDetails
+)
 
 case class DetailedIndividualAccount(
       externalId: String,
       trustId: Option[String],
       organisationId: Long,
       individualId: Long,
-      details: IndividualDetails) {
+      details: IndividualDetails
+) {
   def toIndividualAccount: IndividualAccount = IndividualAccount(externalId, trustId, organisationId, details)
 }
 

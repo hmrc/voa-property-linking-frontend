@@ -90,10 +90,11 @@ trait ISpecBase
   override def afterAll(): Unit =
     wireMockServer.stop()
 
-  def languageCookie(lang: Language): DefaultWSCookie = lang match {
-    case English => DefaultWSCookie("PLAY_LANG", "en")
-    case Welsh   => DefaultWSCookie("PLAY_LANG", "cy")
-  }
+  def languageCookie(lang: Language): DefaultWSCookie =
+    lang match {
+      case English => DefaultWSCookie("PLAY_LANG", "en")
+      case Welsh   => DefaultWSCookie("PLAY_LANG", "cy")
+    }
 
   def getSessionCookie(testSessionId: String): WSCookie = {
 

@@ -61,8 +61,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "showAgents" should "show the manage agent page" in {
     val propertyLinksCount = 1
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any()))
-      .thenReturn(Future.successful(
-        organisationsAgentsListWithOneAgent.copy(agents = List(agentSummary.copy(propertyCount = 0)))))
+      .thenReturn(
+        Future.successful(organisationsAgentsListWithOneAgent.copy(agents = List(agentSummary.copy(propertyCount = 0))))
+      )
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any()))
       .thenReturn(Future.successful(propertyLinksCount))
     val res = testController.showAgents()(FakeRequest())
@@ -98,7 +99,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK")
+      "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK"
+    )
   }
 
   "manageAgent" should "show the manage agent page - in welsh" in {
@@ -114,7 +116,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"Ydych chi’n siŵr eich bod am dynnu ${agentSummary.name} o’ch cyfrif? - Valuation Office Agency - GOV.UK")
+      s"Ydych chi’n siŵr eich bod am dynnu ${agentSummary.name} o’ch cyfrif? - Valuation Office Agency - GOV.UK"
+    )
   }
 
   "manageAgentProperties" should "return the correct manage agent page with property links" in {
@@ -132,7 +135,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"${messages("propertyRepresentation.agentProperties.assigned.title")} - Valuation Office Agency - GOV.UK")
+      s"${messages("propertyRepresentation.agentProperties.assigned.title")} - Valuation Office Agency - GOV.UK"
+    )
 
     html.html
       .getElementById("back-link")
@@ -156,7 +160,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val html = HtmlPage(res)
     html.html
       .getElementById("back-link")
-      .attr("href") shouldBe "http://localhost:9537/business-rates-valuation/property-link/1/valuations/1?submissionId=subId#agents-tab"
+      .attr(
+        "href"
+      ) shouldBe "http://localhost:9537/business-rates-valuation/property-link/1/valuations/1?submissionId=subId#agents-tab"
 
   }
 
@@ -180,7 +186,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "subId",
         valuationId = 1L,
-        tabName = Some("agents-tab"))
+        tabName = Some("agents-tab")
+      )
       .url
 
   }
@@ -217,7 +224,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK")
+      "Are you sure you want to remove Some Agent Org from your account? - Valuation Office Agency - GOV.UK"
+    )
 
   }
 
@@ -233,7 +241,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"Ydych chi’n siŵr eich bod am dynnu ${agentSummary.name} o’ch cyfrif? - Valuation Office Agency - GOV.UK")
+      s"Ydych chi’n siŵr eich bod am dynnu ${agentSummary.name} o’ch cyfrif? - Valuation Office Agency - GOV.UK"
+    )
 
   }
 
@@ -271,7 +280,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     verifyUnassignedPrivilegesDisplayed(html.html)
     html.html
       .getElementById("cancel-link")
-      .attr("href") shouldBe s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=${agentSummary.representativeCode}"
+      .attr(
+        "href"
+      ) shouldBe s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=${agentSummary.representativeCode}"
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and more than one property links (agent not assigned)" in {
@@ -288,7 +299,9 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     html.titleShouldMatch(s"${messages("propertyRepresentation.manageAgent.title")} - Valuation Office Agency - GOV.UK")
     html.html
       .getElementById("back-link")
-      .attr("href") shouldBe s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=${agentSummary.representativeCode}"
+      .attr(
+        "href"
+      ) shouldBe s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=${agentSummary.representativeCode}"
   }
 
   "getManageAgentView" should "return the correct manage agent page when org has one agent and more than one property links (agent assigned to some)" in {
@@ -339,12 +352,14 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
 
     val res = testController.submitManageAgent(agentCode)(
-      FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "BLAH", "agentCode" -> s"$agentCode"))
+      FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "BLAH", "agentCode" -> s"$agentCode")
+    )
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"Are you sure you want to unassign ${agentSummary.name} from your property? - Valuation Office Agency - GOV.UK")
+      s"Are you sure you want to unassign ${agentSummary.name} from your property? - Valuation Office Agency - GOV.UK"
+    )
   }
 
   "submitManageAgent" should "return 400 Bad Request when agentCode is not submitted " in {
@@ -356,29 +371,36 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
       .thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
 
     val res = testController.submitManageAgent(agentCode)(
-      FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "unassignFromAllProperties"))
+      FakeRequest().withFormUrlEncodedBody("manageAgentOption" -> "unassignFromAllProperties")
+    )
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"Are you sure you want to unassign ${agentSummary.name} from your property? - Valuation Office Agency - GOV.UK")
+      s"Are you sure you want to unassign ${agentSummary.name} from your property? - Valuation Office Agency - GOV.UK"
+    )
   }
 
   "submitManageAgent" should "return 303 SEE OTHER when IP chooses to appoint agent to all properties" in {
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
-      Future.successful(organisationsAgentsListWithOneAgent.copy(
-        agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
+      Future.successful(
+        organisationsAgentsListWithOneAgent
+          .copy(agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))
+      )
+    )
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest()
-        .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToAllProperties.name}", "agentName" -> "Agent Org"))
+        .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToAllProperties.name}", "agentName" -> "Agent Org")
+    )
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/manage-agent/assign/to-all-properties")
+      "/business-rates-property-linking/my-organisation/manage-agent/assign/to-all-properties"
+    )
 
   }
 
@@ -413,7 +435,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "showAssignToAll" should "display dynamic content correctly in English when assigning to one property" in new AssignToAllTestCase
-  with English {
+    with English {
     override lazy val numberOfIpPropertyLinks = 1
     doc.title shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to your property? - Valuation Office Agency - GOV.UK"
     heading shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to your property?"
@@ -421,7 +443,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "showAssignToAll" should "display dynamic content correctly in Welsh when assigning to one property" in new AssignToAllTestCase
-  with Welsh {
+    with Welsh {
     override lazy val numberOfIpPropertyLinks = 1
     doc.title shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch eiddo? - Valuation Office Agency - GOV.UK"
     heading shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch eiddo?"
@@ -429,7 +451,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "showAssignToAll" should "display dynamic content correctly in English when assigning to multiple properties" in new AssignToAllTestCase
-  with English {
+    with English {
     override lazy val numberOfIpPropertyLinks = 2
     doc.title shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to all your properties? - Valuation Office Agency - GOV.UK"
     heading shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to all your properties?"
@@ -437,7 +459,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "showAssignToAll" should "display dynamic content correctly in Welsh when assigning to multiple properties" in new AssignToAllTestCase
-  with Welsh {
+    with Welsh {
     override lazy val numberOfIpPropertyLinks = 2
     doc.title shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch holl eiddo? - Valuation Office Agency - GOV.UK"
     heading shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch holl eiddo?"
@@ -446,95 +468,126 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   "submitManageAgent" should "return 303 Redirect when agent is appointed to some properties & from manage agent journey should be true" in {
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
-      Future.successful(organisationsAgentsListWithOneAgent.copy(
-        agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
+      Future.successful(
+        organisationsAgentsListWithOneAgent
+          .copy(agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))
+      )
+    )
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest()
-        .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToSomeProperties.name}", "agentName" -> "Agent Org"))
+        .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToSomeProperties.name}", "agentName" -> "Agent Org")
+    )
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe
       Some(
         "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&" +
           "agentCode=12345&agentAppointed=BOTH&backLinkUrl=%2F" +
-          "business-rates-property-linking%2Fmy-organisation%2Fmanage-agent&fromManageAgentJourney=true")
+          "business-rates-property-linking%2Fmy-organisation%2Fmanage-agent&fromManageAgentJourney=true"
+      )
   }
 
   "submitManageAgent" should "return 303 SEE OTHER when IP chooses to unassigned agent from all properties" in {
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
-      Future.successful(organisationsAgentsListWithOneAgent.copy(
-        agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
-    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
-      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-
-    val res = testController.submitManageAgent(agentCode)(FakeRequest()
-      .withFormUrlEncodedBody("manageAgentOption" -> s"${UnassignFromAllProperties.name}", "agentName" -> "Agent Org"))
-
-    status(res) shouldBe SEE_OTHER
-
-    redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties")
-  }
-
-  "submitManageAgent" should "return 303 Redirect when IP chooses to unassign agent from some properties" in {
-    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
-      Future.successful(organisationsAgentsListWithOneAgent.copy(
-        agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
-    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
-      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
-
-    val res = testController.submitManageAgent(agentCode)(FakeRequest()
-      .withFormUrlEncodedBody("manageAgentOption" -> s"${UnassignFromSomeProperties.name}", "agentName" -> "Agent Org"))
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe
-      Some(
-        "/business-rates-property-linking/my-organisation/revoke/properties?page=1&pageSize=15" +
-          "&agentCode=12345")
-
-  }
-
-  "submitManageAgent" should "return 200 Ok when IP chooses to remove agent from account" in {
-    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
-      Future.successful(organisationsAgentsListWithOneAgent.copy(
-        agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
+      Future.successful(
+        organisationsAgentsListWithOneAgent
+          .copy(agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))
+      )
+    )
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest()
-        .withFormUrlEncodedBody("manageAgentOption" -> s"${RemoveFromYourAccount.name}", "agentName" -> "Agent Org"))
+        .withFormUrlEncodedBody("manageAgentOption" -> s"${UnassignFromAllProperties.name}", "agentName" -> "Agent Org")
+    )
+
+    status(res) shouldBe SEE_OTHER
+
+    redirectLocation(res) shouldBe Some(
+      "/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties"
+    )
+  }
+
+  "submitManageAgent" should "return 303 Redirect when IP chooses to unassign agent from some properties" in {
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
+      Future.successful(
+        organisationsAgentsListWithOneAgent
+          .copy(agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))
+      )
+    )
+    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+
+    val res = testController.submitManageAgent(agentCode)(
+      FakeRequest()
+        .withFormUrlEncodedBody(
+          "manageAgentOption" -> s"${UnassignFromSomeProperties.name}",
+          "agentName"         -> "Agent Org"
+        )
+    )
+
+    status(res) shouldBe SEE_OTHER
+    redirectLocation(res) shouldBe
+      Some(
+        "/business-rates-property-linking/my-organisation/revoke/properties?page=1&pageSize=15" +
+          "&agentCode=12345"
+      )
+
+  }
+
+  "submitManageAgent" should "return 200 Ok when IP chooses to remove agent from account" in {
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
+      Future.successful(
+        organisationsAgentsListWithOneAgent
+          .copy(agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))
+      )
+    )
+    when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
+
+    val res = testController.submitManageAgent(agentCode)(
+      FakeRequest()
+        .withFormUrlEncodedBody("manageAgentOption" -> s"${RemoveFromYourAccount.name}", "agentName" -> "Agent Org")
+    )
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation")
+      "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation"
+    )
   }
 
   "submitManageAgent" should "return 200 Ok when IP chooses to appoint agent to only property" in {
     when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
-      Future.successful(organisationsAgentsListWithOneAgent.copy(
-        agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))))
+      Future.successful(
+        organisationsAgentsListWithOneAgent
+          .copy(agents = List(agentSummary.copy(propertyCount = 1, representativeCode = agentCode)))
+      )
+    )
     when(mockAgentRelationshipService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultWithTwoAuthsAgentAssignedToOne))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
     val res = testController.submitManageAgent(agentCode)(
       FakeRequest()
-        .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToYourProperty.name}", "agentName" -> "Agent Org"))
+        .withFormUrlEncodedBody("manageAgentOption" -> s"${AssignToYourProperty.name}", "agentName" -> "Agent Org")
+    )
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/manage-agent/assign/to-all-properties")
+      "/business-rates-property-linking/my-organisation/manage-agent/assign/to-all-properties"
+    )
   }
 
   "assignAgentToAll" should "return 400 Bad Request when invalid form submitted" in {
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
     val res = testController.assignAgentToAll(agentCode, "Some agent org")(
-      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode")
+    )
 
     status(res) shouldBe BAD_REQUEST
 
@@ -543,28 +596,36 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "assignAgentToAll" should "return 303 SEE OTHER when valid form is submitted" in {
-    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(Future.successful(AgentList(
-      1,
-      List(
-        AgentSummary(
-          organisationId = 1,
-          representativeCode = 1,
-          name = "name",
-          appointedDate = LocalDate.now,
-          propertyCount = 1,
-          listYears = Some(Seq("2017", "2023"))))
-    )))
+    when(mockAgentRelationshipService.getMyOrganisationAgents()(any())).thenReturn(
+      Future.successful(
+        AgentList(
+          1,
+          List(
+            AgentSummary(
+              organisationId = 1,
+              representativeCode = 1,
+              name = "name",
+              appointedDate = LocalDate.now,
+              propertyCount = 1,
+              listYears = Some(Seq("2017", "2023"))
+            )
+          )
+        )
+      )
+    )
     when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
       .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
     when(mockAgentRelationshipService.getMyOrganisationPropertyLinksCount()(any())).thenReturn(Future.successful(10))
 
     val res = testController.assignAgentToAll(agentCode, "Some agent org")(
       FakeRequest()
-        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"))
+        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}")
+    )
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/manage-agent/assign/to-all-properties/confirm")
+      "/business-rates-property-linking/my-organisation/manage-agent/assign/to-all-properties/confirm"
+    )
   }
 
   "confirmAssignAgentToAll" should "return 200 OK" in new ConfirmAssignToAllTestCase with English {
@@ -572,21 +633,21 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "confirmAssignAgentToAll" should "display static content correctly in English" in new ConfirmAssignToAllTestCase
-  with English {
+    with English {
     nextStepsSubhead shouldBe "What happens next"
     accountHomeLink.text shouldBe "Go to your account home"
     accountHomeLink.attr("href") shouldBe "http://localhost:9542/business-rates-dashboard/home"
   }
 
   "confirmAssignAgentToAll" should "display static content correctly in Welsh" in new ConfirmAssignToAllTestCase
-  with Welsh {
+    with Welsh {
     nextStepsSubhead shouldBe "Yr hyn sy’n digwydd nesaf"
     accountHomeLink.text shouldBe "Ewch i hafan eich cyfrif"
     accountHomeLink.attr("href") shouldBe "http://localhost:9542/business-rates-dashboard/home"
   }
 
   "confirmAssignAgentToAll" should "display dynamic content correctly in English when assigned to one property" in new ConfirmAssignToAllTestCase
-  with English {
+    with English {
     override lazy val numberOfIpPropertyLinks: Int = 1
     doc.title shouldBe s"${appointedAgent.name} has been assigned to your property - Valuation Office Agency - GOV.UK"
     panel shouldBe s"${appointedAgent.name} has been assigned to your property"
@@ -595,7 +656,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "confirmAssignAgentToAll" should "display dynamic content correctly in Welsh when assigned to one property" in new ConfirmAssignToAllTestCase
-  with Welsh {
+    with Welsh {
     override lazy val numberOfIpPropertyLinks: Int = 1
     doc.title shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch eiddo - Valuation Office Agency - GOV.UK"
     panel shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch eiddo"
@@ -604,7 +665,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "confirmAssignAgentToAll" should "display dynamic content correctly in English when assigned to multiple properties" in new ConfirmAssignToAllTestCase
-  with English {
+    with English {
     override lazy val numberOfIpPropertyLinks: Int = 2
     doc.title shouldBe s"${appointedAgent.name} has been assigned to all your properties - Valuation Office Agency - GOV.UK"
     panel shouldBe s"${appointedAgent.name} has been assigned to all your properties"
@@ -613,7 +674,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   }
 
   "confirmAssignAgentToAll" should "display dynamic content correctly in Welsh when assigned to multiple properties" in new ConfirmAssignToAllTestCase
-  with Welsh {
+    with Welsh {
     override lazy val numberOfIpPropertyLinks: Int = 2
     doc.title shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch holl eiddo - Valuation Office Agency - GOV.UK"
     panel shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch holl eiddo"
@@ -624,26 +685,30 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "unassignAgentFromAll" should "return 400 Bad Request when invalid form submitted" in {
 
     val res = testController.unassignAgentFromAll(agentCode, "Some agent org")(
-      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+      FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode")
+    )
 
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      "Are you sure you want to unassign Some agent org from all your properties? - Valuation Office Agency - GOV.UK")
+      "Are you sure you want to unassign Some agent org from all your properties? - Valuation Office Agency - GOV.UK"
+    )
 
   }
   "unassignAgentFromAll" should "return 400 Bad Request when invalid form submitted - in welsh" in {
 
     val agentName = "Some agent org"
     val res = testController.unassignAgentFromAll(agentCode, agentName)(
-      welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+      welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode")
+    )
 
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"Ydych chi’n siŵr eich bod am ddadneilltuo $agentName o’ch holl eiddo? - Valuation Office Agency - GOV.UK")
+      s"Ydych chi’n siŵr eich bod am ddadneilltuo $agentName o’ch holl eiddo? - Valuation Office Agency - GOV.UK"
+    )
 
   }
 
@@ -654,7 +719,8 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val res = testController.unassignAgentFromAll(agentCode, "Some agent org")(
       FakeRequest()
-        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}"))
+        .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.ALL_PROPERTIES}")
+    )
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe
@@ -666,13 +732,15 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val res = testController
       .removeAgentFromIpOrganisation(agentCode, "Some agent org", RedirectUrl("http://localhost/some-back-link"))(
-        FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+        FakeRequest().withFormUrlEncodedBody("agentCode" -> s"$agentCode")
+      )
 
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      "Error: Are you sure you want to remove Some agent org from your account? - Valuation Office Agency - GOV.UK")
+      "Error: Are you sure you want to remove Some agent org from your account? - Valuation Office Agency - GOV.UK"
+    )
   }
 
   "removeAgentFromIpOrganisation" should "return 400 Bad Request when invalid form submitted - in welsh" in {
@@ -680,13 +748,15 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val agentName = "Some agent org"
     val res = testController
       .removeAgentFromIpOrganisation(agentCode, agentName, RedirectUrl("http://localhost/some-back-link"))(
-        welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode"))
+        welshFakeRequest.withFormUrlEncodedBody("agentCode" -> s"$agentCode")
+      )
 
     status(res) shouldBe BAD_REQUEST
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"Gwall: Ydych chi’n siŵr eich bod am dynnu $agentName o’ch cyfrif? - Valuation Office Agency - GOV.UK")
+      s"Gwall: Ydych chi’n siŵr eich bod am dynnu $agentName o’ch cyfrif? - Valuation Office Agency - GOV.UK"
+    )
   }
 
   "removeAgentFromIpOrganisation" should "return 200 Ok a valid form is submitted" in {
@@ -696,11 +766,13 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     val res = testController
       .removeAgentFromIpOrganisation(agentCode, "Some agent org", RedirectUrl("http://localhost/some-back-link"))(
         FakeRequest()
-          .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.RELATIONSHIP}"))
+          .withFormUrlEncodedBody("agentCode" -> s"$agentCode", "scope" -> s"${AppointmentScope.RELATIONSHIP}")
+      )
 
     status(res) shouldBe SEE_OTHER
     redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation/confirm")
+      "/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation/confirm"
+    )
   }
 
   type English = EnglishRequest

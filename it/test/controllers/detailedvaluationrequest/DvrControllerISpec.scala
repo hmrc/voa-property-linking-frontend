@@ -80,7 +80,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       verify(
         1,
         putRequestedFor(urlEqualTo(s"/partial-check/$checkId/resume"))
-          .withRequestBody(equalToJson(resumeCheckJsonBody.toString())))
+          .withRequestBody(equalToJson(resumeCheckJsonBody.toString()))
+      )
     }
 
     "Redirect to the 'rateable value is too high' page and create a draft check when they choose the 'The rateable value is too high' radio button" in {
@@ -103,7 +104,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       verify(
         1,
         putRequestedFor(urlEqualTo(s"/partial-check/$checkId/resume"))
-          .withRequestBody(equalToJson(resumeCheckJsonBody.toString())))
+          .withRequestBody(equalToJson(resumeCheckJsonBody.toString()))
+      )
     }
 
     "Redirect to the 'remove' page and create a draft check when they choose the 'remove' radio button" in {
@@ -126,7 +128,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       verify(
         1,
         putRequestedFor(urlEqualTo(s"/partial-check/$checkId/resume"))
-          .withRequestBody(equalToJson(resumeCheckJsonBody.toString())))
+          .withRequestBody(equalToJson(resumeCheckJsonBody.toString()))
+      )
     }
 
     "Redirect to the 'split' page and create a draft check when they choose the 'split' radio button" in {
@@ -149,7 +152,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       verify(
         1,
         putRequestedFor(urlEqualTo(s"/partial-check/$checkId/resume"))
-          .withRequestBody(equalToJson(resumeCheckJsonBody.toString())))
+          .withRequestBody(equalToJson(resumeCheckJsonBody.toString()))
+      )
     }
 
     "Redirect to the 'merged' page and create a draft check when they choose the 'merged' radio button" in {
@@ -172,7 +176,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       verify(
         1,
         putRequestedFor(urlEqualTo(s"/partial-check/$checkId/resume"))
-          .withRequestBody(equalToJson(resumeCheckJsonBody.toString())))
+          .withRequestBody(equalToJson(resumeCheckJsonBody.toString()))
+      )
     }
 
     "Redirect to the 'external local area' page and create a draft check when they choose the 'external local area' radio button" in {
@@ -195,7 +200,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       verify(
         1,
         putRequestedFor(urlEqualTo(s"/partial-check/$checkId/resume"))
-          .withRequestBody(equalToJson(resumeCheckJsonBody.toString())))
+          .withRequestBody(equalToJson(resumeCheckJsonBody.toString()))
+      )
     }
 
     "Redirect to the 'court decision' page and create a draft check when they choose the 'court decision' radio button" in {
@@ -218,7 +224,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       verify(
         1,
         putRequestedFor(urlEqualTo(s"/partial-check/$checkId/resume"))
-          .withRequestBody(equalToJson(resumeCheckJsonBody.toString())))
+          .withRequestBody(equalToJson(resumeCheckJsonBody.toString()))
+      )
     }
 
     "Return a BAD_REQUEST and show an error when no radio button is chosen in English" in {
@@ -262,7 +269,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         language: Language,
         checkType: String,
         dvrCheck: Boolean,
-        rateableValueTooHigh: Boolean): WSResponse = {
+        rateableValueTooHigh: Boolean
+  ): WSResponse = {
 
     postRequestStubs(checkType, dvrCheck, rateableValueTooHigh)
 
@@ -276,13 +284,15 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     ).mkString("&")
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
           "Csrf-Token"       -> "nocheck",
-          "Content-Type"     -> "application/x-www-form-urlencoded")
+          "Content-Type"     -> "application/x-www-form-urlencoded"
+        )
         .post(formUrlEncodedBody)
     )
   }
@@ -291,7 +301,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         language: Language,
         checkType: String,
         dvrCheck: Boolean,
-        rateableValueTooHigh: Boolean): WSResponse = {
+        rateableValueTooHigh: Boolean
+  ): WSResponse = {
 
     postRequestStubs(checkType, dvrCheck, rateableValueTooHigh)
 
@@ -305,13 +316,15 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
           "Csrf-Token"       -> "nocheck",
-          "Content-Type"     -> "application/x-www-form-urlencoded")
+          "Content-Type"     -> "application/x-www-form-urlencoded"
+        )
         .post(formUrlEncodedBody)
     )
   }
@@ -378,8 +391,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     stubFor {
       post(
-        s"/property-link/$propertyLinkId/assessment/$valuationId/start-check/$updatedCheckType?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=$dvrCheck&rateableValueTooHigh=$rateableValueTooHigh")
-        .willReturn {
+        s"/property-link/$propertyLinkId/assessment/$valuationId/start-check/$updatedCheckType?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=$dvrCheck&rateableValueTooHigh=$rateableValueTooHigh"
+      ).willReturn {
           aResponse.withStatus(CREATED).withBody(checkStartBody.toString())
         }
     }
@@ -431,13 +444,15 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
           "Csrf-Token"       -> "nocheck",
-          "Content-Type"     -> "application/x-www-form-urlencoded")
+          "Content-Type"     -> "application/x-www-form-urlencoded"
+        )
         .get()
     )
   }

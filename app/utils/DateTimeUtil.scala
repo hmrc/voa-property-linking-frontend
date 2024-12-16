@@ -20,7 +20,7 @@ import java.time.ZonedDateTime
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class DateTimeUtil @Inject()() {
+class DateTimeUtil @Inject() () {
 
   def getDateTime: ZonedDateTime = ZonedDateTime.now()
 

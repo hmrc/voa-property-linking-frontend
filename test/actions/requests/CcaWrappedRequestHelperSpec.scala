@@ -46,7 +46,8 @@ class CcaWrappedRequestHelperSpec extends BaseUnitSpec {
           email = "email@asd.com",
           phone1 = "123123123",
           phone2 = None,
-          addressId = 12L)
+          addressId = 12L
+        )
       )
 
     val testRequest: BasicAuthenticatedRequest[_] =
@@ -55,7 +56,8 @@ class CcaWrappedRequestHelperSpec extends BaseUnitSpec {
     val googleAnalyticsData: GoogleAnalyticsUserData = GoogleAnalyticsUserData(
       personId = testDetailedIndividualAccount.individualId.toString,
       loggedIn = "Yes",
-      ccaAgent = if (isAgent) "Yes" else "No")
+      ccaAgent = if (isAgent) "Yes" else "No"
+    )
   }
 
   "your details name" when {

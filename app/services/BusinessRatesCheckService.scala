@@ -26,7 +26,7 @@ import uk.gov.voa.businessrates.values.connectors.RequestResult._
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class BusinessRatesCheckService @Inject()(
+class BusinessRatesCheckService @Inject() (
       val businessRatesCheckConnector: BusinessRatesCheckConnector,
       implicit val ec: ExecutionContext
 ) {
@@ -48,8 +48,8 @@ class BusinessRatesCheckService @Inject()(
         case Left(failure) => Left(failure)
       }
 
-  def updateResumeCheckUrl(checkId: CheckId, resumeUrl: String)(
-        implicit hc: HeaderCarrier
+  def updateResumeCheckUrl(checkId: CheckId, resumeUrl: String)(implicit
+        hc: HeaderCarrier
   ): Future[Either[RequestFailure, RequestSuccess]] =
     businessRatesCheckConnector.updateResumeCheckUrl(checkId, resumeUrl).map {
       case Right(_)      => Right(Success)

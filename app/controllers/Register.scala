@@ -24,12 +24,12 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-class Register @Inject()(
+class Register @Inject() (
       override val errorHandler: CustomErrorHandler,
       startView: views.html.registration.start,
       startViewOldJourney: views.html.startOldJourney
-)(
-      implicit override val messagesApi: MessagesApi,
+)(implicit
+      override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
@@ -39,23 +39,23 @@ class Register @Inject()(
 
   def show: Action[AnyContent] = Action(redirect("organisation"))
 
-  def choice: Action[AnyContent] = Action { implicit request =>
-    if (config.newRegistrationJourneyEnabled) {
-      RegisterHelper.choiceForm
-        .bindFromRequest()
-        .fold(
-          errors => BadRequest(startView(errors)),
-          success => redirect(success)
-        )
-    } else {
-      RegisterHelper.choiceForm
-        .bindFromRequest()
-        .fold(
-          errors => BadRequest(startViewOldJourney(errors)),
-          success => redirect(success)
-        )
+  def choice: Action[AnyContent] =
+    Action { implicit request =>
+      if (config.newRegistrationJourneyEnabled)
+        RegisterHelper.choiceForm
+          .bindFromRequest()
+          .fold(
+            errors => BadRequest(startView(errors)),
+            success => redirect(success)
+          )
+      else
+        RegisterHelper.choiceForm
+          .bindFromRequest()
+          .fold(
+            errors => BadRequest(startViewOldJourney(errors)),
+            success => redirect(success)
+          )
     }
-  }
 
   private def redirect(account: String): Result =
     Redirect(config.ggRegistrationUrl, continue(account))

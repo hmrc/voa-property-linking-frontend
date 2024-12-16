@@ -25,22 +25,23 @@ object CcaWrappedRequestHelper {
   }
 
   implicit class RequestOps(val request: RequestHeader) extends AnyVal {
-    def isLoggedIn: Boolean = request match {
-      case r: CcaWrappedRequest => r.isLoggedIn
-      case _                    => false
-    }
+    def isLoggedIn: Boolean =
+      request match {
+        case r: CcaWrappedRequest => r.isLoggedIn
+        case _                    => false
+      }
 
-    def yourDetailsName: Option[String] = request match {
-      case r: CcaWrappedRequest =>
-        r.optAccounts.map { acc =>
-          if (s"${acc.person.details.firstName} ${acc.person.details.lastName}" == acc.organisation.companyName) {
-            s"${acc.person.details.firstName} ${acc.person.details.lastName}"
-          } else {
-            s"${acc.person.details.firstName} ${acc.person.details.lastName} - ${acc.organisation.companyName}"
+    def yourDetailsName: Option[String] =
+      request match {
+        case r: CcaWrappedRequest =>
+          r.optAccounts.map { acc =>
+            if (s"${acc.person.details.firstName} ${acc.person.details.lastName}" == acc.organisation.companyName)
+              s"${acc.person.details.firstName} ${acc.person.details.lastName}"
+            else
+              s"${acc.person.details.firstName} ${acc.person.details.lastName} - ${acc.organisation.companyName}"
           }
-        }
-      case _ => None
-    }
+        case _ => None
+      }
   }
 
 }

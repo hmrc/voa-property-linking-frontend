@@ -199,7 +199,8 @@ class RegisterAssistantAdminISpec extends ISpecBase with HtmlComponentHelpers wi
       email = "test@email.com",
       phone = "1234567890",
       isAgent = false,
-      agentCode = Some(1L))
+      agentCode = Some(1L)
+    )
 
     stubFor(
       get("/property-linking/groups?groupId=1")
@@ -219,7 +220,8 @@ class RegisterAssistantAdminISpec extends ISpecBase with HtmlComponentHelpers wi
       line2 = "Test 2",
       line3 = "Test 3",
       line4 = "Test 4",
-      postcode = "TF4 9ER")
+      postcode = "TF4 9ER"
+    )
 
     stubFor(
       get("/property-linking/address/1")
@@ -258,7 +260,8 @@ class RegisterAssistantAdminISpec extends ISpecBase with HtmlComponentHelpers wi
         email = "test@email.com",
         phone = "1234567890",
         isAgent = false,
-        agentCode = None)
+        agentCode = None
+      )
 
       stubFor {
         get("/property-linking/groups?groupId=1")
@@ -301,7 +304,8 @@ class RegisterAssistantAdminISpec extends ISpecBase with HtmlComponentHelpers wi
         .withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-        .post(body = ""))
+        .post(body = "")
+    )
 
     res.status shouldBe SEE_OTHER
     res.headers("Location").head shouldBe redirectUrl

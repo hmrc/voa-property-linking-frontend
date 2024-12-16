@@ -628,7 +628,8 @@ class RegisterAssistantISpec extends ISpecBase with HtmlComponentHelpers with Li
       email = "test@email.com",
       phone = "1234567890",
       isAgent = false,
-      agentCode = Some(1L))
+      agentCode = Some(1L)
+    )
 
     stubFor(
       get("/property-linking/groups?groupId=1")
@@ -648,7 +649,8 @@ class RegisterAssistantISpec extends ISpecBase with HtmlComponentHelpers with Li
       line2 = "Test 2",
       line3 = "Test 3",
       line4 = "Test 4",
-      postcode = "TF4 9ER")
+      postcode = "TF4 9ER"
+    )
 
     stubFor(
       get("/property-linking/address/1")

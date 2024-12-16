@@ -35,19 +35,20 @@ object IvResult {
 
   object IvFailure {
 
-    def all: Set[IvFailure] = Set(
-      Incomplete,
-      FailedMatching,
-      FailedDirectorCheck,
-      InsufficientEvidence,
-      LockedOut,
-      UserAborted,
-      Timeout,
-      TechnicalIssue,
-      PreconditionFailed,
-      Deceased,
-      FailedIV
-    )
+    def all: Set[IvFailure] =
+      Set(
+        Incomplete,
+        FailedMatching,
+        FailedDirectorCheck,
+        InsufficientEvidence,
+        LockedOut,
+        UserAborted,
+        Timeout,
+        TechnicalIssue,
+        PreconditionFailed,
+        Deceased,
+        FailedIV
+      )
 
     // The journey has not been completed yet. This result can only occur when a service asks for the result too early (before receiving the redirect from IV).
     case object Incomplete extends IvFailure("Incomplete", "incomplete")

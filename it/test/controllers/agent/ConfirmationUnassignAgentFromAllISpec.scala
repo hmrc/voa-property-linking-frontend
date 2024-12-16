@@ -278,7 +278,8 @@ class ConfirmationUnassignAgentFromAllISpec extends ISpecBase with HtmlComponent
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties/confirmation")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/unassign/from-all-properties/confirmation"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId")

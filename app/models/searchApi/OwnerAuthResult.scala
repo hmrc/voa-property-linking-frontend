@@ -23,7 +23,8 @@ case class OwnerAuthResult(
       size: Int,
       filterTotal: Int,
       total: Int,
-      authorisations: Seq[OwnerAuthorisation]) {
+      authorisations: Seq[OwnerAuthorisation]
+) {
   authorisations.nonEmpty
 }
 

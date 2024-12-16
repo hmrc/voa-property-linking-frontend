@@ -44,11 +44,9 @@ trait NamedEnumSupport[E <: NamedEnum] {
       for {
         vs <- params.get(key)
         v  <- vs.headOption
-      } yield {
-        unapply(v) match {
-          case Some(e) => Right(e)
-          case None    => Left(s"Invalid value; expected one of $options")
-        }
+      } yield unapply(v) match {
+        case Some(e) => Right(e)
+        case None    => Left(s"Invalid value; expected one of $options")
       }
 
     override def unbind(key: String, value: E): String = key + "=" + value.name
@@ -59,20 +57,23 @@ object EnumFormat {
   def apply[T <: NamedEnum](enumObject: NamedEnumSupport[T]): Format[T] =
     Format[T](generateReads(enumObject), generateWrites(enumObject))
 
-  private def generateWrites[T <: NamedEnum](enumObject: NamedEnumSupport[T]): Writes[T] = new Writes[T] {
-    def writes(data: T): JsValue =
-      JsString(data.name)
-  }
-
-  private def generateReads[T <: NamedEnum](enumObject: NamedEnumSupport[T]): Reads[T] = new Reads[T] {
-    def reads(json: JsValue): JsResult[T] = json match {
-      case JsString(value) =>
-        enumObject.fromName(value) match {
-          case Some(enumValue) => JsSuccess(enumValue)
-          case None            => JsError(s"Value: $value is not valid; expected one of ${enumObject.all}")
-        }
-      case js =>
-        JsError(s"Invalid Json: expected string, got: $js")
+  private def generateWrites[T <: NamedEnum](enumObject: NamedEnumSupport[T]): Writes[T] =
+    new Writes[T] {
+      def writes(data: T): JsValue =
+        JsString(data.name)
     }
-  }
+
+  private def generateReads[T <: NamedEnum](enumObject: NamedEnumSupport[T]): Reads[T] =
+    new Reads[T] {
+      def reads(json: JsValue): JsResult[T] =
+        json match {
+          case JsString(value) =>
+            enumObject.fromName(value) match {
+              case Some(enumValue) => JsSuccess(enumValue)
+              case None            => JsError(s"Value: $value is not valid; expected one of ${enumObject.all}")
+            }
+          case js =>
+            JsError(s"Invalid Json: expected string, got: $js")
+        }
+    }
 }

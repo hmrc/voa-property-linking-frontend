@@ -28,7 +28,7 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class TaxEnrolmentConnector @Inject()(
+class TaxEnrolmentConnector @Inject() (
       http: DefaultHttpClient,
       auditingService: AuditingService,
       servicesConfig: ServicesConfig
@@ -36,9 +36,10 @@ class TaxEnrolmentConnector @Inject()(
   private val serviceUrl = servicesConfig.baseUrl("tax-enrolments")
   private val enrolUrl = s"$serviceUrl/tax-enrolments/service/HMRC-VOA-CCA/enrolment"
 
-  def enrol(personId: Long, postcode: String)(
-        implicit hc: HeaderCarrier,
-        ex: ExecutionContext): Future[HttpResponse] = {
+  def enrol(personId: Long, postcode: String)(implicit
+        hc: HeaderCarrier,
+        ex: ExecutionContext
+  ): Future[HttpResponse] = {
 
     val payload = EnrolmentPayload(
       identifiers = List(KeyValuePair("VOAPersonID", personId.toString)),
@@ -58,9 +59,10 @@ class TaxEnrolmentConnector @Inject()(
       }
   }
 
-  def updatePostcode(personId: Long, postcode: String, previousPostcode: String)(
-        implicit hc: HeaderCarrier,
-        executionContext: ExecutionContext): Future[EnrolmentResult] = {
+  def updatePostcode(personId: Long, postcode: String, previousPostcode: String)(implicit
+        hc: HeaderCarrier,
+        executionContext: ExecutionContext
+  ): Future[EnrolmentResult] = {
 
     val payload = PayLoad(
       verifiers = Seq(KeyValuePair(key = "BusPostcode", value = postcode)),
@@ -70,7 +72,8 @@ class TaxEnrolmentConnector @Inject()(
     http
       .PUT[PayLoad, HttpResponse](
         s"$serviceUrl/tax-enrolments/enrolments/HMRC-VOA-CCA~VOAPersonID~${personId.toString}",
-        payload)
+        payload
+      )
       .map { _ =>
         auditingService.sendEvent("Enrolment Updated", payload)
         Success

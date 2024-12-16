@@ -50,7 +50,8 @@ object Mappings extends DateMappings {
     "addressId" -> addressId,
     "line1" -> onlyIf(
       addressEnteredManually,
-      text.verifying(nonEmpty, maxLength(80, "enrolment.address.line1.maxLengthError")))(""),
+      text.verifying(nonEmpty, maxLength(80, "enrolment.address.line1.maxLengthError"))
+    )(""),
     "line2" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
     "line3" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
     "line4" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
@@ -63,12 +64,13 @@ object Mappings extends DateMappings {
         )
         .transform[String](_.toUpperCase, identity)
     )("")
-  )(Address.apply)(Address.unapply).verifying("error.required", address => {
-    address.addressUnitId.isDefined || (isNotBlank(address.postcode) && isNotBlank(address.line1))
-  })
+  )(Address.apply)(Address.unapply).verifying(
+    "error.required",
+    address => address.addressUnitId.isDefined || (isNotBlank(address.postcode) && isNotBlank(address.line1))
+  )
 
   lazy val addressId: Mapping[Option[Long]] =
-    default(text, "").transform(t => Try { t.toLong }.toOption, _.map(_.toString).getOrElse(""))
+    default(text, "").transform(t => Try(t.toLong).toOption, _.map(_.toString).getOrElse(""))
 
   lazy val agentCode: Mapping[Long] =
     nonEmptyText.verifying("error.agentCode", s => s.trim.forall(_.isDigit)).transform(_.trim.toLong, _.toString)
@@ -120,9 +122,7 @@ object EnumMapping {
         val resOpt = for {
           keyVal        <- data.get(key)
           enumTypeValue <- named.fromName(keyVal)
-        } yield {
-          Right(enumTypeValue)
-        }
+        } yield Right(enumTypeValue)
         resOpt.getOrElse(Left(Seq(FormError(key, defaultErrorMessageKey, Nil))))
       }
 
@@ -134,8 +134,8 @@ case class ConditionalDateAfter(
       disableField: String,
       afterField: String,
       key: String = "",
-      constraints: Seq[Constraint[LocalDate]] = Nil)
-    extends Mapping[LocalDate] {
+      constraints: Seq[Constraint[LocalDate]] = Nil
+) extends Mapping[LocalDate] {
 
   import Mappings._
 
@@ -145,7 +145,8 @@ case class ConditionalDateAfter(
     (
       boolean.withPrefix(disableField).bind(data),
       dmyDate.withPrefix(afterField).bind(data),
-      dmyDate.withPrefix(key).verifying(constraints: _*).bind(data)) match {
+      dmyDate.withPrefix(key).verifying(constraints: _*).bind(data)
+    ) match {
       case (_, _, errs @ Left(_))                                         => errs
       case (Left(_), Left(_), r @ Right(_))                               => r
       case (Right(true), _, r @ Right(_))                                 => r
@@ -184,7 +185,8 @@ case class TextMatching(other: String, errorKey: String, key: String = "", const
 }
 
 object FormValidation {
-  def nonEmptyList[T]: Constraint[List[T]] = Constraint[List[T]]("constraint.required") { list =>
-    if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
-  }
+  def nonEmptyList[T]: Constraint[List[T]] =
+    Constraint[List[T]]("constraint.required") { list =>
+      if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
+    }
 }

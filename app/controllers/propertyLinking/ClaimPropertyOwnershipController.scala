@@ -36,13 +36,14 @@ import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class ClaimPropertyOwnershipController @Inject()(
+class ClaimPropertyOwnershipController @Inject() (
       val errorHandler: CustomErrorHandler,
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
-      ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty)(
-      implicit executionContext: ExecutionContext,
+      ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig
@@ -50,32 +51,37 @@ class ClaimPropertyOwnershipController @Inject()(
 
   import ClaimPropertyOwnership._
 
-  def showOwnership: Action[AnyContent] = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    {
+  def showOwnership: Action[AnyContent] =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       val form = ownershipForm(request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate))
 
       if (request.ses.earliestStartDate.isAfter(LocalDate.now()))
         sessionRepository
-          .saveOrUpdate[LinkingSession](request.ses.copy(
-            propertyOwnership = Some(PropertyOwnership(fromDate = request.ses.earliestStartDate)),
-            propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))
-          ))
+          .saveOrUpdate[LinkingSession](
+            request.ses.copy(
+              propertyOwnership = Some(PropertyOwnership(fromDate = request.ses.earliestStartDate)),
+              propertyOccupancy = Some(PropertyOccupancy(stillOccupied = true, lastOccupiedDate = None))
+            )
+          )
           .map { _ =>
             Redirect(propertyLinking.routes.ChooseEvidenceController.show)
-          } else
+          }
+      else
         Future.successful(
-          Ok(ownershipToPropertyView(
-            ClaimPropertyOwnershipVM(
-              request.ses.propertyOwnership.fold(form)(ownership => form.fillAndValidate(ownership)),
-              request.ses.address,
-              request.ses.earliestStartDate,
-              request.ses.localAuthorityReference
-            ),
-            request.ses.clientDetails,
-            getBackLink
-          )))
+          Ok(
+            ownershipToPropertyView(
+              ClaimPropertyOwnershipVM(
+                request.ses.propertyOwnership.fold(form)(ownership => form.fillAndValidate(ownership)),
+                request.ses.address,
+                request.ses.earliestStartDate,
+                request.ses.localAuthorityReference
+              ),
+              request.ses.clientDetails,
+              getBackLink
+            )
+          )
+        )
     }
-  }
 
   def submitOwnership: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
@@ -83,22 +89,27 @@ class ClaimPropertyOwnershipController @Inject()(
         .bindFromRequest()
         .fold(
           errors =>
-            Future.successful(BadRequest(ownershipToPropertyView(
-              ClaimPropertyOwnershipVM(
-                errors,
-                request.ses.address,
-                request.ses.earliestStartDate,
-                request.ses.localAuthorityReference),
-              request.ses.clientDetails,
-              getBackLink
-            ))),
+            Future.successful(
+              BadRequest(
+                ownershipToPropertyView(
+                  ClaimPropertyOwnershipVM(
+                    errors,
+                    request.ses.address,
+                    request.ses.earliestStartDate,
+                    request.ses.localAuthorityReference
+                  ),
+                  request.ses.clientDetails,
+                  getBackLink
+                )
+              )
+            ),
           formData =>
             sessionRepository
               .saveOrUpdate[LinkingSession](request.ses.copy(propertyOwnership = Some(formData)))
               .map { _ =>
                 if (request.ses.fromCya.contains(true)) Redirect(propertyLinking.routes.DeclarationController.show)
                 else Redirect(propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy)
-            }
+              }
         )
     }
 }
@@ -114,7 +125,8 @@ object ClaimPropertyOwnership {
             error = "interestedStartDate.error.startDateMustBeBeforeEnd",
             firstOccupied => endDate.forall(lastOccupied => firstOccupied.isBefore(lastOccupied))
           )
-      )(PropertyOwnership.apply)(PropertyOwnership.unapply))
+      )(PropertyOwnership.apply)(PropertyOwnership.unapply)
+    )
 
   def getBackLink(implicit request: LinkingSessionRequest[_]): String =
     if (request.ses.fromCya.contains(true)) propertyLinking.routes.DeclarationController.show.url
@@ -125,4 +137,5 @@ case class ClaimPropertyOwnershipVM(
       form: Form[_],
       address: String,
       onOrBeforeDate: LocalDate,
-      localAuthorityReference: String)
+      localAuthorityReference: String
+)

@@ -39,15 +39,15 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
-class UploadResultController @Inject()(
+class UploadResultController @Inject() (
       val errorHandler: CustomErrorHandler,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
       @Named("propertyLinkingSession") sessionRepository: SessionRepo,
       businessRatesAttachmentsService: BusinessRatesAttachmentsService,
-      uploadResultView: views.html.propertyLinking.upload_result,
-)(
-      implicit executionContext: ExecutionContext,
+      uploadResultView: views.html.propertyLinking.upload_result
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       applicationConfig: ApplicationConfig
@@ -86,11 +86,10 @@ class UploadResultController @Inject()(
         reference  <- OptionT(Future.successful(request.ses.fileReference))
         attachment <- OptionT.liftF(businessRatesAttachmentsService.getAttachment(reference))
         _ <- OptionT.liftF(
-              sessionRepository.saveOrUpdate(request.ses.copy(uploadEvidenceData = updatedUploadData(attachment))))
+               sessionRepository.saveOrUpdate(request.ses.copy(uploadEvidenceData = updatedUploadData(attachment)))
+             )
         fullAttachment = attachment
-      } yield {
-        fullAttachment
-      }
+      } yield fullAttachment
 
       result.value
         .flatMap {
@@ -124,21 +123,21 @@ class UploadResultController @Inject()(
               attachment     <- OptionT.liftF(businessRatesAttachmentsService.getAttachment(reference))
               preparedUpload <- OptionT(Future.successful(attachment.initiateResult))
               map = Map(
-                reference -> UploadedFileDetails(
-                  FileMetadata(attachment.fileName, attachment.mimeType),
-                  preparedUpload))
-              _ <- OptionT.liftF(
-                    businessRatesAttachmentsService.persistSessionData(
-                      request.ses.copy(evidenceType = Some(getEvidenceType(evidenceChoices))),
-                      request.ses.uploadEvidenceData
-                        .copy(fileInfo = Some(completeFileInfo(attachment)))
-                        .copy(attachments = Some(map)),
+                      reference -> UploadedFileDetails(
+                        FileMetadata(attachment.fileName, attachment.mimeType),
+                        preparedUpload
+                      )
                     )
-                  )
+              _ <- OptionT.liftF(
+                     businessRatesAttachmentsService.persistSessionData(
+                       request.ses.copy(evidenceType = Some(getEvidenceType(evidenceChoices))),
+                       request.ses.uploadEvidenceData
+                         .copy(fileInfo = Some(completeFileInfo(attachment)))
+                         .copy(attachments = Some(map))
+                     )
+                   )
               result <- OptionT.pure[Future](Redirect(routes.DeclarationController.show))
-            } yield {
-              result
-            }
+            } yield result
           ).getOrElse(Redirect(routes.UploadController.show(evidenceChoices)))
 
           result
@@ -151,11 +150,11 @@ class UploadResultController @Inject()(
               attachment     <- OptionT.liftF(businessRatesAttachmentsService.getAttachment(reference))
               scanResult     <- OptionT(Future.successful(attachment.scanResult))
               failureDetails <- OptionT(Future.successful(scanResult.failureDetails))
-              result <- OptionT.pure[Future](Redirect(
-                         routes.UploadController.show(evidenceChoices, Some(failureDetails.failureReason.toString))))
-            } yield {
-              result
-            }
+              result <-
+                OptionT.pure[Future](
+                  Redirect(routes.UploadController.show(evidenceChoices, Some(failureDetails.failureReason.toString)))
+                )
+            } yield result
           ).getOrElse(Redirect(routes.UploadController.show(evidenceChoices)))
           result
       }
@@ -181,9 +180,7 @@ class UploadResultController @Inject()(
         reference  <- OptionT(Future.successful(request.ses.fileReference))
         attachment <- OptionT.liftF(businessRatesAttachmentsService.getAttachment(reference))
         fullAttachment = attachment
-      } yield {
-        fullAttachment
-      }
+      } yield fullAttachment
       result.value
         .flatMap {
           case Some(attachment) =>
@@ -200,13 +197,14 @@ class UploadResultController @Inject()(
         }
     }
 
-  def getMessageKeys = authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-    val messageKeys = Array(
-      Messages("fileUploadResult.uploading"),
-      Messages("fileUploadResult.uploaded"),
-      Messages("fileUploadResult.failed"),
-      Messages("fileUploadResult.uploaded-aria-live")
-    )
-    Future.successful(Ok(Json.toJson(messageKeys)))
-  }
+  def getMessageKeys =
+    authenticatedAction.andThen(withLinkingSession).async { implicit request =>
+      val messageKeys = Array(
+        Messages("fileUploadResult.uploading"),
+        Messages("fileUploadResult.uploaded"),
+        Messages("fileUploadResult.failed"),
+        Messages("fileUploadResult.uploaded-aria-live")
+      )
+      Future.successful(Ok(Json.toJson(messageKeys)))
+    }
 }

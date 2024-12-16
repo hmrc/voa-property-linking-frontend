@@ -27,8 +27,9 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DVRCaseManagementConnector @Inject()(config: ServicesConfig, val wsClient: WSClient, http: DefaultHttpClient)(
-      implicit val executionContext: ExecutionContext) {
+class DVRCaseManagementConnector @Inject() (config: ServicesConfig, val wsClient: WSClient, http: DefaultHttpClient)(
+      implicit val executionContext: ExecutionContext
+) {
 
   val url: String = config.baseUrl("property-linking") + "/property-linking"
 
@@ -45,15 +46,17 @@ class DVRCaseManagementConnector @Inject()(config: ServicesConfig, val wsClient:
   def getDvrRecord(organisationId: Long, assessmentRef: Long)(implicit hc: HeaderCarrier): Future[Option[DvrRecord]] =
     http.GET[Option[DvrRecord]](url + s"/dvr-record?organisationId=$organisationId&assessmentRef=$assessmentRef")
 
-  def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(
-        implicit hc: HeaderCarrier): Future[Option[DvrDocumentFiles]] =
+  def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(implicit
+        hc: HeaderCarrier
+  ): Future[Option[DvrDocumentFiles]] =
     http.GET[Option[DvrDocumentFiles]](
       s"$url/properties/$uarn/valuation/$valuationId/files",
       Seq("propertyLinkId" -> propertyLinkId)
     )
 
-  def getDvrDocument(uarn: Long, valuationId: Long, propertyLinkId: String, fileRef: String)(
-        implicit hc: HeaderCarrier): Future[WSResponse] =
+  def getDvrDocument(uarn: Long, valuationId: Long, propertyLinkId: String, fileRef: String)(implicit
+        hc: HeaderCarrier
+  ): Future[WSResponse] =
     wsClient
       .url(s"$url/properties/$uarn/valuation/$valuationId/files/$fileRef?propertyLinkId=$propertyLinkId")
       .withMethod("GET")

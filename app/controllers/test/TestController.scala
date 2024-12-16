@@ -32,7 +32,7 @@ import utils.Cats
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 
-class TestController @Inject()(
+class TestController @Inject() (
       override val errorHandler: CustomErrorHandler,
       authenticated: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
@@ -43,51 +43,59 @@ class TestController @Inject()(
     extends PropertyLinkingController with Cats {
 
   val getUserDetails: Action[AnyContent] = authenticated { implicit request =>
-    Ok(Json.toJson(if (request.organisationAccount.isAgent) {
-      TestUserDetails(
-        personId = request.individualAccount.individualId,
-        organisationId = request.organisationAccount.id,
-        organisationName = request.organisationAccount.companyName,
-        governmentGatewayGroupId = request.organisationAccount.groupId,
-        governmentGatewayExternalId = request.individualAccount.externalId,
-        agentCode = request.organisationAccount.agentCode
+    Ok(
+      Json.toJson(
+        if (request.organisationAccount.isAgent)
+          TestUserDetails(
+            personId = request.individualAccount.individualId,
+            organisationId = request.organisationAccount.id,
+            organisationName = request.organisationAccount.companyName,
+            governmentGatewayGroupId = request.organisationAccount.groupId,
+            governmentGatewayExternalId = request.individualAccount.externalId,
+            agentCode = request.organisationAccount.agentCode
+          )
+        else
+          TestUserDetails(
+            personId = request.individualAccount.individualId,
+            organisationId = request.organisationAccount.id,
+            organisationName = request.organisationAccount.companyName,
+            governmentGatewayGroupId = request.organisationAccount.groupId,
+            governmentGatewayExternalId = request.individualAccount.externalId,
+            agentCode = None
+          )
       )
-    } else {
-      TestUserDetails(
-        personId = request.individualAccount.individualId,
-        organisationId = request.organisationAccount.id,
-        organisationName = request.organisationAccount.companyName,
-        governmentGatewayGroupId = request.organisationAccount.groupId,
-        governmentGatewayExternalId = request.individualAccount.externalId,
-        agentCode = None
-      )
-    }))
+    )
   }
 
-  def deEnrol = authenticated.async { implicit request =>
-    testService
-      .deEnrolUser(request.individualAccount.individualId)
-      .map {
-        case Success => Ok("Successful")
-        case Failure => Ok("Failure")
-      }
-  }
+  def deEnrol =
+    authenticated.async { implicit request =>
+      testService
+        .deEnrolUser(request.individualAccount.individualId)
+        .map {
+          case Success => Ok("Successful")
+          case Failure => Ok("Failure")
+        }
+    }
 
-  def clearDraftCases = authenticated.async { implicit request =>
-    testCheckConnector
-      .clearDraftCases(request.organisationAccount.id)
-      .map(res =>
-        Ok(s"Successfully cleared draft check cases for organisation with ID: ${request.organisationAccount.id}"))
-      .recover {
-        case e =>
-          Ok(
-            s"Failed to clear draft check cases for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}")
-      }
-  }
+  def clearDraftCases =
+    authenticated.async { implicit request =>
+      testCheckConnector
+        .clearDraftCases(request.organisationAccount.id)
+        .map(res =>
+          Ok(s"Successfully cleared draft check cases for organisation with ID: ${request.organisationAccount.id}")
+        )
+        .recover {
+          case e =>
+            Ok(
+              s"Failed to clear draft check cases for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}"
+            )
+        }
+    }
 
-  def getSubmittedCheck(submissionId: String) = authenticated.async { implicit request =>
-    testCheckConnector.getSubmittedCheck(submissionId).map(response => Ok(response.body))
-  }
+  def getSubmittedCheck(submissionId: String) =
+    authenticated.async { implicit request =>
+      testCheckConnector.getSubmittedCheck(submissionId).map(response => Ok(response.body))
+    }
 
   val getAttachments = authenticated.andThen(withLinkingSession).async { implicit request =>
     request.ses.uploadEvidenceData.attachments

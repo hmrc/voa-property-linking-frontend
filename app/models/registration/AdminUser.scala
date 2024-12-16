@@ -40,8 +40,9 @@ sealed trait AdminUser extends User {
   val email: String
   val confirmedEmail: String
 
-  def toIndividualAccountSubmission(trustId: Option[String])(user: UserDetails)(id: Long)(
-        organisationId: Option[Long]) =
+  def toIndividualAccountSubmission(
+        trustId: Option[String]
+  )(user: UserDetails)(id: Long)(organisationId: Option[Long]) =
     IndividualAccountSubmission(
       externalId = user.externalId,
       trustId = trustId,
@@ -49,12 +50,13 @@ sealed trait AdminUser extends User {
       details = IndividualDetails(firstName, lastName, email, phone, None, id)
     )
 
-  def toIvDetails = IVDetails(
-    firstName = firstName,
-    lastName = lastName,
-    dateOfBirth = Some(dob),
-    nino = Some(nino)
-  )
+  def toIvDetails =
+    IVDetails(
+      firstName = firstName,
+      lastName = lastName,
+      dateOfBirth = Some(dob),
+      nino = Some(nino)
+    )
 }
 
 object AdminUser {
@@ -72,7 +74,8 @@ object AdminUser {
       keys.confirmedEmail  -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.tradingName     -> optional(text(maxLength = 45)),
       keys.selectedAddress -> optional(text)
-    )(IndividualUserAccountDetails.apply)(IndividualUserAccountDetails.unapply))
+    )(IndividualUserAccountDetails.apply)(IndividualUserAccountDetails.unapply)
+  )
 
   lazy val organisation = Form(
     mapping(
@@ -87,7 +90,8 @@ object AdminUser {
       keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.isAgent                -> mandatoryBoolean,
       keys.selectedAddress        -> optional(text)
-    )(AdminOrganisationAccountDetails.apply)(AdminOrganisationAccountDetails.unapply))
+    )(AdminOrganisationAccountDetails.apply)(AdminOrganisationAccountDetails.unapply)
+  )
 
   private lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
 
@@ -103,10 +107,12 @@ object AdminUser {
     override def reads(json: JsValue): JsResult[AdminUser] =
       AdminOrganisationAccountDetails.format.reads(json).orElse(IndividualUserAccountDetails.format.reads(json))
 
-    override def writes(o: AdminUser): JsObject = o match {
-      case organisation: AdminOrganisationAccountDetails => AdminOrganisationAccountDetails.format.writes(organisation)
-      case individual: IndividualUserAccountDetails      => IndividualUserAccountDetails.format.writes(individual)
-    }
+    override def writes(o: AdminUser): JsObject =
+      o match {
+        case organisation: AdminOrganisationAccountDetails =>
+          AdminOrganisationAccountDetails.format.writes(organisation)
+        case individual: IndividualUserAccountDetails => IndividualUserAccountDetails.format.writes(individual)
+      }
   }
 }
 
@@ -126,7 +132,8 @@ object AdminInExistingOrganisationUser {
       keys.lastName    -> nonEmptyText,
       keys.dateOfBirth -> dmyPastDate,
       keys.nino        -> nino
-    )(AdminInExistingOrganisationAccountDetails.apply)(AdminInExistingOrganisationAccountDetails.unapply))
+    )(AdminInExistingOrganisationAccountDetails.apply)(AdminInExistingOrganisationAccountDetails.unapply)
+  )
 
   private lazy val nino: Mapping[Nino] = text.verifying(validNino).transform(toNino, _.nino)
 
@@ -148,18 +155,19 @@ case class AdminInExistingOrganisationAccountDetails(firstName: String, lastName
   override val email = ""
   override val confirmedEmail = ""
 
-  def toAdminOrganisationAccountDetails(fieldData: FieldData) = AdminOrganisationAccountDetails(
-    companyName = fieldData.businessName,
-    address = fieldData.businessAddress,
-    email = fieldData.email,
-    confirmedEmail = fieldData.email,
-    phone = fieldData.businessPhoneNumber,
-    isAgent = fieldData.isAgent,
-    firstName = firstName,
-    lastName = lastName,
-    dob = dob,
-    nino = nino
-  )
+  def toAdminOrganisationAccountDetails(fieldData: FieldData) =
+    AdminOrganisationAccountDetails(
+      companyName = fieldData.businessName,
+      address = fieldData.businessAddress,
+      email = fieldData.email,
+      confirmedEmail = fieldData.email,
+      phone = fieldData.businessPhoneNumber,
+      isAgent = fieldData.isAgent,
+      firstName = firstName,
+      lastName = lastName,
+      dob = dob,
+      nino = nino
+    )
 
 }
 
@@ -180,17 +188,18 @@ case class AdminOrganisationAccountDetails(
       email: String,
       confirmedEmail: String,
       isAgent: Boolean,
-      selectedAddress: Option[String] = None)
-    extends AdminUser {
+      selectedAddress: Option[String] = None
+) extends AdminUser {
 
-  def toGroupDetails = GroupAccountDetails(
-    companyName = companyName,
-    address = address,
-    email = email,
-    confirmedEmail = confirmedEmail,
-    phone = phone,
-    isAgent = isAgent
-  )
+  def toGroupDetails =
+    GroupAccountDetails(
+      companyName = companyName,
+      address = address,
+      email = email,
+      confirmedEmail = confirmedEmail,
+      phone = phone,
+      isAgent = isAgent
+    )
 }
 
 object AdminOrganisationAccountDetails {
@@ -203,7 +212,8 @@ case class GroupAccountDetails(
       email: String,
       confirmedEmail: String,
       phone: String,
-      isAgent: Boolean)
+      isAgent: Boolean
+)
 
 case class IndividualUserAccountDetails(
       firstName: String,
@@ -216,25 +226,28 @@ case class IndividualUserAccountDetails(
       email: String,
       confirmedEmail: String,
       tradingName: Option[String],
-      selectedAddress: Option[String] = None)
-    extends AdminUser {
+      selectedAddress: Option[String] = None
+) extends AdminUser {
 
-  def toGroupDetails = GroupAccountDetails(
-    companyName = tradingName.getOrElse(truncateCompanyName(s"$firstName $lastName")),
-    address = address,
-    email = email,
-    confirmedEmail = confirmedEmail,
-    phone = phone,
-    isAgent = false
-  )
+  def toGroupDetails =
+    GroupAccountDetails(
+      companyName = tradingName.getOrElse(truncateCompanyName(s"$firstName $lastName")),
+      address = address,
+      email = email,
+      confirmedEmail = confirmedEmail,
+      phone = phone,
+      isAgent = false
+    )
 
-  override def toIndividualAccountSubmission(trustId: Option[String])(user: UserDetails)(id: Long)(
-        organisationId: Option[Long]) = IndividualAccountSubmission(
-    externalId = user.externalId,
-    trustId = trustId,
-    organisationId = organisationId,
-    details = IndividualDetails(firstName, lastName, email, phone, Some(mobilePhone), id)
-  )
+  override def toIndividualAccountSubmission(
+        trustId: Option[String]
+  )(user: UserDetails)(id: Long)(organisationId: Option[Long]) =
+    IndividualAccountSubmission(
+      externalId = user.externalId,
+      trustId = trustId,
+      organisationId = organisationId,
+      details = IndividualDetails(firstName, lastName, email, phone, Some(mobilePhone), id)
+    )
 
   private def truncateCompanyName(companyName: String): String =
     companyName.take(45).toString

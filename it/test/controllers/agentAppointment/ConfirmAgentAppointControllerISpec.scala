@@ -505,7 +505,9 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
           agentCode = agentCode,
           name = agentName,
           propertyLinkIds = List("123", "321"),
-          backLinkUrl = "some-back-link")),
+          backLinkUrl = "some-back-link"
+        )
+      ),
       filters = FilterAppointProperties(None, None)
     )
 

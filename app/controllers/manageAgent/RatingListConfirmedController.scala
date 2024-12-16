@@ -31,26 +31,27 @@ import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class RatingListConfirmedController @Inject()(
+class RatingListConfirmedController @Inject() (
       confirmedListView: views.html.manageAgent.ratingListsConfirmed,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction,
       featureSwitch: FeatureSwitch
-)(
-      implicit executionContext: ExecutionContext,
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       val config: ApplicationConfig,
       val errorHandler: CustomErrorHandler
 ) extends PropertyLinkingController {
 
-  def show: Action[AnyContent] = authenticated.async { implicit request =>
-    if (featureSwitch.isAgentListYearsEnabled) {
-      manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, name, _, _, Some(listYears))) =>
-          Ok(confirmedListView(chosenListYears = listYears.toList, agentName = name))
-        case _ => NotFound(errorHandler.notFoundErrorTemplate)
-      }
-    } else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
-  }
+  def show: Action[AnyContent] =
+    authenticated.async { implicit request =>
+      if (featureSwitch.isAgentListYearsEnabled)
+        manageAgentSessionRepository.get[AgentSummary].map {
+          case Some(AgentSummary(_, _, name, _, _, Some(listYears))) =>
+            Ok(confirmedListView(chosenListYears = listYears.toList, agentName = name))
+          case _ => NotFound(errorHandler.notFoundErrorTemplate)
+        }
+      else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+    }
 }

@@ -781,7 +781,8 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
       email = "test@email.com",
       phone = "1234567890",
       isAgent = false,
-      agentCode = None)
+      agentCode = None
+    )
 
     stubFor {
       get("/property-linking/groups?groupId=1")
@@ -809,7 +810,8 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-        .post(body = postBody))
+        .post(body = postBody)
+    )
 
   }
 

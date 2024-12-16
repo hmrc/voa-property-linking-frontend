@@ -58,7 +58,8 @@ class WithSubmittedLinkingSessionSpec extends BaseUnitSpec with MockitoSugar wit
   val actionAsJson: LinkingSessionRequest[AnyContent] => Future[Result] =
     (req: LinkingSessionRequest[AnyContent]) =>
       Future.successful(
-        Results.Ok(Json.toJson(AddedToRequest(req.ses, req.individualAccount, req.organisationAccount))))
+        Results.Ok(Json.toJson(AddedToRequest(req.ses, req.individualAccount, req.organisationAccount)))
+      )
 
   "WithSubmittedLinkingSession" should {
     "add session data to the request" when {

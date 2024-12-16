@@ -27,8 +27,9 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class Addresses @Inject()(config: ServicesConfig, http: DefaultHttpClient)(
-      implicit executionContext: ExecutionContext) {
+class Addresses @Inject() (config: ServicesConfig, http: DefaultHttpClient)(implicit
+      executionContext: ExecutionContext
+) {
 
   val url: String = config.baseUrl("property-linking") + "/property-linking/address"
 

@@ -36,8 +36,8 @@ case class SearchedAgent(
       agentOrganisationName: String,
       agentAddress: String,
       status: AppointAgentJourneyStatus = AgentSearched,
-      backLink: Option[String])
-    extends AppointNewAgentSession
+      backLink: Option[String]
+) extends AppointNewAgentSession
 
 object SearchedAgent {
   implicit val format: OFormat[SearchedAgent] = Json.format[SearchedAgent]
@@ -51,8 +51,8 @@ case class SelectedAgent(
       status: AppointAgentJourneyStatus = AgentSelected,
       backLink: Option[String],
       bothRatingLists: Option[Boolean],
-      specificRatingList: Option[String])
-    extends AppointNewAgentSession
+      specificRatingList: Option[String]
+) extends AppointNewAgentSession
 
 object SelectedAgent {
   implicit val format: OFormat[SelectedAgent] = Json.format[SelectedAgent]
@@ -61,7 +61,8 @@ object SelectedAgent {
         searchedAgent: SearchedAgent,
         isTheCorrectAgent: Boolean,
         bothRatingLists: Option[Boolean],
-        specificRatingList: Option[String]): SelectedAgent =
+        specificRatingList: Option[String]
+  ): SelectedAgent =
     SelectedAgent(
       agentCode = searchedAgent.agentCode,
       agentOrganisationName = searchedAgent.agentOrganisationName,
@@ -86,8 +87,8 @@ case class ManagingProperty(
       propertySelectedSize: Int = 0,
       appointmentScope: Option[AppointmentScope] = None,
       bothRatingLists: Option[Boolean] = None,
-      specificRatingList: Option[String] = None)
-    extends AppointNewAgentSession
+      specificRatingList: Option[String] = None
+) extends AppointNewAgentSession
 
 object ManagingProperty {
   implicit val format: OFormat[ManagingProperty] = Json.format[ManagingProperty]
@@ -97,7 +98,8 @@ object ManagingProperty {
         selection: String,
         singleProperty: Boolean,
         totalPropertySelectionSize: Int,
-        propertySelectedSize: Int): ManagingProperty =
+        propertySelectedSize: Int
+  ): ManagingProperty =
     ManagingProperty(
       agentCode = selectedAgent.agentCode,
       agentOrganisationName = selectedAgent.agentOrganisationName,

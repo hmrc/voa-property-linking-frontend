@@ -24,16 +24,18 @@ import views.html.createAccount.termsAndConditions
 import com.google.inject.Inject
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
-class StaticPagesController @Inject()(
+class StaticPagesController @Inject() (
       val errorHandler: CustomErrorHandler,
       override val controllerComponents: MessagesControllerComponents,
       authenticate: StaticPageAction,
-      termsAndConditionsView: termsAndConditions)(
-      implicit override val messagesApi: MessagesApi,
+      termsAndConditionsView: termsAndConditions
+)(implicit
+      override val messagesApi: MessagesApi,
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
 
-  def termsAndConditions: Action[AnyContent] = authenticate { implicit request =>
-    Ok(termsAndConditionsView())
-  }
+  def termsAndConditions: Action[AnyContent] =
+    authenticate { implicit request =>
+      Ok(termsAndConditionsView())
+    }
 }

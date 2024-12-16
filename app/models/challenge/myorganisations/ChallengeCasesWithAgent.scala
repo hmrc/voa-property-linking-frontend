@@ -23,7 +23,8 @@ case class ChallengeCasesWithAgent(
       size: Int,
       filterTotal: Int,
       total: Int,
-      challengeCases: List[ChallengeCaseWithAgent])
+      challengeCases: List[ChallengeCaseWithAgent]
+)
 
 object ChallengeCasesWithAgent {
   implicit val format: OFormat[ChallengeCasesWithAgent] = Json.format

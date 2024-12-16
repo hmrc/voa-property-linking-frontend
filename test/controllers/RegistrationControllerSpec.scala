@@ -75,7 +75,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   "Going directly to the complete-contact-details page, when logged in with an already registered VOA account" should
     "redirect the user to the dashboard" in {
     StubIndividualAccountConnector.stubAccount(
-      arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = ggExternalId))
+      arbitrary[DetailedIndividualAccount].sample.get.copy(externalId = ggExternalId)
+    )
 
     val res = testRegistrationController(userDetails()).show()(FakeRequest())
 
@@ -170,7 +171,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val html = HtmlPage(res)
     html.shouldContainText(
-      "We use your organisation details to send you correspondence related to the service and your account. ")
+      "We use your organisation details to send you correspondence related to the service and your account. "
+    )
   }
 
   "Going to the create account page when logged in as a new assistant user registering without an existing group account" should
@@ -181,7 +183,8 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val html = HtmlPage(res)
     html.shouldContainText(
-      "Registration failed You can’t register until the Administrator from your organisation registers first.")
+      "Registration failed You can’t register until the Administrator from your organisation registers first."
+    )
   }
 
   "Call confirmation" should "return an valid page" in {

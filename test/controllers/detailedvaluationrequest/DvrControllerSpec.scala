@@ -212,10 +212,12 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe OK
     contentAsString(result) should include(
-      "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>")
+      "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>"
+    )
     // Backlink
     contentAsString(result) should include(
-      """<a href="/business-rates-property-linking/my-organisation/property-link/123456/valuations/55555""")
+      """<a href="/business-rates-property-linking/my-organisation/property-link/123456/valuations/55555"""
+    )
   }
 
   "can Challenge for Agent" should "redirect to start challenge when canChallenge response is false" in new CanChallengeSetup {
@@ -229,10 +231,12 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe OK
     contentAsString(result) should include(
-      "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>")
+      "<title>You cannot challenge this valuation - Valuation Office Agency - GOV.UK</title>"
+    )
     // Backlink
     contentAsString(result) should include(
-      """<a href="/business-rates-property-linking/my-organisation/property-link/clients/all/123456/valuations/55555""")
+      """<a href="/business-rates-property-linking/my-organisation/property-link/clients/all/123456/valuations/55555"""
+    )
   }
 
   "current valuation" should "return 200 OK and have the correct caption" in new Setup {
@@ -251,7 +255,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
         valuationId =
-          ownerAssessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+          ownerAssessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -266,8 +270,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "previous valuation" should "return 200 OK and have the correct caption" in new Setup {
 
     val ownerAssessments = assessments.copy(
-      assessments = Seq(apiAssessment(ownerAuthorisation)
-        .copy(listType = ListType.PREVIOUS, currentToDate = Some(LocalDate.now().minusDays(1)))))
+      assessments = Seq(
+        apiAssessment(ownerAuthorisation)
+          .copy(listType = ListType.PREVIOUS, currentToDate = Some(LocalDate.now().minusDays(1)))
+      )
+    )
 
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(ownerAssessments)))
@@ -281,7 +288,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
         valuationId =
-          ownerAssessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+          ownerAssessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -307,7 +314,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
         valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -339,7 +346,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
         valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -363,7 +370,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.verifyElementText("challenge-rules-rules-1", "within 4 months of our Check case decision")
     page.verifyElementText(
       "challenge-rules-rules-2",
-      "if you have waited more than 12 months and not received our Check case decision")
+      "if you have waited more than 12 months and not received our Check case decision"
+    )
     page.verifyElementText(
       "challenge-rules-rules-3",
       "if it’s about a change in the local area (such as long-term roadworks), you send it within 16 months of sending the Check case and you have received our Check case decision"
@@ -377,7 +385,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.verifyElementTextByAttribute(
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/1L",
-      "Download the Check case form")
+      "Download the Check case form"
+    )
 
     val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
     radiosOnStartCheckScreen should have size 7
@@ -400,7 +409,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
         valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -427,7 +436,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.verifyElementTextByAttribute(
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/1L",
-      "Download the Check case form")
+      "Download the Check case form"
+    )
 
     val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
     radiosOnStartCheckScreen should have size 7
@@ -438,8 +448,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "detailed valuation check" should "display correct rateable value caption when list year = 2017 and end date is None" in new Setup {
 
-    val assessmentsCurrentEndDateIsNone = assessments.copy(assessments = assessments.assessments.map(assessment =>
-      assessment.copy(currentToDate = None, listType = ListType.PREVIOUS)))
+    val assessmentsCurrentEndDateIsNone = assessments.copy(assessments =
+      assessments.assessments.map(assessment => assessment.copy(currentToDate = None, listType = ListType.PREVIOUS))
+    )
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessmentsCurrentEndDateIsNone)))
     when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
@@ -452,7 +463,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
         valuationId = assessmentsCurrentEndDateIsNone.assessments.headOption
-          .fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+          .fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -479,7 +490,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.verifyElementTextByAttribute(
       "href",
       "/business-rates-property-linking/my-organisation/property-link/1111/valuations/1234/file/1L",
-      "Download the Check case form")
+      "Download the Check case form"
+    )
 
     val radiosOnStartCheckScreen: Elements = doc.select("#checkType-form input[type=radio]")
     radiosOnStartCheckScreen should have size 7
@@ -501,7 +513,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myClientsRequestDetailValuationCheck(
         propertyLinkSubmissionId = "1111",
         valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -516,7 +528,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "english detailed valuation tab when in compiled list" should "display a dvr download button and no welsh language explainer" in new ValuationTabSetup(
-    compiledList) {
+    compiledList
+  ) {
     override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, isWelsh = false)
 
     downloadValuation.classNames should not contain "govuk-link"
@@ -525,7 +538,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .myOrganisationRequestDetailedValuationRequestFile(
         ownerAuthorisation.submissionId,
         assessment.assessmentRef,
-        dvrDocuments.detailedValuation.documentSummary.documentId)
+        dvrDocuments.detailedValuation.documentSummary.documentId
+      )
       .url
     downloadValuation.text shouldBe "Download the detailed valuation"
     Option(welshLanguageExplainer) should not be defined
@@ -533,7 +547,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "welsh detailed valuation tab when in compiled list" should "display a dvr download button and a welsh language explainer" in new ValuationTabSetup(
-    compiledList) {
+    compiledList
+  ) {
     override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, isWelsh = true)
 
     downloadValuation.classNames should not contain "govuk-link"
@@ -543,7 +558,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .myOrganisationRequestDetailedValuationRequestFile(
         ownerAuthorisation.submissionId,
         assessment.assessmentRef,
-        dvrDocuments.detailedValuation.documentSummary.documentId)
+        dvrDocuments.detailedValuation.documentSummary.documentId
+      )
       .url
     welshLanguageExplainer.text shouldBe "If you need this valuation in Welsh, email ccaservice@voa.gov.uk with your request. Include the property address and valuation period (1 April 2017 to 1 June 2017) in the email."
     emailCcaLink.text shouldBe "ccaservice@voa.gov.uk"
@@ -551,7 +567,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "detailed valuation tab when in compiled list" should "display the correct 'change something' section" in new ValuationTabSetup(
-    compiledList) {
+    compiledList
+  ) {
     changeSomethingHeading.text shouldBe "If you want to change something in this valuation"
     changeSomethingContent.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
       "If the property’s details are incorrect, or you believe the rateable value is wrong, you must complete a Check case form.",
@@ -565,7 +582,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       .myOrganisationRequestDetailedValuationRequestFile(
         ownerAuthorisation.submissionId,
         assessment.assessmentRef,
-        dvrDocuments.checkForm.documentSummary.documentId)
+        dvrDocuments.checkForm.documentSummary.documentId
+      )
       .url
     sendCheckFormButton.text shouldBe "Send my completed Check case form"
     sendCheckFormButton.attr("href") shouldBe "#start-check-tab"
@@ -587,7 +605,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     private val response =
       controller.myOrganisationRequestDetailValuationCheck(ownerAuthorisation.submissionId, assessment.assessmentRef)(
-        request)
+        request
+      )
     status(response) shouldBe OK
     val valuationTab: Element = Jsoup.parse(contentAsString(response)).getElementById("valuation-tab")
 
@@ -628,7 +647,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.html.getElementById("client-name").text() shouldBe "Client property: Client Org Name"
     page.html
       .getElementById("back-link")
-      .attr("href") shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=true&valuationId=$valuationId"
+      .attr(
+        "href"
+      ) shouldBe s"http://localhost:9531/business-rates-challenge/summary/property-link/${ownerAuthorisation.authorisationId}/submission-id/$plSubmissionId/challenge-cases/$challengeRef?isAgent=true&valuationId=$valuationId"
   }
 
   "detailed valuation of a DVR property" should "display correct CHECKS tab and table of check cases" in new Setup {
@@ -647,7 +668,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.myOrganisationRequestDetailValuationCheck(
         propertyLinkSubmissionId = assessments.submissionId,
         valuationId =
-          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef),
+          assessments.assessments.headOption.fold(fail("expected to find at least 1 assessment"))(_.assessmentRef)
       )(request)
 
     status(result) shouldBe OK
@@ -662,7 +683,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       "Status",
       "Closed date",
       "Submitted by",
-      "Action")
+      "Action"
+    )
 
     val statuses = page.html.select("#checkcases-table .govuk-tag").asScala.toList
     val statusIcons: List[Element] = page.html.select("#checkcases-table .govuk-tag + a").asScala.toList
@@ -705,8 +727,11 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
       .thenReturn(Future.successful(List.empty))
     when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
-      .thenReturn(Future.successful(ChallengeCaseStatus.values.toList.map(status =>
-        ownerChallengeCaseDetails.copy(status = status.toString))))
+      .thenReturn(
+        Future.successful(
+          ChallengeCaseStatus.values.toList.map(status => ownerChallengeCaseDetails.copy(status = status.toString))
+        )
+      )
     when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
 
     val result =
@@ -758,19 +783,32 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   "previous detailed valuation" should "return 200 OK and not display 'start a check' tab when no check allowed action returned" in new Setup {
     val agent = assessments.agents.head
 
-    val assessmentsAllowedActions = assessments.copy(assessments = assessments.assessments.map(assessment =>
-      assessment.copy(allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION), listType = ListType.PREVIOUS)))
+    val assessmentsAllowedActions = assessments.copy(assessments =
+      assessments.assessments.map(assessment =>
+        assessment.copy(allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION), listType = ListType.PREVIOUS)
+      )
+    )
 
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessmentsAllowedActions)))
 
     when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
-      .thenReturn(Future.successful(CheckCaseStatus.values.toList.map(status =>
-        ownerCheckCaseDetails.copy(status = status.toString, agent = Some(Agent(agent))))))
+      .thenReturn(
+        Future.successful(
+          CheckCaseStatus.values.toList.map(status =>
+            ownerCheckCaseDetails.copy(status = status.toString, agent = Some(Agent(agent)))
+          )
+        )
+      )
 
     when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
-      .thenReturn(Future.successful(ChallengeCaseStatus.values.toList.map(status =>
-        ownerChallengeCaseDetails.copy(status = status.toString, agent = Some(Agent(agent))))))
+      .thenReturn(
+        Future.successful(
+          ChallengeCaseStatus.values.toList.map(status =>
+            ownerChallengeCaseDetails.copy(status = status.toString, agent = Some(Agent(agent)))
+          )
+        )
+      )
 
     when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
 
@@ -791,35 +829,36 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     page.shouldContain("#challenge-cases-tab", 1)
     page.shouldContain("#agents-tab", 1)
     page.shouldContainText(
-      "You can no longer tell us about a change to the property details for valuations in the 2017 rating list period by starting a Check case.")
+      "You can no longer tell us about a change to the property details for valuations in the 2017 rating list period by starting a Check case."
+    )
   }
 
   trait FutureRequestSetup extends Setup {
 
-    def testController(estimatorUrl: String) = new DvrController(
-      errorHandler = mockCustomErrorHandler,
-      propertyLinks = mockPropertyLinkConnector,
-      challengeConnector = mockChallengeConnector,
-      vmvConnector = mockVmvConnector,
-      authenticated = preAuthenticatedActionBuilders(),
-      submissionIds = mockSubmissionIds,
-      dvrCaseManagement = mockDvrCaseManagement,
-      alreadyRequestedDetailedValuationView = alreadyRequestedDetailedValuationView,
-      requestDetailedValuationView = requestDetailedValuationView,
-      requestedDetailedValuationView = requestedDetailedValuationView,
-      dvrFilesView = dvrFilesView,
-      cannotRaiseChallengeView = cannotRaiseChallengeView,
-      propertyMissingView = propertyMissingView,
-      checkSummaryUrlTemplate = checkSummaryUrlTemplate,
-      enquiryUrlTemplate = enquiryUrlTemplate,
-      estimatorUrlTemplate = estimatorUrl,
-      checkService = mockCheckService
-    )
+    def testController(estimatorUrl: String) =
+      new DvrController(
+        errorHandler = mockCustomErrorHandler,
+        propertyLinks = mockPropertyLinkConnector,
+        challengeConnector = mockChallengeConnector,
+        vmvConnector = mockVmvConnector,
+        authenticated = preAuthenticatedActionBuilders(),
+        submissionIds = mockSubmissionIds,
+        dvrCaseManagement = mockDvrCaseManagement,
+        alreadyRequestedDetailedValuationView = alreadyRequestedDetailedValuationView,
+        requestDetailedValuationView = requestDetailedValuationView,
+        requestedDetailedValuationView = requestedDetailedValuationView,
+        dvrFilesView = dvrFilesView,
+        cannotRaiseChallengeView = cannotRaiseChallengeView,
+        propertyMissingView = propertyMissingView,
+        checkSummaryUrlTemplate = checkSummaryUrlTemplate,
+        enquiryUrlTemplate = enquiryUrlTemplate,
+        estimatorUrlTemplate = estimatorUrl,
+        checkService = mockCheckService
+      )
 
     lazy val currentAssessment: ApiAssessment = super.assessments.assessments.drop(1).head
-    lazy val futureAssessment: ApiAssessment = {
+    lazy val futureAssessment: ApiAssessment =
       currentAssessment.copy(listType = ListType.DRAFT, effectiveDate = Some(april2023))
-    }
     lazy override val assessments: ApiAssessments =
       super.assessments.copy(assessments = futureAssessment :: super.assessments.assessments.tail.toList)
 
@@ -830,7 +869,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         assessments.authorisationId,
         currentAssessment.assessmentRef,
         owner = true,
-        fromValuation = Some(futureAssessment.assessmentRef))
+        fromValuation = Some(futureAssessment.assessmentRef)
+      )
       .url
     lazy val clientCurrentValuationUrl: String = controllers.routes.Assessments
       .viewDetailedAssessment(
@@ -838,7 +878,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         assessments.authorisationId,
         currentAssessment.assessmentRef,
         owner = false,
-        fromValuation = Some(futureAssessment.assessmentRef))
+        fromValuation = Some(futureAssessment.assessmentRef)
+      )
       .url
     lazy val ipFutureValuationUrl: String = controllers.routes.Assessments
       .viewDetailedAssessment(
@@ -886,11 +927,13 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     val result = controller.myOrganisationRequestDetailValuationCheck(
       propertyLinkSubmissionId = "1111",
-      valuationId = link.authorisationId)(request)
+      valuationId = link.authorisationId
+    )(request)
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
-      s"/business-rates-property-linking/my-organisation/property-link/1111/valuations/${link.authorisationId}/exists")
+      s"/business-rates-property-linking/my-organisation/property-link/1111/valuations/${link.authorisationId}/exists"
+    )
   }
 
   "request detailed valuation" should "return 303 SEE_OTHER when request is valid" in new Setup {
@@ -902,7 +945,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
-      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/confirmation?submissionId=DVR123&valuationId=1")
+      s"/business-rates-property-linking/my-organisation/property-link/${link.submissionId}/confirmation?submissionId=DVR123&valuationId=1"
+    )
   }
 
   abstract class RequestDvrScreenTestCase(configuration: ApplicationConfig) extends Setup {
@@ -936,7 +980,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "request detailed valuation" should "display the correct content in compiled list for CURRENT properties with no toDate" in new RequestDvrScreenTestCase(
-    compiledList) {
+    compiledList
+  ) {
     override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, toDate = None)
 
     html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
@@ -970,7 +1015,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "request detailed valuation" should "display the correct content in compiled list for CURRENT properties with a toDate" in new RequestDvrScreenTestCase(
-    compiledList) {
+    compiledList
+  ) {
     override def assessments: ApiAssessments =
       apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)))
 
@@ -1005,7 +1051,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
 
   "request detailed valuation" should "display the correct content in compiled list for PREVIOUS properties" in new RequestDvrScreenTestCase(
-    compiledList) {
+    compiledList
+  ) {
     override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, listType = ListType.PREVIOUS)
 
     html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
@@ -1062,7 +1109,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "request english detailed valuation confirmation submitted by IP in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
     compiledList,
-    agent = false) {
+    agent = false
+  ) {
     html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
     Option(localAuthorityRef) should not be defined
     Option(propertyAddress) should not be defined
@@ -1093,7 +1141,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "request welsh CURRENT (no toDate) detailed valuation confirmation submitted by IP in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
     compiledList,
-    agent = false) {
+    agent = false
+  ) {
     override def assessments: ApiAssessments =
       apiAssessments(ownerAuthorisation, toDate = None, listYear = 2023, isWelsh = true)
     html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
@@ -1128,7 +1177,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "request welsh CURRENT (with toDate) detailed valuation confirmation submitted by IP in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
     compiledList,
-    agent = false) {
+    agent = false
+  ) {
     override def assessments: ApiAssessments =
       apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)), isWelsh = true)
 
@@ -1164,7 +1214,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "request english detailed valuation confirmation submitted by Agent in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
     compiledList,
-    agent = true) {
+    agent = true
+  ) {
     html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
     Option(localAuthorityRef) should not be defined
     Option(propertyAddress) should not be defined
@@ -1194,7 +1245,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "request welsh CURRENT (no toDate) detailed valuation confirmation submitted by Agent in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
     compiledList,
-    agent = true) {
+    agent = true
+  ) {
     override def assessments: ApiAssessments =
       clientApiAssessments(clientPropertyLink, toDate = None, listYear = 2023, isWelsh = true)
 
@@ -1232,7 +1284,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "request welsh CURRENT (with toDate) detailed valuation confirmation submitted by Agent in compiled list" should "display the correct content" in new DvrConfirmationTestCase(
     compiledList,
-    agent = false) {
+    agent = false
+  ) {
     override def assessments: ApiAssessments =
       clientApiAssessments(clientPropertyLink, toDate = Some(april2023.minusMonths(3)), isWelsh = true)
 
@@ -1275,7 +1328,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe SEE_OTHER
     redirectLocation(result) shouldBe Some(
-      s"/business-rates-property-linking/my-organisation/property-link/clients/all/${link.submissionId}/confirmation?submissionId=DVR123&valuationId=1")
+      s"/business-rates-property-linking/my-organisation/property-link/clients/all/${link.submissionId}/confirmation?submissionId=DVR123&valuationId=1"
+    )
   }
 
   abstract class DvrConfirmationTestCase(configuration: ApplicationConfig, agent: Boolean) extends Setup {
@@ -1290,18 +1344,19 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         .thenReturn(Future.successful(Some(clientPropertyLinks)))
       when(mockPropertyLinkConnector.getClientAssessments(any())(any()))
         .thenReturn(Future.successful(Some(assessments)))
-    } else {
+    } else
       when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
         .thenReturn(Future.successful(Some(assessments)))
-    }
 
     private val result =
       if (agent)
         controller.myClientsRequestDetailValuationConfirmation(clientPropertyLink.submissionId, "DVR123", 1234L)(
-          request)
+          request
+        )
       else
         controller.myOrganisationRequestDetailValuationConfirmation(ownerAuthorisation.submissionId, "DVR123", 1234L)(
-          request)
+          request
+        )
 
     val html: nodes.Document = Jsoup.parse(contentAsString(result))
 
@@ -1324,7 +1379,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
   "already sent dvr screen" should "display correctly in compiled list when viewing a previous valuation when a dvrSubmissionId has been stored" in new AlreadySentDvrTestCase(
     compiledList,
-    dvrRecord) {
+    dvrRecord
+  ) {
     override def assessments: ApiAssessments =
       apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)), listType = ListType.PREVIOUS)
 
@@ -1354,7 +1410,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
   "already sent dvr screen" should "display correctly in compiled list when viewing a previous valuation when no dvrSubmissionId has been stored" in new AlreadySentDvrTestCase(
     compiledList,
-    dvrRecord.copy(dvrSubmissionId = None)) {
+    dvrRecord.copy(dvrSubmissionId = None)
+  ) {
     when(mockDvrCaseManagement.getDvrRecord(any(), any())(any()))
       .thenReturn(Future.successful(Some(dvrRecord.copy(dvrSubmissionId = None))))
     override def assessments: ApiAssessments =
@@ -1373,7 +1430,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     detailsHeading.text() shouldBe "Valuation details"
     explainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
       "You have sent us a request for the detailed valuation.",
-      "The detailed valuation will be available to download within 20 working days of sending the request. We will send you a message when it is available.",
+      "The detailed valuation will be available to download within 20 working days of sending the request. We will send you a message when it is available."
     )
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
@@ -1385,7 +1442,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
   "already sent dvr screen" should "display correctly in compiled list when viewing a current valuation with no toDate" in new AlreadySentDvrTestCase(
     compiledList,
-    dvrRecord) {
+    dvrRecord
+  ) {
     override def assessments: ApiAssessments = apiAssessments(ownerAuthorisation, toDate = None, listYear = 2023)
 
     html.title() shouldBe "123, Some Address, Some Town, AB1 CD2 - Valuation Office Agency - GOV.UK"
@@ -1414,7 +1472,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
   }
   "already sent dvr screen" should "display correctly in compiled list when viewing a current valuation with a toDate" in new AlreadySentDvrTestCase(
     compiledList,
-    dvrRecord) {
+    dvrRecord
+  ) {
     override def assessments: ApiAssessments =
       apiAssessments(ownerAuthorisation, toDate = Some(april2023.minusMonths(3)), listYear = 2023)
 
@@ -1457,7 +1516,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       controller.alreadySubmittedDetailedValuationRequest(
         ownerAuthorisation.submissionId,
         assessment.assessmentRef,
-        owner = true)(request)
+        owner = true
+      )(request)
 
     val html: nodes.Document = Jsoup.parse(contentAsString(result))
 
@@ -1504,28 +1564,38 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     when(mockDvrCaseManagement.getDvrRecord(any(), any())(any())).thenReturn(Future.successful(None))
     val result: Future[Result] = controller.myOrganisationRequestDetailValuationCheck(
       propertyLinkSubmissionId = assessments.submissionId,
-      valuationId = currentAssessment.assessmentRef,
+      valuationId = currentAssessment.assessmentRef
     )(request)
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
 
     page.html.getElementById("valuation-tab-change-something-content").text() should include(
-      "we have altered this valuation in the last 6 months and you send a Check case from the current valuation")
+      "we have altered this valuation in the last 6 months and you send a Check case from the current valuation"
+    )
     page.html.getElementById("valuation-tab-change-something-content").text() should include(
-      "a court decision affected this property’s rateable value and before 1 October 2023 you send a Check case from the current valuation")
+      "a court decision affected this property’s rateable value and before 1 October 2023 you send a Check case from the current valuation"
+    )
   }
 
   "already submitted detailed valuation" should "return correct content if current valuation is not available " in new FutureRequestSetup {
 
-    val assessmentsAllowedActions = assessments.copy(assessments = assessments.assessments.map(assessment =>
-      assessment.copy(allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION), listType = ListType.PREVIOUS)))
+    val assessmentsAllowedActions = assessments.copy(assessments =
+      assessments.assessments.map(assessment =>
+        assessment.copy(allowedActions = List(AllowedAction.VIEW_DETAILED_VALUATION), listType = ListType.PREVIOUS)
+      )
+    )
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(assessmentsAllowedActions)))
     when(mockPropertyLinkConnector.getMyOrganisationsCheckCases(any())(any()))
-      .thenReturn(Future.successful(CheckCaseStatus.values.toList.map(status =>
-        ownerCheckCaseDetails.copy(status = status.toString))))
+      .thenReturn(
+        Future
+          .successful(CheckCaseStatus.values.toList.map(status => ownerCheckCaseDetails.copy(status = status.toString)))
+      )
     when(mockChallengeConnector.getMyOrganisationsChallengeCases(any())(any()))
-      .thenReturn(Future.successful(ChallengeCaseStatus.values.toList.map(status =>
-        ownerChallengeCaseDetails.copy(status = status.toString))))
+      .thenReturn(
+        Future.successful(
+          ChallengeCaseStatus.values.toList.map(status => ownerChallengeCaseDetails.copy(status = status.toString))
+        )
+      )
     when(mockDvrCaseManagement.getDvrDocuments(any(), any(), any())(any())).thenReturn(successfulDvrDocuments)
 
     val result =
@@ -1538,8 +1608,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val page = HtmlPage(Jsoup.parse(contentAsString(result)))
 
     page.html.getElementById("valuation-tab-change-something-content").text() should include(
-      "we have altered this valuation in the last 6 months and you email us at ccaservice@voa.gov.uk to send a Check case")
+      "we have altered this valuation in the last 6 months and you email us at ccaservice@voa.gov.uk to send a Check case"
+    )
     page.html.getElementById("valuation-tab-change-something-content").text() should include(
-      "a court decision affected this property’s rateable value and before 1 October 2023 you email us at ccaservice@voa.gov.uk to send a Check case")
+      "a court decision affected this property’s rateable value and before 1 October 2023 you email us at ccaservice@voa.gov.uk to send a Check case"
+    )
   }
 }

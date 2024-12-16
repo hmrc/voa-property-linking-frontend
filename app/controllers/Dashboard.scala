@@ -29,13 +29,14 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 
-class Dashboard @Inject()(
+class Dashboard @Inject() (
       val errorHandler: CustomErrorHandler,
       propertyLinks: AgentRelationshipService,
       groupAccounts: GroupAccounts,
       authenticated: AuthenticatedAction,
-      override val controllerComponents: MessagesControllerComponents)(
-      implicit executionContext: ExecutionContext,
+      override val controllerComponents: MessagesControllerComponents
+)(implicit
+      executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
       val config: ApplicationConfig
 ) extends PropertyLinkingController {
@@ -44,14 +45,18 @@ class Dashboard @Inject()(
 
   def yourDetails = authenticated(Redirect(config.dashboardUrl("your-details")))
 
-  def manageProperties(clientDetails: Option[ClientDetails] = None) = authenticated {
-    clientDetails match {
-      case Some(client) =>
-        Redirect(config.dashboardUrl(
-          s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}"))
-      case _ => Redirect(config.dashboardUrl("your-properties"))
+  def manageProperties(clientDetails: Option[ClientDetails] = None) =
+    authenticated {
+      clientDetails match {
+        case Some(client) =>
+          Redirect(
+            config.dashboardUrl(
+              s"selected-client-properties?clientOrganisationId=${client.organisationId}&clientName=${client.organisationName}"
+            )
+          )
+        case _ => Redirect(config.dashboardUrl("your-properties"))
+      }
     }
-  }
 
   def manageAgents = authenticated(Redirect(config.dashboardUrl("your-agents")))
 
@@ -66,7 +71,8 @@ case class ManagedPropertiesVM(
       agentOrganisationId: Option[Long],
       agentName: String,
       agentCode: Long,
-      properties: Seq[OwnerAuthorisation])
+      properties: Seq[OwnerAuthorisation]
+)
 
 case class ManageAgentsVM(agents: Seq[AgentInfo])
 

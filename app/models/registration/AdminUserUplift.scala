@@ -37,7 +37,8 @@ sealed trait AdminUserUplift {
   val confirmedEmail: String
 
   def toIndividualAccountSubmissionUplift(trustId: Option[String], firstName: Option[String], lastName: Option[String])(
-        user: UserDetails)(id: Long)(organisationId: Option[Long]) =
+        user: UserDetails
+  )(id: Long)(organisationId: Option[Long]) =
     IndividualAccountSubmission(
       externalId = user.externalId,
       trustId = trustId,
@@ -65,7 +66,8 @@ object AdminUserUplift {
       keys.confirmedEmail  -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.tradingName     -> optional(text(maxLength = 45)),
       keys.selectedAddress -> optional(text)
-    )(IndividualUserAccountDetailsUplift.apply)(IndividualUserAccountDetailsUplift.unapply))
+    )(IndividualUserAccountDetailsUplift.apply)(IndividualUserAccountDetailsUplift.unapply)
+  )
 
   lazy val organisation = Form(
     mapping(
@@ -76,7 +78,8 @@ object AdminUserUplift {
       keys.confirmedBusinessEmail -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.isAgent                -> mandatoryBoolean,
       keys.selectedAddress        -> optional(text)
-    )(AdminOrganisationAccountDetailsUplift.apply)(AdminOrganisationAccountDetailsUplift.unapply))
+    )(AdminOrganisationAccountDetailsUplift.apply)(AdminOrganisationAccountDetailsUplift.unapply)
+  )
 
   implicit val enrolmentUserFormat: Format[AdminUserUplift] = new Format[AdminUserUplift] {
     override def reads(json: JsValue): JsResult[AdminUserUplift] =
@@ -84,12 +87,13 @@ object AdminUserUplift {
         .reads(json)
         .orElse(IndividualUserAccountDetailsUplift.format.reads(json))
 
-    override def writes(o: AdminUserUplift): JsObject = o match {
-      case organisation: AdminOrganisationAccountDetailsUplift =>
-        AdminOrganisationAccountDetailsUplift.format.writes(organisation)
-      case individual: IndividualUserAccountDetailsUplift =>
-        IndividualUserAccountDetailsUplift.format.writes(individual)
-    }
+    override def writes(o: AdminUserUplift): JsObject =
+      o match {
+        case organisation: AdminOrganisationAccountDetailsUplift =>
+          AdminOrganisationAccountDetailsUplift.format.writes(organisation)
+        case individual: IndividualUserAccountDetailsUplift =>
+          IndividualUserAccountDetailsUplift.format.writes(individual)
+      }
   }
 }
 
@@ -97,22 +101,23 @@ case class AdminInExistingOrganisationAccountDetailsUplift(
       firstName: String,
       lastName: String,
       dob: LocalDate,
-      nino: Nino)
-    extends AdminInExistingOrganisationUser {
+      nino: Nino
+) extends AdminInExistingOrganisationUser {
 
   override val address = Address(None, "", "", "", "", "")
   override val phone = ""
   override val email = ""
   override val confirmedEmail = ""
 
-  def toAdminOrganisationAccountDetailsUplift(fieldData: FieldDataUplift) = AdminOrganisationAccountDetailsUplift(
-    companyName = fieldData.businessName,
-    address = fieldData.businessAddress,
-    email = fieldData.email,
-    confirmedEmail = fieldData.email,
-    phone = fieldData.businessPhoneNumber,
-    isAgent = fieldData.isAgent
-  )
+  def toAdminOrganisationAccountDetailsUplift(fieldData: FieldDataUplift) =
+    AdminOrganisationAccountDetailsUplift(
+      companyName = fieldData.businessName,
+      address = fieldData.businessAddress,
+      email = fieldData.email,
+      confirmedEmail = fieldData.email,
+      phone = fieldData.businessPhoneNumber,
+      isAgent = fieldData.isAgent
+    )
 
 }
 
@@ -129,17 +134,18 @@ case class AdminOrganisationAccountDetailsUplift(
       email: String,
       confirmedEmail: String,
       isAgent: Boolean,
-      selectedAddress: Option[String] = None)
-    extends AdminUserUplift {
+      selectedAddress: Option[String] = None
+) extends AdminUserUplift {
 
-  def toGroupDetails = GroupAccountDetails(
-    companyName = companyName,
-    address = address,
-    email = email,
-    confirmedEmail = confirmedEmail,
-    phone = phone,
-    isAgent = isAgent
-  )
+  def toGroupDetails =
+    GroupAccountDetails(
+      companyName = companyName,
+      address = address,
+      email = email,
+      confirmedEmail = confirmedEmail,
+      phone = phone,
+      isAgent = isAgent
+    )
 }
 
 object AdminOrganisationAccountDetailsUplift {
@@ -154,8 +160,8 @@ case class IndividualUserAccountDetailsUplift(
       email: String,
       confirmedEmail: String,
       tradingName: Option[String],
-      selectedAddress: Option[String] = None)
-    extends AdminUserUplift {
+      selectedAddress: Option[String] = None
+) extends AdminUserUplift {
 
   def toGroupDetails(firstName: Option[String], lastName: Option[String]) = {
     val fName = firstName.getOrElse(throw new Exception("Missing itmp first name"))
@@ -173,7 +179,8 @@ case class IndividualUserAccountDetailsUplift(
   override def toIndividualAccountSubmissionUplift(
         trustId: Option[String],
         firstName: Option[String],
-        lastName: Option[String])(user: UserDetails)(id: Long)(organisationId: Option[Long]) =
+        lastName: Option[String]
+  )(user: UserDetails)(id: Long)(organisationId: Option[Long]) =
     IndividualAccountSubmission(
       externalId = user.externalId,
       trustId = trustId,

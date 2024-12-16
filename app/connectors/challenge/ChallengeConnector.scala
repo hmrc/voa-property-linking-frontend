@@ -27,11 +27,12 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ChallengeConnector @Inject()(config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext) {
+class ChallengeConnector @Inject() (config: ServicesConfig, http: DefaultHttpClient)(implicit ec: ExecutionContext) {
   lazy val baseUrl: String = config.baseUrl("business-rates-challenge") + s"/business-rates-challenge"
 
-  def getMyClientsChallengeCases(propertyLinkSubmissionId: String)(
-        implicit hc: HeaderCarrier): Future[List[CaseDetails]] =
+  def getMyClientsChallengeCases(
+        propertyLinkSubmissionId: String
+  )(implicit hc: HeaderCarrier): Future[List[CaseDetails]] =
     http
       .GET[ChallengeCasesWithClient](
         s"$baseUrl/my-organisation/clients/all/challenge-cases",
@@ -39,8 +40,9 @@ class ChallengeConnector @Inject()(config: ServicesConfig, http: DefaultHttpClie
       )
       .map(_.challengeCases.map(CaseDetails.apply))
 
-  def getMyOrganisationsChallengeCases(propertyLinkSubmissionId: String)(
-        implicit hc: HeaderCarrier): Future[List[CaseDetails]] =
+  def getMyOrganisationsChallengeCases(
+        propertyLinkSubmissionId: String
+  )(implicit hc: HeaderCarrier): Future[List[CaseDetails]] =
     http
       .GET[ChallengeCasesWithAgent](
         s"$baseUrl/my-organisations/challenge-cases",

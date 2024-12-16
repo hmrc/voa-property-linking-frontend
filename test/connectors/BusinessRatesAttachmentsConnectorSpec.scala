@@ -34,8 +34,9 @@ class BusinessRatesAttachmentsConnectorSpec extends VoaPropertyLinkingSpec {
     mockHttpPOST[InitiateAttachmentRequest, PreparedUpload]("tst-url", preparedUpload)
     whenReady(
       testConnector.initiateAttachmentUpload(
-        InitiateAttachmentPayload(initiateAttachmentRequest, "http://example.com", "http://example.com/failure")))(
-      _ shouldBe preparedUpload)
+        InitiateAttachmentPayload(initiateAttachmentRequest, "http://example.com", "http://example.com/failure")
+      )
+    )(_ shouldBe preparedUpload)
   }
 
   "submitFile" should "submit the file" in {

@@ -40,7 +40,8 @@ class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
   val initiateAttachmentRequest = InitiateAttachmentPayload(
     InitiateAttachmentRequest("FILE_NAME", "img/jpeg", RatesBillType),
     "http://example.com",
-    "http://example.com/failure")
+    "http://example.com/failure"
+  )
   val linkingSessionData = arbitrary[LinkingSession].copy(uploadEvidenceData = uploadRatesBillData)
   implicit val request: BasicAuthenticatedRequest[AnyContentAsEmpty.type] =
     BasicAuthenticatedRequest(groupAccount(agent = true), detailedIndividualAccount, FakeRequest())
@@ -51,7 +52,8 @@ class BusinessRatesAttachmentsServiceSpec extends ServiceSpec {
   val businessRatesChallengeService = new BusinessRatesAttachmentsService(
     businessRatesAttachmentsConnector = businessRatesAttachmentConnector,
     sessionRepository = mockSessionRepo,
-    auditingService = mockAuditingService)
+    auditingService = mockAuditingService
+  )
 
   "BusinessRatesAttachmentsService" should {
     "Upload Bill Evidence initiateAttachmentUpload" in {

@@ -30,7 +30,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class StubWithAppointAgentSessionRefiner(sessionRepository: SessionRepo)
     extends WithAppointAgentSessionRefiner(mock(classOf[CustomErrorHandler]), sessionRepository)(
-      ExecutionContext.global) {
+      ExecutionContext.global
+    ) {
 
   private var stubbedSession: Option[(AppointNewAgentSession, DetailedIndividualAccount, GroupAccount)] = None
 
@@ -43,7 +44,8 @@ class StubWithAppointAgentSessionRefiner(sessionRepository: SessionRepo)
   def stubSession(
         appointAgentSession: AppointNewAgentSession,
         individualAccount: DetailedIndividualAccount,
-        groupAccount: GroupAccount) =
+        groupAccount: GroupAccount
+  ) =
     stubbedSession = Some((appointAgentSession, individualAccount, groupAccount))
 
   def reset() =

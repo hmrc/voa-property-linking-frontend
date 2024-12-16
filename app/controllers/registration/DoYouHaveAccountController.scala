@@ -29,7 +29,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import scala.concurrent.ExecutionContext
 
-class DoYouHaveAccountController @Inject()(
+class DoYouHaveAccountController @Inject() (
       val errorHandler: CustomErrorHandler,
       doYouHaveAccountView: registration.doYouHaveAccount
 )(
@@ -38,19 +38,21 @@ class DoYouHaveAccountController @Inject()(
       implicit override val controllerComponents: MessagesControllerComponents
 ) extends PropertyLinkingController with Logging {
 
-  def show: Action[AnyContent] = Action { implicit request =>
-    Ok(doYouHaveAccountView(AlreadyHasAccount.form))
-  }
-  def submit: Action[AnyContent] = Action { implicit request =>
-    AlreadyHasAccount.form
-      .bindFromRequest()
-      .fold(
-        errors => BadRequest(doYouHaveAccountView(errors)),
-        hasAccount =>
-          if (hasAccount) Redirect(controllers.routes.Login.show)
-          else Redirect(controllers.registration.routes.AccountTypeController.show)
-      )
-  }
+  def show: Action[AnyContent] =
+    Action { implicit request =>
+      Ok(doYouHaveAccountView(AlreadyHasAccount.form))
+    }
+  def submit: Action[AnyContent] =
+    Action { implicit request =>
+      AlreadyHasAccount.form
+        .bindFromRequest()
+        .fold(
+          errors => BadRequest(doYouHaveAccountView(errors)),
+          hasAccount =>
+            if (hasAccount) Redirect(controllers.routes.Login.show)
+            else Redirect(controllers.registration.routes.AccountTypeController.show)
+        )
+    }
 
   object AlreadyHasAccount {
     lazy val form = Form(single("hasAccount" -> mandatoryBoolean))

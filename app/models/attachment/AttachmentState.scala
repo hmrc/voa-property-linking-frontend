@@ -55,22 +55,23 @@ object AttachmentState {
         case _                                     => JsError("Invalid AttachmentState")
       }
 
-    override def writes(o: AttachmentState): JsValue = o match {
-      case Received                  => JsString("Received")
-      case Initiated                 => JsString("Initiated")
-      case ValidationFailed          => JsString("ValidationFailed")
-      case ScanPending               => JsString("ScanPending")
-      case ScanReceived              => JsString("ScanReceived")
-      case MetadataPending           => JsString("MetadataPending")
-      case MetadataReceived          => JsString("MetadataReceived")
-      case UploadPending             => JsString("UploadPending")
-      case Uploading                 => JsString("Uploading")
-      case UploadAttachmentFailed    => JsString("UploadAttachmentFailed")
-      case UploadAttachmentComplete  => JsString("UploadAttachmentComplete")
-      case UploadingScanResults      => JsString("UploadingScanResults")
-      case UploadScanResultsFailed   => JsString("UploadScanResultsFailed")
-      case UploadScanResultsComplete => JsString("UploadScanResultsComplete")
-      case _                         => throw new IllegalStateException(s"Unsupported AttachmentState: ${o.getClass.getSimpleName}")
-    }
+    override def writes(o: AttachmentState): JsValue =
+      o match {
+        case Received                  => JsString("Received")
+        case Initiated                 => JsString("Initiated")
+        case ValidationFailed          => JsString("ValidationFailed")
+        case ScanPending               => JsString("ScanPending")
+        case ScanReceived              => JsString("ScanReceived")
+        case MetadataPending           => JsString("MetadataPending")
+        case MetadataReceived          => JsString("MetadataReceived")
+        case UploadPending             => JsString("UploadPending")
+        case Uploading                 => JsString("Uploading")
+        case UploadAttachmentFailed    => JsString("UploadAttachmentFailed")
+        case UploadAttachmentComplete  => JsString("UploadAttachmentComplete")
+        case UploadingScanResults      => JsString("UploadingScanResults")
+        case UploadScanResultsFailed   => JsString("UploadScanResultsFailed")
+        case UploadScanResultsComplete => JsString("UploadScanResultsComplete")
+        case _                         => throw new IllegalStateException(s"Unsupported AttachmentState: ${o.getClass.getSimpleName}")
+      }
   }
 }

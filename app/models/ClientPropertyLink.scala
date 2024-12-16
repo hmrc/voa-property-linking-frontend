@@ -31,7 +31,8 @@ case class ClientPropertyLink(
       uarn: Long,
       address: String,
       localAuthorityRef: String,
-      client: ClientDetails)
+      client: ClientDetails
+)
 
 object ClientPropertyLink {
   implicit val format: Format[ClientPropertyLink] = Json.format[ClientPropertyLink]

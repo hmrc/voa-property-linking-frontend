@@ -22,7 +22,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.{Configuration, Mode}
 
-class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaPropertyLinkingSpec {
+class RegisterPageSpec @Inject() (configuration: Configuration) extends VoaPropertyLinkingSpec {
   implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
   implicit val mode: Mode = Mode.Test
   implicit val runConfig: Configuration = configuration
@@ -36,7 +36,8 @@ class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaProper
     status(result) shouldBe SEE_OTHER
 
     redirectLocation(result) shouldBe Some(
-      "http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
+      "http://localhost:8571/government-gateway-registration-frontend?accountType=organisation&continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa"
+    )
 
   }
   "choice" should "redirect to the government gateway registration page with the inputted form selection" in {
@@ -44,12 +45,14 @@ class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaProper
     val result = applicationTestController.choice()(
       FakeRequest().withFormUrlEncodedBody(
         "choice" -> "test123"
-      ))
+      )
+    )
 
     status(result) shouldBe SEE_OTHER
 
     redirectLocation(result) shouldBe Some(
-      "http://localhost:8571/government-gateway-registration-frontend?accountType=test123&continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa")
+      "http://localhost:8571/government-gateway-registration-frontend?accountType=test123&continue=%2Fbusiness-rates-property-linking%2Fhome&origin=voa"
+    )
 
   }
 
@@ -58,14 +61,16 @@ class RegisterPageSpec @Inject()(configuration: Configuration) extends VoaProper
     applicationTestController.continue(testAccountType) shouldBe Map(
       "accountType" -> Seq(testAccountType),
       "continue"    -> Seq("dashboard-url"), //fixme fix url if needed
-      "origin"      -> Seq("voa"))
+      "origin"      -> Seq("voa")
+    )
   }
 
   "choice" should "display a validation error if a choice is not selected" in {
     val result = applicationTestController.choice()(
       FakeRequest().withFormUrlEncodedBody(
         "choice" -> ""
-      ))
+      )
+    )
     status(result) shouldBe BAD_REQUEST
   }
 

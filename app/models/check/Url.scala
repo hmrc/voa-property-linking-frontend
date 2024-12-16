@@ -48,14 +48,15 @@ object Url {
   def apply(protocol: String, host: String, port: Int): Url =
     UrlWithHost(new URL(protocol, host, port, ""))
 
-  def apply(baseUrl: String): Url = baseUrl.trim match {
-    case ""                                  => BaseUrl(Path.of("/"))
-    case base if base.startsWith("http://")  => UrlWithHost(new URL(baseUrl))
-    case base if base.startsWith("https://") => UrlWithHost(new URL(baseUrl))
-    case base if base.startsWith("/")        => BaseUrl(Path.of(base))
-    case other =>
-      throw new IllegalArgumentException(s"Base URL must be fully qualified or start with a slash, got: $other")
-  }
+  def apply(baseUrl: String): Url =
+    baseUrl.trim match {
+      case ""                                  => BaseUrl(Path.of("/"))
+      case base if base.startsWith("http://")  => UrlWithHost(new URL(baseUrl))
+      case base if base.startsWith("https://") => UrlWithHost(new URL(baseUrl))
+      case base if base.startsWith("/")        => BaseUrl(Path.of(base))
+      case other =>
+        throw new IllegalArgumentException(s"Base URL must be fully qualified or start with a slash, got: $other")
+    }
 
   private case class UrlWithHost(url: URL) extends Url {
 
@@ -84,9 +85,10 @@ object Url {
 
     override def addPath(pathToAdd: Path) = BaseUrl(base, path.addPath(pathToAdd))
 
-    override def resolveParams(firstParam: String, otherParams: String*) = BaseUrl(
-      base.addPath(path).resolveParams(firstParam, otherParams: _*)
-    )
+    override def resolveParams(firstParam: String, otherParams: String*) =
+      BaseUrl(
+        base.addPath(path).resolveParams(firstParam, otherParams: _*)
+      )
 
     override lazy val toString = fullUrl.toString
   }
@@ -115,9 +117,10 @@ object Url {
       else if (path.contains("?")) Path(s"$path&$rawQueryString")
       else Path(s"$path?$rawQueryString")
 
-    override def resolveParams(firstParam: String, otherParams: String*) = Path(
-      format(path, firstParam +: otherParams: _*)
-    )
+    override def resolveParams(firstParam: String, otherParams: String*) =
+      Path(
+        format(path, firstParam +: otherParams: _*)
+      )
 
     override val toString = path
   }

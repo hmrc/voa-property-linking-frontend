@@ -231,7 +231,8 @@ class ValuationsControllerISpec extends ISpecBase {
         row = 1,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        noRateableValue = true)
+        noRateableValue = true
+      )
       testPreviousValuation(res, English, row = 2, connection = "OCCUPIER", valuationHref = valuationHref)
       testNotApplicableExpandable(res, English)
     }
@@ -255,7 +256,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = false,
         connectionToProperty = "OWNER",
         assessments = List(draftApiAssessment),
-        previousPage = MyProperties)
+        previousPage = MyProperties
+      )
       testAssessmentsPage(res, English, userIsAgent = false, hasAssessments = true, previousPage = MyProperties)
       testFutureValuation(res, English, row = 1, connection = "OWNER", valuationHref = valuationHref)
     }
@@ -266,7 +268,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = false,
         connectionToProperty = "OCCUPIER",
         assessments = List(currentApiAssessment),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, English, userIsAgent = false, hasAssessments = true, previousPage = Dashboard)
       testCurrentValuation(res, English, row = 1, connection = "OCCUPIER", valuationHref = valuationHref)
     }
@@ -289,7 +292,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = false,
         connectionToProperty = "OWNER_OCCUPIER",
         assessments = List(),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, English, userIsAgent = false, hasAssessments = false, previousPage = Dashboard)
     }
 
@@ -301,7 +305,8 @@ class ValuationsControllerISpec extends ISpecBase {
         assessments = List(
           draftApiAssessment.copy(allowedActions = List()),
           currentApiAssessment.copy(allowedActions = List()),
-          previousApiAssessment.copy(allowedActions = List())),
+          previousApiAssessment.copy(allowedActions = List())
+        ),
         previousPage = MyProperties
       )
       testAssessmentsPage(res, English, userIsAgent = false, hasAssessments = false, previousPage = MyProperties)
@@ -327,28 +332,32 @@ class ValuationsControllerISpec extends ISpecBase {
         row = 1,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2019, 4, 1))
+        currentFromDate = LocalDate.of(2019, 4, 1)
+      )
       testPreviousValuation(
         res,
         English,
         row = 2,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2018, 7, 10))
+        currentFromDate = LocalDate.of(2018, 7, 10)
+      )
       testPreviousValuation(
         res,
         English,
         row = 3,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2018, 2, 25))
+        currentFromDate = LocalDate.of(2018, 2, 25)
+      )
       testPreviousValuation(
         res,
         English,
         row = 4,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2017, 4, 1))
+        currentFromDate = LocalDate.of(2017, 4, 1)
+      )
     }
 
     // English - Agent
@@ -381,7 +390,8 @@ class ValuationsControllerISpec extends ISpecBase {
         row = 1,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        noRateableValue = true)
+        noRateableValue = true
+      )
       testPreviousValuation(res, English, row = 2, connection = "OCCUPIER", valuationHref = agentValuationHref)
       testNotApplicableExpandable(res, English)
     }
@@ -405,7 +415,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = true,
         connectionToProperty = "OWNER",
         assessments = List(draftApiAssessment),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, English, userIsAgent = true, hasAssessments = true, previousPage = Dashboard)
       testFutureValuation(res, English, row = 1, connection = "OWNER", valuationHref = agentValuationHref)
     }
@@ -416,7 +427,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = true,
         connectionToProperty = "OCCUPIER",
         assessments = List(currentApiAssessment),
-        previousPage = AllClients)
+        previousPage = AllClients
+      )
       testAssessmentsPage(res, English, userIsAgent = true, hasAssessments = true, previousPage = AllClients)
       testCurrentValuation(res, English, row = 1, connection = "OCCUPIER", valuationHref = agentValuationHref)
     }
@@ -439,7 +451,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = true,
         connectionToProperty = "OWNER_OCCUPIER",
         assessments = List(),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, English, userIsAgent = true, hasAssessments = false, previousPage = Dashboard)
     }
 
@@ -451,7 +464,8 @@ class ValuationsControllerISpec extends ISpecBase {
         assessments = List(
           draftApiAssessment.copy(allowedActions = List()),
           currentApiAssessment.copy(allowedActions = List()),
-          previousApiAssessment.copy(allowedActions = List())),
+          previousApiAssessment.copy(allowedActions = List())
+        ),
         previousPage = AllClients
       )
       testAssessmentsPage(res, English, userIsAgent = true, hasAssessments = false, previousPage = AllClients)
@@ -477,28 +491,32 @@ class ValuationsControllerISpec extends ISpecBase {
         row = 1,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2019, 4, 1))
+        currentFromDate = LocalDate.of(2019, 4, 1)
+      )
       testPreviousValuation(
         res,
         English,
         row = 2,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2018, 7, 10))
+        currentFromDate = LocalDate.of(2018, 7, 10)
+      )
       testPreviousValuation(
         res,
         English,
         row = 3,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2018, 2, 25))
+        currentFromDate = LocalDate.of(2018, 2, 25)
+      )
       testPreviousValuation(
         res,
         English,
         row = 4,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2017, 4, 1))
+        currentFromDate = LocalDate.of(2017, 4, 1)
+      )
     }
 
     // Welsh - IP
@@ -531,7 +549,8 @@ class ValuationsControllerISpec extends ISpecBase {
         row = 1,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        noRateableValue = true)
+        noRateableValue = true
+      )
       testPreviousValuation(res, Welsh, row = 2, connection = "OCCUPIER", valuationHref = valuationHref)
       testNotApplicableExpandable(res, Welsh)
     }
@@ -555,7 +574,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = false,
         connectionToProperty = "OWNER",
         assessments = List(draftApiAssessment),
-        previousPage = MyProperties)
+        previousPage = MyProperties
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = false, hasAssessments = true, previousPage = MyProperties)
       testFutureValuation(res, Welsh, row = 1, connection = "OWNER", valuationHref = valuationHref)
     }
@@ -566,7 +586,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = false,
         connectionToProperty = "OCCUPIER",
         assessments = List(currentApiAssessment),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = false, hasAssessments = true, previousPage = Dashboard)
       testCurrentValuation(res, Welsh, row = 1, connection = "OCCUPIER", valuationHref = valuationHref)
     }
@@ -589,7 +610,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = false,
         connectionToProperty = "OWNER_OCCUPIER",
         assessments = List(),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = false, hasAssessments = false, previousPage = Dashboard)
     }
 
@@ -601,7 +623,8 @@ class ValuationsControllerISpec extends ISpecBase {
         assessments = List(
           draftApiAssessment.copy(allowedActions = List()),
           currentApiAssessment.copy(allowedActions = List()),
-          previousApiAssessment.copy(allowedActions = List())),
+          previousApiAssessment.copy(allowedActions = List())
+        ),
         previousPage = MyProperties
       )
       testAssessmentsPage(res, Welsh, userIsAgent = false, hasAssessments = false, previousPage = MyProperties)
@@ -627,28 +650,32 @@ class ValuationsControllerISpec extends ISpecBase {
         row = 1,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2019, 4, 1))
+        currentFromDate = LocalDate.of(2019, 4, 1)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 2,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2018, 7, 10))
+        currentFromDate = LocalDate.of(2018, 7, 10)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 3,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2018, 2, 25))
+        currentFromDate = LocalDate.of(2018, 2, 25)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 4,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2017, 4, 1))
+        currentFromDate = LocalDate.of(2017, 4, 1)
+      )
     }
 
     // Welsh - Agent
@@ -681,7 +708,8 @@ class ValuationsControllerISpec extends ISpecBase {
         row = 1,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        noRateableValue = true)
+        noRateableValue = true
+      )
       testPreviousValuation(res, Welsh, row = 2, connection = "OCCUPIER", valuationHref = agentValuationHref)
       testNotApplicableExpandable(res, Welsh)
     }
@@ -705,7 +733,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = true,
         connectionToProperty = "OWNER",
         assessments = List(draftApiAssessment),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = true, hasAssessments = true, previousPage = Dashboard)
       testFutureValuation(res, Welsh, row = 1, connection = "OWNER", valuationHref = agentValuationHref)
     }
@@ -716,7 +745,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = true,
         connectionToProperty = "OCCUPIER",
         assessments = List(currentApiAssessment),
-        previousPage = AllClients)
+        previousPage = AllClients
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = true, hasAssessments = true, previousPage = AllClients)
       testCurrentValuation(res, Welsh, row = 1, connection = "OCCUPIER", valuationHref = agentValuationHref)
     }
@@ -739,7 +769,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent = true,
         connectionToProperty = "OWNER_OCCUPIER",
         assessments = List(),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = true, hasAssessments = false, previousPage = Dashboard)
     }
 
@@ -751,7 +782,8 @@ class ValuationsControllerISpec extends ISpecBase {
         assessments = List(
           draftApiAssessment.copy(allowedActions = List()),
           currentApiAssessment.copy(allowedActions = List()),
-          previousApiAssessment.copy(allowedActions = List())),
+          previousApiAssessment.copy(allowedActions = List())
+        ),
         previousPage = AllClients
       )
       testAssessmentsPage(res, Welsh, userIsAgent = true, hasAssessments = false, previousPage = AllClients)
@@ -777,28 +809,32 @@ class ValuationsControllerISpec extends ISpecBase {
         row = 1,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2019, 4, 1))
+        currentFromDate = LocalDate.of(2019, 4, 1)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 2,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2018, 7, 10))
+        currentFromDate = LocalDate.of(2018, 7, 10)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 3,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2018, 2, 25))
+        currentFromDate = LocalDate.of(2018, 2, 25)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 4,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2017, 4, 1))
+        currentFromDate = LocalDate.of(2017, 4, 1)
+      )
     }
 
   }
@@ -808,7 +844,8 @@ class ValuationsControllerISpec extends ISpecBase {
         language: Language,
         userIsAgent: Boolean,
         hasAssessments: Boolean,
-        previousPage: PreviousPage): Unit = {
+        previousPage: PreviousPage
+  ): Unit = {
     val title = if (language == English) titleText else titleTextWelsh
     val caption = if (language == English) captionText else captionTextWelsh
     val agentCaption = if (language == English) agentCaptionText else agentCaptionTextWelsh
@@ -893,11 +930,10 @@ class ValuationsControllerISpec extends ISpecBase {
         page.select(rvTableHeadingLocator).text() shouldBe rateableValue
       }
 
-    } else {
+    } else
       s"has text of $noValuationsText in $language" in {
         page.select(noValuationsLocator).text() shouldBe noValuations
       }
-    }
 
     if (userIsAgent) {
       s"has text of $onlyShowValuationsAgentText with two bullets of $agentBulletOneText and $agentBulletTwoText in $language" in {
@@ -910,11 +946,10 @@ class ValuationsControllerISpec extends ISpecBase {
         page.select(contactClientLocator).text() shouldBe contactClient
       }
 
-    } else {
+    } else
       s"has text of $onlyShowValuationsWhenOwnedText in $language" in {
         page.select(onlyShowValuationsOwnerLocator).text() shouldBe onlyShowValuationsWhenOwned
       }
-    }
 
     s"has text of $otherValuationsText $findValuationsLinkText with the correct href in $language" in {
       val user = if (userIsAgent) "agent" else "owner"
@@ -929,7 +964,8 @@ class ValuationsControllerISpec extends ISpecBase {
         language: Language,
         row: Int,
         connection: String,
-        valuationHref: String): Unit = {
+        valuationHref: String
+  ): Unit = {
     lazy val page = Jsoup.parse(res.body)
     val future = if (language == English) futureText else futureTextWelsh
     val futureDateLink = if (language == English) futureDateLinkText else futureDateLinkTextWelsh
@@ -971,7 +1007,8 @@ class ValuationsControllerISpec extends ISpecBase {
         row: Int,
         connection: String,
         valuationHref: String,
-        noRateableValue: Boolean = false): Unit = {
+        noRateableValue: Boolean = false
+  ): Unit = {
     lazy val page = Jsoup.parse(res.body)
     val current = if (language == English) currentText else currentTextWelsh
     val currentDateLink = if (language == English) currentDateLinkText else currentDateLinkTextWelsh
@@ -991,16 +1028,15 @@ class ValuationsControllerISpec extends ISpecBase {
       page.select(valuationTagLocator(row)).text() shouldBe current
     }
 
-    if (noRateableValue) {
+    if (noRateableValue)
       s"has greyed out dates of the valuation ($currentDateLink) in row $row in $language" in {
         page.select(greyedOutDatesLocator(row)).text() shouldBe currentDateLink
       }
-    } else {
+    else
       s"has $currentDateLink displayed as a link to the detailed valuation in row $row in $language" in {
         page.select(valuationDatesLinkLocator(row)).text() shouldBe currentDateLink
         page.select(valuationDatesLinkLocator(row)).attr("href") shouldBe valuationHref
       }
-    }
 
     s"has an effective date of $currentEffectiveDateText in row $row for the current valuation in $language" in {
       page.select(valuationEffectiveDateLocator(row)).text() shouldBe currentEffectiveDate
@@ -1022,7 +1058,8 @@ class ValuationsControllerISpec extends ISpecBase {
         connection: String,
         valuationHref: String,
         currentFromDate: LocalDate = LocalDate.of(2017, 4, 1),
-        currentToDate: LocalDate = LocalDate.of(2023, 3, 31)): Unit = {
+        currentToDate: LocalDate = LocalDate.of(2023, 3, 31)
+  ): Unit = {
     def formatDate(language: Language, date: LocalDate): String = {
       val welshMonths = Map(
         1  -> "Ionawr",
@@ -1121,7 +1158,8 @@ class ValuationsControllerISpec extends ISpecBase {
         userIsAgent: Boolean,
         connectionToProperty: String,
         assessments: List[ApiAssessment],
-        previousPage: PreviousPage) = {
+        previousPage: PreviousPage
+  ) = {
     stubAuth(userIsAgent)
     stubOwnerProperties(assessments, connectionToProperty)
     stubAgentProperties(assessments, connectionToProperty)

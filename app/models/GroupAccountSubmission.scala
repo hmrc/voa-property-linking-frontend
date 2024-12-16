@@ -25,7 +25,8 @@ case class GroupAccountSubmission(
       email: String,
       phone: String,
       isAgent: Boolean,
-      individualAccountSubmission: IndividualAccountSubmission)
+      individualAccountSubmission: IndividualAccountSubmission
+)
 
 object GroupAccountSubmission {
   implicit val format: OFormat[GroupAccountSubmission] = Json.format

@@ -31,20 +31,19 @@ import utils.DateTimeUtil
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class CustomErrorHandler @Inject()(
+class CustomErrorHandler @Inject() (
       errorView: views.html.errors.error,
       forbiddenView: views.html.errors.forbidden,
       technicalDifficultiesView: views.html.errors.technicalDifficulties,
       notFoundView: views.html.errors.notFound,
       alreadySubmittedView: views.html.errors.alreadySubmitted,
-      dateTime: DateTimeUtil)(
-      implicit override val messagesApi: MessagesApi,
-      appConfig: ApplicationConfig,
-      implicit val ec: ExecutionContext)
+      dateTime: DateTimeUtil
+)(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig, implicit val ec: ExecutionContext)
     extends FrontendErrorHandler with Logging with I18nSupport {
 
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(
-        implicit request: RequestHeader): Future[Html] =
+  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit
+        request: RequestHeader
+  ): Future[Html] =
     Future.successful(errorView(pageTitle, heading, message))
 
   override def internalServerErrorTemplate(implicit request: RequestHeader): Future[Html] =
@@ -65,13 +64,12 @@ class CustomErrorHandler @Inject()(
 
   private def extractErrorReference(request: RequestHeader): Option[String] = {
     val requestId = request.headers.get(HeaderNames.xRequestId)
-    if (requestId.exists(_.contains("govuk-tax-"))) {
+    if (requestId.exists(_.contains("govuk-tax-")))
       // old xRequestId format with gov-uk-tax prefix
       requestId.map(_.split("govuk-tax-")(1))
-    } else {
+    else
       //new xRequestId format
       requestId
-    }
   }
 
   override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] =
@@ -86,7 +84,8 @@ class CustomErrorHandler @Inject()(
       case error: AuthorisationFailure =>
         logger.info(s"business rates authorisation returned ${error.message}, redirecting to login.")
         Future.successful(
-          Redirect(appConfig.basGatewaySignInUrl, Map("continue_url" -> Seq(request.uri), "origin" -> Seq("voa"))))
+          Redirect(appConfig.basGatewaySignInUrl, Map("continue_url" -> Seq(request.uri), "origin" -> Seq("voa")))
+        )
       case upstreamEx: UpstreamErrorResponse if upstreamEx.statusCode == FORBIDDEN =>
         Future.successful(Forbidden(forbiddenErrorTemplate(request)))
       case _ =>

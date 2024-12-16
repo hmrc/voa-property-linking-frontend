@@ -39,8 +39,8 @@ trait HtmlComponentHelpers { self: ISpecBase =>
     element.classNames should contain(titleClass)
   }
 
-  def testParagraph(expectedEnglishText: String, expectedWelshText: String)(
-        implicit language: Language
+  def testParagraph(expectedEnglishText: String, expectedWelshText: String)(implicit
+        language: Language
   ): PartialFunction[Element, Unit] = { element =>
     element.tagName shouldBe "p"
     element.classNames should contain("govuk-body")
@@ -55,8 +55,8 @@ trait HtmlComponentHelpers { self: ISpecBase =>
         expectedWelshText: String,
         href: String,
         expectedClasses: Seq[String] = Seq("govuk-link")
-  )(
-        implicit language: Language
+  )(implicit
+        language: Language
   ): PartialFunction[Element, Unit] = { element =>
     element.tagName shouldBe "a"
     element.classNames should contain allElementsOf expectedClasses
@@ -67,8 +67,8 @@ trait HtmlComponentHelpers { self: ISpecBase =>
     }
   }
 
-  def testCaption(expectedEnglishText: String, expectedWelshText: String, captionSize: String = "l")(
-        implicit language: Language
+  def testCaption(expectedEnglishText: String, expectedWelshText: String, captionSize: String = "l")(implicit
+        language: Language
   ): PartialFunction[Element, Unit] = { element =>
     element.tagName shouldBe "span"
     element.classNames should contain(s"govuk-caption-$captionSize")
@@ -78,8 +78,8 @@ trait HtmlComponentHelpers { self: ISpecBase =>
     }
   }
 
-  def testBulletList(expectedEnglishBullets: Seq[String], expectedWelshBullets: Seq[String])(
-        implicit language: Language
+  def testBulletList(expectedEnglishBullets: Seq[String], expectedWelshBullets: Seq[String])(implicit
+        language: Language
   ): PartialFunction[Element, Unit] = { element =>
     element.tagName shouldBe "ul"
     element.classNames should contain allElementsOf Seq("govuk-list", "govuk-list--bullet")
@@ -148,8 +148,8 @@ trait HtmlComponentHelpers { self: ISpecBase =>
     )
   }
 
-  def testLabel(expectedEnglishText: String, expectedWelshText: String)(
-        implicit language: Language
+  def testLabel(expectedEnglishText: String, expectedWelshText: String)(implicit
+        language: Language
   ): PartialFunction[Element, Unit] = { element =>
     element.tagName shouldBe "label"
     element.classNames should contain("govuk-label")
@@ -159,8 +159,8 @@ trait HtmlComponentHelpers { self: ISpecBase =>
     }
   }
 
-  def testHint(expectedEnglishText: String, expectedWelshText: String)(
-        implicit language: Language
+  def testHint(expectedEnglishText: String, expectedWelshText: String)(implicit
+        language: Language
   ): PartialFunction[Element, Unit] = { element =>
     element.tagName shouldBe "div"
     element.classNames should contain("govuk-hint")
@@ -170,8 +170,8 @@ trait HtmlComponentHelpers { self: ISpecBase =>
     }
   }
 
-  def testButton(expectedEnglishText: String, expectedWelshText: String)(
-        implicit language: Language
+  def testButton(expectedEnglishText: String, expectedWelshText: String)(implicit
+        language: Language
   ): PartialFunction[Element, Unit] = { element =>
     element.tagName shouldBe "button"
     element.classNames should contain("govuk-button")

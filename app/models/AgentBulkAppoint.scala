@@ -22,10 +22,11 @@ case class AppointAgent(
       agentCode: Option[Long],
       agentCodeRadio: String
 ) {
-  def getAgentCode(): Long = agentCode match {
-    case Some(code) => code
-    case None       => agentCodeRadio.toLong
-  }
+  def getAgentCode(): Long =
+    agentCode match {
+      case Some(code) => code
+      case None       => agentCodeRadio.toLong
+    }
 }
 
 object AppointAgent {

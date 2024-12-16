@@ -31,7 +31,8 @@ object FormBindingVerification extends BasicVerification with DateVerification w
         form: Form[_],
         validData: Map[String, String],
         field: String,
-        a: A): Unit =
+        a: A
+  ): Unit =
     a.all.asInstanceOf[Seq[NamedEnum]].map(_.name).foreach { c =>
       shouldBind(form, validData.updated(field, c))
     }
@@ -40,7 +41,8 @@ object FormBindingVerification extends BasicVerification with DateVerification w
         form: Form[_],
         validData: Map[String, String],
         field: String,
-        error: String = "error.boolean"): Unit =
+        error: String = "error.boolean"
+  ): Unit =
     verifyRange(form, validData, field, Seq("true", "false"), Seq("treu", "flase", "abc"), error)
 
   def verifyMandatoryMultiChoice(form: Form[_], validData: Map[String, String], field: String): Unit = {
@@ -62,7 +64,8 @@ trait ContactDetailsVerification { this: BasicVerification =>
         form: Form[_],
         validData: Map[String, String],
         ninoField: String = keys.nino,
-        ninoError: String = "error.nino.invalid"): Unit = {
+        ninoError: String = "error.nino.invalid"
+  ): Unit = {
     val valid = Seq("AA 12 34 56 D", "AA123456D")
     val invalid = Seq("BG 12 34 56 D", "BG123456D", "ABCDEFGH", "12345678", "ABC")
     verifyRange(form, validData, ninoField, valid, invalid, ninoError)
@@ -71,7 +74,8 @@ trait ContactDetailsVerification { this: BasicVerification =>
   def verifyMandatoryAddress(
         form: Form[_],
         validData: Map[String, String],
-        addressField: String = keys.address): Unit = {
+        addressField: String = keys.address
+  ): Unit = {
     verifyMandatoryFields(form, validData, addressField)
     verifyAddressFieldCharacterLimits(form, validData, addressField)
   }
@@ -95,7 +99,8 @@ trait DateVerification { this: BasicVerification =>
         form: Form[_],
         validData: Map[String, String],
         dateField: String,
-        exclusive: Boolean = true): Unit =
+        exclusive: Boolean = true
+  ): Unit =
     Seq("day", "month", "year").foreach { x =>
       verifyMandatory(form, validData, s"$dateField.$x", exclusive)
     }
@@ -116,7 +121,8 @@ trait DateVerification { this: BasicVerification =>
         form: Form[_],
         validData: Map[String, String],
         dateField: String,
-        futureDate: LocalDate): Unit = {
+        futureDate: LocalDate
+  ): Unit = {
     verifyddmmyy(form, validData, dateField, futureDate.getYear)
     val data = validData
       .updated(s"$dateField.day", futureDate.getDayOfMonth.toString)
@@ -161,7 +167,8 @@ trait DateVerification { this: BasicVerification =>
       s"$field.year",
       (1900 to maxYear - 1).map(_.toString),
       Seq("1899", "200", "1"),
-      Errors.belowMinimum)
+      Errors.belowMinimum
+    )
     verifyRange(form, validData, s"$field.year", Seq.empty, Seq("3001", "4000", "999999"), Errors.aboveMaximum)
     verifyNonEmptyString(form, validData, s"$field.year", Errors.invalidNumber)
     verifyAcceptsLeadingAndTrailingWhitespace(form, validData, s"$field.year")
@@ -179,7 +186,8 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
         form: Form[_],
         validData: Map[String, String],
         field: String,
-        exclusive: Boolean = true): Unit = {
+        exclusive: Boolean = true
+  ): Unit = {
     verifyMandatory(form, validData, field, exclusive)
     val data = validData.updated(field, " ")
     shouldContainRequiredError(form.bind(data), field, exclusive)
@@ -206,7 +214,8 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
         form: Form[_],
         validData: Map[String, String],
         field: String,
-        limit: Int): Unit = {
+        limit: Int
+  ): Unit = {
     shouldBind(form, validData.updated(field, (1 to limit).map(_ => "a").mkString))
 
     val f = form.bind(validData.updated(field, (1 to limit + 1).map(_ => "b").mkString))
@@ -224,7 +233,8 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
         form: Form[T],
         validData: Map[String, String],
         field: String,
-        error: String): Unit = {
+        error: String
+  ): Unit = {
     val data = validData.updated(field, "")
     shouldOnlyContainError(form.bind(data), field, error)
   }
@@ -237,21 +247,22 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
         invalidData: Map[String, String],
         field: String,
         error: String,
-        args: Option[Seq[Any]] = None): Unit =
+        args: Option[Seq[Any]] = None
+  ): Unit =
     shouldContainError(form.bind(invalidData), field, error, args)
 
   def verifyNoErrors(form: Form[_], validData: Map[String, String]): Unit = {
     val f = form.bind(validData)
 
-    if (f.hasErrors) {
+    if (f.hasErrors)
       fail(s"Form unexpectedly contained errors: ${diagnostics(f)}")
-    }
   }
 
   protected def verifyAcceptsLeadingAndTrailingWhitespace[T](
         form: Form[T],
         validData: Map[String, String],
-        field: String): Unit =
+        field: String
+  ): Unit =
     shouldBind(form, validData.updated(field, s" ${validData(field)} "))
 
   protected def verifyRange(
@@ -260,7 +271,8 @@ trait BasicVerification extends Matchers with AppendedClues with FormChecking {
         field: String,
         valid: Seq[String],
         invalid: Seq[String],
-        error: String): Unit = {
+        error: String
+  ): Unit = {
     valid.foreach(x => shouldBind(form, validData.updated(field, x)))
     invalid.foreach(x => shouldContainError(form.bind(validData.updated(field, x)), field, error))
   }
@@ -276,17 +288,15 @@ trait FormChecking extends Matchers with AppendedClues {
   }
 
   protected def shouldContainRequiredError(form: Form[_], field: String, exclusive: Boolean = true): Unit =
-    if (exclusive) {
+    if (exclusive)
       shouldOnlyContainError(form, field, Errors.required)
-    } else {
+    else
       shouldContainError(form, field, Errors.required)
-    }
 
   protected def shouldOnlyContainError[T](form: Form[T], field: String, error: String): Unit = {
     shouldContainError(form, field, error)
-    if (form.errors.length > 1) {
+    if (form.errors.length > 1)
       fail(s"Form contained too many errors. Expected only: $field - $error.${diagnostics(form)}")
-    }
   }
 
   protected def shouldContainError(form: Form[_], field: String, error: String, args: Option[Seq[Any]] = None): Unit = {

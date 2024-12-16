@@ -24,7 +24,8 @@ case class IndividualDetails(
       email: String,
       phone1: String,
       phone2: Option[String],
-      addressId: Long)
+      addressId: Long
+)
 
 object IndividualDetails {
   implicit val formats: OFormat[IndividualDetails] = Json.format[IndividualDetails]

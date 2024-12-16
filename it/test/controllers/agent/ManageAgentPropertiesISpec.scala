@@ -219,12 +219,13 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   private def getYourAgentsPropertiesPage(
         language: Language,
         authDetails: OwnerAuthResult,
-        list: AgentList): Document = {
+        list: AgentList
+  ): Document = {
 
     stubFor {
       get(
-        "/property-linking/my-organisation/agents/1001/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=true")
-        .willReturn {
+        "/property-linking/my-organisation/agents/1001/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=true"
+      ).willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(authDetails).toString())
         }
     }
@@ -259,7 +260,8 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1001")
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1001"
+        )
         .withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()

@@ -202,7 +202,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         row = 1,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        noRateableValue = true)
+        noRateableValue = true
+      )
       testPreviousValuation(res, English, row = 2, connection = "OCCUPIER", valuationHref = valuationHref)
       testNotApplicableExpandable(res, English)
     }
@@ -226,7 +227,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = false,
         connectionToProperty = "OWNER",
         assessments = List(draftApiAssessment),
-        previousPage = MyProperties)
+        previousPage = MyProperties
+      )
       testAssessmentsPage(res, English, userIsAgent = false, hasAssessments = true, previousPage = MyProperties)
       testFutureValuation(res, English, row = 1, connection = "OWNER", valuationHref = valuationHref)
     }
@@ -237,7 +239,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = false,
         connectionToProperty = "OCCUPIER",
         assessments = List(currentApiAssessment),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, English, userIsAgent = false, hasAssessments = true, previousPage = Dashboard)
       testCurrentValuation(res, English, row = 1, connection = "OCCUPIER", valuationHref = valuationHref)
     }
@@ -260,7 +263,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = false,
         connectionToProperty = "OWNER_OCCUPIER",
         assessments = List(),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, English, userIsAgent = false, hasAssessments = false, previousPage = Dashboard)
     }
 
@@ -272,7 +276,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         assessments = List(
           draftApiAssessment.copy(allowedActions = List()),
           currentApiAssessment.copy(allowedActions = List()),
-          previousApiAssessment.copy(allowedActions = List())),
+          previousApiAssessment.copy(allowedActions = List())
+        ),
         previousPage = MyProperties
       )
       testAssessmentsPage(res, English, userIsAgent = false, hasAssessments = false, previousPage = MyProperties)
@@ -298,28 +303,32 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         row = 1,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2019, 4, 1))
+        currentFromDate = LocalDate.of(2019, 4, 1)
+      )
       testPreviousValuation(
         res,
         English,
         row = 2,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2018, 7, 10))
+        currentFromDate = LocalDate.of(2018, 7, 10)
+      )
       testPreviousValuation(
         res,
         English,
         row = 3,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2018, 2, 25))
+        currentFromDate = LocalDate.of(2018, 2, 25)
+      )
       testPreviousValuation(
         res,
         English,
         row = 4,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2017, 4, 1))
+        currentFromDate = LocalDate.of(2017, 4, 1)
+      )
     }
 
     // English - Agent
@@ -352,7 +361,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         row = 1,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        noRateableValue = true)
+        noRateableValue = true
+      )
       testPreviousValuation(res, English, row = 2, connection = "OCCUPIER", valuationHref = agentValuationHref)
       testNotApplicableExpandable(res, English)
     }
@@ -376,7 +386,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = true,
         connectionToProperty = "OWNER",
         assessments = List(draftApiAssessment),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, English, userIsAgent = true, hasAssessments = true, previousPage = Dashboard)
       testFutureValuation(res, English, row = 1, connection = "OWNER", valuationHref = agentValuationHref)
     }
@@ -387,7 +398,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = true,
         connectionToProperty = "OCCUPIER",
         assessments = List(currentApiAssessment),
-        previousPage = AllClients)
+        previousPage = AllClients
+      )
       testAssessmentsPage(res, English, userIsAgent = true, hasAssessments = true, previousPage = AllClients)
       testCurrentValuation(res, English, row = 1, connection = "OCCUPIER", valuationHref = agentValuationHref)
     }
@@ -410,7 +422,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = true,
         connectionToProperty = "OWNER_OCCUPIER",
         assessments = List(),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, English, userIsAgent = true, hasAssessments = false, previousPage = Dashboard)
     }
 
@@ -422,7 +435,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         assessments = List(
           draftApiAssessment.copy(allowedActions = List()),
           currentApiAssessment.copy(allowedActions = List()),
-          previousApiAssessment.copy(allowedActions = List())),
+          previousApiAssessment.copy(allowedActions = List())
+        ),
         previousPage = AllClients
       )
       testAssessmentsPage(res, English, userIsAgent = true, hasAssessments = false, previousPage = AllClients)
@@ -448,28 +462,32 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         row = 1,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2019, 4, 1))
+        currentFromDate = LocalDate.of(2019, 4, 1)
+      )
       testPreviousValuation(
         res,
         English,
         row = 2,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2018, 7, 10))
+        currentFromDate = LocalDate.of(2018, 7, 10)
+      )
       testPreviousValuation(
         res,
         English,
         row = 3,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2018, 2, 25))
+        currentFromDate = LocalDate.of(2018, 2, 25)
+      )
       testPreviousValuation(
         res,
         English,
         row = 4,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2017, 4, 1))
+        currentFromDate = LocalDate.of(2017, 4, 1)
+      )
     }
 
     // Welsh - IP
@@ -502,7 +520,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         row = 1,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        noRateableValue = true)
+        noRateableValue = true
+      )
       testPreviousValuation(res, Welsh, row = 2, connection = "OCCUPIER", valuationHref = valuationHref)
       testNotApplicableExpandable(res, Welsh)
     }
@@ -526,7 +545,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = false,
         connectionToProperty = "OWNER",
         assessments = List(draftApiAssessment),
-        previousPage = MyProperties)
+        previousPage = MyProperties
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = false, hasAssessments = true, previousPage = MyProperties)
       testFutureValuation(res, Welsh, row = 1, connection = "OWNER", valuationHref = valuationHref)
     }
@@ -537,7 +557,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = false,
         connectionToProperty = "OCCUPIER",
         assessments = List(currentApiAssessment),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = false, hasAssessments = true, previousPage = Dashboard)
       testCurrentValuation(res, Welsh, row = 1, connection = "OCCUPIER", valuationHref = valuationHref)
     }
@@ -560,7 +581,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = false,
         connectionToProperty = "OWNER_OCCUPIER",
         assessments = List(),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = false, hasAssessments = false, previousPage = Dashboard)
     }
 
@@ -572,7 +594,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         assessments = List(
           draftApiAssessment.copy(allowedActions = List()),
           currentApiAssessment.copy(allowedActions = List()),
-          previousApiAssessment.copy(allowedActions = List())),
+          previousApiAssessment.copy(allowedActions = List())
+        ),
         previousPage = MyProperties
       )
       testAssessmentsPage(res, Welsh, userIsAgent = false, hasAssessments = false, previousPage = MyProperties)
@@ -598,28 +621,32 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         row = 1,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2019, 4, 1))
+        currentFromDate = LocalDate.of(2019, 4, 1)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 2,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2018, 7, 10))
+        currentFromDate = LocalDate.of(2018, 7, 10)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 3,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2018, 2, 25))
+        currentFromDate = LocalDate.of(2018, 2, 25)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 4,
         connection = "OCCUPIER",
         valuationHref = valuationHref,
-        currentFromDate = LocalDate.of(2017, 4, 1))
+        currentFromDate = LocalDate.of(2017, 4, 1)
+      )
     }
 
     // Welsh - Agent
@@ -652,7 +679,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         row = 1,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        noRateableValue = true)
+        noRateableValue = true
+      )
       testPreviousValuation(res, Welsh, row = 2, connection = "OCCUPIER", valuationHref = agentValuationHref)
       testNotApplicableExpandable(res, Welsh)
     }
@@ -676,7 +704,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = true,
         connectionToProperty = "OWNER",
         assessments = List(draftApiAssessment),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = true, hasAssessments = true, previousPage = Dashboard)
       testFutureValuation(res, Welsh, row = 1, connection = "OWNER", valuationHref = agentValuationHref)
     }
@@ -687,7 +716,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = true,
         connectionToProperty = "OCCUPIER",
         assessments = List(currentApiAssessment),
-        previousPage = AllClients)
+        previousPage = AllClients
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = true, hasAssessments = true, previousPage = AllClients)
       testCurrentValuation(res, Welsh, row = 1, connection = "OCCUPIER", valuationHref = agentValuationHref)
     }
@@ -710,7 +740,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent = true,
         connectionToProperty = "OWNER_OCCUPIER",
         assessments = List(),
-        previousPage = Dashboard)
+        previousPage = Dashboard
+      )
       testAssessmentsPage(res, Welsh, userIsAgent = true, hasAssessments = false, previousPage = Dashboard)
     }
 
@@ -722,7 +753,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         assessments = List(
           draftApiAssessment.copy(allowedActions = List()),
           currentApiAssessment.copy(allowedActions = List()),
-          previousApiAssessment.copy(allowedActions = List())),
+          previousApiAssessment.copy(allowedActions = List())
+        ),
         previousPage = AllClients
       )
       testAssessmentsPage(res, Welsh, userIsAgent = true, hasAssessments = false, previousPage = AllClients)
@@ -748,28 +780,32 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         row = 1,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2019, 4, 1))
+        currentFromDate = LocalDate.of(2019, 4, 1)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 2,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2018, 7, 10))
+        currentFromDate = LocalDate.of(2018, 7, 10)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 3,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2018, 2, 25))
+        currentFromDate = LocalDate.of(2018, 2, 25)
+      )
       testPreviousValuation(
         res,
         Welsh,
         row = 4,
         connection = "OCCUPIER",
         valuationHref = agentValuationHref,
-        currentFromDate = LocalDate.of(2017, 4, 1))
+        currentFromDate = LocalDate.of(2017, 4, 1)
+      )
     }
 
   }
@@ -779,7 +815,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         language: Language,
         userIsAgent: Boolean,
         hasAssessments: Boolean,
-        previousPage: PreviousPage): Unit = {
+        previousPage: PreviousPage
+  ): Unit = {
     val title = if (language == English) titleText else titleTextWelsh
     val caption = if (language == English) captionText else captionTextWelsh
     val agentCaption = if (language == English) agentCaptionText else agentCaptionTextWelsh
@@ -858,7 +895,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         language: Language,
         row: Int,
         connection: String,
-        valuationHref: String): Unit = {
+        valuationHref: String
+  ): Unit = {
     lazy val page = Jsoup.parse(res.body)
     val future = if (language == English) futureText else futureTextWelsh
     val futureDateLink = if (language == English) futureDateLinkText else futureDateLinkTextWelsh
@@ -900,7 +938,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         row: Int,
         connection: String,
         valuationHref: String,
-        noRateableValue: Boolean = false): Unit = {
+        noRateableValue: Boolean = false
+  ): Unit = {
     lazy val page = Jsoup.parse(res.body)
     val current = if (language == English) currentText else currentTextWelsh
     val currentDateLink = if (language == English) currentDateLinkText else currentDateLinkTextWelsh
@@ -920,16 +959,15 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
       page.select(valuationTagLocator(row)).text() shouldBe current
     }
 
-    if (noRateableValue) {
+    if (noRateableValue)
       s"has greyed out dates of the valuation ($currentDateLink) in row $row in $language" in {
         page.select(greyedOutDatesLocator(row)).text() shouldBe currentDateLink
       }
-    } else {
+    else
       s"has $currentDateLink displayed as a link to the detailed valuation in row $row in $language" in {
         page.select(valuationDatesLinkLocator(row)).text() shouldBe currentDateLink
         page.select(valuationDatesLinkLocator(row)).attr("href") shouldBe valuationHref
       }
-    }
 
     s"has an effective date of $currentEffectiveDateText in row $row for the current valuation in $language" in {
       page.select(valuationEffectiveDateLocator(row)).text() shouldBe currentEffectiveDate
@@ -951,7 +989,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         connection: String,
         valuationHref: String,
         currentFromDate: LocalDate = LocalDate.of(2017, 4, 1),
-        currentToDate: LocalDate = LocalDate.of(2023, 3, 31)): Unit = {
+        currentToDate: LocalDate = LocalDate.of(2023, 3, 31)
+  ): Unit = {
     def formatDate(language: Language, date: LocalDate): String = {
       val welshMonths = Map(
         1  -> "Ionawr",
@@ -1050,7 +1089,8 @@ class ValuationsControllerListYearsFlagOffISpec extends ListYearsFeatureSwitched
         userIsAgent: Boolean,
         connectionToProperty: String,
         assessments: List[ApiAssessment],
-        previousPage: PreviousPage) = {
+        previousPage: PreviousPage
+  ) = {
     stubAuth(userIsAgent)
     stubOwnerProperties(assessments, connectionToProperty)
     stubAgentProperties(assessments, connectionToProperty)

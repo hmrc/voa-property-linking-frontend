@@ -34,7 +34,7 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import javax.inject.{Inject, Named}
 import scala.concurrent.{ExecutionContext, Future}
 
-class CheckYourAnswersController @Inject()(
+class CheckYourAnswersController @Inject() (
       val errorHandler: CustomErrorHandler,
       authenticated: AuthenticatedAction,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
@@ -42,67 +42,72 @@ class CheckYourAnswersController @Inject()(
       featureSwitch: FeatureSwitch,
       @Named("appointNewAgentSession") val appointNewAgentSession: SessionRepo,
       @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
-      checkYourAnswersView: views.html.propertyrepresentation.appoint.checkYourAnswers)(
-      implicit override val messagesApi: MessagesApi,
+      checkYourAnswersView: views.html.propertyrepresentation.appoint.checkYourAnswers
+)(implicit
+      override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
       val config: ApplicationConfig
 ) extends PropertyLinkingController with Logging {
 
-  def onPageLoad(): Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    PartialFunction
-      .condOpt(request.sessionData) {
-        case data: ManagingProperty =>
-          Future.successful(Ok(checkYourAnswersView(getBackLinkFromSession, submitAgentAppointmentRequest, data)))
-      }
-      .getOrElse {
-        logger.info("Failed to find ManagingProperty data in the session cache.")
-        errorHandler.notFoundTemplate.map(html => NotFound(html))
-      }
-  }
-
-  def onSubmit: Action[AnyContent] = authenticated.andThen(withAppointAgentSession).async { implicit request =>
-    submitAgentAppointmentRequest
-      .bindFromRequest()
-      .fold(
-        errors => {
-          request.sessionData match {
-            case data: ManagingProperty =>
-              Future.successful(BadRequest(checkYourAnswersView(getBackLinkFromSession, errors, data)))
-          }
-        }, { success =>
-          for {
-            _ <- request.sessionData match {
-                  case data: ManagingProperty =>
-                    appointNewAgentSession.saveOrUpdate(
-                      data
-                        .copy(appointmentScope = Some(AppointmentScope.withName(success.scope)))
-                        .copy(backLink = None))
-                }
-            sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
-            agentListYears <- agentRelationshipService.getMyOrganisationAgents()
-            agentAnswers   <- appointNewAgentSession.get[ManagingProperty]
-            listYears: List[String] = if (featureSwitch.isAgentListYearsEnabled) {
-              agentAnswers.fold(List("2017", "2023"))(answers =>
-                answers.specificRatingList.fold(List("2017", "2023"))(List(_)))
-            } else {
-              agentListYears.agents
-                .find(_.representativeCode == success.agentRepresentativeCode)
-                .flatMap(_.listYears)
-                .getOrElse(Seq("2017", "2023"))
-                .toList
-            }
-            _ <- agentRelationshipService.postAgentAppointmentChange(AgentAppointmentChangeRequest(
-                  action = AppointmentAction.APPOINT,
-                  scope = AppointmentScope.withName(success.scope),
-                  agentRepresentativeCode = success.agentRepresentativeCode,
-                  propertyLinks = sessionDataOpt.flatMap(_.agentAppointAction.map(_.propertyLinkIds)),
-                  listYears = Some(listYears)
-                ))
-          } yield Redirect(routes.ConfirmAgentAppointController.onPageLoad())
+  def onPageLoad(): Action[AnyContent] =
+    authenticated.andThen(withAppointAgentSession).async { implicit request =>
+      PartialFunction
+        .condOpt(request.sessionData) {
+          case data: ManagingProperty =>
+            Future.successful(Ok(checkYourAnswersView(getBackLinkFromSession, submitAgentAppointmentRequest, data)))
         }
-      )
-  }
+        .getOrElse {
+          logger.info("Failed to find ManagingProperty data in the session cache.")
+          errorHandler.notFoundTemplate.map(html => NotFound(html))
+        }
+    }
+
+  def onSubmit: Action[AnyContent] =
+    authenticated.andThen(withAppointAgentSession).async { implicit request =>
+      submitAgentAppointmentRequest
+        .bindFromRequest()
+        .fold(
+          errors =>
+            request.sessionData match {
+              case data: ManagingProperty =>
+                Future.successful(BadRequest(checkYourAnswersView(getBackLinkFromSession, errors, data)))
+            },
+          success =>
+            for {
+              _ <- request.sessionData match {
+                     case data: ManagingProperty =>
+                       appointNewAgentSession.saveOrUpdate(
+                         data
+                           .copy(appointmentScope = Some(AppointmentScope.withName(success.scope)))
+                           .copy(backLink = None)
+                       )
+                   }
+              sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
+              agentListYears <- agentRelationshipService.getMyOrganisationAgents()
+              agentAnswers   <- appointNewAgentSession.get[ManagingProperty]
+              listYears: List[String] = if (featureSwitch.isAgentListYearsEnabled)
+                                          agentAnswers.fold(List("2017", "2023"))(answers =>
+                                            answers.specificRatingList.fold(List("2017", "2023"))(List(_))
+                                          )
+                                        else
+                                          agentListYears.agents
+                                            .find(_.representativeCode == success.agentRepresentativeCode)
+                                            .flatMap(_.listYears)
+                                            .getOrElse(Seq("2017", "2023"))
+                                            .toList
+              _ <- agentRelationshipService.postAgentAppointmentChange(
+                     AgentAppointmentChangeRequest(
+                       action = AppointmentAction.APPOINT,
+                       scope = AppointmentScope.withName(success.scope),
+                       agentRepresentativeCode = success.agentRepresentativeCode,
+                       propertyLinks = sessionDataOpt.flatMap(_.agentAppointAction.map(_.propertyLinkIds)),
+                       listYears = Some(listYears)
+                     )
+                   )
+            } yield Redirect(routes.ConfirmAgentAppointController.onPageLoad())
+        )
+    }
 
   private def getBackLinkFromSession(implicit request: AppointAgentSessionRequest[AnyContent]) =
     request.sessionData.backLink.getOrElse(config.dashboardUrl("home"))

@@ -20,9 +20,10 @@ import play.api.data.Field
 
 object FormSupport {
 
-  def prepopulated(field: Field, default: String): Field = field.value match {
-    case Some(_) => field
-    case _       => field.copy(value = Some(default))
-  }
+  def prepopulated(field: Field, default: String): Field =
+    field.value match {
+      case Some(_) => field
+      case _       => field.copy(value = Some(default))
+    }
 
 }

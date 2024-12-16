@@ -32,7 +32,8 @@ object EmailRequest {
         to: String,
         detailedIndividualAccount: DetailedIndividualAccount,
         groupAccount: Option[GroupAccount],
-        affinityGroupOpt: Option[AffinityGroup] = None): EmailRequest =
+        affinityGroupOpt: Option[AffinityGroup] = None
+  ): EmailRequest =
     groupAccount match {
       case Some(AgentGroupAccount(groupAccount, agentCode)) =>
         EmailRequest(

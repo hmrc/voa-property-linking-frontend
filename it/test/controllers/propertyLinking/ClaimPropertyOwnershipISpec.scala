@@ -43,7 +43,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val monthOfOwnership: Int = 1
   val yearOfOwnership: Int = 2020
   val occupancyEndDate: Option[PropertyOccupancy] = Some(
-    PropertyOccupancy(stillOccupied = false, lastOccupiedDate = Some(LocalDate.of(2021, 1, 1))))
+    PropertyOccupancy(stillOccupied = false, lastOccupiedDate = Some(LocalDate.of(2021, 1, 1)))
+  )
 
   val titleText = "When you became the owner or occupier of the property - Valuation Office Agency - GOV.UK"
   val titleTextAgent =
@@ -456,7 +457,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         year = "2020",
         userIsAgent = true,
         fromCya = false,
-        relationship = "owner")
+        relationship = "owner"
+      )
 
       res.status shouldBe SEE_OTHER
       res
@@ -765,7 +767,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         year = "2021",
         userIsAgent = true,
         relationship = "owner",
-        endDate = occupancyEndDate)
+        endDate = occupancyEndDate
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -796,7 +799,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         year = "2021",
         userIsAgent = true,
         relationship = "occupier",
-        endDate = occupancyEndDate)
+        endDate = occupancyEndDate
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -827,7 +831,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         year = "2021",
         userIsAgent = true,
         relationship = "both",
-        endDate = occupancyEndDate)
+        endDate = occupancyEndDate
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -994,7 +999,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         month = "01",
         year = "2999",
         userIsAgent = true,
-        relationship = "owner")
+        relationship = "owner"
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -1027,7 +1033,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         month = "01",
         year = "2999",
         userIsAgent = true,
-        relationship = "occupier")
+        relationship = "occupier"
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -1060,7 +1067,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         month = "01",
         year = "2999",
         userIsAgent = true,
-        relationship = "both")
+        relationship = "both"
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -1093,7 +1101,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         month = "02",
         year = "2021",
         relationship = "owner",
-        endDate = occupancyEndDate)
+        endDate = occupancyEndDate
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -1124,7 +1133,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         month = "02",
         year = "2021",
         relationship = "occupier",
-        endDate = occupancyEndDate)
+        endDate = occupancyEndDate
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -1157,7 +1167,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         month = "02",
         year = "2021",
         relationship = "both",
-        endDate = occupancyEndDate)
+        endDate = occupancyEndDate
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -1191,7 +1202,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         year = "2021",
         userIsAgent = true,
         relationship = "owner",
-        endDate = occupancyEndDate)
+        endDate = occupancyEndDate
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -1225,7 +1237,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         year = "2021",
         userIsAgent = true,
         relationship = "occupier",
-        endDate = occupancyEndDate)
+        endDate = occupancyEndDate
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -1259,7 +1272,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         year = "2021",
         userIsAgent = true,
         relationship = "both",
-        endDate = occupancyEndDate)
+        endDate = occupancyEndDate
+      )
 
       lazy val document = Jsoup.parse(res.body)
 
@@ -1305,7 +1319,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         userIsAgent: Boolean,
         fromCya: Boolean,
         relationshipChoice: String = "owner",
-        propertyOccupancy: Option[PropertyOccupancy] = None): StubMapping = {
+        propertyOccupancy: Option[PropertyOccupancy] = None
+  ): StubMapping = {
 
     val relationship: PropertyRelationship = relationshipChoice match {
       case "owner"    => PropertyRelationship(capacity = Owner, uarn = 1)
@@ -1314,24 +1329,27 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     }
 
     await(
-      mockPropertyLinkingSessionRepository.saveOrUpdate(LinkingSession(
-        address = propertyAddress,
-        uarn = 1L,
-        submissionId = "PL-123456",
-        personId = 1L,
-        earliestStartDate = LocalDate.of(2017, 4, 1),
-        propertyRelationship = Some(relationship),
-        propertyOwnership =
-          if (fromCya) Some(PropertyOwnership(LocalDate.of(yearOfOwnership, monthOfOwnership, dayOfOwnership)))
-          else None,
-        propertyOccupancy = propertyOccupancy,
-        hasRatesBill = None,
-        clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
-        localAuthorityReference = localCouncilReferenceValue,
-        rtp = ClaimPropertyReturnToPage.FMBR,
-        fromCya = Some(fromCya),
-        isSubmitted = None
-      )))
+      mockPropertyLinkingSessionRepository.saveOrUpdate(
+        LinkingSession(
+          address = propertyAddress,
+          uarn = 1L,
+          submissionId = "PL-123456",
+          personId = 1L,
+          earliestStartDate = LocalDate.of(2017, 4, 1),
+          propertyRelationship = Some(relationship),
+          propertyOwnership =
+            if (fromCya) Some(PropertyOwnership(LocalDate.of(yearOfOwnership, monthOfOwnership, dayOfOwnership)))
+            else None,
+          propertyOccupancy = propertyOccupancy,
+          hasRatesBill = None,
+          clientDetails = if (userIsAgent) Some(ClientDetails(123, "Client Name")) else None,
+          localAuthorityReference = localCouncilReferenceValue,
+          rtp = ClaimPropertyReturnToPage.FMBR,
+          fromCya = Some(fromCya),
+          isSubmitted = None
+        )
+      )
+    )
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -1356,13 +1374,15 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         userIsAgent: Boolean = false,
         fromCya: Boolean = true,
         relationship: String,
-        endDate: Option[PropertyOccupancy] = None): WSResponse = {
+        endDate: Option[PropertyOccupancy] = None
+  ): WSResponse = {
 
     stubsSetup(
       userIsAgent = userIsAgent,
       fromCya = fromCya,
       relationshipChoice = relationship,
-      propertyOccupancy = endDate)
+      propertyOccupancy = endDate
+    )
 
     val requestBody = Json.obj(
       "interestedStartDate.day"   -> day,
@@ -1384,7 +1404,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         month: String,
         year: String,
         relationshipChoice: String,
-        endDate: Option[PropertyOccupancy] = None): Unit = {
+        endDate: Option[PropertyOccupancy] = None
+  ): Unit = {
 
     lazy val res =
       submitOwnership(day = day, month = month, year = year, relationship = relationshipChoice, endDate = endDate)
@@ -1442,7 +1463,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         month: String,
         year: String,
         relationshipChoice: String,
-        endDate: Option[PropertyOccupancy] = None): Unit = {
+        endDate: Option[PropertyOccupancy] = None
+  ): Unit = {
 
     lazy val res = submitOwnership(
       day = day,
@@ -1450,7 +1472,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
       year = year,
       userIsAgent = true,
       relationship = relationshipChoice,
-      endDate = endDate)
+      endDate = endDate
+    )
 
     lazy val document = Jsoup.parse(res.body)
 
@@ -1505,7 +1528,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         month: String,
         year: String,
         relationshipChoice: String,
-        endDate: Option[PropertyOccupancy] = None): Unit = {
+        endDate: Option[PropertyOccupancy] = None
+  ): Unit = {
 
     lazy val res = submitOwnership(
       language = Welsh,
@@ -1513,7 +1537,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
       month = month,
       year = year,
       relationship = relationshipChoice,
-      endDate = endDate)
+      endDate = endDate
+    )
 
     lazy val document = Jsoup.parse(res.body)
 
@@ -1568,7 +1593,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         month: String,
         year: String,
         relationshipChoice: String,
-        endDate: Option[PropertyOccupancy] = None): Unit = {
+        endDate: Option[PropertyOccupancy] = None
+  ): Unit = {
 
     lazy val res = submitOwnership(
       language = Welsh,
@@ -1577,7 +1603,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
       year = year,
       userIsAgent = true,
       relationship = relationshipChoice,
-      endDate = endDate)
+      endDate = endDate
+    )
 
     lazy val document = Jsoup.parse(res.body)
 

@@ -26,8 +26,8 @@ object Conditionals {
         mapping: Mapping[T],
         defaultValue: Option[T] = None,
         orElse: Seq[IfCondition[T]] = Nil,
-        constraints: Seq[Constraint[T]] = Nil)
-      extends Mapping[T] {
+        constraints: Seq[Constraint[T]] = Nil
+  ) extends Mapping[T] {
     override val format: Option[(String, Seq[Any])] = mapping.format
 
     val alwaysTrue: Map[String, String] => Boolean = { _ =>

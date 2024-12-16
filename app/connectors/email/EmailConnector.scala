@@ -25,7 +25,7 @@ import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class EmailConnector @Inject()(config: ServicesConfig, http: DefaultHttpClient) {
+class EmailConnector @Inject() (config: ServicesConfig, http: DefaultHttpClient) {
 
   private val serviceUrl = config.baseUrl("email")
 

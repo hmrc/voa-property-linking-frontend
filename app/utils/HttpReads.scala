@@ -31,6 +31,6 @@ object HttpReads extends Logging {
         case unexpectedStatus =>
           logger.warn(s"[$method $url] failed: status: $unexpectedStatus, body: ${response.body}")
           throw ConnectorException(method, url, response)
-    }
+      }
 
 }

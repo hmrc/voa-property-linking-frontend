@@ -419,7 +419,9 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
             representativeCode = 100L,
             appointedDate = LocalDate.now(),
             propertyCount = 1
-          )))
+          )
+        )
+      )
 
       stubFor {
         get("/business-rates-authorisation/authenticate")
@@ -458,7 +460,9 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
             representativeCode = 100L,
             appointedDate = LocalDate.now(),
             propertyCount = 1
-          )))
+          )
+        )
+      )
 
       stubFor {
         get("/business-rates-authorisation/authenticate")
@@ -503,7 +507,9 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
             representativeCode = 100L,
             appointedDate = LocalDate.now(),
             propertyCount = 1
-          )))
+          )
+        )
+      )
 
       stubFor {
         get("/business-rates-authorisation/authenticate")
@@ -645,7 +651,9 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
             representativeCode = 100L,
             appointedDate = LocalDate.now(),
             propertyCount = 1
-          )))
+          )
+        )
+      )
 
       stubFor {
         get("/business-rates-authorisation/authenticate")
@@ -685,7 +693,9 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
           representativeCode = 100L,
           appointedDate = LocalDate.now(),
           propertyCount = 1
-        )))
+        )
+      )
+    )
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -723,7 +733,9 @@ class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
           representativeCode = 100L,
           appointedDate = LocalDate.now(),
           propertyCount = 1
-        )))
+        )
+      )
+    )
 
     stubFor {
       get("/business-rates-authorisation/authenticate")

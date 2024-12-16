@@ -25,7 +25,7 @@ import java.time.LocalDate
 import scala.util.Try
 
 @Singleton()
-class ApplicationConfig @Inject()(configuration: Configuration) {
+class ApplicationConfig @Inject() (configuration: Configuration) {
 
   protected def loadConfig(key: String): String =
     configuration.getOptional[String](key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
@@ -41,7 +41,8 @@ class ApplicationConfig @Inject()(configuration: Configuration) {
     Try[LocalDate] {
       LocalDate.parse(loadConfig(key))
     }.getOrElse(
-      throw new Exception(s"LocalDate value badly formatted for key: $key. Should be yyyy-MM-dd (e.g. 2007-04-01)"))
+      throw new Exception(s"LocalDate value badly formatted for key: $key. Should be yyyy-MM-dd (e.g. 2007-04-01)")
+    )
 
   def businessRatesValuationFrontendUrl(page: String): String = loadConfig("business-rates-valuation.url") + s"/$page"
 

@@ -63,10 +63,10 @@ case class HtmlPage(html: Document) extends Matchers with AppendedClues with Opt
     shouldContainInput(s"form input[type=text]$selector")
 
   private def shouldContainInput(selector: String)(implicit pos: Position): Unit =
-    if (html.select(selector).size != 1) {
+    if (html.select(selector).size != 1)
       fail(
-        s"Expected one element matching $selector, found inputs: \n${html.select("form input").asScala.mkString("\n\t")}")
-    }
+        s"Expected one element matching $selector, found inputs: \n${html.select("form input").asScala.mkString("\n\t")}"
+      )
 
   def shouldContain(selector: String, count: Int)(implicit pos: Position): Assertion =
     html
@@ -91,7 +91,10 @@ case class HtmlPage(html: Document) extends Matchers with AppendedClues with Opt
         val link = ses
           .find(_.attr("href") == s"#${id}Group")
           .getOrElse(fail(s"No error summary with ID ${id}Group\nError summary: ${ses.headOption.getOrElse("")}"))
-        link.text.trim.toLowerCase shouldEqual errorSummaryHtmlFor(name, msg).toLowerCase withClue s"Errors $link did not have text ${errorSummaryHtmlFor(name, msg)}"
+        link.text.trim.toLowerCase shouldEqual errorSummaryHtmlFor(
+          name,
+          msg
+        ).toLowerCase withClue s"Errors $link did not have text ${errorSummaryHtmlFor(name, msg)}"
     }
 
   private def errorSummaryHtmlFor(name: FieldName, msg: Message): String = s"$name - $msg"

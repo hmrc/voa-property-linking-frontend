@@ -24,7 +24,8 @@ case class TestUserDetails(
       organisationName: String,
       governmentGatewayGroupId: String,
       governmentGatewayExternalId: String,
-      agentCode: Option[Long])
+      agentCode: Option[Long]
+)
 
 object TestUserDetails {
   implicit val format: OFormat[TestUserDetails] = Json.format[TestUserDetails]
