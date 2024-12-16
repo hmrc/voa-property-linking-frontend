@@ -117,7 +117,7 @@ ThisBuild / excludeDependencies ++= Seq(
 )
 
 val bootstrapPlayVersion = "9.5.0"
-val hmrcMongoVersion = "2.2.0"
+val hmrcMongoVersion = "2.3.0"
 
 lazy val compileDependencies = Seq(
   guice,
