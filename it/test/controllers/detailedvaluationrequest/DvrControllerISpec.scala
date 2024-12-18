@@ -393,8 +393,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       post(
         s"/property-link/$propertyLinkId/assessment/$valuationId/start-check/$updatedCheckType?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=$dvrCheck&rateableValueTooHigh=$rateableValueTooHigh"
       ).willReturn {
-          aResponse.withStatus(CREATED).withBody(checkStartBody.toString())
-        }
+        aResponse.withStatus(CREATED).withBody(checkStartBody.toString())
+      }
     }
 
     stubFor {

@@ -1418,7 +1418,7 @@ error.multipleProperties.required=Dewiswch os ydych am i’ch asiant reoli unrhy
 
 #MISC
 alt.newWindow=Yn agor mewn ffenest newydd
-label.phase=Mae hwn yn wasanaeth newydd – bydd eich <a class="govuk-link" href="{0}" target="_blank" id="betaFeedback">adborth   <span class="govuk-visually-hidden"> ({1})</span></a> yn ein helpu i’w wella.
+label.phase=Mae hwn yn wasanaeth newydd – bydd eich <a class="govuk-link" href="{0}" target="_blank" id="betaFeedback">adborth (yn agor mewn tab newydd)<span class="govuk-visually-hidden"> ({1})</span></a> yn ein helpu i’w wella.
 label.beta=BETA
 label.checkTheForm=Gwirio’r ffurflen
 label.fixTheFollowing=Trwsiwch y canlynol:
@@ -1877,8 +1877,8 @@ available.requestvaluation.inset=Nid dyma’r swm rydych yn ei dalu. Defnyddir i
 available.requestvaluation.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 available.requestvaluation.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 
-available.requestvaluation.startCheckTab.guidance.content.aboutCheck=Mwy o wybodaeth am achosion Gwirio 
-available.requestvaluation.startCheckTab.guidance.content.aboutChallenge=More o wybodaeth am achosion Herio 
+available.requestvaluation.startCheckTab.guidance.content.aboutCheck=Mwy o wybodaeth am achosion Gwirio (yn agor mewn tab newydd)
+available.requestvaluation.startCheckTab.guidance.content.aboutChallenge=More o wybodaeth am achosion Herio (yn agor mewn tab newydd)
 available.requestvaluation.startCheckTab.rateableValueTooHigh.content=Rydych yn meddwl bod y gwerth ardrethol yn rhy uchel ac nid oes angen newid manylion yr eiddo
 available.requestvaluation.startCheckTab.option2.hint=Gall hyn fod oherwydd bod yr eiddo wedi’i ddymchwel, yn cael ei ailddatblygu, wedi’i eithrio neu ddim yn cael ei ddefnyddio bellach ar gyfer busnes
 common.and=ac

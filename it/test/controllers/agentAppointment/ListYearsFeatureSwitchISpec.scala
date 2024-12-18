@@ -261,8 +261,8 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
       get(
         "/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
       ).willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(authData).toString())
-        }
+        aResponse.withStatus(OK).withBody(Json.toJson(authData).toString())
+      }
     }
 
     val requestBody = Json.obj(
