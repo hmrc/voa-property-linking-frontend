@@ -724,20 +724,20 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
       get(
         s"/property-linking/my-organisation/agents/$agentCode/property-links?agent=gg-ext-id&sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
       ).willReturn {
-          aResponse
-            .withStatus(OK)
-            .withBody(
-              Json
-                .toJson(
-                  multipleProps match {
-                    case Some(true)  => testOwnerAuthResultMultipleProperty
-                    case Some(false) => testOwnerAuthResult
-                    case None        => testOwnerAuthResultNoProperties
-                  }
-                )
-                .toString()
-            )
-        }
+        aResponse
+          .withStatus(OK)
+          .withBody(
+            Json
+              .toJson(
+                multipleProps match {
+                  case Some(true)  => testOwnerAuthResultMultipleProperty
+                  case Some(false) => testOwnerAuthResult
+                  case None        => testOwnerAuthResultNoProperties
+                }
+              )
+              .toString()
+          )
+      }
     }
 
     val res = await(
@@ -771,20 +771,20 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
       get(
         s"/property-linking/my-organisation/agents/$agentCode/property-links?agent=gg-ext-id&sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
       ).willReturn {
-          aResponse
-            .withStatus(OK)
-            .withBody(
-              Json
-                .toJson(
-                  multipleProps match {
-                    case Some(true)  => testOwnerAuthResultMultipleProperty
-                    case Some(false) => testOwnerAuthResult
-                    case None        => testOwnerAuthResultNoProperties
-                  }
-                )
-                .toString()
-            )
-        }
+        aResponse
+          .withStatus(OK)
+          .withBody(
+            Json
+              .toJson(
+                multipleProps match {
+                  case Some(true)  => testOwnerAuthResultMultipleProperty
+                  case Some(false) => testOwnerAuthResult
+                  case None        => testOwnerAuthResultNoProperties
+                }
+              )
+              .toString()
+          )
+      }
     }
 
     val res = await(
@@ -847,20 +847,20 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
       get(
         s"/property-linking/my-organisation/agents/$agentCode/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
       ).willReturn {
-          aResponse
-            .withStatus(OK)
-            .withBody(
-              Json
-                .toJson(
-                  multipleProps match {
-                    case Some(true)  => testOwnerAuthResultMultipleProperty
-                    case Some(false) => testOwnerAuthResult
-                    case None        => testOwnerAuthResultNoProperties
-                  }
-                )
-                .toString()
-            )
-        }
+        aResponse
+          .withStatus(OK)
+          .withBody(
+            Json
+              .toJson(
+                multipleProps match {
+                  case Some(true)  => testOwnerAuthResultMultipleProperty
+                  case Some(false) => testOwnerAuthResult
+                  case None        => testOwnerAuthResultNoProperties
+                }
+              )
+              .toString()
+          )
+      }
     }
   }
 

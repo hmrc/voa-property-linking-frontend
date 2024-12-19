@@ -226,8 +226,8 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
       get(
         "/property-linking/my-organisation/agents/1001/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=true"
       ).willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(authDetails).toString())
-        }
+        aResponse.withStatus(OK).withBody(Json.toJson(authDetails).toString())
+      }
     }
 
     stubFor {

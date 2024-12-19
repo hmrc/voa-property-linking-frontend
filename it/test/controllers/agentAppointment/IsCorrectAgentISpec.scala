@@ -256,8 +256,8 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
       get(
         "/property-linking/my-organisation/agents/1001/available-property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=15&requestTotalRowCount=false"
       ).willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult1).toString())
-        }
+        aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult1).toString())
+      }
     }
 
     val requestBody = Json.obj(

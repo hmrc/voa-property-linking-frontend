@@ -61,7 +61,7 @@
         // function createModal(message, viewMessageUrl) {
         //     var content = $(message).find('#messageContent');
         //
-        //     var pdfLink = '<p><a id="message-pdf" href="' + viewMessageUrl + '/pdf' + '" target="_blank">Download this message as a PDF</a></p>';
+        //     var pdfLink = '<p><a id="message-pdf" href="' + viewMessageUrl + '/pdf' + '" target="_blank">Download this message as a PDF (opens in new tab)</a></p>';
         //
         //     var printLink = '<p><a id="print-message" href="#">Print this message</a></p>';
         //
