@@ -138,8 +138,7 @@
                     )
                 </p>
                 <p class="govuk-body">@messages("available.requestvaluation.p3")</p>
-            }
-            @if(checkAllowedAction) {
+
                 @govukWarningText(WarningText(
                     iconFallbackText = Some(messages("warning.text")),
                     content = Text(messages("available.requestvaluation.warning"))))
@@ -156,33 +155,32 @@
                 summary = Text(messages("challengeRules.summary")),
                 content = HtmlContent(detailContent)))
         </div>
+
+    <div class="govuk-grid-column-full">
+        @govukTable(Table(
+            rows = rows,
+            head = Some(Seq(
+                HeadCell(
+                    content = Text(messages("property.details.checkcases.table.1"))
+                ),
+                HeadCell(
+                    content = Text(messages("property.details.checkcases.table.2"))
+                ),
+                HeadCell(
+                    content = Text(messages("property.details.checkcases.table.3"))
+                ),
+                HeadCell(
+                    content = Text(messages("property.details.checkcases.table.4"))
+                ),
+                HeadCell(
+                    content = Text(messages("property.details.checkcases.table.5"))
+                ),
+                HeadCell(
+                    content = Text(messages("property.details.checkcases.table.6"))
+                )
+            )),
+            attributes = Map("id" -> "checkcases-table")
+        ))
+        }
+    </div>
 </div>
-
-
-    @govukTable(Table(
-        rows = rows,
-        head = Some(Seq(
-          HeadCell(
-            content = Text(messages("property.details.checkcases.table.1"))
-          ),
-          HeadCell(
-            content = Text(messages("property.details.checkcases.table.2"))
-          ),
-          HeadCell(
-            content = Text(messages("property.details.checkcases.table.3"))
-          ),
-          HeadCell(
-            content = Text(messages("property.details.checkcases.table.4"))
-          ),
-          HeadCell(
-            content = Text(messages("property.details.checkcases.table.5"))
-          ),
-          HeadCell(
-            content = Text(messages("property.details.checkcases.table.6"))
-          )
-        )),
-        attributes = Map("id" -> "checkcases-table")
-    ))
-}
-
-<br/>
