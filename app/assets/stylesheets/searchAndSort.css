@@ -1,0 +1,65 @@
+.dataTable * .searchfield .ss-input {
+    height:30px;
+    width: -webkit-calc(100% - 51px);
+    width: calc(100% - 51px);
+    padding: 0 10px 0 10px;
+}
+
+
+.dataTable * .searchfield .search-submit.ss-button {
+    height:30px;
+    width:30px;
+    margin-top: -30px;
+    background-position:  0% 50%;
+    right:6px
+}
+
+.dataTable * .searchfield .search-submit.ss-dropdown-button {
+    height:30px;
+    width:30px;
+    margin: 0px 20px 0 0;
+    background-position:  0% 50%;
+    right:6px;
+    position:relative;
+    float: right;
+}
+
+a.page-size-option {
+    padding-right: 5px;
+    text-decoration: underline;
+}
+
+span.page-size-option-label {
+    padding-right: 5px;
+}
+
+a.page-size-option-current, span.page-size-option-current {
+    padding-right: 5px;
+    text-decoration: none;
+    color: #0b0c0c;
+}
+
+
+/* Improve Accessibility with proper focus colours */
+.dataTable * .searchfield .search-submit.ss-button:focus, .dataTable * .searchfield .search-submit.ss-dropdown-button:focus, .sorting a:focus {
+    outline: 3px solid #ffbf47;
+}
+
+
+
+.dataTable{
+    margin: 0 auto;
+    width: 100%;
+    clear: both;
+    border-collapse: collapse;
+    table-layout: fixed;
+word-wrap:break-word;
+}
+
+
+.dataTable * .searchfield .ss-dropdown {
+    margin:0;
+    display:inline-block;
+    width: 67.50%;
+
+}
