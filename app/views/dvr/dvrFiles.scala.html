@@ -29,6 +29,7 @@
   checkCasesDetailsTab: views.html.dvr.tabs.checkCasesDetailsTab,
   startCheckTab: views.html.dvr.tabs.startCheckTab,
   valuationTab: views.html.dvr.tabs.valuationTab,
+  comparablePropertyTab: views.html.dvr.tabs.comparablePropertiesTab,
   govukTabs: GovukTabs,
   govukSummaryList: GovukSummaryList,
   govukErrorSummary: GovukErrorSummary
@@ -105,12 +106,23 @@
             )
           )
 
+    val comparablePropertiesTab: Option[TabItem] = if(config.comparablePropertiesEnabled) {
+        Some(TabItem(
+        id = Some("comparable-properties-tab"),
+        label = messages("detailed.valuation.tab.comparableProperties.h2"),
+        panel = TabPanel(
+            content = HtmlContent(comparablePropertyTab())
+        )
+    ))
+    } else {None}
+
     Seq(
         Some(valuation),
         Some(startCheck).filter(_ => model.assessment.allowedActions.contains(CHECK)),
         Some(check).filterNot(_ => model.isDraftList),
         Some(challenge).filterNot(_ => model.isDraftList || challengeCases.isEmpty),
-        Some(agents).filterNot(_ => !model.owner)
+        Some(agents).filterNot(_ => !model.owner),
+        comparablePropertiesTab
     ).flatten
 }
 

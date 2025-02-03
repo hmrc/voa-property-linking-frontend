@@ -1932,3 +1932,8 @@ month.11=Tachwedd
 month.12=Rhagfyr
 
 govukErrorMessage.visuallyHiddenText = Gwall
+
+detailed.valuation.tab.comparableProperties.h2=Eiddo y gellir eu cymharu
+
+detailed.valuation.tab.comparableProperties.restricted.p1=Mae’r VOA yn prisio eiddo tebyg gyda’i gilydd.
+detailed.valuation.tab.comparableProperties.restricted.p2=Mae’r wybodaeth ar gyfer ambell eiddo yn gyfyngedig. Nid ydym yn darparu data eiddo y gellir eu cymharu ar gyfer yr eiddo hwn.
