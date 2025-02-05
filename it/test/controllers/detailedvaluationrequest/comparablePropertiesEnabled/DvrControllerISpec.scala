@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.detailedvaluationrequest
+package controllers.detailedvaluationrequest.comparablePropertiesEnabled
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -35,7 +35,7 @@ import java.util.UUID
 
 class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
-  override lazy val extraConfig: Map[String, String] = Map("feature.comparablePropertiesEnabled" -> "false")
+  override lazy val extraConfig: Map[String, String] = Map("feature.comparablePropertiesEnabled" -> "true")
 
   val introSelector = "#intro"
   val mainContendSelector = "#main-content"
@@ -407,6 +407,23 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
+  val comparableTabLocator = "#tab_comparable-properties-tab"
+  val comparableTabHeadingLocator = "#comparable-properties > h2"
+  val comparableTabP1Locator = "##comparable-properties > p:nth-child(2)"
+  val comparableTabP2Locator = "#comparable-properties > p:nth-child(3)"
+
+  val comparableTabText = "Comparable properties"
+  val comparableTabHeadingText = "Comparable properties"
+  val comparableTabP1Text = "The VOA values similar properties together."
+  val comparableTabP2Text =
+    "The information for some properties is restricted. We do not provide comparable property data for this property."
+
+  val comparableTabTextWelsh = "Eiddo y gellir eu cymharu"
+  val comparableTabHeadingTextWelsh = "Eiddo y gellir eu cymharu"
+  val comparableTabP1TextWelsh = "Mae’r VOA yn prisio eiddo tebyg gyda’i gilydd."
+  val comparableTabP2TextWelsh =
+    "Mae’r wybodaeth ar gyfer ambell eiddo yn gyfyngedig. Nid ydym yn darparu data eiddo y gellir eu cymharu ar gyfer yr eiddo hwn."
+
   "DvrController myOrganisationRequestDetailValuationCheck method" should {
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - English" in {
 
@@ -437,6 +454,30 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       doc
         .getElementById("valuation-tab-p4")
         .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
+    }
+  }
+
+  //JS messing up these test as the tabs visually hidden
+  "DvrController myOrganisationRequestDetailValuationCheck method" should {
+    "Load to the 'Dvr files' page & display the correct content on the comparable properties tab - English" in {
+
+      val res = getDvrFilesPage(English)
+      val doc = Jsoup.parse(res.body)
+      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.toString contains comparableTabText
+      doc.toString contains comparableTabHeadingText
+      doc.toString contains comparableTabP1Text
+      doc.toString contains comparableTabP2Text
+    }
+
+    "Load to the 'Dvr files' page & display the correct content on the comparable properties tab - Welsh" in {
+      val res = getDvrFilesPage(Welsh)
+      val doc = Jsoup.parse(res.body)
+      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.toString contains comparableTabTextWelsh
+      doc.toString contains comparableTabHeadingTextWelsh
+      doc.toString contains comparableTabP1TextWelsh
+      doc.toString contains comparableTabP2TextWelsh
     }
   }
 

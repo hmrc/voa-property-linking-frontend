@@ -1926,3 +1926,7 @@ month.11=November
 month.12=December
 
 govukErrorMessage.visuallyHiddenText = Error
+
+detailed.valuation.tab.comparableProperties.h2=Comparable properties
+detailed.valuation.tab.comparableProperties.restricted.p1=The VOA values similar properties together.
+detailed.valuation.tab.comparableProperties.restricted.p2=The information for some properties is restricted. We do not provide comparable property data for this property.

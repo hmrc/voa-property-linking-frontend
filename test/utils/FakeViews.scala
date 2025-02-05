@@ -25,7 +25,7 @@ import views.html.{addUserToGG, startOldJourney}
 import views.html.helpers._
 import views.html.propertyLinking._
 import views.html._
-import views.html.dvr.tabs.{agentsTab, challengeCasesDetailsTab, checkCasesDetailsTab, requestFutureValuationTab, startCheckTab, valuationTab}
+import views.html.dvr.tabs.{agentsTab, challengeCasesDetailsTab, checkCasesDetailsTab, comparablePropertiesTab, requestFutureValuationTab, startCheckTab, valuationTab}
 import views.html.propertyrepresentation.manage._
 import views.html.propertyrepresentation._
 
@@ -68,6 +68,7 @@ trait FakeViews extends GdsComponents {
   lazy val checkCasesDetailsTab = new checkCasesDetailsTab(govukButton, govukDetails, govukTable, govukWarningText)
   lazy val startCheckTab = new startCheckTab(formWithCSRF, govukButton, govukDetails, govukRadios)
   lazy val valuationTab = new valuationTab(govukButton, govukInsetText, govukWarningText)
+  lazy val comparablePropertiesTab = new comparablePropertiesTab()
   lazy val dvrFilesView =
     new dvrFiles(
       mainLayout,
@@ -76,6 +77,7 @@ trait FakeViews extends GdsComponents {
       checkCasesDetailsTab,
       startCheckTab,
       valuationTab,
+      comparablePropertiesTab,
       govukTabs,
       govukSummaryList,
       govukErrorSummary

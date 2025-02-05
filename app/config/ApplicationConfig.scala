@@ -111,6 +111,9 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
     url.get(AbsoluteWithHostnameFromAllowlist(environmentHost) | OnlyRelative).url
 
   lazy val currentListYear: String = loadConfig("currentListYear")
+
+  lazy val comparablePropertiesEnabled: Boolean = loadBooleanConfig("feature-switch.comparablePropertiesEnabled")
+
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
