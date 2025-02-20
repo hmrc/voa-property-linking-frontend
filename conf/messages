@@ -1365,13 +1365,13 @@ requestValuation.future.help.title=Help with future valuation
 requestValuation.future.help.subheading.1=Your rateable value may change on {0}
 requestValuation.future.help.subheading.2=Your property details need changing
 requestValuation.future.help.subheading.3=You think the rateable value is too high
-requestValuation.future.help.subheading.4=You have some other question about your valuation
+requestValuation.future.help.subheading.4=You have another question about your valuation
 requestValuation.future.help.p.1=We regularly update the rateable values of all business properties in England and Wales to reflect changes in the property market. The next revaluation will come into effect on {0}.
 requestValuation.future.help.p.2=Send us a Check case to tell us that your property details (such as floor area sizes and parking) need changing. We may accept your changes and update the current and future valuations.
 
 
 requestValuation.future.help.p.4=From {0}, send us a Challenge case to tell us you think the rateable value is too high.
-requestValuation.future.help.p.5=You must complete a Check case before sending a Challenge case. When you get our decision on your Check case, you have 4 months in which to send us a Challenge case.
+requestValuation.future.help.p.5=You must complete a Check case before sending a Challenge case. When you get our decision on your Check case, you have 4 months to send us a Challenge case.
 requestValuation.future.help.p.6=Before {0}, <a class="govuk-link" id="future-valuation-enquiry-link" href="{1}">send an enquiry</a>.
 requestValuation.future.help.help.link.1=<a class="govuk-link" id="how-to-use-account" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">How to use a business rates valuation account</a>
 requestValuation.future.help.help.link.2=<a class="govuk-link" id="how-properties-are-valued" href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">How business properties are valued</a>

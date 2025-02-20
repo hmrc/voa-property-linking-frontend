@@ -68,7 +68,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationTabHeadingSelector = "#future-valuation-tab-content > h2"
 
   val valuationTabCaption = "Future rateable value (from 1 April 2026)"
-  val valuationTabCaptionWelsh = "Gwerth ardrethol y dyfodol (o 1 April 2026)"
+  val valuationTabCaptionWelsh = "Gwerth ardrethol y dyfodol (o 1 Ebrill 2026)"
   val valuationTabCaptionSelector = "#future-valuation-caption"
 
   val rateableValue = "£1,000"
@@ -81,7 +81,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
 
   val valuationTabInsetLinkText = "Estimate what the business rates bill may be from 1 April 2026"
-  val valuationTabInsetLinkTextWelsh = "Amcangyfrif beth all y bil ardrethi busnes fod o 1 April 2026"
+  val valuationTabInsetLinkTextWelsh = "Amcangyfrif beth all y bil ardrethi busnes fod o 1 Ebrill 2026"
   val valuationTabInsetLinkTextSelector = "#future-estimate-link"
   val valuationTabInsetLinkHref =
     "http://localhost:9300/business-rates-find/estimate-your-business-rates/start-from-dvr-valuation?authorisationId=1&propertyLinkSubmissionId=PL1ZRPBP7&valuationId=10028428&isOwner=true&uarn=7651789000&tabName=valuation-tab"
@@ -89,7 +89,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationTabP1 =
     "This detailed valuation will not be available until 1 April 2026. You will be able to request it from that date."
   val valuationTabP1Welsh =
-    "Ni fydd y prisiad manwl hwn ar gael tan 1 April 2026. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw."
+    "Ni fydd y prisiad manwl hwn ar gael tan 1 Ebrill 2026. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw."
   val valuationTabP1Selector = "#future-valuation-not-available"
 
   val valuationTabP2 = "The current 2023 detailed valuation can be requested from the current valuation."
@@ -106,13 +106,13 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationHelpTabHeadingTextSelector = "#future-valuation-help-h2-title"
 
   val valuationHelpTabRvMayChangeHeadingText = "Your rateable value may change on 1 April 2026"
-  val valuationHelpTabRvMayChangeHeadingTextWelsh = "Gall eich gwerth ardrethol newid ar 1 April 2026"
+  val valuationHelpTabRvMayChangeHeadingTextWelsh = "Gall eich gwerth ardrethol newid ar 1 Ebrill 2026"
   val valuationHelpTabRvMayChangeHeadingTextSelector = "#rateable-value-may-change-subhead"
 
   val valuationHelpTabRvMayChangeText =
     "We regularly update the rateable values of all business properties in England and Wales to reflect changes in the property market. The next revaluation will come into effect on 1 April 2026."
   val valuationHelpTabRvMayChangeTextWelsh =
-    "Rydym yn diweddaru gwerthoedd ardrethol pob eiddo busnes yng Nghymru a Lloegr yn rheolaidd i adlewyrchu newidiadau yn y farchnad eiddo. Bydd yr ailbrisiad nesaf yn dod i rym ar 1 April 2026."
+    "Rydym yn diweddaru gwerthoedd ardrethol pob eiddo busnes yng Nghymru a Lloegr yn rheolaidd i adlewyrchu newidiadau yn y farchnad eiddo. Bydd yr ailbrisiad nesaf yn dod i rym ar 1 Ebrill 2026."
   val valuationHelpTabRvMayChangeTextSelector = "#rateable-value-may-change-content"
 
   val valuationHelpTabPropertyDetailsChangeHeadingText = "Your property details need changing"
@@ -132,22 +132,21 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationHelpTabRvTooHighP1Text =
     "From 1 April 2026, send us a Challenge case to tell us you think the rateable value is too high."
   val valuationHelpTabRvTooHighP1TextWelsh =
-    "O’r 1 April 2026, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel."
+    "O’r 1 Ebrill 2026, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel."
   val valuationHelpTabRvTooHighP1TextSelector = "#rateable-value-too-high-content-1"
 
   val valuationHelpTabRvTooHighP2Text =
-    "You must complete a Check case before sending a Challenge case. When you get our decision on your Check case, you have 4 months in which to send us a Challenge case."
+    "You must complete a Check case before sending a Challenge case. When you get our decision on your Check case, you have 4 months to send us a Challenge case."
   val valuationHelpTabRvTooHighP2TextWelsh =
-    "Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Herio atom."
+    "Rhaid i chi gwblhau achos Gwirio cyn anfon achos Her. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Her atom."
   val valuationHelpTabRvTooHighP2TextSelector = "#rateable-value-too-high-content-2"
 
-  val valuationHelpTabValuationQuestionsHeadingText = "You have some other question about your valuation"
-  //Todo: need welsh for 'You have some other question about your valuation'
-  val valuationHelpTabValuationQuestionsHeadingTextWelsh = "You have some other question about your valuation"
+  val valuationHelpTabValuationQuestionsHeadingText = "You have another question about your valuation"
+  val valuationHelpTabValuationQuestionsHeadingTextWelsh = "Mae gennych gwestiwn arall ynglŷn â’ch prisiad"
   val valuationHelpTabValuationQuestionsHeadingTextSelector = "#other-question-subhead"
 
   val valuationHelpTabValuationQuestionsText = "Before 1 April 2026, send an enquiry."
-  val valuationHelpTabValuationQuestionsTextWelsh = "Cyn 1 April 2026, anfon ymholiad."
+  val valuationHelpTabValuationQuestionsTextWelsh = "Cyn 1 Ebrill 2026, anfon ymholiad."
   val valuationHelpTabValuationQuestionsTextSelector = "#other-question-content"
 
   val valuationHelpTabValuationQuestionsLinkText = "send an enquiry"
@@ -166,7 +165,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val link2Href = "https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued"
 
   val link3Text = "Estimate what this property’s business rates bill may be from 1 April 2026"
-  val link3TextWelsh = "Amcangyfrif beth all bil ardrethi busnes yr eiddo hwn fod o 1 April 2026"
+  val link3TextWelsh = "Amcangyfrif beth all bil ardrethi busnes yr eiddo hwn fod o 1 Ebrill 2026"
   val link3Selector = "#help-estimator-link"
   val link3Href =
     "http://localhost:9300/business-rates-find/estimate-your-business-rates/start-from-dvr-valuation?authorisationId=1&propertyLinkSubmissionId=PL1ZRPBP7&valuationId=10028428&isOwner=true&uarn=7651789000&tabName=help-tab"

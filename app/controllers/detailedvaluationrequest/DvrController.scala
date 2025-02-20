@@ -41,7 +41,6 @@ import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 import uk.gov.hmrc.uritemplate.syntax.UriTemplateSyntax
 import utils.{Cats, Formatters}
 
-import java.time.format.DateTimeFormatter
 import javax.inject.{Inject, Named}
 import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
 import models.dvr.cases.check.common.{Agent, AgentCount}
@@ -735,15 +734,13 @@ case class RequestDetailedValuationWithoutForm(
 )
 object RequestDetailedValuationWithoutForm {
 
-  private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
-
   def apply(assessments: ApiAssessments, assessment: ApiAssessment, isOwner: Boolean)(implicit
         messages: Messages
   ): RequestDetailedValuationWithoutForm =
     RequestDetailedValuationWithoutForm(
       assessmentRef = assessment.assessmentRef,
       address = assessments.address,
-      effectiveDate = formatter.format(
+      effectiveDate = Formatters.formattedFullDate(
         assessment.effectiveDate.getOrElse(
           throw new RuntimeException(
             s"Assessment with ref: ${assessment.assessmentRef} does not contain an Effective Date"
