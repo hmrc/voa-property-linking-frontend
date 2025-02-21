@@ -1330,6 +1330,7 @@ available.requestvaluation.dvrCheck.p1=Before you can submit a check, you need t
 available.requestvaluation.dvrCheck.p2=After completing the form, you need to send it as part of a check.
 
 available.requestvaluation.nonDraft.check.p1=If the property’s details are incorrect, or you believe the rateable value is wrong, you must complete a Check case form.
+available.requestvaluation.nonDraft.check.p1.draftListEnabled=If the property’s details are incorrect, or you believe the rateable value is wrong, you must complete a Check case form. Any changes will carry over to the future valuation.
 available.requestvaluation.nonDraft.check.link=Download the Check case form
 available.requestvaluation.nonDraft.check.p2=After completing the form, send it to us as part of a Check case.
 available.requestvaluation.nonDraft.check.warning=Some older Check case forms may tell you to email or post your form. Please ignore this and use the ''Send my completed Check case form'' button instead.

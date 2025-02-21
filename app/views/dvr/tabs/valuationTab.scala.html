@@ -78,7 +78,11 @@
         <p id="valuation-tab-p4" class="govuk-body">@messages("available.requestvaluation.listYear.2017.p4")</p>
 
     } else {
-        <p class="govuk-body">@messages("available.requestvaluation.nonDraft.check.p1")</p>
+        @if(config.draftListEnabled) {
+            <p class="govuk-body">@messages("available.requestvaluation.nonDraft.check.p1.draftListEnabled")</p>
+        } else {
+            <p class="govuk-body">@messages("available.requestvaluation.nonDraft.check.p1")</p>
+        }
 
         @link(
           linkText = messages("available.requestvaluation.nonDraft.check.link"),
