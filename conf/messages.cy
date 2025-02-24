@@ -1191,6 +1191,7 @@ available.requestvaluation.check.p2=Gallwch e-bostio’r ffurflen i <a class="go
 available.requestvaluation.address=Gwasanaeth Gwirio a Herio (Check and challenge service), PO BOX 308, PLYMOUTH, PL5 9DT
 
 available.requestvaluation.nonDraft.check.p1=Os yw manylion yr eiddo yn anghywir, neu os ydych yn credu bod y gwerth ardrethol yn anghywir, mae’n rhaid i chi gwblhau ffurflen achos Gwirio.
+available.requestvaluation.nonDraft.check.p1.draftListEnabled=Os yw manylion yr eiddo yn anghywir, neu os ydych yn credu bod y gwerth ardrethol yn anghywir, mae’n rhaid i chi gwblhau ffurflen achos Gwirio. Bydd unrhyw newidiadau yn cael ei gario ymlaen i’r prisiad yn y dyfodol.
 available.requestvaluation.nonDraft.check.link=Lawrlwythwch y ffurflen achos Gwirio
 available.requestvaluation.nonDraft.check.p2=Ar ôl cwblhau’r ffurflen, anfonwch hi atom fel rhan o achos Gwirio.
 available.requestvaluation.nonDraft.check.warning=Efallai bod rhai ffurflenni achos Gwirio hŷn yn dweud wrthych am e-bostio neu bostio eich ffurflen. Anwybyddwch hyn a defnyddiwch y botwm ''Anfon fy ffurflen achos Gwirio wedi’i chwblhau''  yn lle.
@@ -1861,7 +1862,7 @@ auto.requestDetailedValuation.future.rv.inset.link=Amcangyfrif beth all y bil ar
 auto.requestDetailedValuation.future.p.1=Ni fydd y prisiad manwl hwn ar gael tan {0}. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw.
 auto.requestDetailedValuation.future.p.2= Gellir gwneud cais am y prisiad manwl cyfredol {0} o’r prisiad cyfredol.
 auto.requestDetailedValuation.future.p.2.link=<a class="govuk-link" id="current-valuation-link" href="{0}">prisiad cyfredol</a>
-available.requestvaluation.agentsTab.title=Asiantiaid({0})
+available.requestvaluation.agentsTab.title=Asiantiaid ({0})
 available.requestvaluation.agentsTab.noAgents.title=Asiantiaid
 available.requestvaluation.agentsTab.heading=Asiantiaid wedi’u penodi i’r eiddo hwn 
 available.requestvaluation.agentsTab.noAgents.p1=Nid oes unrhyw asiantiaid wedi’u penodi i’r eiddo hwn.

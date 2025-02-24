@@ -69,6 +69,7 @@
    val valuation: TabItem = TabItem(
         id = Some("valuation-tab"),
         label = messages("available.requestvaluation.valuationTab.title"),
+        attributes = Map("id" -> "view-valuation-tab"),
         panel = TabPanel(
             content = HtmlContent(valuationTab(model, currentValuationUrl, valuationsUrl))
         )
@@ -76,6 +77,7 @@
     val startCheck: TabItem = TabItem(
         id = Some("start-check-tab"),
         label = messages("available.requestvaluation.startCheckTab.title"),
+        attributes = Map("id" -> "start-check-case-tab"),
         panel = TabPanel(
             content = HtmlContent(startCheckTab(model, startCheckForm))
         )
@@ -83,6 +85,7 @@
     val check: TabItem = TabItem(
         id = Some("check-cases-tab"),
         label = checkCasesTabTitle,
+        attributes = Map("id" -> "check-tab"),
         panel = TabPanel(
             content = HtmlContent(
                 checkCasesDetailsTab(model.checkCasesDetailsTab, model.assessment.allowedActions.contains(CHECK))
@@ -92,6 +95,7 @@
     val challenge: TabItem = TabItem(
             id = Some("challenge-cases-tab"),
             label = messages("available.requestvaluation.challengesTab.title", challengeCases.size),
+            attributes = Map("id" -> "challenge-tab"),
             panel = TabPanel(
               content = HtmlContent(
                   challengeCasesDetailsTab(model)
@@ -101,6 +105,7 @@
     val agents: TabItem = TabItem(
             id = Some("agents-tab"),
             label = agentsTabTitle,
+            attributes = Map("id" -> "agent-tab"),
             panel = TabPanel(
               content = HtmlContent(agentsTab(model))
             )
@@ -110,6 +115,7 @@
         Some(TabItem(
         id = Some("comparable-properties-tab"),
         label = messages("detailed.valuation.tab.comparableProperties.h2"),
+        attributes = Map("id" -> "comparables-tab"),
         panel = TabPanel(
             content = HtmlContent(comparablePropertyTab())
         )
