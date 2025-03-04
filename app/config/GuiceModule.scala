@@ -98,11 +98,11 @@ class GuiceModule(
       .annotatedWith(named(resolveAnnotationName(path, name)))
       .to(
         Try(configuration.get[String](path).toBoolean).toOption.getOrElse(configException(path))
-      ) //We need to parse as string, due to the process of adding in from app-config-<env> it is seen as a string
+      ) // We need to parse as string, due to the process of adding in from app-config-<env> it is seen as a string
 
   private def bindEndpoints(endpoints: Map[String, String], baseUrl: String): Unit =
-    endpoints.toList.foreach {
-      case (boundName, configPath) => bindStringWithPrefix(configPath, baseUrl, boundName)
+    endpoints.toList.foreach { case (boundName, configPath) =>
+      bindStringWithPrefix(configPath, baseUrl, boundName)
     }
 
   protected def bindStringWithPrefix(path: String, prefix: String, name: String = ""): Unit =

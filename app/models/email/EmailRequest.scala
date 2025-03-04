@@ -43,7 +43,7 @@ object EmailRequest {
             "agentCode" -> agentCode.toString,
             "orgName"   -> groupAccount.companyName,
             "personId"  -> detailedIndividualAccount.individualId.toString,
-            "name"      -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
+            "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
           )
         )
 
@@ -56,7 +56,7 @@ object EmailRequest {
               "cca_enrolment_confirmation_individual",
               Map(
                 "personId" -> detailedIndividualAccount.individualId.toString,
-                "name"     -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
+                "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
               )
             )
           case _ =>
@@ -66,7 +66,7 @@ object EmailRequest {
               Map(
                 "orgName"  -> acc.companyName,
                 "personId" -> detailedIndividualAccount.individualId.toString,
-                "name"     -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
+                "name" -> s"${detailedIndividualAccount.details.firstName} ${detailedIndividualAccount.details.lastName}"
               )
             )
         }

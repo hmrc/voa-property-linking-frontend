@@ -68,7 +68,7 @@ class CustomErrorHandler @Inject() (
       // old xRequestId format with gov-uk-tax prefix
       requestId.map(_.split("govuk-tax-")(1))
     else
-      //new xRequestId format
+      // new xRequestId format
       requestId
   }
 

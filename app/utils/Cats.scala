@@ -20,15 +20,15 @@ import cats.instances.{FutureInstances, ListInstances, OptionInstances, VectorIn
 import cats.syntax._
 
 trait Cats
-    extends OptionInstances //commonly used wrapper types - Option, List, Vector, Future
-    with ListInstances //for when we're traversing/validating lists
-    with VectorInstances //for when we're traversing/validating vectors
-    with FutureInstances //require an implicit execution context in scope
+    extends OptionInstances // commonly used wrapper types - Option, List, Vector, Future
+    with ListInstances // for when we're traversing/validating lists
+    with VectorInstances // for when we're traversing/validating vectors
+    with FutureInstances // require an implicit execution context in scope
     with ValidatedSyntax // for Validated stuff in Binders, etc.
-    with EitherSyntax //useful conversion between Either/Option/Try/Validated
-    with ApplySyntax //map2..22 , mapN
-    with ShowSyntax //for turning things to String without relying on Object#toString
-    with FunctorSyntax //for .widen syntax for eitherT to uplift the type to a Lowest common parent
+    with EitherSyntax // useful conversion between Either/Option/Try/Validated
+    with ApplySyntax // map2..22 , mapN
+    with ShowSyntax // for turning things to String without relying on Object#toString
+    with FunctorSyntax // for .widen syntax for eitherT to uplift the type to a Lowest common parent
     with TraverseSyntax //.traverse and .sequence extensions
 
 object Cats extends Cats

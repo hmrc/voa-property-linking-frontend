@@ -25,9 +25,9 @@ import play.api.libs.json.OFormat
 case class InitiateAttachmentPayload(
       fileName: String,
       mimeType: String,
-      successRedirect: String, //Labelling as optional's as these should not be on the screen
-      errorRedirect: String, //Labelling as optional's as these should not be on the screen
-      destination: Destinations, //Labelling as optional's as these should not be on the screen
+      successRedirect: String, // Labelling as optional's as these should not be on the screen
+      errorRedirect: String, // Labelling as optional's as these should not be on the screen
+      destination: Destinations, // Labelling as optional's as these should not be on the screen
       data: Map[String, String] = Map()
 ) {}
 

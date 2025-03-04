@@ -126,7 +126,7 @@ class ManageAgentController @Inject() (
         agentToBeManagedOpt: Option[AgentSummary] = organisationsAgents.agents match {
                                                       case agent :: Nil => Some(agent)
                                                       case Nil          => None
-                                                      case agents       => agents.find(a => a.representativeCode == agentCode)
+                                                      case agents => agents.find(a => a.representativeCode == agentCode)
                                                     }
         _ <- agentToBeManagedOpt match {
                case None        => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
@@ -212,7 +212,7 @@ class ManageAgentController @Inject() (
           } else
             ipPropertyLinksCount match {
               case 0 if agent.propertyCount == 0 =>
-                //IP has no property links but still has an agent
+                // IP has no property links but still has an agent
                 Some(
                   removeAgentFromOrganisationView(
                     submitAgentAppointmentRequest,
@@ -222,7 +222,7 @@ class ManageAgentController @Inject() (
                   )
                 )
               case 1 if agent.propertyCount == 0 =>
-                //IP has one property link but agent is not assigned
+                // IP has one property link but agent is not assigned
                 Some(
                   manageAgentViewOld(
                     submitManageAgentForm,
@@ -235,7 +235,7 @@ class ManageAgentController @Inject() (
                   )
                 )
               case 1 if agent.propertyCount == 1 =>
-                //IP has one property link and agent is assigned to that property
+                // IP has one property link and agent is assigned to that property
                 Some(
                   unassignAgentFromPropertyView(
                     submitAgentAppointmentRequest,
@@ -244,7 +244,7 @@ class ManageAgentController @Inject() (
                   )
                 )
               case numberOfPropertyLinks if numberOfPropertyLinks > 1 && agent.propertyCount == 0 =>
-                //IP has more than one property links but agent is not assigned to any
+                // IP has more than one property links but agent is not assigned to any
                 Some(
                   manageAgentViewOld(
                     submitManageAgentForm,
@@ -273,7 +273,7 @@ class ManageAgentController @Inject() (
                   )
                 )
               case numberOfPropertyLinks if numberOfPropertyLinks == agent.propertyCount =>
-                //agent is assigned to all of the IP's property links
+                // agent is assigned to all of the IP's property links
                 Some(
                   manageAgentViewOld(
                     submitManageAgentForm,
@@ -317,7 +317,7 @@ class ManageAgentController @Inject() (
               case ChangeRatingList =>
                 Future.successful(Redirect(controllers.manageAgent.routes.ChooseRatingListController.show))
               case UnassignFromYourProperty =>
-                Future.successful((Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll)))
+                Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll))
             }
         )
     }

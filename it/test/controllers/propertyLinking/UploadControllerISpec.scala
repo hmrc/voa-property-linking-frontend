@@ -366,24 +366,21 @@ class UploadControllerISpec extends ISpecBase {
       }
     }
 
-    "display the correct content in English for an IP (Occupier) that is uploading other evidence (Occupier)" which {
+    "display the correct content in English for an IP (Occupier) that is uploading other evidence (Occupier)" which
       otherEvidencePageTests(language = English, relationship = "Occupier", userIsAgent = false, fromCya = false)
-    }
 
-    "display the correct content in English for an IP (Owner) that is uploading other evidence (Owner)" which {
+    "display the correct content in English for an IP (Owner) that is uploading other evidence (Owner)" which
       otherEvidencePageTests(language = English, relationship = "Owner", userIsAgent = false, fromCya = false)
-    }
 
-    "display the correct content in English for an IP (Owner and occupier) that is uploading other evidence (Owner and occupier)" which {
+    "display the correct content in English for an IP (Owner and occupier) that is uploading other evidence (Owner and occupier)" which
       otherEvidencePageTests(
         language = English,
         relationship = "Owner and occupier",
         userIsAgent = false,
         fromCya = false
       )
-    }
 
-    "display the correct content in English for an IP (Occupier) that has uploaded a Lease (from CYA)" which {
+    "display the correct content in English for an IP (Occupier) that has uploaded a Lease (from CYA)" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "LEASE",
@@ -392,9 +389,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = true
       )
-    }
 
-    "display the correct content in English for an IP (Owner) that has uploaded a business rates bill (from CYA)" which {
+    "display the correct content in English for an IP (Owner) that has uploaded a business rates bill (from CYA)" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "RATES_BILL",
@@ -403,14 +399,12 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = true
       )
-    }
 
-    "display the correct content in English for an IP (Owner) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which {
+    "display the correct content in English for an IP (Owner) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which
       otherEvidencePageTests(language = English, relationship = "Owner", userIsAgent = false, fromCya = true)
-    }
 
     // Agent - English
-    "display the correct content in English for an Agent (Owner) that is uploading a business rates bill" which {
+    "display the correct content in English for an Agent (Owner) that is uploading a business rates bill" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "RATES_BILL",
@@ -419,9 +413,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in English for an Agent (Occupier) that is uploading a lease" which {
+    "display the correct content in English for an Agent (Occupier) that is uploading a lease" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "LEASE",
@@ -430,9 +423,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in English for an Agent (Occupier) that is uploading a licence to occupy" which {
+    "display the correct content in English for an Agent (Occupier) that is uploading a licence to occupy" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "LICENSE",
@@ -441,9 +433,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in English for an Agent (Occupier) that is uploading a service charge statement" which {
+    "display the correct content in English for an Agent (Occupier) that is uploading a service charge statement" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "SERVICE_CHARGE",
@@ -452,9 +443,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in English for an Agent (Owner) that is uploading a stamp duty land tax form" which {
+    "display the correct content in English for an Agent (Owner) that is uploading a stamp duty land tax form" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "STAMP_DUTY",
@@ -463,9 +453,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in English for an Agent (Owner and occupier) that is uploading a land registry title" which {
+    "display the correct content in English for an Agent (Owner and occupier) that is uploading a land registry title" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "LAND_REGISTRY",
@@ -474,9 +463,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in English for an Agent (Occupier) that is uploading a water rate demand" which {
+    "display the correct content in English for an Agent (Occupier) that is uploading a water rate demand" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "WATER_RATE",
@@ -485,9 +473,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in English for an Agent (Owner) that is uploading a utility bill" which {
+    "display the correct content in English for an Agent (Owner) that is uploading a utility bill" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "UTILITY_RATE",
@@ -496,26 +483,22 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in English for an Agent (Occupier) that is uploading other evidence (Occupier)" which {
+    "display the correct content in English for an Agent (Occupier) that is uploading other evidence (Occupier)" which
       otherEvidencePageTests(language = English, relationship = "Occupier", userIsAgent = true, fromCya = false)
-    }
 
-    "display the correct content in English for an Agent (Owner) that is uploading other evidence (Owner)" which {
+    "display the correct content in English for an Agent (Owner) that is uploading other evidence (Owner)" which
       otherEvidencePageTests(language = English, relationship = "Owner", userIsAgent = true, fromCya = false)
-    }
 
-    "display the correct content in English for an Agent (Owner and occupier) that is uploading other evidence (Owner and occupier)" which {
+    "display the correct content in English for an Agent (Owner and occupier) that is uploading other evidence (Owner and occupier)" which
       otherEvidencePageTests(
         language = English,
         relationship = "Owner and occupier",
         userIsAgent = true,
         fromCya = false
       )
-    }
 
-    "display the correct content in English for an Agent (Occupier) that has uploaded a licence to occupy (from CYA)" which {
+    "display the correct content in English for an Agent (Occupier) that has uploaded a licence to occupy (from CYA)" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "LICENSE",
@@ -524,9 +507,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = true
       )
-    }
 
-    "display the correct content in English for an Agent (Owner) that has uploaded a water rate demand (from CYA)" which {
+    "display the correct content in English for an Agent (Owner) that has uploaded a water rate demand (from CYA)" which
       commonEvidencePageTests(
         language = English,
         evidenceType = "WATER_RATE",
@@ -535,14 +517,12 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = true
       )
-    }
 
-    "display the correct content in English for an Agent (Owner) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which {
+    "display the correct content in English for an Agent (Owner) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which
       otherEvidencePageTests(language = English, relationship = "Owner", userIsAgent = true, fromCya = true)
-    }
 
     // IP - Welsh
-    "display the correct content in Welsh for an IP (Owner) that is uploading a business rates bill" which {
+    "display the correct content in Welsh for an IP (Owner) that is uploading a business rates bill" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "RATES_BILL",
@@ -551,9 +531,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an IP (Occupier) that is uploading a lease" which {
+    "display the correct content in Welsh for an IP (Occupier) that is uploading a lease" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "LEASE",
@@ -562,9 +541,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an IP (Occupier) that is uploading a licence to occupy" which {
+    "display the correct content in Welsh for an IP (Occupier) that is uploading a licence to occupy" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "LICENSE",
@@ -573,9 +551,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an IP (Occupier) that is uploading a service charge statement" which {
+    "display the correct content in Welsh for an IP (Occupier) that is uploading a service charge statement" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "SERVICE_CHARGE",
@@ -584,9 +561,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an IP (Owner) that is uploading a stamp duty land tax form" which {
+    "display the correct content in Welsh for an IP (Owner) that is uploading a stamp duty land tax form" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "STAMP_DUTY",
@@ -595,9 +571,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an IP (Owner and occupier) that is uploading a land registry title" which {
+    "display the correct content in Welsh for an IP (Owner and occupier) that is uploading a land registry title" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "LAND_REGISTRY",
@@ -606,9 +581,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an IP (Occupier) that is uploading a water rate demand" which {
+    "display the correct content in Welsh for an IP (Occupier) that is uploading a water rate demand" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "WATER_RATE",
@@ -617,9 +591,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an IP (Owner) that is uploading a utility bill" which {
+    "display the correct content in Welsh for an IP (Owner) that is uploading a utility bill" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "UTILITY_RATE",
@@ -628,26 +601,22 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an IP (Occupier) that is uploading other evidence (Occupier)" which {
+    "display the correct content in Welsh for an IP (Occupier) that is uploading other evidence (Occupier)" which
       otherEvidencePageTests(language = Welsh, relationship = "Occupier", userIsAgent = false, fromCya = false)
-    }
 
-    "display the correct content in Welsh for an IP (Owner) that is uploading other evidence (Owner)" which {
+    "display the correct content in Welsh for an IP (Owner) that is uploading other evidence (Owner)" which
       otherEvidencePageTests(language = Welsh, relationship = "Owner", userIsAgent = false, fromCya = false)
-    }
 
-    "display the correct content in Welsh for an IP (Owner and occupier) that is uploading other evidence (Owner and occupier)" which {
+    "display the correct content in Welsh for an IP (Owner and occupier) that is uploading other evidence (Owner and occupier)" which
       otherEvidencePageTests(
         language = Welsh,
         relationship = "Owner and occupier",
         userIsAgent = false,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an IP (Occupier) that has uploaded a Lease (from CYA)" which {
+    "display the correct content in Welsh for an IP (Occupier) that has uploaded a Lease (from CYA)" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "LEASE",
@@ -656,9 +625,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = true
       )
-    }
 
-    "display the correct content in Welsh for an IP (Owner) that has uploaded a business rates bill (from CYA)" which {
+    "display the correct content in Welsh for an IP (Owner) that has uploaded a business rates bill (from CYA)" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "RATES_BILL",
@@ -667,14 +635,12 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = true
       )
-    }
 
-    "display the correct content in Welsh for an IP (Owner and occupier) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which {
+    "display the correct content in Welsh for an IP (Owner and occupier) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which
       otherEvidencePageTests(language = Welsh, relationship = "Owner and occupier", userIsAgent = false, fromCya = true)
-    }
 
     // Agent - Welsh
-    "display the correct content in Welsh for an Agent (Owner) that is uploading a business rates bill" which {
+    "display the correct content in Welsh for an Agent (Owner) that is uploading a business rates bill" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "RATES_BILL",
@@ -683,9 +649,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an Agent (Occupier) that is uploading a lease" which {
+    "display the correct content in Welsh for an Agent (Occupier) that is uploading a lease" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "LEASE",
@@ -694,9 +659,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an Agent (Occupier) that is uploading a licence to occupy" which {
+    "display the correct content in Welsh for an Agent (Occupier) that is uploading a licence to occupy" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "LICENSE",
@@ -705,9 +669,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an Agent (Occupier) that is uploading a service charge statement" which {
+    "display the correct content in Welsh for an Agent (Occupier) that is uploading a service charge statement" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "SERVICE_CHARGE",
@@ -716,9 +679,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an Agent (Owner) that is uploading a stamp duty land tax form" which {
+    "display the correct content in Welsh for an Agent (Owner) that is uploading a stamp duty land tax form" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "STAMP_DUTY",
@@ -727,9 +689,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an Agent (Owner and occupier) that is uploading a land registry title" which {
+    "display the correct content in Welsh for an Agent (Owner and occupier) that is uploading a land registry title" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "LAND_REGISTRY",
@@ -738,9 +699,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an Agent (Occupier) that is uploading a water rate demand" which {
+    "display the correct content in Welsh for an Agent (Occupier) that is uploading a water rate demand" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "WATER_RATE",
@@ -749,9 +709,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an Agent (Owner) that is uploading a utility bill" which {
+    "display the correct content in Welsh for an Agent (Owner) that is uploading a utility bill" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "UTILITY_RATE",
@@ -760,21 +719,17 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = false
       )
-    }
 
-    "display the correct content in Welsh for an Agent (Occupier) that is uploading other evidence (Occupier)" which {
+    "display the correct content in Welsh for an Agent (Occupier) that is uploading other evidence (Occupier)" which
       otherEvidencePageTests(language = Welsh, relationship = "Occupier", userIsAgent = true, fromCya = false)
-    }
 
-    "display the correct content in Welsh for an Agent (Owner) that is uploading other evidence (Owner)" which {
+    "display the correct content in Welsh for an Agent (Owner) that is uploading other evidence (Owner)" which
       otherEvidencePageTests(language = Welsh, relationship = "Owner", userIsAgent = true, fromCya = false)
-    }
 
-    "display the correct content in Welsh for an Agent (Owner and occupier) that is uploading other evidence (Owner and occupier)" which {
+    "display the correct content in Welsh for an Agent (Owner and occupier) that is uploading other evidence (Owner and occupier)" which
       otherEvidencePageTests(language = Welsh, relationship = "Owner and occupier", userIsAgent = true, fromCya = false)
-    }
 
-    "display the correct content in Welsh for an Agent (Occupier) that has uploaded a licence to occupy (from CYA)" which {
+    "display the correct content in Welsh for an Agent (Occupier) that has uploaded a licence to occupy (from CYA)" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "LICENSE",
@@ -783,9 +738,8 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToEvidenceQuestionHref,
         fromCya = true
       )
-    }
 
-    "display the correct content in Welsh for an Agent (Owner) that has uploaded a water rate demand (from CYA)" which {
+    "display the correct content in Welsh for an Agent (Owner) that has uploaded a water rate demand (from CYA)" which
       commonEvidencePageTests(
         language = Welsh,
         evidenceType = "WATER_RATE",
@@ -794,17 +748,15 @@ class UploadControllerISpec extends ISpecBase {
         backLink = backToOtherEvidenceHref,
         fromCya = true
       )
-    }
 
-    "display the correct content in Welsh for an Agent (Owner and occupier) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which {
+    "display the correct content in Welsh for an Agent (Owner and occupier) that uploaded a lease and accesses the 'Other evidence page' (from CYA)" which
       otherEvidencePageTests(language = Welsh, relationship = "Owner and occupier", userIsAgent = true, fromCya = true)
-    }
   }
 
-  //TODO: update these tests as this method is only used for other evidence types
+  // TODO: update these tests as this method is only used for other evidence types
   "UploadController continue method" should {
 
-    "display an error message in English when an IP (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which {
+    "display an error message in English when an IP (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which
       otherEvidencePageTests(
         language = English,
         relationship = "Owner",
@@ -812,13 +764,11 @@ class UploadControllerISpec extends ISpecBase {
         fromCya = false,
         errorPage = true
       )
-    }
 
-    "display the 'Cannot provide evidence' page in English (Owner) when an IP selects 'I cannot provide evidence'" which {
+    "display the 'Cannot provide evidence' page in English (Owner) when an IP selects 'I cannot provide evidence'" which
       unableToProvideEvidencePageTests(language = English, userIsAgent = false)
-    }
 
-    "display an error message in English when an Agent (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which {
+    "display an error message in English when an Agent (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which
       otherEvidencePageTests(
         language = English,
         relationship = "Owner",
@@ -826,13 +776,11 @@ class UploadControllerISpec extends ISpecBase {
         fromCya = false,
         errorPage = true
       )
-    }
 
-    "display the 'Cannot provide evidence' page in English when an Agent (Owner) selects 'I cannot provide evidence'" which {
+    "display the 'Cannot provide evidence' page in English when an Agent (Owner) selects 'I cannot provide evidence'" which
       unableToProvideEvidencePageTests(language = English, userIsAgent = true)
-    }
 
-    "display an error message in Welsh when an IP (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which {
+    "display an error message in Welsh when an IP (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which
       otherEvidencePageTests(
         language = Welsh,
         relationship = "Owner",
@@ -840,13 +788,11 @@ class UploadControllerISpec extends ISpecBase {
         fromCya = false,
         errorPage = true
       )
-    }
 
-    "display the 'Cannot provide evidence' page in Welsh when an IP (Owner) selects 'I cannot provide evidence'" which {
+    "display the 'Cannot provide evidence' page in Welsh when an IP (Owner) selects 'I cannot provide evidence'" which
       unableToProvideEvidencePageTests(language = Welsh, userIsAgent = false)
-    }
 
-    "display an error message in Welsh when an Agent (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which {
+    "display an error message in Welsh when an Agent (Owner) attempts to continue without selecting a radio on the 'Other evidence' page" which
       otherEvidencePageTests(
         language = Welsh,
         relationship = "Owner",
@@ -854,11 +800,9 @@ class UploadControllerISpec extends ISpecBase {
         fromCya = false,
         errorPage = true
       )
-    }
 
-    "display the 'Cannot provide evidence' page in Welsh when an Agent (Owner) selects 'I cannot provide evidence'" which {
+    "display the 'Cannot provide evidence' page in Welsh when an Agent (Owner) selects 'I cannot provide evidence'" which
       unableToProvideEvidencePageTests(language = Welsh, userIsAgent = true)
-    }
 
     // Success - Other evidence page
     "return a 303 and redirects the user (Owner) to the 'Upload evidence' page when selecting 'Lease' and clicking 'Continue' on the 'Other evidence' page" which {
@@ -1202,9 +1146,8 @@ class UploadControllerISpec extends ISpecBase {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceType/upload"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceType/upload"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
     )
@@ -1229,9 +1172,8 @@ class UploadControllerISpec extends ISpecBase {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/upload"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/upload"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .withFollowRedirects(follow = false)
         .post(body)
@@ -1405,9 +1347,8 @@ class UploadControllerISpec extends ISpecBase {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/cannot-provide-evidence"
-          )
-          .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/cannot-provide-evidence"
+        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .withFollowRedirects(follow = false)
           .get()
@@ -1575,7 +1516,7 @@ class UploadControllerISpec extends ISpecBase {
       }
 
       s"has an error message of $errorMessage above the radio buttons" in {
-        //File upload component doesn't appear to translate to welsh
+        // File upload component doesn't appear to translate to welsh
         document.select(errorMessageLocator).text shouldBe s"Error: $errorMessage"
       }
     }
@@ -1681,7 +1622,7 @@ class UploadControllerISpec extends ISpecBase {
       }
 
       s"has an error message of $errorMessage above the radio buttons" in {
-        //File upload component doesn't appear to translate to welsh
+        // File upload component doesn't appear to translate to welsh
         document.select(errorMessageLocator).text shouldBe s"Error: $errorMessage"
       }
     }
@@ -1781,9 +1722,8 @@ class UploadControllerISpec extends ISpecBase {
     val optFileName = if (withFileName) "&removedFileName=image.png" else ""
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?fileRemoved=$fileRemoved$optFileName"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?fileRemoved=$fileRemoved$optFileName"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
     )
@@ -1795,9 +1735,8 @@ class UploadControllerISpec extends ISpecBase {
     commonSetup(evidenceType = "RATES_BILL", relationship = "Owner", false, fromCya = false)
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorCode=$errorCode"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorCode=$errorCode"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
     )

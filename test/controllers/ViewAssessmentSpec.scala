@@ -29,8 +29,7 @@ import scala.concurrent.Future
 
 class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
 
-  private object TestAssessmentController
-      extends Assessments(
+  private object TestAssessmentController extends Assessments(
         mockCustomErrorHandler,
         mockPropertyLinkService,
         preAuthenticatedActionBuilders(),
@@ -153,7 +152,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
   trait Viewable {
     val link: PropertyLink = arbitrary[PropertyLink]
 
-    //return TRUE - i.e. viewable
+    // return TRUE - i.e. viewable
     when(mockBusinessRatesValuationConnector.isViewable(any(), any(), any())(any())).thenReturn(Future.successful(true))
     when(mockPropertyLinkService.getSingularPropertyLink(any(), any())(any())).thenReturn(Future.successful(Some(link)))
     StubPropertyLinkConnector.stubLink(link)
@@ -162,7 +161,7 @@ class ViewAssessmentSpec extends VoaPropertyLinkingSpec with OptionValues {
   trait NotViewable {
     val link: PropertyLink = arbitrary[PropertyLink]
 
-    //return FALSE - i.e. NOT viewable
+    // return FALSE - i.e. NOT viewable
     when(mockBusinessRatesValuationConnector.isViewable(any(), any(), any())(any()))
       .thenReturn(Future.successful(false))
     when(mockPropertyLinkService.getSingularPropertyLink(any(), any())(any())).thenReturn(Future.successful(Some(link)))

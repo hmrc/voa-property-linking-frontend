@@ -53,9 +53,8 @@ class CheckYourAnswersController @Inject() (
   def onPageLoad(): Action[AnyContent] =
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
       PartialFunction
-        .condOpt(request.sessionData) {
-          case data: ManagingProperty =>
-            Future.successful(Ok(checkYourAnswersView(getBackLinkFromSession, submitAgentAppointmentRequest, data)))
+        .condOpt(request.sessionData) { case data: ManagingProperty =>
+          Future.successful(Ok(checkYourAnswersView(getBackLinkFromSession, submitAgentAppointmentRequest, data)))
         }
         .getOrElse {
           logger.info("Failed to find ManagingProperty data in the session cache.")

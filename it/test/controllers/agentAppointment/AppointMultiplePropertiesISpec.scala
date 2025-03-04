@@ -683,9 +683,8 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .withFollowRedirects(follow = false)
         .post(Map("multipleProperties" -> Seq(selectedRadio.getOrElse(""))))

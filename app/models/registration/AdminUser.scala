@@ -69,7 +69,7 @@ object AdminUser {
       keys.dateOfBirth     -> dmyPastDate,
       keys.nino            -> nino,
       keys.phone           -> validatePhoneNumber,
-      keys.mobilePhone     -> validatePhoneNumber, //FIXME mobile phone regex
+      keys.mobilePhone     -> validatePhoneNumber, // FIXME mobile phone regex
       keys.email           -> isValidEmail,
       keys.confirmedEmail  -> TextMatching(keys.email, Errors.emailsMustMatch),
       keys.tradingName     -> optional(text(maxLength = 45)),

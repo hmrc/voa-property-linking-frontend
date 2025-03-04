@@ -60,20 +60,20 @@ class Assessments @Inject() (
                   Redirect(
                     config.businessRatesValuationFrontendUrl(
                       s"property-link/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${Seq(
-                        otherValuationId.fold("")("&otherValuationId=" + _),
-                        fromValuation.fold("")("&fromValuation=" + _),
-                        challengeCaseRef.fold("")("&challengeCaseRef=" + _)
-                      ).mkString}"
+                          otherValuationId.fold("")("&otherValuationId=" + _),
+                          fromValuation.fold("")("&fromValuation=" + _),
+                          challengeCaseRef.fold("")("&challengeCaseRef=" + _)
+                        ).mkString}"
                     )
                   )
                 else
                   Redirect(
                     config.businessRatesValuationFrontendUrl(
                       s"property-link/clients/$authorisationId/valuations/$assessmentRef?submissionId=$submissionId${Seq(
-                        otherValuationId.fold("")("&otherValuationId=" + _),
-                        fromValuation.fold("")("&fromValuation=" + _),
-                        challengeCaseRef.fold("")("&challengeCaseRef=" + _)
-                      ).mkString}"
+                          otherValuationId.fold("")("&otherValuationId=" + _),
+                          fromValuation.fold("")("&fromValuation=" + _),
+                          challengeCaseRef.fold("")("&challengeCaseRef=" + _)
+                        ).mkString}"
                     )
                   )
               case false =>

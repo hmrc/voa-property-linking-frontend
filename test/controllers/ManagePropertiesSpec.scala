@@ -55,8 +55,7 @@ class ManagePropertiesSpec extends VoaPropertyLinkingSpec {
     )
   }
 
-  private object TestDashboardController
-      extends Dashboard(
+  private object TestDashboardController extends Dashboard(
         mockCustomErrorHandler,
         mock[AgentRelationshipService],
         mock[GroupAccounts],

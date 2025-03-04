@@ -897,9 +897,8 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
     val agentAppointedParam = if (withAgentsNotAppointed) "&agentAppointed=NO" else ""
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true$agentAppointedParam"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true$agentAppointedParam"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .get()

@@ -47,18 +47,13 @@ trait AuthorisationExceptionThrowingReads extends Logging {
       }
     }
 
-    HttpReads.ask.flatMap {
-      case (method, url, response) =>
-        HttpReadsInstances.readEitherOf[A].map(_.leftMap(mapToException(method, url, response)).merge)
+    HttpReads.ask.flatMap { case (method, url, response) =>
+      HttpReadsInstances.readEitherOf[A].map(_.leftMap(mapToException(method, url, response)).merge)
     }
   }
 }
 
-/***
-  * Business-Rates-Authentication error response
-  * e.g.
-  * 401 Unauthorised
-  * {"errorCode":"INVALID_GATEWAY_SESSION"}
+/** * Business-Rates-Authentication error response e.g. 401 Unauthorised {"errorCode":"INVALID_GATEWAY_SESSION"}
   */
 case class UnauthorisedErrorResponse(errorCode: String)
 

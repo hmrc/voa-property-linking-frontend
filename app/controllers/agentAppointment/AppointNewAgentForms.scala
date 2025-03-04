@@ -23,9 +23,12 @@ import play.api.data.{Form, Forms}
 
 object AppointNewAgentForms {
   val agentCode: Form[String] =
-    Form(single("agentCode" -> {
-      text.verifying("error.agentCode.required", s => s.matches("^[0-9]+$"))
-    }))
+    Form(
+      single(
+        "agentCode" ->
+          text.verifying("error.agentCode.required", s => s.matches("^[0-9]+$"))
+      )
+    )
 
   val isThisTheCorrectAgent: Form[Boolean] =
     Form(

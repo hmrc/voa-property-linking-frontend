@@ -36,8 +36,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
   lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
-  object TestController
-      extends RepresentationController(
+  object TestController extends RepresentationController(
         mockCustomErrorHandler,
         StubPropertyRepresentationConnector,
         mockVmvConnector,

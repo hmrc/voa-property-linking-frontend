@@ -30,9 +30,8 @@ class PropertyOccupancyFormSpec extends VoaPropertyLinkingSpec {
 
   behavior of "Property occupancy form"
 
-  it should "bind when the inputs are all valid" in {
+  it should "bind when the inputs are all valid" in
     shouldBindTo(form, validData, PropertyOccupancy(false, Some(LocalDate.of(2017, 4, 23))))
-  }
 
   it should "require last occupied date if the occupation/ownership" in {
     val data = validData

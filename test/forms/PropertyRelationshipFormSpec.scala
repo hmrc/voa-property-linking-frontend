@@ -28,17 +28,14 @@ class PropertyRelationshipFormSpec extends AnyFlatSpec with Matchers {
 
   behavior of "Property relationship form"
 
-  it should "bind when the inputs are all valid" in {
+  it should "bind when the inputs are all valid" in
     shouldBindTo(form, validData, PropertyRelationship(Occupier, 1L))
-  }
 
-  it should "mandate a capacity" in {
+  it should "mandate a capacity" in
     verifyMandatoryMultiChoice(form, validData, "capacity")
-  }
 
-  it should "only allow recognised capacity values" in {
+  it should "only allow recognised capacity values" in
     verifyMultiChoice(form, validData, "capacity", CapacityType)
-  }
 
   object TestData {
     val form = ClaimPropertyRelationship.relationshipForm

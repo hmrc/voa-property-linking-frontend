@@ -240,9 +240,8 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2000"
-          )
-          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2000"
+        ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .get()
       )
@@ -375,9 +374,8 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=$chosenListYear"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=$chosenListYear"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
     )
@@ -413,9 +411,8 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
   private def submitNewListYear(chosenListYear: String): WSResponse =
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=$chosenListYear"
-        )
-        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=$chosenListYear"
+      ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .post(body = "")

@@ -39,8 +39,8 @@ class BusinessRatesAuthorisationConnector @Inject() (
     http
       .GET[Accounts](s"$url/authenticate")
       .map(Authenticated.apply)
-      .recover {
-        case AuthorisationFailure(err) => handleUnauthenticated(err)
+      .recover { case AuthorisationFailure(err) =>
+        handleUnauthenticated(err)
       }
 
   private def handleUnauthenticated(error: String) =

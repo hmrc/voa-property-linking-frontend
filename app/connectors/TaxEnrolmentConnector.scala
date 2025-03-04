@@ -52,10 +52,9 @@ class TaxEnrolmentConnector @Inject() (
         auditingService.sendEvent[EnrolmentPayload]("Enrolment Success", payload)
         result
       }
-      .recover {
-        case exception: Throwable =>
-          auditingService.sendEvent("Enrolment failed to update", payload)
-          throw exception
+      .recover { case exception: Throwable =>
+        auditingService.sendEvent("Enrolment failed to update", payload)
+        throw exception
       }
   }
 
@@ -78,10 +77,9 @@ class TaxEnrolmentConnector @Inject() (
         auditingService.sendEvent("Enrolment Updated", payload)
         Success
       }
-      .recover {
-        case exception: Throwable =>
-          auditingService.sendEvent("Enrolment failed to update", payload)
-          throw exception
+      .recover { case exception: Throwable =>
+        auditingService.sendEvent("Enrolment failed to update", payload)
+        throw exception
       }
   }
 }

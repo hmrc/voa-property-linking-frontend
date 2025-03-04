@@ -29,9 +29,9 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
     val ref: String = shortString
     val req = FakeRequest()
 
-    //the LAZY keyword is actually important here
-    //without LAZY you get
-    //An exception or error caused a run to abort: java.lang.RuntimeException was thrown inside "The technical difficulties page" should, construction cannot continue: "There is no started application"
+    // the LAZY keyword is actually important here
+    // without LAZY you get
+    // An exception or error caused a run to abort: java.lang.RuntimeException was thrown inside "The technical difficulties page" should, construction cannot continue: "There is no started application"
     lazy val view = new views.html.errors.technicalDifficulties(mainLayout)
 
     lazy val html =

@@ -18,7 +18,6 @@ package exceptions
 
 import uk.gov.hmrc.http.HttpResponse
 
-case class ConnectorException(method: String, url: String, response: HttpResponse)
-    extends RuntimeException(
+case class ConnectorException(method: String, url: String, response: HttpResponse) extends RuntimeException(
       s"Failure requesting [$method $url], unexpected status: ${response.status}"
     )

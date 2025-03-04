@@ -21,17 +21,14 @@ import play.api.http.Status._
 import uk.gov.hmrc.http._
 import utils.Cats._
 
-/****
-  * This reads is designed to maintain behaviour of error handling
-  * after the bootstrap-frontend-play26 upgrade
+/** ** This reads is designed to maintain behaviour of error handling after the bootstrap-frontend-play26 upgrade
   *
-  * Before the upgrade, 400 and 404 responses would throw exceptions:
-  * (BadRequestException and NotFoundException)
+  * Before the upgrade, 400 and 404 responses would throw exceptions: (BadRequestException and NotFoundException)
   *
   * After the upgrade, no exceptions are thrown (by the library HttpErrorFunctions).
   *
-  * This custom HttpReads should therefore recognise 400 and 404 http responses
-  * and throw BadRequestException or NotFoundException
+  * This custom HttpReads should therefore recognise 400 and 404 http responses and throw BadRequestException or
+  * NotFoundException
   *
   * TODO: this may be a temporary measure (tbd)
   */
@@ -52,9 +49,8 @@ trait ExceptionThrowingReads extends HttpErrorFunctions with Logging {
       }
     }
 
-    HttpReads.ask.flatMap {
-      case (method, url, response) =>
-        HttpReadsInstances.readEitherOf[A].map(_.leftMap(mapToException(method, url, response)).merge)
+    HttpReads.ask.flatMap { case (method, url, response) =>
+      HttpReadsInstances.readEitherOf[A].map(_.leftMap(mapToException(method, url, response)).merge)
     }
   }
 }

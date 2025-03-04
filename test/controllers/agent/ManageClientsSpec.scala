@@ -57,8 +57,7 @@ class ManageClientsSpec extends VoaPropertyLinkingSpec {
 
   }
 
-  object TestController
-      extends RepresentationController(
+  object TestController extends RepresentationController(
         mockCustomErrorHandler,
         StubPropertyRepresentationConnector,
         mockVmvConnector,

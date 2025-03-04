@@ -43,56 +43,56 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
 
   "Successfully verifying identity when an organisation does not have a CCA account" should
     "register and enrol the user then redirect to the registration success page" in new TestCase {
-    StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
-      .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
+      StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
+      when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
+        .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
 
-    val res = testIdentityVerification(userDetails(Organisation))
-      .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
-  }
+      val res = testIdentityVerification(userDetails(Organisation))
+        .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
+      status(res) shouldBe SEE_OTHER
+      redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
+    }
 
   "Successfully verifying identity when an individual does not have a CCA account" should
     "register and enrol the user then redirect to the registration success page" in new TestCase {
-    override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
-    StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
-      .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
+      override lazy val mockSessionRepoOrgDetails = mockSessionRepoIndDetails
+      StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
+      when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
+        .thenReturn(Future.successful(Some(RegistrationSuccess(1L))))
 
-    val res = testIdentityVerification(userDetails(Individual))
-      .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
-  }
+      val res = testIdentityVerification(userDetails(Individual))
+        .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
+      status(res) shouldBe SEE_OTHER
+      redirectLocation(res) shouldBe Some(controllers.registration.routes.RegistrationController.success(1L).url)
+    }
 
   "Successfully verifying identity" should
     "return internal server error when the registration or enrolment fails" in new TestCase {
-    when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
-      .thenReturn(Future.successful(Html("INTERNAL SERVER ERROR")))
-    StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
-      .thenReturn(Future.successful(Some(EnrolmentFailure)))
+      when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
+        .thenReturn(Future.successful(Html("INTERNAL SERVER ERROR")))
+      StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
+      when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
+        .thenReturn(Future.successful(Some(EnrolmentFailure)))
 
-    val res = testIdentityVerification(userDetails(Organisation))
-      .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
+      val res = testIdentityVerification(userDetails(Organisation))
+        .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
 
-    status(res) shouldBe INTERNAL_SERVER_ERROR
-  }
+      status(res) shouldBe INTERNAL_SERVER_ERROR
+    }
 
   "Successfully verifying identity" should
     "return internal server error when there are details missing" in new TestCase {
-    when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
-      .thenReturn(Future.successful(Html("INTERNAL SERVER ERROR")))
-    StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
-    when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
-      .thenReturn(Future.successful(Some(DetailsMissing)))
+      when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
+        .thenReturn(Future.successful(Html("INTERNAL SERVER ERROR")))
+      StubIdentityVerification.stubSuccessfulJourney("successfuljourney")
+      when(mockRegistrationService.continueUplift(any(), any())(any(), any()))
+        .thenReturn(Future.successful(Some(DetailsMissing)))
 
-    val res = testIdentityVerification(userDetails(Organisation))
-      .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
+      val res = testIdentityVerification(userDetails(Organisation))
+        .success(Some("successfuljourney"))(requestWithJourneyId("successfuljourney"))
 
-    status(res) shouldBe INTERNAL_SERVER_ERROR
-  }
+      status(res) shouldBe INTERNAL_SERVER_ERROR
+    }
 
   "Manually navigating to the iv success page after failing identity verification" should "return a 401 Unauthorised response" in new TestCase {
     when(mockCustomErrorHandler.internalServerErrorTemplate(any()))
@@ -121,27 +121,26 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
   "fail" should "redirect the user to the identity verification failure page with appropriate error message detailing the cause of the IV failure" in new TestCase {
     val scenarios: TableFor2[IvFailure, String] = Table(
       ("IV Failure", "expected text"),
-      IvFailure.Incomplete           -> "you have not answered all the questions",
-      IvFailure.FailedMatching       -> "the details you have given do not match our records",
-      IvFailure.FailedDirectorCheck  -> "the details you have given do not match the director records from Companies House",
+      IvFailure.Incomplete     -> "you have not answered all the questions",
+      IvFailure.FailedMatching -> "the details you have given do not match our records",
+      IvFailure.FailedDirectorCheck -> "the details you have given do not match the director records from Companies House",
       IvFailure.InsufficientEvidence -> "you have not given us enough information",
-      IvFailure.LockedOut            -> "you answered questions incorrectly too many times. You will need to wait 24 hours before you can try again",
-      IvFailure.UserAborted          -> "you have chosen not to continue",
-      IvFailure.Timeout              -> "you have been timed out due to inactivity",
-      IvFailure.TechnicalIssue       -> "of a technical issue with this service",
-      IvFailure.PreconditionFailed   -> "of a technical issue with this service",
-      IvFailure.Deceased             -> "of a technical issue with this service",
-      IvFailure.FailedIV             -> "of a technical issue with this service"
+      IvFailure.LockedOut -> "you answered questions incorrectly too many times. You will need to wait 24 hours before you can try again",
+      IvFailure.UserAborted        -> "you have chosen not to continue",
+      IvFailure.Timeout            -> "you have been timed out due to inactivity",
+      IvFailure.TechnicalIssue     -> "of a technical issue with this service",
+      IvFailure.PreconditionFailed -> "of a technical issue with this service",
+      IvFailure.Deceased           -> "of a technical issue with this service",
+      IvFailure.FailedIV           -> "of a technical issue with this service"
     )
 
-    TableDrivenPropertyChecks.forAll(scenarios) {
-      case (failure, expectedText) =>
-        StubIdentityVerification.stubFailedJourney("somejourneyid", failure)
-        val res = testIdentityVerification(userDetails(Organisation))
-          .fail(Some("failed journey"))(requestWithJourneyId("failed journey"))
-        status(res) shouldBe OK
-        val html = contentAsString(res)
-        html should include(s"We’re unable to verify your identity because $expectedText.")
+    TableDrivenPropertyChecks.forAll(scenarios) { case (failure, expectedText) =>
+      StubIdentityVerification.stubFailedJourney("somejourneyid", failure)
+      val res = testIdentityVerification(userDetails(Organisation))
+        .fail(Some("failed journey"))(requestWithJourneyId("failed journey"))
+      status(res) shouldBe OK
+      val html = contentAsString(res)
+      html should include(s"We’re unable to verify your identity because $expectedText.")
     }
 
   }

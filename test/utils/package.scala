@@ -284,9 +284,9 @@ package object utils {
 
   private val ninoGen: Gen[Nino] = for {
     prefix <- (for {
-                  prefix1 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'Q', 'U', 'V').contains))
-                  prefix2 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'O', 'Q', 'U', 'V').contains))
-                } yield s"$prefix1$prefix2") retryUntil (!List("BG", "GB", "NK", "KN", "TN", "NT", "ZZ").contains(_))
+                prefix1 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'Q', 'U', 'V').contains))
+                prefix2 <- Gen.oneOf(('A' to 'Z').filterNot(List('D', 'F', 'I', 'O', 'Q', 'U', 'V').contains))
+              } yield s"$prefix1$prefix2") retryUntil (!List("BG", "GB", "NK", "KN", "TN", "NT", "ZZ").contains(_))
     number <- listOfN(6, Gen.numChar)
     suffix <- Gen.oneOf('A' to 'D')
   } yield Nino(s"$prefix${number.mkString}$suffix".grouped(2).mkString(" "))

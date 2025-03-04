@@ -43,9 +43,9 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val errorAtRadioSelector = "#checkType_-error"
   val errorSummarySelector = "#error-link"
 
-  val errorTitleText = "ADDRESS - Valuation Office Agency - GOV.UK" //TODO: This is a bug, should error
+  val errorTitleText = "ADDRESS - Valuation Office Agency - GOV.UK" // TODO: This is a bug, should error
   val noRadioSelectedErrorText = "Select what you want to tell us"
-  val errorTitleTextWelsh = "ADDRESS - Valuation Office Agency - GOV.UK" //TODO: This is a bug, should error
+  val errorTitleTextWelsh = "ADDRESS - Valuation Office Agency - GOV.UK" // TODO: This is a bug, should error
   val noRadioSelectedErrorTextWelsh = "Dewisiwch beth rydych am ei ddweud wrthym"
   val errorText = "Error: "
   val errorTextWelsh = "Gwall: "
@@ -75,9 +75,11 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .headers("Location")
         .head shouldBe s"http://localhost:9534/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/internal/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
 
-      val resumeCheckJsonBody = Json.parse(s"""{
-                                              |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/internal/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
-                                              |}""".stripMargin)
+      val resumeCheckJsonBody = Json.parse(
+        s"""{
+           |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/internal/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
+           |}""".stripMargin
+      )
 
       verify(
         1,
@@ -99,9 +101,11 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .headers("Location")
         .head shouldBe s"http://localhost:9534/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/internal/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
 
-      val resumeCheckJsonBody = Json.parse(s"""{
-                                              |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/internal/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
-                                              |}""".stripMargin)
+      val resumeCheckJsonBody = Json.parse(
+        s"""{
+           |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/internal/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
+           |}""".stripMargin
+      )
 
       verify(
         1,
@@ -123,9 +127,11 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .headers("Location")
         .head shouldBe s"http://localhost:9534/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/remove/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
 
-      val resumeCheckJsonBody = Json.parse(s"""{
-                                              |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/remove/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
-                                              |}""".stripMargin)
+      val resumeCheckJsonBody = Json.parse(
+        s"""{
+           |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/remove/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
+           |}""".stripMargin
+      )
 
       verify(
         1,
@@ -147,9 +153,11 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .headers("Location")
         .head shouldBe s"http://localhost:9534/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/split/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
 
-      val resumeCheckJsonBody = Json.parse(s"""{
-                                              |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/split/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
-                                              |}""".stripMargin)
+      val resumeCheckJsonBody = Json.parse(
+        s"""{
+           |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/split/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
+           |}""".stripMargin
+      )
 
       verify(
         1,
@@ -171,9 +179,11 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .headers("Location")
         .head shouldBe s"http://localhost:9534/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/merge/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
 
-      val resumeCheckJsonBody = Json.parse(s"""{
-                                              |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/merge/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
-                                              |}""".stripMargin)
+      val resumeCheckJsonBody = Json.parse(
+        s"""{
+           |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/merge/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
+           |}""".stripMargin
+      )
 
       verify(
         1,
@@ -195,9 +205,11 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .headers("Location")
         .head shouldBe s"http://localhost:9534/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/external/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
 
-      val resumeCheckJsonBody = Json.parse(s"""{
-                                              |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/external/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
-                                              |}""".stripMargin)
+      val resumeCheckJsonBody = Json.parse(
+        s"""{
+           |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/external/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
+           |}""".stripMargin
+      )
 
       verify(
         1,
@@ -219,9 +231,11 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .headers("Location")
         .head shouldBe s"http://localhost:9534/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/legal-decision/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
 
-      val resumeCheckJsonBody = Json.parse(s"""{
-                                              |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/legal-decision/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
-                                              |}""".stripMargin)
+      val resumeCheckJsonBody = Json.parse(
+        s"""{
+           |   "resumeUrl": "/business-rates-check/property-link/$propertyLinkId/assessment/$valuationId/legal-decision/$checkId?propertyLinkSubmissionId=$submissionId&uarn=$uarn&dvrCheck=true&rvth=$rateableValueTooHigh"
+           |}""".stripMargin
+      )
 
       verify(
         1,
@@ -286,9 +300,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     ).mkString("&")
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
@@ -318,9 +331,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
@@ -457,7 +469,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
-  //JS messing up these test as the tabs visually hidden
+  // JS messing up these test as the tabs visually hidden
   "DvrController myOrganisationRequestDetailValuationCheck method" should {
     "Load to the 'Dvr files' page & display the correct content on the comparable properties tab - English" in {
 
@@ -487,9 +499,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",

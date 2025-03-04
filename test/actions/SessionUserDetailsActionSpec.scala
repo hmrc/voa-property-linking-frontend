@@ -51,8 +51,8 @@ class SessionUserDetailsActionSpec
       val futureResult = action.callTransform(request)
 
       whenReady(futureResult) { result =>
-        inside(result.sessionPersonDetails) {
-          case Some(acc: IndividualUserAccountDetails) => acc shouldBe individualUserAccountDetails
+        inside(result.sessionPersonDetails) { case Some(acc: IndividualUserAccountDetails) =>
+          acc shouldBe individualUserAccountDetails
         }
       }
     }
@@ -72,9 +72,8 @@ class SessionUserDetailsActionSpec
       val futureResult = action.callTransform(request)
 
       whenReady(futureResult) { result =>
-        inside(result.sessionPersonDetails) {
-          case Some(acc: AdminInExistingOrganisationAccountDetails) =>
-            acc shouldBe adminInExistingOrganisationAccountDetails
+        inside(result.sessionPersonDetails) { case Some(acc: AdminInExistingOrganisationAccountDetails) =>
+          acc shouldBe adminInExistingOrganisationAccountDetails
         }
       }
     }
@@ -94,8 +93,8 @@ class SessionUserDetailsActionSpec
       val futureResult = action.callTransform(request)
 
       whenReady(futureResult) { result =>
-        inside(result.sessionPersonDetails) {
-          case Some(acc: AdminOrganisationAccountDetails) => acc shouldBe adminOrganisationAccountDetails
+        inside(result.sessionPersonDetails) { case Some(acc: AdminOrganisationAccountDetails) =>
+          acc shouldBe adminOrganisationAccountDetails
         }
       }
     }

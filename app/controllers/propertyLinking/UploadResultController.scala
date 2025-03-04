@@ -97,12 +97,11 @@ class UploadResultController @Inject() (
             val fileStatus = attachment.scanResult.map(_.fileStatus).getOrElse(FileStatus.UPLOADING)
             Future.successful(resultPage(fileStatus, Some(attachment)))
           case None =>
-            //todo I think this needs to be something else
+            // todo I think this needs to be something else
             errorHandler.badRequestTemplate.map(html => BadRequest(html))
         }
-        .recover {
-          case _ @UpstreamErrorResponse.WithStatusCode(EXPECTATION_FAILED) =>
-            resultPage(FileStatus.UPLOADING)
+        .recover { case _ @UpstreamErrorResponse.WithStatusCode(EXPECTATION_FAILED) =>
+          resultPage(FileStatus.UPLOADING)
         }
     }
 
@@ -191,9 +190,8 @@ class UploadResultController @Inject() (
           case None =>
             errorHandler.badRequestTemplate.map(html => BadRequest(html))
         }
-        .recover {
-          case _ @UpstreamErrorResponse.WithStatusCode(EXPECTATION_FAILED) =>
-            Ok(Json.toJson(FileStatus.UPLOADING))
+        .recover { case _ @UpstreamErrorResponse.WithStatusCode(EXPECTATION_FAILED) =>
+          Ok(Json.toJson(FileStatus.UPLOADING))
         }
     }
 

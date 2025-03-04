@@ -57,7 +57,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val councilRefTextSelector = "#main-content > div > div > div > div.govuk-grid-column-two-thirds > dl > div > dt"
   val councilRefValueSelector = "#main-content > div > div > div > div.govuk-grid-column-two-thirds > dl > div > dd"
 
-  //Valuation tab content - draft
+  // Valuation tab content - draft
   val valuationTabText = "Valuation"
   val valuationTabTextWelsh = "Prisiad"
   val valuationTabTextSelector =
@@ -96,7 +96,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationTabP2Welsh = "Gellir gwneud cais am y prisiad manwl cyfredol 2023 o’r prisiad cyfredol."
   val valuationTabP2Selector = "#request-current-valuation"
 
-  //Help with future valuation tab content - draft
+  // Help with future valuation tab content - draft
   val valuationHelpTabText = "Help with future valuation"
   val valuationHelpTabTextWelsh = "Cymorth gyda’ch prisiad yn y dyfodol"
   val valuationHelpTabTextSelector = "#request-valuation-tabs > ul > li:nth-child(2)"
@@ -467,9 +467,8 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/exists"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/exists"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",

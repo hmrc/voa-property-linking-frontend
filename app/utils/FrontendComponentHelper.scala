@@ -35,7 +35,7 @@ object FrontendComponentHelper {
     def isDateFieldErrorsExists(error: FormError, fieldName: String) =
       Seq(fieldName, s"$fieldName.day", s"$fieldName.month", s"$fieldName.year").contains(error.key)
 
-    //Merge date mapper individual filed errors(date, month and year) into one common date error to avoid duplicate messages
+    // Merge date mapper individual filed errors(date, month and year) into one common date error to avoid duplicate messages
     form.errors
       .map { error =>
         (isDateFieldErrorsExists(error, fieldName), manualDateErrorHandler.isDefinedAt(error.message)) match {
@@ -67,9 +67,9 @@ object FrontendComponentHelper {
     HtmlContent(s"""<span id="$id">$value</span>""")
 
   def summaryListMultiValues(id: String, values: List[String]): HtmlContent =
-    HtmlContent(s"""<p class="govuk-body" id="$id">${values.zipWithIndex.map {
-      case (value, index) => if (index == 0) value else s"<br>$value"
-    }.mkString}</p>""")
+    HtmlContent(s"""<p class="govuk-body" id="$id">${values.zipWithIndex.map { case (value, index) =>
+        if (index == 0) value else s"<br>$value"
+      }.mkString}</p>""")
 
   def summaryListRow(keyId: String, key: String, valueId: String, value: String)(implicit messages: Messages) =
     SummaryListRow(

@@ -94,7 +94,7 @@ class AppointPropertiesController @Inject() (
                 )
               case None => notFound
             },
-          success = (action: AgentAppointBulkAction) => {
+          success = (action: AgentAppointBulkAction) =>
             for {
               sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
               _ <- appointAgentPropertiesSession.saveOrUpdate[AppointAgentToSomePropertiesSession](
@@ -119,7 +119,6 @@ class AppointPropertiesController @Inject() (
                             errorHandler.notFoundTemplate.map(html => NotFound(html))
                         }
             } yield result
-          }
         )
     }
 

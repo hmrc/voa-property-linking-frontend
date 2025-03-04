@@ -71,7 +71,7 @@ object AttachmentState {
         case UploadingScanResults      => JsString("UploadingScanResults")
         case UploadScanResultsFailed   => JsString("UploadScanResultsFailed")
         case UploadScanResultsComplete => JsString("UploadScanResultsComplete")
-        case _                         => throw new IllegalStateException(s"Unsupported AttachmentState: ${o.getClass.getSimpleName}")
+        case _ => throw new IllegalStateException(s"Unsupported AttachmentState: ${o.getClass.getSimpleName}")
       }
   }
 }

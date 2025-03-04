@@ -51,27 +51,27 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
 
   "standardErrorTemplate" should
     "display the standard error page with the given page title, heading and message" in new Setup {
-    val result = testErrorHandler.standardErrorTemplate("Test title", "Test heading", "Test message")(FakeRequest())
+      val result = testErrorHandler.standardErrorTemplate("Test title", "Test heading", "Test message")(FakeRequest())
 
-    await(result) shouldBe errorView("Test title", "Test heading", "Test message")(
-      FakeRequest(),
-      messagesApi.preferred(FakeRequest()),
-      appConfig
-    )
-  }
+      await(result) shouldBe errorView("Test title", "Test heading", "Test message")(
+        FakeRequest(),
+        messagesApi.preferred(FakeRequest()),
+        appConfig
+      )
+    }
 
   "internalServerErrorTemplate" should
     "display the technical difficulties page with the error reference and time" in new Setup {
-    val result = testErrorHandler.internalServerErrorTemplate(
-      FakeRequest()
-        .withHeaders(HeaderNames.xRequestId -> "govuk-tax-253f442d-1bb2-4d3c-9943-248f5d96a812")
-    )
+      val result = testErrorHandler.internalServerErrorTemplate(
+        FakeRequest()
+          .withHeaders(HeaderNames.xRequestId -> "govuk-tax-253f442d-1bb2-4d3c-9943-248f5d96a812")
+      )
 
-    await(result) shouldBe technicalDifficultiesView(
-      Some("253f442d-1bb2-4d3c-9943-248f5d96a812"),
-      LocalDateTime.parse(mockTestTimeString)
-    )(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
-  }
+      await(result) shouldBe technicalDifficultiesView(
+        Some("253f442d-1bb2-4d3c-9943-248f5d96a812"),
+        LocalDateTime.parse(mockTestTimeString)
+      )(FakeRequest(), messagesApi.preferred(FakeRequest()), appConfig)
+    }
   it should "display the technical difficulties page with the error reference and time with new requestId format" in new Setup {
     val result = testErrorHandler.internalServerErrorTemplate(
       FakeRequest()

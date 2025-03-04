@@ -42,8 +42,7 @@ class DashboardSpec extends VoaPropertyLinkingSpec {
     m
   }
 
-  object TestDashboard
-      extends Dashboard(
+  object TestDashboard extends Dashboard(
         mockCustomErrorHandler,
         mockRepService,
         StubGroupAccountConnector,

@@ -38,10 +38,9 @@ class AddressLookup @Inject() (
     Action.async { implicit request =>
       addresses
         .findByPostcode(postcode.trim)(hc)
-        .recover {
-          case t =>
-            logger.warn("Failed to find address by post code", t)
-            Seq.empty
+        .recover { case t =>
+          logger.warn("Failed to find address by post code", t)
+          Seq.empty
         }
         .map {
           case Seq()         => NotFound

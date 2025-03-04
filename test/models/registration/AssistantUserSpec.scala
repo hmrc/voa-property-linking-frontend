@@ -25,9 +25,8 @@ class AssistantUserSpec extends BaseUnitSpec {
   "Assistant user account details form" should {
     import AssistantUserAccountDetailsTestData._
 
-    "bind when the inputs are all valid" in {
+    "bind when the inputs are all valid" in
       shouldBindTo(form, validData, expected)
-    }
   }
 
   object AssistantUserAccountDetailsTestData {

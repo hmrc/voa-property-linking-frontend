@@ -311,7 +311,7 @@ class RegisterAssistantISpec extends ISpecBase with HtmlComponentHelpers with Li
 
       val postBody: JsObject = Json.obj(
         "firstName" -> "Long first nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-        "lastName"  -> "Long last nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        "lastName" -> "Long last nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
       )
 
       lazy val document: Document = postRegisterAssistantPage(English, postBody)
@@ -485,7 +485,7 @@ class RegisterAssistantISpec extends ISpecBase with HtmlComponentHelpers with Li
 
       val postBody: JsObject = Json.obj(
         "firstName" -> "Long first nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-        "lastName"  -> "Long last nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        "lastName" -> "Long last nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
       )
 
       lazy val document: Document = postRegisterAssistantPage(Welsh, postBody)

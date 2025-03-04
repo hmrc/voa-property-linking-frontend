@@ -28,52 +28,39 @@ class AdminUserSpec extends BaseUnitSpec {
   "Admin organisation user account details form" should {
     import AdminOrganisationAccountDetailsTestData._
 
-    "bind when the inputs are all valid" in {
+    "bind when the inputs are all valid" in
       shouldBindTo(form, validData, expected)
-    }
-    "ensure first name is mandatory" in {
+    "ensure first name is mandatory" in
       verifyNonEmptyText(form, validData, keys.firstName)
-    }
-    "ensure last name is mandatory" in {
+    "ensure last name is mandatory" in
       verifyNonEmptyText(form, validData, keys.lastName)
-    }
     "ensure company name" when {
-      "is mandatory" in {
+      "is mandatory" in
         verifyNonEmptyText(form, validData, keys.companyName)
-      }
-      "has maximum length of 45" in {
+      "has maximum length of 45" in
         verifyCharacterLimit(form, validData, keys.companyName, 45)
-      }
     }
-    "ensure address validation" in {
+    "ensure address validation" in
       verifyMandatoryAddress(form, validData)
-    }
     "ensure date of birth" should {
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatoryDate(form, validData, keys.dateOfBirth)
-      }
-      "is valid" in {
+      "is valid" in
         verifyddmmyy(form, validData, keys.dateOfBirth, LocalDate.now.getYear)
-      }
-      "is in the past" in {
+      "is in the past" in
         verifyDateIsBefore(form, validData, keys.dateOfBirth, LocalDate.now.plusDays(2))
-      }
     }
     "ensure nino" should {
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatory(form, validData, keys.nino)
-      }
-      "is valid" in {
+      "is valid" in
         verifyValidNino(form, validData)
-      }
     }
     "ensure phone" when {
-      "is valid with +44" in {
+      "is valid with +44" in
         verifyMandatory(form, validData.updated(keys.phone, "+44 (0)7591 231 233"), keys.phone)
-      }
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatory(form, validData, keys.phone)
-      }
       "does not accept invalid length" in {
         val invalid = Seq("0134567", "0123456789", "012345678901234567890123456789")
         invalid.foreach { phone =>
@@ -90,9 +77,8 @@ class AdminUserSpec extends BaseUnitSpec {
       }
     }
     "ensure email address" when {
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatory(form, validData, keys.email)
-      }
       "binds when email address is valid" in {
         val valid = Seq("someone@example.com", "123.456@123.com", "abc.def@ghi.jkl.mno")
         valid.foreach { email =>
@@ -114,56 +100,43 @@ class AdminUserSpec extends BaseUnitSpec {
       }
     }
     "ensure 'Is Agent'" should {
-      "is 'true' or 'false'" in {
+      "is 'true' or 'false'" in
         verifyBoolean(form, validData, keys.isAgent)
-      }
     }
-    "optionally accepts selectedAddress field" in {
+    "optionally accepts selectedAddress field" in
       verifyOptional(form, validData, keys.selectedAddress)
-    }
   }
 
   "Individual user account details form" should {
     import IndividualUserAccountDetailsTestData._
 
-    "bind when the inputs are all valid" in {
+    "bind when the inputs are all valid" in
       shouldBindTo(form, validData, expected)
-    }
-    "ensure first name is mandatory" in {
+    "ensure first name is mandatory" in
       verifyNonEmptyText(form, validData, keys.firstName)
-    }
-    "ensure last name is mandatory" in {
+    "ensure last name is mandatory" in
       verifyNonEmptyText(form, validData, keys.lastName)
-    }
-    "ensure address validation" in {
+    "ensure address validation" in
       verifyMandatoryAddress(form, validData)
-    }
     "ensure date of birth" should {
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatoryDate(form, validData, keys.dateOfBirth)
-      }
-      "is valid" in {
+      "is valid" in
         verifyddmmyy(form, validData, keys.dateOfBirth, LocalDate.now.getYear)
-      }
-      "is in the past" in {
+      "is in the past" in
         verifyDateIsBefore(form, validData, keys.dateOfBirth, LocalDate.now.plusDays(2))
-      }
     }
     "ensure nino" should {
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatory(form, validData, keys.nino)
-      }
-      "is valid" in {
+      "is valid" in
         verifyValidNino(form, validData)
-      }
     }
     "ensure phone" when {
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatory(form, validData, keys.phone)
-      }
-      "is valid with +44" in {
+      "is valid with +44" in
         verifyMandatory(form, validData.updated(keys.phone, "+44 07591 231 233"), keys.phone)
-      }
       "does not accept invalid length" in {
         val invalid = Seq("0134567", "0123456789", "012345678901234567890123456789")
         invalid.foreach { phone =>
@@ -173,9 +146,8 @@ class AdminUserSpec extends BaseUnitSpec {
       }
     }
     "ensure mobile phone" when {
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatory(form, validData, keys.mobilePhone)
-      }
       "does not accept invalid length" in {
         val invalid = Seq("0134567", "0123456789", "012345678901234567890123456789")
         invalid.foreach { phone =>
@@ -185,9 +157,8 @@ class AdminUserSpec extends BaseUnitSpec {
       }
     }
     "ensure email address" when {
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatory(form, validData, keys.email)
-      }
       "binds when email address is valid" in {
         val valid = Seq("someone@example.com", "123.456@123.com", "abc.def@ghi.jkl.mno")
         valid.foreach { email =>
@@ -208,45 +179,35 @@ class AdminUserSpec extends BaseUnitSpec {
       }
     }
     "ensure trading name" when {
-      "has maximum length of 45" in {
+      "has maximum length of 45" in
         verifyCharacterLimit(form, validData, keys.tradingName, 45)
-      }
     }
-    "optionally accepts selectedAddress field" in {
+    "optionally accepts selectedAddress field" in
       verifyOptional(form, validData, keys.selectedAddress)
-    }
   }
 
   "Admin in existing organisation user account details form" should {
     import AdminInExistingOrganisationUserTestData._
 
-    "bind when the inputs are all valid" in {
+    "bind when the inputs are all valid" in
       shouldBindTo(form, validData, expected)
-    }
-    "ensure first name is mandatory" in {
+    "ensure first name is mandatory" in
       verifyNonEmptyText(form, validData, keys.firstName)
-    }
-    "ensure last name is mandatory" in {
+    "ensure last name is mandatory" in
       verifyNonEmptyText(form, validData, keys.lastName)
-    }
     "ensure date of birth" should {
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatoryDate(form, validData, keys.dateOfBirth)
-      }
-      "is valid" in {
+      "is valid" in
         verifyddmmyy(form, validData, keys.dateOfBirth, LocalDate.now.getYear)
-      }
-      "is in the past" in {
+      "is in the past" in
         verifyDateIsBefore(form, validData, keys.dateOfBirth, LocalDate.now.plusDays(2))
-      }
     }
     "ensure nino" should {
-      "is mandatory" in {
+      "is mandatory" in
         verifyMandatory(form, validData, keys.nino)
-      }
-      "is valid" in {
+      "is valid" in
         verifyValidNino(form, validData)
-      }
     }
   }
 
