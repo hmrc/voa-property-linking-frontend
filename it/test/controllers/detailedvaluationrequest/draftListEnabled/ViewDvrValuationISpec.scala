@@ -126,7 +126,7 @@ class ViewDvrValuationISpec extends ISpecBase {
   val sendCompletedCheckFormLocator = "#valuation-tab-send-check-form"
   val printThisPageLocator = "#main-content > div > div > p > a"
 
-  //todo write tests for flag on and off
+  // todo write tests for flag on and off
 
   "DvrController myOrganisationRequestDetailValuationCheck method" should {
     "display the correct page for an IP in English" when {
@@ -540,9 +540,8 @@ class ViewDvrValuationISpec extends ISpecBase {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",

@@ -84,11 +84,10 @@ class TestController @Inject() (
         .map(res =>
           Ok(s"Successfully cleared draft check cases for organisation with ID: ${request.organisationAccount.id}")
         )
-        .recover {
-          case e =>
-            Ok(
-              s"Failed to clear draft check cases for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}"
-            )
+        .recover { case e =>
+          Ok(
+            s"Failed to clear draft check cases for organisation with ID: ${request.organisationAccount.id} with error: ${e.getMessage}"
+          )
         }
     }
 

@@ -1583,9 +1583,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/capacity/relationship"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/capacity/relationship"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
     )
@@ -1617,9 +1616,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/capacity/relationship"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/capacity/relationship"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .withFollowRedirects(follow = false)
         .post(body)

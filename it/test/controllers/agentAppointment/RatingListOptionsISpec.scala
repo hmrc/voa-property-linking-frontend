@@ -149,12 +149,12 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
         s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText'" in {
-        document.select(moreAboutSelector).text() shouldBe moreAboutText
-        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
-        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
-        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
-        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
-      }
+          document.select(moreAboutSelector).text() shouldBe moreAboutText
+          document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
+          document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
+          document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
+          document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
+        }
 
       s"has inset text on the screen of '$choosingAListText', which has a link to the manage agent screens" in {
         document.select(choosingAListSelector).text() shouldBe choosingAListText
@@ -211,12 +211,12 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
         s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText' in welsh" in {
-        document.select(moreAboutSelector).text() shouldBe moreAboutTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListTextWelsh
-      }
+          document.select(moreAboutSelector).text() shouldBe moreAboutTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListTextWelsh
+        }
 
       s"has inset text on the screen of '$choosingAListText' in welsh, which has a link to the manage agent screens" in {
         document.select(choosingAListSelector).text() shouldBe choosingAListTextWelsh
@@ -273,12 +273,12 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
         s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText'" in {
-        document.select(moreAboutSelector).text() shouldBe moreAboutText
-        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
-        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
-        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
-        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
-      }
+          document.select(moreAboutSelector).text() shouldBe moreAboutText
+          document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
+          document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
+          document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
+          document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
+        }
 
       s"has inset text on the screen of '$choosingAListText', which has a link to the manage agent screens" in {
         document.select(choosingAListSelector).text() shouldBe choosingAListText
@@ -312,9 +312,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
         val res = await(
           ws.url(
-              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
-            )
-            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+          ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
             .post(body = requestBody)
@@ -341,9 +340,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
         val res = await(
           ws.url(
-              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
-            )
-            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+          ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
             .post(body = requestBody)
@@ -371,9 +369,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
         val res = await(
           ws.url(
-              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
-            )
-            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+          ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
             .post(body = requestBody)
@@ -401,9 +398,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
         val res = await(
           ws.url(
-              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
-            )
-            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+          ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
             .post(body = requestBody)
@@ -431,9 +427,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
         val res = await(
           ws.url(
-              s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
-            )
-            .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+          ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
             .withFollowRedirects(follow = false)
             .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
             .post(body = requestBody)
@@ -474,9 +469,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list$checkYourAnswers"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list$checkYourAnswers"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
     )

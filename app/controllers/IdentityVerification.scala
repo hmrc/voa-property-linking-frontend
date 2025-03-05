@@ -78,7 +78,7 @@ class IdentityVerification @Inject() (
           case IvResult.IvSuccess =>
             Redirect(controllers.routes.IdentityVerification.success(journeyId))
           case ivFailureReason: IvResult.IvFailure =>
-            //TODO: Need to clear cached user answers on failure
+            // TODO: Need to clear cached user answers on failure
             Ok(ivFailedView(ivFailureReason))
         }
       }
@@ -107,8 +107,8 @@ class IdentityVerification @Inject() (
         identityVerificationConnector.verifySuccess(id).flatMap {
           case true => Future.successful(Redirect(registration.routes.RegistrationController.show))
           case _    =>
-            //TODO: should this go to iv failure screen?
-            //TODO: Need to clear cached user answers on failure
+            // TODO: should this go to iv failure screen?
+            // TODO: Need to clear cached user answers on failure
             errorHandler.internalServerErrorTemplate.map(html => Unauthorized(html))
         }
       }
@@ -121,7 +121,7 @@ class IdentityVerification @Inject() (
           case IvResult.IvSuccess =>
             Redirect(registration.routes.RegistrationController.show)
           case ivFailureReason: IvResult.IvFailure =>
-            //TODO: Need to clear cached user answers on failure
+            // TODO: Need to clear cached user answers on failure
             Ok(ivFailedView(ivFailureReason))
         }
       }

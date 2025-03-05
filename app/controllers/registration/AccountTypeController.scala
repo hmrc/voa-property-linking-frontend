@@ -33,8 +33,8 @@ import scala.concurrent.ExecutionContext
 class AccountTypeController @Inject() (
       val errorHandler: CustomErrorHandler,
       accountTypeView: registration.accountType
-)(
-      implicit executionContext: ExecutionContext,
+)(implicit
+      executionContext: ExecutionContext,
       val config: ApplicationConfig,
       implicit override val controllerComponents: MessagesControllerComponents
 ) extends PropertyLinkingController with Logging {

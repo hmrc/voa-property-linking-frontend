@@ -647,9 +647,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       selectedOptionFromCya = Some("Business rates bill")
     )
 
-    s"sets fromCya to false in the session" in {
+    s"sets fromCya to false in the session" in
       await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.fromCya shouldBe Some(false))
-    }
 
     s"has a title of $titleText" in {
       document.title() shouldBe titleText
@@ -697,9 +696,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       selectedOptionFromCya = Some("Lease")
     )
 
-    s"sets fromCya to false in the session" in {
+    s"sets fromCya to false in the session" in
       await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.fromCya shouldBe Some(false))
-    }
 
     s"has a title of $clientOccupierTitleText" in {
       document.title() shouldBe clientOccupierTitleText
@@ -753,9 +751,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       selectedOptionFromCya = Some("Licence to occupy")
     )
 
-    s"sets fromCya to false in the session" in {
+    s"sets fromCya to false in the session" in
       await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.fromCya shouldBe Some(false))
-    }
 
     s"has a title of $clientOccupierTitleText" in {
       document.title() shouldBe clientOccupierTitleText
@@ -809,9 +806,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       selectedOptionFromCya = Some("No business rates bill")
     )
 
-    s"sets fromCya to false in the session" in {
+    s"sets fromCya to false in the session" in
       await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.fromCya shouldBe Some(false))
-    }
 
     s"has a title of $clientTitleText in Welsh" in {
       document.title() shouldBe clientTitleTextWelsh
@@ -859,9 +855,8 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
       selectedOptionFromCya = Some("No lease or licence to occupy")
     )
 
-    s"sets fromCya to false in the session" in {
+    s"sets fromCya to false in the session" in
       await(mockPropertyLinkingSessionRepository.get[LinkingSession]).map(_.fromCya shouldBe Some(false))
-    }
 
     s"has a title of $occupierTitleText in Welsh" in {
       document.title() shouldBe occupierTitleTextWelsh

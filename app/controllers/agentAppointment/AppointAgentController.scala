@@ -194,7 +194,7 @@ class AppointAgentController @Inject() (
       }
     }
 
-  //todo fix this
+  // todo fix this
   private def searchForAppointableProperties(
         pagination: PaginationParameters,
         agentCode: Long,
@@ -306,7 +306,7 @@ class AppointAgentController @Inject() (
         .fold(
           errors =>
             appointAgentPropertiesBadRequest(errors, agentCode, agentAppointed, backLinkUrl, fromManageAgentJourney),
-          success = (action: AgentAppointBulkAction) => {
+          success = (action: AgentAppointBulkAction) =>
             accounts.withAgentCode(action.agentCode.toString).flatMap {
               case Some(group) =>
                 (
@@ -362,7 +362,6 @@ class AppointAgentController @Inject() (
                 }
               case None => notFound
             }
-          }
         )
     }
 
@@ -592,7 +591,7 @@ class AppointAgentController @Inject() (
               case _ => notFound
             }
           },
-          success = (action: AgentRevokeBulkAction) => {
+          success = (action: AgentRevokeBulkAction) =>
             accounts.withAgentCode(action.agentCode.toString).flatMap {
               case Some(group) =>
                 (
@@ -645,7 +644,6 @@ class AppointAgentController @Inject() (
                 }
               case None => notFound
             }
-          }
         )
     }
 

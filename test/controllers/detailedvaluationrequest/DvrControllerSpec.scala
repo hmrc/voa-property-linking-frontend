@@ -822,7 +822,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     status(result) shouldBe OK
     val page = HtmlPage(Jsoup.parse(contentAsString(result)))
 
-    //verify all tabs displayed
+    // verify all tabs displayed
     page.shouldContain("#valuation-tab", 1)
     page.shouldContain("#start-check-tab", 0)
     page.shouldContain("#check-cases-tab", 1)
@@ -1009,8 +1009,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
       s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
-        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, tabName = Some("valuation-tab"))
-        .absoluteURL(false, "localhost:9523")}"
+          .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, tabName = Some("valuation-tab"))
+          .absoluteURL(false, "localhost:9523")}"
     )
   }
 
@@ -1045,8 +1045,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
       s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
-        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, tabName = Some("valuation-tab"))
-        .absoluteURL(false, "localhost:9523")}"
+          .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, tabName = Some("valuation-tab"))
+          .absoluteURL(false, "localhost:9523")}"
     )
   }
 
@@ -1080,8 +1080,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     challengeLink.attr("href") shouldBe applicationConfig.businessRatesValuationFrontendUrl(
       s"property-link/valuations/startChallenge?backLinkUrl=${controllers.detailedvaluationrequest.routes.DvrController
-        .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, tabName = Some("valuation-tab"))
-        .absoluteURL(false, "localhost:9523")}"
+          .myOrganisationRequestDetailValuationCheck(link.submissionId, assessment.assessmentRef, tabName = Some("valuation-tab"))
+          .absoluteURL(false, "localhost:9523")}"
     )
   }
 

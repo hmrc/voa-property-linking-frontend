@@ -83,18 +83,17 @@ case class HtmlPage(html: Document) extends Matchers with AppendedClues with Opt
     Option(html.getElementsByAttributeValue(attribute, value)).map(_.text()).value shouldBe text
 
   def shouldContainSummaryErrors(errors: (FieldId, FieldName, Message)*)(implicit pos: Position): Unit =
-    errors.foreach {
-      case (id, name, msg) =>
-        val summary = html.select(s"div#error-summary")
-        if (summary.asScala.length != 1) fail(s"No error summary \n$html")
-        val ses = summary.select("ul li a").asScala
-        val link = ses
-          .find(_.attr("href") == s"#${id}Group")
-          .getOrElse(fail(s"No error summary with ID ${id}Group\nError summary: ${ses.headOption.getOrElse("")}"))
-        link.text.trim.toLowerCase shouldEqual errorSummaryHtmlFor(
-          name,
-          msg
-        ).toLowerCase withClue s"Errors $link did not have text ${errorSummaryHtmlFor(name, msg)}"
+    errors.foreach { case (id, name, msg) =>
+      val summary = html.select(s"div#error-summary")
+      if (summary.asScala.length != 1) fail(s"No error summary \n$html")
+      val ses = summary.select("ul li a").asScala
+      val link = ses
+        .find(_.attr("href") == s"#${id}Group")
+        .getOrElse(fail(s"No error summary with ID ${id}Group\nError summary: ${ses.headOption.getOrElse("")}"))
+      link.text.trim.toLowerCase shouldEqual errorSummaryHtmlFor(
+        name,
+        msg
+      ).toLowerCase withClue s"Errors $link did not have text ${errorSummaryHtmlFor(name, msg)}"
     }
 
   private def errorSummaryHtmlFor(name: FieldName, msg: Message): String = s"$name - $msg"

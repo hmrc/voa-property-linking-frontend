@@ -30,23 +30,21 @@ class PropertyOwnershipFormSpec extends VoaPropertyLinkingSpec {
 
   behavior of "Property ownership form"
 
-  it should "bind when the inputs are all valid" in {
+  it should "bind when the inputs are all valid" in
     shouldBindTo(form(), validData, PropertyOwnership(LocalDate.of(2017, 4, 20)))
-  }
 
   it should "require a start date if the occupation/ownership started after 1st April 2017" in {
     val data = validData - "interestedStartDate.day" - "interestedStartDate.month" - "interestedStartDate.year"
     verifyMandatoryDate(form(), data, "interestedStartDate", exclusive = false)
   }
 
-  it should "require the start date to be before the end date" in {
+  it should "require the start date to be before the end date" in
     verifyOnlyError(
       form(endDate = Some(LocalDate.of(2017, 4, 19))),
       validData,
       field = "interestedStartDate",
       error = "interestedStartDate.error.startDateMustBeBeforeEnd"
     )
-  }
 
   it should "require the start date to be in the past" in {
     val tomorrow = LocalDate.now().plusDays(1)

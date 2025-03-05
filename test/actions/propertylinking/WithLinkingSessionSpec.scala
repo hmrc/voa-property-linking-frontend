@@ -71,11 +71,10 @@ class WithLinkingSessionSpec extends BaseUnitSpec with MockitoSugar with BeforeA
 
         val res: Future[Result] = refiner.invokeBlock(basicRequest, actionAsJson)
         status(res) shouldBe OK
-        inside(contentAsJson(res).validate[AddedToRequest]) {
-          case JsSuccess(AddedToRequest(sd, ia, ga), _) =>
-            sd shouldBe propertyLinkingSession
-            ia shouldBe individualAccount
-            ga shouldBe grpAccount
+        inside(contentAsJson(res).validate[AddedToRequest]) { case JsSuccess(AddedToRequest(sd, ia, ga), _) =>
+          sd shouldBe propertyLinkingSession
+          ia shouldBe individualAccount
+          ga shouldBe grpAccount
         }
       }
     }

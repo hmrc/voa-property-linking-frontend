@@ -247,7 +247,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   "assignAgentToAll" should {
     "return 303 SEE OTHER with valid submission & assert that 2017 listYears are submitted to backend when agent summary returns 2017" in new AssignAllSetup {
 
-      //Return agent in summary list that has only 2017 listYears assigned
+      // Return agent in summary list that has only 2017 listYears assigned
       stubFor {
         get("/property-linking/owner/agents")
           .willReturn {
@@ -262,9 +262,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/$agentCode/$agentName/to-all-properties"
-          )
-          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/$agentCode/$agentName/to-all-properties"
+        ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .post(body = requestBody)
@@ -279,7 +278,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
                                           |   ]
                                           |}""".stripMargin)
 
-      //Check that the listYears returned from agent summary list is sent to backend
+      // Check that the listYears returned from agent summary list is sent to backend
       verify(
         1,
         postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
@@ -292,7 +291,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     "return 303 SEE OTHER assert that 2017&2023 listYears are submitted to backend when agent summary returns none for listYears" in new AssignAllSetup {
 
-      //Return agent in summary list that has no listYears assigned
+      // Return agent in summary list that has no listYears assigned
       stubFor {
         get("/property-linking/owner/agents")
           .willReturn {
@@ -307,9 +306,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/$agentCode/$agentName/to-all-properties"
-          )
-          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/assign/$agentCode/$agentName/to-all-properties"
+        ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .post(body = requestBody)
@@ -324,7 +322,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
                                      |   ]
                                      |}""".stripMargin)
 
-      //Check that the listYears returned from agent summary list is sent to backend
+      // Check that the listYears returned from agent summary list is sent to backend
       verify(
         1,
         postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))

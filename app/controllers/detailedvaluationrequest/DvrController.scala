@@ -153,7 +153,7 @@ class DvrController @Inject() (
                 .map { ref =>
                   config.businessRatesChallengeUrl(
                     s"summary/property-link/${link.authorisationId}/submission-id/$propertyLinkSubmissionId/challenge-cases/$ref?isAgent=${!owner}&valuationId=${otherValuationId
-                      .getOrElse(valuationId)}"
+                        .getOrElse(valuationId)}"
                   )
                 }
                 .orElse {
@@ -534,13 +534,12 @@ class DvrController @Inject() (
             .getDvrDocument(link.uarn, valuationId, link.submissionId, fileRef)
             .map { response =>
               Ok.sendEntity(
-                  HttpEntity.Streamed(
-                    data = response.bodyAsSource,
-                    contentLength = response.header(CONTENT_LENGTH).map(_.toLong),
-                    contentType = Some(response.contentType)
-                  )
+                HttpEntity.Streamed(
+                  data = response.bodyAsSource,
+                  contentLength = response.header(CONTENT_LENGTH).map(_.toLong),
+                  contentType = Some(response.contentType)
                 )
-                .withHeaders(CONTENT_DISPOSITION -> s"""attachment;filename="${link.submissionId}.pdf"""")
+              ).withHeaders(CONTENT_DISPOSITION -> s"""attachment;filename="${link.submissionId}.pdf"""")
             }
         case None =>
           Future.successful(BadRequest(propertyMissingView()))
@@ -569,12 +568,12 @@ class DvrController @Inject() (
               val returnUrl =
                 if (isOwner)
                   s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController
-                    .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, tabName = Some("valuation-tab"))
-                    .url}"
+                      .myOrganisationRequestDetailValuationCheck(plSubmissionId, assessmentRef, tabName = Some("valuation-tab"))
+                      .url}"
                 else
                   s"${config.serviceUrl}${controllers.detailedvaluationrequest.routes.DvrController
-                    .myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, tabName = Some("valuation-tab"))
-                    .url}"
+                      .myClientsRequestDetailValuationCheck(plSubmissionId, assessmentRef, tabName = Some("valuation-tab"))
+                      .url}"
               Redirect(
                 config
                   .businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")

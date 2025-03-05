@@ -37,11 +37,10 @@ class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec {
 
     val returnedSessionData: SessionData = repository.findFirst.futureValue // shouldBe start
 
-    inside(returnedSessionData) {
-      case SessionData(_, data, createdAt) =>
-        (data \ "propertyLinking" \ "status").as[String] shouldBe start.status.name
-        val aSecondAgo: Long = Instant.now().minus(1, SECONDS).toEpochMilli
-        createdAt.toEpochMilli should be > aSecondAgo
+    inside(returnedSessionData) { case SessionData(_, data, createdAt) =>
+      (data \ "propertyLinking" \ "status").as[String] shouldBe start.status.name
+      val aSecondAgo: Long = Instant.now().minus(1, SECONDS).toEpochMilli
+      createdAt.toEpochMilli should be > aSecondAgo
     }
 
   }
@@ -52,8 +51,8 @@ class PropertyLinkingSessionRepositorySpec extends VoaPropertyLinkingSpec {
 
     val returnedSessionData: Option[Start] = repository.get[Start](reads, hc).futureValue
 
-    inside(returnedSessionData) {
-      case Some(Start(status, _)) => status.name shouldBe StartJourney.name
+    inside(returnedSessionData) { case Some(Start(status, _)) =>
+      status.name shouldBe StartJourney.name
     }
 
   }

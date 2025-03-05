@@ -163,9 +163,8 @@ class ShowRemoveAgentFromIpOrganisationISpec extends ISpecBase with HtmlComponen
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/remove/from-organisation"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId")
         .get()

@@ -163,8 +163,8 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
   val changeEndDateHref = "/business-rates-property-linking/my-organisation/claim/property-links/occupancy"
   val errorSummaryHref = "#declaration"
 
-  //There are other scenarios for !earliestStartDateInPast, other evidence types and attachments being in weird states. But none of these
-  //Should be achievable by a user, and are tested in the unit tests, so leaving tests there for now.
+  // There are other scenarios for !earliestStartDateInPast, other evidence types and attachments being in weird states. But none of these
+  // Should be achievable by a user, and are tested in the unit tests, so leaving tests there for now.
 
   "DeclarationController show method displays the correct content in English for an IP who no longer owns and has a Lease" which {
     lazy val document = getShowPage(

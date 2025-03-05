@@ -73,11 +73,10 @@ class WithAssessmentsPageSessionRefinerSpec
 
         val res: Future[Result] = refiner.invokeBlock(basicRequest, actionThatReturnsEnrichedFieldsAsJson)
         status(res) shouldBe OK
-        inside(contentAsJson(res).validate[AddedToRequest]) {
-          case JsSuccess(AddedToRequest(sd, ia, ga), _) =>
-            sd shouldBe assessmentPageSession
-            ia shouldBe individualAccount
-            ga shouldBe grpAccount
+        inside(contentAsJson(res).validate[AddedToRequest]) { case JsSuccess(AddedToRequest(sd, ia, ga), _) =>
+          sd shouldBe assessmentPageSession
+          ia shouldBe individualAccount
+          ga shouldBe grpAccount
         }
       }
     }

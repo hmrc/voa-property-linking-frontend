@@ -37,7 +37,7 @@ class BusinessRatesAttachmentsConnector @Inject() (
 
   val baseURL: String = servicesConfig.baseUrl("business-rates-attachments")
 
-  //call to initiate an upload without storing all information
+  // call to initiate an upload without storing all information
   def initiateUpload(request: UpscanInitiateRequest)(implicit hc: HeaderCarrier): Future[PreparedUpload] =
     http.POST[UpscanInitiateRequest, PreparedUpload](
       url = s"$baseURL/business-rates-attachments/initiate-upload",
@@ -63,9 +63,8 @@ class BusinessRatesAttachmentsConnector @Inject() (
         s"$baseURL/business-rates-attachments/attachments/$fileReference",
         MetaDataRequest(submissionId)
       )
-      .recover {
-        case ex: Exception =>
-          logger.warn(s"File Submission failed for File Reference: $fileReference Response body", ex)
-          throw ex
+      .recover { case ex: Exception =>
+        logger.warn(s"File Submission failed for File Reference: $fileReference Response body", ex)
+        throw ex
       }
 }

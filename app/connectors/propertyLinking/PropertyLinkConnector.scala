@@ -65,11 +65,11 @@ class PropertyLinkConnector @Inject() (config: ServicesConfig, http: DefaultHttp
       s"$baseUrl/my-organisation/agents/$agentCode/property-links",
       List(
         searchParams.address.map("address" -> _),
-        searchParams.baref.map("baref"     -> _),
-        searchParams.agent.map("agent"     -> _),
-        searchParams.status.map("status"   -> _),
-        Some("sortField"                   -> searchParams.sortfield.toString),
-        Some("sortOrder"                   -> searchParams.sortorder.toString)
+        searchParams.baref.map("baref" -> _),
+        searchParams.agent.map("agent" -> _),
+        searchParams.status.map("status" -> _),
+        Some("sortField" -> searchParams.sortfield.toString),
+        Some("sortOrder" -> searchParams.sortorder.toString)
       ).flatten ++
         List(
           "startPoint"           -> pagination.startPoint.toString,
@@ -86,11 +86,11 @@ class PropertyLinkConnector @Inject() (config: ServicesConfig, http: DefaultHttp
       s"$baseUrl/owner/property-links",
       List(
         searchParams.address.map("address" -> _),
-        searchParams.baref.map("baref"     -> _),
-        searchParams.agent.map("agent"     -> _),
-        searchParams.status.map("status"   -> _),
-        Some("sortField"                   -> searchParams.sortfield.toString),
-        Some("sortOrder"                   -> searchParams.sortorder.toString)
+        searchParams.baref.map("baref" -> _),
+        searchParams.agent.map("agent" -> _),
+        searchParams.status.map("status" -> _),
+        Some("sortField" -> searchParams.sortfield.toString),
+        Some("sortOrder" -> searchParams.sortorder.toString)
       ).flatten ++
         List(
           "startPoint"           -> pagination.startPoint.toString,
@@ -121,7 +121,7 @@ class PropertyLinkConnector @Inject() (config: ServicesConfig, http: DefaultHttp
           s"$baseUrl/my-organisation/agents/$agentCode/available-property-links",
           List(
             searchParams.address.map("address" -> _),
-            searchParams.agent.map("agent"     -> _)
+            searchParams.agent.map("agent" -> _)
           ).flatten ++ List(
             "sortField"            -> searchParams.sortfield.toString,
             "sortOrder"            -> searchParams.sortorder.toString,
@@ -159,10 +159,9 @@ class PropertyLinkConnector @Inject() (config: ServicesConfig, http: DefaultHttp
             Json.parse(resp.body).asOpt[CanChallengeResponse]
           case _ => None
         }
-      } recover {
-      case x @ _ =>
-        logger.debug(s"unable to start a challenge: $x")
-        None
+      } recover { case x @ _ =>
+      logger.debug(s"unable to start a challenge: $x")
+      None
     }
   }
 

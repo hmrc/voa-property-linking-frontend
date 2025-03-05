@@ -88,10 +88,9 @@ trait HtmlComponentHelpers { self: ISpecBase =>
       case Welsh   => expectedWelshBullets
     }
 
-    bulletList.zipWithIndex.foreach {
-      case (bulletText, index) =>
-        element.child(index).tagName shouldBe "li"
-        element.child(index).text shouldBe bulletText
+    bulletList.zipWithIndex.foreach { case (bulletText, index) =>
+      element.child(index).tagName shouldBe "li"
+      element.child(index).text shouldBe bulletText
     }
 
     element.children().asScala.drop(expectedEnglishBullets.size).foreach { missingElement =>

@@ -348,9 +348,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload/result"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload/result"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
     )
@@ -373,9 +372,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload/result/$fileStatus"
-        )
-        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceChoice/upload/result/$fileStatus"
+      ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .post(body = "")
@@ -393,9 +391,8 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/scan-status"
-        )
-        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/scan-status"
+      ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
     )
@@ -478,62 +475,64 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
   }
 
   def fileUploadFailedStub(failureReason: String = "QUARANTINE") = {
-    val attachmentJson = Json.parse(s"""{
-                                       |   "_id":"81eb7217-49dd-486d-a5fe-b2fbb10731cf",
-                                       |   "initiatedAt":"2024-01-22T16:39:29.136326Z",
-                                       |   "fileName":"test-file.jpeg",
-                                       |   "mimeType":"image/jpeg",
-                                       |   "destination":"PROPERTY_LINK_EVIDENCE_DFE",
-                                       |   "data":{
-                                       |      "success_action_redirect":"http://localhost:9523/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/result?key=ad344c3c-0560-40be-842a-511b4b09b404",
-                                       |      "x-amz-credential":"ASIAxxxxxxxxx/20180202/eu-west-2/s3/aws4_request",
-                                       |      "x-amz-meta-upscan-initiate-response":"2024-01-22T16:39:24.962360Z",
-                                       |      "x-amz-meta-original-filename":"filename",
-                                       |      "x-amz-algorithm":"AWS4-HMAC-SHA256",
-                                       |      "x-amz-signature":"xxxx",
-                                       |      "error_action_redirect":"http://localhost:9523/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/clear",
-                                       |      "x-amz-meta-session-id":"86c0e47a-c952-4752-aa06-fa1c0fbc8fd7",
-                                       |      "x-amz-meta-callback-url":"http://localhost:9541/business-rates-attachments/callback",
-                                       |      "x-amz-date":"20240122T163924Z",
-                                       |      "x-amz-meta-upscan-initiate-received":"2024-01-22T16:39:24.962360Z",
-                                       |      "x-amz-meta-request-id":"3832bdc6-56b3-45fc-85a0-60cf4d305bcc",
-                                       |      "key":"ad344c3c-0560-40be-842a-511b4b09b404",
-                                       |      "acl":"private",
-                                       |      "x-amz-meta-consuming-service":"business-rates-attachments",
-                                       |      "policy":"eyJjb25kaXRpb25zIjpbWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsMSwxMDQ4NTc2MF1dfQ=="
-                                       |   },
-                                       |   "state":"ScanPending",
-                                       |   "history":[
-                                       |      {
-                                       |         "state":"ScanPending",
-                                       |         "timeStamp":"2024-01-22T16:39:29.211502Z"
-                                       |      },
-                                       |      {
-                                       |         "state":"MetadataReceived",
-                                       |         "timeStamp":"2024-01-22T16:39:29.211485Z"
-                                       |      },
-                                       |      {
-                                       |         "state":"Initiated",
-                                       |         "timeStamp":"2024-01-22T16:39:29.211474Z"
-                                       |      },
-                                       |      {
-                                       |         "state":"Received",
-                                       |         "timeStamp":"2024-01-22T16:39:29.136326Z"
-                                       |      }
-                                       |   ],
-                                       |   "scanResult":{
-                                       |      "reference":"ad344c3c-0560-40be-842a-511b4b09b404",
-                                       |      "fileStatus" : "FAILED",
-                                       |      "failureDetails": {
-                                       |        "failureReason": "$failureReason",
-                                       |        "message": "e.g. This file has a virus"
-                                       |      }
-                                       |   },
-                                       |   "principal":{
-                                       |      "externalId":"Ext-c4d0ec3a-4c37-488c-9cd3-8afcf51bde58",
-                                       |      "groupId":"ip-group-1"
-                                       |   }
-                                       |}""".stripMargin)
+    val attachmentJson = Json.parse(
+      s"""{
+         |   "_id":"81eb7217-49dd-486d-a5fe-b2fbb10731cf",
+         |   "initiatedAt":"2024-01-22T16:39:29.136326Z",
+         |   "fileName":"test-file.jpeg",
+         |   "mimeType":"image/jpeg",
+         |   "destination":"PROPERTY_LINK_EVIDENCE_DFE",
+         |   "data":{
+         |      "success_action_redirect":"http://localhost:9523/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/result?key=ad344c3c-0560-40be-842a-511b4b09b404",
+         |      "x-amz-credential":"ASIAxxxxxxxxx/20180202/eu-west-2/s3/aws4_request",
+         |      "x-amz-meta-upscan-initiate-response":"2024-01-22T16:39:24.962360Z",
+         |      "x-amz-meta-original-filename":"filename",
+         |      "x-amz-algorithm":"AWS4-HMAC-SHA256",
+         |      "x-amz-signature":"xxxx",
+         |      "error_action_redirect":"http://localhost:9523/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload/clear",
+         |      "x-amz-meta-session-id":"86c0e47a-c952-4752-aa06-fa1c0fbc8fd7",
+         |      "x-amz-meta-callback-url":"http://localhost:9541/business-rates-attachments/callback",
+         |      "x-amz-date":"20240122T163924Z",
+         |      "x-amz-meta-upscan-initiate-received":"2024-01-22T16:39:24.962360Z",
+         |      "x-amz-meta-request-id":"3832bdc6-56b3-45fc-85a0-60cf4d305bcc",
+         |      "key":"ad344c3c-0560-40be-842a-511b4b09b404",
+         |      "acl":"private",
+         |      "x-amz-meta-consuming-service":"business-rates-attachments",
+         |      "policy":"eyJjb25kaXRpb25zIjpbWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsMSwxMDQ4NTc2MF1dfQ=="
+         |   },
+         |   "state":"ScanPending",
+         |   "history":[
+         |      {
+         |         "state":"ScanPending",
+         |         "timeStamp":"2024-01-22T16:39:29.211502Z"
+         |      },
+         |      {
+         |         "state":"MetadataReceived",
+         |         "timeStamp":"2024-01-22T16:39:29.211485Z"
+         |      },
+         |      {
+         |         "state":"Initiated",
+         |         "timeStamp":"2024-01-22T16:39:29.211474Z"
+         |      },
+         |      {
+         |         "state":"Received",
+         |         "timeStamp":"2024-01-22T16:39:29.136326Z"
+         |      }
+         |   ],
+         |   "scanResult":{
+         |      "reference":"ad344c3c-0560-40be-842a-511b4b09b404",
+         |      "fileStatus" : "FAILED",
+         |      "failureDetails": {
+         |        "failureReason": "$failureReason",
+         |        "message": "e.g. This file has a virus"
+         |      }
+         |   },
+         |   "principal":{
+         |      "externalId":"Ext-c4d0ec3a-4c37-488c-9cd3-8afcf51bde58",
+         |      "groupId":"ip-group-1"
+         |   }
+         |}""".stripMargin
+    )
 
     stubFor {
       get(s"/business-rates-attachments/attachments/$fileRef")

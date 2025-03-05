@@ -48,8 +48,7 @@ class AuthenticatedAction @Inject() (
       controllerComponents: MessagesControllerComponents,
       config: ApplicationConfig,
       override val executionContext: ExecutionContext
-) extends ActionBuilder[BasicAuthenticatedRequest, AnyContent] with AuthorisedFunctions with I18nSupport
-    with Logging {
+) extends ActionBuilder[BasicAuthenticatedRequest, AnyContent] with AuthorisedFunctions with I18nSupport with Logging {
 
   override val parser: BodyParser[AnyContent] = controllerComponents.parsers.anyContent
 
@@ -103,7 +102,7 @@ class AuthenticatedAction @Inject() (
               )
             )
         }
-      case ex: UnsupportedCredentialRole => //This case should not happen.
+      case ex: UnsupportedCredentialRole => // This case should not happen.
         logger.warn(
           s"unsupported credential role on existing VOA account, with message ${ex.msg}, for reason ${ex.reason}",
           ex
@@ -142,11 +141,11 @@ class AuthenticatedAction @Inject() (
     result match {
       case Authenticated(accounts) => success(accounts, body)(request, hc)
       case InvalidGGSession        => provider.redirectToLogin
-      case NoVOARecord             => Future.successful(Redirect(controllers.registration.routes.RegistrationController.show))
-      case IncorrectTrustId        => Future.successful(Unauthorized("Trust ID does not match"))
-      case InvalidAccountType      => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
-      case ForbiddenResponse       => Future.successful(Forbidden(forbiddenView()))
-      case NonGroupIDAccount       => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
+      case NoVOARecord      => Future.successful(Redirect(controllers.registration.routes.RegistrationController.show))
+      case IncorrectTrustId => Future.successful(Unauthorized("Trust ID does not match"))
+      case InvalidAccountType => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
+      case ForbiddenResponse  => Future.successful(Forbidden(forbiddenView()))
+      case NonGroupIDAccount  => Future.successful(Redirect(controllers.routes.Application.invalidAccountType))
     }
   }
 }

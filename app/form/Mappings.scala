@@ -151,7 +151,7 @@ case class ConditionalDateAfter(
       case (Left(_), Left(_), r @ Right(_))                               => r
       case (Right(true), _, r @ Right(_))                                 => r
       case (Right(false), Right(after), r @ Right(d)) if d.isAfter(after) => r
-      case (Right(false), _, Right(_))                                    => Left(Seq(FormError(key, Errors.dateMustBeAfterOtherDate)))
+      case (Right(false), _, Right(_)) => Left(Seq(FormError(key, Errors.dateMustBeAfterOtherDate)))
     }
 
   override def unbind(value: LocalDate) = dmyDate.withPrefix(key).unbind(value)

@@ -253,9 +253,8 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
-          )
-          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
+        ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .post(body = requestBody)
@@ -283,9 +282,8 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
-          )
-          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
+        ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .post(body = requestBody)
@@ -313,9 +311,8 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
-          )
-          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
+        ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .post(body = requestBody)
@@ -342,9 +339,8 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
-          )
-          .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
+        ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .post(body = requestBody)
@@ -371,9 +367,8 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = await(
         ws.url(
-            s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
-          )
-          .withCookies(languageCookie(Welsh), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select"
+        ).withCookies(languageCookie(Welsh), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
           .post(body = requestBody)
@@ -415,9 +410,8 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select$checkYourAnswers"
-        )
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-select$checkYourAnswers"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
     )

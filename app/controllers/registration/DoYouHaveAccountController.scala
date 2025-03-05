@@ -32,8 +32,8 @@ import scala.concurrent.ExecutionContext
 class DoYouHaveAccountController @Inject() (
       val errorHandler: CustomErrorHandler,
       doYouHaveAccountView: registration.doYouHaveAccount
-)(
-      implicit executionContext: ExecutionContext,
+)(implicit
+      executionContext: ExecutionContext,
       val config: ApplicationConfig,
       implicit override val controllerComponents: MessagesControllerComponents
 ) extends PropertyLinkingController with Logging {

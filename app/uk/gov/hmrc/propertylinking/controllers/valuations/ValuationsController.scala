@@ -80,12 +80,11 @@ class ValuationsController @Inject() (
 
   def valuations(submissionId: String, owner: Boolean): Action[AnyContent] =
     authenticated.andThen(withAssessmentsPageSession).async { implicit request =>
-      val assessments: Future[Option[ApiAssessments]] = {
+      val assessments: Future[Option[ApiAssessments]] =
         if (owner)
           propertyLinks.getOwnerAssessments(submissionId)
         else
           propertyLinks.getClientAssessments(submissionId)
-      }
 
       def okResponse(assessments: ApiAssessments, backlink: String, address: String, localAuthorityRef: Option[String])
             : Result = {
@@ -163,7 +162,7 @@ class ValuationsController @Inject() (
           case Some(clientPropertyLink) =>
             config.dashboardUrl(
               s"return-to-selected-client-properties?organisationId=${clientPropertyLink.client.organisationId}&organisationName=${URLEncoder
-                .encode(clientPropertyLink.client.organisationName, "UTF-8")}"
+                  .encode(clientPropertyLink.client.organisationName, "UTF-8")}"
             )
         }
     }

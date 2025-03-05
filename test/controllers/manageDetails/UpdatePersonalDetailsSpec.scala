@@ -288,8 +288,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
 
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show.url
 
-  private object TestUpdatePersonalDetails
-      extends UpdatePersonalDetails(
+  private object TestUpdatePersonalDetails extends UpdatePersonalDetails(
         mockCustomErrorHandler,
         preAuthenticatedActionBuilders(),
         mockAddressConnector,

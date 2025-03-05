@@ -44,69 +44,60 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
   "ChooseRatingListController show method" should {
-    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
+    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in
       getRequest(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/choose")
-    }
   }
 
   "ChooseRatingListController post method" should {
-    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
+    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in
       postRequest(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/choose")
-    }
   }
 
   "WhichRatingListController show method" should {
-    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
+    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in
       getRequest(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm")
-    }
   }
 
   "WhichRatingListController post method" should {
-    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
+    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in
       postRequest(
         s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm"
       )
-    }
   }
 
   "AreYouSureSingleController show method" should {
-    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
+    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in
       getRequest(
         s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017"
       )
-    }
   }
 
   "AreYouSureSingleController post method" should {
-    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
+    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in
       postRequest(
         s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2017"
       )
-    }
   }
 
   "AreYouSureMultipleController show method" should {
-    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
+    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in
       getRequest(
         s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple"
       )
-    }
   }
 
   "AreYouSureMultipleController post method" should {
-    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
+    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in
       postRequest(
         s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple"
       )
-    }
   }
 
   "RatingListConfirmedController show method" should {
-    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in {
+    "Show a NOT_FOUND page when the agentListYears feature switch is disabled" in
       getRequest(
         s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
       )
-    }
   }
 
   s"AddAgentController agentSelected method should redirect to the check your answers page if organisation has no authorisations and the user chooses yes" when {
@@ -271,9 +262,8 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome"
-        )
-        .withCookies(languageCookie(English), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint-new-agent/is-correct-agent?backLinkUrl=%2Fbusiness-rates-dashboard%2Fhome"
+      ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .post(body = requestBody)

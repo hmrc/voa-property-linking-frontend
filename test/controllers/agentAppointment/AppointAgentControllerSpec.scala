@@ -779,7 +779,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       FakeRequest().withFormUrlEncodedBody(
         "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"      -> testAgentAccount.companyName,
-        //"linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
+        // "linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
         "backLinkUrl" -> backLinkUrl.unsafeValue
       )
     )
@@ -804,7 +804,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       welshFakeRequest.withFormUrlEncodedBody(
         "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
         "name"      -> testAgentAccount.companyName,
-        //"linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
+        // "linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
         "backLinkUrl" -> backLinkUrl.unsafeValue
       )
     )

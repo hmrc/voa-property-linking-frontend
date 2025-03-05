@@ -33,9 +33,8 @@ object ClaimPropertyReturnToPage extends Enumeration {
             key: String,
             params: Map[String, Seq[String]]
       ): Option[Either[String, ClaimPropertyReturnToPage]] =
-        params.get(key).collect {
-          case Seq(s) =>
-            ClaimPropertyReturnToPage.values.find(_.toString == s).toRight("invalid value")
+        params.get(key).collect { case Seq(s) =>
+          ClaimPropertyReturnToPage.values.find(_.toString == s).toRight("invalid value")
         }
 
       override def unbind(key: String, value: ClaimPropertyReturnToPage): String = s"rtp=${value.toString}"

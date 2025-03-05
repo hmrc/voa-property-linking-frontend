@@ -92,14 +92,12 @@ class AgentRelationshipServiceSpec extends ServiceSpec with AllMocks {
         .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-change-id")))
 
       val res = testService.postAgentAppointmentChange(
-        (
-          AgentAppointmentChangeRequest(
-            action = AppointmentAction.REVOKE,
-            scope = AppointmentScope.PROPERTY_LIST,
-            agentRepresentativeCode = 1L,
-            propertyLinks = Some(List("1")),
-            listYears = Some(List("2017", "2023"))
-          )
+        AgentAppointmentChangeRequest(
+          action = AppointmentAction.REVOKE,
+          scope = AppointmentScope.PROPERTY_LIST,
+          agentRepresentativeCode = 1L,
+          propertyLinks = Some(List("1")),
+          listYears = Some(List("2017", "2023"))
         )
       )
 

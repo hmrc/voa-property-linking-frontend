@@ -34,9 +34,8 @@ object GroupAccount {
 
   object AgentGroupAccount {
     def unapply(account: GroupAccount): Option[(GroupAccount, Long)] =
-      PartialFunction.condOpt(account) {
-        case acc @ GroupAccount(_, _, _, _, _, _, true, Some(code)) =>
-          (acc, code)
+      PartialFunction.condOpt(account) { case acc @ GroupAccount(_, _, _, _, _, _, true, Some(code)) =>
+        (acc, code)
       }
   }
 

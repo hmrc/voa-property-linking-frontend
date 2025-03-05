@@ -170,12 +170,12 @@ class ChooseRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
         s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText'" in {
-        document.select(moreAboutSelector).text() shouldBe moreAboutText
-        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
-        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
-        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
-        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
-      }
+          document.select(moreAboutSelector).text() shouldBe moreAboutText
+          document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
+          document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
+          document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
+          document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
+        }
 
       s"has inset text on the screen of '$choosingAListText', which has a link to the manage agent screens" in {
         document.select(choosingAListSelector).text() shouldBe choosingAListText
@@ -238,12 +238,12 @@ class ChooseRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
         s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText'" in {
-        document.select(moreAboutSelector).text() shouldBe moreAboutText
-        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
-        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
-        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
-        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
-      }
+          document.select(moreAboutSelector).text() shouldBe moreAboutText
+          document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
+          document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
+          document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
+          document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
+        }
 
       s"has inset text on the screen of '$choosingAListText', which has a link to the manage agent screens" in {
         document.select(choosingAListSelector).text() shouldBe choosingAListText
@@ -306,12 +306,12 @@ class ChooseRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
         s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText'" in {
-        document.select(moreAboutSelector).text() shouldBe moreAboutText
-        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
-        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
-        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
-        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
-      }
+          document.select(moreAboutSelector).text() shouldBe moreAboutText
+          document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesText
+          document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesText
+          document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListText
+          document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListText
+        }
 
       s"has inset text on the screen of '$choosingAListText', which has a link to the manage agent screens" in {
         document.select(choosingAListSelector).text() shouldBe choosingAListText
@@ -374,12 +374,12 @@ class ChooseRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
         s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText' in welsh" in {
-        document.select(moreAboutSelector).text() shouldBe moreAboutTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListTextWelsh
-      }
+          document.select(moreAboutSelector).text() shouldBe moreAboutTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListTextWelsh
+        }
 
       s"has inset text on the screen of '$choosingAListText' in welsh, which has a link to the manage agent screens" in {
         document.select(choosingAListSelector).text() shouldBe choosingAListTextWelsh
@@ -442,12 +442,12 @@ class ChooseRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
         s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText' in welsh" in {
-        document.select(moreAboutSelector).text() shouldBe moreAboutTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListTextWelsh
-      }
+          document.select(moreAboutSelector).text() shouldBe moreAboutTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListTextWelsh
+        }
 
       s"has inset text on the screen of '$choosingAListText', which has a link to the manage agent screens in welsh" in {
         document.select(choosingAListSelector).text() shouldBe choosingAListTextWelsh
@@ -510,12 +510,12 @@ class ChooseRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a details summary section on the screen with summary text '$moreAboutText', then summary text of" +
         s"'$theVoaCalculatesText', '$theVoaUpdatesText', '$the2023ListText' and '$the2017ListText' in welsh" in {
-        document.select(moreAboutSelector).text() shouldBe moreAboutTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListTextWelsh
-        document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListTextWelsh
-      }
+          document.select(moreAboutSelector).text() shouldBe moreAboutTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(0).text() shouldBe theVoaCalculatesTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(1).text() shouldBe theVoaUpdatesTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(2).text() shouldBe the2023ListTextWelsh
+          document.select(ratingListDetailedSummarySelector).get(3).text() shouldBe the2017ListTextWelsh
+        }
 
       s"has inset text on the screen of '$choosingAListText' in welsh, which has a link to the manage agent screens" in {
         document.select(choosingAListSelector).text() shouldBe choosingAListTextWelsh

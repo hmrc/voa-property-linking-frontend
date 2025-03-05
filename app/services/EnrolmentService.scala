@@ -55,10 +55,9 @@ class EnrolmentService @Inject() (
            else skipEnrolmentForBlankPostcode
     } yield Success
 
-    enrol.recover {
-      case _: Throwable =>
-        auditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))
-        Failure
+    enrol.recover { case _: Throwable =>
+      auditingService.sendEvent("Enrolment Failure", Json.obj("personId" -> personId))
+      Failure
     }
   }
 

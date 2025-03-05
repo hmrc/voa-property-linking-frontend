@@ -564,11 +564,11 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
           "line4"    -> "Address line of 4",
           "postcode" -> "LS1 3SP"
         ),
-        "phone"          -> "0177728837298",
-        "mobilePhone"    -> "07829879332",
-        "email"          -> "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com",
+        "phone"       -> "0177728837298",
+        "mobilePhone" -> "07829879332",
+        "email" -> "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com",
         "confirmedEmail" -> "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com",
-        "tradingName"    -> "test trade name"
+        "tradingName" -> "test trade name"
       )
 
       lazy val res = postContactDetailsPage(language = English, postBody = requestBody)
@@ -685,11 +685,11 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
           "line4"    -> "Address line of 4",
           "postcode" -> "LS1 3SP"
         ),
-        "phone"          -> "0177728837298",
-        "mobilePhone"    -> "07829879332",
-        "email"          -> "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com",
+        "phone"       -> "0177728837298",
+        "mobilePhone" -> "07829879332",
+        "email" -> "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com",
         "confirmedEmail" -> "reallylongemailllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll@email.com",
-        "tradingName"    -> "test trade name"
+        "tradingName" -> "test trade name"
       )
 
       lazy val res = postContactDetailsPage(language = Welsh, postBody = requestBody)

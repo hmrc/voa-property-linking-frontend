@@ -114,8 +114,8 @@ class BusinessRatesAttachmentsService @Inject() (
       .subflatMap { attachments =>
         Either.cond(
           attachments
-            .count {
-              case (_, attachment) => isAttachmentsHasMovedToUploadStatus(attachment)
+            .count { case (_, attachment) =>
+              isAttachmentsHasMovedToUploadStatus(attachment)
             } != nonEmptyReferences.size,
           attachments,
           AllFilesAreAlreadyUploaded(attachments.map(_._2))

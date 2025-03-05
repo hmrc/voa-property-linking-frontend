@@ -35,10 +35,10 @@ class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
       "interestedStartDate.year"  -> "999"
     )
 
-    //Test errors size before merge and format date errors
+    // Test errors size before merge and format date errors
     form.bind(inValidData).errors.size shouldBe 3
 
-    //Test after merge and format date errors into only one common date error
+    // Test after merge and format date errors into only one common date error
     val formattedErrors = FrontendComponentHelper.formatErrorMessages(form.bind(inValidData), "interestedStartDate")(
       messagesApi.preferred(Seq(defaultLang))
     )
@@ -67,8 +67,8 @@ class FrontendComponentHelperSpec extends VoaPropertyLinkingSpec {
         .formatErrorMessages(
           form.bind(invalidData),
           "interestedStartDate",
-          manualDateErrorHandler = {
-            case e @ "interestedStartDate.error.startDateMustBeBeforeEnd" => e.replace(".", "?")
+          manualDateErrorHandler = { case e @ "interestedStartDate.error.startDateMustBeBeforeEnd" =>
+            e.replace(".", "?")
           }
         )
 
