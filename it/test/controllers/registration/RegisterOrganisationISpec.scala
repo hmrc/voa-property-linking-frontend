@@ -70,14 +70,14 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val registeringAsAgentExpandedTextWelsh =
     "Bydd angen i chi ddarparu gwybodaeth am eich busnes eich hun yma, nid busnes eich cleient."
   val businessNameTextWelsh = "Enw busnes"
-  val enterAddressManuallyTextWelsh = "Nodwchy cyfeiriad â llaw"
+  val enterAddressManuallyTextWelsh = "Nodwch y cyfeiriad â llaw"
   val findAddressByPostcodeTextWelsh = "Canfod cyfeiriad yn ôl cod post"
   val findAddressButtonTextWelsh = "Dod o hyd i gyfeiriad"
   val addressTextWelsh = "Cyfeiriad"
   val postcodeTextWelsh = "Cod post"
   val moreThanOneAddressTextWelsh = "Mae mwy nag un cyfeiriad ar gyfer fy musnes"
   val moreThanOneAddressExpandedTextWelsh =
-    "Dylech nodi’r cyfeiriad rydych yn dymuno i unrhyw ohebiaeth busnes gael ei danfon ato"
+    "Dylech nodi’r cyfeiriad rydych yn dymuno i unrhyw ohebiaeth busnes gael ei anfon iddo"
   val phoneNumTextWelsh = "Rhif ffôn busnes"
   val emailAddressTextWelsh = "Cyfeiriad e-bost busnes"
   val confirmEmailAddressTextWelsh = "Cadarnhau cyfeiriad e-bost busnes"

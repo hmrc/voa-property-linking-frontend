@@ -107,7 +107,7 @@ class ChooseRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   val continueTextWelsh = "Parhau"
   val errorTextWelsh = "Dewiswch opsiwn"
   val thereIsAProblemTextWelsh = "Mae yna broblem"
-  val aboveRadioErrorTextWelsh = "Gwall: Dewis opsiwn"
+  val aboveRadioErrorTextWelsh = "Gwall: Dewiswch opsiwn"
 
   val backLinkSelector = "#back-link"
   val captionSelector = "span.govuk-caption-l"

@@ -59,7 +59,7 @@ class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with 
   val weUseYourTextWelsh =
     "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
   val infoProvidedTextWelsh =
-    "Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri telerau ac amodau’r gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006."
+    "Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae defnydd ar gyfer unrhyw bwrpas arall yn torri telerau ac amodau’r gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006."
   val termsLinkTextWelsh = "telerau ac amodau’r"
   val continueTextWelsh = "Parhau"
 
