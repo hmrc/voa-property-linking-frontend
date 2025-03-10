@@ -91,7 +91,7 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
   val continueButtonTextWelsh = "Parhau"
   val errorTextWelsh = "Gwall:"
   val errorSummaryTextWelsh = "Mae yna broblem"
-  val errorMessageTextWelsh = "Dewis opsiwn"
+  val errorMessageTextWelsh = "Dewiswch opsiwn"
   val occupierErrorMessageTextWelsh = "Dewiswch os oes gennych brydles neu drwydded i feddiannu ar gyfer yr eiddo hwn"
 
   val headingLocator = "h1"

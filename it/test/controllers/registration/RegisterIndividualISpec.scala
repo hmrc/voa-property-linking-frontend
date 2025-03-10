@@ -56,7 +56,7 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
   val headingTextWelsh = "Cwblhewch eich manylion cyswllt"
   val weUseYourTextWelsh =
     "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
-  val enterAddressManuallyTextWelsh = "Nodwchy cyfeiriad â llaw"
+  val enterAddressManuallyTextWelsh = "Nodwch y cyfeiriad â llaw"
   val findAddressByPostcodeTextWelsh = "Canfod cyfeiriad yn ôl cod post"
   val findAddressButtonTextWelsh = "Dod o hyd i gyfeiriad"
   val addressTextWelsh = "Cyfeiriad"
