@@ -71,7 +71,7 @@ object AdminUserUplift {
 
   lazy val organisation = Form(
     mapping(
-      keys.companyName            -> nonEmptyText(maxLength = 45),
+      keys.companyName            -> businessName,
       keys.address                -> addressMapping,
       keys.phone                  -> validatePhoneNumber,
       keys.email                  -> isValidEmail,

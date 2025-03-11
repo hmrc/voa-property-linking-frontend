@@ -205,7 +205,7 @@ help.date=Er enghraifft, 28 4 2017
 help.date.override=Er enghraifft, {0}
 hint.dateOfBirth=Er enghraifft, 20 3 1976
 hint.nino=Mae ar eich cerdyn Yswiriant Gwladol, llythyr budd-dal, slip cyflog neu P60. Er enghraifft, QQ123456C.
-error.emailsMustMatch=Rhaid i gyfeiriadau e-bost gyfateb âi gilydd. Gwiriwch nhw a cheisiwch eto
+error.emailsMustMatch=Rhaid i gyfeiriadau e-bost gyfateb â’i gilydd. Gwiriwch nhw a cheisiwch eto.
 error.invalidEmail=Nodwch gyfeiriad e-bost dilys
 error.invalidPostcode=Nodwch god post dilys
 error.title=Mae yna broblem
@@ -281,7 +281,7 @@ link.go.back.property=Ewch yn ôl i’r eiddo hwn
 createAccount.group.details.header.agent=Rwy’n cofrestru fel asiant
 createAccount.group.details.content.agent=Bydd angen i chi ddarparu gwybodaeth am eich busnes eich hun yma, nid busnes eich cleient.
 createAccount.group.details.header.multipleAddress=Mae mwy nag un cyfeiriad ar gyfer fy musnes
-createAccount.group.details.content.multipleAddress=Dylech nodi’r cyfeiriad rydych yn dymuno i unrhyw ohebiaeth busnes gael ei danfon ato
+createAccount.group.details.content.multipleAddress=Dylech nodi’r cyfeiriad rydych yn dymuno i unrhyw ohebiaeth busnes gael ei anfon iddo
 createAccount.business.email.help=Eich e-bost chi dylai hwn fod ac nid y cyfeiriad e-bost ar gyfer eich asiant.  Dylai’r cyfeiriad e-bost hwn gael ei fonitro.
 
 #REGISTRATION SUCCESS PAGE
@@ -289,9 +289,9 @@ account.confirmation.title=Rydych chi wedi cofrestru’n llwyddiannus
 create.success.personId=Cyfeirnod adnabod personol y VOA (ID):
 create.success.keepNote=Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
 create.success.keepUsingGg=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
-account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
+account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes, bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
 registration.confirmation.weUseYourDetails=Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth.
-account.confirmation.disclaimer=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="terms-and-conditions">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
+account.confirmation.disclaimer=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="terms-and-conditions">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
 account.enrolment.link.success=Parhau
 
 #REGISTRATION CONFIRMATION PAGE
@@ -299,11 +299,11 @@ registration.successful=Wedi cofrestru’n llwyddiannus
 registration.confirmation.voa.personal.id.number=Eich rhif adnabod personol (ID) VOA
 registration.confirmation.agent.code=Eich cod Asiant
 registration.confirmation.email.sent.to=Rydym wedi anfon y manylion yma at <strong>{0}</strong>
-registration.confirmation.whatNext.p1=Y tro nesaf y byddwch yn mewngofnodi I ddefnyddio’r gwasanaeth, defnyddiwch eich manylion Porth y Llywodraeth.
-registration.confirmation.whatNext.p2=Os oes angen i chi ailosod eich cyfrinair, bydd angen i chi ddarparu eich rhif adnabod (ID) personol y VOA.
-registration.confirmation.whatNext.p3=Rhowch eich cod Asiant i’ch cleient fel y gallant eich penodi i weithredu ar eich rhan.
+registration.confirmation.whatNext.p1=Y tro nesaf y byddwch yn mewngofnodi i ddefnyddio’r gwasanaeth, defnyddiwch eich manylion Porth y Llywodraeth.
+registration.confirmation.whatNext.p2=Os oes angen i chi ailosod eich cyfrinair, bydd angen i chi ddarparu eich rhif adnabod personol (ID) VOA.
+registration.confirmation.whatNext.p3=Rhowch eich cod Asiant i’ch cleient fel y gallant eich penodi i weithredu ar eu rhan.
 registration.confirmation.whatNext.p4=Os oes unrhyw un arall eisiau cofrestru ar eich rhan chi o’r mudiad,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external noopener noreferrer">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a>.
-registration.confirmation.termsOfUse.p=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="terms-and-conditions">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
+registration.confirmation.termsOfUse.p=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="terms-and-conditions">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
 
 #MIGRATED ENROLMENT USER
 account.migrated.welcome=Croeso nôl
@@ -1384,7 +1384,7 @@ placeholder.address.line4=Llinell Cyfeiriad 4
 label.findAddress=Dod o hyd i gyfeiriad
 label.findAddress.tryAgain=Rhowch gynnig ar god post arall
 error.postcode=Cod post annilys
-addressLookup.manual=Nodwchy cyfeiriad â llaw
+addressLookup.manual=Nodwch y cyfeiriad â llaw
 addressLookup.lookup=Canfod cyfeiriad yn ôl cod post
 
 link.continue=Parhau
@@ -1409,7 +1409,7 @@ error.agentCode=Rhaid i hwn fod yn gôd dilys
 error.label.day=Diwrnod
 error.label.month=Mis
 error.label.year=Blwyddyn
-error.boolean=Dewis opsiwn
+error.boolean=Dewiswch opsiwn
 
 error.agentCode.required=Nodwch gôd asiant dilys
 error.isThisYourAgent.required=Dewiswch ie os mai hwn yw eich asiant
@@ -1687,6 +1687,7 @@ admin.enrolment.p=Rydym yn defnyddio manylion eich sefydliad i anfon gohebiaeth 
 enrolment.title=Cwblhewch eich manylion cyswllt
 enrolment.organisation.name=Enw busnes
 enrolment.organisation.name.label=Enw sefydliad
+enrolment.business.name.error = Uchafswm hyd yw 45
 
 enrolment.assistant.hint=Rydych wedi cael eich ychwanegu fel defnyddiwr i’ch sefydliad, cadarnhewch eich manylion isod
 enrolment.assistant.organisation.details.title=Manylion eich sefydliad

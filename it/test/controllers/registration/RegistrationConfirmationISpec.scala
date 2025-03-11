@@ -40,7 +40,7 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
   val ifYouNeedToText = "If you need to reset your password, you’ll need to provide your VOA personal ID number."
   val giveYourAgentText = "Give your Agent code to your client so they can appoint you to act for them."
   val ifAnyoneElseText =
-    "If anyone else wants to register on your behalf of the organisation, you’ll need to add them to your Government Gateway account."
+    "If anyone else wants to register on behalf of the organisation, you’ll need to add them to your Government Gateway account."
   val addThemTooText = "add them to your Government Gateway account"
   val weUseYourText = "We use your contact details to send you correspondence related to the service and your account."
   val termsOfUseText = "Terms of use"
@@ -56,10 +56,10 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
   val weHaveSentTextWelsh = "Rydym wedi anfon y manylion yma at individual@test.com"
   val whatHappensNextTextWelsh = "Beth sy’n digwydd nesaf"
   val nextTimeYouTextWelsh =
-    "Y tro nesaf y byddwch yn mewngofnodi I ddefnyddio’r gwasanaeth, defnyddiwch eich manylion Porth y Llywodraeth."
+    "Y tro nesaf y byddwch yn mewngofnodi i ddefnyddio’r gwasanaeth, defnyddiwch eich manylion Porth y Llywodraeth."
   val ifYouNeedToTextWelsh =
-    "Os oes angen i chi ailosod eich cyfrinair, bydd angen i chi ddarparu eich rhif adnabod (ID) personol y VOA."
-  val giveYourAgentTextWelsh = "Rhowch eich cod Asiant i’ch cleient fel y gallant eich penodi i weithredu ar eich rhan."
+    "Os oes angen i chi ailosod eich cyfrinair, bydd angen i chi ddarparu eich rhif adnabod personol (ID) VOA."
+  val giveYourAgentTextWelsh = "Rhowch eich cod Asiant i’ch cleient fel y gallant eich penodi i weithredu ar eu rhan."
   val ifAnyoneElseTextWelsh =
     "Os oes unrhyw un arall eisiau cofrestru ar eich rhan chi o’r mudiad, bydd angen i chi eu hychwanegu i’ch cyfrif Porth y Llywodraeth."
   val addThemTooTextWelsh = "eu hychwanegu i’ch cyfrif Porth y Llywodraeth"
@@ -67,7 +67,7 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
     "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
   val termsOfUseTextWelsh = "Telerau defnyddio"
   val infoProvidedTextWelsh =
-    "Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae’r defnydd ar gyfer unrhyw bwrpas arall yn torri telerau ac amodau’r gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006."
+    "Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae defnydd ar gyfer unrhyw bwrpas arall yn torri telerau ac amodau’r gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006."
   val termsLinkTextWelsh = "telerau ac amodau’r"
   val goToDashboardTextWelsh = "Ewch i’r dangosfwrdd"
 
