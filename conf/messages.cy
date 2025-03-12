@@ -579,9 +579,13 @@ propertyRepresentation.confirmation.thisAgentCan.list.1=ychwanegu eiddo at eich 
 propertyRepresentation.confirmation.thisAgentCan.list.2=gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo ar gyfer eiddo rydych chi’n eu haseinio iddynt neu maen nhw’n eu hychwanegu at eich cyfrif
 propertyRepresentation.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
 propertyRepresentation.confirmation.whatHappensNext.p1=Gallwch neilltuo neu ddadneilltuo’r asiant hwn o’ch eiddo trwy <a class="govuk-link" id="manage-agents-link" href="{0}">reoli eich asiantiaid</a>.
-propertyRepresentation.confirmation.secondBulletPoint.both_years=gweithredu ar eich rhan ar brisiadau eich eiddo o restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
-propertyRepresentation.confirmation.secondBulletPoint.2017=gweithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
-propertyRepresentation.confirmation.secondBulletPoint.2023=gweithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu 2023, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+propertyRepresentation.confirmation.secondBulletPoint.2026.2023.2017=weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026, 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+propertyRepresentation.confirmation.secondBulletPoint.2026=weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu 2026, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+propertyRepresentation.confirmation.secondBulletPoint.2023=weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu 2023, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+propertyRepresentation.confirmation.secondBulletPoint.2017=weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+propertyRepresentation.confirmation.secondBulletPoint.2026.2023=weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026 a 2023, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+propertyRepresentation.confirmation.secondBulletPoint.2026.2017=weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+propertyRepresentation.confirmation.secondBulletPoint.2023.2017=weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
 propertyRepresentation.confirmation.whatHappensNext.new.p1=Gallwch neilltuo’ch eiddo i’r asiant hwn neu dynnu’r asiant, neu newid y rhestrau ardrethu y gall weithredu arnynt ar eich rhan, drwy
 propertyRepresentation.confirmation.whatHappensNext.new.p1.link=reoli eich asiantau
 

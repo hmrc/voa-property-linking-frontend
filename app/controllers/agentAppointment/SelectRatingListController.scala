@@ -134,7 +134,9 @@ class SelectRatingListController @Inject() (
                                    agentOrganisationId = selectedAgent.agentCode,
                                    organisationId = request.organisationId
                                  )
-                _ <- sessionRepo.saveOrUpdate(selectedAgent.copy(specificRatingList = Some(success.name)))
+                _ <- sessionRepo.saveOrUpdate(
+                       selectedAgent.copy(specificRatingList = Some(success.name), ratingLists = Seq(success.name))
+                     )
               } yield sessionRepo
                 .get[AppointNewAgentSession]
                 .map { case Some(sessionData) =>
@@ -143,6 +145,7 @@ class SelectRatingListController @Inject() (
                       sessionRepo.saveOrUpdate(
                         managingProperty.copy(
                           specificRatingList = Some(success.name),
+                          ratingLists = Seq(success.name),
                           backLink = Some(
                             getBacklinkForCheckAnswersPage(
                               propertyLinks.authorisations.size,
@@ -158,6 +161,7 @@ class SelectRatingListController @Inject() (
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
                               specificRatingList = Some(success.name),
+                              ratingLists = Seq(success.name),
                               managingPropertyChoice = "none",
                               singleProperty = false,
                               totalPropertySelectionSize = 0,
@@ -172,6 +176,7 @@ class SelectRatingListController @Inject() (
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
                               specificRatingList = Some(success.name),
+                              ratingLists = Seq(success.name),
                               backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url)
                             )
                           )
@@ -182,6 +187,7 @@ class SelectRatingListController @Inject() (
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
                               specificRatingList = Some(success.name),
+                              ratingLists = Seq(success.name),
                               backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url)
                             )
                           )

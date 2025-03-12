@@ -223,7 +223,7 @@ class ListYearsFeatureSwitchISpec extends ISpecBase {
 
     val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Agent", "Address", AgentSelected, None)
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, isTheCorrectAgent = true, None, None)
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, isTheCorrectAgent = true, None, None, Seq.empty)
 
     await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
 

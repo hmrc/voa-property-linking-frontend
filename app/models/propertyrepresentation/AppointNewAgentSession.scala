@@ -51,7 +51,8 @@ case class SelectedAgent(
       status: AppointAgentJourneyStatus = AgentSelected,
       backLink: Option[String],
       bothRatingLists: Option[Boolean],
-      specificRatingList: Option[String]
+      specificRatingList: Option[String],
+      ratingLists: Seq[String]
 ) extends AppointNewAgentSession
 
 object SelectedAgent {
@@ -61,7 +62,8 @@ object SelectedAgent {
         searchedAgent: SearchedAgent,
         isTheCorrectAgent: Boolean,
         bothRatingLists: Option[Boolean],
-        specificRatingList: Option[String]
+        specificRatingList: Option[String],
+        ratingLists: Seq[String]
   ): SelectedAgent =
     SelectedAgent(
       agentCode = searchedAgent.agentCode,
@@ -70,7 +72,8 @@ object SelectedAgent {
       isCorrectAgent = isTheCorrectAgent,
       backLink = searchedAgent.backLink,
       bothRatingLists = bothRatingLists,
-      specificRatingList = specificRatingList
+      specificRatingList = specificRatingList,
+      ratingLists = ratingLists
     )
 }
 
@@ -87,7 +90,8 @@ case class ManagingProperty(
       propertySelectedSize: Int = 0,
       appointmentScope: Option[AppointmentScope] = None,
       bothRatingLists: Option[Boolean] = None,
-      specificRatingList: Option[String] = None
+      specificRatingList: Option[String] = None,
+      ratingLists: Seq[String] = Seq.empty
 ) extends AppointNewAgentSession
 
 object ManagingProperty {
@@ -111,7 +115,8 @@ object ManagingProperty {
       totalPropertySelectionSize = totalPropertySelectionSize,
       propertySelectedSize = propertySelectedSize,
       bothRatingLists = selectedAgent.bothRatingLists,
-      specificRatingList = selectedAgent.specificRatingList
+      specificRatingList = selectedAgent.specificRatingList,
+      ratingLists = selectedAgent.ratingLists
     )
 }
 

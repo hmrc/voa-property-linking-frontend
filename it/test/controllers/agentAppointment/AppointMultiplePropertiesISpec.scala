@@ -641,7 +641,8 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
         isCorrectAgent = true,
         backLink = None,
         bothRatingLists = Some(true),
-        specificRatingList = None
+        specificRatingList = None,
+        ratingLists = Seq("2023", "2017")
       )
 
       await(mockAppointAgentSessionRepository.saveOrUpdate(cacheData))
@@ -676,7 +677,8 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
       isCorrectAgent = true,
       backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"),
       bothRatingLists = Some(true),
-      specificRatingList = None
+      specificRatingList = None,
+      ratingLists = Seq("2023", "2017")
     )
 
     await(mockAppointAgentSessionRepository.saveOrUpdate(cacheData))
