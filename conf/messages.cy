@@ -571,12 +571,8 @@ propertyRepresentation.checkYourAnswers.ratings.single.answer=Rhestr ardrethu {0
 propertyRepresentation.checkYourAnswers.ratings.multiple.answer=Rhestr ardrethu 2023 a rhestr ardrethu 2017
 
 propertyRepresentation.confirmation.title=Mae {0} wedi’i benodi i’ch cyfrif
-propertyRepresentation.confirmation.yourProperty=Maent hefyd wedi’u neilltuo i’ch eiddo.
-propertyRepresentation.confirmation.selectedProperties=Maent hefyd wedi’u neilltuo i’r eiddo a ddewiswyd gennych.
-propertyRepresentation.confirmation.allProperties=Maent hefyd wedi’u neilltuo i’ch holl eiddo.
 propertyRepresentation.confirmation.thisAgentCan=Gall yr asiant hwn:
 propertyRepresentation.confirmation.thisAgentCan.list.1=ychwanegu eiddo at eich cyfrif
-propertyRepresentation.confirmation.thisAgentCan.list.2=gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo ar gyfer eiddo rydych chi’n eu haseinio iddynt neu maen nhw’n eu hychwanegu at eich cyfrif
 propertyRepresentation.confirmation.whatHappensNext=Beth sy’n digwydd nesaf
 propertyRepresentation.confirmation.whatHappensNext.p1=Gallwch neilltuo neu ddadneilltuo’r asiant hwn o’ch eiddo trwy <a class="govuk-link" id="manage-agents-link" href="{0}">reoli eich asiantiaid</a>.
 propertyRepresentation.confirmation.secondBulletPoint.2026.2023.2017=weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026, 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif

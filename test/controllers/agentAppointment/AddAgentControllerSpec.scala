@@ -142,87 +142,6 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     )
   }
 
-  "agentSelected" should "return 303 Ok and go to the check your answers page if organisation have no authorisations" in {
-    stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
-    when(
-      mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any())
-    ).thenReturn(Future.successful(ownerAuthResultWithNoAuthorisations))
-    when(mockSessionRepo.get[SearchedAgent](any(), any()))
-      .thenReturn(Future.successful(Some(searchedAgent)))
-    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
-      .thenReturn(Future.successful(()))
-    when(mockAgentRelationshipService.postAgentAppointmentChange(any())(any()))
-      .thenReturn(Future.successful(AgentAppointmentChangesResponse("some-id")))
-
-    val res =
-      testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
-        FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true")
-      )
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
-    )
-  }
-
-  "agentSelected" should "return 303 See Other and go to the agentToManageOnePropertyNoExistingAgent page if organisation has only one authorisation and no existing agent" in {
-    stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
-    when(
-      mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any())
-    ).thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
-    when(mockSessionRepo.get[SearchedAgent](any(), any()))
-      .thenReturn(Future.successful(Some(searchedAgent)))
-
-    val res =
-      testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
-        FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true")
-      )
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"
-    )
-  }
-
-  "agentSelected" should "return 303 See Other and go to the agentToManageOneProperty page if organisation has only one authorisation and an existing agent" in {
-    stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
-    when(
-      mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any())
-    ).thenReturn(Future.successful(ownerAuthResultWithOneAuthorisation))
-    when(mockSessionRepo.get[SearchedAgent](any(), any()))
-      .thenReturn(Future.successful(Some(searchedAgent)))
-    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
-      .thenReturn(Future.successful(()))
-
-    val res =
-      testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
-        FakeRequest().withFormUrlEncodedBody("isThisYourAgent" -> "true")
-      )
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/one-property"
-    )
-  }
-
-  "agentSelected" should "return 303 See Other and go to the agentToManageMultipleProperties page if organisation has only multiple authorisations" in {
-    stubWithAppointAgentSession.stubSession(searchedAgent, detailedIndividualAccount, groupAccount(false))
-    when(
-      mockAgentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(any(), any(), any(), any())(any())
-    ).thenReturn(Future.successful(ownerAuthResultWithTwoAuthorisation))
-    when(mockSessionRepo.get[SearchedAgent](any(), any()))
-      .thenReturn(Future.successful(Some(searchedAgent)))
-    when(mockSessionRepo.saveOrUpdate(any())(any(), any()))
-      .thenReturn(Future.successful(()))
-
-    val res = testController.agentSelected(RedirectUrl("http://localhost/some-back-link"))(
-      FakeRequest()
-        .withFormUrlEncodedBody("isThisYourAgent" -> "true")
-    )
-
-    status(res) shouldBe SEE_OTHER
-    redirectLocation(res) shouldBe Some(
-      "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties"
-    )
-  }
-
   type English = EnglishRequest
   type Welsh = WelshRequest
   private lazy val testController = new AddAgentController(
@@ -230,14 +149,12 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     preAuthenticatedActionBuilders(),
     stubWithAppointAgentSession,
     mockAgentRelationshipService,
-    mockFeatureSwitch,
     mockSessionRepo,
     startPageView,
     agentCodePageView,
     isTheCorrectAgentView,
     agentToManageOnePropertyView,
-    agentToManageMultiplePropertiesView,
-    addAgentconfirmationView
+    agentToManageMultiplePropertiesView
   )
   private lazy val mockSessionRepo = {
     val f = mock[SessionRepo]

@@ -39,7 +39,6 @@ class CheckYourAnswersController @Inject() (
       authenticated: AuthenticatedAction,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
       agentRelationshipService: AgentRelationshipService,
-      featureSwitch: FeatureSwitch,
       @Named("appointNewAgentSession") val appointNewAgentSession: SessionRepo,
       @Named("appointAgentPropertiesSession") val appointAgentPropertiesSession: SessionRepo,
       checkYourAnswersView: views.html.propertyrepresentation.appoint.checkYourAnswers
@@ -85,16 +84,9 @@ class CheckYourAnswersController @Inject() (
               sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
               agentListYears <- agentRelationshipService.getMyOrganisationAgents()
               agentAnswers   <- appointNewAgentSession.get[ManagingProperty]
-              listYears: List[String] = if (featureSwitch.isAgentListYearsEnabled)
-                                          agentAnswers.fold(List("2017", "2023"))(answers =>
-                                            answers.specificRatingList.fold(List("2017", "2023"))(List(_))
-                                          )
-                                        else
-                                          agentListYears.agents
-                                            .find(_.representativeCode == success.agentRepresentativeCode)
-                                            .flatMap(_.listYears)
-                                            .getOrElse(Seq("2017", "2023"))
-                                            .toList
+              listYears: List[String] = agentAnswers.fold(List("2017", "2023"))(answers =>
+                                          answers.specificRatingList.fold(List("2017", "2023"))(List(_))
+                                        )
               _ <- agentRelationshipService.postAgentAppointmentChange(
                      AgentAppointmentChangeRequest(
                        action = AppointmentAction.APPOINT,

@@ -36,7 +36,6 @@ class AreYouSureMultipleController @Inject() (
       areYouSureMultipleView: views.html.manageAgent.areYouSureMultipleYears,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction,
-      featureSwitch: FeatureSwitch,
       propertyLinkingService: PropertyLinkingService
 )(implicit
       executionContext: ExecutionContext,
@@ -48,24 +47,20 @@ class AreYouSureMultipleController @Inject() (
 
   def show: Action[AnyContent] =
     authenticated.async { implicit request =>
-      if (featureSwitch.isAgentListYearsEnabled)
-        manageAgentSessionRepository.get[AgentSummary].map {
-          case Some(AgentSummary(_, representativeCode, agentName, _, _, _)) =>
-            Ok(areYouSureMultipleView(agentName = agentName, backLink = getBackLink, agentCode = representativeCode))
-          case _ => NotFound(errorHandler.notFoundErrorTemplate)
-        }
-      else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(AgentSummary(_, representativeCode, agentName, _, _, _)) =>
+          Ok(areYouSureMultipleView(agentName = agentName, backLink = getBackLink, agentCode = representativeCode))
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      }
     }
 
   def submitRatingListYears: Action[AnyContent] =
     authenticated.async { implicit request =>
-      if (featureSwitch.isAgentListYearsEnabled)
-        manageAgentSessionRepository.get[AgentSummary].flatMap {
-          case Some(agentSummary) =>
-            propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List("2023", "2017"))
-          case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
-        }
-      else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+      manageAgentSessionRepository.get[AgentSummary].flatMap {
+        case Some(agentSummary) =>
+          propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List("2023", "2017"))
+        case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+      }
     }
   def getBackLink: String = controllers.manageAgent.routes.ChooseRatingListController.show.url
 }

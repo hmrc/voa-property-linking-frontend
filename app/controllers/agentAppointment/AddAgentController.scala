@@ -47,14 +47,12 @@ class AddAgentController @Inject() (
       authenticated: AuthenticatedAction,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
       agentRelationshipService: AgentRelationshipService,
-      featureSwitch: FeatureSwitch,
       @Named("appointNewAgentSession") val sessionRepo: SessionRepo,
       startPageView: views.html.propertyrepresentation.appoint.start,
       agentCodeView: views.html.propertyrepresentation.appoint.agentCode,
       isTheCorrectAgentView: views.html.propertyrepresentation.appoint.isThisYourAgent,
       agentToManageOnePropertyView: views.html.propertyrepresentation.appoint.agentToManageOneProperty,
-      agentToManageMultiplePropertiesView: views.html.propertyrepresentation.appoint.agentToManageMultipleProperties,
-      confirmationView: views.html.propertyrepresentation.appoint.confirmation
+      agentToManageMultiplePropertiesView: views.html.propertyrepresentation.appoint.agentToManageMultipleProperties
 )(implicit
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -289,43 +287,10 @@ class AddAgentController @Inject() (
                       )
                       Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
                     case _ =>
-                      if (featureSwitch.isAgentListYearsEnabled) {
-                        sessionRepo.saveOrUpdate(
-                          SelectedAgent(searchedAgent, success, None, None, Seq.empty).copy(backLink = Some(backLink))
-                        )
-                        Future.successful(Redirect(routes.RatingListOptionsController.show()))
-                      } else
-                        propertyLinks.authorisations.size match {
-                          case 0 =>
-                            sessionRepo.saveOrUpdate(
-                              ManagingProperty(
-                                SelectedAgent(searchedAgent, success, None, None, Seq.empty),
-                                selection = "none",
-                                singleProperty = false,
-                                totalPropertySelectionSize = 0,
-                                propertySelectedSize = 0
-                              ).copy(backLink = Some(backLink))
-                            )
-                            Future.successful(
-                              Redirect(controllers.agentAppointment.routes.CheckYourAnswersController.onPageLoad())
-                            )
-                          case 1 =>
-                            sessionRepo.saveOrUpdate(
-                              SelectedAgent(searchedAgent, success, None, None, Seq.empty)
-                                .copy(backLink = Some(backLink))
-                            )
-                            Future.successful(
-                              Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty())
-                            )
-                          case _ =>
-                            sessionRepo.saveOrUpdate(
-                              SelectedAgent(searchedAgent, success, None, None, Seq.empty)
-                                .copy(backLink = Some(backLink))
-                            )
-                            Future.successful(
-                              Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties())
-                            )
-                        }
+                      sessionRepo.saveOrUpdate(
+                        SelectedAgent(searchedAgent, success, None, None, Seq.empty).copy(backLink = Some(backLink))
+                      )
+                      Future.successful(Redirect(routes.RatingListOptionsController.show()))
                   }
                 }
                 .flatten
@@ -336,13 +301,11 @@ class AddAgentController @Inject() (
     }
   }
 
-  private def getBacklinkForCheckAnswersPage(propertySize: Int, specificTaxYears: Option[String]): String =
+  private def getBacklinkForCheckAnswersPage(propertySize: Int, specificListYear: Option[String]): String =
     propertySize match {
-      case 0 if featureSwitch.isAgentListYearsEnabled =>
-        if (specificTaxYears.nonEmpty) routes.SelectRatingListController.show().url
-        else routes.RatingListOptionsController.show().url
       case 0 =>
-        routes.AddAgentController.isCorrectAgent().url
+        if (specificListYear.nonEmpty) routes.SelectRatingListController.show().url
+        else routes.RatingListOptionsController.show().url
       case 1 =>
         routes.AddAgentController.oneProperty().url
       case _ =>

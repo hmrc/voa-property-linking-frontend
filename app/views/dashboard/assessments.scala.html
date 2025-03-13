@@ -17,13 +17,11 @@
 @import actions.assessments.request.AssessmentsPageSessionRequest
 @import _root_.utils.Formatters
 @import config.ApplicationConfig
-@import views.html.dashboard.assessmentDetails
 @import views.html.components.naRateableDetailSection
 @import views.html.dashboard.assessmentDetailsWithRatingList
 
 
 @this(mainLayout: views.html.mainLayout,
-      assessmentDetailsView: assessmentDetails,
       assessmentDetailsWithRatingListView: assessmentDetailsWithRatingList,
       naRateableDetailSection: naRateableDetailSection)
 
@@ -66,9 +64,5 @@
         @naRateableDetailSection()
     }
 
-    @if(config.agentListYears) {
-        @assessmentDetailsWithRatingListView(model, owner, vmvLink)
-    } else {
-        @assessmentDetailsView(model, owner)
-    }
+    @assessmentDetailsWithRatingListView(model, owner, vmvLink)
 }
