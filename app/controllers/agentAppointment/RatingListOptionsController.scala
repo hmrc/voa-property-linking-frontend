@@ -157,6 +157,7 @@ class RatingListOptionsController @Inject() (
                         managingProperty.copy(
                           bothRatingLists = Some(success),
                           specificRatingList = None,
+                          ratingLists = Seq("2023", "2017"),
                           backLink = Some(getBacklinkForCheckAnswersPage(propertyLinks.authorisations.size, None))
                         )
                       )
@@ -168,7 +169,8 @@ class RatingListOptionsController @Inject() (
                             ManagingProperty(
                               selectedAgent.copy(
                                 bothRatingLists = Some(success),
-                                specificRatingList = None
+                                specificRatingList = None,
+                                ratingLists = Seq("2023", "2017")
                               ),
                               selection = "none",
                               singleProperty = false,
@@ -184,6 +186,7 @@ class RatingListOptionsController @Inject() (
                             selectedAgent.copy(
                               bothRatingLists = Some(success),
                               specificRatingList = None,
+                              ratingLists = Seq("2023", "2017"),
                               backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                             )
                           )
@@ -195,6 +198,7 @@ class RatingListOptionsController @Inject() (
                             selectedAgent.copy(
                               bothRatingLists = Some(success),
                               specificRatingList = None,
+                              ratingLists = Seq("2023", "2017"),
                               backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                             )
                           )
@@ -209,6 +213,7 @@ class RatingListOptionsController @Inject() (
                             selectedAgent.copy(
                               bothRatingLists = Some(success),
                               specificRatingList = None,
+                              ratingLists = Seq("2023", "2017"),
                               backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                             )
                           )
@@ -220,6 +225,7 @@ class RatingListOptionsController @Inject() (
                             selectedAgent.copy(
                               bothRatingLists = Some(success),
                               specificRatingList = None,
+                              ratingLists = Seq("2023", "2017"),
                               backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                             )
                           )
@@ -231,6 +237,7 @@ class RatingListOptionsController @Inject() (
                             selectedAgent.copy(
                               bothRatingLists = Some(success),
                               specificRatingList = None,
+                              ratingLists = Seq("2023", "2017"),
                               backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                             )
                           )

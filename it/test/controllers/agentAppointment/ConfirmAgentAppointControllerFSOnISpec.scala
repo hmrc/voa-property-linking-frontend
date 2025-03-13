@@ -47,12 +47,12 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
   val headingText = s"$agentName has been appointed to your account"
   val thisAgentCanText = "This agent can:"
   val addPropertiesText = "add properties to your account"
-  val multipleRatingsListsText =
-    "act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account"
-  val ratingsList2017Text =
-    "act for you on your property valuations on the 2017 rating list, for properties that you assign to them or they add to your account"
-  val ratingsList2023Text =
-    "act for you on your property valuations on the 2023 rating list, for properties that you assign to them or they add to your account"
+  val threeListYearsText = (listYear1: String, listYear2: String, listYear3: String) =>
+    s"act for you on your property valuations on the $listYear1, $listYear2, and $listYear3 rating lists, for properties that you assign to them or they add to your account"
+  val twoListYearsText = (listYear1: String, listYear2: String) =>
+    s"act for you on your property valuations on the $listYear1 and $listYear2 rating lists, for properties that you assign to them or they add to your account"
+  val singleListYearText = (listYear: String) =>
+    s"act for you on your property valuations on the $listYear rating list, for properties that you assign to them or they add to your account"
   val whatHappensNextText = "What happens next"
   val youCanAssignText =
     "You can assign or unassign this agent from your properties or change the rating lists they can act for you on by managing your agents."
@@ -63,12 +63,12 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
   val headingTextWelsh = s"Mae $agentName wedi’i benodi i’ch cyfrif"
   val thisAgentCanTextWelsh = "Gall yr asiant hwn:"
   val addPropertiesTextWelsh = "ychwanegu eiddo at eich cyfrif"
-  val multipleRatingsListsTextWelsh =
-    "gweithredu ar eich rhan ar brisiadau eich eiddo o restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
-  val ratingsList2017TextWelsh =
-    "gweithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
-  val ratingsList2023TextWelsh =
-    "gweithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu 2023, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
+  val threeListYearsTextWelsh = (listYear1: String, listYear2: String, listYear3: String) =>
+    s"weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu $listYear1, $listYear2 a $listYear3, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
+  val twoListYearsTextWelsh = (listYear1: String, listYear2: String) =>
+    s"weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu $listYear1 a $listYear2, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
+  val singleListYearTextWelsh = (listYear: String) =>
+    s"weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu $listYear, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
   val whatHappensNextTextWelsh = "Beth sy’n digwydd nesaf"
   val youCanAssignTextWelsh =
     "Gallwch neilltuo’ch eiddo i’r asiant hwn neu dynnu’r asiant, neu newid y rhestrau ardrethu y gall weithredu arnynt ar eich rhan, drwy reoli eich asiantau"
@@ -88,11 +88,12 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
   val managingAgentsLinkHref = "/business-rates-property-linking/my-organisation/agents"
   val goToHomeLinkHref = "/business-rates-dashboard/home"
 
-  // These are all the scenarios where the agentListYears flag is enabled, see ConfirmAgentAppointControllerFSOnISpec for when its disabled
+  // These are all the scenarios where the agentListYears flag is enabled, see ConfirmAgentAppointControllerFSOffISpec for when its disabled
   "onPageLoad" should {
-    "return 200 & display the correct English content when the agent has been assigned to both list years" when {
 
-      lazy val document: Document = getDocument(English, ratingsList = "Both")
+    "return 200 & display the correct English content when the agent has been assigned to 2026, 2023 and 2017 list years" when {
+
+      lazy val document: Document = getDocument(English, ratingsLists = Seq("2026", "2023", "2017"))
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleText
@@ -114,8 +115,200 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
-      s"has a bullet point on the screen of $multipleRatingsListsText" in {
-        document.select(ratingsListSelector).text shouldBe multipleRatingsListsText
+      s"has a bullet point on the screen of ${threeListYearsText("2026", "2023", "2017")}" in {
+        document.select(ratingsListSelector).text shouldBe threeListYearsText("2026", "2023", "2017")
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextText
+      }
+
+      s"has text on the screen of $youCanAssignText" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignText
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsText
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeText
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct English content when the agent has been assigned to 2026 and 2023 list years" when {
+
+      lazy val document: Document = getDocument(English, ratingsLists = Seq("2023", "2026"))
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      s"has a header of '$headingText'" in {
+        document.select(headingSelector).text shouldBe headingText
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanText
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesText
+      }
+
+      s"has a bullet point on the screen of ${twoListYearsText("2026", "2023")}" in {
+        document.select(ratingsListSelector).text shouldBe twoListYearsText("2026", "2023")
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextText
+      }
+
+      s"has text on the screen of $youCanAssignText" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignText
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsText
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeText
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct English content when the agent has been assigned to 2026 and 2017 list years" when {
+
+      lazy val document: Document = getDocument(English, ratingsLists = Seq("2026", "2017"))
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      s"has a header of '$headingText'" in {
+        document.select(headingSelector).text shouldBe headingText
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanText
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesText
+      }
+
+      s"has a bullet point on the screen of ${twoListYearsText("2026", "2017")}" in {
+        document.select(ratingsListSelector).text shouldBe twoListYearsText("2026", "2017")
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextText
+      }
+
+      s"has text on the screen of $youCanAssignText" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignText
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsText
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeText
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct English content when the agent has been assigned to 2023 and 2017 list years" when {
+
+      lazy val document: Document = getDocument(English, ratingsLists = Seq("2023", "2017"))
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      s"has a header of '$headingText'" in {
+        document.select(headingSelector).text shouldBe headingText
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanText
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesText
+      }
+
+      s"has a bullet point on the screen of ${twoListYearsText("2023", "2017")}" in {
+        document.select(ratingsListSelector).text shouldBe twoListYearsText("2023", "2017")
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextText
+      }
+
+      s"has text on the screen of $youCanAssignText" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignText
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsText
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeText
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct English content when the agent has been assigned to the 2026 list year only" when {
+
+      lazy val document: Document = getDocument(English, ratingsLists = Seq("2026"))
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      s"has a header of '$headingText'" in {
+        document.select(headingSelector).text shouldBe headingText
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanText
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesText
+      }
+
+      s"has a bullet point on the screen of ${singleListYearText("2026")}" in {
+        document.select(ratingsListSelector).text shouldBe singleListYearText("2026")
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -140,7 +333,7 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
 
     "return 200 & display the correct English content when the agent has been assigned to the 2023 list year only" when {
 
-      lazy val document: Document = getDocument(English, ratingsList = "2023")
+      lazy val document: Document = getDocument(English, ratingsLists = Seq("2023"))
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleText
@@ -162,8 +355,8 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
-      s"has a bullet point on the screen of $ratingsList2023Text" in {
-        document.select(ratingsListSelector).text shouldBe ratingsList2023Text
+      s"has a bullet point on the screen of ${singleListYearText("2023")}" in {
+        document.select(ratingsListSelector).text shouldBe singleListYearText("2023")
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -188,7 +381,7 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
 
     "return 200 & display the correct English content when the agent has been assigned to the 2017 list year only" when {
 
-      lazy val document: Document = getDocument(English, ratingsList = "2017")
+      lazy val document: Document = getDocument(English, ratingsLists = Seq("2017"))
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleText
@@ -210,8 +403,8 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
         document.select(addPropertiesSelector).text shouldBe addPropertiesText
       }
 
-      s"has a bullet point on the screen of $ratingsList2017Text" in {
-        document.select(ratingsListSelector).text shouldBe ratingsList2017Text
+      s"has a bullet point on the screen of ${singleListYearText("2017")}" in {
+        document.select(ratingsListSelector).text shouldBe singleListYearText("2017")
       }
 
       s"has a subheading on the screen of $whatHappensNextText" in {
@@ -234,9 +427,9 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
 
     }
 
-    "return 200 & display the correct Welsh content when the agent has been assigned to both list years" when {
+    "return 200 & display the correct Welsh content when the agent has been assigned to 2026, 2023 and 2017 list years" when {
 
-      lazy val document: Document = getDocument(Welsh, ratingsList = "Both")
+      lazy val document: Document = getDocument(Welsh, ratingsLists = Seq("2026", "2023", "2017"))
 
       s"has a title of $titleText in welsh" in {
         document.title() shouldBe titleTextWelsh
@@ -258,8 +451,200 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
-      s"has a bullet point on the screen of $multipleRatingsListsTextWelsh in welsh" in {
-        document.select(ratingsListSelector).text shouldBe multipleRatingsListsTextWelsh
+      s"has a bullet point on the screen of ${threeListYearsText("2026", "2023", "2017")} in welsh" in {
+        document.select(ratingsListSelector).text shouldBe threeListYearsTextWelsh("2026", "2023", "2017")
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText in welsh" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextTextWelsh
+      }
+
+      s"has text on the screen of $youCanAssignText in welsh" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignTextWelsh
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen in welsh" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsTextWelsh
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen in welsh" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeTextWelsh
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct Welsh content when the agent has been assigned to 2026 and 2023 list years" when {
+
+      lazy val document: Document = getDocument(Welsh, ratingsLists = Seq("2023", "2026"))
+
+      s"has a title of $titleText in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      s"has a header of '$headingText' in welsh" in {
+        document.select(headingSelector).text shouldBe headingTextWelsh
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText in welsh" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanTextWelsh
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText in welsh" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
+      }
+
+      s"has a bullet point on the screen of ${twoListYearsText("2026", "2023")} in welsh" in {
+        document.select(ratingsListSelector).text shouldBe twoListYearsTextWelsh("2026", "2023")
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText in welsh" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextTextWelsh
+      }
+
+      s"has text on the screen of $youCanAssignText in welsh" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignTextWelsh
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen in welsh" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsTextWelsh
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen in welsh" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeTextWelsh
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct Welsh content when the agent has been assigned to 2026 and 2017 list years" when {
+
+      lazy val document: Document = getDocument(Welsh, ratingsLists = Seq("2026", "2017"))
+
+      s"has a title of $titleText in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      s"has a header of '$headingText' in welsh" in {
+        document.select(headingSelector).text shouldBe headingTextWelsh
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText in welsh" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanTextWelsh
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText in welsh" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
+      }
+
+      s"has a bullet point on the screen of ${twoListYearsText("2026", "2017")} in welsh" in {
+        document.select(ratingsListSelector).text shouldBe twoListYearsTextWelsh("2026", "2017")
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText in welsh" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextTextWelsh
+      }
+
+      s"has text on the screen of $youCanAssignText in welsh" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignTextWelsh
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen in welsh" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsTextWelsh
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen in welsh" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeTextWelsh
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct Welsh content when the agent has been assigned to 2023 and 2017 list years" when {
+
+      lazy val document: Document = getDocument(Welsh, ratingsLists = Seq("2023", "2017"))
+
+      s"has a title of $titleText in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      s"has a header of '$headingText' in welsh" in {
+        document.select(headingSelector).text shouldBe headingTextWelsh
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText in welsh" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanTextWelsh
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText in welsh" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
+      }
+
+      s"has a bullet point on the screen of ${twoListYearsText("2023", "2017")} in welsh" in {
+        document.select(ratingsListSelector).text shouldBe twoListYearsTextWelsh("2023", "2017")
+      }
+
+      s"has a subheading on the screen of $whatHappensNextText in welsh" in {
+        document.select(whatHappensNextSelector).text shouldBe whatHappensNextTextWelsh
+      }
+
+      s"has text on the screen of $youCanAssignText in welsh" in {
+        document.select(youCanAssignSelector).text shouldBe youCanAssignTextWelsh
+      }
+
+      s"has a $managingAgentsText link which takes you to Manage agent properties screen in welsh" in {
+        document.select(managingAgentsLinkSelector).text() shouldBe managingAgentsTextWelsh
+        document.select(managingAgentsLinkSelector).attr("href") shouldBe managingAgentsLinkHref
+      }
+
+      s"has a $goToHomeText link which takes you to the home screen in welsh" in {
+        document.select(goToHomeSelector).text() shouldBe goToHomeTextWelsh
+        document.select(goToHomeSelector).attr("href") shouldBe goToHomeLinkHref
+      }
+
+    }
+
+    "return 200 & display the correct Welsh content when the agent has been assigned to the 2026 list year only" when {
+
+      lazy val document: Document = getDocument(Welsh, ratingsLists = Seq("2026"))
+
+      s"has a title of $titleText  in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      s"has a header of '$headingText' in welsh" in {
+        document.select(headingSelector).text shouldBe headingTextWelsh
+      }
+
+      s"doesn't have the text on the screen for the assigned properties" in {
+        document.select(assignedToPropertiesSelector).size() shouldBe 0
+      }
+
+      s"has text on the screen of $thisAgentCanText in welsh" in {
+        document.select(thisAgentCanSelector).text shouldBe thisAgentCanTextWelsh
+      }
+
+      s"has a bullet point on the screen of $addPropertiesText in welsh" in {
+        document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
+      }
+
+      s"has a bullet point on the screen of ${singleListYearText("2026")} in welsh" in {
+        document.select(ratingsListSelector).text shouldBe singleListYearTextWelsh("2026")
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
@@ -284,7 +669,7 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
 
     "return 200 & display the correct Welsh content when the agent has been assigned to the 2023 list year only" when {
 
-      lazy val document: Document = getDocument(Welsh, ratingsList = "2023")
+      lazy val document: Document = getDocument(Welsh, ratingsLists = Seq("2023"))
 
       s"has a title of $titleText  in welsh" in {
         document.title() shouldBe titleTextWelsh
@@ -306,8 +691,8 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
-      s"has a bullet point on the screen of $ratingsList2023TextWelsh in welsh" in {
-        document.select(ratingsListSelector).text shouldBe ratingsList2023TextWelsh
+      s"has a bullet point on the screen of ${singleListYearText("2023")} in welsh" in {
+        document.select(ratingsListSelector).text shouldBe singleListYearTextWelsh("2023")
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
@@ -332,7 +717,7 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
 
     "return 200 & display the correct Welsh content when the agent has been assigned to the 2017 list year only" when {
 
-      lazy val document: Document = getDocument(Welsh, ratingsList = "2017")
+      lazy val document: Document = getDocument(Welsh, ratingsLists = Seq("2017"))
 
       s"has a title of $titleText in welsh" in {
         document.title() shouldBe titleTextWelsh
@@ -354,8 +739,8 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
         document.select(addPropertiesSelector).text shouldBe addPropertiesTextWelsh
       }
 
-      s"has a bullet point on the screen of $ratingsList2017TextWelsh in welsh" in {
-        document.select(ratingsListSelector).text shouldBe ratingsList2017TextWelsh
+      s"has a bullet point on the screen of ${singleListYearText("2017")} in welsh" in {
+        document.select(ratingsListSelector).text shouldBe singleListYearTextWelsh("2017")
       }
 
       s"has a subheading on the screen of $whatHappensNextText in welsh" in {
@@ -380,13 +765,13 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
 
   }
 
-  def getDocument(language: Language, ratingsList: String): Document = {
+  def getDocument(language: Language, ratingsLists: Seq[String]): Document = {
 
-    val (bothRatingsListChoice, specificRatingsListChoice): (Option[Boolean], Option[String]) = ratingsList match {
-      case "Both" => (Some(true), None)
-      case "2023" => (Some(false), Some("2023"))
-      case "2017" => (Some(false), Some("2017"))
-      case _      => (None, None)
+    val (bothRatingsListChoice, specificRatingsListChoice): (Option[Boolean], Option[String]) = ratingsLists match {
+      case Seq("2023", "2017") => (Some(true), None)
+      case Seq("2023")         => (Some(false), Some("2023"))
+      case Seq("2017")         => (Some(false), Some("2017"))
+      case _                   => (None, None)
     }
 
     val managingPropertyData: ManagingProperty = ManagingProperty(
@@ -400,7 +785,8 @@ class ConfirmAgentAppointControllerFSOnISpec extends ISpecBase with HtmlComponen
       propertySelectedSize = 2,
       singleProperty = true,
       bothRatingLists = bothRatingsListChoice,
-      specificRatingList = specificRatingsListChoice
+      specificRatingList = specificRatingsListChoice,
+      ratingLists = ratingsLists
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(

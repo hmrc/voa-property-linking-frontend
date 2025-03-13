@@ -390,7 +390,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
     val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, None)
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Some(true), None)
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Some(true), None, Seq("2023", "2017"))
 
     await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
 
@@ -428,7 +428,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
     val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, None)
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Some(true), Some("2017"))
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Some(true), Some("2017"), Seq("2017"))
 
     val managedAgentData = ManagingProperty.apply(selectedAgentData, "None", false, 1, 1)
     await(mockAppointAgentSessionRepository.saveOrUpdate(managedAgentData))

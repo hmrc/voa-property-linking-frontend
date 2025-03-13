@@ -291,7 +291,7 @@ class AddAgentController @Inject() (
                     case _ =>
                       if (featureSwitch.isAgentListYearsEnabled) {
                         sessionRepo.saveOrUpdate(
-                          SelectedAgent(searchedAgent, success, None, None).copy(backLink = Some(backLink))
+                          SelectedAgent(searchedAgent, success, None, None, Seq.empty).copy(backLink = Some(backLink))
                         )
                         Future.successful(Redirect(routes.RatingListOptionsController.show()))
                       } else
@@ -299,7 +299,7 @@ class AddAgentController @Inject() (
                           case 0 =>
                             sessionRepo.saveOrUpdate(
                               ManagingProperty(
-                                SelectedAgent(searchedAgent, success, None, None),
+                                SelectedAgent(searchedAgent, success, None, None, Seq.empty),
                                 selection = "none",
                                 singleProperty = false,
                                 totalPropertySelectionSize = 0,
@@ -311,14 +311,16 @@ class AddAgentController @Inject() (
                             )
                           case 1 =>
                             sessionRepo.saveOrUpdate(
-                              SelectedAgent(searchedAgent, success, None, None).copy(backLink = Some(backLink))
+                              SelectedAgent(searchedAgent, success, None, None, Seq.empty)
+                                .copy(backLink = Some(backLink))
                             )
                             Future.successful(
                               Redirect(controllers.agentAppointment.routes.AddAgentController.oneProperty())
                             )
                           case _ =>
                             sessionRepo.saveOrUpdate(
-                              SelectedAgent(searchedAgent, success, None, None).copy(backLink = Some(backLink))
+                              SelectedAgent(searchedAgent, success, None, None, Seq.empty)
+                                .copy(backLink = Some(backLink))
                             )
                             Future.successful(
                               Redirect(controllers.agentAppointment.routes.AddAgentController.multipleProperties())
