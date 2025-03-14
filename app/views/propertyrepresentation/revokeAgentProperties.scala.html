@@ -108,7 +108,7 @@
                 form.errors.map{ error =>
                     if(error.key == "linkIds"){
                         ErrorLink(href = Some("#checkbox-1"),
-                            content = HtmlContent(messages(s"label.${error.key}")))
+                            content = HtmlContent(messages(s"label.unassign.${error.key}")))
                     } else {
                         ErrorLink(href = Some("#address"),
                             content = HtmlContent(messages("error.agentProperties.filter")))
@@ -196,7 +196,7 @@
 
                 <div class="govuk-grid-row @formErrorClass("linkIds") govuk-grid-column-full">
                 @if(formErrorClass("linkIds").nonEmpty) {
-                    <span class="govuk-error-message">@messages("label.linkIds")</span>
+                    <span class="govuk-error-message">@messages("label.unassign.linkIds")</span>
                 }
                     @govukTable(Table(
                         attributes = Map("id" -> "agentPropertiesTableBody"),
