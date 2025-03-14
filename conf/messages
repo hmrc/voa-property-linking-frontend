@@ -777,6 +777,7 @@ propertyRepresentation.th.ADDRESS=Address
 propertyRepresentation.th.AGENT=Appointed agents
 propertyRepresentation.th.BAREF=Local authority reference
 propertyRepresentation.search.filter=Search your properties
+label.assign.linkIds=Select which properties you want to assign this agent to
 label.linkIds=Select one or more properties
 propertyRepresentation.appointAgents.showPropertiesNoAgent.link=Only show properties with no agent
 propertyRepresentation.appointAgents.showAllProperties.link=Show all properties

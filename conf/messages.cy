@@ -717,6 +717,7 @@ propertyRepresentation.th.ADDRESS=Cyfeiriad
 propertyRepresentation.th.AGENT=Asiantiaid penodedig
 propertyRepresentation.th.BAREF=Cyfeirnod yr awdurdod lleol
 propertyRepresentation.search.filter=Chwiliwch eich eiddo
+label.assign.linkIds=Dewiswch pa eiddo rydych chi am aseinio’r asiant hwn iddynt
 label.linkIds=Dewis un eiddo neu fwy
 propertyRepresentation.appointAgents.showPropertiesNoAgent.link=Yn dangos eiddo heb unrhyw asiant yn unig
 propertyRepresentation.appointAgents.showAllProperties.link=Dangos holl eiddo

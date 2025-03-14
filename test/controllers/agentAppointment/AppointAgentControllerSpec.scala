@@ -562,6 +562,56 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     heading shouldBe s"Choose which of your properties you want to assign ${agent.companyName} to"
   }
 
+  "submitting an incomplete assign agent form" should "re-render the page with form errors reported to user" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.postAgentAppointmentChange(any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(AgentAppointmentChangesResponse("id")))
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultResponse))
+
+    val res = testController.appointAgentSummary(agentCode, None, backLinkUrl, fromManageAgentJourney = true)(
+      FakeRequest().withFormUrlEncodedBody(
+        "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
+        "name"      -> testAgentAccount.companyName,
+        // "linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
+        "backLinkUrl" -> backLinkUrl.unsafeValue
+      )
+    )
+
+    status(res) shouldBe BAD_REQUEST
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.shouldContainText("Select which properties you want to assign this agent to")
+    verifyPageErrorTitleAssign(page)
+  }
+
+  "submitting an incomplete assign agent form" should "re-render the page with form errors reported to user - in welsh" in {
+    val testAgentAccount = groupAccount(true).copy(agentCode = Some(1L))
+
+    StubGroupAccountConnector.stubAccount(testAgentAccount)
+    when(mockAppointRevokeService.postAgentAppointmentChange(any())(any[HeaderCarrier]))
+      .thenReturn(Future.successful(AgentAppointmentChangesResponse("id")))
+    when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
+      .thenReturn(Future.successful(ownerAuthResultResponse))
+
+    val res = testController.appointAgentSummary(agentCode, None, backLinkUrl, fromManageAgentJourney = true)(
+      welshFakeRequest.withFormUrlEncodedBody(
+        "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
+        "name"      -> testAgentAccount.companyName,
+        // "linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
+        "backLinkUrl" -> backLinkUrl.unsafeValue
+      )
+    )
+
+    status(res) shouldBe BAD_REQUEST
+
+    val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.shouldContainText("Dewiswch pa eiddo rydych chi am aseinio’r asiant hwn iddynt")
+    verifyPageErrorTitleAssign(page, isWelsh = true)
+  }
+
   "selectAgentPropertiesSearchSort" should "show a list of properties available for removal from a agent" in {
     val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address", "localAuthorityRef", testAgents)
 
@@ -812,6 +862,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe BAD_REQUEST
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
+    page.shouldContainText("Dewis un eiddo neu fwy")
     verifyPageErrorTitle(page, isWelsh = true)
   }
 
@@ -897,6 +948,16 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     else
       page.titleShouldMatch(
         s"Error: Which of your properties do you want to unassign $ggExternalId from? - Valuation Office Agency - GOV.UK"
+      )
+
+  private def verifyPageErrorTitleAssign(page: HtmlPage, isWelsh: Boolean = false) =
+    if (isWelsh)
+      page.titleShouldMatch(
+        s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Valuation Office Agency - GOV.UK"
+      )
+    else
+      page.titleShouldMatch(
+        s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
       )
 
   private lazy val testController = new AppointAgentController(
