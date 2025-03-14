@@ -668,6 +668,10 @@ propertyRepresentation.caption=Agent
 propertyRepresentation.ratingLists.heading=Rating lists they can act on for you
 propertyRepresentation.ratingList.p=This agent can act for you on your property valuations on the {0} rating list, for properties that you assign them to or they add to your account.
 propertyRepresentation.ratingLists.p=This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign them to or they add to your account.
+propertyRepresentation.ratingList.p.one=This agent can act for you on your property valuations on the {0} rating list, for properties that you assign them to or they add to your account.
+propertyRepresentation.ratingList.p.two=This agent can act for you on your property valuations on the {0} and {1} rating list, for properties that you assign them to or they add to your account.
+propertyRepresentation.ratingList.p.three=This agent can act for you on your property valuations on the {0}, {1}, and {2} rating lists, for properties that you assign them to or they add to your account.
+
 propertyRepresentation.agentProperties.assigned.none=This agent is not assigned to any properties.
 propertyRepresentation.manageAgent.options.changeRatingList=Change which rating list they can act on for you
 error.propertyRepresentation.agentProperties.filter=Search Properties - you must enter something to search for
