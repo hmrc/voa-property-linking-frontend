@@ -47,12 +47,6 @@ class ConfirmAgentAppointController @Inject() (
     authenticated.andThen(withAppointAgentSession) { implicit request =>
       request.sessionData match {
         case data: ManagingProperty =>
-          // todo move this into the view
-          val secondKey: Option[String] =
-            Some(
-              s"propertyRepresentation.confirmation.secondBulletPoint.${data.ratingLists.sorted(Ordering.String.reverse).mkString(".")}"
-            )
-
           Ok(
             confirmationView(
               agentName = request.agentDetails.name,
