@@ -92,7 +92,7 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val cancelText = "Cancel"
   val appointText = "Appoint"
   val noPropertiesText = "There are no properties to display."
-  val noAddressChoiceText = "Select one or more properties"
+  val noAddressChoiceText = "Select which properties you want to unassign this agent from"
   val emptyAddressErrorText = "You must enter something to search for"
 
   val titleTextWelsh = s"O ba eiddo ydych chi am ddadneilltuo $agentName? - Valuation Office Agency - GOV.UK"
@@ -116,7 +116,7 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val cancelTextWelsh = "Canslo"
   val appointTextWelsh = "Penodi"
   val noPropertiesTextWelsh = "Nid oes eiddo i’w harddangos."
-  val noAddressChoiceTextWelsh = "Dewis un eiddo neu fwy"
+  val noAddressChoiceTextWelsh = "Dewiswch ba eiddo rydych chi am ddadaseinio’r asiant hwn oddi wrthynt"
   val emptyAddressErrorTextWelsh = "Rhaid i chi nodi rhywbeth i chwilio amdano"
   val emptyAddressErrorAboveLabelTextWelsh =
     "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano" // Should be the same as the above but for some reason its not

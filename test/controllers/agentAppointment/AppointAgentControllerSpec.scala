@@ -837,7 +837,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe BAD_REQUEST
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainText("Select one or more properties")
+    page.shouldContainText("Select which properties you want to unassign this agent from")
     verifyPageErrorTitle(page)
   }
 
@@ -862,7 +862,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe BAD_REQUEST
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainText("Dewis un eiddo neu fwy")
+    page.shouldContainText("Dewiswch ba eiddo rydych chi am ddadaseinio’r asiant hwn oddi wrthynt")
     verifyPageErrorTitle(page, isWelsh = true)
   }
 
