@@ -32,6 +32,10 @@ import java.util.UUID
 
 class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
+  override lazy val extraConfig: Map[String, Any] = Map(
+    "feature-switch.agentListYears.enabled" -> "false"
+  )
+
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
@@ -142,6 +146,7 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
       }
     }
+
     "display 'Manage Agent Properties' screen with the correct text and the language is set to English and Agent got properties assigned only for 2023 list" which {
 
       lazy val document = getYourAgentsPropertiesPage(English, testOwnerAuthResultNoProperties, testAgentListFor2023)
@@ -187,6 +192,7 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
     }
+
     "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh and Agent got no properties assigned " which {
 
       lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultNoProperties, testAgentList)
@@ -206,6 +212,7 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
       }
     }
+
     "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh and Agent got properties assigned only for 2023 list" which {
 
       lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultNoProperties, testAgentListFor2023)
