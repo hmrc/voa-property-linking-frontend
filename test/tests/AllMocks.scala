@@ -20,7 +20,6 @@ import actions.AuthenticatedAction
 import actions.propertylinking.WithLinkingSession
 import auditing.AuditingService
 import auth.GovernmentGatewayProvider
-import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import connectors.authorisation.BusinessRatesAuthorisationConnector
 import connectors.challenge.ChallengeConnector
@@ -59,7 +58,6 @@ trait AllMocks { self: MockitoSugar with BeforeAndAfterEach =>
   val mockPropertyLinkService: PropertyLinkService = mock[PropertyLinkService]
   val mockPropertyLinkingService: PropertyLinkingService = mock[PropertyLinkingService]
   val mockSessionRepository: SessionRepository = mock[SessionRepository]
-  val mockFeatureSwitch: FeatureSwitch = mock[FeatureSwitch]
   val mockWithLinkingSession: WithLinkingSession = mock[WithLinkingSession]
   val mockPersonalDetailsSessionRepository: PersonalDetailsSessionRepository = mock[PersonalDetailsSessionRepository]
   val mockAgentRelationshipService: AgentRelationshipService = mock[AgentRelationshipService]

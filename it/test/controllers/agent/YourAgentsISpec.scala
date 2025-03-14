@@ -83,7 +83,7 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
   val appointAgentHref = "/business-rates-property-linking/my-organisation/appoint-new-agent"
   val helpWithAppointingHref = "https://www.gov.uk/guidance/appoint-an-agent"
 
-  "ManageAgentController showAgents method with agentListYears flag ON" should {
+  "ManageAgentController showAgents method" should {
     "display the 'Your agents' page with the correct text in English when the user has agents appointed" which {
       lazy val document = getYourAgentsPage(language = English, agentsAppointed = true)
 

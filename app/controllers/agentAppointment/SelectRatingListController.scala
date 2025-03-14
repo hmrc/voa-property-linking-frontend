@@ -19,7 +19,6 @@ package controllers.agentAppointment
 import actions.AuthenticatedAction
 import actions.agentrelationship.WithAppointAgentSessionRefiner
 import binders.propertylinks.GetPropertyLinksParameters
-import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
@@ -38,7 +37,6 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class SelectRatingListController @Inject() (
       authenticated: AuthenticatedAction,
-      featureSwitch: FeatureSwitch,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
       agentRelationshipService: AgentRelationshipService,
       @Named("appointNewAgentSession") val sessionRepo: SessionRepo,
@@ -53,54 +51,51 @@ class SelectRatingListController @Inject() (
 
   def show(fromCyaChange: Boolean = false): Action[AnyContent] =
     authenticated.async { implicit request =>
-      if (featureSwitch.isAgentListYearsEnabled) {
-        for {
-          agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
-          selectedAgent = agentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
-        } yield selectedAgent match {
-          case answers: ManagingProperty if answers.specificRatingList.nonEmpty =>
-            Future.successful(
-              Ok(
-                selectRatingListView(
-                  fromCyaChange,
-                  ratingListYears.fill(RatingListYearsOptions.fromName(answers.specificRatingList.get).get),
-                  backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
-                )
+      (for {
+        agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
+        selectedAgent = agentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+      } yield selectedAgent match {
+        case answers: ManagingProperty if answers.specificRatingList.nonEmpty =>
+          Future.successful(
+            Ok(
+              selectRatingListView(
+                fromCyaChange,
+                ratingListYears.fill(RatingListYearsOptions.fromName(answers.specificRatingList.get).get),
+                backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
               )
             )
-          case answers: SelectedAgent if answers.specificRatingList.nonEmpty =>
-            Future.successful(
-              Ok(
-                selectRatingListView(
-                  fromCyaChange,
-                  ratingListYears.fill(RatingListYearsOptions.fromName(answers.specificRatingList.get).get),
-                  backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
-                )
+          )
+        case answers: SelectedAgent if answers.specificRatingList.nonEmpty =>
+          Future.successful(
+            Ok(
+              selectRatingListView(
+                fromCyaChange,
+                ratingListYears.fill(RatingListYearsOptions.fromName(answers.specificRatingList.get).get),
+                backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
               )
             )
-          case answers: SelectedAgent =>
-            Future.successful(
-              Ok(
-                selectRatingListView(
-                  fromCyaChange,
-                  ratingListYears,
-                  backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
-                )
+          )
+        case answers: SelectedAgent =>
+          Future.successful(
+            Ok(
+              selectRatingListView(
+                fromCyaChange,
+                ratingListYears,
+                backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
               )
             )
-          case answers: ManagingProperty =>
-            Future.successful(
-              Ok(
-                selectRatingListView(
-                  fromCyaChange,
-                  ratingListYears,
-                  backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
-                )
+          )
+        case answers: ManagingProperty =>
+          Future.successful(
+            Ok(
+              selectRatingListView(
+                fromCyaChange,
+                ratingListYears,
+                backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
               )
             )
-        }
-      }.flatten
-      else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+          )
+      }).flatten
     }
 
   def submitRatingListYear(fromCyaChange: Boolean = false): Action[AnyContent] =
@@ -218,13 +213,11 @@ class SelectRatingListController @Inject() (
       )
     )
 
-  private def getBacklinkForCheckAnswersPage(propertySize: Int, specificTaxYears: Option[String]): String =
+  private def getBacklinkForCheckAnswersPage(propertySize: Int, specificListYear: Option[String]): String =
     propertySize match {
-      case 0 if featureSwitch.isAgentListYearsEnabled =>
-        if (specificTaxYears.nonEmpty) routes.SelectRatingListController.show().url
-        else routes.RatingListOptionsController.show().url
       case 0 =>
-        routes.AddAgentController.isCorrectAgent().url
+        if (specificListYear.nonEmpty) routes.SelectRatingListController.show().url
+        else routes.RatingListOptionsController.show().url
       case 1 =>
         routes.AddAgentController.oneProperty().url
       case _ =>

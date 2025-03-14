@@ -187,8 +187,6 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
       }
     }
 
-    // These scenarios are for the ratings list being enabled. Check ListYearsFeatureSwitchISpec for when its disabled.
-
     s"Redirect to the Agent Code page when the user chooses $noText" when {
       lazy val res = validPostIsCorrectAgentPage(answer = false)
 

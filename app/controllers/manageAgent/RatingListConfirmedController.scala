@@ -17,7 +17,6 @@
 package controllers.manageAgent
 
 import actions.AuthenticatedAction
-import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
@@ -34,8 +33,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class RatingListConfirmedController @Inject() (
       confirmedListView: views.html.manageAgent.ratingListsConfirmed,
       manageAgentSessionRepository: ManageAgentSessionRepository,
-      authenticated: AuthenticatedAction,
-      featureSwitch: FeatureSwitch
+      authenticated: AuthenticatedAction
 )(implicit
       executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -46,12 +44,10 @@ class RatingListConfirmedController @Inject() (
 
   def show: Action[AnyContent] =
     authenticated.async { implicit request =>
-      if (featureSwitch.isAgentListYearsEnabled)
-        manageAgentSessionRepository.get[AgentSummary].map {
-          case Some(AgentSummary(_, _, name, _, _, Some(listYears))) =>
-            Ok(confirmedListView(chosenListYears = listYears.toList, agentName = name))
-          case _ => NotFound(errorHandler.notFoundErrorTemplate)
-        }
-      else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(AgentSummary(_, _, name, _, _, Some(listYears))) =>
+          Ok(confirmedListView(chosenListYears = listYears.toList, agentName = name))
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      }
     }
 }

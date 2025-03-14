@@ -37,9 +37,7 @@
     @if(form.errors.nonEmpty) {
         @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
     }
-    @if(config.agentListYears) {
-        <span class="govuk-caption-l" >@messages("propertyRepresentation.manageAgent.title")</span>
-    }
+    <span class="govuk-caption-l" >@messages("propertyRepresentation.manageAgent.title")</span>
     <h1 id="unassignFromProperty-question" class="govuk-heading-l">@title</h1>
     <p id="unassignFromProperty-p1" class="govuk-body">@messages("propertyRepresentation.manageAgent.unassignFromProperty.p1")</p>
     @revokedAgentPrivilegesView()

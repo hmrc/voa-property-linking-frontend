@@ -17,7 +17,6 @@
 package controllers.manageAgent
 
 import actions.AuthenticatedAction
-import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
@@ -36,7 +35,6 @@ class AreYouSureController @Inject() (
       areYouSureView: views.html.manageAgent.areYouSure,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction,
-      featureSwitch: FeatureSwitch,
       propertyLinkingService: PropertyLinkingService
 )(implicit
       executionContext: ExecutionContext,
@@ -48,33 +46,29 @@ class AreYouSureController @Inject() (
 
   def show(chosenListYear: String): Action[AnyContent] =
     authenticated.async { implicit request =>
-      if (featureSwitch.isAgentListYearsEnabled)
-        if (chosenListYear == "2017" || chosenListYear == "2023")
-          manageAgentSessionRepository.get[AgentSummary].map {
-            case Some(AgentSummary(_, representativeCode, agentName, _, _, _)) =>
-              Ok(
-                areYouSureView(
-                  agentName = agentName,
-                  chosenListYear = chosenListYear,
-                  backLink = getBackLink,
-                  agentCode = representativeCode
-                )
+      if (chosenListYear == "2017" || chosenListYear == "2023")
+        manageAgentSessionRepository.get[AgentSummary].map {
+          case Some(AgentSummary(_, representativeCode, agentName, _, _, _)) =>
+            Ok(
+              areYouSureView(
+                agentName = agentName,
+                chosenListYear = chosenListYear,
+                backLink = getBackLink,
+                agentCode = representativeCode
               )
-            case _ => NotFound(errorHandler.notFoundErrorTemplate)
-          }
-        else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+            )
+          case _ => NotFound(errorHandler.notFoundErrorTemplate)
+        }
       else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
     }
 
   def submitRatingListYears(chosenListYear: String): Action[AnyContent] =
     authenticated.async { implicit request =>
-      if (featureSwitch.isAgentListYearsEnabled)
-        manageAgentSessionRepository.get[AgentSummary].flatMap {
-          case Some(agentSummary) =>
-            propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List(chosenListYear))
-          case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
-        }
-      else Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+      manageAgentSessionRepository.get[AgentSummary].flatMap {
+        case Some(agentSummary) =>
+          propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List(chosenListYear))
+        case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+      }
     }
 
   def getBackLink: String = controllers.manageAgent.routes.WhichRatingListController.show.url

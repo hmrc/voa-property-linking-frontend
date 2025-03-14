@@ -17,10 +17,11 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components.link
 @import config.ApplicationConfig
+@import models.propertyrepresentation.ManagingProperty
 
 @this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
 
-@(agentName: String, assignedToMessageKey: Option[String], secondBulletPoint: Option[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, managingPropertyData: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @mainLayout(
     pageTitle = messages("propertyRepresentation.confirmation.title", agentName),
@@ -32,31 +33,21 @@
         content = HtmlContent("")
     ))
 
-    @assignedToMessageKey.map{ messageKey =>
-        <p id="assigned-to" class="govuk-body">@messages(messageKey)</p>
-    }
-
     <p class="govuk-body" id="agent-can-text">@messages("propertyRepresentation.confirmation.thisAgentCan")</p>
     <ul class="govuk-list govuk-list--bullet" id="agent-can-list">
         <li id="add-properties-text">@messages("propertyRepresentation.confirmation.thisAgentCan.list.1")</li>
-        @secondBulletPoint.map{ messageKey =>
-            <li id="act-on-valuations-text">@messages(messageKey)</li>
-        }
+        <li id="act-on-valuations-text">@messages(s"propertyRepresentation.confirmation.secondBulletPoint.${managingPropertyData.ratingLists.sorted(Ordering.String.reverse).mkString(".")}")</li>
+
     </ul>
 
     <h2 id="what-happens-next-title" class="govuk-heading-m">@messages("propertyRepresentation.confirmation.whatHappensNext")</h2>
 
-    @if(config.agentListYears) {
     @link(
         preLinkText = Some(messages("propertyRepresentation.confirmation.whatHappensNext.new.p1")),
         linkText = messages("propertyRepresentation.confirmation.whatHappensNext.new.p1.link"),
         location = controllers.agent.routes.ManageAgentController.showAgents.url,
         linkId = Some("showAgent")
     )
-
-    } else {
-        <p class="govuk-body" id="what-happens-next-text">@Html(messages("propertyRepresentation.confirmation.whatHappensNext.p1", controllers.agent.routes.ManageAgentController.showAgents.url))</p>
-    }
 
 
 

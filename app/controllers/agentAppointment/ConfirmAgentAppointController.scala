@@ -18,7 +18,6 @@ package controllers.agentAppointment
 
 import actions.AuthenticatedAction
 import actions.agentrelationship.WithAppointAgentSessionRefiner
-import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import models.propertyrepresentation._
@@ -35,8 +34,7 @@ class ConfirmAgentAppointController @Inject() (
       authenticated: AuthenticatedAction,
       withAppointAgentSession: WithAppointAgentSessionRefiner,
       @Named("appointNewAgentSession") val appointNewAgentSession: SessionRepo,
-      confirmationView: views.html.propertyrepresentation.appoint.confirmation,
-      featureSwitch: FeatureSwitch
+      confirmationView: views.html.propertyrepresentation.appoint.confirmation
 )(implicit
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
@@ -48,32 +46,10 @@ class ConfirmAgentAppointController @Inject() (
     authenticated.andThen(withAppointAgentSession) { implicit request =>
       request.sessionData match {
         case data: ManagingProperty =>
-          val key =
-            if (featureSwitch.isAgentListYearsEnabled == false)
-              if (data.singleProperty)
-                Some("propertyRepresentation.confirmation.yourProperty")
-              else
-                data.managingPropertyChoice match {
-                  case All.name            => Some("propertyRepresentation.confirmation.allProperties")
-                  case ChooseFromList.name => Some("propertyRepresentation.confirmation.selectedProperties")
-                  case _                   => None
-                }
-            else None
-
-          val secondKey: Option[String] =
-            if (!featureSwitch.isAgentListYearsEnabled)
-              Some("propertyRepresentation.confirmation.thisAgentCan.list.2")
-            else {
-              Some(
-                s"propertyRepresentation.confirmation.secondBulletPoint.${data.ratingLists.sorted(Ordering.String.reverse).mkString(".")}"
-              )
-            }
-
           Ok(
             confirmationView(
               agentName = request.agentDetails.name,
-              assignedToMessageKey = key,
-              secondBulletPoint = secondKey
+              managingPropertyData = data
             )
           )
       }
