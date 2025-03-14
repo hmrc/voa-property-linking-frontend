@@ -571,9 +571,10 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     when(mockAppointRevokeService.getMyOrganisationsPropertyLinks(any(), any())(any()))
       .thenReturn(Future.successful(ownerAuthResultResponse))
 
-    val res = testController.appointAgentSummary(agentCode, None, backLinkUrl, fromManageAgentJourney = true)(      FakeRequest().withFormUrlEncodedBody(
+    val res = testController.appointAgentSummary(agentCode, None, backLinkUrl, fromManageAgentJourney = true)(
+      FakeRequest().withFormUrlEncodedBody(
         "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
-        "name" -> testAgentAccount.companyName,
+        "name"      -> testAgentAccount.companyName,
         // "linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
         "backLinkUrl" -> backLinkUrl.unsafeValue
       )
@@ -598,7 +599,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val res = testController.appointAgentSummary(agentCode, None, backLinkUrl, fromManageAgentJourney = true)(
       welshFakeRequest.withFormUrlEncodedBody(
         "agentCode" -> testAgentAccount.agentCode.fold("0")(_.toString),
-        "name" -> testAgentAccount.companyName,
+        "name"      -> testAgentAccount.companyName,
         // "linkIds[]"   -> ...  OMIT linkIds to simulate bad form submission
         "backLinkUrl" -> backLinkUrl.unsafeValue
       )
