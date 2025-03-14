@@ -88,7 +88,6 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
   val managingAgentsLinkHref = "/business-rates-property-linking/my-organisation/agents"
   val goToHomeLinkHref = "/business-rates-dashboard/home"
 
-  // These are all the scenarios where the agentListYears flag is enabled, see ConfirmAgentAppointControllerFSOffISpec for when its disabled
   "onPageLoad" should {
 
     "return 200 & display the correct English content when the agent has been assigned to 2026, 2023 and 2017 list years" when {

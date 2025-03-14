@@ -18,7 +18,6 @@ package controllers.agentAppointment
 
 import actions.AuthenticatedAction
 import actions.agentrelationship.WithAppointAgentSessionRefiner
-import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import models.propertyrepresentation._

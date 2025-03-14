@@ -17,7 +17,6 @@
 package controllers.manageAgent
 
 import actions.AuthenticatedAction
-import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController

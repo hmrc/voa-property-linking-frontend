@@ -19,7 +19,6 @@ package controllers.agentAppointment
 import actions.AuthenticatedAction
 import actions.agentrelationship.WithAppointAgentSessionRefiner
 import binders.propertylinks.GetPropertyLinksParameters
-import businessrates.authorisation.config.FeatureSwitch
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController

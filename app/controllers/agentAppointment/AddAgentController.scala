@@ -21,7 +21,6 @@ import actions.agentrelationship.WithAppointAgentSessionRefiner
 import actions.agentrelationship.request.AppointAgentSessionRequest
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
-import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import controllers.agentAppointment.AppointNewAgentForms._

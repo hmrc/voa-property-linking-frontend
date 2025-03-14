@@ -19,7 +19,6 @@ package controllers.agent
 import actions.AuthenticatedAction
 import binders.pagination.PaginationParameters
 import binders.propertylinks.GetPropertyLinksParameters
-import businessrates.authorisation.config.FeatureSwitch
 import config.ApplicationConfig
 import controllers.{PaginationParams, PropertyLinkingController}
 import models.propertyrepresentation.AgentAppointmentChangesRequest.submitAgentAppointmentRequest

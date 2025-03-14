@@ -49,7 +49,6 @@ trait ISpecBase
 
   val config: Map[String, Any] = Map(
     "auditing.enabled"                                        -> "false",
-    "feature-switch.agentListYears.enabled"                   -> "true",
     "play.filters.csrf.header.bypassHeaders.Csrf-Token"       -> "nocheck",
     "play.filters.csrf.header.bypassHeaders.X-Requested-With" -> "*",
     "microservice.services.vmv.host"                          -> mockHost,
