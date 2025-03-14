@@ -676,6 +676,7 @@ error.agentProperties.filter=You must enter something to search for
 #Manage Agent
 propertyRepresentation.manageAgent.title=Manage agent
 propertyRepresentation.manageAgent.question=What do you want to do with your agent {0}?
+propertyRepresentation.manageAgent.error=Select what you want to do with this agent
 
 propertyRepresentation.manageAgent.removeFromAccount.title=Remove agent from your account
 propertyRepresentation.manageAgent.removeFromAccount.question=Are you sure you want to remove {0} from your account?
