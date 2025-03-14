@@ -28,19 +28,11 @@
         backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @ratingList = @{
-    if(config.agentListYears) {
-        listYears.sorted(Ordering.String.reverse) match {
-            case Seq(a, b, c) => messages("propertyRepresentation.ratingList.p.three", a, b, c)
-            case Seq(a, b)    => messages("propertyRepresentation.ratingList.p.two", a, b)
-            case Seq(a)       => messages("propertyRepresentation.ratingList.p.one", a)
-            case _          => ""
-        }
-    } else {
-        listYears match {
-            case Seq(year) => messages("propertyRepresentation.ratingList.p", year)
-            case Seq() => ""
-            case _ => messages("propertyRepresentation.ratingLists.p")
-        }
+    listYears.sorted(Ordering.String.reverse) match {
+        case Seq(a, b, c) => messages("propertyRepresentation.ratingList.p.three", a, b, c)
+        case Seq(a, b)    => messages("propertyRepresentation.ratingList.p.two", a, b)
+        case Seq(a)       => messages("propertyRepresentation.ratingList.p.one", a)
+        case _          => ""
     }
 }
 
