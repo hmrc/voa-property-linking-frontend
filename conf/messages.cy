@@ -622,7 +622,6 @@ error.agentProperties.filter=Rhaid i chi nodi rhywbeth i chwilio amdano
 #Manage Agent
 propertyRepresentation.manageAgent.title=Rheoli asiant
 propertyRepresentation.manageAgent.question=Beth hoffech ei wneud â’ch asiant {0}?
-propertyRepresentation.manageAgent.question.old=Beth ydych chi eisiau ei wneud i’r asiant {0}?
 
 propertyRepresentation.manageAgent.removeFromAccount.title=Dileu’r asiant o’ch cyfrif
 propertyRepresentation.manageAgent.removeFromAccount.question=Ydych chi’n siŵr eich bod am dynnu {0} o’ch cyfrif?
