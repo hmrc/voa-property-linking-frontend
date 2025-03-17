@@ -33,6 +33,8 @@ import java.util.UUID
 class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
+  val testAddress = "TEST ADDRESS"
+  val testAddress2 = "ADDRESSTEST 2"
 
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
@@ -40,186 +42,363 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val titleText = "Your agent - Valuation Office Agency - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Agent"
-  val noOrMultipleRatingListText =
-    "This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign them to or they add to your account."
-  val manageButtonText = "Appoint an agent"
-  val ratingListSectionHeading = "Rating lists they can act on for you"
-  val assignedPropertiesHeading = "Assigned properties"
-  val assignedToNoProperties = "This agent is not assigned to any properties"
-  val testAddress = "TEST ADDRESS"
-  val testAddress2 = "ADDRESSTEST 2"
-
-  def headerText(name: String) = s"$name"
-  def singleRatingListText(ratingList: String) =
-    s"This agent can act for you on your property valuations on the $ratingList rating list, for properties that you assign them to or they add to your account."
-
-  def assignedPropertyListElement(address: String) = address
-
-  def singleRatingListTextWelsh(ratingList: String) =
-    s"Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu $ratingList, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif."
+  val headerText = "Test Agent"
+  val manageButtonText = "Manage this agent"
+  val ratingListSectionHeadingText = "Rating lists they can act on for you"
+  val oneRatingListText =
+    "This agent can act for you on your property valuations on the 2026 rating list, for properties that you assign them to or they add to your account."
+  val twoRatingListText =
+    "This agent can act for you on your property valuations on the 2026 and 2023 rating list, for properties that you assign them to or they add to your account."
+  val threeRatingListText =
+    "This agent can act for you on your property valuations on the 2026, 2023, and 2017 rating lists, for properties that you assign them to or they add to your account."
+  val assignedPropertiesHeadingText = "Assigned properties"
+  val assignedToNoPropertiesText = "This agent is not assigned to any properties."
 
   val titleTextWelsh = "Eich asiant - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Asiant"
-  val noOrMultipleRatingListTextWelsh =
-    "Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif."
+  val headerTextWelsh = "Test Agent"
   val manageButtonTextWelsh = "Rheoli’r asiant hwn"
-  val ratingListSectionHeadingWelsh = "Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan"
-  val assignedPropertiesHeadingWelsh = "Eiddo wedi’u neilltuo"
-  val assignedToNoPropertiesWelsh = "Nid oes eiddo wedi’i neilltuo i’r asiant hwn."
+  val ratingListSectionHeadingTextWelsh = "Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan"
+  val oneRatingListTextWelsh =
+    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu 2026, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif."
+  val twoRatingListTextWelsh =
+    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026 a 2023, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif."
+  val threeRatingListTextWelsh =
+    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026, 2023 a 2017, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif."
+  val assignedPropertiesHeadingTextWelsh = "Eiddo wedi’u neilltuo"
+  val assignedToNoPropertiesTextWelsh = "Nid oes eiddo wedi’i neilltuo i’r asiant hwn."
 
-  val backLinkSelector = "#back-link"
-  val captionSelector = ".govuk-caption-l"
-  val headerSelector = "h1.govuk-heading-l"
-  val manageAgentButtonSelector = ".govuk-button"
-  val ratingListHeadingSelector = ".govuk-heading-m:nth-of-type(2)"
+  val backLinkTextSelector = "#back-link"
+  val captionTextSelector = ".govuk-caption-l"
+  val headerTextSelector = "h1.govuk-heading-l"
+  val manageButtonTextSelector = ".govuk-button"
+  val ratingListSectionHeadingTextSelector = ".govuk-heading-m:nth-of-type(2)"
   val ratingListTextSelector = "#ratingListText"
-  val assignedPropertiesHeadingSelector = "h2.govuk-heading-m:nth-of-type(3)"
-  val assignedPropertiesTextSelectorSomePropertiesFirst = ".govuk-list--bullet > li:nth-child(1)"
-  val assignedPropertiesTextSelectorSomePropertiesSecond = ".govuk-list--bullet > li:nth-child(2)"
-  val assignedPropertiesTextSelectorNoProperties = ".govuk-body:nth-child(7)"
+  val assignedPropertiesHeadingTextSelector = "h2.govuk-heading-m:nth-of-type(3)"
+  def assignedPropertiesTextSelector(bulletNumber: Int) = s".govuk-list--bullet > li:nth-child($bulletNumber)"
+  val assignedToNoPropertiesTextSelector = ".govuk-body:nth-child(7)"
 
-  val backLinkHref = "/business-rates-property-linking/my-organisation/agents"
+  val urlWithDashboardBackLink =
+    s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1001"
+  val backLinkDashboardHref = "/business-rates-dashboard/home"
+
+  val urlWithValuationBackLink =
+    s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1001&propertyLinkId=123&valuationId=123&propertyLinkSubmissionId=123"
+  val backLinkValuationHref =
+    "http://localhost:9537/business-rates-valuation/property-link/123/valuations/123?submissionId=123#agents-tab"
+
+  val urlWithDvrBackLink =
+    s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1001&valuationId=123&propertyLinkSubmissionId=123"
+  val backLinkDvrHref =
+    "/business-rates-property-linking/my-organisation/property-link/123/valuations/123?tabName=agents-tab"
+
+  val urlForDefaultBackLink =
+    s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1001&propertyLinkSubmissionId=123"
+  val backLinkDefaultHref = "/business-rates-property-linking/my-organisation/agents"
+
+  val manageAgentButtonHref = "/business-rates-property-linking/my-organisation/manage-agent/1001"
 
   "ManageAgentController manageAgentProperties method" should {
-    "display 'Manage Agent Properties' screen with the correct text and the language is set to English and Agent got multiple properties assigned " which {
+    "Display 'Manage Agent Properties' screen in English for multiple properties assigned, all three rating lists and dashboard back link" which {
 
-      lazy val document = getYourAgentsPropertiesPage(English, testOwnerAuthResultMultipleProperty, testAgentList)
+      lazy val document = getYourAgentsPropertiesPage(
+        English,
+        testOwnerAuthResultMultipleProperty,
+        testAgentListMethod(Some(Seq("2026", "2023", "2017"))),
+        urlWithDashboardBackLink
+      )
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleText
       }
-      "displays a correct header with agent name included" in {
-        document.select(headerSelector).text() shouldBe headerText(name = "Test Agent")
+
+      "has a back link which takes you to 'Agent List' page" in {
+        document.select(backLinkTextSelector).text() shouldBe backLinkText
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkDashboardHref
       }
 
       "displays a correct caption above the header" in {
-        document.select(captionSelector).text shouldBe captionText
+        document.select(captionTextSelector).text shouldBe captionText
+      }
+
+      "displays a correct header with agent name included" in {
+        document.select(headerTextSelector).text() shouldBe headerText
+      }
+
+      "displays a manage agent button" in {
+        document.select(manageButtonTextSelector).text() shouldBe manageButtonText
+        document.select(manageButtonTextSelector).attr("href") shouldBe manageAgentButtonHref
+      }
+
+      "has heading above rating list info with correct text" in {
+        document.select(ratingListSectionHeadingTextSelector).text() shouldBe ratingListSectionHeadingText
+      }
+
+      s"has text on the page of $threeRatingListText" in {
+        document.select(ratingListTextSelector).text shouldBe threeRatingListText
+      }
+
+      "has heading above assigned properties list with correct text" in {
+        document.select(assignedPropertiesHeadingTextSelector).text() shouldBe assignedPropertiesHeadingText
+      }
+
+      s"has a bullet point list for the two assigned properties" in {
+        document.select(assignedPropertiesTextSelector(1)).text shouldBe testAddress
+        document.select(assignedPropertiesTextSelector(2)).text shouldBe testAddress2
+      }
+    }
+
+    "Display 'Manage Agent Properties' screen in English for no properties assigned and two rating lists and valuation back link" which {
+
+      lazy val document = getYourAgentsPropertiesPage(
+        English,
+        testOwnerAuthResultNoProperties,
+        testAgentListMethod(Some(Seq("2023", "2026"))),
+        urlWithValuationBackLink
+      )
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
       }
 
       "has a back link which takes you to 'Agent List' page" in {
-        document.select(backLinkSelector).text() shouldBe backLinkText
-        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-      }
-
-      "has heading above rating list info with correct text" in {
-        document.select(ratingListHeadingSelector).text() shouldBe ratingListSectionHeading
-      }
-
-      "has heading above assigned properties list with correct text" in {
-        document.select(assignedPropertiesHeadingSelector).text() shouldBe assignedPropertiesHeading
-      }
-      s"has correct text under the heading $ratingListSectionHeading" in {
-        document.select(ratingListTextSelector).text shouldBe noOrMultipleRatingListText
-
-      }
-      s"has correct text under the heading $assignedPropertiesHeading in the first element of the list is capitalised" in {
-        document.select(assignedPropertiesTextSelectorSomePropertiesFirst).text shouldBe testAddress
-      }
-
-      s"has correct text under the heading $assignedPropertiesHeading  in the second element of the list and the address is capitalised" in {
-        document.select(assignedPropertiesTextSelectorSomePropertiesSecond).text shouldBe testAddress2
-      }
-
-    }
-
-    "display 'Manage Agent Properties' screen with the correct text and the language is set to English and Agent got no properties assigned " which {
-
-      lazy val document = getYourAgentsPropertiesPage(English, testOwnerAuthResultNoProperties, testAgentList)
-
-      s"has correct text under the heading $ratingListSectionHeading" in {
-        document.select(ratingListTextSelector).text shouldBe noOrMultipleRatingListText
-
-      }
-    }
-
-    "display 'Manage Agent Properties' screen with the correct text and the language is set to English and Agent got properties assigned only for 2017 list" which {
-
-      lazy val document = getYourAgentsPropertiesPage(English, testOwnerAuthResultNoProperties, testAgentListFor2017)
-
-      s"has correct text under the heading $ratingListSectionHeading" in {
-        document.select(ratingListTextSelector).text shouldBe singleRatingListText("2017")
-
-      }
-    }
-    "display 'Manage Agent Properties' screen with the correct text and the language is set to English and Agent got properties assigned only for 2023 list" which {
-
-      lazy val document = getYourAgentsPropertiesPage(English, testOwnerAuthResultNoProperties, testAgentListFor2023)
-
-      s"has correct text under the heading $ratingListSectionHeading" in {
-        document.select(ratingListTextSelector).text shouldBe singleRatingListText("2023")
-
-      }
-    }
-  }
-  "ManageAgentController manageAgentProperties method" should {
-    "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh and Agent got multiple properties assigned " which {
-
-      lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultMultipleProperty, testAgentList)
-
-      s"has a title of $titleText" in {
-        document.title() shouldBe titleTextWelsh
-      }
-      "displays a correct header with agent name included" in {
-        document.select(headerSelector).text() shouldBe headerText(name = "Test Agent")
+        document.select(backLinkTextSelector).text() shouldBe backLinkText
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkValuationHref
       }
 
       "displays a correct caption above the header" in {
-        document.select(captionSelector).text shouldBe captionTextWelsh
+        document.select(captionTextSelector).text shouldBe captionText
       }
 
-      "has a back link which takes you to 'Your business rates valuation account'- dashboard home page" in {
-        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
-        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      "displays a correct header with agent name included" in {
+        document.select(headerTextSelector).text() shouldBe headerText
+      }
+
+      "displays a manage agent button" in {
+        document.select(manageButtonTextSelector).text() shouldBe manageButtonText
+        document.select(manageButtonTextSelector).attr("href") shouldBe manageAgentButtonHref
       }
 
       "has heading above rating list info with correct text" in {
-        document.select(ratingListHeadingSelector).text() shouldBe ratingListSectionHeadingWelsh
+        document.select(ratingListSectionHeadingTextSelector).text() shouldBe ratingListSectionHeadingText
+      }
+
+      s"has text on the page of $twoRatingListText" in {
+        document.select(ratingListTextSelector).text shouldBe twoRatingListText
       }
 
       "has heading above assigned properties list with correct text" in {
-        document.select(assignedPropertiesHeadingSelector).text() shouldBe assignedPropertiesHeadingWelsh
+        document.select(assignedPropertiesHeadingTextSelector).text() shouldBe assignedPropertiesHeadingText
       }
 
-      s"has correct text under the heading $ratingListSectionHeading" in {
-        document.select(ratingListTextSelector).text shouldBe noOrMultipleRatingListTextWelsh
-
-      }
-
-    }
-    "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh and Agent got no properties assigned " which {
-
-      lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultNoProperties, testAgentList)
-
-      s"has correct text under the heading $ratingListSectionHeading" in {
-        document.select(ratingListTextSelector).text shouldBe noOrMultipleRatingListTextWelsh
-
+      s"has text on the screen of $assignedToNoPropertiesText" in {
+        document.select(assignedToNoPropertiesTextSelector).text shouldBe assignedToNoPropertiesText
       }
     }
 
-    "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh and Agent got properties assigned only for 2017 list" which {
+    "Display 'Manage Agent Properties' screen in English for multiple properties assigned and one rating list and dvr back link" which {
 
-      lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultNoProperties, testAgentListFor2017)
+      lazy val document = getYourAgentsPropertiesPage(
+        English,
+        testOwnerAuthResultMultipleProperty,
+        testAgentListMethod(Some(Seq("2026"))),
+        urlWithDvrBackLink
+      )
 
-      s"has correct text under the heading $ratingListSectionHeading" in {
-        document.select(ratingListTextSelector).text shouldBe singleRatingListTextWelsh("2017")
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
 
+      "has a back link which takes you to 'Agent List' page" in {
+        document.select(backLinkTextSelector).text() shouldBe backLinkText
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkDvrHref
+      }
+
+      "displays a correct caption above the header" in {
+        document.select(captionTextSelector).text shouldBe captionText
+      }
+
+      "displays a correct header with agent name included" in {
+        document.select(headerTextSelector).text() shouldBe headerText
+      }
+
+      "displays a manage agent button" in {
+        document.select(manageButtonTextSelector).text() shouldBe manageButtonText
+        document.select(manageButtonTextSelector).attr("href") shouldBe manageAgentButtonHref
+      }
+
+      "has heading above rating list info with correct text" in {
+        document.select(ratingListSectionHeadingTextSelector).text() shouldBe ratingListSectionHeadingText
+      }
+
+      s"has text on the page of $oneRatingListText" in {
+        document.select(ratingListTextSelector).text shouldBe oneRatingListText
+      }
+
+      "has heading above assigned properties list with correct text" in {
+        document.select(assignedPropertiesHeadingTextSelector).text() shouldBe assignedPropertiesHeadingText
+      }
+
+      s"has a bullet point list for the two assigned properties" in {
+        document.select(assignedPropertiesTextSelector(1)).text shouldBe testAddress
+        document.select(assignedPropertiesTextSelector(2)).text shouldBe testAddress2
       }
     }
-    "display 'Manage Agent Properties' screen with the correct text and the language is set to Welsh and Agent got properties assigned only for 2023 list" which {
 
-      lazy val document = getYourAgentsPropertiesPage(Welsh, testOwnerAuthResultNoProperties, testAgentListFor2023)
+    "Display 'Manage Agent Properties' screen in Welsh for multiple properties assigned and all three rating lists and default back link" which {
 
-      s"has correct text under the heading $ratingListSectionHeading" in {
-        document.select(ratingListTextSelector).text shouldBe singleRatingListTextWelsh("2023")
+      lazy val document = getYourAgentsPropertiesPage(
+        Welsh,
+        testOwnerAuthResultMultipleProperty,
+        testAgentListMethod(Some(Seq("2026", "2023", "2017"))),
+        urlForDefaultBackLink
+      )
 
+      s"has a title of $titleText in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      "has a back link which takes you to 'Agent List' page in welsh" in {
+        document.select(backLinkTextSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkDefaultHref
+      }
+
+      "displays a correct caption above the header in welsh" in {
+        document.select(captionTextSelector).text() shouldBe captionTextWelsh
+      }
+
+      "displays a correct header with agent name included in welsh" in {
+        document.select(headerTextSelector).text() shouldBe headerTextWelsh
+      }
+
+      "displays a manage agent button in welsh" in {
+        document.select(manageButtonTextSelector).text() shouldBe manageButtonTextWelsh
+        document.select(manageButtonTextSelector).attr("href") shouldBe manageAgentButtonHref
+      }
+
+      "has heading above rating list info with correct text in welsh" in {
+        document.select(ratingListSectionHeadingTextSelector).text() shouldBe ratingListSectionHeadingTextWelsh
+      }
+
+      s"has text on the page of $threeRatingListText in welsh" in {
+        document.select(ratingListTextSelector).text() shouldBe threeRatingListTextWelsh
+      }
+
+      "has heading above assigned properties list with correct text in welsh" in {
+        document.select(assignedPropertiesHeadingTextSelector).text() shouldBe assignedPropertiesHeadingTextWelsh
+      }
+
+      s"has a bullet point list for the two assigned properties in welsh" in {
+        document.select(assignedPropertiesTextSelector(1)).text shouldBe testAddress
+        document.select(assignedPropertiesTextSelector(2)).text shouldBe testAddress2
       }
     }
+
+    "Display 'Manage Agent Properties' screen in Welsh for no properties assigned and two rating lists" which {
+
+      lazy val document = getYourAgentsPropertiesPage(
+        Welsh,
+        testOwnerAuthResultNoProperties,
+        testAgentListMethod(Some(Seq("2023", "2026"))),
+        urlWithDashboardBackLink
+      )
+
+      s"has a title of $titleText in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      "has a back link which takes you to 'Agent List' page in welsh" in {
+        document.select(backLinkTextSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkDashboardHref
+      }
+
+      "displays a correct caption above the header in welsh" in {
+        document.select(captionTextSelector).text() shouldBe captionTextWelsh
+      }
+
+      "displays a correct header with agent name included in welsh" in {
+        document.select(headerTextSelector).text() shouldBe headerTextWelsh
+      }
+
+      "displays a manage agent button in welsh" in {
+        document.select(manageButtonTextSelector).text() shouldBe manageButtonTextWelsh
+        document.select(manageButtonTextSelector).attr("href") shouldBe manageAgentButtonHref
+      }
+
+      "has heading above rating list info with correct text in welsh" in {
+        document.select(ratingListSectionHeadingTextSelector).text() shouldBe ratingListSectionHeadingTextWelsh
+      }
+
+      s"has text on the page of $twoRatingListText in welsh" in {
+        document.select(ratingListTextSelector).text() shouldBe twoRatingListTextWelsh
+      }
+
+      "has heading above assigned properties list with correct text in welsh" in {
+        document.select(assignedPropertiesHeadingTextSelector).text() shouldBe assignedPropertiesHeadingTextWelsh
+      }
+
+      s"has text on the screen of $assignedToNoPropertiesText in welsh" in {
+        document.select(assignedToNoPropertiesTextSelector).text() shouldBe assignedToNoPropertiesTextWelsh
+      }
+    }
+
+    "Display 'Manage Agent Properties' screen in English for multiple properties assigned and one rating list" which {
+
+      lazy val document = getYourAgentsPropertiesPage(
+        Welsh,
+        testOwnerAuthResultMultipleProperty,
+        testAgentListMethod(Some(Seq("2026"))),
+        urlWithDashboardBackLink
+      )
+
+      s"has a title of $titleText in welsh" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      "has a back link which takes you to 'Agent List' page in welsh" in {
+        document.select(backLinkTextSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkDashboardHref
+      }
+
+      "displays a correct caption above the header in welsh" in {
+        document.select(captionTextSelector).text() shouldBe captionTextWelsh
+      }
+
+      "displays a correct header with agent name included in welsh" in {
+        document.select(headerTextSelector).text() shouldBe headerTextWelsh
+      }
+
+      "displays a manage agent button in welsh" in {
+        document.select(manageButtonTextSelector).text() shouldBe manageButtonTextWelsh
+        document.select(manageButtonTextSelector).attr("href") shouldBe manageAgentButtonHref
+      }
+
+      "has heading above rating list info with correct text in welsh" in {
+        document.select(ratingListSectionHeadingTextSelector).text() shouldBe ratingListSectionHeadingTextWelsh
+      }
+
+      s"has text on the page of $oneRatingListText in welsh" in {
+        document.select(ratingListTextSelector).text() shouldBe oneRatingListTextWelsh
+      }
+
+      "has heading above assigned properties list with correct text in welsh" in {
+        document.select(assignedPropertiesHeadingTextSelector).text() shouldBe assignedPropertiesHeadingTextWelsh
+      }
+
+      s"has a bullet point list for the two assigned properties in welsh" in {
+        document.select(assignedPropertiesTextSelector(1)).text shouldBe testAddress
+        document.select(assignedPropertiesTextSelector(2)).text shouldBe testAddress2
+      }
+    }
+
   }
+
   private def getYourAgentsPropertiesPage(
         language: Language,
         authDetails: OwnerAuthResult,
-        list: AgentList
+        list: AgentList,
+        url: String
   ): Document = {
 
     stubFor {
@@ -260,7 +439,7 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
 
     val res = await(
       ws.url(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1001"
+        url
       ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
