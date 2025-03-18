@@ -873,15 +873,18 @@ selectRatingList.valuationsBetween2017 = Ar gyfer prisiadau rhwng 1 Ebrill 2017 
 selectRatingList.error = Dewiswch pa restr ardrethu rydych chi am i’r asiant hwn weithredu arni ar eich rhan
 
 #Rating list years confirmation screen
-ratingsListConfirmation.multiple.header = A ydych yn siŵr eich bod am i {0} weithredu ar restrau ardrethu 2023 a 2017 ar eich rhan?
+ratingsListConfirmation.multiple.heading.three = Ydych chi’n siŵr eich bod am i {0} weithredu ar eich rhan ar restrau ardrethu {1}, {2}, a {3}?
+ratingsListConfirmation.multiple.heading.two = Ydych chi’n siŵr eich bod am i {0} weithredu ar eich rhan ar restrau ardrethu {1} a {2}?
 ratingsListConfirmation.multiple.forAllYour = Bydd yr asiant hwn yn gallu gwneud y canlynol ar gyfer pob un o’ch prisiadau eiddo o restrau ardrethu 2023 a 2017:
+ratingsListConfirmation.multiple.forAllYour.three = Ar gyfer eich holl brisiadau eiddo ar restrau ardrethu {0}, {1}, a {2}, bydd yr asiant hwn yn gallu:
+ratingsListConfirmation.multiple.forAllYour.two = Ar gyfer eich holl brisiadau eiddo ar restrau ardrethu {0} a {1}, bydd yr asiant hwn yn gallu:
 ratingsListConfirmation.multiple.seeDetailed = gweld gwybodaeth fanwl am eiddo
 ratingsListConfirmation.multiple.seeCheck = gweld gohebiaeth ynghylch achosion Gwirio a Herio, megis negeseuon ac e-byst
 ratingsListConfirmation.multiple.sendCheck = anfon achosion Gwirio a Herio
 ratingsListConfirmation.multiple.thisApplies = Mae hyn yn berthnasol i eiddo rydych yn eu neilltuo iddo, ac i eiddo y mae’n eu hychwanegu at eich cyfrif
 ratingsListConfirmation.header = A ydych yn siŵr eich bod am i {0} weithredu ar restr ardrethu {1} ar eich rhan?
-ratingsListConfirmation.thisAgentWill = Bydd yr asiant hwn ond yn gallu gweithredu ar restr ardrethu {0} ar eich rhan.
-ratingsListConfirmation.theyWillNot = Ni fydd modd iddo weld prisiadau o restr ardrethu {0} na gweithredu arnynt ar eich rhan.
+ratingsListConfirmation.thisAgentWill = Bydd yr asiant hwn ond yn gallu gweithredu ar eich rhan ar restr ardrethu {0}.
+ratingsListConfirmation.theyWillNot = Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu {0} na {1}, na gweithredu arnynt ar eich rhan.
 ratingsListConfirmation.restricting = Bydd cyfyngu asiant i un rhestr ardrethu tra bo achosion Gwirio a Herio ar y gweill ganddo ar restr ardrethu arall yn golygu na fydd modd iddo weithredu arnynt ar eich rhan mwyach.
 
 #Rating list years confirmed screen

@@ -845,15 +845,18 @@ selectRatingList.valuationsBetween2017 = For valuations between 1 April 2017 and
 selectRatingList.error = Select which rating list you want this agent to act on for you
 
 #Rating list years confirmation screen
-ratingsListConfirmation.multiple.header = Are you sure you want {0} to act for you on the 2023 and 2017 rating lists?
+ratingsListConfirmation.multiple.heading.three = Are you sure you want {0} to act for you on the {1}, {2}, and {3} rating lists?
+ratingsListConfirmation.multiple.heading.two = Are you sure you want {0} to act for you on the {1} and {2} rating lists?
 ratingsListConfirmation.multiple.forAllYour = For all your property valuations on the 2023 and 2017 rating lists, this agent will be able to:
+ratingsListConfirmation.multiple.forAllYour.three = For all your property valuations on the {0}, {1}, and {2} rating lists, this agent will be able to:
+ratingsListConfirmation.multiple.forAllYour.two = For all your property valuations on the {0} and {1} rating lists, this agent will be able to:
 ratingsListConfirmation.multiple.seeDetailed = see detailed property information
 ratingsListConfirmation.multiple.seeCheck = see Check and Challenge case correspondence such as messages and emails
 ratingsListConfirmation.multiple.sendCheck = send Check and Challenge cases
 ratingsListConfirmation.multiple.thisApplies = This applies to properties that you assign to them or they add to your account
 ratingsListConfirmation.header = Are you sure you want {0} to act for you on the {1} rating list?
 ratingsListConfirmation.thisAgentWill = This agent will only be able to act for you on the {0} rating list.
-ratingsListConfirmation.theyWillNot = They will not be able to see valuations on the {0} rating list, or act on them for you.
+ratingsListConfirmation.theyWillNot = They will not be able to see valuations on the {0} or {1} rating lists, or act on them for you.
 ratingsListConfirmation.restricting = Restricting an agent to a single rating list when they have Check and Challenge cases in progress on the other rating list means they will no longer be able to act on them for you.
 
 ##Appoint agent summary

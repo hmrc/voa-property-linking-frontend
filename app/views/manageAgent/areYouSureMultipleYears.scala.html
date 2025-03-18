@@ -19,16 +19,27 @@
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
     govukInsetText: GovukInsetText)
 
-@(agentName: String, agentCode: Long, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, agentCode: Long, backLink: String, listYears: Option[Seq[String]])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@ratingList(test: String) = @{
+    listYears match {
+        case Some(years) => years.sorted(Ordering.String.reverse) match {
+                            case Seq(a, b, c) => if(test == "p") messages("ratingsListConfirmation.multiple.forAllYour.three", a, b, c) else messages("ratingsListConfirmation.multiple.heading.three", agentName, a, b, c)
+                            case Seq(a, b)    => if(test == "p") messages("ratingsListConfirmation.multiple.forAllYour.two", a, b) else messages("ratingsListConfirmation.multiple.heading.two", agentName, a, b)
+                            case _          => ""
+                        }
+        case _ => "year not found"
+    }
+}
 
 @mainLayout(
     backUri = Some(backLink),
-    pageTitle = messages("ratingsListConfirmation.multiple.header", agentName)) {
+    pageTitle = ratingList("heading")) {
 
     <span class="govuk-caption-l" >@messages("propertyRepresentation.manageAgent.title")</span>
-    <h1 class="govuk-heading-l">@messages("ratingsListConfirmation.multiple.header", agentName)</h1>
+    <h1 class="govuk-heading-l">@ratingList("heading")</h1>
 
-    <p class="govuk-body">@messages("ratingsListConfirmation.multiple.forAllYour")</p>
+    <p class="govuk-body">@ratingList("p")</p>
 
     <ul class="govuk-list govuk-list--bullet">
       <li id="rating-list-1">@messages("ratingsListConfirmation.multiple.seeDetailed")</li>
