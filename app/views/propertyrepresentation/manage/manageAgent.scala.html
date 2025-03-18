@@ -39,7 +39,8 @@
     hasErrors = form.hasErrors
 ) {
     @if(form.errors.nonEmpty) {
-        @govukErrorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.propertyRepresentation.title"))))
+        @govukErrorSummary(ErrorSummary(errorList = Seq(ErrorLink(href = Some("#manageAgentOption"),
+content = HtmlContent(messages("propertyRepresentation.manageAgent.error")))), title = Text(messages("error.propertyRepresentation.title"))))
     }
 
     <h2 class="govuk-caption-l">@messages("propertyRepresentation.manageAgent.title")</h2>
@@ -49,6 +50,7 @@
     @formWithCSRF(action = controllers.agent.routes.ManageAgentController.submitManageAgent(agent.representativeCode)) {
         <input type="hidden" name="agentName" value="@agent.name">
         @govukRadios(Radios(
+            errorMessage = if(form.errors.nonEmpty) Some(ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages("propertyRepresentation.manageAgent.error")))) else None,
             idPrefix = Some("manageAgentOption"),
             name = "manageAgentOption",
             items = radioItems

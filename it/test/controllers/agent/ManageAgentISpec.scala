@@ -53,6 +53,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val radioUnassignedASomeText = "Unassign from one or more properties"
   val radioChangeText = "Change which rating list they can act on for you"
   val radioRemoveText = "Remove from your account"
+  val errorSpan = "Error: "
+  val noOptionChoiceText = "Select what you want to do with this agent"
 
   val titleTextWelsh = "Beth hoffech ei wneud â’ch asiant Test Agent? - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
@@ -69,6 +71,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val radioChangeTextWelsh = "Newid pa restr ardrethu y gall yr asiant hwn weithredu arni ar eich rhan"
   val radioRemoveTextWelsh = "Dileu o’ch cyfrif"
   val radioUnAssignYourTextWelsh = "Tynnu o’m heiddo"
+  val errorSpanWelsh = "Gwall: "
+  val noOptionChoiceTextWelsh = "Dewiswch beth rydych chi am ei wneud gyda’r asiant hwn"
 
   val backLinkSelector = "#back-link"
   val captionSelector = ".govuk-caption-l"
@@ -79,6 +83,8 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val thirdRadioLabelSelector = ".govuk-radios__item:nth-child(3) > .govuk-label"
   val fourthRadioLabelSelector = ".govuk-radios__item:nth-child(4) > .govuk-label"
   val fifthRadioLabelSelector = ".govuk-radios__item:nth-child(5) > .govuk-label"
+  val errorAtSummarySelector = "#main-content > div > div > div > div > div > ul > li > a"
+  val noOptionChoiceAtLabelSelector = "#manageAgentOption-error"
 
   val backLinkHref = s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=100"
   val radioAssignAllHref = "business-rates-property-linking/my-organisation/manage-agent/assign/to-all-properties"
@@ -241,6 +247,40 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(firstRadioLabelSelector).text shouldBe radioUnAssignYourTextWelsh
         document.select(secondRadioLabelSelector).text shouldBe radioChangeTextWelsh
       }
+    }
+  }
+
+  "agent assignment option not selected in English" should {
+    s"returns an error" which {
+
+      lazy val document = postPageWithNoOption(English)
+
+      s"has an error in the error summary of $noOptionChoiceText in English" in {
+        document.select(errorAtSummarySelector).text shouldBe noOptionChoiceText
+        document.select(errorAtSummarySelector).attr("href") shouldBe "#manageAgentOption"
+      }
+
+      s"has an error above the label of $noOptionChoiceText in English" in {
+        document.select(noOptionChoiceAtLabelSelector).text shouldBe errorSpan + noOptionChoiceText
+      }
+
+    }
+  }
+
+  "agent assignment option not selected in Welsh" should {
+    s"returns an error" which {
+
+      lazy val document = postPageWithNoOption(Welsh)
+
+      s"has an error in the error summary of $noOptionChoiceText in Welsh" in {
+        document.select(errorAtSummarySelector).text shouldBe noOptionChoiceTextWelsh
+        document.select(errorAtSummarySelector).attr("href") shouldBe "#manageAgentOption"
+      }
+
+      s"has an error above the label of $noOptionChoiceText in Welsh" in {
+        document.select(noOptionChoiceAtLabelSelector).text shouldBe errorSpanWelsh + noOptionChoiceTextWelsh
+      }
+
     }
   }
 
@@ -421,6 +461,63 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
     Jsoup.parse(res.body)
   }
 
+  private def postPageWithNoOption(language: Language): Document = {
+    val agentCode = 1001
+
+    stubFor {
+      post("/property-linking/my-organisation/agent/submit-appointment-changes")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
+        }
+    }
+
+    stubFor {
+      get(
+        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false"
+      ).willReturn {
+        aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
+      }
+    }
+
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    // Return agent in summary list that has only 2017 listYears assigned
+    stubFor {
+      get("/property-linking/owner/agents")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAgentListFor2017).toString())
+        }
+    }
+
+    val requestBody = Json.obj(
+      "agentCode"         -> agentCode,
+      "manageAgentOption" -> None
+    )
+
+    val res = await(
+      ws.url(
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/$agentCode"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .post(body = requestBody)
+    )
+
+    res.status shouldBe BAD_REQUEST
+    Jsoup.parse(res.body)
+  }
   private def getPageWhenPropertyCountIs1(language: Language, propertyCount: Int, agentList: AgentList): Document = {
     await(
       mockRepository.saveOrUpdate(
