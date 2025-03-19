@@ -21,11 +21,11 @@
 
 @(agentName: String, agentCode: Long, backLink: String, listYears: Option[Seq[String]])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@ratingList(test: String) = @{
+@ratingList(tag: String) = @{
     listYears match {
         case Some(years) => years.sorted(Ordering.String.reverse) match {
-                            case Seq(a, b, c) => if(test == "p") messages("ratingsListConfirmation.multiple.forAllYour.three", a, b, c) else messages("ratingsListConfirmation.multiple.heading.three", agentName, a, b, c)
-                            case Seq(a, b)    => if(test == "p") messages("ratingsListConfirmation.multiple.forAllYour.two", a, b) else messages("ratingsListConfirmation.multiple.heading.two", agentName, a, b)
+                            case Seq(a, b, c) => if(tag == "p") messages("ratingsListConfirmation.multiple.forAllYour.three", a, b, c) else messages("ratingsListConfirmation.multiple.heading.three", agentName, a, b, c)
+                            case Seq(a, b)    => if(tag == "p") messages("ratingsListConfirmation.multiple.forAllYour.two", a, b) else messages("ratingsListConfirmation.multiple.heading.two", agentName, a, b)
                             case _          => ""
                         }
         case _ => "year not found"
