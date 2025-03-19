@@ -855,7 +855,9 @@ ratingsListConfirmation.restricting = Bydd cyfyngu asiant i un rhestr ardrethu t
 #Rating list years confirmed screen
 ratingsListConfirmed.header = Mae’r rhestrau ardrethu y gall {0} weithredu arnynt ar eich rhan wedi newid
 ratingsListConfirmed.thisAgent.multiple = Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
-ratingsListConfirmed.thisAgent.single = Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restr ardrethu {0}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+ratingsListConfirmed.thisAgent.multiple.three = Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu {0}, {1} a {2}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+ratingsListConfirmed.thisAgent.multiple.two = Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu {0} a {1}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+ratingsListConfirmed.thisAgent.single = Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu {0}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
 ratingsListConfirmed.whatHappens = Yr hyn sy’n digwydd nesaf
 ratingsListConfirmed.youCanChange = Gallwch newid pa restrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan ar unrhyw adeg.
 ratingsListConfirmed.goToYour = Ewch i hafan eich cyfrif

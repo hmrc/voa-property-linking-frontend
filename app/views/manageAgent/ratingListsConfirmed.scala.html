@@ -21,8 +21,14 @@
 
 @(agentName: String, chosenListYears: List[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@thisAgentText = @{if (chosenListYears.size.equals(2)) messages("ratingsListConfirmed.thisAgent.multiple") else
-  messages("ratingsListConfirmed.thisAgent.single", chosenListYears.head)}
+@thisAgentText = @{
+                    chosenListYears.sorted(Ordering.String.reverse) match {
+                        case List(a, b, c) => messages("ratingsListConfirmed.thisAgent.multiple.three", a, b, c)
+                        case List(a, b) => messages("ratingsListConfirmed.thisAgent.multiple.two", a, b)
+                        case List(a) => messages("ratingsListConfirmed.thisAgent.single", a)
+                        case _ => ""
+                    }
+}
 
 @mainLayout(
     pageTitle = messages("ratingsListConfirmed.header", agentName)) {

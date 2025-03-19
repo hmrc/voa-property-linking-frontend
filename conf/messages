@@ -838,6 +838,8 @@ propertyRepresentation.agentSummary.homeLink=Go to your account home
 #Rating list years confirmed screen
 ratingsListConfirmed.header = The rating lists that {0} can act for you on has been changed
 ratingsListConfirmed.thisAgent.multiple = This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account
+ratingsListConfirmed.thisAgent.multiple.three = This agent can act for you on your property valuations on the {0}, {1}, and {2} rating lists, for properties that you assign to them or they add to your account
+ratingsListConfirmed.thisAgent.multiple.two = This agent can act for you on your property valuations on the {0} and {1} rating lists, for properties that you assign to them or they add to your account
 ratingsListConfirmed.thisAgent.single = This agent can act for you on your property valuations on the {0} rating list, for properties that you assign to them or they add to your account
 ratingsListConfirmed.whatHappens = What happens next
 ratingsListConfirmed.youCanChange = You can change the rating lists this agent can act for you on at any time.
