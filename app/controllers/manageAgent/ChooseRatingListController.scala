@@ -28,6 +28,7 @@ import play.api.data.Forms.mapping
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.ManageAgentSessionRepository
+import services.propertylinking.PropertyLinkingService
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
@@ -37,6 +38,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class ChooseRatingListController @Inject() (
       chooseListView: views.html.manageAgent.chooseRatingList,
       manageAgentSessionRepository: ManageAgentSessionRepository,
+      propertyLinkingService: PropertyLinkingService,
       authenticated: AuthenticatedAction
 )(implicit
       executionContext: ExecutionContext,
@@ -65,7 +67,7 @@ class ChooseRatingListController @Inject() (
   def submitRatingListYears: Action[AnyContent] =
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
+        case Some(AgentSummary(orgId, repCode, agentName, appointedDate, propCount, Some(listYears))) =>
           ratingListYears
             .bindFromRequest()
             .fold(
@@ -79,9 +81,19 @@ class ChooseRatingListController @Inject() (
                   )
                 ),
               formData =>
-                if (formData.multipleListYears)
+                if (formData.multipleListYears) {
+                  if (config.AgentJourney2026)
+                    propertyLinkingService.appointAndOrRevokeListYears(
+                      AgentSummary(orgId, repCode, agentName, appointedDate, propCount, Some(listYears)),
+                      List("2017", "2023", "2026")
+                    )
+                  else
+                    propertyLinkingService.appointAndOrRevokeListYears(
+                      AgentSummary(orgId, repCode, agentName, appointedDate, propCount, Some(listYears)),
+                      List("2017", "2023")
+                    )
                   Redirect(controllers.manageAgent.routes.AreYouSureMultipleController.show.url)
-                else Redirect(controllers.manageAgent.routes.WhichRatingListController.show.url)
+                } else Redirect(controllers.manageAgent.routes.WhichRatingListController.show.url)
             )
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }
