@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.manageAgent
+package controllers.manageAgent.AgentJourney2026FlagDisabled
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -83,7 +83,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
   val cancelHref = "/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=100"
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/choose"
 
-  "AreYouSureController show method" should {
+  "AreYouSureController show method with AgentJourney2026 flag disabled" should {
     "Show an English are you sure multiple screen with the correct text when the language is set to English and reval2026 is set to false" which {
 
       lazy val document: Document = getAreYouSureMultiplePage(English)
@@ -254,7 +254,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
 
   }
 
-  "AreYouSureMultipleController post method" should {
+  "AreYouSureMultipleController post method with AgentJourney2026 flag disabled" should {
     "Redirect to the confirmation page and APPOINT 2023 when current is 2017" in {
       setCurrentListYears(List("2017"))
 

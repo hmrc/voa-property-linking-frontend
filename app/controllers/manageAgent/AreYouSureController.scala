@@ -46,7 +46,7 @@ class AreYouSureController @Inject() (
 
   def show(chosenListYear: String): Action[AnyContent] =
     authenticated.async { implicit request =>
-      if (chosenListYear == "2017" || chosenListYear == "2023")
+      if (chosenListYear == "2017" || chosenListYear == "2023" || (chosenListYear == "2026" && config.AgentJourney2026))
         manageAgentSessionRepository.get[AgentSummary].map {
           case Some(AgentSummary(_, representativeCode, agentName, _, _, _, _)) =>
             Ok(

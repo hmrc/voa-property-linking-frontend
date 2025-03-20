@@ -21,12 +21,16 @@
 
 @(agentName: String, agentCode: Long, chosenListYear: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@invalidListYear = @{chosenListYear match {
-        case "2026" => messages("ratingsListConfirmation.theyWillNot", "2023", "2017")
-        case "2023" => messages("ratingsListConfirmation.theyWillNot", "2026", "2017")
-        case "2017" => messages("ratingsListConfirmation.theyWillNot", "2026", "2023")
-        case _ => ""
-    }
+@year = @{if(chosenListYear.equals("2023")) "2017" else "2023"}
+
+@invalidListYear = @{
+    if (config.AgentJourney2026){
+        chosenListYear match {
+            case "2026" => messages("ratingsListConfirmation.theyWillNot", "2023", "2017")
+            case "2023" => messages("ratingsListConfirmation.theyWillNot", "2026", "2017")
+            case "2017" => messages("ratingsListConfirmation.theyWillNot", "2026", "2023")
+        }
+    } else messages("ratingsListConfirmation.theyWillNot.single", year)
 }
 
 
