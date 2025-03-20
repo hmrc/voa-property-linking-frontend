@@ -31,6 +31,8 @@ import utils.ListYearsHelpers
 
 class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
+  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "false")
+
   val titleText =
     "Are you sure you want Test Agent to act for you on the 2023 and 2017 rating lists? - Valuation Office Agency - GOV.UK"
   val titleTextReval =
