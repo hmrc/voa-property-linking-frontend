@@ -31,7 +31,7 @@ import utils.ListYearsHelpers
 
 class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
-  override lazy val extraConfig: Map[String, String] = Map("feature-switch.AgentJourney2026" -> "false")
+  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "false")
 
   def titleText(listYear: String) =
     s"Are you sure you want Test Agent to act for you on the $listYear rating list? - Valuation Office Agency - GOV.UK"
@@ -42,11 +42,9 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
   def theyWillText(otherListYear: String) =
     otherListYear match {
       case "2017" =>
-        s"They will not be able to see valuations on the 2026 or 2023 rating lists, or act on them for you."
+        s"They will not be able to see valuations on the 2023 rating list, or act on them for you."
       case "2023" =>
-        s"They will not be able to see valuations on the 2026 or 2017 rating lists, or act on them for you."
-      case "2026" =>
-        s"They will not be able to see valuations on the 2023 or 2017 rating lists, or act on them for you."
+        s"They will not be able to see valuations on the 2017 rating list, or act on them for you."
     }
 
   val restrictingText =
@@ -65,11 +63,9 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
   def theyWillTextWelsh(otherListYear: String) =
     otherListYear match {
       case "2017" =>
-        s"Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu 2026 na 2023, na gweithredu arnynt ar eich rhan."
+        s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu 2023, na gweithredu arnynt ar eich rhan."
       case "2023" =>
-        s"Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu 2026 na 2017, na gweithredu arnynt ar eich rhan."
-      case "2026" =>
-        s"Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu 2023 na 2017, na gweithredu arnynt ar eich rhan."
+        s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu 2017, na gweithredu arnynt ar eich rhan."
     }
   val restrictingTextWelsh =
     "Rhybudd Bydd cyfyngu asiant i un rhestr ardrethu tra bo achosion Gwirio a Herio ar y gweill ganddo ar restr ardrethu arall yn golygu na fydd modd iddo weithredu arnynt ar eich rhan mwyach."
