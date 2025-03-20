@@ -47,7 +47,7 @@ class AreYouSureMultipleController @Inject() (
   def show: Action[AnyContent] =
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, representativeCode, agentName, _, _, listYears)) =>
+        case Some(AgentSummary(_, representativeCode, agentName, _, _, Some(listYears))) =>
           Ok(
             areYouSureMultipleView(
               agentName = agentName,
