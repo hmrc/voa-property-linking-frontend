@@ -31,7 +31,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
+class IsCorrectAgentFEISpec extends ISpecBase with HtmlComponentHelpers {
 
   override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
 

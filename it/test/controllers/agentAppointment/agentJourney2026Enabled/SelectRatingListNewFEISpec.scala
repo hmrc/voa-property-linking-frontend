@@ -32,7 +32,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class SelectRatingListNewISpec extends ISpecBase with HtmlComponentHelpers {
+class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
 
   override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
 

@@ -623,7 +623,9 @@ propertyRepresentation.checkYourAnswers.confirmAndAppoint=Confirm and appoint
 propertyRepresentation.checkYourAnswers.ratings=Which rating list do you want this agent to act on for you?
 propertyRepresentation.checkYourAnswers.ratings.single.answer={0} rating list
 propertyRepresentation.checkYourAnswers.ratings.multiple.answer=2023 and 2017 rating lists
-
+propertyRepresentation.checkYourAnswers.listYears.one={0} rating list
+propertyRepresentation.checkYourAnswers.listYears.two={0} and {1} rating lists
+propertyRepresentation.checkYourAnswers.listYears.three={0}, {1}, and {2} rating lists
 
 propertyRepresentation.confirmation.title={0} has been appointed to your account
 propertyRepresentation.confirmation.thisAgentCan=This agent can:

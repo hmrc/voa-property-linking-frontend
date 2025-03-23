@@ -569,6 +569,9 @@ propertyRepresentation.checkYourAnswers.confirmAndAppoint=Cadarnhau a phenodi
 propertyRepresentation.checkYourAnswers.ratings=Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?
 propertyRepresentation.checkYourAnswers.ratings.single.answer=Rhestr ardrethu {0}
 propertyRepresentation.checkYourAnswers.ratings.multiple.answer=Rhestr ardrethu 2023 a rhestr ardrethu 2017
+propertyRepresentation.checkYourAnswers.listYears.one=Rhestr ardrethi {0}
+propertyRepresentation.checkYourAnswers.listYears.two=Rhestrau ardrethu {0} a {1}
+propertyRepresentation.checkYourAnswers.listYears.three=Rhestrau ardrethu {0}, {1}, a {2}
 
 propertyRepresentation.confirmation.title=Mae {0} wedi’i benodi i’ch cyfrif
 propertyRepresentation.confirmation.thisAgentCan=Gall yr asiant hwn:
