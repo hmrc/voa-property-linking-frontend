@@ -22,7 +22,7 @@ import uk.gov.hmrc.versioning.SbtGitVersioning
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "2.13.12"
+ThisBuild / scalaVersion := "2.13.16"
 
 lazy val TemplateTest = config("tt") extend Test
 
@@ -119,7 +119,7 @@ ThisBuild / excludeDependencies ++= Seq(
 )
 
 val bootstrapPlayVersion = "9.11.0"
-val hmrcMongoVersion = "2.5.0"
+val hmrcMongoVersion = "2.6.0"
 
 lazy val compileDependencies = Seq(
   guice,

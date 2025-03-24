@@ -39,16 +39,18 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  //English content
+  // English content
   val titleText = "Select which rating list Test Agent can act on for you - Valuation Office Agency - GOV.UK"
-  val errorTitleText = "Error: Select which rating list Test Agent can act on for you - Valuation Office Agency - GOV.UK"
+  val errorTitleText =
+    "Error: Select which rating list Test Agent can act on for you - Valuation Office Agency - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Manage agent"
   val headerText = "Select which rating list Test Agent can act on for you"
   val currentlyThisTextSingleListYear = "Currently this agent can act for you on the 2023 rating list"
   val currentlyThisTextTwoListYears = "Currently this agent can act for you on the 2023 and 2017 rating lists"
   val currentlyThisTextThreeListYears = "Currently this agent can act for you on the 2026, 2023, and 2017 rating lists"
-  val p1Text = "The rating list you choose for this agent will apply to all properties that you assign to them and they add to your account."
+  val p1Text =
+    "The rating list you choose for this agent will apply to all properties that you assign to them and they add to your account."
   val p2Text = "The agent will only be able to act for you on valuations on the rating list you choose."
   val selectAllThatApplyText = "Select all that apply."
   val checkBox2026Text = "2026"
@@ -62,17 +64,24 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
   val thereIsAProblemText = "There is a problem"
   val aboveRadioErrorText = "Error: Select which rating list you want this agent to act on for you"
 
-  //Welsh Content
-  val titleTextWelsh = "Dewiswch pa restr ardrethu y gall Test Agent weithredu arni ar eich rhan - Valuation Office Agency - GOV.UK"
-  val errorTitleTextWelsh = "Gwall: Dewiswch pa restr ardrethu y gall Test Agent weithredu arni ar eich rhan - Valuation Office Agency - GOV.UK"
+  // Welsh Content
+  val titleTextWelsh =
+    "Dewiswch pa restr ardrethu y gall Test Agent weithredu arni ar eich rhan - Valuation Office Agency - GOV.UK"
+  val errorTitleTextWelsh =
+    "Gwall: Dewiswch pa restr ardrethu y gall Test Agent weithredu arni ar eich rhan - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
   val headerTextWelsh = "Dewiswch pa restr ardrethu y gall Test Agent weithredu arni ar eich rhan"
-  val currentlyThisTextSingleListYearWelsh = "Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restr ardrethu 2023"
-  val currentlyThisTextTwoListYearsWelsh = "Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restrau ardrethu 2023 a 2017"
-  val currentlyThisTextThreeListYearsWelsh = "Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restrau ardrethu 2026, 2023 a 2017"
-  val p1TextWelsh = "Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac maen nhw’n ychwanegu at eich cyfrif."
-  val p2TextWelsh = "Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan."
+  val currentlyThisTextSingleListYearWelsh =
+    "Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restr ardrethu 2023"
+  val currentlyThisTextTwoListYearsWelsh =
+    "Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restrau ardrethu 2023 a 2017"
+  val currentlyThisTextThreeListYearsWelsh =
+    "Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restrau ardrethu 2026, 2023 a 2017"
+  val p1TextWelsh =
+    "Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac maen nhw’n ychwanegu at eich cyfrif."
+  val p2TextWelsh =
+    "Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan."
   val selectAllThatApplyTextWelsh = "Dewiswch bob un sy’n berthnasol."
   val checkBox2026TextWelsh = "2026"
   val checkBox2026HintTextWelsh = "Ar gyfer prisiadau o 1 Ebrill 2026."
@@ -83,9 +92,10 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
   val continueTextWelsh = "Parhau"
   val errorTextWelsh = "Dewiswch pa restr ardrethu rydych chi am i’r asiant hwn weithredu arni ar eich rhan"
   val thereIsAProblemTextWelsh = "Mae yna broblem"
-  val aboveRadioErrorTextWelsh = "Gwall: Dewiswch pa restr ardrethu rydych chi am i’r asiant hwn weithredu arni ar eich rhan"
+  val aboveRadioErrorTextWelsh =
+    "Gwall: Dewiswch pa restr ardrethu rydych chi am i’r asiant hwn weithredu arni ar eich rhan"
 
-  //Selectors
+  // Selectors
   val backLinkTextSelector = "#back-link"
   val captionTextSelector = "#main-content > div > div > span"
   val headerTextSelector = "#main-content > div > div > h1"
@@ -455,7 +465,11 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
 
     "Display the 'which rating list' screen with the correct content for agent assigned to all list years with cached answers - English" which {
 
-      lazy val document = getWhichRatingListPage(English, listYears = List("2026", "2023", "2017"), withCachedListYears = Some(List("2026", "2023", "2017")))
+      lazy val document = getWhichRatingListPage(
+        English,
+        listYears = List("2026", "2023", "2017"),
+        withCachedListYears = Some(List("2026", "2023", "2017"))
+      )
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleText
@@ -512,7 +526,11 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
 
     "Display the 'which rating list' screen with the correct content for agent assigned to all list years with cached answers - Welsh" which {
 
-      lazy val document = getWhichRatingListPage(Welsh, listYears = List("2026", "2023", "2017"), withCachedListYears = Some(List("2026", "2023", "2017")))
+      lazy val document = getWhichRatingListPage(
+        Welsh,
+        listYears = List("2026", "2023", "2017"),
+        withCachedListYears = Some(List("2026", "2023", "2017"))
+      )
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleTextWelsh
@@ -720,9 +738,10 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       s"should have the correct $SEE_OTHER status" in {
         result.status shouldBe SEE_OTHER
       }
-      //TODO - update when following controller has been updated
+      // TODO - update when following controller has been updated
       s"should have the redirect location" in {
-        result.headers("Location")
+        result
+          .headers("Location")
           .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023"
       }
     }
@@ -735,9 +754,10 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       s"should have the correct $SEE_OTHER status" in {
         result.status shouldBe SEE_OTHER
       }
-      //TODO - update when following controller has been updated
+      // TODO - update when following controller has been updated
       s"should have the redirect location" in {
-        result.headers("Location")
+        result
+          .headers("Location")
           .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023"
       }
     }
@@ -751,15 +771,20 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
         result.status shouldBe SEE_OTHER
       }
 
-      //TODO - update when following controller has been updated
+      // TODO - update when following controller has been updated
       s"should have the redirect location" in {
-        result.headers("Location")
+        result
+          .headers("Location")
           .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023"
       }
     }
   }
 
-  private def getWhichRatingListPage(language: Language, listYears: List[String], withCachedListYears: Option[List[String]] = None): Document = {
+  private def getWhichRatingListPage(
+        language: Language,
+        listYears: List[String],
+        withCachedListYears: Option[List[String]] = None
+  ): Document = {
 
     await(
       mockRepository.saveOrUpdate(
@@ -790,8 +815,9 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
     }
 
     val res = await(
-      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval")
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+      ws.url(
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .get()
     )
@@ -829,8 +855,9 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
     }
 
     await(
-      ws.url(s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval")
-        .withCookies(languageCookie(language), getSessionCookie(testSessionId))
+      ws.url(
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .post(body = body)

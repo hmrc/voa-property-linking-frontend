@@ -385,12 +385,12 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"should have the redirect location" in {
-        result.headers("Location")
+        result
+          .headers("Location")
           .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval"
       }
     }
   }
-
 
   class AssignAllSetup {
     val agentCode = 1001
@@ -579,7 +579,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     val requestBody = Json.obj(
-      "agentName" -> "Test Agent",
+      "agentName"         -> "Test Agent",
       "manageAgentOption" -> answer
     )
 
