@@ -780,7 +780,7 @@ class CheckYourAnswersControllerFEISpec extends ISpecBase {
       res.status shouldBe SEE_OTHER
       res.headers("Location").head shouldBe redirectLocation
 
-      val expJsonBody = getExpectedJsonBody(RELATIONSHIP, Seq("2023", "2017"))
+      val expJsonBody = getExpectedJsonBody(RELATIONSHIP, Seq("2017", "2023"))
       verify(
         1,
         postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
@@ -796,7 +796,7 @@ class CheckYourAnswersControllerFEISpec extends ISpecBase {
       res.status shouldBe SEE_OTHER
       res.headers("Location").head shouldBe redirectLocation
 
-      val expJsonBody = getExpectedJsonBody(RELATIONSHIP, Seq("2026", "2023", "2017"))
+      val expJsonBody = getExpectedJsonBody(RELATIONSHIP, Seq("2017", "2023", "2026"))
       verify(
         1,
         postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))

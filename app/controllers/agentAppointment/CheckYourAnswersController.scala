@@ -84,7 +84,7 @@ class CheckYourAnswersController @Inject() (
               agentAnswers   <- appointNewAgentSession.get[ManagingProperty]
               listYears: List[String] =
                 agentAnswers match {
-                  case Some(answers) => answers.ratingLists.toList
+                  case Some(answers) => answers.ratingLists.toList.sorted(Ordering.String)
                   case _             => List.empty
                 }
               _ <- agentRelationshipService.postAgentAppointmentChange(
