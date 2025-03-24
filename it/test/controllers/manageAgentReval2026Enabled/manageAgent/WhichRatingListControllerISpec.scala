@@ -730,6 +730,152 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       }
     }
 
+    "Display the 'which rating list' screen with the correct content when an invalid check box value is submitted - English" which {
+      val requestBody = Json.obj("listYearOne" -> "2017", "listYearTwo" -> "2026", "listYearThree" -> "2023")
+
+      lazy val result = postWhichRatingListPage(English, List("2026", "2023", "2017"),
+        body = requestBody)
+      lazy val document = Jsoup.parse(result.body)
+
+      s"has a status of $BAD_REQUEST" in {
+        result.status shouldBe BAD_REQUEST
+      }
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe errorTitleText
+      }
+
+      s"has an error summary that contains the correct error message '$errorText'" in {
+        document.select(thereIsAProblemTextSelector).text() shouldBe thereIsAProblemText
+        document.select(errorTextSelector).text() shouldBe errorText
+      }
+
+      "has a back link which takes you to the agent details page" in {
+        document.select(backLinkTextSelector).text() shouldBe backLinkText
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerTextSelector).text shouldBe headerText
+        document.select(captionTextSelector).text shouldBe captionText
+      }
+
+      s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
+        document.select(currentlyThisTextSelectorWithError).text() shouldBe currentlyThisTextThreeListYears
+      }
+
+      s"has text on the screen of '$p1Text'" in {
+        document.select("#main-content > div > div > p:nth-child(5)").text() shouldBe p1Text
+      }
+
+      s"has text on the screen of '$p2Text'" in {
+        document.select("#main-content > div > div > p:nth-child(6)").text() shouldBe p2Text
+      }
+
+      s"has text on the screen of '$selectAllThatApplyText'" in {
+        document.select(selectAllThatApplyTextSelector).text() shouldBe selectAllThatApplyText
+      }
+
+      s"has an error message above the radio button of $aboveRadioErrorText" in {
+        document.select(aboveRadioErrorTextSelector).text() shouldBe aboveRadioErrorText
+      }
+
+      s"has an un-checked '$checkBox2026Text' radio button, with hint text of '$checkBox2026HintText'" in {
+        document.select(checkBox2026TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2026TextSelector).text() shouldBe checkBox2026Text
+        document.select(checkBox2026HintTextSelector).text() shouldBe checkBox2026HintText
+      }
+
+      s"has an un-checked '$checkBox2023Text' radio button, with hint text of '$checkBox2023HintText'" in {
+        document.select(checkBox2023TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2023TextSelector).text() shouldBe checkBox2023Text
+        document.select(checkBox2023HintTextSelector).text() shouldBe checkBox2023HintText
+      }
+
+      s"has an un-checked '$checkBox2017Text' radio button, with hint text of '$checkBox2017HintText'" in {
+        document.select(checkBox2017TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2017TextSelector).text() shouldBe checkBox2017Text
+        document.select(checkBox2017HintTextSelector).text() shouldBe checkBox2017HintText
+      }
+
+      s"has a '$continueText' button on the screen, which submits the users choice" in {
+        document.select(continueTextSelector).text() shouldBe continueText
+      }
+    }
+
+    "Display the 'which rating list' screen with the correct content when an invalid check box value is submitted - Welsh" which {
+      val requestBody = Json.obj("listYearOne" -> "2017", "listYearTwo" -> "2026", "listYearThree" -> "2023")
+
+      lazy val result = postWhichRatingListPage(Welsh, List("2026", "2023", "2017"),
+        body = requestBody)
+      lazy val document = Jsoup.parse(result.body)
+
+      s"has a status of $BAD_REQUEST" in {
+        result.status shouldBe BAD_REQUEST
+      }
+
+      s"has a title of $errorTitleText" in {
+        document.title() shouldBe errorTitleTextWelsh
+      }
+
+      s"has an error summary that contains the correct error message '$errorText'" in {
+        document.select(thereIsAProblemTextSelector).text() shouldBe thereIsAProblemTextWelsh
+        document.select(errorTextSelector).text() shouldBe errorTextWelsh
+      }
+
+      "has a back link which takes you to the agent details page" in {
+        document.select(backLinkTextSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerTextSelector).text shouldBe headerTextWelsh
+        document.select(captionTextSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
+        document.select(currentlyThisTextSelectorWithError).text() shouldBe currentlyThisTextThreeListYearsWelsh
+      }
+
+      s"has text on the screen of '$p1Text'" in {
+        document.select("#main-content > div > div > p:nth-child(5)").text() shouldBe p1TextWelsh
+      }
+
+      s"has text on the screen of '$p2Text'" in {
+        document.select("#main-content > div > div > p:nth-child(6)").text() shouldBe p2TextWelsh
+      }
+
+      s"has text on the screen of '$selectAllThatApplyText'" in {
+        document.select(selectAllThatApplyTextSelector).text() shouldBe selectAllThatApplyTextWelsh
+      }
+
+      s"has an error message above the radio button of $aboveRadioErrorText" in {
+        document.select(aboveRadioErrorTextSelector).text() shouldBe aboveRadioErrorTextWelsh
+      }
+
+      s"has an un-checked '$checkBox2026Text' radio button, with hint text of '$checkBox2026HintText'" in {
+        document.select(checkBox2026TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2026TextSelector).text() shouldBe checkBox2026TextWelsh
+        document.select(checkBox2026HintTextSelector).text() shouldBe checkBox2026HintTextWelsh
+      }
+
+      s"has an un-checked '$checkBox2023Text' radio button, with hint text of '$checkBox2023HintText'" in {
+        document.select(checkBox2023TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2023TextSelector).text() shouldBe checkBox2023TextWelsh
+        document.select(checkBox2023HintTextSelector).text() shouldBe checkBox2023HintTextWelsh
+      }
+
+      s"has an un-checked '$checkBox2017Text' radio button, with hint text of '$checkBox2017HintText'" in {
+        document.select(checkBox2017TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2017TextSelector).text() shouldBe checkBox2017TextWelsh
+        document.select(checkBox2017HintTextSelector).text() shouldBe checkBox2017HintTextWelsh
+      }
+
+      s"has a '$continueText' button on the screen, which submits the users choice" in {
+        document.select(continueTextSelector).text() shouldBe continueTextWelsh
+      }
+    }
+
     "Redirect to the correct url on successful submission with all checkboxes selected" should {
       val requestBody = Json.obj("listYearOne" -> "2026", "listYearTwo" -> "2023", "listYearThree" -> "2017")
 
