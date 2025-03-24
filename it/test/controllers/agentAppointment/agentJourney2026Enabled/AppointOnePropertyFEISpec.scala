@@ -446,9 +446,7 @@ class AppointOnePropertyFEISpec extends ISpecBase with HtmlComponentHelpers {
         backLink = None,
         totalPropertySelectionSize = 1,
         propertySelectedSize = 1,
-        appointmentScope = None,
-        bothRatingLists = Some(true),
-        specificRatingList = None
+        appointmentScope = None
       )
 
       await(mockAppointAgentSessionRepository.saveOrUpdate(cacheData))
@@ -459,8 +457,6 @@ class AppointOnePropertyFEISpec extends ISpecBase with HtmlComponentHelpers {
         agentAddress = "1 Agent Street, AG3 NT1",
         isCorrectAgent = true,
         backLink = None,
-        bothRatingLists = Some(true),
-        specificRatingList = None,
         ratingLists = Seq("2023", "2017")
       )
 
@@ -488,8 +484,6 @@ class AppointOnePropertyFEISpec extends ISpecBase with HtmlComponentHelpers {
       agentAddress = "1 Agent Street, AG3 NT1",
       isCorrectAgent = true,
       backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new"),
-      bothRatingLists = Some(true),
-      specificRatingList = None,
       ratingLists = Seq("2023", "2017")
     )
 

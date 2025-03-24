@@ -628,10 +628,8 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
         backLink = None,
         totalPropertySelectionSize = 10,
         propertySelectedSize = 10,
-        bothRatingLists = Some(true),
-        specificRatingList = None
+        ratingLists = Seq("2023", "2017")
       )
-
       await(mockAppointAgentSessionRepository.saveOrUpdate(cacheData))
     } else {
       val cacheData = SelectedAgent(
@@ -640,8 +638,6 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
         agentAddress = "1 Agent Street, AG3 NT1",
         isCorrectAgent = true,
         backLink = None,
-        bothRatingLists = Some(true),
-        specificRatingList = None,
         ratingLists = Seq("2023", "2017")
       )
 
@@ -676,8 +672,6 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
       agentAddress = "1 Agent Street, AG3 NT1",
       isCorrectAgent = true,
       backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"),
-      bothRatingLists = Some(true),
-      specificRatingList = None,
       ratingLists = Seq("2023", "2017")
     )
 

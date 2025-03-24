@@ -791,11 +791,11 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
         totalProperties: Int,
         backLink: Option[String] = None
   ) = {
-    val (bothListYears, specificListYears): (Option[Boolean], Option[String]) = listYear match {
-      case "Both" => (Some(true), None)
-      case "2023" => (Some(false), Some("2023"))
-      case "2017" => (Some(false), Some("2017"))
-      case _      => (None, None)
+    val listYears: Seq[String] = listYear match {
+      case "Both" => List("2023", "2017")
+      case "2023" => List("2023")
+      case "2017" => List("2017")
+      case _      => List.empty
     }
 
     val selectedOption = (assignedProperties, totalProperties) match {
@@ -813,8 +813,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       backLink = backLink,
       totalPropertySelectionSize = totalProperties,
       propertySelectedSize = assignedProperties,
-      bothRatingLists = bothListYears,
-      specificRatingList = specificListYears
+      ratingLists = listYears
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(

@@ -84,11 +84,8 @@ class CheckYourAnswersController @Inject() (
               agentAnswers   <- appointNewAgentSession.get[ManagingProperty]
               listYears: List[String] =
                 agentAnswers match {
-                  case Some(answers) if config.AgentJourney2026              => answers.ratingLists.toList
-                  case Some(answers) if answers.specificRatingList.isDefined => List(answers.specificRatingList.get)
-                  case Some(answers) if answers.bothRatingLists.isDefined && answers.bothRatingLists.get =>
-                    List("2023", "2017")
-                  case _ => List.empty
+                  case Some(answers) => answers.ratingLists.toList
+                  case _             => List.empty
                 }
               _ <- agentRelationshipService.postAgentAppointmentChange(
                      AgentAppointmentChangeRequest(

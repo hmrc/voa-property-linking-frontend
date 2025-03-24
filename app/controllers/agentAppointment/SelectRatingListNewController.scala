@@ -190,8 +190,6 @@ class SelectRatingListNewController @Inject() (
                           sessionRepo.saveOrUpdate(
                             ManagingProperty(
                               selectedAgent.copy(
-                                bothRatingLists = None,
-                                specificRatingList = None,
                                 ratingLists = ratingLists,
                                 backLink = Some(routes.SelectRatingListNewController.show(fromCyaChange).url)
                               ),
@@ -205,8 +203,6 @@ class SelectRatingListNewController @Inject() (
                         case 1 =>
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
-                              bothRatingLists = None,
-                              specificRatingList = None,
                               ratingLists = ratingLists,
                               backLink = Some(routes.SelectRatingListNewController.show(fromCyaChange).url)
                             )
@@ -215,8 +211,6 @@ class SelectRatingListNewController @Inject() (
                         case _ =>
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
-                              bothRatingLists = None,
-                              specificRatingList = None,
                               ratingLists = ratingLists,
                               backLink = Some(routes.SelectRatingListNewController.show(fromCyaChange).url)
                             )

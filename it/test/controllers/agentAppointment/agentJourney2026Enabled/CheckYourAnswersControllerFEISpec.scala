@@ -842,8 +842,6 @@ class CheckYourAnswersControllerFEISpec extends ISpecBase {
       backLink = backLink,
       totalPropertySelectionSize = totalProperties,
       propertySelectedSize = assignedProperties,
-      bothRatingLists = None,
-      specificRatingList = None,
       ratingLists = listYear
     )
 

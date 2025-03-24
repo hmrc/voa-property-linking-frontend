@@ -74,10 +74,10 @@
 }
 
 @ratingListAnswer = @{
-    if(data.bothRatingLists.get){
+    if(data.ratingLists.size == 2){
         messages("propertyRepresentation.checkYourAnswers.ratings.multiple.answer")
     } else {
-        messages("propertyRepresentation.checkYourAnswers.ratings.single.answer",  data.specificRatingList.get)
+        messages("propertyRepresentation.checkYourAnswers.ratings.single.answer",  data.ratingLists.head)
     }
 }
 
@@ -92,7 +92,7 @@
 
 
 @summaryList = @{
-    if(data.specificRatingList.isEmpty && data.bothRatingLists.isEmpty && data.ratingLists.isEmpty){
+    if(data.ratingLists.isEmpty){
         SummaryList(
             rows = Seq(
             SummaryListRow(

@@ -279,7 +279,7 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
     val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, agentName, agentAddress, AgentSelected, None)
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, isTheCorrectAgent = true, None, None, Seq.empty)
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, isTheCorrectAgent = true, Seq.empty)
 
     await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
 

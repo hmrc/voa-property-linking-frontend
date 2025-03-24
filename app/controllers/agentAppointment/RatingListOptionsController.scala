@@ -57,12 +57,12 @@ class RatingListOptionsController @Inject() (
         agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
         selectedAgent = agentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
       } yield selectedAgent match {
-        case answers: ManagingProperty if answers.bothRatingLists.nonEmpty =>
+        case answers: ManagingProperty if answers.ratingLists.nonEmpty =>
           Future.successful(
             Ok(
               ratingListOptionsView(
                 fromCyaChange,
-                ratingListYears.fill(answers.bothRatingLists.get),
+                ratingListYears.fill(answers.ratingLists.size == 2),
                 agentName = answers.agentOrganisationName,
                 backLink = getBackLink(fromCyaChange)
               )
@@ -79,12 +79,12 @@ class RatingListOptionsController @Inject() (
               )
             )
           )
-        case answers: SelectedAgent if answers.bothRatingLists.nonEmpty =>
+        case answers: SelectedAgent if answers.ratingLists.nonEmpty =>
           Future.successful(
             Ok(
               ratingListOptionsView(
                 fromCyaChange,
-                ratingListYears.fill(answers.bothRatingLists.get),
+                ratingListYears.fill(answers.ratingLists.size == 2),
                 agentName = answers.agentOrganisationName,
                 backLink = getBackLink(fromCyaChange)
               )
@@ -149,8 +149,6 @@ class RatingListOptionsController @Inject() (
                     case managingProperty: ManagingProperty if fromCyaChange =>
                       sessionRepo.saveOrUpdate(
                         managingProperty.copy(
-                          bothRatingLists = Some(success),
-                          specificRatingList = None,
                           ratingLists = Seq("2023", "2017"),
                           backLink = Some(getBacklinkForCheckAnswersPage(propertyLinks.authorisations.size, None))
                         )
@@ -162,8 +160,6 @@ class RatingListOptionsController @Inject() (
                           sessionRepo.saveOrUpdate(
                             ManagingProperty(
                               selectedAgent.copy(
-                                bothRatingLists = Some(success),
-                                specificRatingList = None,
                                 ratingLists = Seq("2023", "2017")
                               ),
                               selection = "none",
@@ -178,8 +174,6 @@ class RatingListOptionsController @Inject() (
                         case 1 =>
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
-                              bothRatingLists = Some(success),
-                              specificRatingList = None,
                               ratingLists = Seq("2023", "2017"),
                               backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                             )
@@ -190,8 +184,6 @@ class RatingListOptionsController @Inject() (
                         case _ =>
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
-                              bothRatingLists = Some(success),
-                              specificRatingList = None,
                               ratingLists = Seq("2023", "2017"),
                               backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                             )
@@ -205,8 +197,6 @@ class RatingListOptionsController @Inject() (
                         case 0 =>
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
-                              bothRatingLists = Some(success),
-                              specificRatingList = None,
                               ratingLists = Seq("2023", "2017"),
                               backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                             )
@@ -217,8 +207,6 @@ class RatingListOptionsController @Inject() (
                         case 1 =>
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
-                              bothRatingLists = Some(success),
-                              specificRatingList = None,
                               ratingLists = Seq("2023", "2017"),
                               backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                             )
@@ -229,8 +217,6 @@ class RatingListOptionsController @Inject() (
                         case _ =>
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
-                              bothRatingLists = Some(success),
-                              specificRatingList = None,
                               ratingLists = Seq("2023", "2017"),
                               backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                             )
@@ -249,16 +235,13 @@ class RatingListOptionsController @Inject() (
                   case answers: ManagingProperty =>
                     sessionRepo.saveOrUpdate(
                       answers.copy(
-                        bothRatingLists = Some(false),
                         backLink = Some(routes.RatingListOptionsController.show(fromCyaChange).url)
                       )
                     )
                   case answers: SelectedAgent =>
                     sessionRepo.saveOrUpdate(
                       ManagingProperty(
-                        answers.copy(
-                          bothRatingLists = Some(false)
-                        ),
+                        answers,
                         selection = "",
                         singleProperty = false,
                         totalPropertySelectionSize = 0,

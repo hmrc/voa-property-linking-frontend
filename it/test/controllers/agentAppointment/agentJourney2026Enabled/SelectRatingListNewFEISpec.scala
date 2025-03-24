@@ -553,7 +553,7 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
 
     val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, None)
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, isTheCorrectAgent = true, None, None, listYears)
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, isTheCorrectAgent = true, listYears)
 
     val managingProperty = ManagingProperty.apply(selectedAgentData, "selection", singleProperty = false, 1, 1)
 

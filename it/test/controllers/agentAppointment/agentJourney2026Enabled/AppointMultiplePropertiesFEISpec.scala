@@ -629,9 +629,7 @@ class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpe
         status = ManagingPropertySelected,
         backLink = None,
         totalPropertySelectionSize = 10,
-        propertySelectedSize = 10,
-        bothRatingLists = Some(true),
-        specificRatingList = None
+        propertySelectedSize = 10
       )
 
       await(mockAppointAgentSessionRepository.saveOrUpdate(cacheData))
@@ -642,8 +640,6 @@ class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpe
         agentAddress = "1 Agent Street, AG3 NT1",
         isCorrectAgent = true,
         backLink = None,
-        bothRatingLists = Some(true),
-        specificRatingList = None,
         ratingLists = Seq("2023", "2017")
       )
 
@@ -678,8 +674,6 @@ class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpe
       agentAddress = "1 Agent Street, AG3 NT1",
       isCorrectAgent = true,
       backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new"),
-      bothRatingLists = Some(true),
-      specificRatingList = None,
       ratingLists = Seq("2023", "2017")
     )
 
