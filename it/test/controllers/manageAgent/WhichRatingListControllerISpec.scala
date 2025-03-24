@@ -31,7 +31,10 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import java.time.LocalDate
 import java.util.UUID
 
-class WhichRatingListISpec extends ISpecBase with HtmlComponentHelpers {
+class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers {
+  override lazy val extraConfig: Map[String, String] =
+    Map("featureFlags.agentJourney2026Enabled" -> "false")
+
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))

@@ -27,7 +27,7 @@ import repositories.ManageAgentSessionRepository
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 @Singleton
 class RatingListConfirmedController @Inject() (
@@ -45,7 +45,7 @@ class RatingListConfirmedController @Inject() (
   def show: Action[AnyContent] =
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, name, _, _, Some(listYears))) =>
+        case Some(AgentSummary(_, _, name, _, _, Some(listYears), _)) =>
           Ok(confirmedListView(chosenListYears = listYears.toList, agentName = name))
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }

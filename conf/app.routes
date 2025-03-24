@@ -165,7 +165,9 @@ POST        /my-organisation/appoint/ratings-list/are-you-sure-multiple         
 GET         /my-organisation/appoint/ratings-list/choose                                                                  controllers.manageAgent.ChooseRatingListController.show
 POST        /my-organisation/appoint/ratings-list/choose                                                                  controllers.manageAgent.ChooseRatingListController.submitRatingListYears
 GET         /my-organisation/appoint/ratings-list/confirm                                                                 controllers.manageAgent.WhichRatingListController.show
+GET         /my-organisation/appoint/ratings-list/confirm-reval                                                                 controllers.manageAgent.WhichRatingListController.showRevalEnabled
 POST        /my-organisation/appoint/ratings-list/confirm                                                                 controllers.manageAgent.WhichRatingListController.submitRatingListYears
+POST        /my-organisation/appoint/ratings-list/confirm-reval                                                           controllers.manageAgent.WhichRatingListController.submitRatingListYearsRevalEnabled
 GET         /my-organisation/appoint/ratings-list/confirmed                                                               controllers.manageAgent.RatingListConfirmedController.show
 
 #DVR

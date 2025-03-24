@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,28 +14,12 @@
  * limitations under the License.
  */
 
-package models.propertyrepresentation
-
-import java.time.LocalDate
+package models
 
 import play.api.libs.json.{Json, OFormat}
 
-case class AgentSummary(
-      organisationId: Long,
-      representativeCode: Long,
-      name: String,
-      appointedDate: LocalDate,
-      propertyCount: Int,
-      listYears: Option[Seq[String]] = None,
-      proposedListYears: Option[Seq[String]] = None
-)
+case class RatingListYearsNew(listYearOne: Option[String], listYearTwo: Option[String], listYearThree: Option[String])
 
-object AgentSummary {
-  implicit val format: OFormat[AgentSummary] = Json.format
-}
-
-case class AgentList(resultCount: Int, agents: List[AgentSummary])
-
-object AgentList {
-  implicit val format: OFormat[AgentList] = Json.format
+object RatingListYearsNew {
+  implicit val format: OFormat[RatingListYearsNew] = Json.format[RatingListYearsNew]
 }
