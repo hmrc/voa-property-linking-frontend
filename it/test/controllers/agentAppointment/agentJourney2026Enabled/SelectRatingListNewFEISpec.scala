@@ -89,12 +89,12 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
   val choosingTextSelector = "div.govuk-inset-text"
   val theRatingListTextSelector = "#theRatingList"
   val theAgentTextSelector = "#theAgentWill"
-  val selectAllTextSelector = "legend.govuk-fieldset__legend"
-  val listYear2026TextSelector = "#main-content > div > div > form > div > fieldset > div > div:nth-child(1) > label"
+  val selectAllTextSelector = "#listYears-hint"
+  val listYear2026TextSelector = "div.govuk-checkboxes > div:nth-child(1) > label"
   val listYear2026CheckboxSelector = "#listYears"
-  val listYear2023TextSelector = "#main-content > div > div > form > div > fieldset > div > div:nth-child(2) > label"
+  val listYear2023TextSelector = "div.govuk-checkboxes > div:nth-child(2) > label"
   val listYear2023CheckboxSelector = "#listYears-2"
-  val listYear2017TextSelector = "#main-content > div > div > form > div > fieldset > div > div:nth-child(3) > label"
+  val listYear2017TextSelector = "div.govuk-checkboxes > div:nth-child(3) > label"
   val listYear2017CheckboxSelector = "#listYears-3"
   val valuationsFromTextSelector = "#listYears-item-hint"
   val valuationsBetween2023TextSelector = "#listYears-2-item-hint"
@@ -470,6 +470,67 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(continueTextSelector).text() shouldBe continueTextWelsh
       }
     }
+
+    "receive a bad request when trying to assign a rogue list year in english" which {
+
+      lazy val document = errorPostPage(English, Json.obj("listYearOne" -> "1999"), testOwnerAuthResultMultipleProperty)
+
+      s"has a title of ${errorText + titleText}" in {
+        document.title() shouldBe errorText + titleText
+      }
+
+      "has a back link which takes you to the agent details page" in {
+        document.select(backLinkTextSelector).text() shouldBe backLinkText
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerTextSelector).text shouldBe headerText
+        document.select(captionTextSelector).text shouldBe captionText
+      }
+
+      s"has inset-text on the screen of '$choosingText'" in {
+        document.select(choosingTextSelector).text() shouldBe choosingText
+      }
+
+      s"has text on the screen of '$theRatingListText'" in {
+        document.select(theRatingListTextSelector).text() shouldBe theRatingListText
+      }
+
+      s"has text on the screen of '$theAgentText'" in {
+        document.select(theAgentTextSelector).text() shouldBe theAgentText
+      }
+
+      s"has text on the screen of '$selectAllText'" in {
+        document.select(selectAllTextSelector).text() shouldBe selectAllText
+      }
+
+      s"has an unchecked checkbox on the screen for '$listYear2026Text' with hint text '$valuationsFromText'" in {
+        document.select(listYear2026TextSelector).text() shouldBe listYear2026Text
+        document.select(listYear2026CheckboxSelector).attr("type") shouldBe "checkbox"
+        document.select(listYear2026CheckboxSelector).hasAttr("checked") shouldBe false
+        document.select(valuationsFromTextSelector).text() shouldBe valuationsFromText
+      }
+
+      s"has an unchecked checkbox on the screen for '$listYear2023Text' with hint text '$valuationsBetween2023Text'" in {
+        document.select(listYear2023TextSelector).text() shouldBe listYear2023Text
+        document.select(listYear2023CheckboxSelector).attr("type") shouldBe "checkbox"
+        document.select(listYear2023CheckboxSelector).hasAttr("checked") shouldBe false
+        document.select(valuationsBetween2023TextSelector).text() shouldBe valuationsBetween2023Text
+      }
+
+      s"has an unchecked checkbox on the screen for '$listYear2017Text' with hint text '$valuationsBetween2017Text'" in {
+        document.select(listYear2017TextSelector).text() shouldBe listYear2017Text
+        document.select(listYear2017CheckboxSelector).attr("type") shouldBe "checkbox"
+        document.select(listYear2017CheckboxSelector).hasAttr("checked") shouldBe false
+        document.select(valuationsBetween2017TextSelector).text() shouldBe valuationsBetween2017Text
+      }
+
+      s"has a '$continueText' button on the screen, which submits the users choice" in {
+        document.select(continueTextSelector).text() shouldBe continueText
+      }
+    }
+
   }
 
   private def getPage(

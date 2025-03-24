@@ -149,7 +149,7 @@ class SelectRatingListNewController @Inject() (
                                    organisationId = request.organisationId
                                  )
                 ratingLists: List[String] =
-                  List(success.listYearOne, success.listYearTwo, success.listYearThree).filter(_.nonEmpty)
+                  List(success.listYearOne, success.listYearTwo, success.listYearThree).filter(_.nonEmpty).distinct
               } yield sessionRepo
                 .get[AppointNewAgentSession]
                 .map { case Some(sessionData) =>
@@ -230,6 +230,13 @@ class SelectRatingListNewController @Inject() (
     else controllers.agentAppointment.routes.AddAgentController.isCorrectAgent().url
 
   private def ratingListYearsNew: Form[RatingListYearsNew] = {
+    val validYears = Set("2017", "2023", "2026")
+
+    val validYearConstraint: Constraint[String] = Constraint("constraint.validYear") { year =>
+      if (validYears.contains(year) || year.isEmpty) Valid
+      else Invalid(s"Invalid year: $year. Allowed values are 2017, 2023, and 2026.")
+    }
+
     val atLeastOneNonEmpty: Constraint[RatingListYearsNew] = Constraint("constraint.atLeastOneNonEmpty") { data =>
       if (data.listYearOne.nonEmpty || data.listYearTwo.nonEmpty || data.listYearThree.nonEmpty) {
         Valid
@@ -240,9 +247,9 @@ class SelectRatingListNewController @Inject() (
 
     Form(
       mapping(
-        "listYearOne"   -> optional(text).transform[String](_.getOrElse(""), Some(_)),
-        "listYearTwo"   -> optional(text).transform[String](_.getOrElse(""), Some(_)),
-        "listYearThree" -> optional(text).transform[String](_.getOrElse(""), Some(_))
+        "listYearOne"   -> optional(text).transform[String](_.getOrElse(""), Some(_)).verifying(validYearConstraint),
+        "listYearTwo"   -> optional(text).transform[String](_.getOrElse(""), Some(_)).verifying(validYearConstraint),
+        "listYearThree" -> optional(text).transform[String](_.getOrElse(""), Some(_)).verifying(validYearConstraint)
       )(RatingListYearsNew.apply)(RatingListYearsNew.unapply)
         .verifying(atLeastOneNonEmpty)
     )
