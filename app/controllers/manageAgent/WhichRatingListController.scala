@@ -154,21 +154,21 @@ class WhichRatingListController @Inject() (
     val listYearOneValidation: Constraint[RatingListYearsNew] = Constraint("constraint.listYearOneValid") { data =>
       data.listYearOne match {
         case Some("2026") | None => Valid
-        case _ => Invalid("If provided, listYearOne must be 2026")
+        case _                   => Invalid("If provided, listYearOne must be 2026")
       }
     }
 
     val listYearTwoValidation: Constraint[RatingListYearsNew] = Constraint("constraint.listYearTwoValid") { data =>
       data.listYearTwo match {
         case Some("2023") | None => Valid
-        case _ => Invalid("If provided, listYearTwo must be 2023")
+        case _                   => Invalid("If provided, listYearTwo must be 2023")
       }
     }
 
     val listYearThreeValidation: Constraint[RatingListYearsNew] = Constraint("constraint.listYearThreeValid") { data =>
       data.listYearThree match {
         case Some("2017") | None => Valid
-        case _ => Invalid("If provided, listYearThree must be 2017")
+        case _                   => Invalid("If provided, listYearThree must be 2017")
       }
     }
 

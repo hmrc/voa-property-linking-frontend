@@ -733,8 +733,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
     "Display the 'which rating list' screen with the correct content when an invalid check box value is submitted - English" which {
       val requestBody = Json.obj("listYearOne" -> "2017", "listYearTwo" -> "2026", "listYearThree" -> "2023")
 
-      lazy val result = postWhichRatingListPage(English, List("2026", "2023", "2017"),
-        body = requestBody)
+      lazy val result = postWhichRatingListPage(English, List("2026", "2023", "2017"), body = requestBody)
       lazy val document = Jsoup.parse(result.body)
 
       s"has a status of $BAD_REQUEST" in {
@@ -806,8 +805,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
     "Display the 'which rating list' screen with the correct content when an invalid check box value is submitted - Welsh" which {
       val requestBody = Json.obj("listYearOne" -> "2017", "listYearTwo" -> "2026", "listYearThree" -> "2023")
 
-      lazy val result = postWhichRatingListPage(Welsh, List("2026", "2023", "2017"),
-        body = requestBody)
+      lazy val result = postWhichRatingListPage(Welsh, List("2026", "2023", "2017"), body = requestBody)
       lazy val document = Jsoup.parse(result.body)
 
       s"has a status of $BAD_REQUEST" in {
