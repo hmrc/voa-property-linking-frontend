@@ -42,8 +42,8 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
   val agentTableHeadingText = "Agent"
   val ratingListTableHeadingText = "Rating lists they can act on for you"
   val assignedToTableHeadingText = "Assigned to"
-  val bothListYearsText = "2023 and 2017 rating lists"
-  val listYear2017Text = "2017 rating list"
+  val twoListYearsText = "2023 and 2017 rating lists"
+  val threeListYearsText = "2026, 2023, and 2017 rating lists"
   val listYear2023Text = "2023 rating list"
   val ofText = "of"
   val noAgentsText = "You have no agents."
@@ -56,9 +56,9 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
   val agentTableHeadingTextWelsh = "Asiant"
   val ratingListTableHeadingTextWelsh = "Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan"
   val assignedToTableHeadingTextWelsh = "Neilltuwyd i"
-  val bothListYearsTextWelsh = "Rhestr ardrethu 2023 a rhestr ardrethu 2017"
-  val listYear2017TextWelsh = "Rhestrau ardrethu 2017"
-  val listYear2023TextWelsh = "Rhestrau ardrethu 2023"
+  val twoListYearsTextWelsh = "Rhestrau ardrethu 2023 a 2017"
+  val threeListYearsTextWelsh = "Rhestrau ardrethu 2026, 2023, a 2017"
+  val listYear2023TextWelsh = "Rhestr ardrethu 2023"
   val ofTextWelsh = "o"
   val noAgentsTextWelsh = "Does gennych chi ddim asiantiaid."
 
@@ -84,7 +84,7 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
   val helpWithAppointingHref = "https://www.gov.uk/guidance/appoint-an-agent"
 
   "ManageAgentController showAgents method" should {
-    "display the 'Your agents' page with the correct text in English when the user has agents appointed" which {
+    "display the 'Your agents' page with the correct text in English when the user has multiple agents appointed with all three list year variations" which {
       lazy val document = getYourAgentsPage(language = English, agentsAppointed = true)
 
       s"has a title of $titleText" in {
@@ -116,10 +116,10 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(assignedToTableHeadingSelector).text() shouldBe assignedToTableHeadingText
       }
 
-      s"has the correct table information for row one ($agentName, $bothListYearsText, 10 $ofText 10 properties)" in {
+      s"has the correct table information for row one ($agentName, $twoListYearsText, 10 $ofText 10 properties)" in {
         document.select(agentNameSelector(1)).text() shouldBe agentName
         document.select(agentNameSelector(1)).attr("href") shouldBe agentHref(1001)
-        document.select(ratingListSelector(1)).text shouldBe bothListYearsText
+        document.select(ratingListSelector(1)).text shouldBe twoListYearsText
         document.select(assignedPropertiesSelector(1)).text shouldBe s"10 $ofText 10"
       }
 
@@ -130,10 +130,10 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(assignedPropertiesSelector(2)).text shouldBe s"5 $ofText 10"
       }
 
-      s"has the correct table information for row three (${agentName}3, $listYear2017Text, 5 $ofText 10 properties)" in {
+      s"has the correct table information for row three (${agentName}3, $threeListYearsText, 5 $ofText 10 properties)" in {
         document.select(agentNameSelector(3)).text() shouldBe s"${agentName}3"
         document.select(agentNameSelector(3)).attr("href") shouldBe agentHref(1003)
-        document.select(ratingListSelector(3)).text shouldBe listYear2017Text
+        document.select(ratingListSelector(3)).text shouldBe threeListYearsText
         document.select(assignedPropertiesSelector(3)).text shouldBe s"5 $ofText 10"
       }
     }
@@ -175,7 +175,7 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
       }
     }
 
-    "display the 'Your agents' page with the correct text in Welsh when the user has agents appointed" which {
+    "display the 'Your agents' page with the correct text in Welsh when the user has multiple agents appointed with all three list year variations" which {
       lazy val document = getYourAgentsPage(language = Welsh, agentsAppointed = true)
 
       s"has a title of $titleText in Welsh" in {
@@ -207,10 +207,10 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(assignedToTableHeadingSelector).text() shouldBe assignedToTableHeadingTextWelsh
       }
 
-      s"has the correct table information for row one ($agentName, $bothListYearsText, 10 $ofText 10 properties) in Welsh" in {
+      s"has the correct table information for row one ($agentName, $twoListYearsText, 10 $ofText 10 properties) in Welsh" in {
         document.select(agentNameSelector(1)).text() shouldBe agentName
         document.select(agentNameSelector(1)).attr("href") shouldBe agentHref(1001)
-        document.select(ratingListSelector(1)).text shouldBe bothListYearsTextWelsh
+        document.select(ratingListSelector(1)).text shouldBe twoListYearsTextWelsh
         document.select(assignedPropertiesSelector(1)).text shouldBe s"10 $ofTextWelsh 10"
       }
 
@@ -221,10 +221,10 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(assignedPropertiesSelector(2)).text shouldBe s"5 $ofTextWelsh 10"
       }
 
-      s"has the correct table information for row three (${agentName}3, $listYear2017Text, 5 $ofText 10 properties) in Welsh" in {
+      s"has the correct table information for row three (${agentName}3, $threeListYearsText, 5 $ofText 10 properties) in Welsh" in {
         document.select(agentNameSelector(3)).text() shouldBe s"${agentName}3"
         document.select(agentNameSelector(3)).attr("href") shouldBe agentHref(1003)
-        document.select(ratingListSelector(3)).text shouldBe listYear2017TextWelsh
+        document.select(ratingListSelector(3)).text shouldBe threeListYearsTextWelsh
         document.select(assignedPropertiesSelector(3)).text shouldBe s"5 $ofTextWelsh 10"
       }
     }

@@ -24,6 +24,19 @@
 
 @(agents: List[AgentSummary], propertyLinkingCount: Int)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@ratingListText(agentSummary: AgentSummary) = @{
+    agentSummary.listYears match {
+        case Some(years) if years.nonEmpty =>
+            years.sorted(Ordering.String.reverse) match {
+                case List(a, b, c) => messages("propertyRepresentation.showAgents.listYears.three", a, b, c)
+                case List(a, b) => messages("propertyRepresentation.showAgents.listYears.two", a, b)
+                case List(a) => messages("propertyRepresentation.showAgents.listYears.one", a)
+                case _ => ""
+            }
+        case _ => ""
+    }
+}
+
 @mainLayout(
     pageTitle = messages("propertyRepresentation.showAgents.title"),
     backUri = Some(config.dashboardUrl("home")),
@@ -42,18 +55,13 @@
     @if(agents.nonEmpty) {
         @govukTable(Table(
             rows = agents.zipWithIndex.map { case (agent, index) =>
-                val listYearsText = agent.listYears match {
-                    case Some(Seq(first)) => messages("propertyRepresentation.showAgents.ratingList", first)
-                    case Some(Seq(_,_)) => messages("propertyRepresentation.showAgents.ratingLists")
-                    case _ => ""
-                }
                 Seq(
                     TableRow(
                         content = HtmlContent(s"""<a class="govuk-link" id="agent-${index + 1}" href="${controllers.agent.routes.ManageAgentController.manageAgentProperties(agent.representativeCode, GetPropertyLinksParameters()).url}" aria-label="${messages("propertyRepresentation.showAgents.viewAgent")} ${agent.name} (${agent.representativeCode})">${agent.name}</a>""")
 
                     ),
                     TableRow(
-                        content = Text(listYearsText)
+                        content = Text(ratingListText(agent))
                     ),
                     TableRow(
                         content = Text(messages("propertyRepresentation.showAgents.properties.assigned", agent.propertyCount, propertyLinkingCount))

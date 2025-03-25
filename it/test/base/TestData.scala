@@ -196,7 +196,7 @@ trait TestData {
         name = "Test Agent3",
         appointedDate = LocalDate.parse("2023-03-01"),
         propertyCount = 5,
-        listYears = Some(Seq("2017"))
+        listYears = Some(Seq("2026", "2023", "2017"))
       )
     )
   )
