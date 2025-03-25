@@ -291,7 +291,7 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
 
   "SelectRatingList Controller submit method" should {
     "redirect to the check your answers page when one list year chosen and no properties" in {
-      val requestBody = Json.obj("listYearOne" -> "2017")
+      val requestBody = Json.obj("listYearOne" -> "2026")
       val res = successPostPage(English, requestBody, testOwnerAuthResultNoProperties)
 
       res.status shouldBe SEE_OTHER
@@ -302,7 +302,7 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     "redirect to the single property page when two list years chosen and one property" in {
-      val requestBody = Json.obj("listYearOne" -> "2017", "listYearTwo" -> "2023")
+      val requestBody = Json.obj("listYearOne" -> "2026", "listYearTwo" -> "2023")
       val res = successPostPage(English, requestBody, testOwnerAuthResult1)
 
       res.status shouldBe SEE_OTHER
@@ -313,7 +313,7 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     "redirect to the multiple property page when three list years chosen and multiple property" in {
-      val requestBody = Json.obj("listYearOne" -> "2017", "listYearTwo" -> "2023", "listYearThree" -> "2026")
+      val requestBody = Json.obj("listYearOne" -> "2026", "listYearTwo" -> "2023", "listYearThree" -> "2017")
       val res = successPostPage(English, requestBody, testOwnerAuthResultMultipleProperty)
 
       res.status shouldBe SEE_OTHER
@@ -323,7 +323,7 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     "redirect to the check your answers page when ManagingProperty cached data and fromCyaPage" in {
-      val requestBody = Json.obj("listYearOne" -> "2017")
+      val requestBody = Json.obj("listYearOne" -> "2026")
       val res = successPostPage(
         English,
         requestBody,
@@ -340,7 +340,7 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     "redirect to the next page when ManagingProperty cached data and not fromCyaPage" in {
-      val requestBody = Json.obj("listYearOne" -> "2017")
+      val requestBody = Json.obj("listYearOne" -> "2026")
       val res =
         successPostPage(English, requestBody, testOwnerAuthResultMultipleProperty, cacheDataType = "ManagingProperty")
 
@@ -357,6 +357,15 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
 
       s"has a title of ${errorText + titleText}" in {
         document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error in the error summary of $selectionErrorText" in {
+        document.select(selectionErrorAtTopTextSelector).text shouldBe selectionErrorText
+        document.select(selectionErrorAtTopTextSelector).attr("href") shouldBe errorHref
+      }
+
+      s"has an error above the label of $selectionErrorText" in {
+        document.select(selectionErrorAtCheckboxTextSelector).text shouldBe errorText + selectionErrorText
       }
 
       "has a back link which takes you to the agent details page" in {
@@ -419,6 +428,15 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
         document.title() shouldBe errorTextWelsh + titleTextWelsh
       }
 
+      s"has an error in the error summary of $selectionErrorTextWelsh in welsh" in {
+        document.select(selectionErrorAtTopTextSelector).text shouldBe selectionErrorTextWelsh
+        document.select(selectionErrorAtTopTextSelector).attr("href") shouldBe errorHref
+      }
+
+      s"has an error above the label of $selectionErrorText in welsh" in {
+        document.select(selectionErrorAtCheckboxTextSelector).text shouldBe errorTextWelsh + selectionErrorTextWelsh
+      }
+
       "has a back link which takes you to the agent details page in welsh" in {
         document.select(backLinkTextSelector).text() shouldBe backLinkTextWelsh
         document.select(backLinkTextSelector).attr("href") shouldBe backLinkHref
@@ -471,12 +489,160 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
       }
     }
 
-    "receive a bad request when trying to assign a rogue list year in english" which {
+    "receive a bad request when trying to assign a list year that's not 2026 for listYearOne in english" which {
 
-      lazy val document = errorPostPage(English, Json.obj("listYearOne" -> "1999"), testOwnerAuthResultMultipleProperty)
+      lazy val document = errorPostPage(English, Json.obj("listYearOne" -> "2017"), testOwnerAuthResultMultipleProperty)
 
       s"has a title of ${errorText + titleText}" in {
         document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error in the error summary of $selectionErrorText" in {
+        document.select(selectionErrorAtTopTextSelector).text shouldBe selectionErrorText
+        document.select(selectionErrorAtTopTextSelector).attr("href") shouldBe errorHref
+      }
+
+      s"has an error above the label of $selectionErrorText" in {
+        document.select(selectionErrorAtCheckboxTextSelector).text shouldBe errorText + selectionErrorText
+      }
+
+      "has a back link which takes you to the agent details page" in {
+        document.select(backLinkTextSelector).text() shouldBe backLinkText
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerTextSelector).text shouldBe headerText
+        document.select(captionTextSelector).text shouldBe captionText
+      }
+
+      s"has inset-text on the screen of '$choosingText'" in {
+        document.select(choosingTextSelector).text() shouldBe choosingText
+      }
+
+      s"has text on the screen of '$theRatingListText'" in {
+        document.select(theRatingListTextSelector).text() shouldBe theRatingListText
+      }
+
+      s"has text on the screen of '$theAgentText'" in {
+        document.select(theAgentTextSelector).text() shouldBe theAgentText
+      }
+
+      s"has text on the screen of '$selectAllText'" in {
+        document.select(selectAllTextSelector).text() shouldBe selectAllText
+      }
+
+      s"has an unchecked checkbox on the screen for '$listYear2026Text' with hint text '$valuationsFromText'" in {
+        document.select(listYear2026TextSelector).text() shouldBe listYear2026Text
+        document.select(listYear2026CheckboxSelector).attr("type") shouldBe "checkbox"
+        document.select(listYear2026CheckboxSelector).hasAttr("checked") shouldBe false
+        document.select(valuationsFromTextSelector).text() shouldBe valuationsFromText
+      }
+
+      s"has an unchecked checkbox on the screen for '$listYear2023Text' with hint text '$valuationsBetween2023Text'" in {
+        document.select(listYear2023TextSelector).text() shouldBe listYear2023Text
+        document.select(listYear2023CheckboxSelector).attr("type") shouldBe "checkbox"
+        document.select(listYear2023CheckboxSelector).hasAttr("checked") shouldBe false
+        document.select(valuationsBetween2023TextSelector).text() shouldBe valuationsBetween2023Text
+      }
+
+      s"has an unchecked checkbox on the screen for '$listYear2017Text' with hint text '$valuationsBetween2017Text'" in {
+        document.select(listYear2017TextSelector).text() shouldBe listYear2017Text
+        document.select(listYear2017CheckboxSelector).attr("type") shouldBe "checkbox"
+        document.select(listYear2017CheckboxSelector).hasAttr("checked") shouldBe false
+        document.select(valuationsBetween2017TextSelector).text() shouldBe valuationsBetween2017Text
+      }
+
+      s"has a '$continueText' button on the screen, which submits the users choice" in {
+        document.select(continueTextSelector).text() shouldBe continueText
+      }
+    }
+
+    "receive a bad request when trying to assign a list year that's not 2023 for listYearTwo in english" which {
+
+      lazy val document = errorPostPage(English, Json.obj("listYearTwo" -> "2026"), testOwnerAuthResultMultipleProperty)
+
+      s"has a title of ${errorText + titleText}" in {
+        document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error in the error summary of $selectionErrorText" in {
+        document.select(selectionErrorAtTopTextSelector).text shouldBe selectionErrorText
+        document.select(selectionErrorAtTopTextSelector).attr("href") shouldBe errorHref
+      }
+
+      s"has an error above the label of $selectionErrorText" in {
+        document.select(selectionErrorAtCheckboxTextSelector).text shouldBe errorText + selectionErrorText
+      }
+
+      "has a back link which takes you to the agent details page" in {
+        document.select(backLinkTextSelector).text() shouldBe backLinkText
+        document.select(backLinkTextSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '$headerText' with a caption above of '$captionText'" in {
+        document.select(headerTextSelector).text shouldBe headerText
+        document.select(captionTextSelector).text shouldBe captionText
+      }
+
+      s"has inset-text on the screen of '$choosingText'" in {
+        document.select(choosingTextSelector).text() shouldBe choosingText
+      }
+
+      s"has text on the screen of '$theRatingListText'" in {
+        document.select(theRatingListTextSelector).text() shouldBe theRatingListText
+      }
+
+      s"has text on the screen of '$theAgentText'" in {
+        document.select(theAgentTextSelector).text() shouldBe theAgentText
+      }
+
+      s"has text on the screen of '$selectAllText'" in {
+        document.select(selectAllTextSelector).text() shouldBe selectAllText
+      }
+
+      s"has an unchecked checkbox on the screen for '$listYear2026Text' with hint text '$valuationsFromText'" in {
+        document.select(listYear2026TextSelector).text() shouldBe listYear2026Text
+        document.select(listYear2026CheckboxSelector).attr("type") shouldBe "checkbox"
+        document.select(listYear2026CheckboxSelector).hasAttr("checked") shouldBe false
+        document.select(valuationsFromTextSelector).text() shouldBe valuationsFromText
+      }
+
+      s"has an unchecked checkbox on the screen for '$listYear2023Text' with hint text '$valuationsBetween2023Text'" in {
+        document.select(listYear2023TextSelector).text() shouldBe listYear2023Text
+        document.select(listYear2023CheckboxSelector).attr("type") shouldBe "checkbox"
+        document.select(listYear2023CheckboxSelector).hasAttr("checked") shouldBe false
+        document.select(valuationsBetween2023TextSelector).text() shouldBe valuationsBetween2023Text
+      }
+
+      s"has an unchecked checkbox on the screen for '$listYear2017Text' with hint text '$valuationsBetween2017Text'" in {
+        document.select(listYear2017TextSelector).text() shouldBe listYear2017Text
+        document.select(listYear2017CheckboxSelector).attr("type") shouldBe "checkbox"
+        document.select(listYear2017CheckboxSelector).hasAttr("checked") shouldBe false
+        document.select(valuationsBetween2017TextSelector).text() shouldBe valuationsBetween2017Text
+      }
+
+      s"has a '$continueText' button on the screen, which submits the users choice" in {
+        document.select(continueTextSelector).text() shouldBe continueText
+      }
+    }
+
+    "receive a bad request when trying to assign a list year that's not 2017 for listYearThree in english" which {
+
+      lazy val document =
+        errorPostPage(English, Json.obj("listYearThree" -> "2023"), testOwnerAuthResultMultipleProperty)
+
+      s"has a title of ${errorText + titleText}" in {
+        document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error in the error summary of $selectionErrorText" in {
+        document.select(selectionErrorAtTopTextSelector).text shouldBe selectionErrorText
+        document.select(selectionErrorAtTopTextSelector).attr("href") shouldBe errorHref
+      }
+
+      s"has an error above the label of $selectionErrorText" in {
+        document.select(selectionErrorAtCheckboxTextSelector).text shouldBe errorText + selectionErrorText
       }
 
       "has a back link which takes you to the agent details page" in {

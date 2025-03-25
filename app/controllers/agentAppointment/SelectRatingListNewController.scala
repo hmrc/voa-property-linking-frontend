@@ -65,9 +65,9 @@ class SelectRatingListNewController @Inject() (
                 fromCyaChange,
                 ratingListYearsNew.fill(
                   RatingListYearsNew(
-                    listYearOne = answers.ratingLists.headOption.getOrElse(""),
-                    listYearTwo = answers.ratingLists.lift(1).getOrElse(""),
-                    listYearThree = answers.ratingLists.lift(2).getOrElse("")
+                    listYearOne = Some("2026").filter(answers.ratingLists.contains),
+                    listYearTwo = Some("2023").filter(answers.ratingLists.contains),
+                    listYearThree = Some("2017").filter(answers.ratingLists.contains)
                   )
                 ),
                 backLink = getBackLink(fromCyaChange, answers.ratingLists)
@@ -82,9 +82,9 @@ class SelectRatingListNewController @Inject() (
                 fromCyaChange,
                 ratingListYearsNew.fill(
                   RatingListYearsNew(
-                    listYearOne = answers.ratingLists.headOption.getOrElse(""),
-                    listYearTwo = answers.ratingLists.lift(1).getOrElse(""),
-                    listYearThree = answers.ratingLists.lift(2).getOrElse("")
+                    listYearOne = Some("2026").filter(answers.ratingLists.contains),
+                    listYearTwo = Some("2023").filter(answers.ratingLists.contains),
+                    listYearThree = Some("2017").filter(answers.ratingLists.contains)
                   )
                 ),
                 backLink = getBackLink(fromCyaChange, answers.ratingLists)
@@ -149,7 +149,7 @@ class SelectRatingListNewController @Inject() (
                                    organisationId = request.organisationId
                                  )
                 ratingLists: List[String] =
-                  List(success.listYearOne, success.listYearTwo, success.listYearThree).filter(_.nonEmpty).distinct
+                  List(success.listYearOne, success.listYearTwo, success.listYearThree).flatten.filter(_.nonEmpty)
               } yield sessionRepo
                 .get[AppointNewAgentSession]
                 .map { case Some(sessionData) =>
@@ -230,13 +230,6 @@ class SelectRatingListNewController @Inject() (
     else controllers.agentAppointment.routes.AddAgentController.isCorrectAgent().url
 
   private def ratingListYearsNew: Form[RatingListYearsNew] = {
-    val validYears = Set("2017", "2023", "2026")
-
-    val validYearConstraint: Constraint[String] = Constraint("constraint.validYear") { year =>
-      if (validYears.contains(year) || year.isEmpty) Valid
-      else Invalid(s"Invalid year: $year. Allowed values are 2017, 2023, and 2026.")
-    }
-
     val atLeastOneNonEmpty: Constraint[RatingListYearsNew] = Constraint("constraint.atLeastOneNonEmpty") { data =>
       if (data.listYearOne.nonEmpty || data.listYearTwo.nonEmpty || data.listYearThree.nonEmpty) {
         Valid
@@ -245,13 +238,37 @@ class SelectRatingListNewController @Inject() (
       }
     }
 
+    val listYearOneValidation: Constraint[RatingListYearsNew] = Constraint("constraint.listYearOneValid") { data =>
+      data.listYearOne match {
+        case Some("2026") | None => Valid
+        case _                   => Invalid("If provided, listYearOne must be 2026")
+      }
+    }
+
+    val listYearTwoValidation: Constraint[RatingListYearsNew] = Constraint("constraint.listYearTwoValid") { data =>
+      data.listYearTwo match {
+        case Some("2023") | None => Valid
+        case _                   => Invalid("If provided, listYearTwo must be 2023")
+      }
+    }
+
+    val listYearThreeValidation: Constraint[RatingListYearsNew] = Constraint("constraint.listYearThreeValid") { data =>
+      data.listYearThree match {
+        case Some("2017") | None => Valid
+        case _                   => Invalid("If provided, listYearThree must be 2017")
+      }
+    }
+
     Form(
       mapping(
-        "listYearOne"   -> optional(text).transform[String](_.getOrElse(""), Some(_)).verifying(validYearConstraint),
-        "listYearTwo"   -> optional(text).transform[String](_.getOrElse(""), Some(_)).verifying(validYearConstraint),
-        "listYearThree" -> optional(text).transform[String](_.getOrElse(""), Some(_)).verifying(validYearConstraint)
+        "listYearOne"   -> optional(text),
+        "listYearTwo"   -> optional(text),
+        "listYearThree" -> optional(text)
       )(RatingListYearsNew.apply)(RatingListYearsNew.unapply)
         .verifying(atLeastOneNonEmpty)
+        .verifying(listYearOneValidation)
+        .verifying(listYearTwoValidation)
+        .verifying(listYearThreeValidation)
     )
   }
 

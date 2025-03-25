@@ -18,7 +18,7 @@ package models.propertyrepresentation
 
 import play.api.libs.json.{Json, OFormat}
 
-case class RatingListYearsNew(listYearOne: String, listYearTwo: String, listYearThree: String)
+case class RatingListYearsNew(listYearOne: Option[String], listYearTwo: Option[String], listYearThree: Option[String])
 object RatingListYearsNew {
   implicit val format: OFormat[RatingListYearsNew] = Json.format[RatingListYearsNew]
 }

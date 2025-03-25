@@ -61,8 +61,7 @@
                     value = "2026",
                     name= Some("listYearOne"),
                     checked = form.value.fold(false) { success =>
-                        Seq(success.listYearOne, success.listYearTwo, success.listYearThree).contains("2026")
-                    },
+                        success.listYearOne.contains("2026")},
                     hint = Some(Hint(
                         content = Text(messages("selectRatingList.valuationsFrom2026"))
                     )),
@@ -72,8 +71,7 @@
                     value = "2023",
                     name= Some("listYearTwo"),
                     checked = form.value.fold(false) { success =>
-                        Seq(success.listYearOne, success.listYearTwo, success.listYearThree).contains("2023")
-                    },
+                        success.listYearTwo.contains("2023")},
                     hint = Some(Hint(
                         content = Text(messages("selectRatingList.valuationsBetween2023"))
                     )),
@@ -83,8 +81,7 @@
                     value = "2017",
                     name= Some("listYearThree"),
                     checked = form.value.fold(false) { success =>
-                        Seq(success.listYearOne, success.listYearTwo, success.listYearThree).contains("2017")
-                    },
+                        success.listYearThree.contains("2017")},
                     hint = Some(Hint(
                         content = Text(messages("selectRatingList.valuationsBetween2017"))
                     )),
