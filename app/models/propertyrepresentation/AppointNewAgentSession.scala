@@ -50,8 +50,6 @@ case class SelectedAgent(
       isCorrectAgent: Boolean,
       status: AppointAgentJourneyStatus = AgentSelected,
       backLink: Option[String],
-      bothRatingLists: Option[Boolean],
-      specificRatingList: Option[String],
       ratingLists: Seq[String]
 ) extends AppointNewAgentSession
 
@@ -61,8 +59,6 @@ object SelectedAgent {
   def apply(
         searchedAgent: SearchedAgent,
         isTheCorrectAgent: Boolean,
-        bothRatingLists: Option[Boolean],
-        specificRatingList: Option[String],
         ratingLists: Seq[String]
   ): SelectedAgent =
     SelectedAgent(
@@ -71,8 +67,6 @@ object SelectedAgent {
       agentAddress = searchedAgent.agentAddress,
       isCorrectAgent = isTheCorrectAgent,
       backLink = searchedAgent.backLink,
-      bothRatingLists = bothRatingLists,
-      specificRatingList = specificRatingList,
       ratingLists = ratingLists
     )
 }
@@ -89,8 +83,6 @@ case class ManagingProperty(
       totalPropertySelectionSize: Int = 0,
       propertySelectedSize: Int = 0,
       appointmentScope: Option[AppointmentScope] = None,
-      bothRatingLists: Option[Boolean] = None,
-      specificRatingList: Option[String] = None,
       ratingLists: Seq[String] = Seq.empty
 ) extends AppointNewAgentSession
 
@@ -114,8 +106,6 @@ object ManagingProperty {
       backLink = selectedAgent.backLink,
       totalPropertySelectionSize = totalPropertySelectionSize,
       propertySelectedSize = propertySelectedSize,
-      bothRatingLists = selectedAgent.bothRatingLists,
-      specificRatingList = selectedAgent.specificRatingList,
       ratingLists = selectedAgent.ratingLists
     )
 }

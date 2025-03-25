@@ -623,7 +623,9 @@ propertyRepresentation.checkYourAnswers.confirmAndAppoint=Confirm and appoint
 propertyRepresentation.checkYourAnswers.ratings=Which rating list do you want this agent to act on for you?
 propertyRepresentation.checkYourAnswers.ratings.single.answer={0} rating list
 propertyRepresentation.checkYourAnswers.ratings.multiple.answer=2023 and 2017 rating lists
-
+propertyRepresentation.checkYourAnswers.listYears.one={0} rating list
+propertyRepresentation.checkYourAnswers.listYears.two={0} and {1} rating lists
+propertyRepresentation.checkYourAnswers.listYears.three={0}, {1}, and {2} rating lists
 
 propertyRepresentation.confirmation.title={0} has been appointed to your account
 propertyRepresentation.confirmation.thisAgentCan=This agent can:
@@ -830,6 +832,17 @@ whichRatingListNew.2023.checkbox.hint=For valuations between 1 April 2023 and 31
 whichRatingListNew.2017.checkbox.hint=For valuations between 1 April 2017 and 31 March 2023.
 whichRatingListNew.error=Select which rating list you want this agent to act on for you
 
+#New Select rating list page
+selectRatingList.header = Select which rating list {0} can act on for you
+selectRatingList.choosingAList=Choosing a rating list is different to assigning properties to the agent. You will assign properties after choosing a rating list.
+selectRatingList.theRatingList = The rating list you choose for this agent will apply to all properties that you assign to them and they add to your account.
+selectRatingList.theAgentWill = The agent will only be able to act for you on valuations on the rating list you choose.
+selectRatingList.allThatApply = Select all that apply.
+selectRatingList.valuationsFrom2026 = For valuations from 1 April 2026.
+selectRatingList.valuationsBetween2023 = For valuations between 1 April 2023 and 31 March 2026.
+selectRatingList.valuationsBetween2017 = For valuations between 1 April 2017 and 31 March 2023.
+selectRatingList.error = Select which rating list you want this agent to act on for you
+
 #Rating list years confirmation screen
 ratingsListConfirmation.multiple.header = Are you sure you want {0} to act for you on the 2023 and 2017 rating lists?
 ratingsListConfirmation.multiple.forAllYour = For all your property valuations on the 2023 and 2017 rating lists, this agent will be able to:
@@ -852,6 +865,8 @@ propertyRepresentation.agentSummary.homeLink=Go to your account home
 #Rating list years confirmed screen
 ratingsListConfirmed.header = The rating lists that {0} can act for you on has been changed
 ratingsListConfirmed.thisAgent.multiple = This agent can act for you on your property valuations on the 2023 and 2017 rating lists, for properties that you assign to them or they add to your account
+ratingsListConfirmed.thisAgent.multiple.three = This agent can act for you on your property valuations on the {0}, {1}, and {2} rating lists, for properties that you assign to them or they add to your account
+ratingsListConfirmed.thisAgent.multiple.two = This agent can act for you on your property valuations on the {0} and {1} rating lists, for properties that you assign to them or they add to your account
 ratingsListConfirmed.thisAgent.single = This agent can act for you on your property valuations on the {0} rating list, for properties that you assign to them or they add to your account
 ratingsListConfirmed.whatHappens = What happens next
 ratingsListConfirmed.youCanChange = You can change the rating lists this agent can act for you on at any time.

@@ -55,23 +55,23 @@ class SelectRatingListController @Inject() (
         agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
         selectedAgent = agentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
       } yield selectedAgent match {
-        case answers: ManagingProperty if answers.specificRatingList.nonEmpty =>
+        case answers: ManagingProperty if answers.ratingLists.nonEmpty && answers.ratingLists.size == 1 =>
           Future.successful(
             Ok(
               selectRatingListView(
                 fromCyaChange,
-                ratingListYears.fill(RatingListYearsOptions.fromName(answers.specificRatingList.get).get),
-                backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
+                ratingListYears.fill(RatingListYearsOptions.fromName(answers.ratingLists.head).get),
+                backLink = getBackLink(fromCyaChange, answers.ratingLists, answers.backLink)
               )
             )
           )
-        case answers: SelectedAgent if answers.specificRatingList.nonEmpty =>
+        case answers: SelectedAgent if answers.ratingLists.nonEmpty && answers.ratingLists.size == 1 =>
           Future.successful(
             Ok(
               selectRatingListView(
                 fromCyaChange,
-                ratingListYears.fill(RatingListYearsOptions.fromName(answers.specificRatingList.get).get),
-                backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
+                ratingListYears.fill(RatingListYearsOptions.fromName(answers.ratingLists.head).get),
+                backLink = getBackLink(fromCyaChange, answers.ratingLists, answers.backLink)
               )
             )
           )
@@ -81,7 +81,7 @@ class SelectRatingListController @Inject() (
               selectRatingListView(
                 fromCyaChange,
                 ratingListYears,
-                backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
+                backLink = getBackLink(fromCyaChange, answers.ratingLists, answers.backLink)
               )
             )
           )
@@ -91,7 +91,7 @@ class SelectRatingListController @Inject() (
               selectRatingListView(
                 fromCyaChange,
                 ratingListYears,
-                backLink = getBackLink(fromCyaChange, answers.specificRatingList, answers.backLink)
+                backLink = getBackLink(fromCyaChange, answers.ratingLists, answers.backLink)
               )
             )
           )
@@ -113,7 +113,7 @@ class SelectRatingListController @Inject() (
                   selectRatingListView(
                     fromCyaChange,
                     errors,
-                    getBackLink(fromCyaChange, selectedAgent.specificRatingList, selectedAgent.backLink)
+                    getBackLink(fromCyaChange, selectedAgent.ratingLists, selectedAgent.backLink)
                   )
                 )
               )
@@ -130,7 +130,7 @@ class SelectRatingListController @Inject() (
                                    organisationId = request.organisationId
                                  )
                 _ <- sessionRepo.saveOrUpdate(
-                       selectedAgent.copy(specificRatingList = Some(success.name), ratingLists = Seq(success.name))
+                       selectedAgent.copy(ratingLists = Seq(success.name))
                      )
               } yield sessionRepo
                 .get[AppointNewAgentSession]
@@ -139,12 +139,11 @@ class SelectRatingListController @Inject() (
                     case managingProperty: ManagingProperty if fromCyaChange =>
                       sessionRepo.saveOrUpdate(
                         managingProperty.copy(
-                          specificRatingList = Some(success.name),
                           ratingLists = Seq(success.name),
                           backLink = Some(
                             getBacklinkForCheckAnswersPage(
                               propertyLinks.authorisations.size,
-                              managingProperty.specificRatingList
+                              managingProperty.ratingLists
                             )
                           )
                         )
@@ -155,7 +154,6 @@ class SelectRatingListController @Inject() (
                         case 0 =>
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
-                              specificRatingList = Some(success.name),
                               ratingLists = Seq(success.name),
                               managingPropertyChoice = "none",
                               singleProperty = false,
@@ -170,7 +168,6 @@ class SelectRatingListController @Inject() (
                         case 1 =>
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
-                              specificRatingList = Some(success.name),
                               ratingLists = Seq(success.name),
                               backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url)
                             )
@@ -181,7 +178,6 @@ class SelectRatingListController @Inject() (
                         case _ =>
                           sessionRepo.saveOrUpdate(
                             selectedAgent.copy(
-                              specificRatingList = Some(success.name),
                               ratingLists = Seq(success.name),
                               backLink = Some(routes.SelectRatingListController.show(fromCyaChange).url)
                             )
@@ -197,9 +193,9 @@ class SelectRatingListController @Inject() (
         )
     }
 
-  def getBackLink(fromCya: Boolean, specficRatingList: Option[String], backLink: Option[String]) =
+  def getBackLink(fromCya: Boolean, listYears: Seq[String], backLink: Option[String]) =
     if (
-      fromCya && specficRatingList != None && backLink.get != controllers.agentAppointment.routes.RatingListOptionsController
+      fromCya && listYears.nonEmpty && backLink.get != controllers.agentAppointment.routes.RatingListOptionsController
         .show(fromCya)
         .url
     )
@@ -213,10 +209,10 @@ class SelectRatingListController @Inject() (
       )
     )
 
-  private def getBacklinkForCheckAnswersPage(propertySize: Int, specificListYear: Option[String]): String =
+  private def getBacklinkForCheckAnswersPage(propertySize: Int, listYears: Seq[String]): String =
     propertySize match {
       case 0 =>
-        if (specificListYear.nonEmpty) routes.SelectRatingListController.show().url
+        if (listYears.nonEmpty) routes.SelectRatingListController.show().url
         else routes.RatingListOptionsController.show().url
       case 1 =>
         routes.AddAgentController.oneProperty().url

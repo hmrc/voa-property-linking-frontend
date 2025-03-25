@@ -81,11 +81,12 @@ class CheckYourAnswersController @Inject() (
                        )
                    }
               sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
-              agentListYears <- agentRelationshipService.getMyOrganisationAgents()
               agentAnswers   <- appointNewAgentSession.get[ManagingProperty]
-              listYears: List[String] = agentAnswers.fold(List("2017", "2023"))(answers =>
-                                          answers.specificRatingList.fold(List("2017", "2023"))(List(_))
-                                        )
+              listYears: List[String] =
+                agentAnswers match {
+                  case Some(answers) => answers.ratingLists.toList.sorted(Ordering.String)
+                  case _             => List.empty
+                }
               _ <- agentRelationshipService.postAgentAppointmentChange(
                      AgentAppointmentChangeRequest(
                        action = AppointmentAction.APPOINT,

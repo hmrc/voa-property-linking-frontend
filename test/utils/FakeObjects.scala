@@ -150,8 +150,6 @@ trait FakeObjects {
     agentAddress = agentDetails.address,
     isCorrectAgent = true,
     backLink = None,
-    bothRatingLists = None,
-    specificRatingList = None,
     ratingLists = Seq.empty
   )
   lazy val april2017 = LocalDate.of(2017, 4, 1)
@@ -295,8 +293,6 @@ trait FakeObjects {
     isCorrectAgent = true,
     agentAddress = "An Address",
     backLink = None,
-    bothRatingLists = None,
-    specificRatingList = None,
     ratingLists = Seq.empty
   )
   val managingProperty = ManagingProperty(

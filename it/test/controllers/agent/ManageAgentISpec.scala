@@ -34,7 +34,7 @@ import java.util.UUID
 class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
   override lazy val extraConfig: Map[String, String] =
-    Map("featureFlags.agentJourney2026Enabled" -> "false")
+    Map("feature-switch.agentJourney2026Enabled" -> "false")
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 

@@ -33,7 +33,7 @@ import java.util.UUID
 
 class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers {
   override lazy val extraConfig: Map[String, String] =
-    Map("featureFlags.agentJourney2026Enabled" -> "true")
+    Map("feature-switch.agentJourney2026Enabled" -> "true")
 
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
   val testSessionId = s"stubbed-${UUID.randomUUID}"

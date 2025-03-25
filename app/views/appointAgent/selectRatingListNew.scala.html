@@ -1,0 +1,97 @@
+@*
+ * Copyright 2024 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.ApplicationConfig
+@import models.propertyrepresentation.RatingListYearsNew
+
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukCheckboxes : GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
+        govukInsetText: GovukInsetText)
+
+@(agentName: String, fromCyaChange: Boolean, form: Form[RatingListYearsNew], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+
+@mainLayout(
+    backUri = Some(backLink),
+    pageTitle = messages("selectRatingList.header", agentName),
+    hasErrors = form.hasErrors) {
+
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(
+            ErrorSummary(
+                errorList = Seq(ErrorLink(
+                    href = Some("#listYears"),
+                    content = Text(messages("selectRatingList.error"))
+                )),
+                title = Text(messages("error.propertyRepresentation.title"))
+            )
+        )
+    }
+
+    <span class="govuk-caption-l" >@messages("propertyRepresentation.appointAgent.caption")</span>
+    <h1 class="govuk-heading-l">@messages("selectRatingList.header", agentName)</h1>
+
+    @govukInsetText(InsetText(
+        content = Text(messages("selectRatingList.choosingAList"))
+    ))
+
+    <p class="govuk-body" id="theRatingList">@messages("selectRatingList.theRatingList")</p>
+    <p class="govuk-body" id="theAgentWill">@messages("selectRatingList.theAgentWill")</p>
+
+    @formWithCSRF(action = controllers.agentAppointment.routes.SelectRatingListNewController.submitRatingListYear(fromCyaChange)) {
+        @govukCheckboxes(Checkboxes(
+            errorMessage = if(form.errors.nonEmpty) Some(ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages("selectRatingList.error")))) else None,
+            hint = Some(Hint(
+                content = Text(messages("selectRatingList.allThatApply"))
+            )),
+            name = "listYears",
+            items = List(
+                CheckboxItem(
+                    value = "2026",
+                    name= Some("listYearOne"),
+                    checked = form.value.fold(false) { success =>
+                        success.listYearOne.contains("2026")},
+                    hint = Some(Hint(
+                        content = Text(messages("selectRatingList.valuationsFrom2026"))
+                    )),
+                    content = Text("2026")
+                ),
+                CheckboxItem(
+                    value = "2023",
+                    name= Some("listYearTwo"),
+                    checked = form.value.fold(false) { success =>
+                        success.listYearTwo.contains("2023")},
+                    hint = Some(Hint(
+                        content = Text(messages("selectRatingList.valuationsBetween2023"))
+                    )),
+                    content = Text("2023")
+                ),
+                CheckboxItem(
+                    value = "2017",
+                    name= Some("listYearThree"),
+                    checked = form.value.fold(false) { success =>
+                        success.listYearThree.contains("2017")},
+                    hint = Some(Hint(
+                        content = Text(messages("selectRatingList.valuationsBetween2017"))
+                    )),
+                    content = Text("2017")
+                )
+            )).withFormField(form("listYears")))
+
+        @govukButton(Button(
+            attributes = Map("id" -> "continue"),
+            content = Text(messages("label.continue"))
+        ))
+    }
+}
