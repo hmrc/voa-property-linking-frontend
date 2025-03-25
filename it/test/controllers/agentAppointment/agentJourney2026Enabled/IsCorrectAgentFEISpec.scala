@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.agentAppointment
+package controllers.agentAppointment.agentJourney2026Enabled
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
@@ -31,7 +31,9 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
+class IsCorrectAgentFEISpec extends ISpecBase with HtmlComponentHelpers {
+
+  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   val agentName = "Test Organisation"
@@ -198,13 +200,13 @@ class IsCorrectAgentISpec extends ISpecBase with HtmlComponentHelpers {
       }
     }
 
-    s"Redirect to the Ratings List page when the user chooses $yesText" when {
+    s"Redirect to the Ratings List New page when the user chooses $yesText" when {
       lazy val res = validPostIsCorrectAgentPage(answer = true)
 
       "has the correct status and redirect location" in {
         res.status shouldBe SEE_OTHER
         res.header("Location") shouldBe Some(
-          "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+          "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new"
         )
       }
     }

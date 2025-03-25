@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.agentAppointment
+package controllers.agentAppointment.agentJourney2026Enabled
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
@@ -29,7 +29,9 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class AppointOnePropertyISpec extends ISpecBase with HtmlComponentHelpers {
+class AppointOnePropertyFEISpec extends ISpecBase with HtmlComponentHelpers {
+
+  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
@@ -74,7 +76,7 @@ class AppointOnePropertyISpec extends ISpecBase with HtmlComponentHelpers {
   val errorSummaryMessageLocator = "#main-content > div > div > div > div > div > ul > li > a"
   val radioErrorMessageLocator = "oneProperty-error"
 
-  val backLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+  val backLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new"
   val cyaBackLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
   val errorHref = "#oneProperty"
 
@@ -481,7 +483,7 @@ class AppointOnePropertyISpec extends ISpecBase with HtmlComponentHelpers {
       agentOrganisationName = "Test Agent",
       agentAddress = "1 Agent Street, AG3 NT1",
       isCorrectAgent = true,
-      backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"),
+      backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new"),
       ratingLists = Seq("2023", "2017")
     )
 

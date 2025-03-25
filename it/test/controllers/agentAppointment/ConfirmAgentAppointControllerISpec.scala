@@ -766,13 +766,6 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
 
   def getDocument(language: Language, ratingsLists: Seq[String]): Document = {
 
-    val (bothRatingsListChoice, specificRatingsListChoice): (Option[Boolean], Option[String]) = ratingsLists match {
-      case Seq("2023", "2017") => (Some(true), None)
-      case Seq("2023")         => (Some(false), Some("2023"))
-      case Seq("2017")         => (Some(false), Some("2017"))
-      case _                   => (None, None)
-    }
-
     val managingPropertyData: ManagingProperty = ManagingProperty(
       agentCode = agentCode,
       agentOrganisationName = agentName,
@@ -783,8 +776,6 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       totalPropertySelectionSize = 2,
       propertySelectedSize = 2,
       singleProperty = true,
-      bothRatingLists = bothRatingsListChoice,
-      specificRatingList = specificRatingsListChoice,
       ratingLists = ratingsLists
     )
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.agentAppointment
+package controllers.agentAppointment.agentJourney2026Enabled
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -29,7 +29,9 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers {
+class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpers {
+
+  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
@@ -79,7 +81,7 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
   val errorSummaryMessageLocator = "#main-content > div > div > div > div > div > ul > li > a"
   val radioErrorMessageLocator = "multipleProperties-error"
 
-  val backLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
+  val backLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new"
   val fromCyaBackLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
   val errorHref = "#multipleProperties"
   val assignToOneOrMoreRedirectUrl =
@@ -627,9 +629,9 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
         status = ManagingPropertySelected,
         backLink = None,
         totalPropertySelectionSize = 10,
-        propertySelectedSize = 10,
-        ratingLists = Seq("2023", "2017")
+        propertySelectedSize = 10
       )
+
       await(mockAppointAgentSessionRepository.saveOrUpdate(cacheData))
     } else {
       val cacheData = SelectedAgent(
@@ -671,7 +673,7 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
       agentOrganisationName = "Test Agent",
       agentAddress = "1 Agent Street, AG3 NT1",
       isCorrectAgent = true,
-      backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"),
+      backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new"),
       ratingLists = Seq("2023", "2017")
     )
 

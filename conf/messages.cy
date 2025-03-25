@@ -569,6 +569,9 @@ propertyRepresentation.checkYourAnswers.confirmAndAppoint=Cadarnhau a phenodi
 propertyRepresentation.checkYourAnswers.ratings=Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?
 propertyRepresentation.checkYourAnswers.ratings.single.answer=Rhestr ardrethu {0}
 propertyRepresentation.checkYourAnswers.ratings.multiple.answer=Rhestr ardrethu 2023 a rhestr ardrethu 2017
+propertyRepresentation.checkYourAnswers.listYears.one=Rhestr ardrethi {0}
+propertyRepresentation.checkYourAnswers.listYears.two=Rhestrau ardrethu {0} a {1}
+propertyRepresentation.checkYourAnswers.listYears.three=Rhestrau ardrethu {0}, {1}, a {2}
 
 propertyRepresentation.confirmation.title=Mae {0} wedi’i benodi i’ch cyfrif
 propertyRepresentation.confirmation.thisAgentCan=Gall yr asiant hwn:
@@ -839,6 +842,17 @@ whichRatingList.2023ListHelp = Dim ond ar eich prisiad cyfredol ar gyfer eich ei
 whichRatingList.2017List = rhestr ardrethu 2017
 whichRatingList.2017ListHelp = Dim ond ar brisiadau blaenorol ar gyfer eich eiddo sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023 y gall yr asiant weithredu ar eich rhan.
 whichRatingList.error = Dewis ar ba restr ardrethu chi am i’r asiant hwn weithredu ar eich rhan
+
+#New Select rating list page
+selectRatingList.header = Dewiswch pa restr ardrethu y gall {0} weithredu arni ar eich rhan
+selectRatingList.choosingAList=Mae dewis rhestr ardrethu yn wahanol i neilltuo eiddo i asiant. Byddwch yn neilltuo eiddo ar ôl i chi ddewis rhestr ardrethu.
+selectRatingList.theRatingList = Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac maen nhw’n ychwanegu at eich cyfrif.
+selectRatingList.theAgentWill = Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan.
+selectRatingList.allThatApply = Dewiswch bob un sy’n berthnasol.
+selectRatingList.valuationsFrom2026 = Ar gyfer prisiadau o 1 Ebrill 2026.
+selectRatingList.valuationsBetween2023 = Ar gyfer prisiadau rhwng 1 Ebrill 2023 a 31 Mawrth 2026.
+selectRatingList.valuationsBetween2017 = Ar gyfer prisiadau rhwng 1 Ebrill 2017 a 31 Mawrth 2023.
+selectRatingList.error = Dewiswch pa restr ardrethu rydych chi am i’r asiant hwn weithredu arni ar eich rhan
 
 #Rating list years confirmation screen
 ratingsListConfirmation.multiple.header = A ydych yn siŵr eich bod am i {0} weithredu ar restrau ardrethu 2023 a 2017 ar eich rhan?

@@ -66,20 +66,33 @@
 }
 
 @ratingListAnswerUrl = @{
+  if(config.AgentJourney2026) {
+    controllers.agentAppointment.routes.SelectRatingListNewController.show(true).url
+  } else {
     controllers.agentAppointment.routes.RatingListOptionsController.show(true).url
+  }
 }
 
 @ratingListAnswer = @{
-    if(data.bothRatingLists.get){
+    if(data.ratingLists.size == 2){
         messages("propertyRepresentation.checkYourAnswers.ratings.multiple.answer")
     } else {
-        messages("propertyRepresentation.checkYourAnswers.ratings.single.answer",  data.specificRatingList.get)
+        messages("propertyRepresentation.checkYourAnswers.ratings.single.answer",  data.ratingLists.head)
+    }
+}
+
+@threeRatingListYearsText = @{
+    data.ratingLists.sorted(Ordering.String.reverse) match {
+        case List(a, b, c) => messages("propertyRepresentation.checkYourAnswers.listYears.three", a, b, c)
+        case List(a, b) => messages("propertyRepresentation.checkYourAnswers.listYears.two", a, b)
+        case List(a) => messages("propertyRepresentation.checkYourAnswers.listYears.one", a)
+        case _ => ""
     }
 }
 
 
 @summaryList = @{
-    if(data.specificRatingList.isEmpty && data.bothRatingLists.isEmpty){
+    if(data.ratingLists.isEmpty){
         SummaryList(
             rows = Seq(
             SummaryListRow(
@@ -147,7 +160,7 @@
             content = valueWithId(messages("propertyRepresentation.checkYourAnswers.ratings"), "ratings-heading")
             ),
             value = Value(
-            valueWithId(ratingListAnswer, "ratings-value")
+                valueWithId(if(config.AgentJourney2026) threeRatingListYearsText else ratingListAnswer, "ratings-value")
             ),
             actions = Some(Actions(
             items = Seq(

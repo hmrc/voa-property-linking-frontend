@@ -198,7 +198,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
       "has a back link which takes you to the agent details page" in {
         document.select(backLinkSelector).text() shouldBe backLinkText
-        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+        document.select(backLinkSelector).attr("href") shouldBe checkYourAnswersBackLink
       }
 
       s"has a header of '$headerText' with a caption above of '$captionText'" in {
@@ -388,9 +388,10 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =
       app.injector.instanceOf[AppointAgentSessionRepository]
 
-    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, None)
+    val searchedAgentData: SearchedAgent =
+      SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, Some("back-link"))
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Some(true), None, Seq("2023", "2017"))
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Seq("2023", "2017"))
 
     await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
 
@@ -428,7 +429,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
     val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, None)
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Some(true), Some("2017"), Seq("2017"))
+    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Seq("2023", "2017"))
 
     val managedAgentData = ManagingProperty.apply(selectedAgentData, "None", false, 1, 1)
     await(mockAppointAgentSessionRepository.saveOrUpdate(managedAgentData))

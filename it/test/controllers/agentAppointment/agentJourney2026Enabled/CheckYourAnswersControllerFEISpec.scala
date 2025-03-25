@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.agentAppointment
+package controllers.agentAppointment.agentJourney2026Enabled
 
 import base.ISpecBase
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -31,7 +31,9 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class CheckYourAnswersControllerISpec extends ISpecBase {
+class CheckYourAnswersControllerFEISpec extends ISpecBase {
+
+  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   val agentCode = 1234
@@ -51,7 +53,8 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   val agentHeadingText = "Agent"
   val agentAnswerText = "Test Agent"
   val ratingListHeadingText = "Which rating list do you want this agent to act on for you?"
-  val ratingListAnswerBothText = "2023 and 2017 rating lists"
+  val ratingListAnswerThreeText = "2026, 2023, and 2017 rating lists"
+  val ratingListAnswerTwoText = "2023 and 2017 rating lists"
   val ratingListAnswer2017Text = "2017 rating list"
   val ratingListAnswer2023Text = "2023 rating list"
   val propertiesHeadingText = "Which properties do you want to assign to this agent?"
@@ -69,9 +72,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   val agentHeadingTextWelsh = "Asiant"
   val agentAnswerTextWelsh = "Test Agent"
   val ratingListHeadingTextWelsh = "Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?"
-  val ratingListAnswerBothTextWelsh = "Rhestr ardrethu 2023 a rhestr ardrethu 2017"
-  val ratingListAnswer2017TextWelsh = "Rhestr ardrethu 2017"
-  val ratingListAnswer2023TextWelsh = "Rhestr ardrethu 2023"
+  val ratingListAnswerThreeTextWelsh = "Rhestrau ardrethu 2026, 2023, a 2017"
+  val ratingListAnswerTwoTextWelsh = "Rhestrau ardrethu 2023 a 2017"
+  val ratingListAnswer2017TextWelsh = "Rhestr ardrethi 2017"
+  val ratingListAnswer2023TextWelsh = "Rhestr ardrethi 2023"
   val propertiesHeadingTextWelsh = "Pa eiddo ydych chi’n dymuno neilltuo ir asiant hwn?"
   val propertiesAnswerNoPropertiesTextWelsh = "Dim eiddo"
   val propertiesAnswerOnePropertyTextWelsh = "Eich eiddo"
@@ -99,7 +103,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   val agentChangeLinkHref =
     "/business-rates-property-linking/my-organisation/appoint-new-agent/agent-code?fromCyaChange=true"
   val ratingListChangeLinkHref =
-    "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list?fromCyaChange=true"
+    "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new?fromCyaChange=true"
   val multiplePropertiesChangeLinkHref =
     "/business-rates-property-linking/my-organisation/appoint-new-agent/multiple-properties?fromCyaChange=true"
   val onePropertyChangeLinkHref =
@@ -109,7 +113,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   "CheckYourAnswersController onPageLoad displays the correct content in English (Client has no properties & 2017 list year)" which {
     lazy val res = getCheckYourAnswersPage(
       language = English,
-      listYear = "2017",
+      listYear = List("2017"),
       assignedProperties = 0,
       totalProperties = 0,
       backLink = None
@@ -164,10 +168,242 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
+  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to only property & 2023 list year)" which {
+    lazy val res = getCheckYourAnswersPage(
+      language = English,
+      listYear = List("2023"),
+      assignedProperties = 1,
+      totalProperties = 1,
+      backLink = None
+    )
+
+    lazy val document = Jsoup.parse(res.body)
+
+    s"has a status of 200 OK" in {
+      res.status shouldBe OK
+    }
+
+    s"has a title of $titleText" in {
+      document.title() shouldBe titleText
+    }
+
+    s"has a heading of $headingText" in {
+      document.getElementsByTag(headingLocator).text shouldBe headingText
+    }
+
+    s"has a caption of $captionText" in {
+      document.getElementById(captionLocator).text shouldBe captionText
+    }
+
+    "has a back link" in {
+      document.getElementById(backLinkLocator).text shouldBe backLinkText
+      document.getElementById(backLinkLocator).attr("href") shouldBe defaultBackLinkHref
+    }
+
+    "has the correct agent details in the summary list" in {
+      document.getElementById(agentHeadingLocator).text shouldBe agentHeadingText
+      document.getElementById(agentAnswerLocator).text shouldBe agentAnswerText
+      document.getElementById(agentChangeLinkLocator).text shouldBe s"$changeLinkText $agentHeadingText"
+      document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
+    }
+
+    "has the correct rating list details in the summary list" in {
+      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
+      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswer2023Text
+      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
+      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    }
+
+    "has the correct property details in the summary list" in {
+      document.getElementById(propertiesHeadingLocator).text shouldBe propertiesHeadingText
+      document.getElementById(propertiesAnswerLocator).text shouldBe propertiesAnswerOnePropertyText
+      document.getElementById(propertiesChangeLinkLocator).text shouldBe s"$changeLinkText $propertiesHeadingText"
+      document.getElementById(propertiesChangeLinkLocator).attr("href") shouldBe multiplePropertiesChangeLinkHref
+    }
+
+    s"has a $confirmAndAppointButtonText button" in {
+      document.select(confirmAndAppointButtonLocator).text shouldBe confirmAndAppointButtonText
+    }
+  }
+
+  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to all properties & two list years)" which {
+    lazy val res = getCheckYourAnswersPage(
+      language = English,
+      listYear = List("2023", "2017"),
+      assignedProperties = 10,
+      totalProperties = 10,
+      backLink = Some(backLinkFromSessionHref)
+    )
+
+    lazy val document = Jsoup.parse(res.body)
+
+    s"has a status of 200 OK" in {
+      res.status shouldBe OK
+    }
+
+    s"has a title of $titleText" in {
+      document.title() shouldBe titleText
+    }
+
+    s"has a heading of $headingText" in {
+      document.getElementsByTag(headingLocator).text shouldBe headingText
+    }
+
+    s"has a caption of $captionText" in {
+      document.getElementById(captionLocator).text shouldBe captionText
+    }
+
+    "has a back link" in {
+      document.getElementById(backLinkLocator).text shouldBe backLinkText
+      document.getElementById(backLinkLocator).attr("href") shouldBe backLinkFromSessionHref
+    }
+
+    "has the correct agent details in the summary list" in {
+      document.getElementById(agentHeadingLocator).text shouldBe agentHeadingText
+      document.getElementById(agentAnswerLocator).text shouldBe agentAnswerText
+      document.getElementById(agentChangeLinkLocator).text shouldBe s"$changeLinkText $agentHeadingText"
+      document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
+    }
+
+    "has the correct rating list details in the summary list" in {
+      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
+      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerTwoText
+      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
+      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    }
+
+    "has the correct property details in the summary list" in {
+      document.getElementById(propertiesHeadingLocator).text shouldBe propertiesHeadingText
+      document.getElementById(propertiesAnswerLocator).text shouldBe propertiesAnswerAllPropertiesText
+      document.getElementById(propertiesChangeLinkLocator).text shouldBe s"$changeLinkText $propertiesHeadingText"
+      document.getElementById(propertiesChangeLinkLocator).attr("href") shouldBe multiplePropertiesChangeLinkHref
+    }
+
+    s"has a $confirmAndAppointButtonText button" in {
+      document.select(confirmAndAppointButtonLocator).text shouldBe confirmAndAppointButtonText
+    }
+  }
+
+  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to no properties & two list years)" which {
+    lazy val res = getCheckYourAnswersPage(
+      language = English,
+      listYear = List("2023", "2017"),
+      assignedProperties = 0,
+      totalProperties = 10,
+      backLink = Some(backLinkFromSessionHref)
+    )
+
+    lazy val document = Jsoup.parse(res.body)
+
+    s"has a status of 200 OK" in {
+      res.status shouldBe OK
+    }
+
+    s"has a title of $titleText" in {
+      document.title() shouldBe titleText
+    }
+
+    s"has a heading of $headingText" in {
+      document.getElementsByTag(headingLocator).text shouldBe headingText
+    }
+
+    s"has a caption of $captionText" in {
+      document.getElementById(captionLocator).text shouldBe captionText
+    }
+
+    "has a back link" in {
+      document.getElementById(backLinkLocator).text shouldBe backLinkText
+      document.getElementById(backLinkLocator).attr("href") shouldBe backLinkFromSessionHref
+    }
+
+    "has the correct agent details in the summary list" in {
+      document.getElementById(agentHeadingLocator).text shouldBe agentHeadingText
+      document.getElementById(agentAnswerLocator).text shouldBe agentAnswerText
+      document.getElementById(agentChangeLinkLocator).text shouldBe s"$changeLinkText $agentHeadingText"
+      document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
+    }
+
+    "has the correct rating list details in the summary list" in {
+      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
+      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerTwoText
+      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
+      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    }
+
+    "has the correct property details in the summary list" in {
+      document.getElementById(propertiesHeadingLocator).text shouldBe propertiesHeadingText
+      document.getElementById(propertiesAnswerLocator).text shouldBe propertiesAnswerNoPropertiesText
+      document.getElementById(propertiesChangeLinkLocator).text shouldBe s"$changeLinkText $propertiesHeadingText"
+      document.getElementById(propertiesChangeLinkLocator).attr("href") shouldBe multiplePropertiesChangeLinkHref
+    }
+
+    s"has a $confirmAndAppointButtonText button" in {
+      document.select(confirmAndAppointButtonLocator).text shouldBe confirmAndAppointButtonText
+    }
+  }
+
+  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to some properties & all three list years)" which {
+    lazy val res = getCheckYourAnswersPage(
+      language = English,
+      listYear = List("2026", "2023", "2017"),
+      assignedProperties = 5,
+      totalProperties = 10,
+      backLink = Some(backLinkFromSessionHref)
+    )
+
+    lazy val document = Jsoup.parse(res.body)
+
+    s"has a status of 200 OK" in {
+      res.status shouldBe OK
+    }
+
+    s"has a title of $titleText" in {
+      document.title() shouldBe titleText
+    }
+
+    s"has a heading of $headingText" in {
+      document.getElementsByTag(headingLocator).text shouldBe headingText
+    }
+
+    s"has a caption of $captionText" in {
+      document.getElementById(captionLocator).text shouldBe captionText
+    }
+
+    "has a back link" in {
+      document.getElementById(backLinkLocator).text shouldBe backLinkText
+      document.getElementById(backLinkLocator).attr("href") shouldBe backLinkFromSessionHref
+    }
+
+    "has the correct agent details in the summary list" in {
+      document.getElementById(agentHeadingLocator).text shouldBe agentHeadingText
+      document.getElementById(agentAnswerLocator).text shouldBe agentAnswerText
+      document.getElementById(agentChangeLinkLocator).text shouldBe s"$changeLinkText $agentHeadingText"
+      document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
+    }
+
+    "has the correct rating list details in the summary list" in {
+      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
+      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerThreeText
+      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
+      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
+    }
+
+    "has the correct property details in the summary list" in {
+      document.getElementById(propertiesHeadingLocator).text shouldBe propertiesHeadingText
+      document.getElementById(propertiesAnswerLocator).text shouldBe propertiesAnswerSomePropertiesText
+      document.getElementById(propertiesChangeLinkLocator).text shouldBe s"$changeLinkText $propertiesHeadingText"
+      document.getElementById(propertiesChangeLinkLocator).attr("href") shouldBe multiplePropertiesChangeLinkHref
+    }
+
+    s"has a $confirmAndAppointButtonText button" in {
+      document.select(confirmAndAppointButtonLocator).text shouldBe confirmAndAppointButtonText
+    }
+  }
+
   "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Client has no properties & 2017 list year)" which {
     lazy val res = getCheckYourAnswersPage(
       language = Welsh,
-      listYear = "2017",
+      listYear = List("2017"),
       assignedProperties = 0,
       totalProperties = 0,
       backLink = None
@@ -226,68 +462,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to only property & 2023 list year)" which {
-    lazy val res = getCheckYourAnswersPage(
-      language = English,
-      listYear = "2023",
-      assignedProperties = 1,
-      totalProperties = 1,
-      backLink = None
-    )
-
-    lazy val document = Jsoup.parse(res.body)
-
-    s"has a status of 200 OK" in {
-      res.status shouldBe OK
-    }
-
-    s"has a title of $titleText" in {
-      document.title() shouldBe titleText
-    }
-
-    s"has a heading of $headingText" in {
-      document.getElementsByTag(headingLocator).text shouldBe headingText
-    }
-
-    s"has a caption of $captionText" in {
-      document.getElementById(captionLocator).text shouldBe captionText
-    }
-
-    "has a back link" in {
-      document.getElementById(backLinkLocator).text shouldBe backLinkText
-      document.getElementById(backLinkLocator).attr("href") shouldBe defaultBackLinkHref
-    }
-
-    "has the correct agent details in the summary list" in {
-      document.getElementById(agentHeadingLocator).text shouldBe agentHeadingText
-      document.getElementById(agentAnswerLocator).text shouldBe agentAnswerText
-      document.getElementById(agentChangeLinkLocator).text shouldBe s"$changeLinkText $agentHeadingText"
-      document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
-    }
-
-    "has the correct rating list details in the summary list" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswer2023Text
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
-    }
-
-    "has the correct property details in the summary list" in {
-      document.getElementById(propertiesHeadingLocator).text shouldBe propertiesHeadingText
-      document.getElementById(propertiesAnswerLocator).text shouldBe propertiesAnswerOnePropertyText
-      document.getElementById(propertiesChangeLinkLocator).text shouldBe s"$changeLinkText $propertiesHeadingText"
-      document.getElementById(propertiesChangeLinkLocator).attr("href") shouldBe multiplePropertiesChangeLinkHref
-    }
-
-    s"has a $confirmAndAppointButtonText button" in {
-      document.select(confirmAndAppointButtonLocator).text shouldBe confirmAndAppointButtonText
-    }
-  }
-
   "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to only property & 2023 list year)" which {
     lazy val res = getCheckYourAnswersPage(
       language = Welsh,
-      listYear = "2023",
+      listYear = List("2023"),
       assignedProperties = 1,
       totalProperties = 1,
       backLink = None
@@ -346,68 +524,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to all properties & both list years)" which {
-    lazy val res = getCheckYourAnswersPage(
-      language = English,
-      listYear = "Both",
-      assignedProperties = 10,
-      totalProperties = 10,
-      backLink = Some(backLinkFromSessionHref)
-    )
-
-    lazy val document = Jsoup.parse(res.body)
-
-    s"has a status of 200 OK" in {
-      res.status shouldBe OK
-    }
-
-    s"has a title of $titleText" in {
-      document.title() shouldBe titleText
-    }
-
-    s"has a heading of $headingText" in {
-      document.getElementsByTag(headingLocator).text shouldBe headingText
-    }
-
-    s"has a caption of $captionText" in {
-      document.getElementById(captionLocator).text shouldBe captionText
-    }
-
-    "has a back link" in {
-      document.getElementById(backLinkLocator).text shouldBe backLinkText
-      document.getElementById(backLinkLocator).attr("href") shouldBe backLinkFromSessionHref
-    }
-
-    "has the correct agent details in the summary list" in {
-      document.getElementById(agentHeadingLocator).text shouldBe agentHeadingText
-      document.getElementById(agentAnswerLocator).text shouldBe agentAnswerText
-      document.getElementById(agentChangeLinkLocator).text shouldBe s"$changeLinkText $agentHeadingText"
-      document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
-    }
-
-    "has the correct rating list details in the summary list" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothText
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
-    }
-
-    "has the correct property details in the summary list" in {
-      document.getElementById(propertiesHeadingLocator).text shouldBe propertiesHeadingText
-      document.getElementById(propertiesAnswerLocator).text shouldBe propertiesAnswerAllPropertiesText
-      document.getElementById(propertiesChangeLinkLocator).text shouldBe s"$changeLinkText $propertiesHeadingText"
-      document.getElementById(propertiesChangeLinkLocator).attr("href") shouldBe multiplePropertiesChangeLinkHref
-    }
-
-    s"has a $confirmAndAppointButtonText button" in {
-      document.select(confirmAndAppointButtonLocator).text shouldBe confirmAndAppointButtonText
-    }
-  }
-
-  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to all properties & both list years)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to all properties & two list years)" which {
     lazy val res = getCheckYourAnswersPage(
       language = Welsh,
-      listYear = "Both",
+      listYear = List("2023", "2017"),
       assignedProperties = 10,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref)
@@ -445,7 +565,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
 
     "has the correct rating list details in the summary list in Welsh" in {
       document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingTextWelsh
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothTextWelsh
+      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerTwoTextWelsh
       document
         .getElementById(ratingListChangeLinkLocator)
         .text shouldBe s"$changeLinkTextWelsh $ratingListHeadingTextWelsh"
@@ -466,68 +586,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to no properties & both list years)" which {
-    lazy val res = getCheckYourAnswersPage(
-      language = English,
-      listYear = "Both",
-      assignedProperties = 0,
-      totalProperties = 10,
-      backLink = Some(backLinkFromSessionHref)
-    )
-
-    lazy val document = Jsoup.parse(res.body)
-
-    s"has a status of 200 OK" in {
-      res.status shouldBe OK
-    }
-
-    s"has a title of $titleText" in {
-      document.title() shouldBe titleText
-    }
-
-    s"has a heading of $headingText" in {
-      document.getElementsByTag(headingLocator).text shouldBe headingText
-    }
-
-    s"has a caption of $captionText" in {
-      document.getElementById(captionLocator).text shouldBe captionText
-    }
-
-    "has a back link" in {
-      document.getElementById(backLinkLocator).text shouldBe backLinkText
-      document.getElementById(backLinkLocator).attr("href") shouldBe backLinkFromSessionHref
-    }
-
-    "has the correct agent details in the summary list" in {
-      document.getElementById(agentHeadingLocator).text shouldBe agentHeadingText
-      document.getElementById(agentAnswerLocator).text shouldBe agentAnswerText
-      document.getElementById(agentChangeLinkLocator).text shouldBe s"$changeLinkText $agentHeadingText"
-      document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
-    }
-
-    "has the correct rating list details in the summary list" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothText
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
-    }
-
-    "has the correct property details in the summary list" in {
-      document.getElementById(propertiesHeadingLocator).text shouldBe propertiesHeadingText
-      document.getElementById(propertiesAnswerLocator).text shouldBe propertiesAnswerNoPropertiesText
-      document.getElementById(propertiesChangeLinkLocator).text shouldBe s"$changeLinkText $propertiesHeadingText"
-      document.getElementById(propertiesChangeLinkLocator).attr("href") shouldBe multiplePropertiesChangeLinkHref
-    }
-
-    s"has a $confirmAndAppointButtonText button" in {
-      document.select(confirmAndAppointButtonLocator).text shouldBe confirmAndAppointButtonText
-    }
-  }
-
-  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to no properties & both list years)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to no properties & two list years)" which {
     lazy val res = getCheckYourAnswersPage(
       language = Welsh,
-      listYear = "Both",
+      listYear = List("2023", "2017"),
       assignedProperties = 0,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref)
@@ -565,7 +627,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
 
     "has the correct rating list details in the summary list in Welsh" in {
       document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingTextWelsh
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothTextWelsh
+      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerTwoTextWelsh
       document
         .getElementById(ratingListChangeLinkLocator)
         .text shouldBe s"$changeLinkTextWelsh $ratingListHeadingTextWelsh"
@@ -586,68 +648,10 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onPageLoad displays the correct content in English (Assigned to some properties & both list years)" which {
-    lazy val res = getCheckYourAnswersPage(
-      language = English,
-      listYear = "Both",
-      assignedProperties = 5,
-      totalProperties = 10,
-      backLink = Some(backLinkFromSessionHref)
-    )
-
-    lazy val document = Jsoup.parse(res.body)
-
-    s"has a status of 200 OK" in {
-      res.status shouldBe OK
-    }
-
-    s"has a title of $titleText" in {
-      document.title() shouldBe titleText
-    }
-
-    s"has a heading of $headingText" in {
-      document.getElementsByTag(headingLocator).text shouldBe headingText
-    }
-
-    s"has a caption of $captionText" in {
-      document.getElementById(captionLocator).text shouldBe captionText
-    }
-
-    "has a back link" in {
-      document.getElementById(backLinkLocator).text shouldBe backLinkText
-      document.getElementById(backLinkLocator).attr("href") shouldBe backLinkFromSessionHref
-    }
-
-    "has the correct agent details in the summary list" in {
-      document.getElementById(agentHeadingLocator).text shouldBe agentHeadingText
-      document.getElementById(agentAnswerLocator).text shouldBe agentAnswerText
-      document.getElementById(agentChangeLinkLocator).text shouldBe s"$changeLinkText $agentHeadingText"
-      document.getElementById(agentChangeLinkLocator).attr("href") shouldBe agentChangeLinkHref
-    }
-
-    "has the correct rating list details in the summary list" in {
-      document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingText
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothText
-      document.getElementById(ratingListChangeLinkLocator).text shouldBe s"$changeLinkText $ratingListHeadingText"
-      document.getElementById(ratingListChangeLinkLocator).attr("href") shouldBe ratingListChangeLinkHref
-    }
-
-    "has the correct property details in the summary list" in {
-      document.getElementById(propertiesHeadingLocator).text shouldBe propertiesHeadingText
-      document.getElementById(propertiesAnswerLocator).text shouldBe propertiesAnswerSomePropertiesText
-      document.getElementById(propertiesChangeLinkLocator).text shouldBe s"$changeLinkText $propertiesHeadingText"
-      document.getElementById(propertiesChangeLinkLocator).attr("href") shouldBe multiplePropertiesChangeLinkHref
-    }
-
-    s"has a $confirmAndAppointButtonText button" in {
-      document.select(confirmAndAppointButtonLocator).text shouldBe confirmAndAppointButtonText
-    }
-  }
-
-  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to some properties & both list years)" which {
+  "CheckYourAnswersController onPageLoad displays the correct content in Welsh (Assigned to some properties & all three list years)" which {
     lazy val res = getCheckYourAnswersPage(
       language = Welsh,
-      listYear = "Both",
+      listYear = List("2026", "2023", "2017"),
       assignedProperties = 5,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref)
@@ -685,7 +689,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
 
     "has the correct rating list details in the summary list in Welsh" in {
       document.getElementById(ratingListHeadingLocator).text shouldBe ratingListHeadingTextWelsh
-      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerBothTextWelsh
+      document.getElementById(ratingListAnswerLocator).text shouldBe ratingListAnswerThreeTextWelsh
       document
         .getElementById(ratingListChangeLinkLocator)
         .text shouldBe s"$changeLinkTextWelsh $ratingListHeadingTextWelsh"
@@ -709,7 +713,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   "CheckYourAnswersController onPageLoad returns 404 NOT FOUND when no ManagingPropertyData is found in the cache" which {
     lazy val res = getCheckYourAnswersPage(
       language = English,
-      listYear = "Both",
+      listYear = List("2023", "2017"),
       assignedProperties = 10,
       totalProperties = 10,
       backLink = Some(backLinkFromSessionHref),
@@ -721,8 +725,24 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
+  "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (All properties & 2026 list year)" which {
+    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, List("2026"))
+
+    "has a status of 303 SEE OTHER with the correct redirect location & request sent to the backend" in {
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe redirectLocation
+
+      val expJsonBody = getExpectedJsonBody(ALL_PROPERTIES, Seq("2026"))
+      verify(
+        1,
+        postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+          .withRequestBody(equalToJson(expJsonBody.toString()))
+      )
+    }
+  }
+
   "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (All properties & 2023 list year)" which {
-    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, "2023")
+    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, List("2023"))
 
     "has a status of 303 SEE OTHER with the correct redirect location & request sent to the backend" in {
       res.status shouldBe SEE_OTHER
@@ -738,7 +758,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   }
 
   "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (Some properties & 2017 list year)" which {
-    lazy val res = postCheckYourAnswersPage(PROPERTY_LIST, "2017")
+    lazy val res = postCheckYourAnswersPage(PROPERTY_LIST, List("2017"))
 
     "has a status of 303 SEE OTHER with the correct redirect location & request sent to the backend" in {
       res.status shouldBe SEE_OTHER
@@ -753,8 +773,8 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
-  "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (No properties & both list years)" which {
-    lazy val res = postCheckYourAnswersPage(RELATIONSHIP, "Both")
+  "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (No properties & two list years)" which {
+    lazy val res = postCheckYourAnswersPage(RELATIONSHIP, List("2023", "2017"))
 
     "has a status of 303 SEE OTHER with the correct redirect location & request sent to the backend" in {
       res.status shouldBe SEE_OTHER
@@ -769,8 +789,24 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     }
   }
 
+  "CheckYourAnswersController onSubmit returns 303 & redirects to the confirm appointment page on successful appointment (No properties & three list years)" which {
+    lazy val res = postCheckYourAnswersPage(RELATIONSHIP, List("2026", "2023", "2017"))
+
+    "has a status of 303 SEE OTHER with the correct redirect location & request sent to the backend" in {
+      res.status shouldBe SEE_OTHER
+      res.headers("Location").head shouldBe redirectLocation
+
+      val expJsonBody = getExpectedJsonBody(RELATIONSHIP, Seq("2017", "2023", "2026"))
+      verify(
+        1,
+        postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+          .withRequestBody(equalToJson(expJsonBody.toString()))
+      )
+    }
+  }
+
   "CheckYourAnswersController onSubmit returns 400 BAD REQUEST when an agent code isn't submitted" which {
-    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, "2023", Some("Missing agentCode"))
+    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, List("2023"), Some("Missing agentCode"))
 
     "has a status of 400 BAD REQUEST" in {
       res.status shouldBe BAD_REQUEST
@@ -778,25 +814,18 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
   }
 
   "CheckYourAnswersController onSubmit returns 400 BAD REQUEST when a scope isn't submitted" which {
-    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, "2017", Some("Missing scope"))
+    lazy val res = postCheckYourAnswersPage(ALL_PROPERTIES, List("2017"), Some("Missing scope"))
 
     "has a status of 400 BAD REQUEST" in {
       res.status shouldBe BAD_REQUEST
     }
   }
-
   private def commonStubs(
-        listYear: String,
+        listYear: List[String],
         assignedProperties: Int,
         totalProperties: Int,
         backLink: Option[String] = None
   ) = {
-    val listYears: Seq[String] = listYear match {
-      case "Both" => List("2023", "2017")
-      case "2023" => List("2023")
-      case "2017" => List("2017")
-      case _      => List.empty
-    }
 
     val selectedOption = (assignedProperties, totalProperties) match {
       case (0, _)                                                 => "none"
@@ -813,7 +842,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
       backLink = backLink,
       totalPropertySelectionSize = totalProperties,
       propertySelectedSize = assignedProperties,
-      ratingLists = listYears
+      ratingLists = listYear
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(
@@ -862,7 +891,7 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
 
   private def getCheckYourAnswersPage(
         language: Language,
-        listYear: String,
+        listYear: List[String],
         assignedProperties: Int,
         totalProperties: Int,
         backLink: Option[String],
@@ -884,7 +913,11 @@ class CheckYourAnswersControllerISpec extends ISpecBase {
     )
   }
 
-  private def postCheckYourAnswersPage(scope: AppointmentScope, listYear: String, errorType: Option[String] = None) = {
+  private def postCheckYourAnswersPage(
+        scope: AppointmentScope,
+        listYear: List[String],
+        errorType: Option[String] = None
+  ) = {
     val (assignedProperties, totalProperties) = scope match {
       case ALL_PROPERTIES => (10, 10)
       case PROPERTY_LIST  => (5, 10)
