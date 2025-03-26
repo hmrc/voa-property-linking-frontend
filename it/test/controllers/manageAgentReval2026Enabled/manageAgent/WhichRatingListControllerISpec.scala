@@ -103,15 +103,18 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
   val currentlyThisTextSelectorWithError = "#main-content > div > div > div.govuk-inset-text"
   val p1TextSelector = "#main-content > div > div > p:nth-child(4)"
   val p2TextSelector = "#main-content > div > div > p:nth-child(5)"
-  val selectAllThatApplyTextSelector = "#main-content > div > div > form > div > fieldset > legend"
+  val selectAllThatApplyTextSelector = "#listYears-hint"
   val checkBox2026Selector = "#listYears"
-  val checkBox2026TextSelector = "#main-content > div > div > form > div > fieldset > div > div:nth-child(1) > label"
+  val checkBox2026TextSelector =
+    "#main-content > div > div > form > div > div.govuk-checkboxes > div:nth-child(1) > label"
   val checkBox2026HintTextSelector = "#listYears-item-hint"
   val checkBox2023Selector = "#listYears-2"
-  val checkBox2023TextSelector = "#main-content > div > div > form > div > fieldset > div > div:nth-child(2) > label"
+  val checkBox2023TextSelector =
+    "#main-content > div > div > form > div > div.govuk-checkboxes > div:nth-child(2) > label"
   val checkBox2023HintTextSelector = "#listYears-2-item-hint"
   val checkBox2017Selector = "#listYears-3"
-  val checkBox2017TextSelector = "#main-content > div > div > form > div > fieldset > div > div:nth-child(3) > label"
+  val checkBox2017TextSelector =
+    "#main-content > div > div > form > div > div.govuk-checkboxes > div:nth-child(3) > label"
   val checkBox2017HintTextSelector = "#listYears-3-item-hint"
   val continueTextSelector = "#continue"
   val errorTextSelector = "#main-content > div > div > div.govuk-error-summary > div > div > ul > li > a"
@@ -123,7 +126,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
   "WhichRatingListController show method" should {
     "Display the 'which rating list' screen with the correct content for agent assigned to one listYear - English" which {
 
-      lazy val document = getWhichRatingListPage(English, List("2023"))
+      lazy val document = getWhichRatingListPage(language = English, appointedListYears = Some(List("2023")))
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleText
@@ -156,19 +159,19 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       }
 
       s"has an un-checked '$checkBox2026Text' radio button, with hint text of '$checkBox2026HintText'" in {
-        document.select(checkBox2026TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2026Selector).hasAttr("checked") shouldBe false
         document.select(checkBox2026TextSelector).text() shouldBe checkBox2026Text
         document.select(checkBox2026HintTextSelector).text() shouldBe checkBox2026HintText
       }
 
       s"has an un-checked '$checkBox2023Text' radio button, with hint text of '$checkBox2023HintText'" in {
-        document.select(checkBox2023TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2023Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2023TextSelector).text() shouldBe checkBox2023Text
         document.select(checkBox2023HintTextSelector).text() shouldBe checkBox2023HintText
       }
 
       s"has an un-checked '$checkBox2017Text' radio button, with hint text of '$checkBox2017HintText'" in {
-        document.select(checkBox2017TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2017Selector).hasAttr("checked") shouldBe false
         document.select(checkBox2017TextSelector).text() shouldBe checkBox2017Text
         document.select(checkBox2017HintTextSelector).text() shouldBe checkBox2017HintText
       }
@@ -178,9 +181,9 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       }
     }
 
-    "Display the 'which rating list' screen with the correct content for agent assigned to one list year - English" which {
+    "Display the 'which rating list' screen with the correct content for agent assigned to one list year - Welsh" which {
 
-      lazy val document = getWhichRatingListPage(Welsh, List("2023"))
+      lazy val document = getWhichRatingListPage(language = Welsh, appointedListYears = Some(List("2023")))
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleTextWelsh
@@ -213,19 +216,19 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       }
 
       s"has an un-checked '$checkBox2026Text' radio button, with hint text of '$checkBox2026HintText'" in {
-        document.select(checkBox2026TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2026Selector).hasAttr("checked") shouldBe false
         document.select(checkBox2026TextSelector).text() shouldBe checkBox2026TextWelsh
         document.select(checkBox2026HintTextSelector).text() shouldBe checkBox2026HintTextWelsh
       }
 
       s"has an un-checked '$checkBox2023Text' radio button, with hint text of '$checkBox2023HintText'" in {
-        document.select(checkBox2023TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2023Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2023TextSelector).text() shouldBe checkBox2023TextWelsh
         document.select(checkBox2023HintTextSelector).text() shouldBe checkBox2023HintTextWelsh
       }
 
       s"has an un-checked '$checkBox2017Text' radio button, with hint text of '$checkBox2017HintText'" in {
-        document.select(checkBox2017TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2017Selector).hasAttr("checked") shouldBe false
         document.select(checkBox2017TextSelector).text() shouldBe checkBox2017TextWelsh
         document.select(checkBox2017HintTextSelector).text() shouldBe checkBox2017HintTextWelsh
       }
@@ -236,8 +239,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
     }
 
     "Display the 'which rating list' screen with the correct content for agent assigned to two list years - English" which {
-
-      lazy val document = getWhichRatingListPage(English, List("2023", "2017"))
+      lazy val document = getWhichRatingListPage(language = English, appointedListYears = Some(List("2023", "2017")))
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleText
@@ -253,7 +255,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
         document.select(captionTextSelector).text shouldBe captionText
       }
 
-      s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
+      s"has inset text on the screen of '$currentlyThisTextTwoListYears'" in {
         document.select(currentlyThisTextSelector).text() shouldBe currentlyThisTextTwoListYears
       }
 
@@ -270,19 +272,19 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       }
 
       s"has an un-checked '$checkBox2026Text' radio button, with hint text of '$checkBox2026HintText'" in {
-        document.select(checkBox2026TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2026Selector).hasAttr("checked") shouldBe false
         document.select(checkBox2026TextSelector).text() shouldBe checkBox2026Text
         document.select(checkBox2026HintTextSelector).text() shouldBe checkBox2026HintText
       }
 
       s"has an un-checked '$checkBox2023Text' radio button, with hint text of '$checkBox2023HintText'" in {
-        document.select(checkBox2023TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2023Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2023TextSelector).text() shouldBe checkBox2023Text
         document.select(checkBox2023HintTextSelector).text() shouldBe checkBox2023HintText
       }
 
       s"has an un-checked '$checkBox2017Text' radio button, with hint text of '$checkBox2017HintText'" in {
-        document.select(checkBox2017TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2017Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2017TextSelector).text() shouldBe checkBox2017Text
         document.select(checkBox2017HintTextSelector).text() shouldBe checkBox2017HintText
       }
@@ -294,7 +296,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
 
     "Display the 'which rating list' screen with the correct content for agent assigned to two list years - Welsh" which {
 
-      lazy val document = getWhichRatingListPage(Welsh, List("2023", "2017"))
+      lazy val document = getWhichRatingListPage(language = Welsh, appointedListYears = Some(List("2023", "2017")))
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleTextWelsh
@@ -310,7 +312,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
         document.select(captionTextSelector).text shouldBe captionTextWelsh
       }
 
-      s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
+      s"has inset text on the screen of '$currentlyThisTextTwoListYears'" in {
         document.select(currentlyThisTextSelector).text() shouldBe currentlyThisTextTwoListYearsWelsh
       }
 
@@ -327,19 +329,19 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       }
 
       s"has an un-checked '$checkBox2026Text' radio button, with hint text of '$checkBox2026HintText'" in {
-        document.select(checkBox2026TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2026Selector).hasAttr("checked") shouldBe false
         document.select(checkBox2026TextSelector).text() shouldBe checkBox2026TextWelsh
         document.select(checkBox2026HintTextSelector).text() shouldBe checkBox2026HintTextWelsh
       }
 
       s"has an un-checked '$checkBox2023Text' radio button, with hint text of '$checkBox2023HintText'" in {
-        document.select(checkBox2023TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2023Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2023TextSelector).text() shouldBe checkBox2023TextWelsh
         document.select(checkBox2023HintTextSelector).text() shouldBe checkBox2023HintTextWelsh
       }
 
       s"has an un-checked '$checkBox2017Text' radio button, with hint text of '$checkBox2017HintText'" in {
-        document.select(checkBox2017TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2017Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2017TextSelector).text() shouldBe checkBox2017TextWelsh
         document.select(checkBox2017HintTextSelector).text() shouldBe checkBox2017HintTextWelsh
       }
@@ -350,8 +352,8 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
     }
 
     "Display the 'which rating list' screen with the correct content for agent assigned to all list years - English" which {
-
-      lazy val document = getWhichRatingListPage(English, List("2026", "2023", "2017"))
+      lazy val document =
+        getWhichRatingListPage(language = English, appointedListYears = Some(List("2026", "2023", "2017")))
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleText
@@ -367,7 +369,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
         document.select(captionTextSelector).text shouldBe captionText
       }
 
-      s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
+      s"has inset text on the screen of '$currentlyThisTextThreeListYears'" in {
         document.select(currentlyThisTextSelector).text() shouldBe currentlyThisTextThreeListYears
       }
 
@@ -384,19 +386,19 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       }
 
       s"has an un-checked '$checkBox2026Text' radio button, with hint text of '$checkBox2026HintText'" in {
-        document.select(checkBox2026TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2026Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2026TextSelector).text() shouldBe checkBox2026Text
         document.select(checkBox2026HintTextSelector).text() shouldBe checkBox2026HintText
       }
 
       s"has an un-checked '$checkBox2023Text' radio button, with hint text of '$checkBox2023HintText'" in {
-        document.select(checkBox2023TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2023Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2023TextSelector).text() shouldBe checkBox2023Text
         document.select(checkBox2023HintTextSelector).text() shouldBe checkBox2023HintText
       }
 
       s"has an un-checked '$checkBox2017Text' radio button, with hint text of '$checkBox2017HintText'" in {
-        document.select(checkBox2017TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2017Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2017TextSelector).text() shouldBe checkBox2017Text
         document.select(checkBox2017HintTextSelector).text() shouldBe checkBox2017HintText
       }
@@ -407,8 +409,8 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
     }
 
     "Display the 'which rating list' screen with the correct content for agent assigned to all list years - Welsh" which {
-
-      lazy val document = getWhichRatingListPage(Welsh, List("2026", "2023", "2017"))
+      lazy val document =
+        getWhichRatingListPage(language = Welsh, appointedListYears = Some(List("2026", "2023", "2017")))
 
       s"has a title of $titleText" in {
         document.title() shouldBe titleTextWelsh
@@ -424,7 +426,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
         document.select(captionTextSelector).text shouldBe captionTextWelsh
       }
 
-      s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
+      s"has inset text on the screen of '$currentlyThisTextThreeListYears'" in {
         document.select(currentlyThisTextSelector).text() shouldBe currentlyThisTextThreeListYearsWelsh
       }
 
@@ -441,19 +443,19 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       }
 
       s"has an un-checked '$checkBox2026Text' radio button, with hint text of '$checkBox2026HintText'" in {
-        document.select(checkBox2026TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2026Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2026TextSelector).text() shouldBe checkBox2026TextWelsh
         document.select(checkBox2026HintTextSelector).text() shouldBe checkBox2026HintTextWelsh
       }
 
       s"has an un-checked '$checkBox2023Text' radio button, with hint text of '$checkBox2023HintText'" in {
-        document.select(checkBox2023TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2023Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2023TextSelector).text() shouldBe checkBox2023TextWelsh
         document.select(checkBox2023HintTextSelector).text() shouldBe checkBox2023HintTextWelsh
       }
 
       s"has an un-checked '$checkBox2017Text' radio button, with hint text of '$checkBox2017HintText'" in {
-        document.select(checkBox2017TextSelector).hasAttr("checked") shouldBe false
+        document.select(checkBox2017Selector).hasAttr("checked") shouldBe true
         document.select(checkBox2017TextSelector).text() shouldBe checkBox2017TextWelsh
         document.select(checkBox2017HintTextSelector).text() shouldBe checkBox2017HintTextWelsh
       }
@@ -467,7 +469,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
 
       lazy val document = getWhichRatingListPage(
         English,
-        listYears = List("2026", "2023", "2017"),
+        appointedListYears = Some(List("2023")),
         withCachedListYears = Some(List("2026", "2023", "2017"))
       )
 
@@ -486,7 +488,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       }
 
       s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
-        document.select(currentlyThisTextSelector).text() shouldBe currentlyThisTextThreeListYears
+        document.select(currentlyThisTextSelector).text() shouldBe currentlyThisTextSingleListYear
       }
 
       s"has text on the screen of '$p1Text'" in {
@@ -528,7 +530,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
 
       lazy val document = getWhichRatingListPage(
         Welsh,
-        listYears = List("2026", "2023", "2017"),
+        appointedListYears = Some(List("2023")),
         withCachedListYears = Some(List("2026", "2023", "2017"))
       )
 
@@ -547,7 +549,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       }
 
       s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
-        document.select(currentlyThisTextSelector).text() shouldBe currentlyThisTextThreeListYearsWelsh
+        document.select(currentlyThisTextSelector).text() shouldBe currentlyThisTextSingleListYearWelsh
       }
 
       s"has text on the screen of '$p1Text'" in {
@@ -616,7 +618,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
         document.select(captionTextSelector).text shouldBe captionText
       }
 
-      s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
+      s"has inset text on the screen of '$currentlyThisTextThreeListYears'" in {
         document.select(currentlyThisTextSelectorWithError).text() shouldBe currentlyThisTextThreeListYears
       }
 
@@ -687,7 +689,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
         document.select(captionTextSelector).text shouldBe captionTextWelsh
       }
 
-      s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
+      s"has inset text on the screen of '$currentlyThisTextThreeListYears'" in {
         document.select(currentlyThisTextSelectorWithError).text() shouldBe currentlyThisTextThreeListYearsWelsh
       }
 
@@ -759,7 +761,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
         document.select(captionTextSelector).text shouldBe captionText
       }
 
-      s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
+      s"has inset text on the screen of '$currentlyThisTextThreeListYears'" in {
         document.select(currentlyThisTextSelectorWithError).text() shouldBe currentlyThisTextThreeListYears
       }
 
@@ -831,7 +833,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
         document.select(captionTextSelector).text shouldBe captionTextWelsh
       }
 
-      s"has inset text on the screen of '$currentlyThisTextSingleListYear'" in {
+      s"has inset text on the screen of '$currentlyThisTextThreeListYears'" in {
         document.select(currentlyThisTextSelectorWithError).text() shouldBe currentlyThisTextThreeListYearsWelsh
       }
 
@@ -926,14 +928,14 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
 
   private def getWhichRatingListPage(
         language: Language,
-        listYears: List[String],
+        appointedListYears: Option[List[String]],
         withCachedListYears: Option[List[String]] = None
   ): Document = {
 
     await(
       mockRepository.saveOrUpdate(
         AgentSummary(
-          listYears = Some(listYears),
+          listYears = appointedListYears,
           name = "Test Agent",
           organisationId = 100L,
           representativeCode = 100L,

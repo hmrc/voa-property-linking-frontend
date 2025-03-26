@@ -61,11 +61,8 @@
       @govukCheckboxes(Checkboxes(
           errorMessage = if(form.errors.nonEmpty) Some(ErrorMessage.errorMessageWithDefaultStringsTranslated(
               content = Text(messages("whichRatingListNew.error")))) else None,
-          fieldset = Some(Fieldset(
-              legend = Some(Legend(
-                  content = Text(messages("whichRatingListNew.checkbox.hint")),
-                  classes = "govuk-body"
-              ))
+          hint = Some(Hint(
+              content = Text(messages("whichRatingListNew.checkbox.hint"))
           )),
           name = "listYears",
           items = List(

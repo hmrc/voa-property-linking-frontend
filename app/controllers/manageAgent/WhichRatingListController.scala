@@ -57,9 +57,27 @@ class WhichRatingListController @Inject() (
       }
     }
 
+  private def prepopulateCachedAnswers(listYears: Seq[String], listYear: String): Option[String] =
+    Some(listYear).filter(listYears.contains)
+
   def showRevalEnabled: Action[AnyContent] =
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears), None)) =>
+          Ok(
+            whichListViewNew(
+              form = ratingListYearsNew.fill(
+                RatingListYearsNew(
+                  listYearOne = prepopulateCachedAnswers(listYears, "2026"),
+                  listYearTwo = prepopulateCachedAnswers(listYears, "2023"),
+                  listYearThree = prepopulateCachedAnswers(listYears, "2017")
+                )
+              ),
+              currentRatingList = listYears.toList,
+              backLink = backLinkAgentJourney2026,
+              agentName = agentName
+            )
+          )
         case Some(AgentSummary(_, _, agentName, _, _, Some(listYears), proposedListYearsOpt)) =>
           val proposedListYears = proposedListYearsOpt.getOrElse(Seq.empty)
           Ok(
