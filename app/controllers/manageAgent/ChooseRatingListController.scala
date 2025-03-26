@@ -49,7 +49,7 @@ class ChooseRatingListController @Inject() (
   def show: Action[AnyContent] =
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
+        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears), _)) =>
           Ok(
             chooseListView(
               ratingListYears,
@@ -65,7 +65,7 @@ class ChooseRatingListController @Inject() (
   def submitRatingListYears: Action[AnyContent] =
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears))) =>
+        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears), _)) =>
           ratingListYears
             .bindFromRequest()
             .fold(

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.agent
+package controllers.manageAgentReval2026Enabled.manageAgent
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -34,7 +34,7 @@ import java.util.UUID
 class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
   override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.agentJourney2026Enabled" -> "false")
+    Map("feature-switch.agentJourney2026Enabled" -> "true")
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
@@ -387,64 +387,9 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
       s"should have the redirect location" in {
         result
           .headers("Location")
-          .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/choose"
+          .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval"
       }
     }
-  }
-
-  private def postPage(language: Language, answer: String) = {
-    val agentCode = 1001
-
-    stubFor {
-      post("/property-linking/my-organisation/agent/submit-appointment-changes")
-        .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
-        }
-    }
-
-    stubFor {
-      get(
-        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false"
-      ).willReturn {
-        aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
-      }
-    }
-
-    stubFor {
-      get("/business-rates-authorisation/authenticate")
-        .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-        }
-    }
-
-    stubFor {
-      post("/auth/authorise")
-        .willReturn {
-          aResponse.withStatus(OK).withBody("{}")
-        }
-    }
-
-    // Return agent in summary list that has only 2017 listYears assigned
-    stubFor {
-      get("/property-linking/owner/agents")
-        .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testAgentListFor2017).toString())
-        }
-    }
-
-    val requestBody = Json.obj(
-      "agentName"         -> "Test Agent",
-      "manageAgentOption" -> answer
-    )
-
-    await(
-      ws.url(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/$agentCode"
-      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
-        .withFollowRedirects(follow = false)
-        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-        .post(body = requestBody)
-    )
   }
 
   class AssignAllSetup {
@@ -592,6 +537,62 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
     res.status shouldBe BAD_REQUEST
     Jsoup.parse(res.body)
   }
+
+  private def postPage(language: Language, answer: String) = {
+    val agentCode = 1001
+
+    stubFor {
+      post("/property-linking/my-organisation/agent/submit-appointment-changes")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(AgentAppointmentChangesResponse("some-id")).toString())
+        }
+    }
+
+    stubFor {
+      get(
+        "/property-linking/owner/property-links?sortField=ADDRESS&sortOrder=ASC&startPoint=1&pageSize=100&requestTotalRowCount=false"
+      ).willReturn {
+        aResponse.withStatus(OK).withBody(Json.toJson(testOwnerAuthResult).toString())
+      }
+    }
+
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
+
+    // Return agent in summary list that has only 2017 listYears assigned
+    stubFor {
+      get("/property-linking/owner/agents")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAgentListFor2017).toString())
+        }
+    }
+
+    val requestBody = Json.obj(
+      "agentName"         -> "Test Agent",
+      "manageAgentOption" -> answer
+    )
+
+    await(
+      ws.url(
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/manage-agent/$agentCode"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .post(body = requestBody)
+    )
+  }
+
   private def getPageWhenPropertyCountIs1(language: Language, propertyCount: Int, agentList: AgentList): Document = {
     await(
       mockRepository.saveOrUpdate(

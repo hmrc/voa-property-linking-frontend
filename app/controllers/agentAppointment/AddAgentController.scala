@@ -289,7 +289,7 @@ class AddAgentController @Inject() (
                       sessionRepo.saveOrUpdate(
                         SelectedAgent(searchedAgent, success, Seq.empty).copy(backLink = Some(backLink))
                       )
-                      if (config.AgentJourney2026) {
+                      if (config.agentJourney2026) {
                         Future.successful(Redirect(routes.SelectRatingListNewController.show()))
                       } else {
                         Future.successful(Redirect(routes.RatingListOptionsController.show()))
@@ -365,7 +365,7 @@ class AddAgentController @Inject() (
 
   private def getBackLinkFromSession(implicit request: AppointAgentSessionRequest[AnyContent]) = {
     sessionRepo.get[AppointNewAgentSession].map { case Some(answer) =>
-      if (config.AgentJourney2026) {
+      if (config.agentJourney2026) {
         answer match {
           case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
             routes.SelectRatingListNewController.show().url
@@ -421,7 +421,7 @@ class AddAgentController @Inject() (
     if (fromCya) Future.successful(routes.CheckYourAnswersController.onPageLoad().url)
     else
       sessionRepo.get[AppointNewAgentSession].map { case Some(answer) =>
-        if (config.AgentJourney2026) {
+        if (config.agentJourney2026) {
           answer match {
             case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
               routes.SelectRatingListNewController.show().url

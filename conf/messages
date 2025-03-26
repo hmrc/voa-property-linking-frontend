@@ -818,6 +818,20 @@ whichRatingList.2017List = 2017 rating list
 whichRatingList.2017ListHelp = The agent can only act for you on previous valuations for your property that have an effective date between 1 April 2017 to 31 March 2023.
 whichRatingList.error = Select which rating list you want this agent to act on for you
 
+#Which rating list years new
+whichRatingListNew.header=Select which rating list {0} can act on for you
+
+whichRatingListNew.inset.text.one.listYear=Currently this agent can act for you on the {0} rating list
+whichRatingListNew.inset.text.two.listYears=Currently this agent can act for you on the {0} and {1} rating lists
+whichRatingListNew.inset.text.three.listYears=Currently this agent can act for you on the 2026, 2023, and 2017 rating lists
+whichRatingListNew.p1.text=The rating list you choose for this agent will apply to all properties that you assign to them and they add to your account.
+whichRatingListNew.p2.text=The agent will only be able to act for you on valuations on the rating list you choose.
+whichRatingListNew.checkbox.hint=Select all that apply.
+whichRatingListNew.2026.checkbox.hint=For valuations from 1 April 2026.
+whichRatingListNew.2023.checkbox.hint=For valuations between 1 April 2023 and 31 March 2026.
+whichRatingListNew.2017.checkbox.hint=For valuations between 1 April 2017 and 31 March 2023.
+whichRatingListNew.error=Select which rating list you want this agent to act on for you
+
 #New Select rating list page
 selectRatingList.header = Select which rating list {0} can act on for you
 selectRatingList.choosingAList=Choosing a rating list is different to assigning properties to the agent. You will assign properties after choosing a rating list.

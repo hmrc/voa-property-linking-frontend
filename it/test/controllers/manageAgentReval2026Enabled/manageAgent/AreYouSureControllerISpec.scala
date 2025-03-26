@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.manageAgent
+package controllers.manageAgentReval2026Enabled.manageAgent
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -29,10 +29,10 @@ import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
 import utils.ListYearsHelpers
 
-class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
+class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
   override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.agentJourney2026Enabled" -> "false")
+    Map("feature-switch.agentJourney2026Enabled" -> "true")
 
   def titleText(listYear: String) =
     s"Are you sure you want Test Agent to act for you on the $listYear rating list? - Valuation Office Agency - GOV.UK"
@@ -72,7 +72,7 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
   val cancelSelector = "#cancel-link"
 
   val cancelHref = "/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=100"
-  val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm"
+  val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval"
 
   "AreYouSureController show method" should {
     "Show an English are you sure screen with the correct text when chosen 2017 and the language is set to English" which {

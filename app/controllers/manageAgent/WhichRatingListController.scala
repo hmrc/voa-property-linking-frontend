@@ -21,21 +21,23 @@ import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import form.Mappings.mandatoryBoolean
-import models.RatingListYears
 import models.propertyrepresentation.AgentSummary
+import models.{RatingListYears, RatingListYearsNew}
 import play.api.data.Form
-import play.api.data.Forms.mapping
+import play.api.data.Forms.{mapping, optional, text}
+import play.api.data.validation.{Constraint, Invalid, Valid}
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.ManageAgentSessionRepository
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 @Singleton
 class WhichRatingListController @Inject() (
       whichListView: views.html.manageAgent.whichRatingList,
+      whichListViewNew: views.html.manageAgent.whichRatingListNew,
       manageAgentSessionRepository: ManageAgentSessionRepository,
       authenticated: AuthenticatedAction
 )(implicit
@@ -49,8 +51,49 @@ class WhichRatingListController @Inject() (
   def show: Action[AnyContent] =
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, _, _, _, Some(listYears))) =>
+        case Some(AgentSummary(_, _, _, _, _, Some(listYears), _)) =>
           Ok(whichListView(ratingListYears, currentRatingList = listYears.toList, backLink = getBackLink))
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      }
+    }
+
+  private def prepopulateCachedAnswers(listYears: Seq[String], listYear: String): Option[String] =
+    Some(listYear).filter(listYears.contains)
+
+  def showRevalEnabled: Action[AnyContent] =
+    authenticated.async { implicit request =>
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears), None)) =>
+          Ok(
+            whichListViewNew(
+              form = ratingListYearsNew.fill(
+                RatingListYearsNew(
+                  listYearOne = prepopulateCachedAnswers(listYears, "2026"),
+                  listYearTwo = prepopulateCachedAnswers(listYears, "2023"),
+                  listYearThree = prepopulateCachedAnswers(listYears, "2017")
+                )
+              ),
+              currentRatingList = listYears.toList,
+              backLink = backLinkAgentJourney2026,
+              agentName = agentName
+            )
+          )
+        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears), proposedListYearsOpt)) =>
+          val proposedListYears = proposedListYearsOpt.getOrElse(Seq.empty)
+          Ok(
+            whichListViewNew(
+              form = ratingListYearsNew.fill(
+                RatingListYearsNew(
+                  listYearOne = proposedListYears.headOption,
+                  listYearTwo = proposedListYears.lift(1),
+                  listYearThree = proposedListYears.lift(2)
+                )
+              ),
+              currentRatingList = listYears.toList,
+              backLink = backLinkAgentJourney2026,
+              agentName = agentName
+            )
+          )
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }
     }
@@ -58,7 +101,7 @@ class WhichRatingListController @Inject() (
   def submitRatingListYears: Action[AnyContent] =
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(agentSummary @ AgentSummary(_, _, _, _, _, Some(listYears))) =>
+        case Some(agentSummary @ AgentSummary(_, _, _, _, _, Some(listYears), _)) =>
           ratingListYears
             .bindFromRequest()
             .fold(
@@ -76,7 +119,39 @@ class WhichRatingListController @Inject() (
       }
     }
 
+  def submitRatingListYearsRevalEnabled: Action[AnyContent] =
+    authenticated.async { implicit request =>
+      manageAgentSessionRepository.get[AgentSummary].map {
+        case Some(agentSummary @ AgentSummary(_, _, agentName, _, _, Some(listYears), _)) =>
+          ratingListYearsNew
+            .bindFromRequest()
+            .fold(
+              errors =>
+                BadRequest(
+                  whichListViewNew(
+                    form = errors,
+                    currentRatingList = listYears.toList,
+                    backLink = backLinkAgentJourney2026,
+                    agentName = agentName
+                  )
+                ),
+              formData => {
+                manageAgentSessionRepository.saveOrUpdate[AgentSummary](
+                  agentSummary
+                    .copy(proposedListYears =
+                      Some(Seq(formData.listYearOne, formData.listYearTwo, formData.listYearThree).flatten)
+                    )
+                )
+                // TODO: needs updating to go to new route for AreYouSureController.show that pulls proposed list years from cache
+                Redirect(controllers.manageAgent.routes.AreYouSureController.show("2023").url)
+              }
+            )
+        case _ => NotFound(errorHandler.notFoundErrorTemplate)
+      }
+    }
+
   def getBackLink: String = controllers.manageAgent.routes.ChooseRatingListController.show.url
+  def backLinkAgentJourney2026: String = controllers.agent.routes.ManageAgentController.showManageAgent.url
 
   def ratingListYears: Form[RatingListYears] =
     Form(
@@ -85,4 +160,46 @@ class WhichRatingListController @Inject() (
       )(RatingListYears.apply)(RatingListYears.unapply)
     )
 
+  private def ratingListYearsNew: Form[RatingListYearsNew] = {
+    val atLeastOneNonEmpty: Constraint[RatingListYearsNew] = Constraint("constraint.atLeastOneNonEmpty") { data =>
+      if (data.listYearOne.nonEmpty || data.listYearTwo.nonEmpty || data.listYearThree.nonEmpty) {
+        Valid
+      } else {
+        Invalid("At least one field must be provided")
+      }
+    }
+
+    val listYearOneValidation: Constraint[RatingListYearsNew] = Constraint("constraint.listYearOneValid") { data =>
+      data.listYearOne match {
+        case Some("2026") | None => Valid
+        case _                   => Invalid("If provided, listYearOne must be 2026")
+      }
+    }
+
+    val listYearTwoValidation: Constraint[RatingListYearsNew] = Constraint("constraint.listYearTwoValid") { data =>
+      data.listYearTwo match {
+        case Some("2023") | None => Valid
+        case _                   => Invalid("If provided, listYearTwo must be 2023")
+      }
+    }
+
+    val listYearThreeValidation: Constraint[RatingListYearsNew] = Constraint("constraint.listYearThreeValid") { data =>
+      data.listYearThree match {
+        case Some("2017") | None => Valid
+        case _                   => Invalid("If provided, listYearThree must be 2017")
+      }
+    }
+
+    Form(
+      mapping(
+        "listYearOne"   -> optional(text),
+        "listYearTwo"   -> optional(text),
+        "listYearThree" -> optional(text)
+      )(RatingListYearsNew.apply)(RatingListYearsNew.unapply)
+        .verifying(atLeastOneNonEmpty)
+        .verifying(listYearOneValidation)
+        .verifying(listYearTwoValidation)
+        .verifying(listYearThreeValidation)
+    )
+  }
 }

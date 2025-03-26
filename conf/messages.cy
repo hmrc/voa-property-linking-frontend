@@ -843,6 +843,21 @@ whichRatingList.2017List = rhestr ardrethu 2017
 whichRatingList.2017ListHelp = Dim ond ar brisiadau blaenorol ar gyfer eich eiddo sydd â dyddiad dod i rym rhwng 1 Ebrill 2017 a 31 Mawrth 2023 y gall yr asiant weithredu ar eich rhan.
 whichRatingList.error = Dewis ar ba restr ardrethu chi am i’r asiant hwn weithredu ar eich rhan
 
+#Which rating list years new
+whichRatingListNew.header=Dewiswch pa restr ardrethu y gall {0} weithredu arni ar eich rhan
+
+whichRatingListNew.inset.text.one.listYear=Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restr ardrethu {0}
+whichRatingListNew.inset.text.two.listYears=Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restrau ardrethu {0} a {1}
+whichRatingListNew.inset.text.three.listYears=Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restrau ardrethu 2026, 2023 a 2017
+
+whichRatingListNew.p1.text=Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac maen nhw’n ychwanegu at eich cyfrif.
+whichRatingListNew.p2.text=Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan.
+whichRatingListNew.checkbox.hint=Dewiswch bob un sy’n berthnasol.
+whichRatingListNew.2026.checkbox.hint=Ar gyfer prisiadau o 1 Ebrill 2026.
+whichRatingListNew.2023.checkbox.hint=Ar gyfer prisiadau rhwng 1 Ebrill 2023 a 31 Mawrth 2026.
+whichRatingListNew.2017.checkbox.hint=Ar gyfer prisiadau rhwng 1 Ebrill 2017 a 31 Mawrth 2023.
+whichRatingListNew.error=Dewiswch pa restr ardrethu rydych chi am i’r asiant hwn weithredu arni ar eich rhan
+
 #New Select rating list page
 selectRatingList.header = Dewiswch pa restr ardrethu y gall {0} weithredu arni ar eich rhan
 selectRatingList.choosingAList=Mae dewis rhestr ardrethu yn wahanol i neilltuo eiddo i asiant. Byddwch yn neilltuo eiddo ar ôl i chi ddewis rhestr ardrethu.

@@ -131,6 +131,7 @@ GET         /my-organisation/appoint-new-agent/ratings-list-select              
 POST        /my-organisation/appoint-new-agent/ratings-list-select                                                        controllers.agentAppointment.SelectRatingListController.submitRatingListYear(fromCyaChange: Boolean ?= false)
 GET         /my-organisation/appoint-new-agent/ratings-list-new                                                           controllers.agentAppointment.SelectRatingListNewController.show(fromCyaChange: Boolean ?= false)
 POST        /my-organisation/appoint-new-agent/ratings-list-new                                                           controllers.agentAppointment.SelectRatingListNewController.submitRatingListYear(fromCyaChange: Boolean ?= false)
+
 #MANAGE AGENT
 GET         /my-organisation/manage-agent                                                                                 controllers.agent.ManageAgentController.showManageAgent
 GET         /my-organisation/manage-agent/property-links                                                                  controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters ?= GetPropertyLinksParameters(), propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None)
@@ -166,7 +167,9 @@ POST        /my-organisation/appoint/ratings-list/are-you-sure-multiple         
 GET         /my-organisation/appoint/ratings-list/choose                                                                  controllers.manageAgent.ChooseRatingListController.show
 POST        /my-organisation/appoint/ratings-list/choose                                                                  controllers.manageAgent.ChooseRatingListController.submitRatingListYears
 GET         /my-organisation/appoint/ratings-list/confirm                                                                 controllers.manageAgent.WhichRatingListController.show
+GET         /my-organisation/appoint/ratings-list/confirm-reval                                                                 controllers.manageAgent.WhichRatingListController.showRevalEnabled
 POST        /my-organisation/appoint/ratings-list/confirm                                                                 controllers.manageAgent.WhichRatingListController.submitRatingListYears
+POST        /my-organisation/appoint/ratings-list/confirm-reval                                                           controllers.manageAgent.WhichRatingListController.submitRatingListYearsRevalEnabled
 GET         /my-organisation/appoint/ratings-list/confirmed                                                               controllers.manageAgent.RatingListConfirmedController.show
 
 #DVR

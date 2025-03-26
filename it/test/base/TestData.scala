@@ -16,7 +16,6 @@
 
 package base
 
-import models.ListType.{CURRENT, DRAFT, ListType, PREVIOUS}
 import models.challenge.myclients.ChallengeCasesWithClient
 import models.dvr.cases.check.myclients.CheckCasesWithClient
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}

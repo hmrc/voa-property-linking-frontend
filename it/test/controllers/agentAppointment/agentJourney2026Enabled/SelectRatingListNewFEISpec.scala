@@ -18,7 +18,7 @@ package controllers.agentAppointment.agentJourney2026Enabled
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.{AgentSelected, AppointNewAgentSession, ManagingProperty, SearchedAgent, SelectedAgent}
+import models.propertyrepresentation.{AgentSelected, ManagingProperty, SearchedAgent, SelectedAgent}
 import models.searchApi.OwnerAuthResult
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
