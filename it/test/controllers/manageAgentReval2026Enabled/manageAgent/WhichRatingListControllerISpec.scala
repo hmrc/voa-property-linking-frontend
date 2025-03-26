@@ -884,11 +884,10 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       s"should have the correct $SEE_OTHER status" in {
         result.status shouldBe SEE_OTHER
       }
-      // TODO - update when following controller has been updated
       s"should have the redirect location" in {
         result
           .headers("Location")
-          .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023"
+          .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple"
       }
     }
 
@@ -900,11 +899,10 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
       s"should have the correct $SEE_OTHER status" in {
         result.status shouldBe SEE_OTHER
       }
-      // TODO - update when following controller has been updated
       s"should have the redirect location" in {
         result
           .headers("Location")
-          .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023"
+          .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure-multiple"
       }
     }
 
@@ -917,11 +915,10 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
         result.status shouldBe SEE_OTHER
       }
 
-      // TODO - update when following controller has been updated
       s"should have the redirect location" in {
         result
           .headers("Location")
-          .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2023"
+          .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2026"
       }
     }
   }

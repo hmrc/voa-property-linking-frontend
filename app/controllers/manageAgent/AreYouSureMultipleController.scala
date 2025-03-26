@@ -47,8 +47,8 @@ class AreYouSureMultipleController @Inject() (
   def show: Action[AnyContent] =
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, representativeCode, agentName, _, _, _, _)) =>
-          Ok(areYouSureMultipleView(agentName = agentName, backLink = getBackLink, agentCode = representativeCode))
+        case Some(AgentSummary(_, representativeCode, agentName, _, _, _, Some(proposedListYears))) =>
+          Ok(areYouSureMultipleView(agentName = agentName, backLink = getBackLink, agentCode = representativeCode, listYears = proposedListYears))
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }
     }

@@ -64,11 +64,12 @@ trait ListYearsHelpers extends ISpecBase with HtmlComponentHelpers {
         )
     )
 
-  def setCurrentListYears(listYears: List[String]): Unit =
+  def setCurrentListYears(listYears: List[String], proposedListYears: List[String] = List.empty): Unit =
     await(
       mockRepository.saveOrUpdate(
         AgentSummary(
           listYears = Some(listYears),
+          proposedListYears = Some(proposedListYears),
           name = "Test Agent",
           organisationId = 100L,
           representativeCode = 100L,

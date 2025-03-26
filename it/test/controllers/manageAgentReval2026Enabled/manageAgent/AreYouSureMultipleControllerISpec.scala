@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.manageAgent.AgentJourney2026FlagEnabled
+package controllers.manageAgentReval2026Enabled.manageAgent
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -29,21 +29,27 @@ import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
 import utils.ListYearsHelpers
 
-class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
+class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
-  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
+  override lazy val extraConfig: Map[String, String] =
+    Map("feature-switch.agentJourney2026Enabled" -> "true")
 
   def titleText(firstYear: String, secondYear: String) =
     s"Are you sure you want Test Agent to act for you on the $firstYear and $secondYear rating lists? - Valuation Office Agency - GOV.UK"
+
   val titleTextReval =
     "Are you sure you want Test Agent to act for you on the 2026, 2023, and 2017 rating lists? - Valuation Office Agency - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Manage agent"
+
   def headerText(firstYear: String, secondYear: String) =
     s"Are you sure you want Test Agent to act for you on the $firstYear and $secondYear rating lists?"
+
   val headerTextReval = "Are you sure you want Test Agent to act for you on the 2026, 2023, and 2017 rating lists?"
+
   def forAllText(firstYear: String, secondYear: String) =
     s"For all your property valuations on the $firstYear and $secondYear rating lists, this agent will be able to:"
+
   val forAllTextReval =
     "For all your property valuations on the 2026, 2023, and 2017 rating lists, this agent will be able to:"
   val seeDetailedText = "see detailed property information"
@@ -52,21 +58,27 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
   val thisAppliesText = "This applies to properties that you assign to them or they add to your account"
   val confirmText = "Confirm"
   val cancelText = "Cancel"
+
   def theyWillNotText(year: String) =
     s"They will not be able to see valuations on the $year rating list, or act on them for you."
 
   def titleTextWelsh(firstYear: String, secondYear: String) =
     s"Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu $firstYear a $secondYear? - Valuation Office Agency - GOV.UK"
+
   val titleTextRevalWelsh =
     "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2026, 2023, a 2017? - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
+
   def headerTextWelsh(firstYear: String, secondYear: String) =
     s"Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu $firstYear a $secondYear?"
+
   val headerTextRevalWelsh =
     "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2026, 2023, a 2017?"
+
   def forAllTextWelsh(firstYear: String, secondYear: String) =
     s"Ar gyfer eich holl brisiadau eiddo ar restrau ardrethu $firstYear a $secondYear, bydd yr asiant hwn yn gallu:"
+
   val forAllTextRevalWelsh =
     "Ar gyfer eich holl brisiadau eiddo ar restrau ardrethu 2026, 2023, a 2017, bydd yr asiant hwn yn gallu:"
   val seeDetailedTextWelsh = "gweld gwybodaeth fanwl am eiddo"
@@ -76,6 +88,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
     "Mae hyn yn berthnasol i eiddo rydych yn eu neilltuo iddo, ac i eiddo y mae’n eu hychwanegu at eich cyfrif"
   val confirmTextWelsh = "Cadarnhau"
   val cancelTextWelsh = "Canslo"
+
   def theyWillNotTextWelsh(year: String) =
     s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu $year, na gweithredu arnynt ar eich rhan."
 
@@ -517,8 +530,9 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
     }
 
   }
+
   private def getAreYouSureMultiplePage(language: Language, listYears: List[String]): Document = {
-    setCurrentListYears(listYears)
+    setCurrentListYears(List("2017", "2026"), listYears)
 
     stubsSetup
 
@@ -557,6 +571,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
         }
     }
   }
+
   private def submitNewListYear: WSResponse =
     await(
       ws.url(

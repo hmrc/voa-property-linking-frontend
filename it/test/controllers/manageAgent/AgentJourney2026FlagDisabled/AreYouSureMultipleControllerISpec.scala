@@ -29,21 +29,17 @@ import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
 import utils.ListYearsHelpers
 
-class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
+class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
-  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "false")
+  override lazy val extraConfig: Map[String, String] =
+    Map("featureFlags.agentJourney2026Enabled" -> "false")
 
   val titleText =
     "Are you sure you want Test Agent to act for you on the 2023 and 2017 rating lists? - Valuation Office Agency - GOV.UK"
-  val titleTextReval =
-    "Are you sure you want Test Agent to act for you on the 2026, 2023, and 2017 rating lists? - Valuation Office Agency - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Manage agent"
   val headerText = "Are you sure you want Test Agent to act for you on the 2023 and 2017 rating lists?"
-  val headerTextReval = "Are you sure you want Test Agent to act for you on the 2026, 2023, and 2017 rating lists?"
   val forAllText = "For all your property valuations on the 2023 and 2017 rating lists, this agent will be able to:"
-  val forAllTextReval =
-    "For all your property valuations on the 2026, 2023, and 2017 rating lists, this agent will be able to:"
   val seeDetailedText = "see detailed property information"
   val seeCheckText = "see Check and Challenge case correspondence such as messages and emails"
   val sendCheckText = "send Check and Challenge cases"
@@ -53,18 +49,12 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
 
   val titleTextWelsh =
     "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2023 a 2017? - Valuation Office Agency - GOV.UK"
-  val titleTextRevalWelsh =
-    "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2026, 2023, a 2017? - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
   val headerTextWelsh =
     "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2023 a 2017?"
-  val headerTextRevalWelsh =
-    "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2026, 2023, a 2017?"
   val forAllTextWelsh =
     "Ar gyfer eich holl brisiadau eiddo ar restrau ardrethu 2023 a 2017, bydd yr asiant hwn yn gallu:"
-  val forAllTextRevalWelsh =
-    "Ar gyfer eich holl brisiadau eiddo ar restrau ardrethu 2026, 2023, a 2017, bydd yr asiant hwn yn gallu:"
   val seeDetailedTextWelsh = "gweld gwybodaeth fanwl am eiddo"
   val seeCheckTextWelsh = "gweld gohebiaeth ynghylch achosion Gwirio a Herio, megis negeseuon ac e-byst"
   val sendCheckTextWelsh = "anfon achosion Gwirio a Herio"
@@ -86,7 +76,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/choose"
 
   "AreYouSureController show method with AgentJourney2026 flag disabled" should {
-    "Show an English are you sure multiple screen with the correct text when the language is set to English and reval2026 is set to false" which {
+    "Show an English are you sure multiple screen with the correct text when the language is set to English" which {
 
       lazy val document: Document = getAreYouSureMultiplePage(English)
 
@@ -128,7 +118,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
       }
     }
 
-    "Show a Welsh are you sure multiple screen with the correct text when the language is set to Welsh and reval2026 is set to false" which {
+    "Show a Welsh are you sure multiple screen with the correct text when the language is set to Welsh" which {
 
       lazy val document: Document = getAreYouSureMultiplePage(Welsh)
 
@@ -148,90 +138,6 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
 
       s"has text on the screen of '$forAllText' in welsh" in {
         document.select(forAllSelector).text() shouldBe forAllTextWelsh
-      }
-
-      s"has radio buttons on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText' in welsh" in {
-        document.select(bulletPointSelector).get(0).text() shouldBe seeDetailedTextWelsh
-        document.select(bulletPointSelector).get(1).text() shouldBe seeCheckTextWelsh
-        document.select(bulletPointSelector).get(2).text() shouldBe sendCheckTextWelsh
-      }
-
-      s"has text on the screen of '$thisAppliesText' in welsh" in {
-        document.select(thisAppliesSelector).text() shouldBe thisAppliesTextWelsh
-      }
-
-      s"has a '$confirmText' link on the screen in welsh" in {
-        document.select(confirmSelector).text() shouldBe confirmTextWelsh
-      }
-
-      s"has a '$cancelText' link on the screen in welsh, which takes you to the agent details screen" in {
-        document.select(cancelSelector).text() shouldBe cancelTextWelsh
-        document.select(cancelSelector).attr("href") shouldBe cancelHref
-      }
-    }
-
-    "Show an English are you sure multiple screen with the correct text when the language is set to English and reval2026 is set to true" which {
-
-      lazy val document: Document = getAreYouSureMultiplePage(English, true)
-
-      s"has a title of $titleText" in {
-        document.title() shouldBe titleTextReval
-      }
-
-      "has a back link which takes you to the which ratings list page" in {
-        document.select(backLinkSelector).text() shouldBe backLinkText
-        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-      }
-
-      s"has a header of '$headerText' with a caption above of '$captionText'" in {
-        document.select(headerSelector).text shouldBe headerTextReval
-        document.select(captionSelector).text shouldBe captionText
-      }
-
-      s"has text on the screen of '$forAllText'" in {
-        document.select(forAllSelector).text() shouldBe forAllTextReval
-      }
-
-      s"has radio buttons on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText'" in {
-        document.select(bulletPointSelector).get(0).text() shouldBe seeDetailedText
-        document.select(bulletPointSelector).get(1).text() shouldBe seeCheckText
-        document.select(bulletPointSelector).get(2).text() shouldBe sendCheckText
-      }
-
-      s"has text on the screen of '$thisAppliesText'" in {
-        document.select(thisAppliesSelector).text() shouldBe thisAppliesText
-      }
-
-      s"has a '$confirmText' link on the screen" in {
-        document.select(confirmSelector).text() shouldBe confirmText
-      }
-
-      s"has a '$cancelText' link on the screen, which takes you to the agent details screen" in {
-        document.select(cancelSelector).text() shouldBe cancelText
-        document.select(cancelSelector).attr("href") shouldBe cancelHref
-      }
-    }
-
-    "Show a Welsh are you sure multiple screen with the correct text when the language is set to Welsh and reval2026 is set to true" which {
-
-      lazy val document: Document = getAreYouSureMultiplePage(Welsh, true)
-
-      s"has a title of $titleText in welsh" in {
-        document.title() shouldBe titleTextRevalWelsh
-      }
-
-      "has a back link which takes you to the which ratings list page" in {
-        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
-        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-      }
-
-      s"has a header of '$headerText' with a caption above of '$captionText' in welsh" in {
-        document.select(headerSelector).text shouldBe headerTextRevalWelsh
-        document.select(captionSelector).text shouldBe captionTextWelsh
-      }
-
-      s"has text on the screen of '$forAllText' in welsh" in {
-        document.select(forAllSelector).text() shouldBe forAllTextRevalWelsh
       }
 
       s"has radio buttons on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText' in welsh" in {
@@ -315,9 +221,9 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
     }
 
   }
-  private def getAreYouSureMultiplePage(language: Language, reval2026: Boolean = false): Document = {
-    if (reval2026) setCurrentListYears(List("2017", "2023", "2026"))
-    else setCurrentListYears(List("2017", "2023"))
+
+  private def getAreYouSureMultiplePage(language: Language): Document = {
+   setCurrentListYears(List("2017"), List("2017", "2023"))
 
     stubsSetup
 
@@ -356,6 +262,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
         }
     }
   }
+
   private def submitNewListYear: WSResponse =
     await(
       ws.url(

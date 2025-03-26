@@ -136,14 +136,16 @@ class WhichRatingListController @Inject() (
                   )
                 ),
               formData => {
+                val proposedListYears = Seq(formData.listYearOne, formData.listYearTwo, formData.listYearThree).flatten
                 manageAgentSessionRepository.saveOrUpdate[AgentSummary](
                   agentSummary
                     .copy(proposedListYears =
-                      Some(Seq(formData.listYearOne, formData.listYearTwo, formData.listYearThree).flatten)
+                      Some(proposedListYears)
                     )
                 )
-                // TODO: needs updating to go to new route for AreYouSureController.show that pulls proposed list years from cache
-                Redirect(controllers.manageAgent.routes.AreYouSureController.show("2023").url)
+                if (proposedListYears.size == 1)
+                  Redirect(controllers.manageAgent.routes.AreYouSureController.show(proposedListYears.head).url)
+                else Redirect(controllers.manageAgent.routes.AreYouSureMultipleController.show.url)
               }
             )
         case _ => NotFound(errorHandler.notFoundErrorTemplate)

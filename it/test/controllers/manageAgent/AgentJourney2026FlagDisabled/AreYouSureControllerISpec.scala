@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.manageAgent.AgentJourney2026FlagEnabled
+package controllers.manageAgent.AgentJourney2026FlagDisabled
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -29,24 +29,27 @@ import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
 import utils.ListYearsHelpers
 
-class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
+class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
-  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
+  override lazy val extraConfig: Map[String, String] =
+    Map("feature-switch.agentJourney2026Enabled" -> "false")
 
   def titleText(listYear: String) =
     s"Are you sure you want Test Agent to act for you on the $listYear rating list? - Valuation Office Agency - GOV.UK"
+
   val backLinkText = "Back"
   val captionText = "Manage agent"
+
   def headerText(listYear: String) = s"Are you sure you want Test Agent to act for you on the $listYear rating list?"
+
   def thisAgentText(listYear: String) = s"This agent will only be able to act for you on the $listYear rating list."
+
   def theyWillText(otherListYear: String) =
     otherListYear match {
       case "2017" =>
-        s"They will not be able to see valuations on the 2026 or 2023 rating lists, or act on them for you."
+        s"They will not be able to see valuations on the 2023 rating list, or act on them for you."
       case "2023" =>
-        s"They will not be able to see valuations on the 2026 or 2017 rating lists, or act on them for you."
-      case "2026" =>
-        s"They will not be able to see valuations on the 2023 or 2017 rating lists, or act on them for you."
+        s"They will not be able to see valuations on the 2017 rating list, or act on them for you."
     }
 
   val restrictingText =
@@ -56,21 +59,24 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
 
   def titleTextWelsh(listYear: String) =
     s"A ydych yn siŵr eich bod am i Test Agent weithredu ar restr ardrethu $listYear ar eich rhan? - Valuation Office Agency - GOV.UK"
+
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
+
   def headerTextWelsh(listYear: String) =
     s"A ydych yn siŵr eich bod am i Test Agent weithredu ar restr ardrethu $listYear ar eich rhan?"
+
   def thisAgentTextWelsh(listYear: String) =
     s"Bydd yr asiant hwn ond yn gallu gweithredu ar eich rhan ar restr ardrethu $listYear."
+
   def theyWillTextWelsh(otherListYear: String) =
     otherListYear match {
       case "2017" =>
-        s"Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu 2026 na 2023, na gweithredu arnynt ar eich rhan."
+        s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu 2023, na gweithredu arnynt ar eich rhan."
       case "2023" =>
-        s"Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu 2026 na 2017, na gweithredu arnynt ar eich rhan."
-      case "2026" =>
-        s"Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu 2023 na 2017, na gweithredu arnynt ar eich rhan."
+        s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu 2017, na gweithredu arnynt ar eich rhan."
     }
+
   val restrictingTextWelsh =
     "Rhybudd Bydd cyfyngu asiant i un rhestr ardrethu tra bo achosion Gwirio a Herio ar y gweill ganddo ar restr ardrethu arall yn golygu na fydd modd iddo weithredu arnynt ar eich rhan mwyach."
   val confirmTextWelsh = "Cadarnhau"
@@ -88,7 +94,7 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
   val cancelHref = "/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=100"
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm"
 
-  "AreYouSureController show method with AgentJourney2026 flag enabled" should {
+  "AreYouSureController show method (AgentJourney2026 disabled)" should {
     "Show an English are you sure screen with the correct text when chosen 2017 and the language is set to English" which {
 
       lazy val document: Document = getAreYouSurePage(language = English, chosenListYear = "2017")
@@ -153,46 +159,6 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
 
       s"has text on the screen of '${theyWillText(otherListYear = "2023")}'" in {
         document.select(theyWillSelector).text() shouldBe theyWillText(otherListYear = "2023")
-      }
-
-      s"has a warning, with warning text on the screen of '$restrictingText'" in {
-        document.select(restrictingSelector).text() shouldBe restrictingText
-      }
-
-      s"has a '$confirmText' link on the screen" in {
-        document.select(confirmSelector).text() shouldBe confirmText
-      }
-
-      s"has a '$cancelText' link on the screen, which takes you to the agent details screen " in {
-        document.select(cancelSelector).text() shouldBe cancelText
-        document.select(cancelSelector).attr("href") shouldBe cancelHref
-      }
-    }
-
-    "Show an English are you sure screen with the correct text when chosen 2026 and the language is set to English" which {
-
-      lazy val document: Document = getAreYouSurePage(language = English, chosenListYear = "2026")
-
-      s"has a title of ${titleText(listYear = "2026")}" in {
-        document.title() shouldBe titleText(listYear = "2026")
-      }
-
-      "has a back link which takes you to the choose ratings list page" in {
-        document.select(backLinkSelector).text() shouldBe backLinkText
-        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-      }
-
-      s"has a header of '${headerText(listYear = "2023")}' with a caption above of '$captionText'" in {
-        document.select(headerSelector).text shouldBe headerText(listYear = "2026")
-        document.select(captionSelector).text shouldBe captionText
-      }
-
-      s"has text on the screen of '${thisAgentText(listYear = "2026")}'" in {
-        document.select(thisAgentSelector).text() shouldBe thisAgentText(listYear = "2026")
-      }
-
-      s"has text on the screen of '${theyWillText(otherListYear = "2026")}'" in {
-        document.select(theyWillSelector).text() shouldBe theyWillText(otherListYear = "2026")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText'" in {
@@ -289,46 +255,6 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
       }
     }
 
-    "Show a Welsh are you sure screen with the correct text when chosen 2026 and the language is set to Welsh" which {
-
-      lazy val document: Document = getAreYouSurePage(language = Welsh, chosenListYear = "2026")
-
-      s"has a title of ${titleText(listYear = "2026")} in welsh" in {
-        document.title() shouldBe titleTextWelsh(listYear = "2026")
-      }
-
-      "has a back link which takes you to the choose ratings list page" in {
-        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
-        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
-      }
-
-      s"has a header of '${headerText(listYear = "2023")}' with a caption above of '$captionText' in welsh" in {
-        document.select(headerSelector).text shouldBe headerTextWelsh(listYear = "2026")
-        document.select(captionSelector).text shouldBe captionTextWelsh
-      }
-
-      s"has text on the screen of '${thisAgentText(listYear = "2026")}' in welsh" in {
-        document.select(thisAgentSelector).text() shouldBe thisAgentTextWelsh(listYear = "2026")
-      }
-
-      s"has text on the screen of '${theyWillText(otherListYear = "2026")}' in welsh" in {
-        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(otherListYear = "2026")
-      }
-
-      s"has a warning, with warning text on the screen of '$restrictingText' in welsh" in {
-        document.select(restrictingSelector).text() shouldBe restrictingTextWelsh
-      }
-
-      s"has a '$confirmText' link on the screen in welsh" in {
-        document.select(confirmSelector).text() shouldBe confirmTextWelsh
-      }
-
-      s"has a '$cancelText' link on the screen in welsh, which takes you to the agent details screen" in {
-        document.select(cancelSelector).text() shouldBe cancelTextWelsh
-        document.select(cancelSelector).attr("href") shouldBe cancelHref
-      }
-    }
-
     "Show the not_found page when you send in an invalid list year on the url" in {
 
       setCurrentListYears(List("2017"))
@@ -348,7 +274,7 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
 
   }
 
-  "AreYouSureController post method with AgentJourney2026 flag enabled" should {
+  "AreYouSureController post method" should {
     "Redirect to the confirmation page and REVOKE 2017 and APPOINT 2023 when currentYears is 2017 and they chose 2023" in {
       setCurrentListYears(List("2017"))
 
@@ -465,7 +391,7 @@ class AreYouSureISpec extends ISpecBase with HtmlComponentHelpers with ListYears
 
   private def getAreYouSurePage(language: Language, chosenListYear: String): Document = {
 
-    setCurrentListYears(List("2017"))
+    setCurrentListYears(List(chosenListYear))
 
     stubsSetup
 
