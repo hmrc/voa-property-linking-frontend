@@ -66,6 +66,12 @@ class AreYouSureController @Inject() (
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].flatMap {
         case Some(agentSummary) =>
+          manageAgentSessionRepository.saveOrUpdate[AgentSummary](
+            agentSummary
+              .copy(proposedListYears =
+                None
+              )
+          )
           propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List(chosenListYear))
         case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
       }

@@ -57,7 +57,16 @@ class AreYouSureMultipleController @Inject() (
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].flatMap {
         case Some(agentSummary) =>
-          propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List("2023", "2017"))
+          manageAgentSessionRepository.saveOrUpdate[AgentSummary](
+            agentSummary
+              .copy(proposedListYears =
+                None
+              )
+          )
+          agentSummary.proposedListYears match {
+            case Some(proposedListYears) => propertyLinkingService.appointAndOrRevokeListYears(agentSummary, proposedListYears.toList)
+            case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
+          }
         case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
       }
     }
