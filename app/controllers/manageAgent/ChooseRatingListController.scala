@@ -82,11 +82,10 @@ class ChooseRatingListController @Inject() (
                 if (formData.multipleListYears) {
                   manageAgentSessionRepository.saveOrUpdate[AgentSummary](
                     agentSummary
-                      .copy(proposedListYears = Some(Seq("2017","2023")))
+                      .copy(proposedListYears = Some(Seq("2017", "2023")))
                   )
                   Redirect(controllers.manageAgent.routes.AreYouSureMultipleController.show.url)
-                }
-                else Redirect(controllers.manageAgent.routes.WhichRatingListController.show.url)
+                } else Redirect(controllers.manageAgent.routes.WhichRatingListController.show.url)
             )
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }

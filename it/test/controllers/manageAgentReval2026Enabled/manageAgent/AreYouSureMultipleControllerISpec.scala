@@ -484,7 +484,8 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
         .headers("Location")
         .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
 
-      verifyAppointedListYearsMultiple(amount = 1, chosenListYears = List("2023", "2026"))
+      verifyAppointedListYears(amount = 1, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 1, chosenListYear = "2026")
       verifyAppointedListYears(amount = 0, chosenListYear = "2017")
       verifyRevokedListYears(amount = 0, chosenListYear = "2017")
       verifyRevokedListYears(amount = 0, chosenListYear = "2023")
@@ -504,7 +505,8 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
         .headers("Location")
         .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
 
-      verifyAppointedListYearsMultiple(amount = 1, chosenListYears = List("2017", "2026"))
+      verifyAppointedListYears(amount = 1, chosenListYear = "2017")
+      verifyAppointedListYears(amount = 1, chosenListYear = "2026")
       verifyAppointedListYears(amount = 0, chosenListYear = "2023")
       verifyRevokedListYears(amount = 0, chosenListYear = "2017")
       verifyRevokedListYears(amount = 0, chosenListYear = "2023")
@@ -524,7 +526,8 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
         .headers("Location")
         .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
 
-      verifyAppointedListYearsMultiple(amount = 1, chosenListYears = List("2017", "2023"))
+      verifyAppointedListYears(amount = 1, chosenListYear = "2017")
+      verifyAppointedListYears(amount = 1, chosenListYear = "2023")
       verifyAppointedListYears(amount = 0, chosenListYear = "2026")
       verifyRevokedListYears(amount = 0, chosenListYear = "2017")
       verifyRevokedListYears(amount = 0, chosenListYear = "2023")
