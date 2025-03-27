@@ -472,8 +472,69 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   }
 
   "AreYouSureMultipleController post method with AgentJourney2026 flag enabled" should {
+    "Redirect to the confirmation page and APPOINT 2023+2026 when current is 2017" in {
+      setCurrentListYears(List("2017"), List("2017", "2023", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYearsMultiple(amount = 1, chosenListYears = List("2023", "2026"))
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
+    "Redirect to the confirmation page and APPOINT 2017+2026 when current is 2023" in {
+      setCurrentListYears(List("2023"), List("2017", "2023", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYearsMultiple(amount = 1, chosenListYears = List("2017", "2026"))
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
+    "Redirect to the confirmation page and APPOINT 2017+2023 when current is 2026" in {
+      setCurrentListYears(List("2026"), List("2017", "2023", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYearsMultiple(amount = 1, chosenListYears = List("2017", "2023"))
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
+
     "Redirect to the confirmation page and APPOINT 2023 when current is 2017" in {
-      setCurrentListYears(List("2017"))
+      setCurrentListYears(List("2017"), List("2017", "2023"))
 
       stubsSetup
 
@@ -491,8 +552,27 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
 
     }
 
+    "Redirect to the confirmation page and APPOINT 2026 when current is 2017" in {
+      setCurrentListYears(List("2017"), List("2017", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 1, chosenListYear = "2026")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
     "Redirect to the confirmation page and APPOINT 2017 when current is 2023" in {
-      setCurrentListYears(List("2023"))
+      setCurrentListYears(List("2023"), List("2017", "2023"))
 
       stubsSetup
 
@@ -510,8 +590,27 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
 
     }
 
+    "Redirect to the confirmation page and APPOINT 2026 when current is 2023" in {
+      setCurrentListYears(List("2023"), List("2023", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 1, chosenListYear = "2026")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+
+    }
+
     "Redirect to the confirmation page and do not APPOINT 2023+2017 when current is 2023+2017" in {
-      setCurrentListYears(List("2017", "2023"))
+      setCurrentListYears(List("2017", "2023"), List("2017", "2023"))
 
       stubsSetup
 
@@ -528,6 +627,66 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       verifyRevokedListYears(amount = 0, chosenListYear = "2023")
 
     }
+
+    "Redirect to the confirmation page and do not APPOINT 2026+2017 when current is 2026+2017" in {
+      setCurrentListYears(List("2017", "2026"), List("2017", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
+    "Redirect to the confirmation page and do not APPOINT 2026+2023 when current is 2026+2023" in {
+      setCurrentListYears(List("2023", "2026"), List("2023", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
+    "Redirect to the confirmation page and do not APPOINT 2023+2017+2026 when current is 2023+2017" in {
+      setCurrentListYears(List("2017", "2023", "2026"), List("2017", "2023", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
 
   }
 

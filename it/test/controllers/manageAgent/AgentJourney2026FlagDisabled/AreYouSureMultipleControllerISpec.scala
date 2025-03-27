@@ -164,7 +164,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
 
   "AreYouSureMultipleController post method with AgentJourney2026 flag disabled" should {
     "Redirect to the confirmation page and APPOINT 2023 when current is 2017" in {
-      setCurrentListYears(List("2017"))
+      setCurrentListYears(List("2017"), List("2017", "2023"))
 
       stubsSetup
 
@@ -183,7 +183,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
     }
 
     "Redirect to the confirmation page and APPOINT 2017 when current is 2023" in {
-      setCurrentListYears(List("2023"))
+      setCurrentListYears(List("2023"), List("2017", "2023"))
 
       stubsSetup
 
@@ -202,7 +202,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
     }
 
     "Redirect to the confirmation page and do not APPOINT 2023+2017 when current is 2023+2017" in {
-      setCurrentListYears(List("2017", "2023"))
+      setCurrentListYears(List("2017", "2023"), List("2017", "2023"))
 
       stubsSetup
 
