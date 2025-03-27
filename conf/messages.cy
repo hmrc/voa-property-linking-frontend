@@ -603,9 +603,12 @@ propertyRepresentation.noAgents=Does gennych chi ddim asiantiaid.
 propertyRepresentation.showAgents.help.link=Help gyda phenodi a rheoli asiantau
 propertyRepresentation.showAgents.label.rating=Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan
 propertyRepresentation.showAgents.properties.assigned={0} o {1}
-propertyRepresentation.showAgents.ratingList=Rhestrau ardrethu {0}
-propertyRepresentation.showAgents.ratingLists=Rhestr ardrethu 2023 a rhestr ardrethu 2017
 propertyRepresentation.showAgents.viewAgent=Bwrw golwg dros asiant
+propertyRepresentation.showAgents.listYears.one=Rhestr ardrethu {0}
+propertyRepresentation.showAgents.listYears.two=Rhestrau ardrethu {0} a {1}
+propertyRepresentation.showAgents.listYears.three=Rhestrau ardrethu {0}, {1}, a {2}
+
+
 propertyRepresentation.caption=Asiant
 propertyRepresentation.ratingLists.heading=Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan
 propertyRepresentation.ratingList.p.one=Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu {0}, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif.

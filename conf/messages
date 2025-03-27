@@ -653,6 +653,9 @@ propertyRepresentation.showAgents.label.action=Action
 propertyRepresentation.showAgents.title=Your agents
 propertyRepresentation.showAgents.appointNewAgent.link=Appoint an agent
 propertyRepresentation.noAgents=You have no agents.
+propertyRepresentation.showAgents.listYears.one={0} rating list
+propertyRepresentation.showAgents.listYears.two={0} and {1} rating lists
+propertyRepresentation.showAgents.listYears.three={0}, {1}, and {2} rating lists
 
 propertyRepresentation.agentProperties.assigned.title=Your agent
 propertyRepresentation.agentProperties.assigned=Assigned properties
@@ -663,8 +666,6 @@ propertyRepresentation.showAgents.viewAgentProperties=<a class="govuk-link" href
 propertyRepresentation.showAgents.help.link= Help with appointing and managing agents
 propertyRepresentation.showAgents.label.rating=	Rating lists they can act on for you
 propertyRepresentation.showAgents.properties.assigned={0} of {1}
-propertyRepresentation.showAgents.ratingList={0} rating list
-propertyRepresentation.showAgents.ratingLists=2023 and 2017 rating lists
 propertyRepresentation.showAgents.viewAgent = View agent
 propertyRepresentation.caption=Agent
 propertyRepresentation.ratingLists.heading=Rating lists they can act on for you
