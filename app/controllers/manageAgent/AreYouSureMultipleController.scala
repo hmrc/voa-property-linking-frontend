@@ -76,5 +76,9 @@ class AreYouSureMultipleController @Inject() (
         case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
       }
     }
-  def getBackLink: String = controllers.manageAgent.routes.ChooseRatingListController.show.url
+
+  def getBackLink: String = if (config.agentJourney2026)
+    controllers.manageAgent.routes.WhichRatingListController.showRevalEnabled.url
+  else
+    controllers.manageAgent.routes.ChooseRatingListController.show.url
 }

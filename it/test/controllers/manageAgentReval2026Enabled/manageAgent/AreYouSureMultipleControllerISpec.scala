@@ -103,7 +103,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   val theyWillNotSelector = "#main-content > div > div > p:nth-child(6)"
 
   val cancelHref = "/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=100"
-  val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/choose"
+  val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval"
 
   "AreYouSureController show method with AgentJourney2026 flag enabled" should {
     "Show an English are you sure multiple screen with the correct text when the language is set to English and contains list years 2017 and 2023" which {
