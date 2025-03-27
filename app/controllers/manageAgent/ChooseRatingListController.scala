@@ -65,7 +65,7 @@ class ChooseRatingListController @Inject() (
   def submitRatingListYears: Action[AnyContent] =
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
-        case Some(AgentSummary(_, _, agentName, _, _, Some(listYears), _)) =>
+        case Some(agentSummary @ AgentSummary(_, _, agentName, _, _, Some(listYears), _)) =>
           ratingListYears
             .bindFromRequest()
             .fold(
@@ -79,8 +79,13 @@ class ChooseRatingListController @Inject() (
                   )
                 ),
               formData =>
-                if (formData.multipleListYears)
+                if (formData.multipleListYears) {
+                  manageAgentSessionRepository.saveOrUpdate[AgentSummary](
+                    agentSummary
+                      .copy(proposedListYears = Some(Seq("2017","2023")))
+                  )
                   Redirect(controllers.manageAgent.routes.AreYouSureMultipleController.show.url)
+                }
                 else Redirect(controllers.manageAgent.routes.WhichRatingListController.show.url)
             )
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
