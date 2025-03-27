@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.manageAgent
+package controllers.manageAgent.AgentJourney2026FlagDisabled
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -29,7 +29,10 @@ import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
 import utils.ListYearsHelpers
 
-class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
+class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
+
+  override lazy val extraConfig: Map[String, String] =
+    Map("featureFlags.agentJourney2026Enabled" -> "false")
 
   val titleText =
     "Are you sure you want Test Agent to act for you on the 2023 and 2017 rating lists? - Valuation Office Agency - GOV.UK"
@@ -45,13 +48,13 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
   val cancelText = "Cancel"
 
   val titleTextWelsh =
-    "A ydych yn siŵr eich bod am i Test Agent weithredu ar restrau ardrethu 2023 a 2017 ar eich rhan? - Valuation Office Agency - GOV.UK"
+    "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2023 a 2017? - Valuation Office Agency - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
   val headerTextWelsh =
-    "A ydych yn siŵr eich bod am i Test Agent weithredu ar restrau ardrethu 2023 a 2017 ar eich rhan?"
+    "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2023 a 2017?"
   val forAllTextWelsh =
-    "Bydd yr asiant hwn yn gallu gwneud y canlynol ar gyfer pob un o’ch prisiadau eiddo o restrau ardrethu 2023 a 2017:"
+    "Ar gyfer eich holl brisiadau eiddo ar restrau ardrethu 2023 a 2017, bydd yr asiant hwn yn gallu:"
   val seeDetailedTextWelsh = "gweld gwybodaeth fanwl am eiddo"
   val seeCheckTextWelsh = "gweld gohebiaeth ynghylch achosion Gwirio a Herio, megis negeseuon ac e-byst"
   val sendCheckTextWelsh = "anfon achosion Gwirio a Herio"
@@ -72,7 +75,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
   val cancelHref = "/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=100"
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/choose"
 
-  "AreYouSureController show method" should {
+  "AreYouSureController show method with AgentJourney2026 flag disabled" should {
     "Show an English are you sure multiple screen with the correct text when the language is set to English" which {
 
       lazy val document: Document = getAreYouSureMultiplePage(English)
@@ -159,9 +162,9 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
 
   }
 
-  "AreYouSureMultipleController post method" should {
+  "AreYouSureMultipleController post method with AgentJourney2026 flag disabled" should {
     "Redirect to the confirmation page and APPOINT 2023 when current is 2017" in {
-      setCurrentListYears(List("2017"))
+      setCurrentListYears(List("2017"), List("2017", "2023"))
 
       stubsSetup
 
@@ -180,7 +183,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
     }
 
     "Redirect to the confirmation page and APPOINT 2017 when current is 2023" in {
-      setCurrentListYears(List("2023"))
+      setCurrentListYears(List("2023"), List("2017", "2023"))
 
       stubsSetup
 
@@ -199,7 +202,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
     }
 
     "Redirect to the confirmation page and do not APPOINT 2023+2017 when current is 2023+2017" in {
-      setCurrentListYears(List("2017", "2023"))
+      setCurrentListYears(List("2017", "2023"), List("2017", "2023"))
 
       stubsSetup
 
@@ -218,8 +221,9 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
     }
 
   }
+
   private def getAreYouSureMultiplePage(language: Language): Document = {
-    setCurrentListYears(List("2017"))
+    setCurrentListYears(List("2017"), List("2017", "2023"))
 
     stubsSetup
 
@@ -258,6 +262,7 @@ class AreYouSureMultipleISpec extends ISpecBase with HtmlComponentHelpers with L
         }
     }
   }
+
   private def submitNewListYear: WSResponse =
     await(
       ws.url(

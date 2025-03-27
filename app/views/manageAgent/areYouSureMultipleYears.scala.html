@@ -19,16 +19,38 @@
 @this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
     govukInsetText: GovukInsetText)
 
-@(agentName: String, agentCode: Long, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, agentCode: Long, backLink: String, listYears: Seq[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@ratingListHeader = @{
+    listYears.sorted(Ordering.String.reverse) match {
+        case Seq(a, b, c) => messages("ratingsListConfirmation.multiple.heading.three", agentName, a, b, c)
+        case Seq(a, b)    => messages("ratingsListConfirmation.multiple.heading.two", agentName, a, b)
+    }
+}
+
+@ratingListText = @{
+    listYears.sorted(Ordering.String.reverse) match {
+        case Seq(a, b, c) => messages("ratingsListConfirmation.multiple.forAllYour.three", a, b, c)
+        case Seq(a, b)    => messages("ratingsListConfirmation.multiple.forAllYour.two", a, b)
+    }
+}
+
+@theyWillNotText = @{
+    listYears match {
+        case _ if !listYears.contains("2026") => messages("ratingsListConfirmation.theyWillNot.single", "2026")
+        case _ if !listYears.contains("2023") => messages("ratingsListConfirmation.theyWillNot.single", "2023")
+        case _ if !listYears.contains("2017") => messages("ratingsListConfirmation.theyWillNot.single", "2017")
+        case _ => ""
+    }
+}
 @mainLayout(
     backUri = Some(backLink),
-    pageTitle = messages("ratingsListConfirmation.multiple.header", agentName)) {
+    pageTitle = ratingListHeader) {
 
     <span class="govuk-caption-l" >@messages("propertyRepresentation.manageAgent.title")</span>
-    <h1 class="govuk-heading-l">@messages("ratingsListConfirmation.multiple.header", agentName)</h1>
+    <h1 class="govuk-heading-l">@ratingListHeader</h1>
 
-    <p class="govuk-body">@messages("ratingsListConfirmation.multiple.forAllYour")</p>
+    <p class="govuk-body">@ratingListText</p>
 
     <ul class="govuk-list govuk-list--bullet">
       <li id="rating-list-1">@messages("ratingsListConfirmation.multiple.seeDetailed")</li>
@@ -37,6 +59,10 @@
     </ul>
 
     <p class="govuk-body">@messages("ratingsListConfirmation.multiple.thisApplies")</p>
+
+    @if(config.agentJourney2026 && listYears.size != 3){
+        <p class="govuk-body">@theyWillNotText</p>
+    }
 
   @formWithCSRF(action = controllers.manageAgent.routes.AreYouSureMultipleController.submitRatingListYears) {
     <div class="govuk-button-group">

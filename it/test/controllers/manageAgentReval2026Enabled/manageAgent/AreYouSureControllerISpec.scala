@@ -36,12 +36,24 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
 
   def titleText(listYear: String) =
     s"Are you sure you want Test Agent to act for you on the $listYear rating list? - Valuation Office Agency - GOV.UK"
+
   val backLinkText = "Back"
   val captionText = "Manage agent"
+
   def headerText(listYear: String) = s"Are you sure you want Test Agent to act for you on the $listYear rating list?"
+
   def thisAgentText(listYear: String) = s"This agent will only be able to act for you on the $listYear rating list."
+
   def theyWillText(otherListYear: String) =
-    s"They will not be able to see valuations on the $otherListYear rating list, or act on them for you."
+    otherListYear match {
+      case "2017" =>
+        s"They will not be able to see valuations on the 2026 or 2023 rating lists, or act on them for you."
+      case "2023" =>
+        s"They will not be able to see valuations on the 2026 or 2017 rating lists, or act on them for you."
+      case "2026" =>
+        s"They will not be able to see valuations on the 2023 or 2017 rating lists, or act on them for you."
+    }
+
   val restrictingText =
     "Warning Restricting an agent to a single rating list when they have Check and Challenge cases in progress on the other rating list means they will no longer be able to act on them for you."
   val confirmText = "Confirm"
@@ -49,14 +61,26 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
 
   def titleTextWelsh(listYear: String) =
     s"A ydych yn siŵr eich bod am i Test Agent weithredu ar restr ardrethu $listYear ar eich rhan? - Valuation Office Agency - GOV.UK"
+
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
+
   def headerTextWelsh(listYear: String) =
     s"A ydych yn siŵr eich bod am i Test Agent weithredu ar restr ardrethu $listYear ar eich rhan?"
+
   def thisAgentTextWelsh(listYear: String) =
-    s"Bydd yr asiant hwn ond yn gallu gweithredu ar restr ardrethu $listYear ar eich rhan."
+    s"Bydd yr asiant hwn ond yn gallu gweithredu ar eich rhan ar restr ardrethu $listYear."
+
   def theyWillTextWelsh(otherListYear: String) =
-    s"Ni fydd modd iddo weld prisiadau o restr ardrethu $otherListYear na gweithredu arnynt ar eich rhan."
+    otherListYear match {
+      case "2017" =>
+        s"Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu 2026 na 2023, na gweithredu arnynt ar eich rhan."
+      case "2023" =>
+        s"Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu 2026 na 2017, na gweithredu arnynt ar eich rhan."
+      case "2026" =>
+        s"Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu 2023 na 2017, na gweithredu arnynt ar eich rhan."
+    }
+
   val restrictingTextWelsh =
     "Rhybudd Bydd cyfyngu asiant i un rhestr ardrethu tra bo achosion Gwirio a Herio ar y gweill ganddo ar restr ardrethu arall yn golygu na fydd modd iddo weithredu arnynt ar eich rhan mwyach."
   val confirmTextWelsh = "Cadarnhau"
@@ -97,8 +121,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentText(listYear = "2017")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2023")}'" in {
-        document.select(theyWillSelector).text() shouldBe theyWillText(otherListYear = "2023")
+      s"has text on the screen of '${theyWillText(otherListYear = "2017")}'" in {
+        document.select(theyWillSelector).text() shouldBe theyWillText(otherListYear = "2017")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText'" in {
@@ -137,8 +161,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentText(listYear = "2023")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2017")}'" in {
-        document.select(theyWillSelector).text() shouldBe theyWillText(otherListYear = "2017")
+      s"has text on the screen of '${theyWillText(otherListYear = "2023")}'" in {
+        document.select(theyWillSelector).text() shouldBe theyWillText(otherListYear = "2023")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText'" in {
@@ -177,8 +201,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentTextWelsh(listYear = "2017")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2023")}' in welsh" in {
-        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(otherListYear = "2023")
+      s"has text on the screen of '${theyWillText(otherListYear = "2017")}' in welsh" in {
+        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(otherListYear = "2017")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText' in welsh" in {
@@ -217,8 +241,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentTextWelsh(listYear = "2023")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2017")}' in welsh" in {
-        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(otherListYear = "2017")
+      s"has text on the screen of '${theyWillText(otherListYear = "2023")}' in welsh" in {
+        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(otherListYear = "2023")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText' in welsh" in {
@@ -371,7 +395,7 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
 
   private def getAreYouSurePage(language: Language, chosenListYear: String): Document = {
 
-    setCurrentListYears(List("2017"))
+    setCurrentListYears(List(chosenListYear))
 
     stubsSetup
 
