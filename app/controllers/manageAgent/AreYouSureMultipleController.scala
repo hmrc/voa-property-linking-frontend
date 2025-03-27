@@ -48,7 +48,14 @@ class AreYouSureMultipleController @Inject() (
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].map {
         case Some(AgentSummary(_, representativeCode, agentName, _, _, _, Some(proposedListYears))) =>
-          Ok(areYouSureMultipleView(agentName = agentName, backLink = getBackLink, agentCode = representativeCode, listYears = proposedListYears))
+          Ok(
+            areYouSureMultipleView(
+              agentName = agentName,
+              backLink = getBackLink,
+              agentCode = representativeCode,
+              listYears = proposedListYears
+            )
+          )
         case _ => NotFound(errorHandler.notFoundErrorTemplate)
       }
     }
@@ -59,12 +66,11 @@ class AreYouSureMultipleController @Inject() (
         case Some(agentSummary) =>
           manageAgentSessionRepository.saveOrUpdate[AgentSummary](
             agentSummary
-              .copy(proposedListYears =
-                None
-              )
+              .copy(proposedListYears = None)
           )
           agentSummary.proposedListYears match {
-            case Some(proposedListYears) => propertyLinkingService.appointAndOrRevokeListYears(agentSummary, proposedListYears.toList)
+            case Some(proposedListYears) =>
+              propertyLinkingService.appointAndOrRevokeListYears(agentSummary, proposedListYears.toList)
             case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
           }
         case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))

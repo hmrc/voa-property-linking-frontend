@@ -223,7 +223,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   }
 
   private def getAreYouSureMultiplePage(language: Language): Document = {
-   setCurrentListYears(List("2017"), List("2017", "2023"))
+    setCurrentListYears(List("2017"), List("2017", "2023"))
 
     stubsSetup
 

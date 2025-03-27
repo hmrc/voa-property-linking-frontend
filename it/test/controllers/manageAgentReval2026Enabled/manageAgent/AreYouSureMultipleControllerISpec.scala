@@ -532,7 +532,6 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
 
     }
 
-
     "Redirect to the confirmation page and APPOINT 2023 when current is 2017" in {
       setCurrentListYears(List("2017"), List("2017", "2023"))
 
@@ -686,7 +685,6 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       verifyRevokedListYears(amount = 0, chosenListYear = "2026")
 
     }
-
 
   }
 

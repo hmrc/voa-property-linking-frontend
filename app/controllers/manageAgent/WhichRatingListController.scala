@@ -139,9 +139,7 @@ class WhichRatingListController @Inject() (
                 val proposedListYears = Seq(formData.listYearOne, formData.listYearTwo, formData.listYearThree).flatten
                 manageAgentSessionRepository.saveOrUpdate[AgentSummary](
                   agentSummary
-                    .copy(proposedListYears =
-                      Some(proposedListYears)
-                    )
+                    .copy(proposedListYears = Some(proposedListYears))
                 )
                 if (proposedListYears.size == 1)
                   Redirect(controllers.manageAgent.routes.AreYouSureController.show(proposedListYears.head).url)

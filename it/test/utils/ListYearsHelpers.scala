@@ -58,15 +58,17 @@ trait ListYearsHelpers extends ISpecBase with HtmlComponentHelpers {
                |  "agentRepresentativeCode": 100,
                |  "action": "APPOINT",
                |  "scope": "LIST_YEAR",
-               |  "listYears": ${if (chosenListYears.size == 3) "[\""+chosenListYears.head+"\", \""+chosenListYears.apply(1)+"\", \""+chosenListYears.apply(2)+"\"]"
-                                 else if (chosenListYears.size == 2) "[\""+chosenListYears.head+"\", \""+chosenListYears.apply(1)+"\"]"
-                                 else "[\""+chosenListYears.head+"\"]"
-                                }
+               |  "listYears": ${if (chosenListYears.size == 3)
+                "[\"" + chosenListYears.head + "\", \"" + chosenListYears.apply(1) + "\", \"" + chosenListYears.apply(
+                  2
+                ) + "\"]"
+              else if (chosenListYears.size == 2)
+                "[\"" + chosenListYears.head + "\", \"" + chosenListYears.apply(1) + "\"]"
+              else "[\"" + chosenListYears.head + "\"]"}
                |}""".stripMargin
           )
         )
     )
-
 
   def verifyRevokedListYears(amount: Int, chosenListYear: String): Unit =
     verify(

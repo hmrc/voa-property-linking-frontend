@@ -68,9 +68,7 @@ class AreYouSureController @Inject() (
         case Some(agentSummary) =>
           manageAgentSessionRepository.saveOrUpdate[AgentSummary](
             agentSummary
-              .copy(proposedListYears =
-                None
-              )
+              .copy(proposedListYears = None)
           )
           propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List(chosenListYear))
         case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
