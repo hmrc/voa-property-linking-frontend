@@ -44,9 +44,9 @@
             idPrefix = Some("multipleProperties"),
             name = "multipleProperties",
             items = Seq(
-                RadioItem(id = Some("multipleProperties"), value = Some(All.name), checked = form.value.fold(false)(_ == All), content = Text(messages("propertyRepresentation.multipleProperties.options.all"))),
-                RadioItem(id = None, value = Some(ChooseFromList.name), checked = form.value.fold(false)(_ == ChooseFromList), content = Text(messages("propertyRepresentation.multipleProperties.options.oneOrMore"))),
-                RadioItem(id = None, value = Some(NoProperties.name), checked = form.value.fold(false)(_ == NoProperties), content = Text(messages("propertyRepresentation.multipleProperties.options.noProperties")))
+                RadioItem(id = Some("multipleProperties"), hint = Some(Hint(content = Text(messages("propertyRepresentation.multipleProperties.options.all.hint")))), value = Some(All.name), checked = form.value.fold(false)(_ == All), content = Text(messages("propertyRepresentation.multipleProperties.options.all"))),
+                RadioItem(id = None, hint = Some(Hint(content = Text(messages("propertyRepresentation.multipleProperties.options.oneOrMore.hint")))), value = Some(ChooseFromList.name), checked = form.value.fold(false)(_ == ChooseFromList), content = Text(messages("propertyRepresentation.multipleProperties.options.oneOrMore"))),
+                RadioItem(id = None, hint = Some(Hint(content = Text(messages("propertyRepresentation.multipleProperties.options.noProperties.hint")))), value = Some(NoProperties.name), checked = form.value.fold(false)(_ == NoProperties), content = Text(messages("propertyRepresentation.multipleProperties.options.noProperties")))
             )).withFormField(form("multipleProperties")))
 
         @govukButton(Button(content = Text(messages("propertyRepresentation.appointAgent.button.continue"))))

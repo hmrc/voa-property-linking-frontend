@@ -44,8 +44,11 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
   val captionText = "Appoint an agent"
   val backLinkText = "Back"
   val assignToAllText = "Assign to all properties"
+  val assignToAllHintText = "Your agent will have access to all the properties on your account"
   val assignToOneOrMoreText = "Assign to one or more properties"
+  val assignToOneOrMoreHintText = "Your agent will have access only to the properties you select"
   val doNotAssignText = "Do not assign to any properties"
+  val doNotAssignHintText = "Your agent will not have access to any of the properties on your account"
   val continueButtonText = "Continue"
   val errorSummaryTitleText = "There is a problem"
   val errorMessageText = "Select if you want your agent to manage any of your properties"
@@ -58,8 +61,11 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
   val captionTextWelsh = "Penodi asiant"
   val backLinkTextWelsh = "Yn ôl"
   val assignToAllTextWelsh = "Neilltuo pob eiddo iddo"
+  val assignToAllHintTextWelsh = "Bydd gan eich asiant fynediad i bob eiddo ar eich cyfrif"
   val assignToOneOrMoreTextWelsh = "Neilltuo un eiddo neu fwy iddo"
+  val assignToOneOrMoreHintTextWelsh = "Dim ond yr at yr eiddo a ddewiswch fydd gan eich asiant fynediad"
   val doNotAssignTextWelsh = "Peidio â neilltuo unrhyw eiddo iddo"
+  val doNotAssignHintTextWelsh = "Ni fydd gan eich asiant fynediad i unrhyw eiddo ar eich cyfrif"
   val continueButtonTextWelsh = "Yn eich blaen"
   val errorSummaryTitleTextWelsh = "Mae yna broblem"
   val errorMessageTextWelsh = "Dewiswch os ydych am i’ch asiant reoli unrhyw un o’ch eiddo"
@@ -78,6 +84,9 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
   val errorTitleLocator = "#main-content > div > div > div > div > h2"
   val errorSummaryMessageLocator = "#main-content > div > div > div > div > div > ul > li > a"
   val radioErrorMessageLocator = "multipleProperties-error"
+  val assignToAllHintLocator = "#multipleProperties-item-hint"
+  val assignToOneOrMoreHintLocator = "#multipleProperties-2-item-hint"
+  val doNotAssignHintLocator = "#multipleProperties-3-item-hint"
 
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list"
   val fromCyaBackLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
@@ -482,18 +491,21 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
       document.getElementById(assignToAllRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(assignToAllRadioLocator).hasAttr("checked") shouldBe false
       document.select(assignToAllLabelLocator).text shouldBe assignToAllText
+      document.select(assignToAllHintLocator).text shouldBe assignToAllHintText
     }
 
     s"has an $assignToOneOrMoreText radio button" in {
       document.getElementById(assignToOneOrMoreRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(assignToOneOrMoreRadioLocator).hasAttr("checked") shouldBe false
       document.select(assignToOneOrMoreLabelLocator).text shouldBe assignToOneOrMoreText
+      document.select(assignToOneOrMoreHintLocator).text shouldBe assignToOneOrMoreHintText
     }
 
     s"has a $doNotAssignText radio button" in {
       document.getElementById(doNotAssignRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(doNotAssignRadioLocator).hasAttr("checked") shouldBe false
       document.select(doNotAssignLabelLocator).text shouldBe doNotAssignText
+      document.select(doNotAssignHintLocator).text shouldBe doNotAssignHintText
     }
 
     s"has a $continueButtonText button" in {
@@ -536,22 +548,25 @@ class AppointMultiplePropertiesISpec extends ISpecBase with HtmlComponentHelpers
       document.getElementById(backLinkLocator).attr("href") shouldBe backLinkHref
     }
 
-    s"has an $assignToAllText radio button in Welsh" in {
+    s"has an $assignToAllText radio button with hint text of $assignToAllHintTextWelsh in Welsh" in {
       document.getElementById(assignToAllRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(assignToAllRadioLocator).hasAttr("checked") shouldBe false
       document.select(assignToAllLabelLocator).text shouldBe assignToAllTextWelsh
+      document.select(assignToAllHintLocator).text shouldBe assignToAllHintTextWelsh
     }
 
-    s"has an $assignToOneOrMoreText radio button in Welsh" in {
+    s"has an $assignToOneOrMoreText radio button with hint text of $assignToOneOrMoreHintTextWelsh in Welsh" in {
       document.getElementById(assignToOneOrMoreRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(assignToOneOrMoreRadioLocator).hasAttr("checked") shouldBe false
       document.select(assignToOneOrMoreLabelLocator).text shouldBe assignToOneOrMoreTextWelsh
+      document.select(assignToOneOrMoreHintLocator).text shouldBe assignToOneOrMoreHintTextWelsh
     }
 
-    s"has a $doNotAssignText radio button in Welsh" in {
+    s"has a $doNotAssignText radio button with hint text of $doNotAssignHintTextWelsh in Welsh" in {
       document.getElementById(doNotAssignRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(doNotAssignRadioLocator).hasAttr("checked") shouldBe false
       document.select(doNotAssignLabelLocator).text shouldBe doNotAssignTextWelsh
+      document.select(doNotAssignHintLocator).text shouldBe doNotAssignHintTextWelsh
     }
 
     s"has a $continueButtonText button in Welsh" in {
