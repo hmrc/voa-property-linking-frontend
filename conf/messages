@@ -608,6 +608,10 @@ propertyRepresentation.multipleProperties.title=Which of your properties do you 
 propertyRepresentation.multipleProperties.options.all=Assign to all properties
 propertyRepresentation.multipleProperties.options.noProperties=Do not assign to any properties
 propertyRepresentation.multipleProperties.options.oneOrMore=Assign to one or more properties
+propertyRepresentation.multipleProperties.options.all.hint=Your agent will have access to all the properties on your account
+propertyRepresentation.multipleProperties.options.oneOrMore.hint=Your agent will have access only to the properties you select
+propertyRepresentation.multipleProperties.options.noProperties.hint=Your agent will not have access to any of the properties on your account
+
 
 propertyRepresentation.checkYourAnswers.title=Check and confirm your details
 propertyRepresentation.checkYourAnswers.agent=Agent

@@ -52,6 +52,9 @@ class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpe
   val errorSummaryTitleText = "There is a problem"
   val errorMessageText = "Select if you want your agent to manage any of your properties"
   val error = "Error: "
+  val assignToAllHintText = "Your agent will have access to all the properties on your account"
+  val assignToOneOrMoreHintText = "Your agent will have access only to the properties you select"
+  val doNotAssignHintText = "Your agent will not have access to any of the properties on your account"
 
   val titleTextWelsh = "Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent? - Valuation Office Agency - GOV.UK"
   val errorTitleTextWelsh =
@@ -66,6 +69,9 @@ class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpe
   val errorSummaryTitleTextWelsh = "Mae yna broblem"
   val errorMessageTextWelsh = "Dewiswch os ydych am i’ch asiant reoli unrhyw un o’ch eiddo"
   val errorWelsh = "Gwall: "
+  val assignToAllHintTextWelsh = "Bydd gan eich asiant fynediad i bob eiddo ar eich cyfrif"
+  val assignToOneOrMoreHintTextWelsh = "Dim ond yr at yr eiddo a ddewiswch fydd gan eich asiant fynediad"
+  val doNotAssignHintTextWelsh = "Ni fydd gan eich asiant fynediad i unrhyw eiddo ar eich cyfrif"
 
   val headingLocator = "h1"
   val captionLocator = "caption"
@@ -80,6 +86,9 @@ class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpe
   val errorTitleLocator = "#main-content > div > div > div > div > h2"
   val errorSummaryMessageLocator = "#main-content > div > div > div > div > div > ul > li > a"
   val radioErrorMessageLocator = "multipleProperties-error"
+  val assignToAllHintLocator = "#multipleProperties-item-hint"
+  val assignToOneOrMoreHintLocator = "#multipleProperties-2-item-hint"
+  val doNotAssignHintLocator = "#multipleProperties-3-item-hint"
 
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new"
   val fromCyaBackLinkHref = "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers"
@@ -112,18 +121,23 @@ class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpe
       document.getElementById(assignToAllRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(assignToAllRadioLocator).hasAttr("checked") shouldBe false
       document.select(assignToAllLabelLocator).text shouldBe assignToAllText
+      document.select(assignToAllHintLocator).text shouldBe assignToAllHintText
+
     }
 
     s"has an $assignToOneOrMoreText radio button" in {
       document.getElementById(assignToOneOrMoreRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(assignToOneOrMoreRadioLocator).hasAttr("checked") shouldBe false
       document.select(assignToOneOrMoreLabelLocator).text shouldBe assignToOneOrMoreText
+      document.select(assignToOneOrMoreHintLocator).text shouldBe assignToOneOrMoreHintText
+
     }
 
     s"has a $doNotAssignText radio button" in {
       document.getElementById(doNotAssignRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(doNotAssignRadioLocator).hasAttr("checked") shouldBe false
       document.select(doNotAssignLabelLocator).text shouldBe doNotAssignText
+      document.select(doNotAssignHintLocator).text shouldBe doNotAssignHintText
     }
 
     s"has a $continueButtonText button" in {
@@ -156,18 +170,21 @@ class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpe
       document.getElementById(assignToAllRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(assignToAllRadioLocator).hasAttr("checked") shouldBe false
       document.select(assignToAllLabelLocator).text shouldBe assignToAllTextWelsh
+      document.select(assignToAllHintLocator).text shouldBe assignToAllHintTextWelsh
     }
 
     s"has an $assignToOneOrMoreText radio button in Welsh" in {
       document.getElementById(assignToOneOrMoreRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(assignToOneOrMoreRadioLocator).hasAttr("checked") shouldBe false
       document.select(assignToOneOrMoreLabelLocator).text shouldBe assignToOneOrMoreTextWelsh
+      document.select(assignToOneOrMoreHintLocator).text shouldBe assignToOneOrMoreHintTextWelsh
     }
 
     s"has a $doNotAssignText radio button in Welsh" in {
       document.getElementById(doNotAssignRadioLocator).attr("type") shouldBe "radio"
       document.getElementById(doNotAssignRadioLocator).hasAttr("checked") shouldBe false
       document.select(doNotAssignLabelLocator).text shouldBe doNotAssignTextWelsh
+      document.select(doNotAssignHintLocator).text shouldBe doNotAssignHintTextWelsh
     }
 
     s"has a $continueButtonText button in Welsh" in {

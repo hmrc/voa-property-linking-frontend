@@ -554,6 +554,9 @@ propertyRepresentation.multipleProperties.title=Pa un o’ch eiddo yr hoffech ei
 propertyRepresentation.multipleProperties.options.all=Neilltuo pob eiddo iddo
 propertyRepresentation.multipleProperties.options.noProperties=Peidio â neilltuo unrhyw eiddo iddo
 propertyRepresentation.multipleProperties.options.oneOrMore=Neilltuo un eiddo neu fwy iddo
+propertyRepresentation.multipleProperties.options.all.hint=Bydd gan eich asiant fynediad i bob eiddo ar eich cyfrif
+propertyRepresentation.multipleProperties.options.oneOrMore.hint=Dim ond yr at yr eiddo a ddewiswch fydd gan eich asiant fynediad
+propertyRepresentation.multipleProperties.options.noProperties.hint=Ni fydd gan eich asiant fynediad i unrhyw eiddo ar eich cyfrif
 
 propertyRepresentation.checkYourAnswers.title=Gwirio a chadarnhau eich manylion
 propertyRepresentation.checkYourAnswers.agent=Asiant
