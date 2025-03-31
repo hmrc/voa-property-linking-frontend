@@ -44,8 +44,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
 
   def thisAgentText(listYear: String) = s"This agent will only be able to act for you on the $listYear rating list."
 
-  def theyWillText(otherListYear: String) =
-    otherListYear match {
+  def theyWillText(listYear: String) =
+    listYear match {
       case "2017" =>
         s"They will not be able to see valuations on the 2023 rating list, or act on them for you."
       case "2023" =>
@@ -69,8 +69,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
   def thisAgentTextWelsh(listYear: String) =
     s"Bydd yr asiant hwn ond yn gallu gweithredu ar eich rhan ar restr ardrethu $listYear."
 
-  def theyWillTextWelsh(otherListYear: String) =
-    otherListYear match {
+  def theyWillTextWelsh(listYear: String) =
+    listYear match {
       case "2017" =>
         s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu 2023, na gweithredu arnynt ar eich rhan."
       case "2023" =>
@@ -117,8 +117,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentText(listYear = "2017")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2017")}'" in {
-        document.select(theyWillSelector).text() shouldBe theyWillText(otherListYear = "2017")
+      s"has text on the screen of '${theyWillText(listYear = "2017")}'" in {
+        document.select(theyWillSelector).text() shouldBe theyWillText(listYear = "2017")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText'" in {
@@ -157,8 +157,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentText(listYear = "2023")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2023")}'" in {
-        document.select(theyWillSelector).text() shouldBe theyWillText(otherListYear = "2023")
+      s"has text on the screen of '${theyWillText(listYear = "2023")}'" in {
+        document.select(theyWillSelector).text() shouldBe theyWillText(listYear = "2023")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText'" in {
@@ -197,8 +197,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentTextWelsh(listYear = "2017")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2017")}' in welsh" in {
-        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(otherListYear = "2017")
+      s"has text on the screen of '${theyWillText(listYear = "2017")}' in welsh" in {
+        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(listYear = "2017")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText' in welsh" in {
@@ -237,8 +237,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentTextWelsh(listYear = "2023")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2023")}' in welsh" in {
-        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(otherListYear = "2023")
+      s"has text on the screen of '${theyWillText(listYear = "2023")}' in welsh" in {
+        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(listYear = "2023")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText' in welsh" in {
@@ -264,6 +264,23 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
       val res = await(
         ws.url(
           s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2000"
+        ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .get()
+      )
+
+      res.status shouldBe NOT_FOUND
+    }
+
+    "Show the not_found page when you send 2026 as the list year in the url" in {
+
+      setCurrentListYears(List("2017"))
+
+      stubsSetup
+
+      val res = await(
+        ws.url(
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/ratings-list/are-you-sure?chosenListYear=2026"
         ).withCookies(languageCookie(English), getSessionCookie(testSessionId))
           .withFollowRedirects(follow = false)
           .get()

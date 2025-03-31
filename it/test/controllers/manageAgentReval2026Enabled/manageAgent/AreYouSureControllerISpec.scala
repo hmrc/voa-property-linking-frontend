@@ -44,8 +44,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
 
   def thisAgentText(listYear: String) = s"This agent will only be able to act for you on the $listYear rating list."
 
-  def theyWillText(otherListYear: String) =
-    otherListYear match {
+  def theyWillText(listYear: String) =
+    listYear match {
       case "2017" =>
         s"They will not be able to see valuations on the 2026 or 2023 rating lists, or act on them for you."
       case "2023" =>
@@ -71,8 +71,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
   def thisAgentTextWelsh(listYear: String) =
     s"Bydd yr asiant hwn ond yn gallu gweithredu ar eich rhan ar restr ardrethu $listYear."
 
-  def theyWillTextWelsh(otherListYear: String) =
-    otherListYear match {
+  def theyWillTextWelsh(listYear: String) =
+    listYear match {
       case "2017" =>
         s"Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu 2026 na 2023, na gweithredu arnynt ar eich rhan."
       case "2023" =>
@@ -121,8 +121,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentText(listYear = "2017")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2017")}'" in {
-        document.select(theyWillSelector).text() shouldBe theyWillText(otherListYear = "2017")
+      s"has text on the screen of '${theyWillText(listYear = "2017")}'" in {
+        document.select(theyWillSelector).text() shouldBe theyWillText(listYear = "2017")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText'" in {
@@ -161,8 +161,48 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentText(listYear = "2023")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2023")}'" in {
-        document.select(theyWillSelector).text() shouldBe theyWillText(otherListYear = "2023")
+      s"has text on the screen of '${theyWillText(listYear = "2023")}'" in {
+        document.select(theyWillSelector).text() shouldBe theyWillText(listYear = "2023")
+      }
+
+      s"has a warning, with warning text on the screen of '$restrictingText'" in {
+        document.select(restrictingSelector).text() shouldBe restrictingText
+      }
+
+      s"has a '$confirmText' link on the screen" in {
+        document.select(confirmSelector).text() shouldBe confirmText
+      }
+
+      s"has a '$cancelText' link on the screen, which takes you to the agent details screen " in {
+        document.select(cancelSelector).text() shouldBe cancelText
+        document.select(cancelSelector).attr("href") shouldBe cancelHref
+      }
+    }
+
+    "Show an English are you sure screen with the correct text when chosen 2026 and the language is set to English" which {
+
+      lazy val document: Document = getAreYouSurePage(language = English, chosenListYear = "2026")
+
+      s"has a title of ${titleText(listYear = "2026")}" in {
+        document.title() shouldBe titleText(listYear = "2026")
+      }
+
+      "has a back link which takes you to the choose ratings list page" in {
+        document.select(backLinkSelector).text() shouldBe backLinkText
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '${headerText(listYear = "2026")}' with a caption above of '$captionText'" in {
+        document.select(headerSelector).text shouldBe headerText(listYear = "2026")
+        document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has text on the screen of '${thisAgentText(listYear = "2026")}'" in {
+        document.select(thisAgentSelector).text() shouldBe thisAgentText(listYear = "2026")
+      }
+
+      s"has text on the screen of '${theyWillText(listYear = "2026")}'" in {
+        document.select(theyWillSelector).text() shouldBe theyWillText(listYear = "2026")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText'" in {
@@ -201,8 +241,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentTextWelsh(listYear = "2017")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2017")}' in welsh" in {
-        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(otherListYear = "2017")
+      s"has text on the screen of '${theyWillText(listYear = "2017")}' in welsh" in {
+        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(listYear = "2017")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText' in welsh" in {
@@ -241,8 +281,48 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(thisAgentSelector).text() shouldBe thisAgentTextWelsh(listYear = "2023")
       }
 
-      s"has text on the screen of '${theyWillText(otherListYear = "2023")}' in welsh" in {
-        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(otherListYear = "2023")
+      s"has text on the screen of '${theyWillText(listYear = "2023")}' in welsh" in {
+        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(listYear = "2023")
+      }
+
+      s"has a warning, with warning text on the screen of '$restrictingText' in welsh" in {
+        document.select(restrictingSelector).text() shouldBe restrictingTextWelsh
+      }
+
+      s"has a '$confirmText' link on the screen in welsh" in {
+        document.select(confirmSelector).text() shouldBe confirmTextWelsh
+      }
+
+      s"has a '$cancelText' link on the screen in welsh, which takes you to the agent details screen " in {
+        document.select(cancelSelector).text() shouldBe cancelTextWelsh
+        document.select(cancelSelector).attr("href") shouldBe cancelHref
+      }
+    }
+
+    "Show a Welsh are you sure screen with the correct text when chosen 2026 and the language is set to Welsh" which {
+
+      lazy val document: Document = getAreYouSurePage(language = Welsh, chosenListYear = "2026")
+
+      s"has a title of ${titleText(listYear = "2026")} in welsh" in {
+        document.title() shouldBe titleTextWelsh(listYear = "2026")
+      }
+
+      "has a back link which takes you to the choose ratings list page" in {
+        document.select(backLinkSelector).text() shouldBe backLinkTextWelsh
+        document.select(backLinkSelector).attr("href") shouldBe backLinkHref
+      }
+
+      s"has a header of '${headerText(listYear = "2026")}' with a caption above of '$captionText' in welsh" in {
+        document.select(headerSelector).text shouldBe headerTextWelsh(listYear = "2026")
+        document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has text on the screen of '${thisAgentText(listYear = "2026")}' in welsh" in {
+        document.select(thisAgentSelector).text() shouldBe thisAgentTextWelsh(listYear = "2026")
+      }
+
+      s"has text on the screen of '${theyWillText(listYear = "2026")}' in welsh" in {
+        document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(listYear = "2026")
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText' in welsh" in {
@@ -279,6 +359,103 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
   }
 
   "AreYouSureController post method" should {
+    "Redirect to the confirmation page and REVOKE 2017 and APPOINT 2026 when currentYears is 2017 and they chose 2026" in {
+      setCurrentListYears(List("2017"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2026")
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 1, chosenListYear = "2026")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 1, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
+    "Redirect to the confirmation page and REVOKE 2017 and not APPOINT 2026 when currentYears is 2017+2023 and they chose 2026" in {
+      setCurrentListYears(List("2017", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2026")
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 1, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
+    "Redirect to the confirmation page and REVOKE 2017 and not APPOINT 2026 when currentYears is 2017+2026 and they chose 2026" in {
+      setCurrentListYears(List("2017", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2026")
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 1, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
+    "Redirect to the confirmation page and REVOKE 2017+2023 and not APPOINT 2026 when currentYears is 2017+2023+2026 and they chose 2026" in {
+      setCurrentListYears(List("2017", "2023", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2026")
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYearsMultiple(amount = 1, chosenListYears = List("2017", "2023"))
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+
+    }
+
+    "Redirect to the confirmation page and do not APPOINT/REVOKE anything when currentYears is 2026 and they chose 2026" in {
+      setCurrentListYears(List("2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2026")
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2026")
+    }
+
     "Redirect to the confirmation page and REVOKE 2017 and APPOINT 2023 when currentYears is 2017 and they chose 2023" in {
       setCurrentListYears(List("2017"))
 
@@ -298,7 +475,7 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
 
     }
 
-    "Redirect to the confirmation page and REVOKE 2017 and not APPOINT 2023 when currentYears is both and they chose 2023" in {
+    "Redirect to the confirmation page and REVOKE 2017 and not APPOINT 2023 when currentYears is 2017+2023 and they chose 2023" in {
       setCurrentListYears(List("2017", "2023"))
 
       stubsSetup
@@ -313,6 +490,45 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
       verifyAppointedListYears(amount = 0, chosenListYear = "2023")
       verifyAppointedListYears(amount = 0, chosenListYear = "2017")
       verifyRevokedListYears(amount = 1, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+
+    }
+
+    "Redirect to the confirmation page and REVOKE 2026 and not APPOINT 2023 when currentYears is 2023+2026 and they chose 2023" in {
+      setCurrentListYears(List("2023", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2023")
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2023")
+      verifyRevokedListYears(amount = 1, chosenListYear = "2026")
+
+    }
+
+    "Redirect to the confirmation page and REVOKE 2017+2026 and not APPOINT 2023 when currentYears is 2017+2023+2026 and they chose 2023" in {
+      setCurrentListYears(List("2017", "2023", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2023")
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYearsMultiple(amount = 1, chosenListYears = List("2017", "2026"))
       verifyRevokedListYears(amount = 0, chosenListYear = "2023")
 
     }
@@ -335,7 +551,7 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
       verifyRevokedListYears(amount = 0, chosenListYear = "2023")
     }
 
-    "Redirect to the confirmation page and APPOINT 2023 and REVOKE 2017 when currentYears is 2023 and they chose 2017" in {
+    "Redirect to the confirmation page and REVOKE 2023 and APPOINT 2017 when currentYears is 2023 and they chose 2017" in {
       setCurrentListYears(List("2023"))
 
       stubsSetup
@@ -347,14 +563,14 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         .headers("Location")
         .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
 
-      verifyAppointedListYears(amount = 1, chosenListYear = "2017")
       verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 1, chosenListYear = "2017")
       verifyRevokedListYears(amount = 0, chosenListYear = "2017")
       verifyRevokedListYears(amount = 1, chosenListYear = "2023")
 
     }
 
-    "Redirect to the confirmation page and REVOKE 2023 and not APPOINT 2017 when currentYears is both and they chose 2017" in {
+    "Redirect to the confirmation page and REVOKE 2023 and not APPOINT 2017 when currentYears is 2017+2023 and they chose 2017" in {
       setCurrentListYears(List("2017", "2023"))
 
       stubsSetup
@@ -366,10 +582,49 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         .headers("Location")
         .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
 
-      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
       verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
       verifyRevokedListYears(amount = 0, chosenListYear = "2017")
       verifyRevokedListYears(amount = 1, chosenListYear = "2023")
+
+    }
+
+    "Redirect to the confirmation page and REVOKE 2026 and not APPOINT 2017 when currentYears is 2017+2026 and they chose 2017" in {
+      setCurrentListYears(List("2017", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2017")
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYears(amount = 1, chosenListYear = "2026")
+
+    }
+
+    "Redirect to the confirmation page and REVOKE 2023+2026 and not APPOINT 2017 when currentYears is 2017+2023+2026 and they chose 2017" in {
+      setCurrentListYears(List("2017", "2023", "2026"))
+
+      stubsSetup
+
+      val res = submitNewListYear(chosenListYear = "2017")
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirmed"
+
+      verifyAppointedListYears(amount = 0, chosenListYear = "2026")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2023")
+      verifyAppointedListYears(amount = 0, chosenListYear = "2017")
+      verifyRevokedListYearsMultiple(amount = 1, chosenListYears = List("2023", "2026"))
+      verifyRevokedListYears(amount = 0, chosenListYear = "2017")
 
     }
 
@@ -389,8 +644,8 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
       verifyAppointedListYears(amount = 0, chosenListYear = "2023")
       verifyRevokedListYears(amount = 0, chosenListYear = "2017")
       verifyRevokedListYears(amount = 0, chosenListYear = "2023")
-
     }
+
   }
 
   private def getAreYouSurePage(language: Language, chosenListYear: String): Document = {
