@@ -90,34 +90,30 @@ class PropertyLinkingService @Inject() (
       _ <- {
         val yearsToAppoint = chosenListYears.filterNot(currentListYears.contains)
         if (yearsToAppoint.nonEmpty)
-          Future.traverse(yearsToAppoint) { year =>
-            propertyLinkConnector.agentAppointmentChange(
-              AgentAppointmentChangeRequest(
-                agentRepresentativeCode = agentSummary.representativeCode,
-                scope = AppointmentScope.LIST_YEAR,
-                action = AppointmentAction.APPOINT,
-                propertyLinks = None,
-                listYears = Some(List(year))
-              )
+          propertyLinkConnector.agentAppointmentChange(
+            AgentAppointmentChangeRequest(
+              agentRepresentativeCode = agentSummary.representativeCode,
+              scope = AppointmentScope.LIST_YEAR,
+              action = AppointmentAction.APPOINT,
+              propertyLinks = None,
+              listYears = Some(yearsToAppoint)
             )
-          }
+          )
         else
           Future.successful(AgentAppointmentChangesResponse("No appointment needed"))
       }
       listYearsToRevoke = currentListYears.filterNot(chosenListYears.contains)
       _ <- {
         if (listYearsToRevoke.nonEmpty) {
-          Future.traverse(listYearsToRevoke) { year =>
-            propertyLinkConnector.agentAppointmentChange(
-              AgentAppointmentChangeRequest(
-                agentRepresentativeCode = agentSummary.representativeCode,
-                scope = AppointmentScope.LIST_YEAR,
-                action = AppointmentAction.REVOKE,
-                propertyLinks = None,
-                listYears = Some(List(year))
-              )
+          propertyLinkConnector.agentAppointmentChange(
+            AgentAppointmentChangeRequest(
+              agentRepresentativeCode = agentSummary.representativeCode,
+              scope = AppointmentScope.LIST_YEAR,
+              action = AppointmentAction.REVOKE,
+              propertyLinks = None,
+              listYears = Some(listYearsToRevoke.toList)
             )
-          }
+          )
         } else
           Future.successful(AgentAppointmentChangesResponse("No revoke needed"))
       }
