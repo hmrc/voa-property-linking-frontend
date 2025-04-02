@@ -28,7 +28,7 @@ pageSize.messages=negeseuon fesul tudalen
 #START PAGE OLD JOURNEY
 start.heading.register.old=Cofrestru i ddefnyddio’r gwasanaeth hwn
 start.heading.registration.old=Cofrestru
-start.registration.p.1.old=Os ydych chi’n ddefnyddiwr sy’n dychwelyd, gallwch <a href="{0}"   class="govuk-link">fewngofnodi</a> i ddefnyddio’r gwasanaeth .
+start.registration.p.1.old=Os ydych chi’n ddefnyddiwr sy’n dychwelyd, gallwch <a href="{0}"   class="govuk-link">fewngofnodi</a> i ddefnyddio’r gwasanaeth.
 start.registration.p.2.old=Os ydych chi eisoes wedi cofrestru ar gyfer y gwasanaeth hwn a bod pobl eraill o’ch busnes eisiau cofrestru, mae angen i chi <a href="{0}" rel="external" class="govuk-link">eu hychwanegu at eich cyfrif busnes Porth y Llywodraeth</a>.
 start.registration.p.3.old=I gofrestru ar gyfer y gwasanaeth hwn bydd angen i chi ddilysu eich hunaniaeth drwy ddarparu   eich rhif Yswiriant Gwladol, dyddiad geni a manylion o leiaf un o’r canlynol:
 start.registration.enrolment.p.3.old=I gofrestru ar gyfer y gwasanaeth hwn bydd angen i chi ddilysu eich hunaniaeth drwy ddarparu   eich rhif Yswiriant Gwladol neu rif pasbort DU a’ch cod post.
