@@ -48,6 +48,28 @@ trait ListYearsHelpers extends ISpecBase with HtmlComponentHelpers {
         )
     )
 
+  def verifyAppointedListYearsMultiple(amount: Int, chosenListYears: List[String]): Unit =
+    verify(
+      amount,
+      postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(
+          equalToJson(
+            s"""{
+               |  "agentRepresentativeCode": 100,
+               |  "action": "APPOINT",
+               |  "scope": "LIST_YEAR",
+               |  "listYears": ${if (chosenListYears.size == 3)
+                "[\"" + chosenListYears.head + "\", \"" + chosenListYears.apply(1) + "\", \"" + chosenListYears.apply(
+                  2
+                ) + "\"]"
+              else if (chosenListYears.size == 2)
+                "[\"" + chosenListYears.head + "\", \"" + chosenListYears.apply(1) + "\"]"
+              else "[\"" + chosenListYears.head + "\"]"}
+               |}""".stripMargin
+          )
+        )
+    )
+
   def verifyRevokedListYears(amount: Int, chosenListYear: String): Unit =
     verify(
       amount,
@@ -64,11 +86,34 @@ trait ListYearsHelpers extends ISpecBase with HtmlComponentHelpers {
         )
     )
 
-  def setCurrentListYears(listYears: List[String]): Unit =
+  def verifyRevokedListYearsMultiple(amount: Int, chosenListYears: List[String]): Unit =
+    verify(
+      amount,
+      postRequestedFor(urlEqualTo("/property-linking/my-organisation/agent/submit-appointment-changes"))
+        .withRequestBody(
+          equalToJson(
+            s"""{
+               |  "agentRepresentativeCode": 100,
+               |  "action": "REVOKE",
+               |  "scope": "LIST_YEAR",
+               |  "listYears": ${if (chosenListYears.size == 3)
+                "[\"" + chosenListYears.head + "\", \"" + chosenListYears.apply(1) + "\", \"" + chosenListYears.apply(
+                  2
+                ) + "\"]"
+              else if (chosenListYears.size == 2)
+                "[\"" + chosenListYears.head + "\", \"" + chosenListYears.apply(1) + "\"]"
+              else "[\"" + chosenListYears.head + "\"]"}
+               |}""".stripMargin
+          )
+        )
+    )
+
+  def setCurrentListYears(listYears: List[String], proposedListYears: List[String] = List.empty): Unit =
     await(
       mockRepository.saveOrUpdate(
         AgentSummary(
           listYears = Some(listYears),
+          proposedListYears = Some(proposedListYears),
           name = "Test Agent",
           organisationId = 100L,
           representativeCode = 100L,

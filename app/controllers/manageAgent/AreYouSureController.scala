@@ -46,7 +46,7 @@ class AreYouSureController @Inject() (
 
   def show(chosenListYear: String): Action[AnyContent] =
     authenticated.async { implicit request =>
-      if (chosenListYear == "2017" || chosenListYear == "2023")
+      if (chosenListYear == "2017" || chosenListYear == "2023" || (chosenListYear == "2026" && config.agentJourney2026))
         manageAgentSessionRepository.get[AgentSummary].map {
           case Some(AgentSummary(_, representativeCode, agentName, _, _, _, _)) =>
             Ok(
@@ -66,6 +66,10 @@ class AreYouSureController @Inject() (
     authenticated.async { implicit request =>
       manageAgentSessionRepository.get[AgentSummary].flatMap {
         case Some(agentSummary) =>
+          manageAgentSessionRepository.saveOrUpdate[AgentSummary](
+            agentSummary
+              .copy(proposedListYears = None)
+          )
           propertyLinkingService.appointAndOrRevokeListYears(agentSummary, List(chosenListYear))
         case _ => Future.successful(NotFound(errorHandler.notFoundErrorTemplate))
       }

@@ -104,7 +104,7 @@ class PropertyLinkingService @Inject() (
       }
       listYearsToRevoke = currentListYears.filterNot(chosenListYears.contains)
       _ <- {
-        if (listYearsToRevoke.nonEmpty)
+        if (listYearsToRevoke.nonEmpty) {
           propertyLinkConnector.agentAppointmentChange(
             AgentAppointmentChangeRequest(
               agentRepresentativeCode = agentSummary.representativeCode,
@@ -114,7 +114,7 @@ class PropertyLinkingService @Inject() (
               listYears = Some(listYearsToRevoke.toList)
             )
           )
-        else
+        } else
           Future.successful(AgentAppointmentChangesResponse("No revoke needed"))
       }
       _ <- manageAgentSessionRepository.saveOrUpdate[AgentSummary](
