@@ -29,7 +29,7 @@ pageSize.messages=negeseuon fesul tudalen
 start.heading.register.old=Cofrestru i ddefnyddio’r gwasanaeth hwn
 start.heading.registration.old=Cofrestru
 start.registration.p.1.old=Os ydych chi’n ddefnyddiwr sy’n dychwelyd, gallwch <a href="{0}"   class="govuk-link">fewngofnodi</a> i ddefnyddio’r gwasanaeth .
-start.registration.p.2.old=Os ydych eisoes wedi cofrestru ar gyfer y gwasanaeth hwn ac bod pobl eraill yn eich busnes eisiau cofrestru,   mae angen i chi <a href="{0}" rel="allanol" class="govuk-link"> eu hychwanegu i’ch cyfrif Porth y Llywodraeth </a>.
+start.registration.p.2.old=Os ydych chi eisoes wedi cofrestru ar gyfer y gwasanaeth hwn a bod pobl eraill o’ch busnes eisiau cofrestru, mae angen i chi <a href="{0}" rel="external" class="govuk-link">eu hychwanegu at eich cyfrif busnes Porth y Llywodraeth</a>.
 start.registration.p.3.old=I gofrestru ar gyfer y gwasanaeth hwn bydd angen i chi ddilysu eich hunaniaeth drwy ddarparu   eich rhif Yswiriant Gwladol, dyddiad geni a manylion o leiaf un o’r canlynol:
 start.registration.enrolment.p.3.old=I gofrestru ar gyfer y gwasanaeth hwn bydd angen i chi ddilysu eich hunaniaeth drwy ddarparu   eich rhif Yswiriant Gwladol neu rif pasbort DU a’ch cod post.
 start.registration.youNeed.1.old=slipiau cyflog
@@ -53,7 +53,7 @@ start.registration.bp.1=wirio manylion eich eiddo
 start.registration.bp.2=herio’ch prisiad
 start.registration.bp.3=penodi asiant i weithredu ar eich rhan
 start.registration.p.2=<a href="{0}" class="govuk-link">Mewngofnodi</a>   os rydych eisoes wedi creu cyfrif ar gyfer y gwasanaeth hwn.
-start.registration.p.3=Os oes pobl eraill o fewn eich sefydliad angen cyfrif ac rydych chi wedi creu un yn barod, bydd angen i chi    <a href="{0}" rel="external" class="govuk-link"> eu hychwanegu at eich cyfrif busnes Porth y Llywodraeth </a>.
+start.registration.p.3=Os oes angen manylion mewngofnodi ar-lein ar bobl eraill o’ch sefydliad a’ch bod eisoes wedi’u creu, bydd angen i chi <a href="{0}" rel="external" class="govuk-link">eu hychwanegu at eich cyfrif busnes Porth y Llywodraeth</a>.
 start.registration.button=Dechrau nawr
 start.registration.h4=Cyn i chi ddechrau
 start.registration.p.4=Mae creu cyfrif yn cymryd tua 15 munud.
@@ -71,7 +71,7 @@ start.registration.IdontHave.answer=Os nad oes gennych y manylion hyn bydd angen
 #DO YOU HAVE GOVERNMENT GATEWAY ACCOUNT
 govGateway.heading=Oes gennych gyfrif Porth y Llywodraeth yn barod?
 govGateway.y=Oes
-govGateway.y.helpText=Byddwch angen eich ID defnyddiwr Porth y Llywodraeth a’ch cyfrinair
+govGateway.y.helpText=Bydd angen eich manylion mewngofnodi presennol arnoch
 govGateway.n=Na
 govGateway.n.helpText=Byddwch yn creu cyfrif Porth y Llywodraeth newydd
 govGateway.button=Parhau
@@ -107,7 +107,7 @@ label.wizard.businessHasRegistered=Ydy eich busnes wedi cofrestru yn barod ar gy
 businessHasRegistered.true=Ydy
 businessHasRegistered.false=Nac ydy
 label.wizard.givenGGDetails=Ydych chi wedi derbyn manylion mewngofnodi Porth y Llywodraeth i’w defnyddio, gan rywun arall yn eich busnes?
-help.wizard.givenGGDetails=Mae angen ID Porth y Llywodraeth arnoch i gofrestru ar gyfer y gwasanaeth hwn. Os oes rhywun arall eisoes wedi cofrestru eich busnes, bydd angen iddynt eich ychwanegu at gyfrif Porth y Llywodraeth y busnes a rhoi eich ID a’ch cyfrinair Porth y Llywodraeth personol i chi.
+help.wizard.givenGGDetails=11.	Bydd angen i chi ddefnyddio’ch manylion mewngofnodi presennol i ddefnyddio’r gwasanaeth hwn. Os nad oes gennych fanylion mewngofnodi, byddwch yn gallu eu creu. Os oes rhywun arall eisoes wedi cofrestru eich busnes, bydd angen iddynt eich ychwanegu at gyfrif Porth y Llywodraeth y busnes a darparu manylion mewngofnodi ar eich cyfer chi.
 givenGGDetails.true=Ydw
 givenGGDetails.false=Nac ydw
 label.wizard.existingGGAccount=Oes gennych chi gyfrif Porth y Llywodraeth yn bodoli’n barod yr hoffech ei ddefnyddio i gofrestru eich busnes?
@@ -137,11 +137,11 @@ authenticationWizard.beforeYouRegisterD.l2=gwirio’ch hunaniaeth
 authenticationWizard.beforeYouRegisterD.l3=cofrestru eich busnes
 
 heading.authenticationWizard.alreadyRegistered=Mae eich busnes wedi’i gofrestru yn barod
-heading.authenticationWizard.alreadyRegistered.p1=Gan fod eich busnes wedi cofrestru’n barod, bydd angen i chi ofyn i’r sawl a greodd y cyfrif ar gyfer   Porth y Llywodraeth eich ychwanegu at y cyfrif. Yna byddwch yn cael eich ID personol a’ch cyfrinair eich hun i ddefnyddio’r gwasanaeth.
+heading.authenticationWizard.alreadyRegistered.p1=Gan fod eich busnes eisoes wedi cofrestru, bydd angen i chi ofyn i’r person a greodd y manylion mewngofnodi i’ch ychwanegu. Yna byddwch yn derbyn eich manylion mewngofnodi eich hun i gael mynediad at y gwasanaeth.
 heading.authenticationWizard.alreadyRegistered.p2=Unwaith y byddwch wedi derbyn y manylion, byddwch yn gallu parhau i <a href="{0}" class="govuk-link">wedi cofrestru   ar gyfer y gwasanaeth</a>.
 heading.authenticationWizard.existingGGAccount=Cofrestru gyda chyfrif Porth y Llywodraeth sy’n bodoli’n barod
 
-heading.authenticationWizard.existingGGAccount.p1=Mae 3 math o gyfrif Porth y Llywodraeth; Unigol, Sefydliad ac Asiant.
+heading.authenticationWizard.existingGGAccount.p1=Mae 3 math o gyfrif; unigol, sefydliad ac asiant.
 heading.authenticationWizard.existingGGAccount.p2=Os oes gennych gyfrif Sefydliad sy’n bodoli’n barod ar gyfer y busnes,   gallwch ei ddefnyddio i gofrestru ar gyfer gwasanaeth y VOA. Ni fyddwch yn gallu defnyddio cyfrif Unigol nac Asiant i gofrestru.
 label.wizard.useExistingGGAccount=Ydych chi eisiau defnyddio cyfrif Porth Llywodraeth y Sefydliad sy’n bodoli’n barod?
 useExistingGGAccount.true=Ydw
@@ -288,8 +288,8 @@ createAccount.business.email.help=Eich e-bost chi dylai hwn fod ac nid y cyfeiri
 account.confirmation.title=Rydych chi wedi cofrestru’n llwyddiannus
 create.success.personId=Cyfeirnod adnabod personol y VOA (ID):
 create.success.keepNote=Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair.
-create.success.keepUsingGg=Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio –   dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi.
-account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes, bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd yn gyntaf.
+create.success.keepUsingGg=Ni fydd ei angen arnoch i fewngofnodi i’r gwasanaeth Gwirio a Herio - dylech barhau i ddefnyddio’ch manylion mewngofnodi presennol
+account.confirmation.addToGG=Os oes unrhyw un arall eisiau cofrestru ar ran y busnes, yn gyntaf bydd angen i chi <a class="govuk-link" href="{0}" rel="external">eu hychwanegu at eich cyfrif Porth y Llywodraeth</a> fel gweinyddwr neu gynorthwyydd.
 registration.confirmation.weUseYourDetails=Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth.
 account.confirmation.disclaimer=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="terms-and-conditions">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
 account.enrolment.link.success=Parhau
@@ -302,7 +302,7 @@ registration.confirmation.email.sent.to=Rydym wedi anfon y manylion yma at <stro
 registration.confirmation.whatNext.p1=Y tro nesaf y byddwch yn mewngofnodi i ddefnyddio’r gwasanaeth, defnyddiwch eich manylion Porth y Llywodraeth.
 registration.confirmation.whatNext.p2=Os oes angen i chi ailosod eich cyfrinair, bydd angen i chi ddarparu eich rhif adnabod personol (ID) VOA.
 registration.confirmation.whatNext.p3=Rhowch eich cod Asiant i’ch cleient fel y gallant eich penodi i weithredu ar eu rhan.
-registration.confirmation.whatNext.p4=Os oes unrhyw un arall eisiau cofrestru ar eich rhan chi o’r mudiad,   bydd angen i chi <a class="govuk-link" href="{0}" rel="external noopener noreferrer">eu hychwanegu i’ch cyfrif Porth y Llywodraeth</a>.
+registration.confirmation.whatNext.p4=Os oes unrhyw un arall eisiau cofrestru ar ran y sefydliad, bydd angen i chi <a class="govuk-link" href="{0}" rel="external noopener noreferrer">eu hychwanegu at eich cyfrif Porth y Llywodraeth</a>.
 registration.confirmation.termsOfUse.p=Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae defnydd ar gyfer unrhyw bwrpas arall yn torri <a class="govuk-link" href="terms-and-conditions">telerau ac amodau’r</a> gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
 
 #MIGRATED ENROLMENT USER
@@ -348,7 +348,7 @@ dashboard.home.draft.cases.text=Parhau i olygu gwiriadau nad ydynt wedi’u cyfl
 dashboard.home.plannedFeatures=Yn dod cyn hir
 dashboard.home.usefulLinks=Gwybodaeth ddefnyddiol
 dashboard.home.addAnotherUser.link=Rwyf am ychwanegu defnyddiwr arall o fy musnes
-dashboard.home.addAnotherUser.text=I ychwanegu defnyddiwr arall, bydd angen i chi eu hychwanegu at eich cyfrif Porth y Llywodraeth yn gyntaf.
+dashboard.home.addAnotherUser.text=I ychwanegu defnyddiwr arall, yn gyntaf bydd angen i chi eu hychwanegu at eich cyfrif Porth y Llywodraeth.
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=Fy eiddo
@@ -1560,7 +1560,7 @@ invalidAccountType.title=Ni allwch ddefnyddio’r cyfrif Porth y Llywodraeth i g
 invalidAccountType.p.1=Rydych wedi ceisio cofrestru drwy ddefnyddio cyfrif Porth y Llywodraeth Unigolyn neud Asiant sy’n bodoli’n barod.
 invalidAccountTypeEnrolment.p.1=Rydych wedi ceisio cofrestru drwy ddefnyddio cyfrif Porth y Llywodraeth Asiant sy’n bodoli’n barod.
 invalidAccountType.p.2=Er mwyn cofrestru ar gyfer y gwasanaeth hwn bydd angen i chi ddefnyddio cyfrif Porth y Llywodraeth ar gyfer Sefydliad.
-invalidAccountTypeEnrolment.p.2=I gofrestru ar gyfer y gwasanaeth hwn bydd angen i chi ddefnyddio cyfrif Porth y Llywodraeth Sefydliad neu Unigolyn
+invalidAccountTypeEnrolment.p.2=I gofrestru ar gyfer y gwasanaeth hwn bydd angen i chi greu manylion mewngofnodi newydd ar gyfer cyfrif sefydliad neu gyfrif unigol.
 invalidAccountType.p.3=Gallwch barhau i gofrestru ar gyfer y gwasanaeth hwn lle byddwch yn gallu creu cyfrif Porth y Llywodraeth cywir.
 invalidAccountType.register=Cofrestru ar gyfer y gwasanaeth
 
@@ -1593,7 +1593,7 @@ getHelpLink=Rhowch wybod am broblem gyda’r dudalen hon
 getHelpContent=<p>Os ydych yn cael trafferth wrth ddefnyddio’r gwasanaeth hwn,   gallwch gysylltu â ni am gymorth.</p> <p>Cyfeiriad e-bost: <a href="mailto:{0}" class="govuk-link">{0}</a></p>
 
 ##ADD USER TO GG
-addUserToGG.heading=Ychwanegu defnyddiwr arall at eich cyfrif Porth y Llywodraeth
+addUserToGG.heading=Ychwanegu defnyddiwr arall at eich cyfrif GOV.UK
 addUserToGG.p1=Bydd angen i chi fod yn weinyddwr ar gyfer cyfrif Porth y Llywodraeth i ychwanegu defnyddwyr.   Rydych chi’n weinyddwr os creoch chi gyfrif Porth y Llywodraeth, neu os ydych chi wedi cael eich ychwanegu fel gweinyddwr i’r cyfrif. Rydym yn argymell bod gennych o leiaf 2 weinyddwr ar gyfer eich sefydliad.
 addUserToGG.p2=Os ydych yn ychwanegu asiant at eich cyfrif Porth y Llywodraeth Dylech fod yn ymwybodol   bydd ganddynt yr un hawliau mynediad â defnyddwyr cynorthwyol eraill yn eich sefydliad.
 addUserToGG.p3=Gallwch ychwanegu defnyddiwr ar y sgrin nesaf drwy ddewis ’Defnyddwyr cyfrif’ yna "Rheoli defnyddwyr’

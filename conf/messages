@@ -57,7 +57,7 @@ start.registration.bp.1=check your property details
 start.registration.bp.2=challenge your valuation
 start.registration.bp.3=appoint an agent to act on your behalf
 start.registration.p.2=<a href="{0}" class="govuk-link">Sign in</a> if you have already created an account for this service.
-start.registration.p.3=If other people from your organisation need an account and you’ve already created one, you will need to <a href="{0}" rel="external" class="govuk-link">add them to your business Government Gateway account</a>.
+start.registration.p.3=If other people from your organisation need online sign in details and you’ve already created them, you will need to <a href="{0}" rel="external" class="govuk-link">add them to your business Government Gateway account</a>.
 start.registration.button=Start now
 start.registration.h4=Before you start
 start.registration.p.4=Creating an account takes around 15 minutes.
@@ -75,7 +75,7 @@ start.registration.IdontHave.answer=If you don’t have these details you’ll n
 #DO YOU HAVE GOVERNMENT GATEWAY ACCOUNT
 govGateway.heading=Do you already have a Government Gateway account?
 govGateway.y=Yes
-govGateway.y.helpText=You''ll need your Government Gateway user ID and password
+govGateway.y.helpText=You''ll need your existing sign in details
 govGateway.n=No
 govGateway.n.helpText=You''ll create a new Government Gateway account
 govGateway.button=Continue
@@ -114,7 +114,7 @@ label.wizard.businessHasRegistered=Is your business already registered for this 
 businessHasRegistered.true=Yes
 businessHasRegistered.false=No
 label.wizard.givenGGDetails=Have you been given Government Gateway sign in details to use, by someone else in your business?
-help.wizard.givenGGDetails=You need a Government Gateway ID to register for this service. If someone else has already registered your business, they’ll need to add you to the business’s Government Gateway account and provide you with your personal Government Gateway ID and password.
+help.wizard.givenGGDetails=You''ll need to use your existing sign in details to use this service. If you do not have sign in details, you'll be able to create them. If someone else has already registered your business, they''ll need to add you to the business''s Government Gateway account and provide you with your own sign in details.
 givenGGDetails.true=Yes
 givenGGDetails.false=No
 label.wizard.existingGGAccount=Do you have an existing Government Gateway account that you’d like to use to register your business?
@@ -145,11 +145,11 @@ authenticationWizard.beforeYouRegisterD.l3=register your business
 
 
 heading.authenticationWizard.alreadyRegistered=Your business has already been registered
-heading.authenticationWizard.alreadyRegistered.p1=As your business has already registered, you’ll need to ask the person who created the Government Gateway account to add you to the account. You will then be given your own personal ID and password to access the service.
+heading.authenticationWizard.alreadyRegistered.p1=As your business has already registered, you'll need to ask the person who created the sign in details to add you. You will then be given your own sign in details to access the service.
 heading.authenticationWizard.alreadyRegistered.p2=Once you have the details, you’ll be able to continue to <a href="{0}" class="govuk-link">register for the service</a>.
 heading.authenticationWizard.existingGGAccount=Register with an existing Government Gateway account
 
-heading.authenticationWizard.existingGGAccount.p1=There are 3 types of Government Gateway account; Individual, Organisation and Agent.
+heading.authenticationWizard.existingGGAccount.p1=There are 3 types of account; individual, organisation and agent.
 heading.authenticationWizard.existingGGAccount.p2=If you have an existing Organisation account for the business, you can use it to register for the VOA’s service. You won’t be able to use an Individual or Agent account to register.
 label.wizard.useExistingGGAccount=Do you want to use an existing Organisation Government Gateway account?
 useExistingGGAccount.true=Yes
@@ -348,7 +348,7 @@ createAccount.business.email.help=This should be your email address and not your
 account.confirmation.title=You’ve successfully registered
 create.success.personId=VOA Personal ID:
 create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
-create.success.keepUsingGg=You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in.
+create.success.keepUsingGg=You will not need it to sign in to the check and challenge service - you should continue to use your existing sign in details.
 account.confirmation.addToGG=If anyone else wants to register on behalf of the business, you’ll first need to <a class="govuk-link" href="{0}" rel="external">add them to your Government Gateway account</a> as an administrator or an assistant.
 registration.confirmation.weUseYourDetails=We use your contact details to send you correspondence related to the service and your account.
 account.confirmation.disclaimer=Information provided using this service is only for the purposes of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the <a class="govuk-link" href="terms-and-conditions">terms and conditions</a> of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
@@ -408,7 +408,7 @@ dashboard.home.draft.cases.text=Continue editing checks that have not yet been s
 dashboard.home.plannedFeatures=Coming soon
 dashboard.home.usefulLinks=Useful information
 dashboard.home.addAnotherUser.link=I want to add another user from my business
-dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to add them to your Government Gateway account.
+dashboard.home.addAnotherUser.text=To add another user, you’’ll firstly need to add them to your Government Gateway account.
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=My properties
@@ -1686,7 +1686,7 @@ invalidAccountType.title=You can’t use that Government Gateway account to regi
 invalidAccountType.p.1=You’ve tried to register using an existing Individual or Agent Government Gateway account.
 invalidAccountTypeEnrolment.p.1=You’ve tried to register using an existing Agent Government Gateway account.
 invalidAccountType.p.2=To register for this service you’ll need to use an Organisation Government Gateway account.
-invalidAccountTypeEnrolment.p.2=To register for this service you’ll need to use an Organisation or Individual Government Gateway account.
+invalidAccountTypeEnrolment.p.2=To register for this service you'll need to create new sign in details for an organisation or individual account.
 invalidAccountType.p.3=You can continue to register for this service where you’ll be able to create the correct Government Gateway account.
 invalidAccountType.register=Register for the service
 
@@ -1720,7 +1720,7 @@ getHelpContent=<p>If you are having trouble using this service, you can contact 
 
 
 ##ADD USER TO GG
-addUserToGG.heading=Add another user to your Government Gateway account
+addUserToGG.heading=Add another user to your GOV.UK account
 addUserToGG.p1=You''ll need to be an administrator for the Government Gateway account to add users. You''re an administrator if you created the Government Gateway account, or if you''ve been added as an administrator to the account. We recommend you have at least 2 administrators for your organisation.
 addUserToGG.p2=You should be aware that if you add an agent to your Government Gateway account, they''ll have the same access rights as other assistant users within your organisation.
 addUserToGG.p3=You can add a user on the next screen by selecting “Account users” then “Manage users”.
