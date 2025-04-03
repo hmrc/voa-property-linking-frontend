@@ -18,7 +18,7 @@ navigation.your.details=Your details
 heading.terms.of.use=Terms of use
 caption.add.property= Add a property
 
-error.404.title=This page can't be found
+error.404.title=This page can’t be found
 error.404.message=Please check that you have entered the correct web address.
 
 error.alreadySubmitted.title=Your request to add this property has been sent
@@ -198,7 +198,7 @@ label.createAccount.nino.nino=National Insurance number
 label.createAccount.nino=National Insurance number
 error.nino.invalid=Enter a valid National Insurance number
 dropdown.createAccount.nino=I don’t have a National Insurance number
-dropdown.createAccount.nino.p1=You need to provide your National Insurance number to register for this service. You can <a href="https://www.gov.uk/apply-national-insurance-number" class="govuk-link">apply for a National Insurance number</a> if you don’’t already have one.
+dropdown.createAccount.nino.p1=You need to provide your National Insurance number to register for this service. You can <a href="https://www.gov.uk/apply-national-insurance-number" class="govuk-link">apply for a National Insurance number</a> if you don’t already have one.
 dropdown.createAccount.nino.p2=If you don’t have a National Insurance number and you are not eligible to apply for one, you should contact us.
 dropdown.createAccount.nino.emailHeading=Email
 dropdown.createAccount.nino.telephoneHeading=Telephone
@@ -413,7 +413,7 @@ dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=My properties
 dashboard.manageProperties.expectDelays=It may take several hours for your property to display here once you have claimed it.
-dashboard.manageProperties.noPropertiesMessage1=You haven't claimed any properties yet. You need to
+dashboard.manageProperties.noPropertiesMessage1=You haven’t claimed any properties yet. You need to
 dashboard.manageProperties.noPropertiesMessagelink=claim a property
 dashboard.manageProperties.noPropertiesMessage2=before you can check or challenge the rateable value.
 dashboard.manageProperties.noProperties=There are no properties to display.
@@ -1267,7 +1267,7 @@ linkError.manualVerification.title=Manual Verification Required
 linkError.manualVerification.message=We were unable to link you to the requested property. We need to manually verify your request.
 linkError.manualVerification.home.link=Manage your properties
 linkError.conflict.title=Property already linked to another customer record
-linkError.conflict.message=We're unable to add this property to your customer record at this time as it has already been linked to another customer record for the period you have specified. We’ll check the details and tell you the outcome.
+linkError.conflict.message=We’re unable to add this property to your customer record at this time as it has already been linked to another customer record for the period you have specified. We’ll check the details and tell you the outcome.
 linkError.conflict.home.link=Manage your properties
 
 #REQUEST DETAILED VALUATION
@@ -1686,7 +1686,7 @@ invalidAccountType.title=You can’t use that Government Gateway account to regi
 invalidAccountType.p.1=You’ve tried to register using an existing Individual or Agent Government Gateway account.
 invalidAccountTypeEnrolment.p.1=You’ve tried to register using an existing Agent Government Gateway account.
 invalidAccountType.p.2=To register for this service you’ll need to use an Organisation Government Gateway account.
-invalidAccountTypeEnrolment.p.2=To register for this service you'll need to create new sign in details for an organisation or individual account.
+invalidAccountTypeEnrolment.p.2=To register for this service you’ll need to create new sign in details for an organisation or individual account.
 invalidAccountType.p.3=You can continue to register for this service where you’ll be able to create the correct Government Gateway account.
 invalidAccountType.register=Register for the service
 
