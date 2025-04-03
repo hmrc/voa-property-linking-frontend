@@ -75,9 +75,9 @@ start.registration.IdontHave.answer=If you don’t have these details you’ll n
 #DO YOU HAVE GOVERNMENT GATEWAY ACCOUNT
 govGateway.heading=Do you already have a Government Gateway account?
 govGateway.y=Yes
-govGateway.y.helpText=You''ll need your existing sign in details
+govGateway.y.helpText=You’ll need your existing sign in details
 govGateway.n=No
-govGateway.n.helpText=You''ll create a new Government Gateway account
+govGateway.n.helpText=You’ll create a new Government Gateway account
 govGateway.button=Continue
 error.govGateway.title=There is a problem
 
@@ -114,7 +114,7 @@ label.wizard.businessHasRegistered=Is your business already registered for this 
 businessHasRegistered.true=Yes
 businessHasRegistered.false=No
 label.wizard.givenGGDetails=Have you been given Government Gateway sign in details to use, by someone else in your business?
-help.wizard.givenGGDetails=You''ll need to use your existing sign in details to use this service. If you do not have sign in details, you'll be able to create them. If someone else has already registered your business, they''ll need to add you to the business''s Government Gateway account and provide you with your own sign in details.
+help.wizard.givenGGDetails=You’ll need to use your existing sign in details to use this service. If you do not have sign in details, you’ll be able to create them. If someone else has already registered your business, they’ll need to add you to the business’s Government Gateway account and provide you with your own sign in details.
 givenGGDetails.true=Yes
 givenGGDetails.false=No
 label.wizard.existingGGAccount=Do you have an existing Government Gateway account that you’d like to use to register your business?
@@ -145,7 +145,7 @@ authenticationWizard.beforeYouRegisterD.l3=register your business
 
 
 heading.authenticationWizard.alreadyRegistered=Your business has already been registered
-heading.authenticationWizard.alreadyRegistered.p1=As your business has already registered, you'll need to ask the person who created the sign in details to add you. You will then be given your own sign in details to access the service.
+heading.authenticationWizard.alreadyRegistered.p1=As your business has already registered, you’ll need to ask the person who created the sign in details to add you. You will then be given your own sign in details to access the service.
 heading.authenticationWizard.alreadyRegistered.p2=Once you have the details, you’ll be able to continue to <a href="{0}" class="govuk-link">register for the service</a>.
 heading.authenticationWizard.existingGGAccount=Register with an existing Government Gateway account
 
@@ -197,9 +197,9 @@ dob.year.label=Year
 label.createAccount.nino.nino=National Insurance number
 label.createAccount.nino=National Insurance number
 error.nino.invalid=Enter a valid National Insurance number
-dropdown.createAccount.nino=I don''t have a National Insurance number
-dropdown.createAccount.nino.p1=You need to provide your National Insurance number to register for this service. You can <a href="https://www.gov.uk/apply-national-insurance-number" class="govuk-link">apply for a National Insurance number</a> if you don''t already have one.
-dropdown.createAccount.nino.p2=If you don''t have a National Insurance number and you are not eligible to apply for one, you should contact us.
+dropdown.createAccount.nino=I don’t have a National Insurance number
+dropdown.createAccount.nino.p1=You need to provide your National Insurance number to register for this service. You can <a href="https://www.gov.uk/apply-national-insurance-number" class="govuk-link">apply for a National Insurance number</a> if you don’’t already have one.
+dropdown.createAccount.nino.p2=If you don’t have a National Insurance number and you are not eligible to apply for one, you should contact us.
 dropdown.createAccount.nino.emailHeading=Email
 dropdown.createAccount.nino.telephoneHeading=Telephone
 dropdown.createAccount.nino.email=<a class="govuk-link" href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>
@@ -368,7 +368,7 @@ registration.confirmation.termsOfUse.p=Information provided using this service i
 #MIGRATED ENROLMENT USER
 account.migrated.welcome=Welcome back
 account.migrated.personalId=Your VOA personal ID is:
-account.migrated.p1=As part of the ongoing improvements to the check and challenge service, we''ve given you a personal ID number. You should keep a note of this number in a safe place as you will need it if you want to reset your password.
+account.migrated.p1=As part of the ongoing improvements to the check and challenge service, we’ve given you a personal ID number. You should keep a note of this number in a safe place as you will need it if you want to reset your password.
 
 account.confirmation.alreadyRegistered.youCan=You can now:
 account.confirmation.alreadyRegistered.youCan.1=add properties to the business’s customer record
@@ -408,7 +408,7 @@ dashboard.home.draft.cases.text=Continue editing checks that have not yet been s
 dashboard.home.plannedFeatures=Coming soon
 dashboard.home.usefulLinks=Useful information
 dashboard.home.addAnotherUser.link=I want to add another user from my business
-dashboard.home.addAnotherUser.text=To add another user, you’’ll firstly need to add them to your Government Gateway account.
+dashboard.home.addAnotherUser.text=To add another user, you’ll firstly need to add them to your Government Gateway account.
 
 #DASHBOARD MANAGE PROPERTIES
 dashboard.manageProperties.title=My properties
@@ -547,7 +547,7 @@ draftCases.confirm.delete.return.button=Return to drafts list
 
 #remove property
 propertyRepresentation.removeAgent.title=Remove agent permissions
-propertyRepresentation.removeAgent.message.p1=You can remove an agent''s ability to carry out checks and challenges on your behalf.
+propertyRepresentation.removeAgent.message.p1=You can remove an agent’s ability to carry out checks and challenges on your behalf.
 propertyRepresentation.removeAgent.message.p2=Select an agent from the list below to remove them from one or more properties.
 propertyRepresentation.removeAgentProperties.title=Which of your properties do you want to unassign {0} from?
 propertyRepresentation.removeAgentProperties.p1=For the properties you select, the agent will not be able to:
@@ -557,10 +557,10 @@ propertyRepresentation.appointAgent.caption=Appoint an agent
 propertyRepresentation.appointAgent.choosingAList=Choosing a rating list is different to assigning properties to the agent. You will assign properties after choosing a rating list.
 propertyRepresentation.appointAgent.title=Appoint an agent
 propertyRepresentation.appointAgent.message.1=You’ll need to enter the code of the agent you want to appoint and tell us what they can do on behalf of your business.
-propertyRepresentation.appointAgent.message.2=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
+propertyRepresentation.appointAgent.message.2=Please be aware that you’ll be responsible for any information your agent submits to us about your property. You’ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
 propertyRepresentation.appointAgent.associatedAgents.p1=The following agents are currently associated with your account. Select an agent from the list below or add a new agent to associate them with one or more properties.
-propertyRepresentation.appointAgent.associatedAgents.p2=If you''ve already appointed an agent for a property, the previous one will be removed and won''t be able to act on your behalf.
-propertyRepresentation.appointAgent.warning=Please be aware that you''ll be responsible for any information your agent submits to us about your property. You''ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
+propertyRepresentation.appointAgent.associatedAgents.p2=If you’ve already appointed an agent for a property, the previous one will be removed and won’t be able to act on your behalf.
+propertyRepresentation.appointAgent.warning=Please be aware that you’ll be responsible for any information your agent submits to us about your property. You’ll be liable for any penalty or the backdating of revised valuations if your agent submits false information.
 propertyRepresentation.appointAgent.message.appoint=Appoint a new agent
 propertyRepresentation.appointAgent.check.p1=If any of the factual details about your property or land are incorrect, you (the owner, occupier or authorised agent) need to let the VOA know. Telling us about anything that’s incorrect is known as a check.
 propertyRepresentation.appointAgent.check.p2=If all of your property details are correct but you believe your rateable value is incorrect, you must first complete a check and wait for the outcome before making a challenge.
@@ -1251,7 +1251,7 @@ declaration.title=Check and confirm your details
 declaration.p.1=I declare that:
 declaration.1=the information I have given in this form is correct and complete
 declaration.2=the file/details that I have uploaded contains proof of my relationship to the property for dates that overlap with the period claimed
-declaration.client.2=the file/details that I have uploaded contains proof of my client''s relationship to the property for dates that overlap with the period claimed
+declaration.client.2=the file/details that I have uploaded contains proof of my client’s relationship to the property for dates that overlap with the period claimed
 declaration.p.2=I understand that I could be taken to court if I knowingly submit false information.
 declaration.p.3=You could be taken to court if you knowingly submit false information.
 declaration.p.agent=I declare that the information I have given is correct and complete. The evidence I have uploaded contains proof of my client’s connection to the property for dates that overlap with the period I have stated.
@@ -1356,7 +1356,7 @@ available.requestvaluation.check.p1=To submit a check for this property you will
 available.requestvaluation.check.p2=You can email the form to <a class="govuk-link" href="mailto:CCAService@voa.gov.uk">CCAService@voa.gov.uk</a> or post it to:
 available.requestvaluation.p2=Before you can submit a Check, you need to <a class="govuk-link" id="{1}" href="{0}">download and complete a Check form</a>.
 available.requestvaluation.p3=After completing the form, you need to send it as part of a Check.
-available.requestvaluation.warning=Some older Check forms may tell you to email or post your form. Please ignore this and use the ''Send my completed Check form'' button instead.
+available.requestvaluation.warning=Some older Check forms may tell you to email or post your form. Please ignore this and use the ‘Send my completed Check form’ button instead.
 available.requestvaluation.address=Check and challenge service, PO Box 308, PLYMOUTH, PL5 9DT
 available.requestvaluation.h2.previous=Previous rateable value ({0} to {1})
 available.requestvaluation.h2.current=Current rateable value ({0} to present)
@@ -1370,7 +1370,7 @@ available.requestvaluation.nonDraft.check.p1=If the property’s details are inc
 available.requestvaluation.nonDraft.check.p1.draftListEnabled=If the property’s details are incorrect, or you believe the rateable value is wrong, you must complete a Check case form. Any changes will carry over to the future valuation.
 available.requestvaluation.nonDraft.check.link=Download the Check case form
 available.requestvaluation.nonDraft.check.p2=After completing the form, send it to us as part of a Check case.
-available.requestvaluation.nonDraft.check.warning=Some older Check case forms may tell you to email or post your form. Please ignore this and use the ''Send my completed Check case form'' button instead.
+available.requestvaluation.nonDraft.check.warning=Some older Check case forms may tell you to email or post your form. Please ignore this and use the ‘Send my completed Check case form’ button instead.
 available.requestvaluation.nonDraft.check.button.send=Send my completed Check case form
 
 available.requestvaluation.welsh.ccaEmail.preLink=If you need this valuation in Welsh, email
@@ -1486,7 +1486,7 @@ auto.duplicateRequestDetailedValuation.details.reference=Your request reference 
 auto.duplicateRequestDetailedValuation.mcc.subhead=If you need to tell us about a change in the local area
 auto.duplicateRequestDetailedValuation.mcc.email.preLink=If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email
 auto.duplicateRequestDetailedValuation.mcc.email.postLink=and ask for your request to be prioritised.
-auto.duplicateRequestDetailedValuation.mcc.email.instruction=Include ''Urgent: external Material Change of Circumstances'' in the subject line and include the property address and the request reference number in the email.
+auto.duplicateRequestDetailedValuation.mcc.email.instruction=Include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and the request reference number in the email.
 
 startChallenge.title=Challenge the valuation
 startChallenge.p.1=Your challenge must be submitted within 4 months of the VOA decision, or within 16 months of the date you told the VOA about a change in the surrounding area of your property. You can also submit a challenge if you told the VOA about a change and you haven’t received a decision within 12 months.
@@ -1721,8 +1721,8 @@ getHelpContent=<p>If you are having trouble using this service, you can contact 
 
 ##ADD USER TO GG
 addUserToGG.heading=Add another user to your GOV.UK account
-addUserToGG.p1=You''ll need to be an administrator for the Government Gateway account to add users. You''re an administrator if you created the Government Gateway account, or if you''ve been added as an administrator to the account. We recommend you have at least 2 administrators for your organisation.
-addUserToGG.p2=You should be aware that if you add an agent to your Government Gateway account, they''ll have the same access rights as other assistant users within your organisation.
+addUserToGG.p1=You’ll need to be an administrator for the Government Gateway account to add users. You’re an administrator if you created the Government Gateway account, or if you’ve been added as an administrator to the account. We recommend you have at least 2 administrators for your organisation.
+addUserToGG.p2=You should be aware that if you add an agent to your Government Gateway account, they’ll have the same access rights as other assistant users within your organisation.
 addUserToGG.p3=You can add a user on the next screen by selecting “Account users” then “Manage users”.
 addUserToGG.l1=Add a user
 
@@ -1741,7 +1741,7 @@ declined.getHelp=Declined help
 label.close=Close
 
 #AGENT REQUEST WARNING
-agent.request.warning=We''ve temporarily removed the ''Date requested'' column while we fix a technical issue. There is currently no time limit to accept requests.
+agent.request.warning=We’ve temporarily removed the ‘Date requested’ column while we fix a technical issue. There is currently no time limit to accept requests.
 agent.request.actions.single.info.accept=You have accepted {0} agent request
 agent.request.actions.multiple.info.accept=You have accepted {0} agent requests
 agent.request.actions.single.info.reject=You have rejected {0} agent request
@@ -1801,13 +1801,13 @@ checkReceived.represented.checkCase.1=We have received a Check case from your ag
 checkReceived.agent.checkCase.1=We have received the Check case you have made on behalf of your client for the property on {0}.
 checkReceived.summaryLink.text=You can view a summary of the check here
 checkReceived.whatNow=What you need to do
-checkReceived.furtherInfo=You don''t need to do anything, we will contact you if we need further information or evidence.
+checkReceived.furtherInfo=You don’t need to do anything, we will contact you if we need further information or evidence.
 checkReceived.print=Print this message
 checkReceived.download=Download this message as a PDF
 checkReceived.whatNext=What happens next
 checkReceived.responseTime=We aim to provide a response within 12 weeks. We prioritise cases from smaller proposers. Some complex cases may take longer to resolve. 
 checkReceived.valuation=The information submitted as part of the Check case may cause your valuation to go up as well as down.
-checkReceived.moreInfo=You can find more information on the Check and Challenge service by searching for ''Check and Challenge'' on the <a class="govuk-link" href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
+checkReceived.moreInfo=You can find more information on the Check and Challenge service by searching for ‘Check and Challenge’ on the <a class="govuk-link" href="https://www.gov.uk/search?q=check+and+challenge">GOV.UK</a> website.
 checkReceived.template.valuationOffice=Valuation Office Agency
 checkReceived.unknownTemplate=Unknown message template: {0}
 link.summary=View Summary
@@ -1820,9 +1820,9 @@ pagination.previous=Previous
 plannedImprovements.title=Service unavailable
 plannedImprovements.p1=The check and challenge service will be unavailable from 5pm until 6pm on Monday 30 July for essential maintenance, and from 5pm on Tuesday 31 July until 1am on Wednesday 1 August while we make some planned improvements.
 plannedImprovements.p2=You will not be able to access the service during this time and we apologise for any inconvenience this may cause you.
-plannedImprovements.p3=We''re making improvements to the service in response to customer feedback, which gives customers an easier way to tell us about other additions to their property during a check, without the need to upload documents
-plannedImprovements.b1=adding a new ''messages'' tab to the dashboard, where you can view received correspondence
-plannedImprovements.b2=automatically sending you an acknowledgment email when we''ve received your check through the online service (for a shop, warehouse, office or factory)
+plannedImprovements.p3=We’re making improvements to the service in response to customer feedback, which gives customers an easier way to tell us about other additions to their property during a check, without the need to upload documents
+plannedImprovements.b1=adding a new ‘messages’ tab to the dashboard, where you can view received correspondence
+plannedImprovements.b2=automatically sending you an acknowledgment email when we’ve received your check through the online service (for a shop, warehouse, office or factory)
 plannedImprovements.b3=providing a summary of your submitted check via the dashboard, and the option to download a PDF version
 
 #ENROLMENT

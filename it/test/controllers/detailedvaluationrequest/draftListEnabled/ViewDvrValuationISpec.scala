@@ -65,7 +65,7 @@ class ViewDvrValuationISpec extends ISpecBase {
   val downloadCheckFormText = "Download the Check case form"
   val afterCompletingText = "After completing the form, send it to us as part of a Check case."
   val warningText =
-    "Warning Some older Check case forms may tell you to email or post your form. Please ignore this and use the 'Send my completed Check case form' button instead."
+    "Warning Some older Check case forms may tell you to email or post your form. Please ignore this and use the ‘Send my completed Check case form’ button instead."
   val sendCompletedCheckFormText = "Send my completed Check case form"
   val printThisPageText = "Print this page"
 
