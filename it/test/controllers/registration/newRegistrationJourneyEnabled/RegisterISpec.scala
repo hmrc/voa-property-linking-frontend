@@ -35,8 +35,8 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   val challengeYourValuationText = "challenge your valuation"
   val appointAnAgentText = "appoint an agent to act on your behalf"
   val alreadyCreatedAnAccountText = "Sign in if you have already created an account for this service."
-  val ifOtherPeopleText = "If other people from your organisation need online sign in details and you’ve already created them, you will need to add them to your business Government Gateway account."
-
+  val ifOtherPeopleText =
+    "If other people from your organisation need online sign in details and you’ve already created them, you will need to add them to your business Government Gateway account."
 
   val titleTextWelsh = "Cofrestrwch i wirio a herio prisiad eich ardrethi busnes - Valuation Office Agency - GOV.UK"
   val headingTextWelsh = "Cofrestrwch i wirio a herio prisiad eich ardrethi busnes"
@@ -45,7 +45,8 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   val challengeYourValuationTextWelsh = "herio’ch prisiad"
   val appointAnAgentTextWelsh = "penodi asiant i weithredu ar eich rhan"
   val alreadyCreatedAnAccountTextWelsh = "Mewngofnodi os rydych eisoes wedi creu cyfrif ar gyfer y gwasanaeth hwn."
-  val ifOtherPeopleTextWelsh = "Os oes angen manylion mewngofnodi ar-lein ar bobl eraill o’ch sefydliad a’ch bod eisoes wedi’u creu, bydd angen i chi eu hychwanegu at eich cyfrif busnes Porth y Llywodraeth."
+  val ifOtherPeopleTextWelsh =
+    "Os oes angen manylion mewngofnodi ar-lein ar bobl eraill o’ch sefydliad a’ch bod eisoes wedi’u creu, bydd angen i chi eu hychwanegu at eich cyfrif busnes Porth y Llywodraeth."
 
   val headingSelector = "#main-content > div > div > h2"
   val registerForThisServiceSelector = "#main-content > div > div > p:nth-child(2)"
@@ -59,7 +60,6 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
 
   val alreadyCreatedAnAccountHref = "/business-rates-property-linking/login"
   val ifOtherPeopleHref = "/business-rates-property-linking/add-user-to-gg"
-
 
   "Register controller method" should {
     "Show an English registration screen with the correct text" which {
@@ -143,7 +143,6 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   }
 
   private def getRegisterPage(language: Language): Document = {
-
 
     val res = await(
       ws.url(s"http://localhost:$port/business-rates-property-linking/")

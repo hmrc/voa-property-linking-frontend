@@ -30,36 +30,45 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
 
   val titleText = "Register to use this service - Valuation Office Agency - GOV.UK"
   val headingText = "Register to use this service"
-  val returningUserText= "If you’re a returning user, you can sign in to use this service."
-  val alreadyRegisteredText = "If you’ve already registered for this service and other people from your business want to register, you need to add them to your business Government Gateway account."
-  val toRegisterText = "To register for this service you’ll need to verify your identity by providing your National Insurance number, date of birth and details from at least one of the following:"
+  val returningUserText = "If you’re a returning user, you can sign in to use this service."
+  val alreadyRegisteredText =
+    "If you’ve already registered for this service and other people from your business want to register, you need to add them to your business Government Gateway account."
+  val toRegisterText =
+    "To register for this service you’ll need to verify your identity by providing your National Insurance number, date of birth and details from at least one of the following:"
   val paySlipsText = "payslips"
   val ukPassportText = "UK passport"
   val p60Text = "P60"
   val insetText = "You should allow approximately 15 minutes without interruption to complete the registration process."
   val iDontHaveTheseDetailsText = "I don’t have these details"
-  val iDontHaveTheseDetailsExpandedText = "If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to contact the Valuation Office Agency (VOA)."
+  val iDontHaveTheseDetailsExpandedText =
+    "If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to contact the Valuation Office Agency (VOA)."
   val whichTypeOfAccountText = "Which type of account would you like to create?"
   val individualText = "Individual (you represent yourself) – you won’t be able to add others to this account"
-  val organisationText = "Organisation (you represent a business, charity or other organisation) – you’ll be able to add others to this account"
+  val organisationText =
+    "Organisation (you represent a business, charity or other organisation) – you’ll be able to add others to this account"
   val iWantToRegisterUsingGGText = "I want to register using my existing Government Gateway account"
 
   val titleTextWelsh = "Cofrestru i ddefnyddio’r gwasanaeth hwn - Valuation Office Agency - GOV.UK"
   val headingTextWelsh = "Cofrestru i ddefnyddio’r gwasanaeth hwn"
-  val returningUserTextWelsh = "Os ydych chi’n ddefnyddiwr sy’n dychwelyd, gallwch fewngofnodi i ddefnyddio’r gwasanaeth."
-  val alreadyRegisteredTextWelsh = "Os ydych chi eisoes wedi cofrestru ar gyfer y gwasanaeth hwn a bod pobl eraill o’ch busnes eisiau cofrestru, mae angen i chi eu hychwanegu at eich cyfrif busnes Porth y Llywodraeth."
-  val toRegisterTextWelsh = "I gofrestru ar gyfer y gwasanaeth hwn bydd angen i chi ddilysu eich hunaniaeth drwy ddarparu eich rhif Yswiriant Gwladol, dyddiad geni a manylion o leiaf un o’r canlynol:"
+  val returningUserTextWelsh =
+    "Os ydych chi’n ddefnyddiwr sy’n dychwelyd, gallwch fewngofnodi i ddefnyddio’r gwasanaeth."
+  val alreadyRegisteredTextWelsh =
+    "Os ydych chi eisoes wedi cofrestru ar gyfer y gwasanaeth hwn a bod pobl eraill o’ch busnes eisiau cofrestru, mae angen i chi eu hychwanegu at eich cyfrif busnes Porth y Llywodraeth."
+  val toRegisterTextWelsh =
+    "I gofrestru ar gyfer y gwasanaeth hwn bydd angen i chi ddilysu eich hunaniaeth drwy ddarparu eich rhif Yswiriant Gwladol, dyddiad geni a manylion o leiaf un o’r canlynol:"
   val paySlipsTextWelsh = "slipiau cyflog"
   val ukPassportTextWelsh = "Pasbort y DU"
   val p60TextWelsh = "P60"
   val insetTextWelsh = "Dylech ganiatáu tua 15 munud yn ddi-dor er mwyn cwblhau’r broses gofrestru."
   val iDontHaveTheseDetailsTextWelsh = "Does gen i ddim y manylion yma"
-  val iDontHaveTheseDetailsExpandedTextWelsh = "Os nad oes gennych y manylion er mwyn gallu cofrestru (er enghraifft, nid ydych wedi cael rhif Yswiriant Gwladol, neu nad oes gennych basbort, P60 neu slip cyflog, bydd angen i chi cysylltu ag Asiantaethy Swyddfa Brisio (VOA)."
+  val iDontHaveTheseDetailsExpandedTextWelsh =
+    "Os nad oes gennych y manylion er mwyn gallu cofrestru (er enghraifft, nid ydych wedi cael rhif Yswiriant Gwladol, neu nad oes gennych basbort, P60 neu slip cyflog, bydd angen i chi cysylltu ag Asiantaethy Swyddfa Brisio (VOA)."
   val whichTypeOfAccountTextWelsh = "Pa fath o gyfrif hoffech chi ei greu?"
-  val individualTextWelsh = "Unigolyn (rydych yn cynrychioli chi’ch hunain) - ni fyddwch yn gallu ychwanegu eraill i’r cyfrif hwn"
-  val organisationTextWelsh = "Sefydliad (rydych yn cynrychioli busnes, elusen neu sefydliad arall) – byddwch yn gallu ychwanegu eraill at y cyfrif hwn"
+  val individualTextWelsh =
+    "Unigolyn (rydych yn cynrychioli chi’ch hunain) - ni fyddwch yn gallu ychwanegu eraill i’r cyfrif hwn"
+  val organisationTextWelsh =
+    "Sefydliad (rydych yn cynrychioli busnes, elusen neu sefydliad arall) – byddwch yn gallu ychwanegu eraill at y cyfrif hwn"
   val iWantToRegisterUsingGGTextWelsh = "Rwyf am gofrestru gan ddefnyddio fy nghyfrif Porth y Llywodraeth presennol"
-
 
   val headingSelector = "#main-content > div > div > h1"
   val returningUserSelector = "#main-content > div > div > p:nth-child(2)"
@@ -81,12 +90,10 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   val organisationHrefSelector = "#main-content > div > div > p:nth-child(10) > a"
   val iWantToRegisterUsingGGSelector = "#main-content > div > div > p:nth-child(11) > a"
 
-
   val returningUserHref = "/business-rates-property-linking/login"
   val alreadyRegisteredHref = "/business-rates-property-linking/add-user-to-gg"
   val iDontHaveTheseDetailsExpandedHref = "https://www.gov.uk/contact-voa"
   val iWantToRegisterUsingGGHref = "/business-rates-property-linking/login"
-
 
   "Register controller method" should {
     "Show an English registration screen with the correct text" which {
@@ -101,12 +108,12 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
         document.select(headingSelector).text() shouldBe headingText
       }
 
-      s"has '$returningUserText' text" in{
+      s"has '$returningUserText' text" in {
         document.select(returningUserSelector).text() shouldBe returningUserText
         document.select(returningUserHrefSelector).attr("href") shouldBe returningUserHref
       }
 
-      s"has '$alreadyRegisteredText' text" in{
+      s"has '$alreadyRegisteredText' text" in {
         document.select(alreadyRegisteredSelector).text() shouldBe alreadyRegisteredText
         document.select(alreadyRegisteredHrefSelector).attr("href") shouldBe alreadyRegisteredHref
       }
@@ -131,14 +138,15 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
         document.select(insetTextSelector).text() shouldBe insetText
       }
 
-
       s"has '$iDontHaveTheseDetailsText' text" in {
         document.select(iDontHaveTheseDetailsSelector).text() shouldBe iDontHaveTheseDetailsText
       }
 
       s"has '$iDontHaveTheseDetailsExpandedText' text" in {
         document.select(iDontHaveTheseDetailsExpandedSelector).text() shouldBe iDontHaveTheseDetailsExpandedText
-        document.select(iDontHaveTheseDetailsExpandedHrefSelector).attr("href") shouldBe iDontHaveTheseDetailsExpandedHref
+        document
+          .select(iDontHaveTheseDetailsExpandedHrefSelector)
+          .attr("href") shouldBe iDontHaveTheseDetailsExpandedHref
       }
 
       s"has '$whichTypeOfAccountText' text" in {
@@ -202,14 +210,15 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
         document.select(insetTextSelector).text() shouldBe insetTextWelsh
       }
 
-
       s"has '$iDontHaveTheseDetailsText' text in Welsh" in {
         document.select(iDontHaveTheseDetailsSelector).text() shouldBe iDontHaveTheseDetailsTextWelsh
       }
 
       s"has '$iDontHaveTheseDetailsExpandedText' text in Welsh" in {
         document.select(iDontHaveTheseDetailsExpandedSelector).text() shouldBe iDontHaveTheseDetailsExpandedTextWelsh
-        document.select(iDontHaveTheseDetailsExpandedHrefSelector).attr("href") shouldBe iDontHaveTheseDetailsExpandedHref
+        document
+          .select(iDontHaveTheseDetailsExpandedHrefSelector)
+          .attr("href") shouldBe iDontHaveTheseDetailsExpandedHref
       }
 
       s"has '$whichTypeOfAccountText' text in Welsh" in {
@@ -232,7 +241,6 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   }
 
   private def getRegisterPage(language: Language): Document = {
-
 
     val res = await(
       ws.url(s"http://localhost:$port/business-rates-property-linking/")
