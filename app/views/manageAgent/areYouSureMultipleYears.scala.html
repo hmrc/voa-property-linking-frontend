@@ -43,6 +43,7 @@
         case _ => ""
     }
 }
+
 @mainLayout(
     backUri = Some(backLink),
     pageTitle = ratingListHeader) {
@@ -50,19 +51,19 @@
     <span class="govuk-caption-l" >@messages("propertyRepresentation.manageAgent.title")</span>
     <h1 class="govuk-heading-l">@ratingListHeader</h1>
 
-    <p class="govuk-body">@ratingListText</p>
-
-    <ul class="govuk-list govuk-list--bullet">
-      <li id="rating-list-1">@messages("ratingsListConfirmation.multiple.seeDetailed")</li>
-      <li id="rating-list-2">@messages("ratingsListConfirmation.multiple.seeCheck")</li>
-      <li id="rating-list-3">@messages("ratingsListConfirmation.multiple.sendCheck")</li>
-    </ul>
-
-    <p class="govuk-body">@messages("ratingsListConfirmation.multiple.thisApplies")</p>
-
     @if(config.agentJourney2026 && listYears.size != 3){
         <p class="govuk-body">@theyWillNotText</p>
     }
+
+    <p class="govuk-body">@ratingListText</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li id="rating-list-1">@messages("ratingsListConfirmation.seeDetailed")</li>
+      <li id="rating-list-2">@messages("ratingsListConfirmation.seeCheck")</li>
+      <li id="rating-list-3">@messages("ratingsListConfirmation.sendCheck")</li>
+    </ul>
+
+    <p class="govuk-body">@messages("ratingsListConfirmation.thisApplies")</p>
 
   @formWithCSRF(action = controllers.manageAgent.routes.AreYouSureMultipleController.submitRatingListYears) {
     <div class="govuk-button-group">
