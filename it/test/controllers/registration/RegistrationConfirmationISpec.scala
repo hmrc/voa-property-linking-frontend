@@ -61,8 +61,8 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
     "Os oes angen i chi ailosod eich cyfrinair, bydd angen i chi ddarparu eich rhif adnabod personol (ID) VOA."
   val giveYourAgentTextWelsh = "Rhowch eich cod Asiant i’ch cleient fel y gallant eich penodi i weithredu ar eu rhan."
   val ifAnyoneElseTextWelsh =
-    "Os oes unrhyw un arall eisiau cofrestru ar eich rhan chi o’r mudiad, bydd angen i chi eu hychwanegu i’ch cyfrif Porth y Llywodraeth."
-  val addThemTooTextWelsh = "eu hychwanegu i’ch cyfrif Porth y Llywodraeth"
+    "Os oes unrhyw un arall eisiau cofrestru ar ran y sefydliad, bydd angen i chi eu hychwanegu at eich cyfrif Porth y Llywodraeth."
+  val addThemTooTextWelsh = "eu hychwanegu at eich cyfrif Porth y Llywodraeth"
   val weUseYourTextWelsh =
     "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
   val termsOfUseTextWelsh = "Telerau defnyddio"

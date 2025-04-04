@@ -574,7 +574,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       "If the property’s details are incorrect, or you believe the rateable value is wrong, you must complete a Check case form.",
       "Download the Check case form",
       "After completing the form, send it to us as part of a Check case.",
-      "! Warning Some older Check case forms may tell you to email or post your form. Please ignore this and use the 'Send my completed Check case form' button instead.",
+      "! Warning Some older Check case forms may tell you to email or post your form. Please ignore this and use the ‘Send my completed Check case form’ button instead.",
       "Send my completed Check case form"
     )
     downloadCheckFormLink.text shouldBe "Download the Check case form"
@@ -1403,7 +1403,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
       "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservice@voa.gov.uk and ask for your request to be prioritised.",
-      "Include 'Urgent: external Material Change of Circumstances' in the subject line and include the property address and the request reference number in the email."
+      "Include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and the request reference number in the email."
     )
     emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
     Option(homePageLink) should not be defined
@@ -1435,7 +1435,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
       "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservice@voa.gov.uk and ask for your request to be prioritised.",
-      "Include 'Urgent: external Material Change of Circumstances' in the subject line and include the property address and the request reference number in the email."
+      "Include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and the request reference number in the email."
     )
     emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
     Option(homePageLink) should not be defined
@@ -1465,7 +1465,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
       "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservice@voa.gov.uk and ask for your request to be prioritised.",
-      "Include 'Urgent: external Material Change of Circumstances' in the subject line and include the property address and the request reference number in the email."
+      "Include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and the request reference number in the email."
     )
     emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
     Option(homePageLink) should not be defined
@@ -1496,7 +1496,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
       "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservice@voa.gov.uk and ask for your request to be prioritised.",
-      "Include 'Urgent: external Material Change of Circumstances' in the subject line and include the property address and the request reference number in the email."
+      "Include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and the request reference number in the email."
     )
     emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
     Option(homePageLink) should not be defined

@@ -36,7 +36,7 @@ class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with 
   val youShouldKeepText =
     "You should keep a note of this number in a safe place as you’ll need it if you want to reset your password."
   val youWillNotText =
-    "You will not need it to sign in to the check and challenge service – you should continue to use your Government Gateway details to sign in."
+    "You will not need it to sign in to the check and challenge service - you should continue to use your existing sign in details."
   val ifAnyoneElseText =
     "If anyone else wants to register on behalf of the business, you’ll first need to add them to your Government Gateway account as an administrator or an assistant."
   val addThemTooText = "add them to your Government Gateway account"
@@ -52,10 +52,10 @@ class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with 
   val youShouldKeepTextWelsh =
     "Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair."
   val youWillNotTextWelsh =
-    "Ni fydd angen i chi fewngofnodi i’r gwasanaeth gwirio a herio – dylech barhau i ddefnyddio eich manylion Porth y Llywodraeth i fewngofnodi."
+    "Ni fydd ei angen arnoch i fewngofnodi i’r gwasanaeth Gwirio a Herio - dylech barhau i ddefnyddio’ch manylion mewngofnodi presennol"
   val ifAnyoneElseTextWelsh =
-    "Os oes unrhyw un arall eisiau cofrestru ar ran y busnes, bydd angen i chi eu hychwanegu i’ch cyfrif Porth y Llywodraeth fel gweinyddwr neu gynorthwyydd yn gyntaf."
-  val addThemTooTextWelsh = "eu hychwanegu i’ch cyfrif Porth y Llywodraeth"
+    "Os oes unrhyw un arall eisiau cofrestru ar ran y busnes, yn gyntaf bydd angen i chi eu hychwanegu at eich cyfrif Porth y Llywodraeth fel gweinyddwr neu gynorthwyydd."
+  val addThemTooTextWelsh = "eu hychwanegu at eich cyfrif Porth y Llywodraeth"
   val weUseYourTextWelsh =
     "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."
   val infoProvidedTextWelsh =
