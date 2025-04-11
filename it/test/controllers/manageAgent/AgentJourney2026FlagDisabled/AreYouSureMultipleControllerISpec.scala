@@ -39,7 +39,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   val backLinkText = "Back"
   val captionText = "Manage agent"
   val headerText = "Are you sure you want Test Agent to act for you on the 2023 and 2017 rating lists?"
-  val forAllText = "For all your property valuations on the 2023 and 2017 rating lists, this agent will be able to:"
+  val forAllText = "For your property valuations on the 2023 and 2017 rating lists, this agent will be able to:"
   val seeDetailedText = "see detailed property information"
   val seeCheckText = "see Check and Challenge case correspondence such as messages and emails"
   val sendCheckText = "send Check and Challenge cases"
@@ -54,12 +54,12 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   val headerTextWelsh =
     "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2023 a 2017?"
   val forAllTextWelsh =
-    "Ar gyfer eich holl brisiadau eiddo ar restrau ardrethu 2023 a 2017, bydd yr asiant hwn yn gallu:"
+    "Ar gyfer eich prisiadau eiddo ar restrau ardrethu 2023 a 2017, bydd yr asiant hwn yn gallu:"
   val seeDetailedTextWelsh = "gweld gwybodaeth fanwl am eiddo"
-  val seeCheckTextWelsh = "gweld gohebiaeth ynghylch achosion Gwirio a Herio, megis negeseuon ac e-byst"
+  val seeCheckTextWelsh = "gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst"
   val sendCheckTextWelsh = "anfon achosion Gwirio a Herio"
   val thisAppliesTextWelsh =
-    "Mae hyn yn berthnasol i eiddo rydych yn eu neilltuo iddo, ac i eiddo y mae’n eu hychwanegu at eich cyfrif"
+    "Mae hyn yn berthnasol i eiddo rydych chi’n ei aseinio iddyn nhw neu maen nhw’n eu hychwanegu at eich cyfrif"
   val confirmTextWelsh = "Cadarnhau"
   val cancelTextWelsh = "Canslo"
 

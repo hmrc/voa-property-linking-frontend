@@ -34,6 +34,7 @@
 }
 
 
+
 @mainLayout(
     backUri = Some(backLink),
     pageTitle = messages("ratingsListConfirmation.header", agentName, chosenListYear)) {
@@ -41,9 +42,19 @@
     <span class="govuk-caption-l" >@messages("propertyRepresentation.manageAgent.title")</span>
     <h1 class="govuk-heading-l">@messages("ratingsListConfirmation.header", agentName, chosenListYear)</h1>
 
-    <p class="govuk-body">@messages("ratingsListConfirmation.thisAgentWill", chosenListYear)</p>
+    <p class="govuk-body">@messages("ratingsListConfirmation.thisAgentWill.single", chosenListYear)</p>
 
     <p class="govuk-body">@invalidListYear</p>
+
+    <p class="govuk-body">@messages("ratingsListConfirmation.single.forAllYour", chosenListYear)</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li id="rating-list-1">@messages("ratingsListConfirmation.seeDetailed")</li>
+        <li id="rating-list-2">@messages("ratingsListConfirmation.seeCheck")</li>
+        <li id="rating-list-3">@messages("ratingsListConfirmation.sendCheck")</li>
+    </ul>
+
+    <p class="govuk-body">@messages("ratingsListConfirmation.thisApplies")</p>
 
     @govukWarningText(WarningText(
       iconFallbackText = Some(messages("warning.text")),
