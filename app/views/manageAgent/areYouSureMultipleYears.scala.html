@@ -44,6 +44,15 @@
     }
 }
 
+@thisAgentWill = @{
+    listYears match {
+        case _ if !listYears.contains("2026") => messages("ratingsListConfirmation.thisAgentWill.multiple", "2023", "2017")
+        case _ if !listYears.contains("2023") => messages("ratingsListConfirmation.thisAgentWill.multiple", "2026", "2017")
+        case _ if !listYears.contains("2017") => messages("ratingsListConfirmation.thisAgentWill.multiple", "2026", "2023")
+        case _ => ""
+    }
+}
+
 @mainLayout(
     backUri = Some(backLink),
     pageTitle = ratingListHeader) {
@@ -52,6 +61,7 @@
     <h1 class="govuk-heading-l">@ratingListHeader</h1>
 
     @if(config.agentJourney2026 && listYears.size != 3){
+        <p>@thisAgentWill</p>
         <p class="govuk-body">@theyWillNotText</p>
     }
 

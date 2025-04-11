@@ -50,6 +50,9 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   def forAllText(firstYear: String, secondYear: String) =
     s"For your property valuations on the $firstYear and $secondYear rating lists, this agent will be able to:"
 
+  def thisAgentWill(firstYear: String, secondYear: String) =
+    s"This agent will only be able to act for you on the $firstYear and $secondYear rating lists."
+
   val forAllTextReval =
     "For your property valuations on the 2026, 2023, and 2017 rating lists, this agent will be able to:"
   val seeDetailedText = "see detailed property information"
@@ -76,6 +79,9 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   val headerTextRevalWelsh =
     "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2026, 2023, a 2017?"
 
+  def thisAgentWillWelsh(firstYear: String, secondYear: String) =
+    s"Bydd yr asiant hwn ond yn gallu gweithredu ar eich rhan ar restrau ardrethu $firstYear a $secondYear."
+
   def forAllTextWelsh(firstYear: String, secondYear: String) =
     s"Ar gyfer eich prisiadau eiddo ar restrau ardrethu $firstYear a $secondYear, bydd yr asiant hwn yn gallu:"
 
@@ -95,14 +101,15 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   val backLinkSelector = "#back-link"
   val captionSelector = "span.govuk-caption-l"
   val headerSelector = "h1.govuk-heading-l"
-  val forAllSelector = "#main-content > div > div > p:nth-child(4)"
+  val forAllSelector = "#main-content > div > div > p:nth-child(5)"
   val forAllSelectorThree = "#main-content > div > div > p:nth-child(3)"
   val bulletPointSelector = "#main-content > div > div > ul.govuk-list--bullet > li"
-  val thisAppliesSelector = "#main-content > div > div > p:nth-child(6)"
+  val thisAppliesSelector = "#main-content > div > div > p:nth-child(7)"
   val thisAppliesSelectorThree = "#main-content > div > div > p:nth-child(5)"
   val confirmSelector = "#submit-button"
   val cancelSelector = "#cancel-link"
-  val theyWillNotSelector = "#main-content > div > div > p:nth-child(3)"
+  val theyWillNotSelector = "#main-content > div > div > p:nth-child(4)"
+  val thisAgentWillSelector = "#main-content > div > div > p:nth-child(3)"
 
   val cancelHref = "/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=100"
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval"
@@ -128,6 +135,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
 
       s"has text on the screen of '${forAllText("2023", "2017")}'" in {
         document.select(forAllSelector).text() shouldBe forAllText("2023", "2017")
+      }
+
+      s"has a '${thisAgentWill("2023", "2017")}' text on the screen" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWill("2023", "2017")
       }
 
       s"has a '${theyWillNotText("2026")}' text on the screen" in {
@@ -171,6 +182,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       s"has a header of '${headerText("2023", "2017")}' with a caption above of '$captionText' in welsh" in {
         document.select(headerSelector).text shouldBe headerTextWelsh("2023", "2017")
         document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has a '${thisAgentWill("2023", "2017")}' text on the screen in Welsh" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWillWelsh("2023", "2017")
       }
 
       s"has text on the screen of '${forAllText("2023", "2017")}' in welsh" in {
@@ -217,6 +232,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       s"has a header of '${headerText("2026", "2017")}' with a caption above of '$captionText'" in {
         document.select(headerSelector).text shouldBe headerText("2026", "2017")
         document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has a '${thisAgentWill("2026", "2017")}' text on the screen" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWill("2026", "2017")
       }
 
       s"has text on the screen of '${forAllText("2026", "2017")}'" in {
@@ -266,6 +285,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
         document.select(captionSelector).text shouldBe captionTextWelsh
       }
 
+      s"has a '${thisAgentWill("2026", "2017")}' text on the screen in Welsh" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWillWelsh("2026", "2017")
+      }
+
       s"has text on the screen of '${forAllText("2026", "2017")}' in welsh" in {
         document.select(forAllSelector).text() shouldBe forAllTextWelsh("2026", "2017")
       }
@@ -310,6 +333,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       s"has a header of '${headerText("2026", "2023")}' with a caption above of '$captionText'" in {
         document.select(headerSelector).text shouldBe headerText("2026", "2023")
         document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has a '${thisAgentWill("2026", "2023")}' text on the screen" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWill("2026", "2023")
       }
 
       s"has text on the screen of '${forAllText("2026", "2023")}'" in {
@@ -357,6 +384,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       s"has a header of '${headerText("2026", "2023")}' with a caption above of '$captionText' in welsh" in {
         document.select(headerSelector).text shouldBe headerTextWelsh("2026", "2023")
         document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has a '${thisAgentWill("2026", "2023")}' text on the screen" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWillWelsh("2026", "2023")
       }
 
       s"has text on the screen of '${forAllText("2026", "2023")}' in welsh" in {
