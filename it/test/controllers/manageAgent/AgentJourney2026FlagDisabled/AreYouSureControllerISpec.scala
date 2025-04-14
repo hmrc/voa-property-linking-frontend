@@ -80,9 +80,9 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
   def theyWillTextWelsh(listYear: String) =
     listYear match {
       case "2017" =>
-        s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu 2023, na gweithredu arnynt ar eich rhan."
+        s"Ni fydd modd iddo weld prisiadau ar restr ardrethu 2023, na gweithredu arnynt ar eich rhan."
       case "2023" =>
-        s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu 2017, na gweithredu arnynt ar eich rhan."
+        s"Ni fydd modd iddo weld prisiadau ar restr ardrethu 2017, na gweithredu arnynt ar eich rhan."
     }
 
   def forAllTextWelsh(year: String) =

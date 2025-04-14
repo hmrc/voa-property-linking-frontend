@@ -887,9 +887,9 @@ ratingsListConfirmation.sendCheck = anfon achosion Gwirio a Herio
 ratingsListConfirmation.thisApplies = Mae hyn yn berthnasol i eiddo rydych chi’n ei aseinio iddyn nhw neu maen nhw’n eu hychwanegu at eich cyfrif
 ratingsListConfirmation.header = A ydych yn siŵr eich bod am i {0} weithredu ar restr ardrethu {1} ar eich rhan?
 ratingsListConfirmation.thisAgentWill.single = Bydd yr asiant hwn ond yn gallu gweithredu ar eich rhan ar restr ardrethu {0}.
-ratingsListConfirmation.thisAgentWill.multiple = Bydd yr asiant hwn ond yn gallu gweithredu ar eich rhan ar restrau ardrethu {0} a {1}.
+ratingsListConfirmation.thisAgentWill.multiple = Bydd yr asiant hwn ond yn gallu gweithredu ar restrau ardrethu {0} a {1} ar eich rhan.
 ratingsListConfirmation.theyWillNot = Ni fyddant yn gallu gweld prisiadau ar restrau ardrethu {0} na {1}, na gweithredu arnynt ar eich rhan.
-ratingsListConfirmation.theyWillNot.single = Ni fyddant yn gallu gweld prisiadau o restr ardrethu {0}, na gweithredu arnynt ar eich rhan.
+ratingsListConfirmation.theyWillNot.single = Ni fydd modd iddo weld prisiadau ar restr ardrethu {0}, na gweithredu arnynt ar eich rhan.
 ratingsListConfirmation.restricting = Bydd cyfyngu asiant i un rhestr ardrethu tra bo achosion Gwirio a Herio ar y gweill ganddo ar restr ardrethu arall yn golygu na fydd modd iddo weithredu arnynt ar eich rhan mwyach.
 
 #Rating list years confirmed screen

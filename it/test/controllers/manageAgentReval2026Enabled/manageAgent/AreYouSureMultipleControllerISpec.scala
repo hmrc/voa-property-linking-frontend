@@ -80,7 +80,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
     "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2026, 2023, a 2017?"
 
   def thisAgentWillWelsh(firstYear: String, secondYear: String) =
-    s"Bydd yr asiant hwn ond yn gallu gweithredu ar eich rhan ar restrau ardrethu $firstYear a $secondYear."
+    s"Bydd yr asiant hwn ond yn gallu gweithredu ar restrau ardrethu $firstYear a $secondYear ar eich rhan."
 
   def forAllTextWelsh(firstYear: String, secondYear: String) =
     s"Ar gyfer eich prisiadau eiddo ar restrau ardrethu $firstYear a $secondYear, bydd yr asiant hwn yn gallu:"
@@ -96,7 +96,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   val cancelTextWelsh = "Canslo"
 
   def theyWillNotTextWelsh(year: String) =
-    s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu $year, na gweithredu arnynt ar eich rhan."
+    s"Ni fydd modd iddo weld prisiadau ar restr ardrethu $year, na gweithredu arnynt ar eich rhan."
 
   val backLinkSelector = "#back-link"
   val captionSelector = "span.govuk-caption-l"
