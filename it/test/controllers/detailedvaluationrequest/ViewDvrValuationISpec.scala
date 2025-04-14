@@ -50,6 +50,7 @@ class ViewDvrValuationISpec extends ISpecBase {
   val localAuthorityReferenceText = s"Local authority reference: $localAuthorityRef"
   val valuationTabText = "Valuation"
   val startCheckTabText = "Start a Check"
+  val startCheckNewGuidanceLinkText = "This guidance provides help with completing your check"
   val checksTabText = "Checks"
   val agentsTabText = "Agents (2)"
   val comparablePropertiesTabText = "Comparable properties"
@@ -76,6 +77,7 @@ class ViewDvrValuationISpec extends ISpecBase {
   val localAuthorityReferenceTextWelsh = s"Cyfeirnod yr awdurdod lleol: $localAuthorityRef"
   val valuationTabTextWelsh = "Prisiad"
   val startCheckTabTextWelsh = "Dechrau Gwiriad"
+  val startCheckNewGuidanceLinkTextWelsh = "Mae’r cyfarwyddyd hwn yn eich helpu i gwblhau eich gwiriad"
   val checksTabTextWelsh = "Gwiriadau"
   val agentsTabTextWelsh = "Asiantiaid (2)"
   val valuationHeadingTextWelsh = "Prisiad"
@@ -111,6 +113,7 @@ class ViewDvrValuationISpec extends ISpecBase {
   val localAuthorityReferenceLocator = "#main-content > div > div > div.govuk-grid-row > div > dl > div"
   val valuationTabLocator = "#view-valuation-tab"
   val startCheckTabLocator = "#start-check-case-tab"
+  val startCheckNewGuidanceLinkLocator = "#new-guidance-check-property-details"
   val checksTabLocator = "#check-tab"
   val agentsTabLocator = "#agent-tab"
   val valuationHeadingLocator = "#valuation-tab > div > div > h2.govuk-heading-l"
@@ -166,6 +169,13 @@ class ViewDvrValuationISpec extends ISpecBase {
       s"has a $startCheckTabText tab" in {
         page.select(startCheckTabLocator).text() shouldBe startCheckTabText
         page.select(startCheckTabLocator).attr("href") shouldBe startCheckTabHref
+      }
+
+      s"has link text of $startCheckNewGuidanceLinkText on the Start a check tab in $language" in {
+        page.select(startCheckNewGuidanceLinkLocator).text() shouldBe startCheckNewGuidanceLinkText
+        page
+          .select(startCheckNewGuidanceLinkLocator)
+          .attr("href") shouldBe "https://www.gov.uk/government/news/new-guidance-to-help-check-property-details"
       }
 
       s"has a $checksTabText tab" in {
@@ -269,6 +279,13 @@ class ViewDvrValuationISpec extends ISpecBase {
         page.select(startCheckTabLocator).attr("href") shouldBe startCheckTabHref
       }
 
+      s"has link text of $startCheckNewGuidanceLinkText on the Start a check tab in $language" in {
+        page.select(startCheckNewGuidanceLinkLocator).text() shouldBe startCheckNewGuidanceLinkText
+        page
+          .select(startCheckNewGuidanceLinkLocator)
+          .attr("href") shouldBe "https://www.gov.uk/government/news/new-guidance-to-help-check-property-details"
+      }
+
       s"has a $checksTabText tab" in {
         page.select(checksTabLocator).text() shouldBe checksTabText
         page.select(checksTabLocator).attr("href") shouldBe checksTabHref
@@ -368,6 +385,13 @@ class ViewDvrValuationISpec extends ISpecBase {
       s"has a $startCheckTabText tab in Welsh" in {
         page.select(startCheckTabLocator).text() shouldBe startCheckTabTextWelsh
         page.select(startCheckTabLocator).attr("href") shouldBe startCheckTabHref
+      }
+
+      s"has link text of $startCheckNewGuidanceLinkText on the Start a check tab in $language" in {
+        page.select(startCheckNewGuidanceLinkLocator).text() shouldBe startCheckNewGuidanceLinkTextWelsh
+        page
+          .select(startCheckNewGuidanceLinkLocator)
+          .attr("href") shouldBe "https://www.gov.uk/government/news/new-guidance-to-help-check-property-details"
       }
 
       s"has a $checksTabText tab in Welsh" in {
