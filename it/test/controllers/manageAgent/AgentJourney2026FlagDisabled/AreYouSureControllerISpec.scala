@@ -52,6 +52,14 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         s"They will not be able to see valuations on the 2017 rating list, or act on them for you."
     }
 
+  def forAllText(firstYear: String) =
+    s"For your property valuations on the $firstYear rating list, this agent will be able to:"
+
+  val seeDetailedText = "see detailed property information"
+  val seeCheckText = "see Check and Challenge case correspondence such as messages and emails"
+  val sendCheckText = "send Check and Challenge cases"
+  val thisAppliesText = "This applies to properties that you assign to them or they add to your account"
+
   val restrictingText =
     "Warning Restricting an agent to a single rating list when they have Check and Challenge cases in progress on the other rating list means they will no longer be able to act on them for you."
   val confirmText = "Confirm"
@@ -72,10 +80,18 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
   def theyWillTextWelsh(listYear: String) =
     listYear match {
       case "2017" =>
-        s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu 2023, na gweithredu arnynt ar eich rhan."
+        s"Ni fydd modd iddo weld prisiadau ar restr ardrethu 2023, na gweithredu arnynt ar eich rhan."
       case "2023" =>
-        s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu 2017, na gweithredu arnynt ar eich rhan."
+        s"Ni fydd modd iddo weld prisiadau ar restr ardrethu 2017, na gweithredu arnynt ar eich rhan."
     }
+
+  def forAllTextWelsh(year: String) =
+    s"Ar gyfer eich prisiadau eiddo ar restr ardrethu $year, bydd yr asiant hwn yn gallu:"
+  val seeDetailedTextWelsh = "gweld gwybodaeth fanwl am eiddo"
+  val seeCheckTextWelsh = "gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst"
+  val sendCheckTextWelsh = "anfon achosion Gwirio a Herio"
+  val thisAppliesTextWelsh =
+    "Mae hyn yn berthnasol i eiddo rydych chi’n ei aseinio iddyn nhw neu maen nhw’n eu hychwanegu at eich cyfrif"
 
   val restrictingTextWelsh =
     "Rhybudd Bydd cyfyngu asiant i un rhestr ardrethu tra bo achosion Gwirio a Herio ar y gweill ganddo ar restr ardrethu arall yn golygu na fydd modd iddo weithredu arnynt ar eich rhan mwyach."
@@ -87,6 +103,9 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
   val headerSelector = "h1.govuk-heading-l"
   val thisAgentSelector = "#main-content > div > div > p:nth-child(3)"
   val theyWillSelector = "#main-content > div > div > p:nth-child(4)"
+  val forAllSelector = "#main-content > div > div > p:nth-child(5)"
+  val bulletPointSelector = "#main-content > div > div > ul.govuk-list--bullet > li"
+  val thisAppliesSelector = "#main-content > div > div > p:nth-child(7)"
   val restrictingSelector = "#main-content > div > div > div.govuk-warning-text > strong"
   val confirmSelector = "#submit-button"
   val cancelSelector = "#cancel-link"
@@ -119,6 +138,20 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
 
       s"has text on the screen of '${theyWillText(listYear = "2017")}'" in {
         document.select(theyWillSelector).text() shouldBe theyWillText(listYear = "2017")
+      }
+
+      s"has text on the screen of '${forAllText("2017")}'" in {
+        document.select(forAllSelector).text() shouldBe forAllText("2017")
+      }
+
+      s"has radio buttons on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText'" in {
+        document.select(bulletPointSelector).get(0).text() shouldBe seeDetailedText
+        document.select(bulletPointSelector).get(1).text() shouldBe seeCheckText
+        document.select(bulletPointSelector).get(2).text() shouldBe sendCheckText
+      }
+
+      s"has text on the screen of '$thisAppliesText'" in {
+        document.select(thisAppliesSelector).text() shouldBe thisAppliesText
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText'" in {
@@ -161,6 +194,20 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(theyWillSelector).text() shouldBe theyWillText(listYear = "2023")
       }
 
+      s"has text on the screen of '${forAllText("2023")}'" in {
+        document.select(forAllSelector).text() shouldBe forAllText("2023")
+      }
+
+      s"has radio buttons on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText'" in {
+        document.select(bulletPointSelector).get(0).text() shouldBe seeDetailedText
+        document.select(bulletPointSelector).get(1).text() shouldBe seeCheckText
+        document.select(bulletPointSelector).get(2).text() shouldBe sendCheckText
+      }
+
+      s"has text on the screen of '$thisAppliesText'" in {
+        document.select(thisAppliesSelector).text() shouldBe thisAppliesText
+      }
+
       s"has a warning, with warning text on the screen of '$restrictingText'" in {
         document.select(restrictingSelector).text() shouldBe restrictingText
       }
@@ -201,6 +248,20 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
         document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(listYear = "2017")
       }
 
+      s"has text on the screen of '${forAllText("2017")}' in Welsh" in {
+        document.select(forAllSelector).text() shouldBe forAllTextWelsh("2017")
+      }
+
+      s"has radio buttons on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText' in Welsh" in {
+        document.select(bulletPointSelector).get(0).text() shouldBe seeDetailedTextWelsh
+        document.select(bulletPointSelector).get(1).text() shouldBe seeCheckTextWelsh
+        document.select(bulletPointSelector).get(2).text() shouldBe sendCheckTextWelsh
+      }
+
+      s"has text on the screen of '$thisAppliesText' in Welsh" in {
+        document.select(thisAppliesSelector).text() shouldBe thisAppliesTextWelsh
+      }
+
       s"has a warning, with warning text on the screen of '$restrictingText' in welsh" in {
         document.select(restrictingSelector).text() shouldBe restrictingTextWelsh
       }
@@ -239,6 +300,20 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
 
       s"has text on the screen of '${theyWillText(listYear = "2023")}' in welsh" in {
         document.select(theyWillSelector).text() shouldBe theyWillTextWelsh(listYear = "2023")
+      }
+
+      s"has text on the screen of '${forAllText("2023")}' in Welsh" in {
+        document.select(forAllSelector).text() shouldBe forAllTextWelsh("2023")
+      }
+
+      s"has radio buttons on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText' in Welsh" in {
+        document.select(bulletPointSelector).get(0).text() shouldBe seeDetailedTextWelsh
+        document.select(bulletPointSelector).get(1).text() shouldBe seeCheckTextWelsh
+        document.select(bulletPointSelector).get(2).text() shouldBe sendCheckTextWelsh
+      }
+
+      s"has text on the screen of '$thisAppliesText' in Welsh" in {
+        document.select(thisAppliesSelector).text() shouldBe thisAppliesTextWelsh
       }
 
       s"has a warning, with warning text on the screen of '$restrictingText' in welsh" in {

@@ -48,10 +48,13 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   val headerTextReval = "Are you sure you want Test Agent to act for you on the 2026, 2023, and 2017 rating lists?"
 
   def forAllText(firstYear: String, secondYear: String) =
-    s"For all your property valuations on the $firstYear and $secondYear rating lists, this agent will be able to:"
+    s"For your property valuations on the $firstYear and $secondYear rating lists, this agent will be able to:"
+
+  def thisAgentWill(firstYear: String, secondYear: String) =
+    s"This agent will only be able to act for you on the $firstYear and $secondYear rating lists."
 
   val forAllTextReval =
-    "For all your property valuations on the 2026, 2023, and 2017 rating lists, this agent will be able to:"
+    "For your property valuations on the 2026, 2023, and 2017 rating lists, this agent will be able to:"
   val seeDetailedText = "see detailed property information"
   val seeCheckText = "see Check and Challenge case correspondence such as messages and emails"
   val sendCheckText = "send Check and Challenge cases"
@@ -76,31 +79,37 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
   val headerTextRevalWelsh =
     "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2026, 2023, a 2017?"
 
+  def thisAgentWillWelsh(firstYear: String, secondYear: String) =
+    s"Bydd yr asiant hwn ond yn gallu gweithredu ar restrau ardrethu $firstYear a $secondYear ar eich rhan."
+
   def forAllTextWelsh(firstYear: String, secondYear: String) =
-    s"Ar gyfer eich holl brisiadau eiddo ar restrau ardrethu $firstYear a $secondYear, bydd yr asiant hwn yn gallu:"
+    s"Ar gyfer eich prisiadau eiddo ar restrau ardrethu $firstYear a $secondYear, bydd yr asiant hwn yn gallu:"
 
   val forAllTextRevalWelsh =
-    "Ar gyfer eich holl brisiadau eiddo ar restrau ardrethu 2026, 2023, a 2017, bydd yr asiant hwn yn gallu:"
+    "Ar gyfer eich prisiadau eiddo ar restrau ardrethu 2026, 2023, a 2017, bydd yr asiant hwn yn gallu:"
   val seeDetailedTextWelsh = "gweld gwybodaeth fanwl am eiddo"
-  val seeCheckTextWelsh = "gweld gohebiaeth ynghylch achosion Gwirio a Herio, megis negeseuon ac e-byst"
+  val seeCheckTextWelsh = "gweld gohebiaeth achosion Gwirio a Herio megis negeseuon ac e-byst"
   val sendCheckTextWelsh = "anfon achosion Gwirio a Herio"
   val thisAppliesTextWelsh =
-    "Mae hyn yn berthnasol i eiddo rydych yn eu neilltuo iddo, ac i eiddo y mae’n eu hychwanegu at eich cyfrif"
+    "Mae hyn yn berthnasol i eiddo rydych chi’n ei aseinio iddyn nhw neu maen nhw’n eu hychwanegu at eich cyfrif"
   val confirmTextWelsh = "Cadarnhau"
   val cancelTextWelsh = "Canslo"
 
   def theyWillNotTextWelsh(year: String) =
-    s"Ni fyddant yn gallu gweld prisiadau o restr ardrethu $year, na gweithredu arnynt ar eich rhan."
+    s"Ni fydd modd iddo weld prisiadau ar restr ardrethu $year, na gweithredu arnynt ar eich rhan."
 
   val backLinkSelector = "#back-link"
   val captionSelector = "span.govuk-caption-l"
   val headerSelector = "h1.govuk-heading-l"
-  val forAllSelector = "#main-content > div > div > p:nth-child(3)"
+  val forAllSelector = "#main-content > div > div > p:nth-child(5)"
+  val forAllSelectorThree = "#main-content > div > div > p:nth-child(3)"
   val bulletPointSelector = "#main-content > div > div > ul.govuk-list--bullet > li"
-  val thisAppliesSelector = "#main-content > div > div > p:nth-child(5)"
+  val thisAppliesSelector = "#main-content > div > div > p:nth-child(7)"
+  val thisAppliesSelectorThree = "#main-content > div > div > p:nth-child(5)"
   val confirmSelector = "#submit-button"
   val cancelSelector = "#cancel-link"
-  val theyWillNotSelector = "#main-content > div > div > p:nth-child(6)"
+  val theyWillNotSelector = "#main-content > div > div > p:nth-child(4)"
+  val thisAgentWillSelector = "#main-content > div > div > p:nth-child(3)"
 
   val cancelHref = "/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=100"
   val backLinkHref = "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval"
@@ -128,7 +137,15 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
         document.select(forAllSelector).text() shouldBe forAllText("2023", "2017")
       }
 
-      s"has radio buttons on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText'" in {
+      s"has a '${thisAgentWill("2023", "2017")}' text on the screen" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWill("2023", "2017")
+      }
+
+      s"has a '${theyWillNotText("2026")}' text on the screen" in {
+        document.select(theyWillNotSelector).text() shouldBe theyWillNotText("2026")
+      }
+
+      s"has bullet points on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText'" in {
         document.select(bulletPointSelector).get(0).text() shouldBe seeDetailedText
         document.select(bulletPointSelector).get(1).text() shouldBe seeCheckText
         document.select(bulletPointSelector).get(2).text() shouldBe sendCheckText
@@ -145,10 +162,6 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       s"has a '$cancelText' link on the screen, which takes you to the agent details screen" in {
         document.select(cancelSelector).text() shouldBe cancelText
         document.select(cancelSelector).attr("href") shouldBe cancelHref
-      }
-
-      s"has a '${theyWillNotText("2026")}' text on the screen" in {
-        document.select(theyWillNotSelector).text() shouldBe theyWillNotText("2026")
       }
 
     }
@@ -169,6 +182,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       s"has a header of '${headerText("2023", "2017")}' with a caption above of '$captionText' in welsh" in {
         document.select(headerSelector).text shouldBe headerTextWelsh("2023", "2017")
         document.select(captionSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has a '${thisAgentWill("2023", "2017")}' text on the screen in Welsh" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWillWelsh("2023", "2017")
       }
 
       s"has text on the screen of '${forAllText("2023", "2017")}' in welsh" in {
@@ -215,6 +232,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       s"has a header of '${headerText("2026", "2017")}' with a caption above of '$captionText'" in {
         document.select(headerSelector).text shouldBe headerText("2026", "2017")
         document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has a '${thisAgentWill("2026", "2017")}' text on the screen" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWill("2026", "2017")
       }
 
       s"has text on the screen of '${forAllText("2026", "2017")}'" in {
@@ -264,6 +285,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
         document.select(captionSelector).text shouldBe captionTextWelsh
       }
 
+      s"has a '${thisAgentWill("2026", "2017")}' text on the screen in Welsh" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWillWelsh("2026", "2017")
+      }
+
       s"has text on the screen of '${forAllText("2026", "2017")}' in welsh" in {
         document.select(forAllSelector).text() shouldBe forAllTextWelsh("2026", "2017")
       }
@@ -308,6 +333,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       s"has a header of '${headerText("2026", "2023")}' with a caption above of '$captionText'" in {
         document.select(headerSelector).text shouldBe headerText("2026", "2023")
         document.select(captionSelector).text shouldBe captionText
+      }
+
+      s"has a '${thisAgentWill("2026", "2023")}' text on the screen" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWill("2026", "2023")
       }
 
       s"has text on the screen of '${forAllText("2026", "2023")}'" in {
@@ -357,6 +386,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
         document.select(captionSelector).text shouldBe captionTextWelsh
       }
 
+      s"has a '${thisAgentWill("2026", "2023")}' text on the screen" in {
+        document.select(thisAgentWillSelector).text() shouldBe thisAgentWillWelsh("2026", "2023")
+      }
+
       s"has text on the screen of '${forAllText("2026", "2023")}' in welsh" in {
         document.select(forAllSelector).text() shouldBe forAllTextWelsh("2026", "2023")
       }
@@ -404,7 +437,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       }
 
       s"has text on the screen of '$forAllTextReval'" in {
-        document.select(forAllSelector).text() shouldBe forAllTextReval
+        document.select(forAllSelectorThree).text() shouldBe forAllTextReval
       }
 
       s"has radio buttons on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText'" in {
@@ -414,7 +447,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       }
 
       s"has text on the screen of '$thisAppliesText'" in {
-        document.select(thisAppliesSelector).text() shouldBe thisAppliesText
+        document.select(thisAppliesSelectorThree).text() shouldBe thisAppliesText
       }
 
       s"has a '$confirmText' link on the screen" in {
@@ -446,7 +479,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       }
 
       s"has text on the screen of '$forAllTextReval' in welsh" in {
-        document.select(forAllSelector).text() shouldBe forAllTextRevalWelsh
+        document.select(forAllSelectorThree).text() shouldBe forAllTextRevalWelsh
       }
 
       s"has radio buttons on the screen with values of '$seeDetailedText', '$seeCheckText' and '$sendCheckText' in welsh" in {
@@ -456,7 +489,7 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
       }
 
       s"has text on the screen of '$thisAppliesText' in welsh" in {
-        document.select(thisAppliesSelector).text() shouldBe thisAppliesTextWelsh
+        document.select(thisAppliesSelectorThree).text() shouldBe thisAppliesTextWelsh
       }
 
       s"has a '$confirmText' link on the screen in welsh" in {
