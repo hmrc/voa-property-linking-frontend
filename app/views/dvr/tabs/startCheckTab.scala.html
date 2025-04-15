@@ -35,10 +35,15 @@
     <div class="govuk-grid-column-two-thirds">
         <h2 class="govuk-heading-l">@messages("available.requestvaluation.startCheckTab.heading")</h2>
 
+        <a id="new-guidance-check-property-details" class="govuk-link" href="https://www.gov.uk/government/news/new-guidance-to-help-check-property-details">
+        @messages("available.requestvaluation.startCheckTab.new.guidance.link")
+        </a>
+
         @govukDetails(Details(
             id = Some("help-starting-check-case"),
             summary = Text(messages("available.requestvaluation.startCheckTab.guidance.summary")),
-            content = HtmlContent(helpWithStartingCheckCaseContent)
+            content = HtmlContent(helpWithStartingCheckCaseContent),
+            classes = "govuk-!-margin-top-3"
         ))
 
         @formWithCSRF(action = if(model.owner) {
