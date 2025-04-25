@@ -50,7 +50,7 @@ class ViewDvrValuationISpec extends ISpecBase {
   val localAuthorityReferenceText = s"Local authority reference: $localAuthorityRef"
   val valuationTabText = "Valuation"
   val startCheckTabText = "Start a Check"
-  val startCheckNewGuidanceLinkText = "This guidance provides help with completing your check"
+  val startCheckNewGuidanceLinkText = "This guidance provides help with completing your check (opens in new tab)"
   val checksTabText = "Checks"
   val agentsTabText = "Agents (2)"
   val comparablePropertiesTabText = "Comparable properties"
@@ -77,7 +77,8 @@ class ViewDvrValuationISpec extends ISpecBase {
   val localAuthorityReferenceTextWelsh = s"Cyfeirnod yr awdurdod lleol: $localAuthorityRef"
   val valuationTabTextWelsh = "Prisiad"
   val startCheckTabTextWelsh = "Dechrau Gwiriad"
-  val startCheckNewGuidanceLinkTextWelsh = "Mae’r cyfarwyddyd hwn yn eich helpu i gwblhau eich gwiriad"
+  val startCheckNewGuidanceLinkTextWelsh =
+    "Mae’r cyfarwyddyd hwn yn eich helpu i gwblhau eich gwiriad (yn agor tab newydd)"
   val checksTabTextWelsh = "Gwiriadau"
   val agentsTabTextWelsh = "Asiantiaid (2)"
   val valuationHeadingTextWelsh = "Prisiad"

@@ -1383,7 +1383,7 @@ available.requestvaluation.welsh.ccaEmail.postLink=with your request. Include th
 available.requestvaluation.welsh.ccaEmail.valuationPeriod=({0} to {1})
 
 available.requestvaluation.startCheckTab.heading=Start a Check case
-available.requestvaluation.startCheckTab.new.guidance.link=This guidance provides help with completing your check
+available.requestvaluation.startCheckTab.new.guidance.link=This guidance provides help with completing your check (opens in new tab)
 available.requestvaluation.startCheckTab.guidance.summary=Help with starting a Check case
 available.requestvaluation.startCheckTab.guidance.content.p1=Send us a Check to tell us about changes to the property details. We may accept your changes and adjust the rateable value.
 available.requestvaluation.startCheckTab.guidance.content.p2=If you think the rateable value is too high and the property details do not need changing, you still need to send us a Check case. The Check case confirms that we have the correct property details. When the Check case is complete, send us a Challenge case to tell us you think the rateable value is too high.
