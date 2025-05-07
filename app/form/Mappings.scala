@@ -37,7 +37,7 @@ import scala.util.matching.Regex
 object Mappings extends DateMappings {
 
   val businessName: Mapping[String] =
-    text.verifying(maxLength(45, "enrolment.business.name.error"))
+    nonEmptyText.verifying(maxLength(45, "enrolment.business.name.error"))
 
   def trueOnly(error: String): Mapping[Boolean] =
     text.verifying(error, _ == "true").transform[Boolean](_.toBoolean, _.toString)
