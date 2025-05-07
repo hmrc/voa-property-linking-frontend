@@ -776,6 +776,41 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
     }
 
+    "Return a bad request with the relevant errors when the business name is empty in English" which {
+
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1"    -> "Address line 1",
+          "line2"    -> "Address line of 2",
+          "line3"    -> "Address line of 3",
+          "line4"    -> "Address line of 4",
+          "postcode" -> "LS1 3SP"
+        ),
+        "phone"                  -> "0177728837298",
+        "email"                  -> "test@email.com",
+        "confirmedBusinessEmail" -> "test@email.com",
+        "isAgent"                -> false,
+        "companyName"            -> ""
+      )
+
+      lazy val res = postContactDetailsPage(language = English, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText} in English" in {
+        document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error above the business name of ${errorText + businessNameErrorText} in English" in {
+        document.select(businessNameErrorSelector).text() shouldBe errorText + businessNameErrorText
+      }
+
+    }
+
     "Return a bad request with the relevant errors when each address line is greater than 30 characters in Welsh" which {
 
       val requestBody: JsObject = Json.obj(
@@ -1033,6 +1068,41 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
       s"has an error above the business name of ${errorTextWelsh + businessNameTooLongText} in Welsh" in {
         document.select(businessNameErrorSelector).text() shouldBe errorTextWelsh + businessNameTooLongTextWelsh
+      }
+
+    }
+
+    "Return a bad request with the relevant errors when the business name is empty in Welsh" which {
+
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json.obj(
+          "line1"    -> "Address line 1",
+          "line2"    -> "Address line of 2",
+          "line3"    -> "Address line of 3",
+          "line4"    -> "Address line of 4",
+          "postcode" -> "LS1 3SP"
+        ),
+        "phone"                  -> "0177728837298",
+        "email"                  -> "test@email.com",
+        "confirmedBusinessEmail" -> "test@email.com",
+        "isAgent"                -> false,
+        "companyName"            -> ""
+      )
+
+      lazy val res = postContactDetailsPage(language = Welsh, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText} in Welsh" in {
+        document.title() shouldBe errorTextWelsh + titleTextWelsh
+      }
+
+      s"has an error above the trading name of ${errorTextWelsh + businessNameErrorText} in Welsh" in {
+        document.select(businessNameErrorSelector).text() shouldBe errorTextWelsh + businessNameErrorTextWelsh
       }
 
     }
