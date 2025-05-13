@@ -43,7 +43,6 @@ class RevokeAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   val backLinkUrl = RedirectUrl("http://localhost/some-back-link")
   val testAgents = Seq(OwnerAuthAgent(1L, agent.id, "organisationName", 1L))
 
-
   "selectAgentPropertiesSearchSort" should "show a list of properties available for removal from a agent" in {
     val testOwnerAuth = OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address", "localAuthorityRef", testAgents)
 
@@ -366,7 +365,7 @@ class RevokeAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     propertyLinksSessionRepo = mockSessionRepo,
     revokeAgentPropertiesSessionRepo = mockRevokeAgentPropertiesSessionRepo,
     revokeAgentSummaryView = revokeAgentSummaryView,
-    revokeAgentPropertiesView = revokeAgentPropertiesView,
+    revokeAgentPropertiesView = revokeAgentPropertiesView
   )
 
   private lazy val mockSessionRepo = mock[SessionRepo]
@@ -376,8 +375,5 @@ class RevokeAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
   type English = EnglishRequest
   type Welsh = WelshRequest
-
-
-
 
 }

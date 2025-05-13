@@ -49,7 +49,8 @@ class RevokeAgentController @Inject() (
       @Named("revokeAgentPropertiesSession") val revokeAgentPropertiesSessionRepo: SessionRepo,
       @Named("appointLinkSession") val propertyLinksSessionRepo: SessionRepo,
       revokeAgentSummaryView: views.html.propertyrepresentation.revokeAgentSummary,
-      revokeAgentPropertiesView: views.html.propertyrepresentation.revokeAgentProperties)(implicit
+      revokeAgentPropertiesView: views.html.propertyrepresentation.revokeAgentProperties
+)(implicit
       override val messagesApi: MessagesApi,
       override val controllerComponents: MessagesControllerComponents,
       executionContext: ExecutionContext,
