@@ -15,20 +15,21 @@
  *@
 
 @import actions.requests.AuthenticatedRequest
-@import controllers.agentAppointment.AppointAgentPropertiesVM
+@import controllers.agentRevoke.RevokeAgentPropertiesVM
 @import config.ApplicationConfig
 @import binders.pagination._
 @import binders.propertylinks._
 @import binders.propertylinks.ExternalPropertyLinkManagementSortField.ADDRESS
 @import models.searchApi.OwnerAuthorisation
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import utils.Formatters
+@import _root_.utils.Formatters
+@import views.html.propertyrepresentation.revokedAgentPrivileges
 
 @this(revokedAgentPrivilegesView: revokedAgentPrivileges, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukTable: GovukTable, govukButton: GovukButton, govukWarningText: GovukWarningText)
 
 @(
     f: Option[Form[_]],
-    model: AppointAgentPropertiesVM,
+    model: RevokeAgentPropertiesVM,
     pagination: PaginationParameters,
     params: GetPropertyLinksParameters,
     agentCode: Long, backLink: String
@@ -39,20 +40,19 @@
 }
 
 @addressColumnHeaderLink = {
-    <a href="@agentAppointment.routes.AppointAgentController.sortRevokePropertiesByAddress(pagination, agentCode)" role="link">
+    <a href="@agentRevoke.routes.RevokeAgentController.sortRevokePropertiesByAddress(pagination, agentCode)" role="link">
         @messages(s"propertyRepresentation.th.${ADDRESS.toString}")
     </a>
 }
 @appointedAgentsColumnHeader = {
     @messages(s"propertyRepresentation.th.AGENT")
-    <span class="govuk-visually-hidden">@messages(s"propertyRepresentation.th.AGENT")</span>
 }
 
 @checkBox(id: String, value: String, address: String) = {
     <div class="govuk-checkboxes__item selection-button-checkbox">
         <input class="govuk-checkboxes__input" id="@id" name="linkIds[]" type="checkbox" value="@value">
         <label class="govuk-label govuk-checkboxes__label" for="@id">
-            <span class="govuk-visually-hidden">@messages("label.appoint")</span>
+            <span class="govuk-visually-hidden">@messages("propertyRepresentation.removeAgentProperties.revoke")</span>
             <span data-address>@Formatters.capitalisedAddress(address)</span>
         </label>
     </div>
@@ -149,7 +149,7 @@
         </div>
     </div>
 
-    @formWithCSRF(agentAppointment.routes.AppointAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
+    @formWithCSRF(agentRevoke.routes.RevokeAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
         <input type="hidden" name="pageSize" value="@pagination.pageSize">
         <input type="hidden" name="backLink" value="@backLink">
         <h2 class="govuk-heading-m">@messages("propertyRepresentation.search.filter")</h2>
@@ -158,7 +158,6 @@
 
     @if(formErrorClass("address").nonEmpty) {
         <span class="govuk-error-message">@messages("error.propertyRepresentation.appoint.filter")</span>
-        <span class="govuk-visually-hidden">@messages("error.propertyRepresentation.appoint.filter")</span>
     }
         @govukInput(Input(
             id = "address",
@@ -175,7 +174,7 @@
                 content = Text(messages("label.search")),
                 attributes = Map("id" -> "search-button")
             ))
-            <a href="@agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-link" id="clear-search">@messages("manageProperties.table.clear.search")</a>
+            <a href="@agentRevoke.routes.RevokeAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-link" id="clear-search">@messages("manageProperties.table.clear.search")</a>
         </div>
     }
 </div>
@@ -183,7 +182,7 @@
         @if(model.response.authorisations.isEmpty){
             <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
         } else {
-            @formWithCSRF(agentAppointment.routes.AppointAgentController.revokeAgentSummary(pagination,agentCode)){
+            @formWithCSRF(agentRevoke.routes.RevokeAgentController.revokeAgentSummary(pagination,agentCode)){
                 <input type="hidden" name="agentCode" value="@agentCode">
                 <input type="hidden" name="name" value="@model.agentGroup.companyName">
                 <input type="hidden" name="backLinkUrl" value="@backLink">
@@ -227,7 +226,7 @@
                                     <span class="page-size-option-current">@len</span>
                                     } else {
 
-                                    <a class="page-size-option govuk-link" href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.copy(pageSize = len, page = 1), agentCode).url">
+                                    <a class="page-size-option govuk-link" href="@agentRevoke.routes.RevokeAgentController.paginateRevokeProperties(pagination.copy(pageSize = len, page = 1), agentCode).url">
                                         @len</a>
                                     }
                                     }
@@ -256,7 +255,7 @@
                                     <ul class="pagination govuk-list" style="margin: 0px">
                                         @if(pagination.page > 1) {
                                             <li class="previous ">
-                                                <a href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.previousPage, agentCode).url" role="link" class="govuk-link">
+                                                <a href="@agentRevoke.routes.RevokeAgentController.paginateRevokeProperties(pagination.previousPage, agentCode).url" role="link" class="govuk-link">
                                                     <i class="previous-arrow"></i>@messages("pagination.previous")</a>
                                             </li>
                                         } else {
@@ -266,7 +265,7 @@
                                         <li class="active">@pagination.page</li>
                                         @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
                                             <li class="next">
-                                                <a href="@agentAppointment.routes.AppointAgentController.paginateRevokeProperties(pagination.nextPage, agentCode).url" role="link" class="govuk-link">@messages("pagination.next")<i class="next-arrow"></i></a>
+                                                <a href="@agentRevoke.routes.RevokeAgentController.paginateRevokeProperties(pagination.nextPage, agentCode).url" role="link" class="govuk-link">@messages("pagination.next")<i class="next-arrow"></i></a>
                                             </li>
                                         } else {
                                             <li class="next disabled"><i class="next-arrow govuk-body"></i>@messages("pagination.next")</li>

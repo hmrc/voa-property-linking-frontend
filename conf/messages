@@ -551,6 +551,7 @@ propertyRepresentation.removeAgent.message.p1=You can remove an agent’s abilit
 propertyRepresentation.removeAgent.message.p2=Select an agent from the list below to remove them from one or more properties.
 propertyRepresentation.removeAgentProperties.title=Which of your properties do you want to unassign {0} from?
 propertyRepresentation.removeAgentProperties.p1=For the properties you select, the agent will not be able to:
+propertyRepresentation.removeAgentProperties.revoke=Revoke
 
 #Appoint agent
 propertyRepresentation.appointAgent.caption=Appoint an agent

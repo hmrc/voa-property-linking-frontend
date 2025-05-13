@@ -419,7 +419,7 @@ class ManageAgentController @Inject() (
 
   private def joinOldAgentRevokeJourney(agentCode: Long) =
     Redirect(
-      controllers.agentAppointment.routes.AppointAgentController.selectAgentPropertiesSearchSort(
+      controllers.agentRevoke.routes.RevokeAgentController.selectAgentPropertiesSearchSort(
         pagination = PaginationParameters(),
         agentCode = agentCode
       )

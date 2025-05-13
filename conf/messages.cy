@@ -496,6 +496,7 @@ propertyRepresentation.removeAgent.message.p1=Gallwch ddileu gallu’r asiant i 
 propertyRepresentation.removeAgent.message.p2=Dewiswch asiant o’r rhestr isod i’w dileu oddi ar un eiddo neu fwy.
 propertyRepresentation.removeAgentProperties.title=O ba eiddo ydych chi am ddadneilltuo {0}?
 propertyRepresentation.removeAgentProperties.p1=Ar gyfer yr eiddo a ddewiswch, ni fydd yr asiant yn gallu:
+propertyRepresentation.removeAgentProperties.revoke=Mae’n rhaid i chi nodi rhywbeth i chwilio amdano
 
 #Appoint agent
 propertyRepresentation.appointAgent.caption=Penodi Asiant
@@ -626,8 +627,8 @@ propertyRepresentation.agentProperties.label.properties=Eiddo
 propertyRepresentation.manage.agent=Rheoli’r asiant hwn
 propertyRepresentation.showAgents.properties={0} o {1} eiddo
 propertyRepresentation.showAgents.viewAgentProperties=<a class="govuk-link" href="{0}" aria-label="Gweld asiant {1}">Gweld</a>
-error.propertyRepresentation.agentProperties.filter=Chwilio Eiddo - rhaid i chi nodi rhywbeth i chwilio amdano
-error.agentProperties.filter=Rhaid i chi nodi rhywbeth i chwilio amdano
+error.propertyRepresentation.agentProperties.filter=Chwilio Eiddo - Mae’n rhaid i chi nodi rhywbeth i chwilio amdano
+error.agentProperties.filter=Mae’n rhaid i chi nodi rhywbeth i chwilio amdano
 
 #Manage Agent
 propertyRepresentation.manageAgent.title=Rheoli asiant
