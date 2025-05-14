@@ -407,17 +407,6 @@ class AppointAgentController @Inject() (
         "backLinkUrl" -> text
       )(AgentAppointBulkAction.apply)(AgentAppointBulkAction.unapply)
     )
-
-  def revokeAgentBulkActionForm: Form[AgentRevokeBulkAction] =
-    Form(
-      mapping(
-        "agentCode"   -> longNumber,
-        "name"        -> text,
-        "linkIds"     -> list(text).verifying(nonEmptyList),
-        "backLinkUrl" -> text
-      )(AgentRevokeBulkAction.apply)(AgentRevokeBulkAction.unapply)
-    )
-
 }
 
 case class AppointAgentPropertiesVM(

@@ -496,7 +496,7 @@ propertyRepresentation.removeAgent.message.p1=Gallwch ddileu gallu’r asiant i 
 propertyRepresentation.removeAgent.message.p2=Dewiswch asiant o’r rhestr isod i’w dileu oddi ar un eiddo neu fwy.
 propertyRepresentation.removeAgentProperties.title=O ba eiddo ydych chi am ddadneilltuo {0}?
 propertyRepresentation.removeAgentProperties.p1=Ar gyfer yr eiddo a ddewiswch, ni fydd yr asiant yn gallu:
-propertyRepresentation.removeAgentProperties.revoke=Mae’n rhaid i chi nodi rhywbeth i chwilio amdano
+propertyRepresentation.removeAgentProperties.revoke=Tynnu penodiad yn ei ôl
 
 #Appoint agent
 propertyRepresentation.appointAgent.caption=Penodi Asiant
