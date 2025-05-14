@@ -90,7 +90,7 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val appointedAgentsText = "Appointed agents"
   val confirmAndUnassignText = "Confirm and unassign"
   val cancelText = "Cancel"
-  val appointText = "Appoint"
+  val revokeText = "Revoke"
   val noPropertiesText = "There are no properties to display."
   val noAddressChoiceText = "Select which properties you want to unassign this agent from"
   val emptyAddressErrorText = "You must enter something to search for"
@@ -114,10 +114,10 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val appointedAgentsTextWelsh = "Asiantiaid penodedig"
   val confirmAndUnassignTextWelsh = "Cadarnhau a dadneilltuo"
   val cancelTextWelsh = "Canslo"
-  val appointTextWelsh = "Penodi"
+  val revokeTextWelsh = "Tynnu penodiad yn ei ôl"
   val noPropertiesTextWelsh = "Nid oes eiddo i’w harddangos."
   val noAddressChoiceTextWelsh = "Dewiswch ba eiddo rydych chi am ddadaseinio’r asiant hwn oddi wrthynt"
-  val emptyAddressErrorTextWelsh = "Rhaid i chi nodi rhywbeth i chwilio amdano"
+  val emptyAddressErrorTextWelsh = "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano"
   val emptyAddressErrorAboveLabelTextWelsh =
     "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano" // Should be the same as the above but for some reason its not
 
@@ -185,18 +185,18 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     s"has an $appointedAgentsText column header" in {
-      document.select(appointedAgentsSelector).text shouldBe appointedAgentsText + " " + appointedAgentsText
+      document.select(appointedAgentsSelector).text shouldBe appointedAgentsText
     }
 
     s"has a row that contains a checkbox, $addressText and $appointedAgentsText" in {
       document.select(checkboxSelector).attr("type") shouldBe "checkbox"
-      document.select(addressValueSelector).text shouldBe appointText + " TEST ADDRESS"
+      document.select(addressValueSelector).text shouldBe revokeText + " TEST ADDRESS"
       document.select(appointedAgentsValueSelector).text shouldBe ""
     }
 
     s"have a second row that contains a checkbox, $addressText and $appointedAgentsText" in {
       document.select(secondCheckboxSelector).attr("type") shouldBe "checkbox"
-      document.select(secondAddressValueSelector).text shouldBe appointText + " ADDRESSTEST 2"
+      document.select(secondAddressValueSelector).text shouldBe revokeText + " ADDRESSTEST 2"
       document.select(secondAppointedAgentsValueSelector).text shouldBe "Test Agent 2"
     }
 
@@ -268,12 +268,12 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     s"has an $appointedAgentsText column header" in {
-      document.select(appointedAgentsSelector).text shouldBe appointedAgentsText + " " + appointedAgentsText
+      document.select(appointedAgentsSelector).text shouldBe appointedAgentsText
     }
 
     s"has a row that contains a checkbox, $addressText and $appointedAgentsText" in {
       document.select(checkboxSelector).attr("type") shouldBe "checkbox"
-      document.select(addressValueSelector).text shouldBe appointText + " TEST ADDRESS"
+      document.select(addressValueSelector).text shouldBe revokeText + " TEST ADDRESS"
       document.select(appointedAgentsValueSelector).text shouldBe ""
     }
 
@@ -430,18 +430,18 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     s"has an $appointedAgentsText column header in welsh" in {
-      document.select(appointedAgentsSelector).text shouldBe appointedAgentsTextWelsh + " " + appointedAgentsTextWelsh
+      document.select(appointedAgentsSelector).text shouldBe appointedAgentsTextWelsh
     }
 
     s"has a row that contains a checkbox, $addressText and $appointedAgentsText in welsh" in {
       document.select(checkboxSelector).attr("type") shouldBe "checkbox"
-      document.select(addressValueSelector).text shouldBe appointTextWelsh + " TEST ADDRESS"
+      document.select(addressValueSelector).text shouldBe revokeTextWelsh + " TEST ADDRESS"
       document.select(appointedAgentsValueSelector).text shouldBe ""
     }
 
     s"have a second row that contains a checkbox, $addressText and $appointedAgentsText in welsh" in {
       document.select(secondCheckboxSelector).attr("type") shouldBe "checkbox"
-      document.select(secondAddressValueSelector).text shouldBe appointTextWelsh + " ADDRESSTEST 2"
+      document.select(secondAddressValueSelector).text shouldBe revokeTextWelsh + " ADDRESSTEST 2"
       document.select(secondAppointedAgentsValueSelector).text shouldBe "Test Agent 2"
     }
 
@@ -513,12 +513,12 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
     s"has an $appointedAgentsText column header in welsh" in {
-      document.select(appointedAgentsSelector).text shouldBe appointedAgentsTextWelsh + " " + appointedAgentsTextWelsh
+      document.select(appointedAgentsSelector).text shouldBe appointedAgentsTextWelsh
     }
 
     s"has a row that contains a checkbox, $addressText and $appointedAgentsText in welsh" in {
       document.select(checkboxSelector).attr("type") shouldBe "checkbox"
-      document.select(addressValueSelector).text shouldBe appointTextWelsh + " TEST ADDRESS"
+      document.select(addressValueSelector).text shouldBe revokeTextWelsh + " TEST ADDRESS"
       document.select(appointedAgentsValueSelector).text shouldBe ""
     }
 
