@@ -133,7 +133,7 @@ lazy val compileDependencies = Seq(
   "uk.gov.hmrc"          %% "play-conditional-form-mapping-play-30" % "3.2.0",
   "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-30"                    % hmrcMongoVersion,
   "uk.gov.hmrc"          %% "uri-template"                          % "1.16.0",
-  "uk.gov.hmrc"          %% "business-rates-values"                 % "3.3.0"
+  "uk.gov.hmrc"          %% "business-rates-values"                 % "3.6.0"
 )
 
 lazy val testDependencies = Seq(
