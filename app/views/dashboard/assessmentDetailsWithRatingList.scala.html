@@ -167,28 +167,27 @@
             </table>
         }
     </div>
-</div>
 
-
-<div id="explanatory-section" class=" govuk-grid-column-two-thirds govuk-body  govuk-!-margin-left-0 govuk-!-padding-left-0 govuk-!-margin-right-9">
-@if(owner) {
-    <div id="owner-section">
-    <p>@messages("assessments.explanatory.ip.show")</p>
-    <span>@messages("assessments.explanatory.other.periods")</span>
-        <a id="explanatory-link" class="govuk-link" href="@vmvLink">@messages("assessments.explanatory.link")</a>.
+    <div id="explanatory-section" class="govuk-grid-column-two-thirds">
+    @if(owner) {
+        <div id="owner-section">
+        <p class="govuk-body" id="only-show">@messages("assessments.explanatory.ip.show")</p>
+        <p class="govuk-body" id="other-periods">@messages("assessments.explanatory.other.periods")
+            <a id="explanatory-link" class="govuk-link" href="@vmvLink">@messages("assessments.explanatory.link")</a>.
+        </p>
+        </div>
+    } else {
+        <div id="agent-section">
+        <p class="govuk-body" id="only-show">@messages("assessments.explanatory.agent.show")</p>
+        <ul id="reasons-list" class="govuk-body govuk-list--bullet">
+            <li>@messages("assessments.explanatory.agent.show.lists")</li>
+            <li>@messages("assessments.explanatory.agent.show.client")</li>
+        </ul>
+        <p class="govuk-body" id="other-periods">@messages("assessments.explanatory.other.periods")
+            <a id="explanatory-link" class="govuk-link" href="@vmvLink">@messages("assessments.explanatory.link")</a>.
+        </p>
+        <p id="contact-text" class="govuk-body">@messages("assessments.explanatory.agent.contact.client")</p>
+        </div>
+    }
     </div>
-} else {
-    <div id="agent-section">
-    <p>@messages("assessments.explanatory.agent.show")</p>
-    <ul id="reasons-list" class="govuk-list--bullet">@messages("")
-        <li>@messages("assessments.explanatory.agent.show.lists")</li>
-        <li>@messages("assessments.explanatory.agent.show.client")</li>
-    </ul>
-      <span>@messages("assessments.explanatory.other.periods")</span>
-      <a id="explanatory-link" class="govuk-link" href="@vmvLink">@messages("assessments.explanatory.link")</a>.
-
-    <p id="contact-text">@messages("assessments.explanatory.agent.contact.client")</p>
-    </div>
-}
 </div>
-    

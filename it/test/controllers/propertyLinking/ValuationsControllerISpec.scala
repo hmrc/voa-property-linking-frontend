@@ -67,7 +67,8 @@ class ValuationsControllerISpec extends ISpecBase {
   val ownerAndOccupierText = "Owner and occupier"
   val occupierText = "Occupier"
   val onlyShowValuationsWhenOwnedText = "We only show valuations for when you owned or occupied the property."
-  val otherValuationsText = "Valuations for other periods may be available."
+  val otherValuationsText =
+    "Valuations for other periods may be available. Find public versions of all valuations for this property."
   val findValuationsLinkText = "Find public versions of all valuations for this property"
   val noValuationsText = "There are no valuations available for this property."
   val onlyShowValuationsAgentText = "We only show valuations:"
@@ -116,7 +117,8 @@ class ValuationsControllerISpec extends ISpecBase {
   val occupierTextWelsh = "Meddiannydd"
   val onlyShowValuationsWhenOwnedTextWelsh =
     "Rydym ond yn dangos prisiadau ar gyfer yr adeg yr oeddech yn berchen ar yr eiddo neu’n ei feddiannu."
-  val otherValuationsTextWelsh = "Mae’n bosibl bod prisiadau ar gyfer cyfnodau eraill ar gael."
+  val otherValuationsTextWelsh =
+    "Mae’n bosibl bod prisiadau ar gyfer cyfnodau eraill ar gael. Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn."
   val findValuationsLinkTextWelsh = "Dewch o hyd i fersiynau cyhoeddus o’r holl brisiadau ar gyfer yr eiddo hwn"
   val noValuationsTextWelsh = "Nid oes prisiadau ar gael ar gyfer yr eiddo hwn."
   val onlyShowValuationsAgentTextWelsh = "Rydym ond yn dangos prisiadau ar gyfer:"
@@ -175,10 +177,9 @@ class ValuationsControllerISpec extends ISpecBase {
   val valuationEffectiveDateLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(2)"
   val valuationConnectionLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(3)"
   val valuationRvLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(4)"
-  val onlyShowValuationsOwnerLocator = "#owner-section > p"
-  val otherValuationsLocator = (user: String) => s"#$user-section > span"
+  val onlyShowValuationsLocator = "#only-show"
+  val otherValuationsLocator = "#other-periods"
   val findValuationsLinkLocator = "#explanatory-link"
-  val onlyShowValuationsAgentLocator = "#agent-section > p:nth-child(1)"
   val agentBulletOneLocator = "#reasons-list > li:nth-child(1)"
   val agentBulletTwoLocator = "#reasons-list > li:nth-child(2)"
   val contactClientLocator = "#contact-text"
@@ -937,7 +938,7 @@ class ValuationsControllerISpec extends ISpecBase {
 
     if (userIsAgent) {
       s"has text of $onlyShowValuationsAgentText with two bullets of $agentBulletOneText and $agentBulletTwoText in $language" in {
-        page.select(onlyShowValuationsAgentLocator).text() shouldBe onlyShowValuationsAgent
+        page.select(onlyShowValuationsLocator).text() shouldBe onlyShowValuationsAgent
         page.select(agentBulletOneLocator).text() shouldBe agentBulletOne
         page.select(agentBulletTwoLocator).text() shouldBe agentBulletTwo
       }
@@ -948,12 +949,12 @@ class ValuationsControllerISpec extends ISpecBase {
 
     } else
       s"has text of $onlyShowValuationsWhenOwnedText in $language" in {
-        page.select(onlyShowValuationsOwnerLocator).text() shouldBe onlyShowValuationsWhenOwned
+        page.select(onlyShowValuationsLocator).text() shouldBe onlyShowValuationsWhenOwned
       }
 
     s"has text of $otherValuationsText $findValuationsLinkText with the correct href in $language" in {
       val user = if (userIsAgent) "agent" else "owner"
-      page.select(otherValuationsLocator(user)).text() shouldBe otherValuations
+      page.select(otherValuationsLocator).text() shouldBe otherValuations
       page.select(findValuationsLinkLocator).text() shouldBe findValuationsLink
       page.select(findValuationsLinkLocator).attr("href") shouldBe expFindValuationsHref
     }

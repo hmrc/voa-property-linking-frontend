@@ -48,8 +48,8 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val forThePropertiesSelector = "#main-content > div > div > div:nth-child(1) > div > p"
   val bulletPointSelector = "#main-content > div > div > div:nth-child(1) > div > ul > li"
   val unassigningAnAgentSelector = "#warning-text > strong"
-  val searchYourSelector = "#main-content > div > div > form > h2"
-  val addressSelector = "#main-content > div > div > form > div > div.govuk-form-group > label"
+  val searchYourSelector = "#main-content > div > div > div:nth-child(1) > div > form > h2"
+  val addressSelector = "#main-content > div > div > div:nth-child(1) > div > form > div > div.govuk-form-group > label"
   val addressInputSelector = "#address"
   val searchSelector = "#search-button"
   val clearSearchSelector = "#clear-search"
@@ -64,11 +64,11 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val secondAppointedAgentsValueSelector = "#agentPropertiesTableBody > tbody > tr:nth-child(2) > td:nth-child(2)"
   val confirmAndUnassignSelector = "#submit-button"
   val cancelSelector = "#cancel-link"
-  val noPropertiesSelector = "#main-content > div > div > div.govuk-grid-row.govuk-grid-column-full > p"
+  val noPropertiesSelector = "#main-content > div > div > div:nth-child(2) > div > p"
   val errorAtSummarySelector = "#main-content > div > div > div.govuk-error-summary > div > div > ul > li > a"
   val noAddressChoiceAtLabelSelector =
-    "#main-content > div > div > div.govuk-grid-row.govuk-grid-column-full > form > div.govuk-grid-row.govuk-form-group--error.govuk-grid-column-full > span"
-  val emptyAddressErrorLabelSelector = "#main-content > div > div > form > div > span.govuk-error-message"
+    "#main-content > div > div > div:nth-child(3) > div > form > div.govuk-form-group--error > span"
+  val emptyAddressErrorLabelSelector = "#main-content > div > div > div:nth-child(2) > div > form > div > span"
 
   val titleText =
     s"Which of your properties do you want to unassign $agentName from? - Valuation Office Agency - GOV.UK"
