@@ -139,154 +139,157 @@
             )
         )
     }
-
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 id="question-text" class="govuk-heading-l">@title</h1>
             <p class="govuk-body">@messages("propertyRepresentation.removeAgentProperties.p1")</p>
             @revokedAgentPrivilegesView()
             <br/>
+
+            @formWithCSRF(agentRevoke.routes.RevokeAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
+                <input type="hidden" name="pageSize" value="@pagination.pageSize">
+                <input type="hidden" name="backLink" value="@backLink">
+                <h2 class="govuk-heading-m">@messages("propertyRepresentation.search.filter")</h2>
+
+                <div class = "@formErrorClass("address")">
+
+                @if(formErrorClass("address").nonEmpty) {
+                    <span class="govuk-error-message">@messages("error.propertyRepresentation.appoint.filter")</span>
+                }
+
+                @govukInput(Input(
+                    id = "address",
+                    name = "address",
+                    value = params.address,
+                    label = Label(
+                    content = Text(messages("propertyRepresentation.th.ADDRESS"))
+                    ),
+                    classes = s"govuk-!-width-one-third ${if(formErrorClass("address").nonEmpty){"govuk-input--error"}}"
+                ))
+
+                <div class="govuk-button-group">
+                @govukButton(Button(
+                    content = Text(messages("label.search")),
+                    attributes = Map("id" -> "search-button")
+                ))
+                <a href="@agentRevoke.routes.RevokeAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-link" id="clear-search">@messages("manageProperties.table.clear.search")</a>
+                </div>
+                </div>
+            }
+
         </div>
     </div>
 
-    @formWithCSRF(agentRevoke.routes.RevokeAgentController.filterPropertiesForRevoke(pagination, agentCode)) {
-        <input type="hidden" name="pageSize" value="@pagination.pageSize">
-        <input type="hidden" name="backLink" value="@backLink">
-        <h2 class="govuk-heading-m">@messages("propertyRepresentation.search.filter")</h2>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            @if(model.response.authorisations.isEmpty){
+                <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
+            } else {
+                @formWithCSRF(agentRevoke.routes.RevokeAgentController.revokeAgentSummary(pagination,agentCode)){
+                    <input type="hidden" name="agentCode" value="@agentCode">
+                    <input type="hidden" name="name" value="@model.agentGroup.companyName">
+                    <input type="hidden" name="backLinkUrl" value="@backLink">
 
-<div class = "@formErrorClass("address")">
+                    <div class="hide-if-no-js margin-top-20 govuk-body">
+                        <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
+                        <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
+                        <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
+                    </div>
 
-    @if(formErrorClass("address").nonEmpty) {
-        <span class="govuk-error-message">@messages("error.propertyRepresentation.appoint.filter")</span>
-    }
-        @govukInput(Input(
-            id = "address",
-            name = "address",
-            value = params.address,
-            label = Label(
-                content = Text(messages("propertyRepresentation.th.ADDRESS"))
-            ),
-            classes = s"govuk-!-width-one-third ${if(formErrorClass("address").nonEmpty){"govuk-input--error"}}"
-        ))
-
-        <div class="govuk-button-group">
-            @govukButton(Button(
-                content = Text(messages("label.search")),
-                attributes = Map("id" -> "search-button")
+            <div class="@formErrorClass("linkIds")">
+            @if(formErrorClass("linkIds").nonEmpty) {
+                <span class="govuk-error-message">@messages("label.unassign.linkIds")</span>
+            }
+            @govukTable(Table(
+                attributes = Map("id" -> "agentPropertiesTableBody"),
+                rows = resultRows,
+                head = Some(Seq(
+                HeadCell(
+                    content = HtmlContent(addressColumnHeaderLink),
+                    attributes = Map("id" -> "sort-by-address", "aria-sort" -> s"$ariaSortAddress"),
+                    classes = s"$sortAddress"
+                ),
+                HeadCell(
+                    content = HtmlContent(appointedAgentsColumnHeader),
+                    attributes = Map("style" -> "width: 20%")
+                )
+                )),
+                firstCellIsHeader = false
             ))
-            <a href="@agentRevoke.routes.RevokeAgentController.selectAgentPropertiesSearchSort(PaginationParameters(), agentCode).url" class="govuk-link" id="clear-search">@messages("manageProperties.table.clear.search")</a>
         </div>
-    }
-</div>
-    <div class="govuk-grid-row govuk-grid-column-full">
-        @if(model.response.authorisations.isEmpty){
-            <p class="govuk-body">@messages("dashboard.manageProperties.noProperties")</p>
-        } else {
-            @formWithCSRF(agentRevoke.routes.RevokeAgentController.revokeAgentSummary(pagination,agentCode)){
-                <input type="hidden" name="agentCode" value="@agentCode">
-                <input type="hidden" name="name" value="@model.agentGroup.companyName">
-                <input type="hidden" name="backLinkUrl" value="@backLink">
 
-                <div class="hide-if-no-js margin-top-20 govuk-body">
-                    <span id="selectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.select")</span>
-                    <span id="deselectAll" style="display: none;">@messages("propertyRepresentation.appointAgentProperties.deselect")</span>
-                    <a href="#" id="par-select-all-top" class="govuk-link" >@messages("propertyRepresentation.appointAgentProperties.select")</a>
-                </div>
-
-                <div class="govuk-grid-row @formErrorClass("linkIds") govuk-grid-column-full">
-                @if(formErrorClass("linkIds").nonEmpty) {
-                    <span class="govuk-error-message">@messages("label.unassign.linkIds")</span>
-                }
-                    @govukTable(Table(
-                        attributes = Map("id" -> "agentPropertiesTableBody"),
-                        rows = resultRows,
-                        head = Some(Seq(
-                          HeadCell(
-                            content = HtmlContent(addressColumnHeaderLink),
-                            attributes = Map("id" -> "sort-by-address", "aria-sort" -> s"$ariaSortAddress"),
-                            classes = s"$sortAddress"
-                          ),
-                          HeadCell(
-                            content = HtmlContent(appointedAgentsColumnHeader),
-                            attributes = Map("style" -> "width: 20%")
-                          )
-                        )),
-                        firstCellIsHeader = false
-                    ))
-                </div>
-
-                <div class="govuk-grid-row">
-                    @if(model.response.filterTotal > model.response.authorisations.length) {
-                        <div class="govuk-grid-row govuk-grid-column-full">
-                            <div class="govuk-grid-column-one-third">
-                                <div id="page-size-list" class="govuk-body">
-                                    <span class="page-size-option-label">@messages("search.sort.page.size.view")</span>
-                                    @for(len <- List(15, 25, 50, 100)) {
-                                    @if(pagination.pageSize == len) {
+        <div class="govuk-grid-row">
+            @if(model.response.filterTotal > model.response.authorisations.length) {
+                <div class="govuk-grid-row govuk-grid-column-full">
+                    <div class="govuk-grid-column-one-third">
+                        <div id="page-size-list" class="govuk-body">
+                            <span class="page-size-option-label">@messages("search.sort.page.size.view")</span>
+                            @for(len <- List(15, 25, 50, 100)) {
+                                @if(pagination.pageSize == len) {
                                     <span class="page-size-option-current">@len</span>
-                                    } else {
-
+                                } else {
                                     <a class="page-size-option govuk-link" href="@agentRevoke.routes.RevokeAgentController.paginateRevokeProperties(pagination.copy(pageSize = len, page = 1), agentCode).url">
-                                        @len</a>
-                                    }
-                                    }
-                                    @messages("search.sort.page.size.properties.per.page")
-                                </div>
-                            </div>
-                            <div class="govuk-grid-column-one-third centre">
-                                <div role="status" class="pull-left">
-                                    <p role="status" class="govuk-body">
-                                        @messages(
-                                            "search.sort.showing",
-                                            if(model.response.authorisations.isEmpty) {
-                                                0
-                                            } else {
-                                                pagination.startPoint
-                                            },
-                                            model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1),
-                                            model.response.filterTotal
-                                        )
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="govuk-grid-column-one-third">
-
-                                <div role="navigation" aria-label="Pagination" class="pull-right">
-                                    <ul class="pagination govuk-list" style="margin: 0px">
-                                        @if(pagination.page > 1) {
-                                            <li class="previous ">
-                                                <a href="@agentRevoke.routes.RevokeAgentController.paginateRevokeProperties(pagination.previousPage, agentCode).url" role="link" class="govuk-link">
-                                                    <i class="previous-arrow"></i>@messages("pagination.previous")</a>
-                                            </li>
-                                        } else {
-                                            <li class="previous disabled govuk-body"><i class="previous-arrow govuk-body"></i>@messages("pagination.previous")</li>
-                                        }
-
-                                        <li class="active">@pagination.page</li>
-                                        @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
-                                            <li class="next">
-                                                <a href="@agentRevoke.routes.RevokeAgentController.paginateRevokeProperties(pagination.nextPage, agentCode).url" role="link" class="govuk-link">@messages("pagination.next")<i class="next-arrow"></i></a>
-                                            </li>
-                                        } else {
-                                            <li class="next disabled"><i class="next-arrow govuk-body"></i>@messages("pagination.next")</li>
-                                        }
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </div>
-                    }
-                    <div class="govuk-grid-column-full">
-                        <div class="govuk-button-group">
-                            @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperties.confirm")),
-                            attributes = Map("id" -> "submit-button")))
-                            <a id="cancel-link" class="govuk-link" href="@controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode = agentCode).url">@messages("link.cancel")</a>
-                        </div>
+                                    @len</a>
+                                }
+                            }
+                        @messages("search.sort.page.size.properties.per.page")
                     </div>
                 </div>
+                <div class="govuk-grid-column-one-third centre">
+                    <div role="status" class="pull-left">
+                        <p role="status" class="govuk-body">
+                            @messages(
+                                "search.sort.showing",
+                                if(model.response.authorisations.isEmpty) {
+                                    0
+                                } else {
+                                    pagination.startPoint
+                                },
+                                model.response.filterTotal.min(pagination.startPoint + pagination.pageSize - 1),
+                                model.response.filterTotal
+                            )
+                        </p>
+                    </div>
+                </div>
+                <div class="govuk-grid-column-one-third">
 
+                    <div role="navigation" aria-label="Pagination" class="pull-right">
+                        <ul class="pagination govuk-list" style="margin: 0px">
+                            @if(pagination.page > 1) {
+                                <li class="previous ">
+                                    <a href="@agentRevoke.routes.RevokeAgentController.paginateRevokeProperties(pagination.previousPage, agentCode).url" role="link" class="govuk-link">
+                                        <i class="previous-arrow"></i>@messages("pagination.previous")</a>
+                                </li>
+                            } else {
+                                <li class="previous disabled govuk-body"><i class="previous-arrow govuk-body"></i>@messages("pagination.previous")</li>
+                            }
+
+                            <li class="active">@pagination.page</li>
+                            @if(model.response.filterTotal > pagination.startPoint + pagination.pageSize - 1) {
+                                <li class="next">
+                                    <a href="@agentRevoke.routes.RevokeAgentController.paginateRevokeProperties(pagination.nextPage, agentCode).url" role="link" class="govuk-link">@messages("pagination.next")<i class="next-arrow"></i></a>
+                                </li>
+                            } else {
+                                <li class="next disabled"><i class="next-arrow govuk-body"></i>@messages("pagination.next")</li>
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
             }
+            <div class="govuk-grid-column-full">
+                <div class="govuk-button-group">
+                    @govukButton(Button(content = Text(messages("propertyRepresentation.manageAgent.unassignFromProperties.confirm")),
+                    attributes = Map("id" -> "submit-button")))
+                    <a id="cancel-link" class="govuk-link" href="@controllers.agent.routes.ManageAgentController.manageAgentProperties(agentCode = agentCode).url">@messages("link.cancel")</a>
+                </div>
+            </div>
+        </div>
+
+        }
         }
     </div>
+</div>
 
 }
