@@ -1250,7 +1250,7 @@ available.requestvaluation.dvrCheck.p1=Cyn i chi allu cyflwyno gwiriad, mae ange
 available.requestvaluation.dvrCheck.p2=Ar ôl cwblhau’r ffurflen, mae angen i chi ei hanfon fel rhan o’r Gwiriad.
 
 available.requestvaluation.startCheckTab.heading=Dechrau achos Gwirio
-available.requestvaluation.startCheckTab.new.guidance.link=Mae’r cyfarwyddyd hwn yn eich helpu i gwblhau eich gwiriad (yn agor tab newydd)
+available.requestvaluation.startCheckTab.new.guidance.link=Cymorth gyda gwirio manylion eich eiddo (yn agor tab newydd)
 available.requestvaluation.startCheckTab.guidance.summary=Cymorth gyda dechrau achos Gwirio
 available.requestvaluation.startCheckTab.guidance.content.p1=Mae achos Gwirio yn eich galluogi chi a ni i gytuno ar fanylion eiddo.
 available.requestvaluation.startCheckTab.guidance.content.p2=Dechreuwch achos Gwirio i ddweud wrthym fod manylion eiddo yn gywir neu’n os ydych eisiau gwneud newidiadau iddynt.
