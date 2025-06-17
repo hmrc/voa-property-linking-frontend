@@ -19,8 +19,8 @@ package utils
 import com.typesafe.config.{Config, ConfigFactory}
 import play.api.Configuration
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.html.helpers.{GovukFormGroup, GovukHintAndErrorMessage}
-import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, AssetsConfig, TimeoutDialogConfig, TrackingConsentConfig, TudorCrownConfig}
+import uk.gov.hmrc.govukfrontend.views.html.helpers.{GovukFormGroup, GovukHintAndErrorMessage, GovukLogo}
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, AssetsConfig, RebrandConfig, TimeoutDialogConfig, TrackingConsentConfig, TudorCrownConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems, StandardBetaBanner}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcTimeoutDialog}
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcScripts, HmrcStandardFooter, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
@@ -54,14 +54,16 @@ trait GdsComponents {
   lazy val govukErrorMessage = new GovukErrorMessage
   lazy val govukErrorSummary = new GovukErrorSummary
   lazy val govukFieldset = new GovukFieldset
-  lazy val govukFooter = new GovukFooter
+  lazy val govukFooter = new GovukFooter(RebrandConfig(minimalConfiguration), govukLogo)
   lazy val govukFormGroup = new GovukFormGroup
-  lazy val govukHeader = new GovukHeader(TudorCrownConfig(minimalConfiguration))
+  lazy val govukHeader =
+    new GovukHeader(TudorCrownConfig(minimalConfiguration), RebrandConfig(minimalConfiguration), govukLogo)
   lazy val govukHint = new GovukHint
   lazy val govukHintAndErrorMessage = new GovukHintAndErrorMessage(govukHint, govukErrorMessage)
   lazy val govukInput = new GovukInput(govukLabel, govukFormGroup, govukHintAndErrorMessage)
   lazy val govukInsetText = new GovukInsetText
   lazy val govukLabel = new GovukLabel
+  lazy val govukLogo = new GovukLogo
   lazy val govukPanel = new GovukPanel
   lazy val govukPhaseBanner = new GovukPhaseBanner(govukTag)
   lazy val govukRadios = new GovukRadios(govukFieldset, govukHint, govukLabel, govukFormGroup, govukHintAndErrorMessage)
@@ -71,7 +73,13 @@ trait GdsComponents {
   lazy val govukTabs = new GovukTabs
   lazy val govukTable = new GovukTable
   lazy val govukTag = new GovukTag
-  lazy val govukTemplate = new GovukTemplate(govukHeader, govukFooter, govukSkipLink, new FixedWidthPageLayout())
+  lazy val govukTemplate = new GovukTemplate(
+    govukHeader,
+    govukFooter,
+    govukSkipLink,
+    new FixedWidthPageLayout(),
+    RebrandConfig(minimalConfiguration)
+  )
   lazy val govukTextarea = new GovukTextarea(govukLabel, govukFormGroup, govukHintAndErrorMessage)
   lazy val govukWarningText = new GovukWarningText
   lazy val govukFileUpload = new GovukFileUpload(govukLabel, govukFormGroup, govukHintAndErrorMessage)
