@@ -389,7 +389,7 @@ class AppointAgentController @Inject() (
             agentAppointed,
             agentList,
             backLink = Some(config.safeRedirect(backLinkUrl)),
-            manageJourneyFlag = true
+            manageJourneyFlag = fromManageAgentJourney
           )
         )
       case None => notFound
