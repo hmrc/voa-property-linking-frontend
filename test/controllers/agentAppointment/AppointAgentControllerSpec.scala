@@ -404,6 +404,12 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(errorResult) shouldBe BAD_REQUEST
     emptySearchError.value shouldBe "You must enter something to search for"
     errorDoc.title shouldBe s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
+
+    val secondForm = errorDoc.select("form").get(1) // Nested form
+    val actionUrl = secondForm.attr("action").takeWhile(_ != '?')
+    val expectedUrl = routes.AppointPropertiesController.onSubmit(PaginationParameters() ,agentCode, None, backLinkUrl, false).url.takeWhile(_ != '?')
+
+    actionUrl shouldBe expectedUrl
   }
 
   it should "show an error when nothing is entered in Welsh" in new FilterPropertiesToAppointEmptySearchTestCase
@@ -411,6 +417,12 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(errorResult) shouldBe BAD_REQUEST
     emptySearchError.value shouldBe "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano"
     errorDoc.title shouldBe s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Valuation Office Agency - GOV.UK"
+
+    val secondForm = errorDoc.select("form").get(1) // Nested form
+    val actionUrl = secondForm.attr("action").takeWhile(_ != '?')
+    val expectedUrl = routes.AppointPropertiesController.onSubmit(PaginationParameters() ,agentCode, None, backLinkUrl, false).url.takeWhile(_ != '?')
+
+    actionUrl shouldBe expectedUrl
   }
 
   it should "remember the last searched-for agent in the dropdown" in {
@@ -530,6 +542,12 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainTable("#agentPropertiesTableBody")
+
+    val secondForm = Jsoup.parse(contentAsString(res)).select("form").get(1) // Nested form
+    val actionUrl = secondForm.attr("action").takeWhile(_ != '?')
+    val expectedUrl = routes.AppointAgentController.appointAgentSummary(agentCode, None, backLinkUrl, false).url.takeWhile(_ != '?')
+
+    actionUrl shouldBe expectedUrl
   }
 
   it should "show the appoint agent properties page when an appointment fails" in {
@@ -550,6 +568,12 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.titleShouldMatch(
       s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
     )
+
+    val secondForm = Jsoup.parse(contentAsString(res)).select("form").get(1) // Nested form
+    val actionUrl = secondForm.attr("action").takeWhile(_ != '?')
+    val expectedUrl = routes.AppointAgentController.appointAgentSummary(agentCode, None, backLinkUrl, false).url.takeWhile(_ != '?')
+
+    actionUrl shouldBe expectedUrl
   }
 
   "showAppointAgentSummary" should "display the filterPropertiesForAppoint page" in new UnfilteredResultsTestCase
