@@ -55,6 +55,8 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val addressHeaderSortable = "Address"
   val appointedAgentsHeaderSortable = "Appointed agents"
   val continueButtonText = "Continue"
+  val selectWhichPropertiesErrorText = "Select which properties you want to assign this agent to"
+  val youMustEnterSomethingErrorText = "You must enter something to search for"
 
   val titleTextWelsh = "Dewis pa eiddo yr hoffech ei neilltuo i gg-ext-id - Valuation Office Agency - GOV.UK"
   val headingTextWelsh = "Dewis pa eiddo yr hoffech ei neilltuo i gg-ext-id"
@@ -77,6 +79,8 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val addressHeaderSortableWelsh = "Cyfeiriad"
   val appointedAgentsHeaderSortableWelsh = "Asiantiaid penodedig"
   val continueButtonTextWelsh = "Yn eich blaen"
+  val selectWhichPropertiesErrorTextWelsh = "Dewiswch pa eiddo rydych chi am aseinio’r asiant hwn iddynt"
+  val youMustEnterSomethingErrorTextWelsh = "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano"
 
   val headingLocator = "h1"
   val captionLocator = "#caption"
@@ -108,6 +112,7 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val checkBox1Locator = "#checkbox-1"
   val checkBox2Locator = "#checkbox-2"
   val continueButtonLocator = "#submit-button"
+  val errorLocator = "#main-content > div > div > div.govuk-error-summary > div > div > ul > li > a"
 
   val defaultBackLinkHref = "http://localhost/some-back-link"
   val clearSearchLinkHref =
@@ -776,17 +781,286 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
         document.select(continueButtonLocator).text shouldBe continueButtonTextWelsh
       }
     }
+
+    "display the correct search content in English - manageAgentJourney true" which {
+      lazy val res = postSearchBadRequest(language = English, manageAgentJourney = true)
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a status of 400 (Bad Request)" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has the correct error message $youMustEnterSomethingErrorText in English" in {
+        document.select(errorLocator).text shouldBe youMustEnterSomethingErrorText
+      }
+
+      s"has correct post url" in {
+        val secondForm = document.select("form").get(1) // Nested form
+        val actionUrl = secondForm.attr("action")
+        val expectedUrl =
+          "/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=1001&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D1001%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dtrue&fromManageAgentJourney=true"
+
+        actionUrl shouldBe expectedUrl
+      }
+    }
+
+    "display the correct search error content in Welsh - manageAgentJourney true" which {
+      lazy val res = postSearchBadRequest(language = Welsh, manageAgentJourney = true)
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a status of 400 (Bad Request)" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has the correct error message $youMustEnterSomethingErrorText in Welsh" in {
+        document.select(errorLocator).text shouldBe youMustEnterSomethingErrorTextWelsh
+
+      }
+
+      s"has correct post url" in {
+        val secondForm = document.select("form").get(1) // Nested form
+        val actionUrl = secondForm.attr("action")
+        val expectedUrl =
+          "/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=1001&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D1001%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dtrue&fromManageAgentJourney=true"
+
+        actionUrl shouldBe expectedUrl
+      }
+    }
+
+    "display the correct search content in English - manageAgentJourney false" which {
+      lazy val res = postSearchBadRequest(language = English, manageAgentJourney = false)
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a status of 400 (Bad Request)" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has the correct error message $youMustEnterSomethingErrorText in English" in {
+        document.select(errorLocator).text shouldBe youMustEnterSomethingErrorText
+      }
+
+      s"has correct post url" in {
+        val secondForm = document.select("form").get(1) // Nested form
+        val actionUrl = secondForm.attr("action")
+        val expectedUrl =
+          "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D1001%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dfalse&fromManageAgentJourney=false"
+
+        actionUrl shouldBe expectedUrl
+      }
+    }
+
+    "display the correct search error content in Welsh - manageAgentJourney false" which {
+      lazy val res = postSearchBadRequest(language = Welsh, manageAgentJourney = false)
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a status of 400 (Bad Request)" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has the correct error message $youMustEnterSomethingErrorText in Welsh" in {
+        document.select(errorLocator).text shouldBe youMustEnterSomethingErrorTextWelsh
+
+      }
+
+      s"has correct post url" in {
+        val secondForm = document.select("form").get(1) // Nested form
+        val actionUrl = secondForm.attr("action")
+        val expectedUrl =
+          "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D1001%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dfalse&fromManageAgentJourney=false"
+
+        actionUrl shouldBe expectedUrl
+      }
+    }
+
+    "display the correct submission content in English - manageAgentJourney true" which {
+      lazy val res = postBadRequest(language = English, manageAgentJourney = true)
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a status of 400 (Bad Request)" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has the correct error message $selectWhichPropertiesErrorText in English" in {
+        document.select(errorLocator).text shouldBe selectWhichPropertiesErrorText
+      }
+
+      s"has correct post url" in {
+        val secondForm = document.select("form").get(1) // Nested form
+        val actionUrl = secondForm.attr("action")
+        val expectedUrl =
+          "/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=1001&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D1001%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dtrue&fromManageAgentJourney=true"
+
+        actionUrl shouldBe expectedUrl
+      }
+    }
+
+    "display the correct submission error content in Welsh - manageAgentJourney true" which {
+      lazy val res = postBadRequest(language = Welsh, manageAgentJourney = true)
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a status of 400 (Bad Request)" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has the correct error message $selectWhichPropertiesErrorText in Welsh" in {
+        document.select(errorLocator).text shouldBe selectWhichPropertiesErrorTextWelsh
+
+      }
+
+      s"has correct post url" in {
+        val secondForm = document.select("form").get(1) // Nested form
+        val actionUrl = secondForm.attr("action")
+        val expectedUrl =
+          "/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=1001&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D1001%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dtrue&fromManageAgentJourney=true"
+
+        actionUrl shouldBe expectedUrl
+      }
+    }
+
+    "display the correct submission error content in English - manageAgentJourney false" which {
+      lazy val res = postBadRequest(language = English, manageAgentJourney = false)
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a status of 400 (Bad Request)" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has the correct error message $selectWhichPropertiesErrorText in English" in {
+        document.select(errorLocator).text shouldBe selectWhichPropertiesErrorText
+      }
+
+      s"has correct post url" in {
+        val secondForm = document.select("form").get(1) // Nested form
+        val actionUrl = secondForm.attr("action")
+        val expectedUrl =
+          "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D1001%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dfalse&fromManageAgentJourney=false"
+
+        actionUrl shouldBe expectedUrl
+      }
+    }
+
+    "display the correct error submission error content in Welsh - manageAgentJourney false" which {
+      lazy val res = postBadRequest(language = Welsh, manageAgentJourney = false)
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a status of 400 (Bad Request)" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has the correct error message $selectWhichPropertiesErrorText in Welsh" in {
+        document.select(errorLocator).text shouldBe selectWhichPropertiesErrorTextWelsh
+      }
+
+      s"has correct post url" in {
+        val secondForm = document.select("form").get(1) // Nested form
+        val actionUrl = secondForm.attr("action")
+        val expectedUrl =
+          "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=1001&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D1001%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dfalse&fromManageAgentJourney=false"
+
+        actionUrl shouldBe expectedUrl
+      }
+    }
+
+  }
+
+  def postSearchBadRequest(language: Language, withAgents: Boolean = false, manageAgentJourney: Boolean) = {
+
+    val testSessionId = s"stubbed-${UUID.randomUUID}"
+    val agentsCode = 1001L
+    val agentName = "Test Agent"
+    val backLinkUrl = RedirectUrl("http://localhost/some-back-link")
+
+    commonStubs(testSessionId, agentsCode, agentName, withAgents)
+
+    val requestBody = Json.obj(
+    )
+
+    await(
+      ws.url(
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties/filter?page=1&pageSize=15&agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=$manageAgentJourney"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .post(requestBody)
+    )
+  }
+
+  def postBadRequest(language: Language, withAgents: Boolean = false, manageAgentJourney: Boolean) = {
+
+    val testSessionId = s"stubbed-${UUID.randomUUID}"
+    val agentsCode = 1001L
+    val agentName = "Test Agent"
+    val backLinkUrl = RedirectUrl("http://localhost/some-back-link")
+
+    commonStubs(testSessionId, agentsCode, agentName, withAgents)
+
+    val requestBody = Json.obj(
+      "agentCode"   -> agentsCode,
+      "name"        -> agentName,
+      "backLinkUrl" -> s"${backLinkUrl.unsafeValue}"
+    )
+
+    await(
+      ws.url(
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=$manageAgentJourney"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .post(requestBody)
+    )
   }
 
   def getMyOrganisationPropertyLinksWithAgentFilteringPage(
         language: Language,
         withAgents: Boolean = false,
-        withAgentsNotAppointed: Boolean = false
+        withAgentsNotAppointed: Boolean = false,
+        badRequest: Boolean = false,
+        manageAgentJourney: Boolean = false
   ) = {
     val testSessionId = s"stubbed-${UUID.randomUUID}"
     val agentsCode = 1001L
     val agentName = "Test Agent"
     val backLinkUrl = RedirectUrl("http://localhost/some-back-link")
+
+    commonStubs(testSessionId, agentsCode, agentName, withAgents)
+
+    val requestBody = Json.obj(
+      "agentCode"   -> agentsCode,
+      "name"        -> agentName,
+      "backLinkUrl" -> s"${backLinkUrl.unsafeValue}"
+    )
+
+    val agentAppointedParam = if (withAgentsNotAppointed) "&agentAppointed=NO" else ""
+    if (!badRequest) {
+      await(
+        ws.url(
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true$agentAppointedParam"
+        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .get()
+      )
+    } else {
+      await(
+        ws.url(
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=$manageAgentJourney"
+        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+          .withFollowRedirects(follow = false)
+          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+          .post(requestBody)
+      )
+    }
+  }
+
+  def commonStubs(testSessionId: String, agentsCode: Long, agentName: String, withAgents: Boolean) = {
 
     val account = GroupAccount(
       id = 2L,
@@ -855,7 +1129,19 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(mockAppointAgentSessionRepository.saveOrUpdate(propertiesSessionData))
 
-    commonStubs
+    stubFor {
+      get("/business-rates-authorisation/authenticate")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
+        }
+    }
+
+    stubFor {
+      post("/auth/authorise")
+        .willReturn {
+          aResponse.withStatus(OK).withBody("{}")
+        }
+    }
 
     stubFor {
       get("/property-linking/owner/agents")
@@ -891,32 +1177,6 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
       get("/property-linking/owner/property-links/count")
         .willReturn {
           aResponse.withStatus(OK).withBody(Json.toJson(testResultCount).toString())
-        }
-    }
-
-    val agentAppointedParam = if (withAgentsNotAppointed) "&agentAppointed=NO" else ""
-    await(
-      ws.url(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true$agentAppointedParam"
-      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
-        .withFollowRedirects(follow = false)
-        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-        .get()
-    )
-  }
-
-  def commonStubs = {
-    stubFor {
-      get("/business-rates-authorisation/authenticate")
-        .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testAccounts).toString())
-        }
-    }
-
-    stubFor {
-      post("/auth/authorise")
-        .willReturn {
-          aResponse.withStatus(OK).withBody("{}")
         }
     }
   }
