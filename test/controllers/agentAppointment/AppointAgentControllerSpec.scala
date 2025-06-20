@@ -406,10 +406,12 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     errorDoc.title shouldBe s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
 
     val secondForm = errorDoc.select("form").get(1) // Nested form
-    val actionUrl = secondForm.attr("action").takeWhile(_ != '?')
-    val expectedUrl = routes.AppointPropertiesController.onSubmit(PaginationParameters() ,agentCode, None, backLinkUrl, false).url.takeWhile(_ != '?')
+    val actionUrl = secondForm.attr("action")
+    val expectedUrl =
+      "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=12345&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D12345%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dfalse&fromManageAgentJourney=false"
 
     actionUrl shouldBe expectedUrl
+
   }
 
   it should "show an error when nothing is entered in Welsh" in new FilterPropertiesToAppointEmptySearchTestCase
@@ -419,8 +421,38 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     errorDoc.title shouldBe s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Valuation Office Agency - GOV.UK"
 
     val secondForm = errorDoc.select("form").get(1) // Nested form
-    val actionUrl = secondForm.attr("action").takeWhile(_ != '?')
-    val expectedUrl = routes.AppointPropertiesController.onSubmit(PaginationParameters() ,agentCode, None, backLinkUrl, false).url.takeWhile(_ != '?')
+    val actionUrl = secondForm.attr("action")
+    val expectedUrl =
+      "/business-rates-property-linking/my-organisation/appoint/properties?page=1&pageSize=15&agentCode=12345&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D12345%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dfalse&fromManageAgentJourney=false"
+
+    actionUrl shouldBe expectedUrl
+  }
+
+  it should "show an error when nothing is entered in English (true)" in new FilterPropertiesToAppointEmptySearchTestCaseManageJourneyTrue
+    with English {
+    status(errorResult) shouldBe BAD_REQUEST
+    emptySearchError.value shouldBe "You must enter something to search for"
+    errorDoc.title shouldBe s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
+
+    val secondForm = errorDoc.select("form").get(1) // Nested form
+    val actionUrl = secondForm.attr("action")
+    val expectedUrl =
+      "/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=12345&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D12345%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dtrue&fromManageAgentJourney=true"
+
+    actionUrl shouldBe expectedUrl
+
+  }
+
+  it should "show an error when nothing is entered in Welsh (true)" in new FilterPropertiesToAppointEmptySearchTestCaseManageJourneyTrue
+    with Welsh {
+    status(errorResult) shouldBe BAD_REQUEST
+    emptySearchError.value shouldBe "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano"
+    errorDoc.title shouldBe s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Valuation Office Agency - GOV.UK"
+
+    val secondForm = errorDoc.select("form").get(1) // Nested form
+    val actionUrl = secondForm.attr("action")
+    val expectedUrl =
+      "/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=12345&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D12345%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dtrue&fromManageAgentJourney=true"
 
     actionUrl shouldBe expectedUrl
   }
@@ -544,8 +576,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     page.shouldContainTable("#agentPropertiesTableBody")
 
     val secondForm = Jsoup.parse(contentAsString(res)).select("form").get(1) // Nested form
-    val actionUrl = secondForm.attr("action").takeWhile(_ != '?')
-    val expectedUrl = routes.AppointAgentController.appointAgentSummary(agentCode, None, backLinkUrl, false).url.takeWhile(_ != '?')
+    val actionUrl = secondForm.attr("action")
+    val expectedUrl =
+      "/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=12345&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D12345%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dtrue&fromManageAgentJourney=true"
 
     actionUrl shouldBe expectedUrl
   }
@@ -570,8 +603,9 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     )
 
     val secondForm = Jsoup.parse(contentAsString(res)).select("form").get(1) // Nested form
-    val actionUrl = secondForm.attr("action").takeWhile(_ != '?')
-    val expectedUrl = routes.AppointAgentController.appointAgentSummary(agentCode, None, backLinkUrl, false).url.takeWhile(_ != '?')
+    val actionUrl = secondForm.attr("action")
+    val expectedUrl =
+      "/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=12345&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D12345%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dtrue&fromManageAgentJourney=true"
 
     actionUrl shouldBe expectedUrl
   }
@@ -609,6 +643,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainText("Select which properties you want to assign this agent to")
     verifyPageErrorTitleAssign(page)
+
+    val secondForm = Jsoup.parse(contentAsString(res)).select("form").get(1) // Nested form
+    val actionUrl = secondForm.attr("action")
+    val expectedUrl =
+      "/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=12345&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D12345%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dtrue&fromManageAgentJourney=true"
+
+    actionUrl shouldBe expectedUrl
   }
 
   "submitting an incomplete assign agent form" should "re-render the page with form errors reported to user - in welsh" in {
@@ -634,6 +675,13 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainText("Dewiswch pa eiddo rydych chi am aseinio’r asiant hwn iddynt")
     verifyPageErrorTitleAssign(page, isWelsh = true)
+
+    val secondForm = Jsoup.parse(contentAsString(res)).select("form").get(1) // Nested form
+    val actionUrl = secondForm.attr("action")
+    val expectedUrl =
+      "/business-rates-property-linking/my-organisation/appoint/properties/create?agentCode=12345&backLinkUrl=%2Fbusiness-rates-property-linking%2Fmy-organisation%2Fappoint%2Fproperties%3Fpage%3D1%26pageSize%3D15%26agentCode%3D12345%26backLinkUrl%3Dhttp%253A%252F%252Flocalhost%252Fsome-back-link%26fromManageAgentJourney%3Dtrue&fromManageAgentJourney=true"
+
+    actionUrl shouldBe expectedUrl
   }
 
   trait AppointToSomeConfirmationTestCase {
@@ -785,6 +833,32 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLinkUrl, false)(
         self.fakeRequest.withFormUrlEncodedBody("agentCode" -> "12345", "backLinkUrl" -> backLinkUrl.unsafeValue)
       )
+
+    val errorDoc: Document = Jsoup.parse(contentAsString(errorResult))
+
+    val emptySearchError: Option[String] = Option(errorDoc.getElementsByAttributeValue("href", "#address")).map(_.text)
+  }
+
+  trait FilterPropertiesToAppointEmptySearchTestCaseManageJourneyTrue { self: RequestLang =>
+    val testOwnerAuth: OwnerAuthorisation =
+      OwnerAuthorisation(1L, "APPROVED", "1111111", 1L, "address 1", "localAuthorityRef", testAgents)
+    val testOwnerAuthResult: OwnerAuthResult =
+      OwnerAuthResult(start = 1, size = 15, filterTotal = 2, total = 2, authorisations = Seq(testOwnerAuth))
+
+    StubGroupAccountConnector.stubAccount(agent)
+    when(mockAppointRevokeService.getMyOrganisationPropertyLinksWithAgentFiltering(any, any, any, any)(any))
+      .thenReturn(Future.successful(testOwnerAuthResult))
+    when(mockSessionRepo.saveOrUpdate(any)(any, any)).thenReturn(Future.unit)
+    when(mockAppointAgentPropertiesSessionRepo.get[AppointAgentToSomePropertiesSession](any, any))
+      .thenReturn(Future.successful(Some(AppointAgentToSomePropertiesSession())))
+    when(mockAppointAgentPropertiesSessionRepo.saveOrUpdate[FilterAppointProperties](any)(any, any))
+      .thenReturn(Future.unit)
+
+    val errorResult: Future[Result] =
+      testController.filterPropertiesForAppoint(PaginationParameters(), agentCode, None, backLinkUrl, true)(
+        self.fakeRequest.withFormUrlEncodedBody("agentCode" -> "12345", "backLinkUrl" -> backLinkUrl.unsafeValue)
+      )
+
     val errorDoc: Document = Jsoup.parse(contentAsString(errorResult))
 
     val emptySearchError: Option[String] = Option(errorDoc.getElementsByAttributeValue("href", "#address")).map(_.text)
