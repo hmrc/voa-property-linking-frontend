@@ -782,7 +782,7 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
     }
 
-    "display the correct search content in English - manageAgentJourney true" which {
+    "display the correct search error content in English - manageAgentJourney true" which {
       lazy val res = postSearchBadRequest(language = English, manageAgentJourney = true)
 
       lazy val document = Jsoup.parse(res.body)
@@ -829,7 +829,7 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
     }
 
-    "display the correct search content in English - manageAgentJourney false" which {
+    "display the correct search error content in English - manageAgentJourney false" which {
       lazy val res = postSearchBadRequest(language = English, manageAgentJourney = false)
 
       lazy val document = Jsoup.parse(res.body)
@@ -876,7 +876,7 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
       }
     }
 
-    "display the correct submission content in English - manageAgentJourney true" which {
+    "display the correct submission error content in English - manageAgentJourney true" which {
       lazy val res = postBadRequest(language = English, manageAgentJourney = true)
 
       lazy val document = Jsoup.parse(res.body)
@@ -1022,8 +1022,6 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
         language: Language,
         withAgents: Boolean = false,
         withAgentsNotAppointed: Boolean = false,
-        badRequest: Boolean = false,
-        manageAgentJourney: Boolean = false
   ) = {
     val testSessionId = s"stubbed-${UUID.randomUUID}"
     val agentsCode = 1001L
@@ -1032,32 +1030,15 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     commonStubs(testSessionId, agentsCode, agentName, withAgents)
 
-    val requestBody = Json.obj(
-      "agentCode"   -> agentsCode,
-      "name"        -> agentName,
-      "backLinkUrl" -> s"${backLinkUrl.unsafeValue}"
-    )
-
     val agentAppointedParam = if (withAgentsNotAppointed) "&agentAppointed=NO" else ""
-    if (!badRequest) {
-      await(
-        ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true$agentAppointedParam"
-        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
-          .withFollowRedirects(follow = false)
-          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-          .get()
-      )
-    } else {
-      await(
-        ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=$manageAgentJourney"
-        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
-          .withFollowRedirects(follow = false)
-          .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
-          .post(requestBody)
-      )
-    }
+    await(
+      ws.url(
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/appoint/properties?agentCode=$agentsCode&backLinkUrl=${backLinkUrl.unsafeValue}&fromManageAgentJourney=true$agentAppointedParam"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
+        .get()
+    )
   }
 
   def commonStubs(testSessionId: String, agentsCode: Long, agentName: String, withAgents: Boolean) = {
