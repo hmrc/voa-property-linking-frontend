@@ -1,0 +1,98 @@
+$color_hmrc-grey-4: #b1b4b6;
+
+@mixin responsive-table-mixin($mobile-min, $mobile-max) {
+  width: 100%;
+
+  thead {
+    border: 0;
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+
+    @media (min-width: $mobile-min) {
+      clip: auto;
+      -webkit-clip-path: none;
+      clip-path: none;
+      display: table-header-group;
+      height: auto;
+      overflow: auto;
+      position: relative;
+      width: auto;
+    }
+  }
+
+  tbody {
+    tr {
+      display: block;
+      margin-bottom: 1.5em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      @media (max-width: $mobile-max) {
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      @media (min-width: $mobile-min) {
+        display: table-row;
+      }
+    }
+
+    th {
+      text-align: right;
+
+      @media (min-width: $mobile-min) {
+        text-align: left;
+      }
+    }
+
+    td {
+      display: block; // For browsers that don't support flexbox
+      display: flex;
+      justify-content: space-between;
+      min-width: 1px;
+
+      @media (min-width: $mobile-min) {
+        display: table-cell;
+      }
+
+      @media (max-width: $mobile-max) {
+        padding-right: 0;
+        text-align: right;
+
+        &:last-child {
+          border-bottom: 3px solid $color_hmrc-grey-4;
+        }
+      }
+    }
+
+    span.govuk-table__header {
+      font-weight: 700;
+      text-align: left;
+      padding-right: 1em;
+      display: block;
+      border: none;
+
+      @media (min-width: $mobile-min) {
+        display: none;
+      }
+
+      @media (max-width: $mobile-max) {
+        padding-top: 0;
+      }
+    }
+  }
+}
+
+.responsive-table {
+  @include responsive-table-mixin(769px, 768px); // Created as a default for mobile screens. A new class can be made if the table needs to react earlier
+}

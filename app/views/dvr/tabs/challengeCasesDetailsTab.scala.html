@@ -48,22 +48,42 @@
     )
 }
 
+@reference(challengeReference: String) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.challengecases.table.1")</span><a class='govuk-link' href='@challengeCaseDetailsUrl(challengeReference)'>@challengeReference</a>
+}
+
+@submitDate(submittedDate: LocalDateTime) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.challengecases.table.2")</span><p class="govuk-body">@formatDateTimeToDate(submittedDate)</p>
+}
+
+@statusTag(status: String) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.challengecases.table.3")</span><p class="govuk-body">@statusTagWithHelpLink(status)</p>
+}
+
+@closeDate(closedDate: Option[LocalDate]) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.challengecases.table.4")</span><p class="govuk-body">@closedDate.fold("")(formattedFullDate(_))</p>
+}
+
+@submittedByColumn(submittedBy: String) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.challengecases.table.5")</span><p class="govuk-body">@submittedBy</p>
+}
+
 @row(submittedDate: LocalDateTime, status: String, challengeReference: String, closedDate: Option[LocalDate], clientOrAgent: String, submittedBy: String) = @{
     Seq(
         TableRow(
-            content = HtmlContent(s"<a class='govuk-link' href='${challengeCaseDetailsUrl(challengeReference)}'>$challengeReference</a>")
+            content = HtmlContent(reference(challengeReference))
         ),
         TableRow(
-            content = Text(formatDateTimeToDate(submittedDate))
+            content = HtmlContent(submitDate(submittedDate))
         ),
         TableRow(
-            content = HtmlContent(statusTagWithHelpLink(status))
+            content = HtmlContent(statusTag(status))
         ),
         TableRow(
-            content = Text(closedDate.fold("")(formattedFullDate(_)))
+            content = HtmlContent(closeDate(closedDate))
         ),
         TableRow(
-            content = Text(submittedBy),
+            content = HtmlContent(submittedByColumn(submittedBy)),
             classes = "break-word"
         )
     )
@@ -134,5 +154,6 @@
         content = Text(messages("property.details.challengecases.table.5"))
       )
     )),
-    attributes = Map("id" -> "challengecases-table")
+    attributes = Map("id" -> "challengecases-table"),
+    classes = "responsive-table"
 ))
