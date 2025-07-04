@@ -1021,7 +1021,7 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
   def getMyOrganisationPropertyLinksWithAgentFilteringPage(
         language: Language,
         withAgents: Boolean = false,
-        withAgentsNotAppointed: Boolean = false,
+        withAgentsNotAppointed: Boolean = false
   ) = {
     val testSessionId = s"stubbed-${UUID.randomUUID}"
     val agentsCode = 1001L

@@ -4,6 +4,7 @@ $hmrc-assets-path: "/business-rates-property-linking/assets/lib/hmrc-frontend/hm
 @import "lib/govuk-frontend/dist/govuk/all";
 @import "lib/hmrc-frontend/hmrc/all";
 @import 'sortable';
+@import "responsive-table";
 @import "../sass/modules/helpIcon";
 
 .new-centered-content {
