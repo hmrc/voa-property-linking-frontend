@@ -18,7 +18,7 @@
 @import _root_.utils.Formatters
 @import config.ApplicationConfig
 
-@this(govukDetails: GovukDetails, govukTag: GovukTag)
+@this(govukDetails: GovukDetails, govukTag: GovukTag, govukTable: GovukTable)
 @(model: controllers.AssessmentsVM, owner: Boolean, vmvLink: String )(implicit request: AssessmentsPageSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
 @tableHeaderRow = {
@@ -32,8 +32,10 @@
     </tr>
 }
 
-@effectiveDate(assessment: ApiAssessment) = @{
-    assessment.effectiveDate.map(Formatters.formattedFullDate).getOrElse("")
+@effectiveDate(assessment: ApiAssessment) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("assessments.table.2")<a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-effectiveDate")" class="cca-icon cca-icon__help">
+        <span class="govuk-visually-hidden">@messages("assessments.icon.help.effectiveDate")</span>
+    </a></span><p class="govuk-body">@assessment.effectiveDate.map(Formatters.formattedFullDate).getOrElse("")</p>
 }
 
 @fromDate(assessment: ApiAssessment) = @{
@@ -84,40 +86,105 @@
     }
 }
 
-@tableRows(list: Seq[(String, ApiAssessment)], tableType: String, isDraft: Boolean) = {
-
-@list.map {  case (url, assessment) =>
-<tr class="govuk-table__row">
-
-    <td class="govuk-table__cell">
-
-        @valuationTypeTag(tableType)
+@valuationRow(url: String, assessment: ApiAssessment,tableType: String, isDraft: Boolean) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("assessments.table.1")<a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-valuationPeriod")" class="cca-icon cca-icon__help">
+        <span class="govuk-visually-hidden">@messages("assessments.icon.help.valuationPeriod")</span>
+    </a></span><p class="govuk-body">@valuationTypeTag(tableType)
         @if(assessment.rateableValue.isDefined){
             <a class="govuk-link"
             id="viewAssessmentLink-@assessment.assessmentRef"
             href="@url"
             aria-label="@ariaLabel(assessment, tableType, isDraft)">
-                @valuationDates(assessment, isDraft, tableType)
+            @valuationDates(assessment, isDraft, tableType)
             </a>
-        } else {
-            <span>
-                @valuationDates(assessment, isDraft, tableType)
-            </span>
-        }
-    </td>
-
-    <td class="govuk-table__cell">@effectiveDate(assessment)</td>
-
-    <td class="govuk-table__cell">
-    @model.capacity.fold("")(cap => messages(s"capacity.$cap"))
-    </td>
-
-    <td class="govuk-table__cell govuk-table__cell--numeric">
-    @assessment.rateableValue.fold(messages("assessments.na"))(rv => Formatters.formatCurrencyRoundedToPounds(rv))
-</td>
-
-</tr>
+} else {
+        <p class="govuk-body">
+        @valuationDates(assessment, isDraft, tableType)
+        </p>
+    }
+    </p>
 }
+
+@capacity = {
+        <span class="govuk-table__header" aria-hidden="true">@messages("assessments.table.3")</span><p class="govuk-body">@model.capacity.fold("")(cap => messages(s"capacity.$cap"))</p>
+}
+
+@rateableValue(assessment: ApiAssessment) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("assessments.table.4")</span><p class="govuk-body">@assessment.rateableValue.fold(messages("assessments.na"))(rv => Formatters.formatCurrencyRoundedToPounds(rv))</p>
+
+}
+
+@tableRows(list: Seq[(String, ApiAssessment)], tableType: String, isDraft: Boolean) = @{
+
+list.map {  case (url, assessment) =>
+
+  Seq(
+      TableRow(
+          content = HtmlContent(valuationRow(url, assessment, tableType, isDraft))
+      ),
+      TableRow(
+          content = HtmlContent(effectiveDate(assessment))
+      ),
+      TableRow(
+        content = HtmlContent(capacity)
+      ),
+      TableRow(
+        content = HtmlContent(rateableValue(assessment))
+      )
+
+  )
+}
+}
+
+@draftRows(model: AssessmentsVM) = @{
+    if(model.draftAssessments.nonEmpty){
+        tableRows(model.draftAssessments, tableType = "draft", isDraft = true)
+    } else Seq.empty
+}
+
+@currentRows(model: AssessmentsVM) = @{
+    if(model.currentAssessments.nonEmpty){
+        tableRows(model.currentAssessments, tableType = "current", isDraft = false)
+    } else Seq.empty
+}
+
+@historicRows(model: AssessmentsVM) = @{
+    if(model.historicAssessments.nonEmpty){
+        tableRows(model.historicAssessments, tableType = "historic", isDraft = false)
+    } else Seq.empty
+}
+
+@valuationHeader = {
+    @messages("assessments.table.1")
+    <a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-valuationPeriod")" class="cca-icon cca-icon__help">
+        <span class="govuk-visually-hidden">@messages("assessments.icon.help.valuationPeriod")</span>
+    </a>
+}
+
+@effectiveDateHeader = {
+    @messages("assessments.table.2")
+    <a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-effectiveDate")" class="cca-icon cca-icon__help">
+        <span class="govuk-visually-hidden">@messages("assessments.icon.help.effectiveDate")</span>
+    </a>
+}
+
+@headers = @{
+    {
+        Seq(
+            HeadCell(
+                content = HtmlContent(valuationHeader)
+            ),
+            HeadCell(
+                content = HtmlContent(effectiveDateHeader)
+            ),
+            HeadCell(
+                content = Text(messages("assessments.table.3"))
+            ),
+            HeadCell(
+                content = Text(messages("assessments.table.4"))
+            )
+        )
+    }
 }
 
 <div class="govuk-grid-row">
@@ -127,44 +194,14 @@
         @if(model.assessmentsWithLinks.isEmpty){
             <p id="no-valuation-text" class="govuk-body">@messages("assessments.no.valuation.available")</p>
         }else {
-            <table id="assessments-table" class="govuk-table margin-bottom-10 margin-top-10">
-                <caption class="govuk-visually-hidden">@messages("assessments.table.caption")</caption>
-                <thead class="govuk-table__head">
-                    <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header govuk-!-width-one-half">
-                            @messages("assessments.table.1")
-                            <a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-valuationPeriod")" class="cca-icon cca-icon__help">
-                                <span class="govuk-visually-hidden">@messages("assessments.icon.help.valuationPeriod")</span>
-                            </a>
-                        </th>
-                        <th scope="col" class="govuk-table__header">
-                            @messages("assessments.table.2")
-                            <a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-effectiveDate")" class="cca-icon cca-icon__help">
-                                <span class="govuk-visually-hidden">@messages("assessments.icon.help.effectiveDate")</span>
-                            </a>
-                        </th>
-                        <th scope="col" class="govuk-table__header">
-                        @messages("assessments.table.3")
-                        </th>
-                        <th scope="col" class="govuk-table__header govuk-table__header--numeric">
-                        @messages("assessments.table.4")
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="govuk-table__body">
-                @if(model.draftAssessments.nonEmpty){
-                    @tableRows(model.draftAssessments, tableType = "draft", isDraft = true)
-                }
+          @govukTable(Table(
+            caption = Some(messages("assessments.table.caption")),
+            rows = draftRows(model) ++ currentRows(model) ++ historicRows(model),
+              head = Some(headers),
+              attributes = Map("id" -> "assessments-table"),
+              classes = "responsive-table"
+          ))
 
-                @if(model.currentAssessments.nonEmpty){
-                    @tableRows(model.currentAssessments, tableType = "current", isDraft = false)
-                }
-
-                @if(model.historicAssessments.nonEmpty){
-                    @tableRows(model.historicAssessments, tableType = "historic", isDraft = false)
-                }
-                </tbody>
-            </table>
         }
     </div>
 
