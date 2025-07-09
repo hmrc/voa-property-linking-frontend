@@ -174,7 +174,7 @@ class ValuationsControllerISpec extends ISpecBase {
   val valuationHeadingResponsive = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > span"
   val valuationHeadingHelpLinkResponsive = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > span > a"
   val valuationTagLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > strong"
-  val greyedOutDatesLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p:nth-child(3)"
+  val greyedOutDatesLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > span"
   val valuationDatesLinkLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > a"
   val valuationEffectiveDateLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(2) > p"
   val valuationConnectionLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(3) > p"
