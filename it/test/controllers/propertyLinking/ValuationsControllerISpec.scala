@@ -171,12 +171,14 @@ class ValuationsControllerISpec extends ISpecBase {
   val effectiveDateHelpLinkLocator = "#assessments-table > thead > tr > th:nth-child(2) > a"
   val connectionTableHeadingLocator = "#assessments-table > thead > tr > th:nth-child(3)"
   val rvTableHeadingLocator = "#assessments-table > thead > tr > th:nth-child(4)"
-  val valuationTagLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > strong"
-  val greyedOutDatesLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > span"
-  val valuationDatesLinkLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > a"
-  val valuationEffectiveDateLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(2)"
-  val valuationConnectionLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(3)"
-  val valuationRvLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(4)"
+  val valuationHeadingResponsive = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > span"
+  val valuationHeadingHelpLinkResponsive = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > span > a"
+  val valuationTagLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > strong"
+  val greyedOutDatesLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p:nth-child(3)"
+  val valuationDatesLinkLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > a"
+  val valuationEffectiveDateLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(2) > p"
+  val valuationConnectionLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(3) > p"
+  val valuationRvLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(4) > p"
   val onlyShowValuationsLocator = "#only-show"
   val otherValuationsLocator = "#other-periods"
   val findValuationsLinkLocator = "#explanatory-link"
@@ -931,6 +933,19 @@ class ValuationsControllerISpec extends ISpecBase {
         page.select(rvTableHeadingLocator).text() shouldBe rateableValue
       }
 
+      s"has responsive heading in $language (assessments)" in {
+
+        page.select(valuationHeadingResponsive(1)).text() shouldBe s"$valuation $helpWithValuation"
+        page.select(valuationHeadingHelpLinkResponsive(1)).attr("href") shouldBe valuationHelpHref
+
+        page.select(effectiveDateTableHeadingLocator).text() shouldBe s"$effectiveDate $helpWithEffectiveDate"
+        page.select(effectiveDateHelpLinkLocator).attr("href") shouldBe effectiveDateHelpHref
+
+        page.select(connectionTableHeadingLocator).text() shouldBe connectionToProperty
+
+        page.select(rvTableHeadingLocator).text() shouldBe rateableValue
+      }
+
     } else
       s"has text of $noValuationsText in $language" in {
         page.select(noValuationsLocator).text() shouldBe noValuations
@@ -979,6 +994,12 @@ class ValuationsControllerISpec extends ISpecBase {
       case "OCCUPIER"       => occupier
       case "OWNER_OCCUPIER" => ownerAndOccupier
     }
+    val valuation = if (language == English) valuationText else valuationTextWelsh
+    val helpWithValuation = if (language == English) helpWithValuationText else helpWithValuationTextWelsh
+    val effectiveDate = if (language == English) effectiveDateText else effectiveDateTextWelsh
+    val helpWithEffectiveDate = if (language == English) helpWithEffectiveDateText else helpWithEffectiveDateTextWelsh
+    val connectionToProperty = if (language == English) connectionToPropertyText else connectionToPropertyTextWelsh
+    val rateableValue = if (language == English) rateableValueText else rateableValueTextWelsh
 
     s"has a $futureText tag in row $row for the draft valuation in $language" in {
       page.select(valuationTagLocator(row)).text() shouldBe future
@@ -999,6 +1020,19 @@ class ValuationsControllerISpec extends ISpecBase {
 
     s"has a rateable value of $futureRv in row $row for the draft valuation in $language" in {
       page.select(valuationRvLocator(1)).text() shouldBe futureRv
+    }
+
+    s"has responsive heading in $language (Future)" in {
+
+        page.select(valuationHeadingResponsive(row)).text() shouldBe s"$valuation $helpWithValuation"
+        page.select(valuationHeadingHelpLinkResponsive(row)).attr("href") shouldBe valuationHelpHref
+
+        page.select(effectiveDateTableHeadingLocator).text() shouldBe s"$effectiveDate $helpWithEffectiveDate"
+        page.select(effectiveDateHelpLinkLocator).attr("href") shouldBe effectiveDateHelpHref
+
+        page.select(connectionTableHeadingLocator).text() shouldBe connectionToProperty
+
+        page.select(rvTableHeadingLocator).text() shouldBe rateableValue
     }
   }
 
@@ -1099,6 +1133,12 @@ class ValuationsControllerISpec extends ISpecBase {
       case "OCCUPIER"       => occupier
       case "OWNER_OCCUPIER" => ownerAndOccupier
     }
+    val valuation = if (language == English) valuationText else valuationTextWelsh
+    val helpWithValuation = if (language == English) helpWithValuationText else helpWithValuationTextWelsh
+    val effectiveDate = if (language == English) effectiveDateText else effectiveDateTextWelsh
+    val helpWithEffectiveDate = if (language == English) helpWithEffectiveDateText else helpWithEffectiveDateTextWelsh
+    val connectionToProperty = if (language == English) connectionToPropertyText else connectionToPropertyTextWelsh
+    val rateableValue = if (language == English) rateableValueText else rateableValueTextWelsh
 
     s"has a $previousText tag in row $row for the previous valuation in $language" in {
       page.select(valuationTagLocator(row)).text() shouldBe previous
@@ -1119,6 +1159,19 @@ class ValuationsControllerISpec extends ISpecBase {
 
     s"has a rateable value of $previousRv in row $row for the previous valuation in $language" in {
       page.select(valuationRvLocator(row)).text() shouldBe previousRv
+    }
+
+    s"has responsive heading in row $row in $language (Previous)" in {
+
+      page.select(valuationHeadingResponsive(row)).text() shouldBe s"$valuation $helpWithValuation"
+      page.select(valuationHeadingHelpLinkResponsive(row)).attr("href") shouldBe valuationHelpHref
+
+      page.select(effectiveDateTableHeadingLocator).text() shouldBe s"$effectiveDate $helpWithEffectiveDate"
+      page.select(effectiveDateHelpLinkLocator).attr("href") shouldBe effectiveDateHelpHref
+
+      page.select(connectionTableHeadingLocator).text() shouldBe connectionToProperty
+
+      page.select(rvTableHeadingLocator).text() shouldBe rateableValue
     }
   }
 

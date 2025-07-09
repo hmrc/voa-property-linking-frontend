@@ -16,8 +16,11 @@
 
 package base
 
-import models.challenge.myclients.ChallengeCasesWithClient
-import models.dvr.cases.check.myclients.CheckCasesWithClient
+import models.challenge.ChallengeCaseStatus
+import models.challenge.myclients.{ChallengeCaseWithClient, ChallengeCasesWithClient}
+import models.dvr.cases.check.CheckCaseStatus
+import models.dvr.cases.check.common.Client
+import models.dvr.cases.check.myclients.{CheckCaseWithClient, CheckCasesWithClient}
 import models.dvr.documents.{Document, DocumentSummary, DvrDocumentFiles}
 import models.properties.{AllowedAction, PropertyHistory, PropertyValuation, ValuationStatus}
 import models.propertyrepresentation.{AgentDetails, AgentList, AgentSummary}
@@ -25,7 +28,7 @@ import models.referencedata.ReferenceData
 import models.searchApi.{OwnerAuthAgent, OwnerAuthResult, OwnerAuthorisation}
 import models.{Accounts, ApiAssessment, ApiAssessments, ClientDetails, ClientPropertyLink, DetailedIndividualAccount, GroupAccount, IndividualDetails, ListType, Party, PropertyAddress, PropertyLink, PropertyLinkingApproved}
 
-import java.time.LocalDate
+import java.time.{LocalDate, LocalDateTime}
 import java.time.LocalDateTime.now
 
 trait TestData {
@@ -428,9 +431,35 @@ trait TestData {
     )
   )
 
-  val testCheckCasesWithClient = CheckCasesWithClient(1, 100, 0, 0, List())
+  lazy val agentCheckCase = new CheckCaseWithClient(
+    checkCaseSubmissionId = "123344",
+    checkCaseReference = "CHK10000742",
+    checkCaseStatus = CheckCaseStatus.DECISION_SENT,
+    address = "CHK-1234",
+    uarn = 1000L,
+    createdDateTime = LocalDateTime.parse("2020-07-21T17:19:33"),
+    settledDate = Some(LocalDate.parse("2020-07-22")),
+    client = Client(10000L, "Some organisation 2"),
+    submittedBy = "Some other person 2",
+    originatingAssessmentReference = 1L
+  )
 
-  val testChallengeCasesWithClient = ChallengeCasesWithClient(1, 100, 0, 0, List())
+  lazy val agentChallengeCase = new ChallengeCaseWithClient(
+    challengeCaseSubmissionId = "123344",
+    challengeCaseReference = "CHG10000742",
+    challengeCaseStatus = ChallengeCaseStatus.DECISION_SENT,
+    address = "CHG-1234",
+    uarn = 1000L,
+    createdDateTime = LocalDateTime.parse("2020-07-21T17:19:33"),
+    settledDate = Some(LocalDate.parse("2020-07-22")),
+    client = Client(10000L, "Some organisation 2"),
+    submittedBy = "Some other person 2",
+    originatingAssessmentReference = 1L
+  )
+
+  val testCheckCasesWithClient = CheckCasesWithClient(1, 100, 0, 0, List(agentCheckCase))
+
+  val testChallengeCasesWithClient = ChallengeCasesWithClient(1, 100, 0, 0, List(agentChallengeCase))
 
   val clientPropertyLink = ClientPropertyLink(
     authorisationId = 1111L,

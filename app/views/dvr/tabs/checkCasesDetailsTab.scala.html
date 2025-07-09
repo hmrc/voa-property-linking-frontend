@@ -76,27 +76,53 @@
         )
 }
 
+@reference(checkReference: String) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.1")</span><a href="@model.checkSummaryUrl(checkReference)" class='govuk-link'>@checkReference</a>
+}
+
+@submitDate(submittedDate: LocalDateTime) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.2")</span><p class="govuk-body">@formatDateTimeToDate(submittedDate)</p>
+}
+
+@tagColumn(status: String) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.3")</span><p class="govuk-body">@statusTagWithHelpLink(status)</p>
+}
+
+@closeDate(closedDate: Option[LocalDate]) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.4")</span><p class="govuk-body">@closedDate.fold("")(formattedFullDate(_))</p>
+}
+
+@submittedByColumn(submittedBy: String) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.5")</span><p class="govuk-body">@submittedBy</p>
+
+}
+
+@challengeColumn(checkReference: String) = {
+    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.6")</span><p class="govuk-body">@challengeLink(model.assessmentRef, checkReference)</p>
+}
+
+
 @row(checkReference: String, submittedDate: LocalDateTime, status: String, closedDate: Option[LocalDate], submittedBy: String) = @{
     Seq(
         TableRow(
-            content = HtmlContent(s"""<a href="${model.checkSummaryUrl(checkReference)}" class='govuk-link'>$checkReference</a>""")
+            content = HtmlContent(reference(checkReference))
         ),
         TableRow(
-            content = Text(formatDateTimeToDate(submittedDate))
+            content = HtmlContent(submitDate(submittedDate))
         ),
         TableRow(
-            content = HtmlContent(statusTagWithHelpLink(status)),
+            content = HtmlContent(tagColumn(status)),
             classes = "cca-nowrap"
         ),
         TableRow(
-            content = Text(closedDate.fold("")(formattedFullDate(_)))
+            content = HtmlContent(closeDate(closedDate))
         ),
         TableRow(
-            content = Text(submittedBy),
+            content = HtmlContent(submittedByColumn(submittedBy)),
             classes = "break-word"
         ),
         TableRow(
-            content = HtmlContent(challengeLink(model.assessmentRef, checkReference))
+            content = HtmlContent(challengeColumn(checkReference))
         )
     )
 }
@@ -179,7 +205,8 @@
                     content = Text(messages("property.details.checkcases.table.6"))
                 )
             )),
-            attributes = Map("id" -> "checkcases-table")
+            attributes = Map("id" -> "checkcases-table"),
+            classes = "responsive-table"
         ))
         }
     </div>

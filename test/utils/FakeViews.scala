@@ -95,7 +95,7 @@ trait FakeViews extends GdsComponents {
   lazy val bulletView = new views.html.components.bullets()
   lazy val naRateableDetailSectionView = new views.html.components.naRateableDetailSection(govukDetails, bulletView)
   lazy val assessmentDetailsWithRatingListView =
-    new views.html.dashboard.assessmentDetailsWithRatingList(govukDetails, govukTag)
+    new views.html.dashboard.assessmentDetailsWithRatingList(govukDetails, govukTag, govukTable)
   lazy val assessmentsView =
     new views.html.dashboard.assessments(
       mainLayout,
