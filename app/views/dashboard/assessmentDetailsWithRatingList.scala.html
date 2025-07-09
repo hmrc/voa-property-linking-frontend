@@ -129,7 +129,8 @@ list.map {  case (url, assessment) =>
         content = HtmlContent(capacity)
       ),
       TableRow(
-        content = HtmlContent(rateableValue(assessment))
+        content = HtmlContent(rateableValue(assessment)),
+        classes = "govuk-table__cell--numeric"
       )
 
   )
@@ -172,7 +173,8 @@ list.map {  case (url, assessment) =>
     {
         Seq(
             HeadCell(
-                content = HtmlContent(valuationHeader)
+                content = HtmlContent(valuationHeader),
+                classes = "govuk-!-width-one-half"
             ),
             HeadCell(
                 content = HtmlContent(effectiveDateHeader)
@@ -181,7 +183,8 @@ list.map {  case (url, assessment) =>
                 content = Text(messages("assessments.table.3"))
             ),
             HeadCell(
-                content = Text(messages("assessments.table.4"))
+                content = Text(messages("assessments.table.4")),
+                classes = "govuk-table__header--numeric"
             )
         )
     }
@@ -199,7 +202,7 @@ list.map {  case (url, assessment) =>
             rows = draftRows(model) ++ currentRows(model) ++ historicRows(model),
               head = Some(headers),
               attributes = Map("id" -> "assessments-table"),
-              classes = "responsive-table"
+              classes = "responsive-table margin-bottom-10 margin-top-10"
           ))
 
         }
