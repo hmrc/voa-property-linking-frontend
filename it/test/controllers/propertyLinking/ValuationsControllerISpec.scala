@@ -171,13 +171,20 @@ class ValuationsControllerISpec extends ISpecBase {
   val effectiveDateHelpLinkLocator = "#assessments-table > thead > tr > th:nth-child(2) > a"
   val connectionTableHeadingLocator = "#assessments-table > thead > tr > th:nth-child(3)"
   val rvTableHeadingLocator = "#assessments-table > thead > tr > th:nth-child(4)"
-  val valuationHeadingResponsive = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > span"
-  val valuationHeadingHelpLinkResponsive = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > span > a"
-  val valuationTagLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > strong"
-  val greyedOutDatesLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > span"
-  val valuationDatesLinkLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > a"
-  val valuationEffectiveDateLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(2) > p"
-  val valuationConnectionLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(3) > p"
+  val valuationHeadingResponsive = (row: Int) =>
+    s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > span"
+  val valuationHeadingHelpLinkResponsive = (row: Int) =>
+    s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > span > a"
+  val valuationTagLocator = (row: Int) =>
+    s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > strong"
+  val greyedOutDatesLocator = (row: Int) =>
+    s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > span"
+  val valuationDatesLinkLocator = (row: Int) =>
+    s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(1) > p > a"
+  val valuationEffectiveDateLocator = (row: Int) =>
+    s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(2) > p"
+  val valuationConnectionLocator = (row: Int) =>
+    s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(3) > p"
   val valuationRvLocator = (row: Int) => s"#assessments-table > tbody > tr:nth-child($row) > td:nth-child(4) > p"
   val onlyShowValuationsLocator = "#only-show"
   val otherValuationsLocator = "#other-periods"
@@ -1024,15 +1031,15 @@ class ValuationsControllerISpec extends ISpecBase {
 
     s"has responsive heading in $language (Future)" in {
 
-        page.select(valuationHeadingResponsive(row)).text() shouldBe s"$valuation $helpWithValuation"
-        page.select(valuationHeadingHelpLinkResponsive(row)).attr("href") shouldBe valuationHelpHref
+      page.select(valuationHeadingResponsive(row)).text() shouldBe s"$valuation $helpWithValuation"
+      page.select(valuationHeadingHelpLinkResponsive(row)).attr("href") shouldBe valuationHelpHref
 
-        page.select(effectiveDateTableHeadingLocator).text() shouldBe s"$effectiveDate $helpWithEffectiveDate"
-        page.select(effectiveDateHelpLinkLocator).attr("href") shouldBe effectiveDateHelpHref
+      page.select(effectiveDateTableHeadingLocator).text() shouldBe s"$effectiveDate $helpWithEffectiveDate"
+      page.select(effectiveDateHelpLinkLocator).attr("href") shouldBe effectiveDateHelpHref
 
-        page.select(connectionTableHeadingLocator).text() shouldBe connectionToProperty
+      page.select(connectionTableHeadingLocator).text() shouldBe connectionToProperty
 
-        page.select(rvTableHeadingLocator).text() shouldBe rateableValue
+      page.select(rvTableHeadingLocator).text() shouldBe rateableValue
     }
   }
 
