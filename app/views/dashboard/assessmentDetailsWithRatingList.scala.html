@@ -98,9 +98,9 @@
             @valuationDates(assessment, isDraft, tableType)
             </a>
 } else {
-        <p class="govuk-body">
-        @valuationDates(assessment, isDraft, tableType)
-        </p>
+          <span>
+          @valuationDates(assessment, isDraft, tableType)
+          </span>
     }
     </p>
 }
@@ -198,7 +198,6 @@ list.map {  case (url, assessment) =>
             <p id="no-valuation-text" class="govuk-body">@messages("assessments.no.valuation.available")</p>
         }else {
           @govukTable(Table(
-            caption = Some(messages("assessments.table.caption")),
             rows = draftRows(model) ++ currentRows(model) ++ historicRows(model),
               head = Some(headers),
               attributes = Map("id" -> "assessments-table"),
