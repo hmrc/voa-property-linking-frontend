@@ -1953,9 +1953,9 @@ timeout.keep-alive-button=Stay signed in
 timeout.sign-out-button=Sign out
 
 # TAGS
-tag.current=CURRENT
-tag.future=FUTURE
-tag.previous=PREVIOUS
+tag.current=Current
+tag.future=Future
+tag.previous=Previous
 
 #MONTHS
 month.1=January
