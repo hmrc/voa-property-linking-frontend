@@ -1961,9 +1961,9 @@ timeout.keep-alive-button=Parhau i fod wedi’ch mewngofnodi
 timeout.sign-out-button=Allgofnodi
 
 # TAGS
-tag.current=PRESENNOL
-tag.future=DYFODOL
-tag.previous=BLAENOROL
+tag.current=Presennol
+tag.future=Dyfodol
+tag.previous=Blaenorol
 
 #MONTHS
 month.1=Ionawr
