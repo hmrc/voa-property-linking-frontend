@@ -177,7 +177,7 @@ class UploadController @Inject() (
         )
     }
 
-  def continue: Action[AnyContent] =
+  def continue(evidence: EvidenceChoices): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       form
         .bindFromRequest()
@@ -190,7 +190,8 @@ class UploadController @Inject() (
                   uploadedFiles = request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
                   formEvidence =
                     form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
-                  linkingSession = request.ses
+                  linkingSession = request.ses,
+
                 )
               )
             ),
