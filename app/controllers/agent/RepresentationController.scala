@@ -71,6 +71,14 @@ class RepresentationController @Inject() (
       } yield Ok(confirmRevokeClientPropertyView(property.addressFull))
     }
 
+  // this endpoint only exists so we don't 404 when changing language after getting an error on submit
+  def showRevokeClientPropertyConfirmed(uarn: Long, plSubmissionId: String): Action[AnyContent] =
+    authenticated.async { implicit request =>
+      for {
+        property <- vmvConnector.getPropertyHistory(uarn)
+      } yield Ok(confirmRevokeClientPropertyView(property.addressFull))
+    }
+
 }
 
 object BulkActionsForm {
