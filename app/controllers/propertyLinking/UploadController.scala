@@ -190,8 +190,7 @@ class UploadController @Inject() (
                   uploadedFiles = request.ses.uploadEvidenceData.attachments.getOrElse(Map()),
                   formEvidence =
                     form.withError(FormError("evidenceType", "error.businessRatesAttachment.evidence.not.selected")),
-                  linkingSession = request.ses,
-
+                  linkingSession = request.ses
                 )
               )
             ),
