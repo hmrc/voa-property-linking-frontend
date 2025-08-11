@@ -1172,7 +1172,7 @@ class UploadControllerISpec extends ISpecBase {
 
     await(
       ws.url(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/upload"
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/claim/property-links/evidence/$evidenceType/upload"
       ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withHttpHeaders(HeaderNames.COOKIE -> "sessionId", "Csrf-Token" -> "nocheck")
         .withFollowRedirects(follow = false)

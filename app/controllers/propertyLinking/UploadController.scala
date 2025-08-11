@@ -177,7 +177,7 @@ class UploadController @Inject() (
         )
     }
 
-  def continue: Action[AnyContent] =
+  def continue(evidence: EvidenceChoices): Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
       form
         .bindFromRequest()
