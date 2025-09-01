@@ -23,7 +23,6 @@ import play.api.libs.json._
 import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model._
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.cache.client.NoSessionException
 import uk.gov.hmrc.mongo.play.json.{Codecs, PlayMongoRepository}
 import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.play.http.logging.Mdc
@@ -142,7 +141,9 @@ abstract class SessionRepository @Inject() (formId: String, mongo: MongoComponen
       } yield ()
     }
 
-  private val noSession = Future.failed[String](NoSessionException)
+  private case class NoSessionException() extends Exception("Session not found")
+
+  private val noSession = Future.failed[String](NoSessionException())
 
   private def getSessionId(implicit hc: HeaderCarrier): Future[String] =
     hc.sessionId.fold(noSession)(c => Future.successful(c.value))

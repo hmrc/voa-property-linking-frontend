@@ -118,6 +118,8 @@ ThisBuild / excludeDependencies ++= Seq(
   ExclusionRule(organization = "com.typesafe.play")
 )
 
+resolvers += MavenRepository("HMRC-open-artefacts-maven2", "https://open.artefacts.tax.service.gov.uk/maven2")
+
 val bootstrapPlayVersion = "9.16.0"
 val hmrcMongoVersion = "2.6.0"
 
@@ -129,7 +131,6 @@ lazy val compileDependencies = Seq(
   "org.typelevel"        %% "cats-core"                             % "2.13.0",
   "uk.gov.hmrc"          %% "bootstrap-frontend-play-30"            % bootstrapPlayVersion,
   "uk.gov.hmrc"          %% "play-frontend-hmrc-play-30"            % "12.7.0",
-  "uk.gov.hmrc"          %% "http-caching-client-play-30"           % "12.2.0",
   "uk.gov.hmrc"          %% "play-conditional-form-mapping-play-30" % "3.3.0",
   "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-30"                    % hmrcMongoVersion,
   "uk.gov.hmrc"          %% "uri-template"                          % "1.17.0",
