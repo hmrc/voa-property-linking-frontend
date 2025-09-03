@@ -118,8 +118,6 @@ ThisBuild / excludeDependencies ++= Seq(
   ExclusionRule(organization = "com.typesafe.play")
 )
 
-resolvers += MavenRepository("HMRC-open-artefacts-maven2", "https://open.artefacts.tax.service.gov.uk/maven2")
-
 val bootstrapPlayVersion = "9.16.0"
 val hmrcMongoVersion = "2.6.0"
 
