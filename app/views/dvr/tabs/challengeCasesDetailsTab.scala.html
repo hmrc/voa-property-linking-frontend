@@ -122,7 +122,12 @@
         <li id="challenge-rules-rules-3">@messages("challengeRules.rules.3")</li>
     </ul>
 
-    <p>@Html(messages("challengeRules.rules.paper", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")))</p>
+    <p>
+        @Html(messages(
+            "challengeRules.rules.paper",
+            s"""<a id="download-challenge-form-link" class="govuk-link" href="${config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")}">${messages("challengeRules.rules.paper.link")}</a>"""
+        ))
+    </p>
 }
 
 

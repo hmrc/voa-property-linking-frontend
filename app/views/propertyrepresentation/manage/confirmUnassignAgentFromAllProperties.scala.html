@@ -40,7 +40,7 @@
         <p class="govuk-body">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p2")</p>
 
         <h2 class="govuk-heading-m">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.whatHappensNext")</h2>
-        <p class="govuk-body">@Html(messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p3", controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation.url))</p>
+        <p class="govuk-body">@Html(messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p3", s"""<a id="remove-agent-from-account" class="govuk-link" href="${controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation.url}">${messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p3.link")}</a>"""))</p>
         <p class="govuk-body">@messages("propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.p4")</p>
         <p class="govuk-body"><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.go.account.home")</a></p>
 

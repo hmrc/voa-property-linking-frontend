@@ -41,12 +41,12 @@ pageTitle = messages("account.confirmation.title"), showTopNavigation = false) {
         <p class="govuk-body">@messages("create.success.keepUsingGg")</p>
 
         @if(affinityGroup != Individual && credentialRole != Assistant) {
-        <p class="govuk-body">@Html(messages("account.confirmation.addToGG", routes.Application.addUserToGG))</p>
+        <p class="govuk-body">@Html(messages("account.confirmation.addToGG", s"""<a class="govuk-link" href="${routes.Application.addUserToGG}" rel="external">${messages("account.confirmation.addToGG.link")}</a>"""))</p>
         }
 
         <p class="govuk-body">@Html(messages("registration.confirmation.weUseYourDetails"))</p>
 
-        <p class="govuk-body">@Html(messages("account.confirmation.disclaimer"))</p>
+        <p class="govuk-body">@Html(messages("account.confirmation.disclaimer", s"""<a class="govuk-link" href="terms-and-conditions">${messages("account.confirmation.disclaimer.link")}</a>"""))</p>
 
         @govukButton(Button(
             href = Some(config.dashboardUrl("home")),

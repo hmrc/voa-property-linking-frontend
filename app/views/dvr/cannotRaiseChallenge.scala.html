@@ -32,7 +32,7 @@
         <h1 class="govuk-heading-l">@messages("cannotRaiseChallenge.title")</h1>
 
         <p class="govuk-body">@model.reason.getOrElse("")</p>
-        <p class="govuk-body"> @Html(messages("property.dvr.challenge.error", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$backLinkUrl")))</p>
+        <p class="govuk-body"> @Html(messages("property.dvr.challenge.error", s"""<a class="govuk-link" href="${config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$backLinkUrl")}">${messages("property.dvr.challenge.error.link")}</a>"""))</p>
 
 
             @govukButton(Button(

@@ -71,8 +71,8 @@
             <li id="valuation-tab-li4" class="govuk-body govuk-!-margin-bottom-0">@messages("available.requestvaluation.listYear.2017.li4")</li>
             <li id="valuation-tab-li5" class="govuk-body govuk-!-margin-bottom-0">@messages("available.requestvaluation.listYear.2017.li5")</li>
         } else {
-            <li>@Html(messages("available.requestvaluation.listYear.2017.noCurrent.altered"))</li>
-            <li>@Html(messages("available.requestvaluation.listYear.2017.noCurrent.court"))</li>
+            <li>@Html(messages("available.requestvaluation.listYear.2017.noCurrent.altered", """<a id="cca-service-link-1" class="govuk-link"  href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>"""))</li>
+            <li>@Html(messages("available.requestvaluation.listYear.2017.noCurrent.court", """<a id="cca-service-link-2" class="govuk-link"  href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>"""))</li>
         }
         </ul>
         <p id="valuation-tab-p4" class="govuk-body">@messages("available.requestvaluation.listYear.2017.p4")</p>

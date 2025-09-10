@@ -29,6 +29,11 @@
         backLinkUrl: Option[String] = None
 )(implicit requestHeader: RequestHeader, messages: Messages, config: ApplicationConfig)
 
+@helpContent = {
+    <p class="govuk-body">@messages("getHelpContent.1")</p>
+    <p class="govuk-body">@Html(messages("getHelpContent.2", """<a href="mailto:ccaservice@voa.gov.uk" class="govuk-link">ccaservice@voa.gov.uk</a>"""))</p>
+}
+
 <article class="content_body@if(includeGridWrapper) { grid-wrapper} @if(articleClasses.isDefined) {
     @articleClasses.get
 }">
@@ -96,7 +101,7 @@
     <details class="get-help-toggle">
         <summary><span class="summary">@messages("getHelpLink")</span></summary>
         <div class="panel panel-border-wide">
-            @Html(messages("getHelpContent", "ccaservice@voa.gov.uk"))
+            @helpContent
         </div>
     </details>
 

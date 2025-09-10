@@ -43,9 +43,9 @@
     ))
 
     @if(clientDetails.nonEmpty){
-        <p class="govuk-body">@Html(messages("addPropertyStart.client.p1"))</p>
+        <p class="govuk-body">@Html(messages("addPropertyStart.client.p1", s"""<a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">${messages("addPropertyStart.p1.link")}</a>"""))</p>
     } else {
-        <p class="govuk-body">@Html(messages("addPropertyStart.p1"))</p>
+        <p class="govuk-body">@Html(messages("addPropertyStart.p1", s"""<a class="govuk-link" href="https://www.gov.uk/guidance/check-and-challenge-your-business-rates-valuation-privacy-notice">${messages("addPropertyStart.p1.link")}</a>"""))</p>
     }
     <p class="govuk-body">@messages("addPropertyStart.p2")</p>
     <p class="govuk-body">@messages("addPropertyStart.p3")</p>
