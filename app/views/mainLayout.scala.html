@@ -40,6 +40,11 @@
 
 @scriptElem = {}
 
+@helpContent = {
+    <p class="govuk-body">@messages("getHelpContent.1")</p>
+    <p class="govuk-body">@Html(messages("getHelpContent.2", """<a href="mailto:ccaservice@voa.gov.uk" class="govuk-link">ccaservice@voa.gov.uk</a>"""))</p>
+}
+
 @mainContent = {
     <div class="govuk-grid-row">
         <div class="@mainClass.getOrElse("govuk-grid-column-two-thirds")">
@@ -48,7 +53,7 @@
             @govukDetails(
                 Details(
                     summary = Text(messages("getHelpLink")),
-                    content = HtmlContent(messages("getHelpContent", "ccaservice@voa.gov.uk")),
+                    content = HtmlContent(helpContent),
                     id = Some("report-a-problem")
                 )
             )

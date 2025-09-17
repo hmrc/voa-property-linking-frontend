@@ -36,6 +36,20 @@
             content = HtmlContent(s"${messages(s"label.${error.key}$clientSuffix")} - ${messages(error.message)}") )}
 }
 
+@ownOrOccupyDetails = {
+    @if(clientSuffix.isEmpty) {
+        <p class="govuk-body">@messages(s"declareCapacity.details.ownerOrOccupier.text")</p>
+    } else {
+        <p class="govuk-body">@messages(s"declareCapacity.details.ownerOrOccupier.text.1$clientSuffix")</p>
+        <p class="govuk-body">@messages(s"declareCapacity.details.ownerOrOccupier.text.2$clientSuffix")</p>
+    }
+}
+
+@subletDetails = {
+    <p class="govuk-body">@messages(s"declareCapacity.details.notOwner.text.1$clientSuffix")</p>
+    <p class="govuk-body">@messages(s"declareCapacity.details.notOwner.text.2$clientSuffix")</p>
+}
+
 @mainLayout(
     pageTitle = messages("declarePropertyRelationship.title"),
     backUri = Some(backLink),
@@ -50,11 +64,11 @@
 
     @govukDetails(Details(
         summary = Text(messages(s"declareCapacity.details.ownerOrOccupier$clientSuffix")),
-        content = HtmlContent(Html(Messages(s"declareCapacity.details.ownerOrOccupier.text$clientSuffix"))),
+        content = HtmlContent(ownOrOccupyDetails),
         attributes = Map("id" -> "own-or-occupy-details")))
     @govukDetails(Details(
         summary = Text(messages(s"declareCapacity.details.notOwner$clientSuffix")),
-        content = HtmlContent(Html(Messages(s"declareCapacity.details.notOwner.text$clientSuffix"))),
+        content = HtmlContent(subletDetails),
         attributes = Map("id" -> "do-not-details")))
 
     @formWithCSRF(action = controllers.propertyLinking.routes.ClaimPropertyRelationshipController.submitRelationship) {

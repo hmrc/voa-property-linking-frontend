@@ -43,9 +43,9 @@ class ConfirmationUnassignAgentFromAllISpec extends ISpecBase with HtmlComponent
   val paragraphTwoLocator = "#main-content > div > div > p:nth-child(3)"
   val whatHappensNextLocator = "#main-content > div > div > h2"
   val whatHappensNextParaOneLocator = "#main-content > div > div > p:nth-child(5)"
-  val whatHappensNextParaTwoLocator = "#main-content > div > div > p:nth-child(7)"
+  val whatHappensNextParaTwoLocator = "#main-content > div > div > p:nth-child(6)"
   val removeAgentLinkLocator = "remove-agent-from-account"
-  val goHomeLinkLocator = "#main-content > div > div > p:nth-child(8) > a"
+  val goHomeLinkLocator = "#main-content > div > div > p:nth-child(7) > a"
 
   val titleMultiplePropertiesText =
     "Test Agent has been unassigned from all your properties - Valuation Office Agency - GOV.UK"

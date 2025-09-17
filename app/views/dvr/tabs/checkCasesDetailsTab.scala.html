@@ -57,7 +57,12 @@
         <li>@messages("challengeRules.rules.3")</li>
     </ul>
 
-    <p>@Html(messages("challengeRules.rules.paper", config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")))</p>
+    <p>
+        @Html(messages(
+            "challengeRules.rules.paper",
+            s"""<a id="download-challenge-form-link" class="govuk-link" href="${config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$returnUrl")}">${messages("challengeRules.rules.paper.link")}</a>"""
+        ))
+    </p>
 }
 
 @tagColour(status: String) = {
@@ -158,8 +163,7 @@
                     @Html(
                         messages(
                             "available.requestvaluation.p2",
-                            model.downloadUrl,
-                            "check-case-tab-download-check-form"
+                            s"""<a class="govuk-link" id="check-case-tab-download-check-form" href="${model.downloadUrl}">${messages("available.requestvaluation.p2.link")}</a>"""
                         )
                     )
                 </p>

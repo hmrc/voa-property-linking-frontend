@@ -31,21 +31,21 @@
             )
         )
 
-        <p id="email-sent" class="govuk-body">@Html(messages("registration.confirmation.email.sent.to", email))</p>
+        <p id="email-sent" class="govuk-body">@Html(messages("registration.confirmation.email.sent.to", s"""<strong>${email}</strong>"""))</p>
 
         <h2 id="what-next" class="govuk-heading-m">@messages("heading.whatNext")</h2>
         <p class="govuk-body">@messages("registration.confirmation.whatNext.p1")</p>
         <p class="govuk-body">@messages("registration.confirmation.whatNext.p2")</p>
         @for(code <-  agentCode){
             <p class="govuk-body">@messages("registration.confirmation.whatNext.p3")</p>
-            <p class="govuk-body">@Html(messages("registration.confirmation.whatNext.p4", routes.Application.addUserToGG))</p>
+            <p class="govuk-body">@Html(messages("registration.confirmation.whatNext.p4", s"""<a class="govuk-link" href="${routes.Application.addUserToGG}" rel="external noopener noreferrer">${messages("registration.confirmation.whatNext.p4.link")}</a>"""))</p>
         }
 
         <p class="govuk-body">@Html(messages("registration.confirmation.weUseYourDetails"))</p>
 
 
   <h2 id="terms-of-use" class="govuk-heading-m">@messages("heading.terms.of.use")</h2>
-        <p class="govuk-body">@Html(messages("registration.confirmation.termsOfUse.p"))</p>
+        <p class="govuk-body">@Html(messages("registration.confirmation.termsOfUse.p", s"""<a class="govuk-link" href="terms-and-conditions">${messages("registration.confirmation.termsOfUse.p.link")}</a>"""))</p>
 
         @govukButton(Button(
             href = Some(config.dashboardUrl("home")),

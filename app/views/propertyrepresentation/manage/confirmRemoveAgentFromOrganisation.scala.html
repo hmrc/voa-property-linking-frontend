@@ -39,7 +39,7 @@
     <h2 class="govuk-heading-m">
         @messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.whatHappensNext")
     </h2>
-    <p id="remove-agent-confirmation-p2" class="govuk-body">@Html(messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2", agentCode.toString()))</p>
+    <p id="remove-agent-confirmation-p2" class="govuk-body">@Html(messages("propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2", s"""<strong>${agentCode.toString()}</strong>"""))</p>
     <p class="govuk-body"><a class="govuk-link" href="@config.dashboardUrl("home")">@messages("link.go.account.home")</a></p>
 
 }

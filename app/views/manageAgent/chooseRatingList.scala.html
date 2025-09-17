@@ -72,7 +72,7 @@
     ))
 
     @govukInsetText(InsetText(
-      content = HtmlContent(messages("chooseRatingList.choosingAList", controllers.agent.routes.ManageAgentController.showManageAgent))
+      content = HtmlContent(messages("chooseRatingList.choosingAList", s"""<a class="govuk-link" href="${controllers.agent.routes.ManageAgentController.showManageAgent}">${messages("chooseRatingList.choosingAList.link")}</a>"""))
     ))
 
   @formWithCSRF(action = controllers.manageAgent.routes.ChooseRatingListController.submitRatingListYears) {

@@ -28,10 +28,10 @@
     <h1 class="govuk-heading-l">@messages("failedIdentityVerification.title")</h1>
 
     <p class="govuk-body">@messages("failedIdentityVerification.p.1", messages(s"failedIdentityVerification.failureReason.${failureReason.messageKey}"))</p>
-    <p class="govuk-body">@Html(Messages("failedIdentityVerification.p.2", controllers.registration.routes.RegistrationController.show.url))</p>
+    <p class="govuk-body">@Html(messages("failedIdentityVerification.p.2", s"""<a class="govuk-link" href="${controllers.registration.routes.RegistrationController.show.url}">${messages("failedIdentityVerification.p.2.link")}</a>"""))</p>
 
     <p class="govuk-body">@messages("failedIv.email")</p>
-    <p class="govuk-body"><strong>@Html(Messages("failedIv.emailaddress", "ccaservice@voa.gov.uk"))</strong></p>
+    <p class="govuk-body"><strong><a class="govuk-link" href="mailto:ccaservice@@voa.gov.uk">@messages("failedIv.emailaddress")</a></strong></p>
 
     <p class="govuk-body">@messages("failedIv.telephone.england")</p>
     <p class="govuk-body"><strong>@messages("failedIv.telephone.england.number")</strong></p>

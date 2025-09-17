@@ -34,13 +34,13 @@
         <p class="govuk-body" id="rateable-value-too-high-content-2">@messages("requestValuation.future.help.p.5")</p>
 
         <h3 class="govuk-heading-m" id="other-question-subhead">@messages("requestValuation.future.help.subheading.4")</h3>
-        <p class="govuk-body" id="other-question-content">@Html(messages("requestValuation.future.help.p.6", effectiveDate, s"${enquiryUrl}&tabName=help-tab"))</p>
+        <p class="govuk-body" id="other-question-content">@Html(messages("requestValuation.future.help.p.6", effectiveDate, s"""<a class="govuk-link" id="future-valuation-enquiry-link" href="${enquiryUrl}&tabName=help-tab">${messages("requestValuation.future.help.p.6.link")}</a>"""))</p>
 
         <ul class="govuk-list" id="help-links">
-            <li>@Html(messages("requestValuation.future.help.help.link.1"))</li>
-            <li>@Html(messages("requestValuation.future.help.help.link.2"))</li>
+            <li><a class="govuk-link" id="how-to-use-account" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">@messages("requestValuation.future.help.help.link.1")</a></li>
+            <li><a class="govuk-link" id="how-properties-are-valued" href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">@messages("requestValuation.future.help.help.link.2")</a></li>
             <li><a class="govuk-link" id="help-estimator-link" href="@{s"${estimatorUrl}&tabName=help-tab"}">@messages("requestValuation.future.help.help.link.3", effectiveDate)</a></li>
-            <li>@Html(messages("requestValuation.future.help.help.link.4"))</li>
+            <li><a class="govuk-link"  id="rates-relief" href="https://www.gov.uk/apply-for-business-rate-relief">@messages("requestValuation.future.help.help.link.4")</a></li>
         </ul>
 
     </div>

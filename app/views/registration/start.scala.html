@@ -35,8 +35,8 @@
         <li>@messages("start.registration.bp.2")</li>
         <li>@messages("start.registration.bp.3")</li>
     </ul>
-    <p class="govuk-body">@Html(messages("start.registration.p.2", routes.Login.show))</p>
-    <p class="govuk-body">@Html(messages("start.registration.p.3", routes.Application.addUserToGG))</p>
+    <p class="govuk-body">@Html(messages("start.registration.p.2", s"""<a href="${routes.Login.show}" class="govuk-link">${messages("start.registration.p.2.link")}</a>"""))</p>
+    <p class="govuk-body">@Html(messages("start.registration.p.3", s"""<a href="${routes.Application.addUserToGG}" rel="external" class="govuk-link">${messages("start.registration.p.3.link")}</a>"""))</p>
 
     @govukButton(Button(
         isStartButton = true,
@@ -56,7 +56,7 @@
         <li>@messages("start.registration.bp.9")</li>
     </ul>
     @govukInsetText(InsetText(
-        content = HtmlContent(messages("start.registration.p6"))
+        content = HtmlContent(messages("start.registration.p6", s"""<a class="govuk-link" href="https://www.gov.uk/contact-voa">${messages("start.registration.p6.link")}</a>"""))
     ))
 
 }
