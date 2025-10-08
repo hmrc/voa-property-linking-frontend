@@ -43,7 +43,7 @@
     <strong class="govuk-tag @tagColour(status)">@status</strong>
 @helpIcon(
     visuallyHiddenText = messages("property.details.challenge.status.help", status),
-    helpPageBaseUrl = config.businessRatesValuationFrontendUrl("challenge-status-help"),
+    helpPageBaseUrl = config.businessRatesValuationFrontendUrl("show-challenge-status-help"),
     guidanceElementId = s"dialog-${status.toLowerCase().replaceAll(" ", "-")}"
     )
 }
