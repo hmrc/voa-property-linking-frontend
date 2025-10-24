@@ -22,7 +22,7 @@ import uk.gov.hmrc.versioning.SbtGitVersioning
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "2.13.16"
+ThisBuild / scalaVersion := "2.13.17"
 
 lazy val TemplateTest = config("tt") extend Test
 
@@ -131,7 +131,7 @@ lazy val compileDependencies = Seq(
   "uk.gov.hmrc"          %% "play-frontend-hmrc-play-30"            % "12.19.0",
   "uk.gov.hmrc"          %% "play-conditional-form-mapping-play-30" % "3.3.0",
   "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-30"                    % hmrcMongoVersion,
-  "uk.gov.hmrc"          %% "uri-template"                          % "1.17.0",
+  "uk.gov.hmrc"          %% "uri-template"                          % "1.18.0",
   "uk.gov.hmrc"          %% "business-rates-values"                 % "3.9.0"
 )
 
