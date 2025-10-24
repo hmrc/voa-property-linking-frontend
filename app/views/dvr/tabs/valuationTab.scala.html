@@ -62,6 +62,9 @@
             <li class="govuk-!-margin-bottom-0 ">@messages("available.requestvaluation.listYear.2017.li1")</li>
             <li>@messages("available.requestvaluation.listYear.2017.li2")</li>
             <li>@messages("available.requestvaluation.listYear.2017.li3")</li>
+            @if((config.compiledListReval26Enabled && model.listYear.equals(2023)) && !config.draftListEnabled) {
+                <li>@Html(messages("available.requestvaluation.listYear.2017.rightToChallenge.li", """<a id="cca-email-link-1" class="govuk-link"  href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>"""))</li>
+            }
         </ul>
 
         <p class="govuk-body">@messages("available.requestvaluation.listYear.2017.p3")</p>
