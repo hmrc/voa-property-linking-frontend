@@ -35,7 +35,10 @@ import java.util.UUID
 
 class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
-  override lazy val extraConfig: Map[String, String] = Map("feature-switch.comparablePropertiesEnabled" -> "false")
+  override lazy val extraConfig: Map[String, String] = Map(
+    "feature-switch.comparablePropertiesEnabled" -> "false",
+    "feature-switch.compiledListReval26Enabled"  -> "true"
+  )
 
   val introSelector = "#intro"
   val mainContendSelector = "#main-content"
