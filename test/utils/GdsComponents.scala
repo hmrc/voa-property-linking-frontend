@@ -37,10 +37,11 @@ trait GdsComponents {
                                 |hmrc-timeout-dialog.enableSynchroniseTabs=true
                                 |session.timeoutSeconds=10
                                 |session.timeout=10
+                                |play-frontend-hmrc.useRebrand=true
                             """.stripMargin)
 
   lazy val minimalConfiguration = Configuration(minimalConfig)
-
+  lazy val rebrandConfig = new RebrandConfig(minimalConfiguration)
   lazy val formWithCSRF = new FormWithCSRF
   lazy val govukAccordion = new GovukAccordion
   lazy val govukBackLink = new GovukBackLink
@@ -54,10 +55,10 @@ trait GdsComponents {
   lazy val govukErrorMessage = new GovukErrorMessage
   lazy val govukErrorSummary = new GovukErrorSummary
   lazy val govukFieldset = new GovukFieldset
-  lazy val govukFooter = new GovukFooter(RebrandConfig(minimalConfiguration), govukLogo)
+  lazy val govukFooter = new GovukFooter(rebrandConfig, govukLogo)
   lazy val govukFormGroup = new GovukFormGroup
   lazy val govukHeader =
-    new GovukHeader(TudorCrownConfig(minimalConfiguration), RebrandConfig(minimalConfiguration), govukLogo)
+    new GovukHeader(new TudorCrownConfig(minimalConfiguration), rebrandConfig, govukLogo)
   lazy val govukHint = new GovukHint
   lazy val govukHintAndErrorMessage = new GovukHintAndErrorMessage(govukHint, govukErrorMessage)
   lazy val govukInput = new GovukInput(govukLabel, govukFormGroup, govukHintAndErrorMessage)
@@ -78,7 +79,7 @@ trait GdsComponents {
     govukFooter,
     govukSkipLink,
     new FixedWidthPageLayout(),
-    RebrandConfig(minimalConfiguration)
+    rebrandConfig
   )
   lazy val govukTextarea = new GovukTextarea(govukLabel, govukFormGroup, govukHintAndErrorMessage)
   lazy val govukWarningText = new GovukWarningText
