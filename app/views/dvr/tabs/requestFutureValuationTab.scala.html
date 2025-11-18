@@ -21,7 +21,8 @@
 
 @(rateableValueFormatted: Option[String],
         effectiveDate: String,
-        estimatorUrl: String)(implicit config: ApplicationConfig, messages: Messages)
+        estimatorUrl: String,
+        isWelsh: Boolean)(implicit config: ApplicationConfig, messages: Messages)
 
 @insetMessages = {
     <p>@messages("auto.requestDetailedValuation.future.rv.inset")</p>
@@ -29,6 +30,14 @@
         <a class="govuk-link" id="future-estimate-link" href="@estimatorUrl&tabName=valuation-tab">@messages(
             "auto.requestDetailedValuation.future.rv.inset.link", effectiveDate)</a>
     </p>
+}
+
+@inset = @{
+    if((config.draftListEnabled && !isWelsh) || (config.welshEstimatorEnabled && isWelsh)){
+        govukInsetText(InsetText(
+            id = Some("future-valuation-inset-rv"),
+            content = HtmlContent(insetMessages)))
+    }
 }
 
 <div class="govuk-grid-row">
@@ -43,9 +52,7 @@
             @rv
             </p>
 
-        @govukInsetText(InsetText(
-            id = Some("future-valuation-inset-rv"),
-            content = HtmlContent(insetMessages)))
+        @inset
         }
         <p class="govuk-body" id="future-valuation-not-available">
         @messages("auto.requestDetailedValuation.future.p.1", effectiveDate)
