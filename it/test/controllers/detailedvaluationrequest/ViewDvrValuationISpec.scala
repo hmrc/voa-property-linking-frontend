@@ -22,6 +22,7 @@ import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import models.challenge.ChallengeCaseStatus
 import models.challenge.myorganisations.ChallengeCaseWithAgent
 import models.dvr.cases.check.common.Agent
+import models.properties.AllowedAction
 import org.jsoup.Jsoup
 import play.api.http.HeaderNames
 import play.api.http.Status.OK
@@ -35,8 +36,11 @@ import java.util.UUID
 
 class ViewDvrValuationISpec extends ISpecBase {
 
-  override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.draftListEnabled" -> "false", "feature-switch.comparablePropertiesEnabled" -> "false")
+  override lazy val extraConfig: Map[String, String] = Map(
+    "feature-switch.draftListEnabled"            -> "false",
+    "feature-switch.comparablePropertiesEnabled" -> "false",
+    "feature-switch.compiledListReval26Enabled"  -> "true"
+  )
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
@@ -246,7 +250,10 @@ class ViewDvrValuationISpec extends ISpecBase {
 
   "DvrController myOrganisationRequestDetailValuationCheck method" should {
     "display the correct page for an IP in English" when {
-      lazy val res = getDvrValuationPage(language = English, userIsAgent = false)
+      lazy val res = {
+        setupRequestStubs(userIsAgent = false)
+        getDvrValuationPage(language = English)
+      }
       lazy val page = Jsoup.parse(res.body)
 
       "has a status of 200 OK" in {
@@ -404,7 +411,10 @@ class ViewDvrValuationISpec extends ISpecBase {
     }
 
     "display the correct page for an AGENT in English" when {
-      lazy val res = getDvrValuationPage(language = English, userIsAgent = true)
+      lazy val res = {
+        setupRequestStubs(userIsAgent = true)
+        getDvrValuationPage(language = English)
+      }
       lazy val page = Jsoup.parse(res.body)
 
       "has a status of 200 OK" in {
@@ -562,7 +572,10 @@ class ViewDvrValuationISpec extends ISpecBase {
     }
 
     "display the correct page for an IP in Welsh" when {
-      lazy val res = getDvrValuationPage(language = Welsh, userIsAgent = false)
+      lazy val res = {
+        setupRequestStubs(userIsAgent = false)
+        getDvrValuationPage(language = Welsh)
+      }
       lazy val page = Jsoup.parse(res.body)
 
       "has a status of 200 OK" in {
@@ -722,7 +735,10 @@ class ViewDvrValuationISpec extends ISpecBase {
     }
 
     "display the correct page for an AGENT in Welsh" when {
-      lazy val res = getDvrValuationPage(language = Welsh, userIsAgent = true)
+      lazy val res = {
+        setupRequestStubs(userIsAgent = true)
+        getDvrValuationPage(language = Welsh)
+      }
       lazy val page = Jsoup.parse(res.body)
 
       "has a status of 200 OK" in {
@@ -821,12 +837,55 @@ class ViewDvrValuationISpec extends ISpecBase {
         page.select(printThisPageLocator).attr("href") shouldBe printPageHref
       }
     }
+
+    "display info for challenging 2023 valuation without 2026 assessment for an AGENT in English" in {
+      val uncheckableAssessment = currentApiAssessment.copy(allowedActions =
+        currentApiAssessment.allowedActions.filterNot(_ == AllowedAction.CHECK)
+      )
+
+      setupRequestStubs(userIsAgent = true)
+      stubFor {
+        get(s"/property-linking/dashboard/owner/assessments/$submissionId")
+          .willReturn {
+            aResponse
+              .withStatus(OK)
+              .withBody(Json.toJson(testApiAssessments(List(uncheckableAssessment))).toString())
+          }
+      }
+      lazy val res = getDvrValuationPage(language = English)
+      lazy val page = Jsoup.parse(res.body)
+
+      val expected =
+        "If you think you have a right to challenge this valuation, and there is no 2026 assessment to raise a check, you can request a check manually by sending an email to ccaservice@voa.gov.uk providing your name and the address of the property you wish to check."
+
+      page.select("#challenge-conditions-info > li:nth-child(4)").text() shouldBe expected
+    }
+
+    "display info for challenging 2023 valuation without 2026 assessment for an AGENT in Welsh" in {
+      val uncheckableAssessment = currentApiAssessment.copy(allowedActions =
+        currentApiAssessment.allowedActions.filterNot(_ == AllowedAction.CHECK)
+      )
+
+      setupRequestStubs(userIsAgent = true)
+      stubFor {
+        get(s"/property-linking/dashboard/owner/assessments/$submissionId")
+          .willReturn {
+            aResponse
+              .withStatus(OK)
+              .withBody(Json.toJson(testApiAssessments(List(uncheckableAssessment))).toString())
+          }
+      }
+      lazy val res = getDvrValuationPage(language = Welsh)
+      lazy val page = Jsoup.parse(res.body)
+
+      val expected =
+        "Os ydych chi’n credu bod gennych chi hawl i herio’r prisiad hwn, ac nad oes asesiad 2026 i godi gwiriad, gallwch ofyn am wiriad â llaw trwy anfon e-bost at ccaservice@voa.gov.uk gan nodi eich enw a chyfeiriad yr eiddo rydych chi am ei wirio."
+
+      page.select("#challenge-conditions-info > li:nth-child(4)").text() shouldBe expected
+    }
   }
 
-  private def getDvrValuationPage(language: Language, userIsAgent: Boolean): WSResponse = {
-
-    getRequestStubs(userIsAgent)
-
+  private def getDvrValuationPage(language: Language): WSResponse =
     await(
       ws.url(
         s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId"
@@ -839,9 +898,8 @@ class ViewDvrValuationISpec extends ISpecBase {
         )
         .get()
     )
-  }
 
-  def getRequestStubs(userIsAgent: Boolean): StubMapping = {
+  def setupRequestStubs(userIsAgent: Boolean): StubMapping = {
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
