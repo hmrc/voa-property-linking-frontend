@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.detailedvaluationrequest
+package controllers.detailedvaluationrequest.welshEstimatorDisabled
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -29,10 +29,10 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 
 import java.util.UUID
 
-class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers {
+class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with HtmlComponentHelpers {
 
   override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.draftListEnabled" -> "true")
+    Map("feature-switch.draftListEnabled" -> "true", "feature-switch.welshEstimatorEnabled" -> "false")
 
   override def submissionId = "PL1ZRPBP7"
   override def uarn: Long = 7651789000L
@@ -214,13 +214,13 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
       document.select(rateableValueSelector).text shouldBe rateableValue
     }
 
-    "has correct inset text" in {
-      document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetText
+    "not have the inset text" in {
+      document.select(valuationTabInsetTextSelector).isEmpty shouldBe true
     }
 
-    s"has correct link text of $valuationTabInsetLinkText" in {
-      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkText
-      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkHref
+    s"not have the link text of $valuationTabInsetLinkText" in {
+      document.select(valuationTabInsetLinkTextSelector).isEmpty shouldBe true
+      document.select(valuationTabInsetLinkTextSelector).attr("href").isEmpty shouldBe true
     }
 
     "has correct p1 content" in {
@@ -349,12 +349,12 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     "has correct inset text" in {
-      document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetTextWelsh
+      document.select(valuationTabInsetTextSelector).text.isEmpty shouldBe true
     }
 
     s"has correct link text of $valuationTabInsetLinkText" in {
-      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkTextWelsh
-      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkHref
+      document.select(valuationTabInsetLinkTextSelector).text.isEmpty shouldBe true
+      document.select(valuationTabInsetLinkTextSelector).attr("href").isEmpty shouldBe true
     }
 
     "has correct p1 content" in {
@@ -494,7 +494,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
         .willReturn {
           aResponse
             .withStatus(OK)
-            .withBody(Json.toJson(testApiAssessments(assessments = List(draftApiAssessment))).toString())
+            .withBody(Json.toJson(testApiAssessments(assessments = List(draftApiAssessmentWelsh))).toString())
         }
     }
 

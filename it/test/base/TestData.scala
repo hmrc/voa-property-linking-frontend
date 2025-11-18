@@ -105,6 +105,16 @@ trait TestData {
     rateableValue = Some(1000L)
   )
 
+  lazy val draftApiAssessmentWelsh: ApiAssessment = apiAssessment.copy(
+    listYear = "2026",
+    listType = ListType.DRAFT,
+    effectiveDate = Some(april2026),
+    currentFromDate = Some(april2026),
+    currentToDate = None,
+    rateableValue = Some(1000L),
+    billingAuthorityCode = Some("6000")
+  )
+
   lazy val currentApiAssessment: ApiAssessment = apiAssessment.copy(
     listYear = "2023",
     effectiveDate = Some(april2023),
@@ -112,11 +122,25 @@ trait TestData {
     currentToDate = None,
     rateableValue = Some(2000L)
   )
+  lazy val currentApiAssessmentWelsh: ApiAssessment = apiAssessment.copy(
+    listYear = "2023",
+    effectiveDate = Some(april2023),
+    currentFromDate = Some(april2023),
+    currentToDate = None,
+    rateableValue = Some(2000L),
+    billingAuthorityCode = Some("6000")
+  )
 
   lazy val previousApiAssessment: ApiAssessment = apiAssessment.copy(
     listType = ListType.PREVIOUS,
     currentToDate = Some(march2023),
     rateableValue = Some(3000L)
+  )
+  lazy val previousApiAssessmentWelsh: ApiAssessment = apiAssessment.copy(
+    listType = ListType.PREVIOUS,
+    currentToDate = Some(march2023),
+    rateableValue = Some(3000L),
+    billingAuthorityCode = Some("6000")
   )
 
   def testApiAssessments(

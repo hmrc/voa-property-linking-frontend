@@ -87,6 +87,7 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
   lazy val newRegistrationJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newRegistrationJourneyEnabled")
   lazy val draftListEnabled: Boolean = loadBooleanConfig("feature-switch.draftListEnabled")
   lazy val compiledListReval26Enabled: Boolean = loadBooleanConfig("feature-switch.compiledListReval26Enabled")
+  lazy val welshEstimatorEnabled: Boolean = loadBooleanConfig("feature-switch.welshEstimatorEnabled")
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
 
