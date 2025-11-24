@@ -78,9 +78,9 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
   val rateableValueSelector = "#future-valuation-rv"
 
   val valuationTabInsetText =
-    "This will be the rateable value for the property. It is not what you will pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill."
+    "A business rates estimator will be available for properties in Wales once Welsh Government have announced its budget."
   val valuationTabInsetTextWelsh =
-    "Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes."
+    "Bydd amcangyfrifwr ardrethi busnes ar gael ar gyfer eiddo yng Nghymru unwaith y bydd Llywodraeth Cymru wedi cyhoeddi ei chyllideb."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
 
   val valuationTabInsetLinkText = "Estimate what the business rates bill may be from 1 April 2026"
@@ -214,8 +214,8 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
       document.select(rateableValueSelector).text shouldBe rateableValue
     }
 
-    "not have the inset text" in {
-      document.select(valuationTabInsetTextSelector).isEmpty shouldBe true
+    s"have the correct inset text $valuationTabInsetText" in {
+      document.select(valuationTabInsetTextSelector).text() shouldBe valuationTabInsetText
     }
 
     s"not have the link text of $valuationTabInsetLinkText" in {
@@ -348,8 +348,8 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
       document.select(rateableValueSelector).text shouldBe rateableValue
     }
 
-    "has correct inset text" in {
-      document.select(valuationTabInsetTextSelector).text.isEmpty shouldBe true
+    s"has correct inset text of $valuationTabInsetText" in {
+      document.select(valuationTabInsetTextSelector).text() shouldBe valuationTabInsetTextWelsh
     }
 
     s"has correct link text of $valuationTabInsetLinkText" in {

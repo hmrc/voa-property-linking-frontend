@@ -1293,6 +1293,7 @@ auto.requestDetailedValuation.future.rv.inset=Dyma fydd y gwerth ardrethol ar gy
 auto.requestDetailedValuation.future.rv.inset.link=Amcangyfrif beth all y bil ardrethi busnes fod o {0}
 auto.requestDetailedValuation.future.p.1=Ni fydd y prisiad manwl hwn ar gael tan {0}. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw.
 auto.requestDetailedValuation.future.p.2= Gellir gwneud cais am y prisiad manwl cyfredol {0} o’r prisiad cyfredol.
+auto.requestDetailedValuation.future.rv.inset.welshEstimatorDisabled=Bydd amcangyfrifwr ardrethi busnes ar gael ar gyfer eiddo yng Nghymru unwaith y bydd Llywodraeth Cymru wedi cyhoeddi ei chyllideb.
 
 available.requestvaluation.agentsTab.title=Asiantiaid ({0})
 available.requestvaluation.agentsTab.noAgents.title=Asiantiaid
