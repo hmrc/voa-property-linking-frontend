@@ -32,7 +32,11 @@ import java.util.UUID
 class ViewDvrValuationWelshEstimatorDisabledISpec extends ISpecBase {
 
   override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.draftListEnabled" -> "false", "feature-switch.comparablePropertiesEnabled" -> "false", "feature-switch.welshEstimatorEnabled" -> "false")
+    Map(
+      "feature-switch.draftListEnabled"            -> "false",
+      "feature-switch.comparablePropertiesEnabled" -> "false",
+      "feature-switch.welshEstimatorEnabled"       -> "false"
+    )
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
@@ -875,7 +879,9 @@ class ViewDvrValuationWelshEstimatorDisabledISpec extends ISpecBase {
         .willReturn {
           aResponse
             .withStatus(OK)
-            .withBody(Json.toJson(testApiAssessments(List(currentApiAssessmentWelsh, previousApiAssessmentWelsh))).toString())
+            .withBody(
+              Json.toJson(testApiAssessments(List(currentApiAssessmentWelsh, previousApiAssessmentWelsh))).toString()
+            )
         }
     }
 

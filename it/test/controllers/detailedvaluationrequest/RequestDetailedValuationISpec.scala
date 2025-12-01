@@ -74,7 +74,8 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationTabCaptionWelsh = "Gwerth ardrethol y dyfodol (o 1 Ebrill 2026)"
   val valuationTabCaptionSelector = "#future-valuation-caption"
 
-  val valuationP1 = "The government has introduced a support package worth £4.3 billion over the next three years to protect ratepayers seeing their bills increase because of the revaluation. If you previously received Small Business Rates Relief, Rural Rate Relief, the Supporting Small Business scheme or Retail, Hospitality and Leisure relief, you may be eligible for the Supporting Small Business scheme, which caps your bill increases. Further details can be found here."
+  val valuationP1 =
+    "The government has introduced a support package worth £4.3 billion over the next three years to protect ratepayers seeing their bills increase because of the revaluation. If you previously received Small Business Rates Relief, Rural Rate Relief, the Supporting Small Business scheme or Retail, Hospitality and Leisure relief, you may be eligible for the Supporting Small Business scheme, which caps your bill increases. Further details can be found here."
   val valuationP1Selector = "#government-support-caption"
 
   val rateableValue = "£1,000"
