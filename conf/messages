@@ -871,6 +871,8 @@ auto.requestDetailedValuation.localCouncilRef=Local council reference:
 
 auto.requestDetailedValuation.subhead.valuation=Valuation
 auto.requestDetailedValuation.rv.caption.future=Future rateable value (from {0})
+auto.requestDetailedValuation.rv.caption.future.governmentSupport=The government has introduced a support package worth £4.3 billion over the next three years to protect ratepayers seeing their bills increase because of the revaluation. If you previously received Small Business Rates Relief, Rural Rate Relief, the Supporting Small Business scheme or Retail, Hospitality and Leisure relief, you may be eligible for the Supporting Small Business scheme, which caps your bill increases. Further details can be found {0}.
+auto.requestDetailedValuation.rv.caption.future.here=here
 auto.requestDetailedValuation.rv.caption.current=Current rateable value ({0} to present)
 auto.requestDetailedValuation.rv.caption.previous=Previous rateable value ({0} to {1})
 auto.requestDetailedValuation.rv.inset.current=This is the rateable value for the property. It is not what you pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill.
@@ -889,6 +891,8 @@ auto.requestDetailedValuation.change.challenge.link=start a Challenge case
 auto.requestDetailedValuation.change.challenge.postLink=You must complete a Check case before sending a Challenge case.
 
 auto.requestDetailedValuation.future.tabName=Valuation
+auto.requestDetailedValuation.future.rv.governmentSupport=The government has introduced a support package worth £4.3 billion over the next three years to protect ratepayers seeing their bills increase because of the revaluation. If you previously received Small Business Rates Relief, Rural Rate Relief, the Supporting Small Business scheme or Retail, Hospitality and Leisure relief, you may be eligible for the Supporting Small Business scheme, which caps your bill increases. Further details can be found {0}.
+auto.requestDetailedValuation.future.rv.here=here
 auto.requestDetailedValuation.future.rv.caption=Future rateable value (from {0})
 auto.requestDetailedValuation.future.rv.inset=This will be the rateable value for the property. It is not what you will pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill.
 auto.requestDetailedValuation.future.rv.inset.link=Estimate what the business rates bill may be from {0}

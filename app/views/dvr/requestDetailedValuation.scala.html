@@ -41,6 +41,9 @@
 
 @address = @{Formatters.capitalisedAddress(model.address)}
 
+@linkText = @{Html(s"""<a id="business-rates-relief-link" class="govuk-link govuk-body" href="https://www.gov.uk/government/publications/budget-2025-retail-hospitality-and-leisure-factsheet/budget-2025-retail-hospitality-and-leisure-factsheet" >${messages("auto.requestDetailedValuation.rv.caption.future.here")}</a>""")}
+
+
 @if(model.listType == ListType.DRAFT) {
 
     @mainLayout(
@@ -122,7 +125,9 @@
             <h2 class="govuk-heading-m" id="valuation-subhead">
                 @messages("auto.requestDetailedValuation.subhead.valuation")
             </h2>
-
+            @if(!model.isWelsh && model.listType == ListType.DRAFT) {
+                <p class="govuk-body" id="government-support-caption"><strong>@Html(messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText))</strong></p>
+            }
             <div id="rateable-value">
                 <span class="govuk-caption-l">
                     @model.listType match {
