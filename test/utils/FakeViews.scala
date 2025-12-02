@@ -49,7 +49,7 @@ trait FakeViews extends GdsComponents {
   )
   lazy val dateFields = new dateFields(govukDateInput: GovukDateInput)
   lazy val alreadyRequestedDetailedValuationView =
-    new alreadyRequestedDetailedValuation(mainLayout, govukInsetText, govukSummaryList)
+    new alreadyRequestedDetailedValuation(mainLayout, govukInsetText, govukSummaryList, govukPanel)
   lazy val requestDetailedValuationView =
     new requestDetailedValuation(
       mainLayout,
@@ -58,16 +58,17 @@ trait FakeViews extends GdsComponents {
       govukTabs,
       formWithCSRF,
       govukSummaryList,
-      requestFutureValuationTabView
+      requestFutureValuationTabView,
+      govukPanel
     )
   lazy val requestedDetailedValuationView =
     new requestedDetailedValuation(mainLayout, govukPanel, govukSummaryList)
-  lazy val requestFutureValuationTabView = new requestFutureValuationTab(govukInsetText)
+  lazy val requestFutureValuationTabView = new requestFutureValuationTab(govukInsetText, govukPanel)
   lazy val agentsTab = new agentsTab(govukTable)
   lazy val challengeCasesDetailsTab = new challengeCasesDetailsTab(govukDetails, govukTable)
   lazy val checkCasesDetailsTab = new checkCasesDetailsTab(govukButton, govukDetails, govukTable, govukWarningText)
   lazy val startCheckTab = new startCheckTab(formWithCSRF, govukButton, govukDetails, govukRadios)
-  lazy val valuationTab = new valuationTab(govukButton, govukInsetText, govukWarningText)
+  lazy val valuationTab = new valuationTab(govukButton, govukInsetText, govukWarningText, govukPanel)
   lazy val comparablePropertiesTab = new comparablePropertiesTab()
   lazy val dvrFilesView =
     new dvrFiles(

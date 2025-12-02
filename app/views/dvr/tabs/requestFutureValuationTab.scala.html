@@ -17,7 +17,7 @@
 @import _root_.utils.Formatters.formatCurrencyRoundedToPounds
 @import config.ApplicationConfig
 
-@this(govukInsetText: GovukInsetText)
+@this(govukInsetText: GovukInsetText, govukPanel: GovukPanel)
 
 @(rateableValueFormatted: Option[String],
         effectiveDate: String,
@@ -52,13 +52,19 @@
 
 @linkText = @{Html(s"""<a id="business-rates-relief-link" class="govuk-link govuk-body" href="https://www.gov.uk/government/publications/budget-2025-retail-hospitality-and-leisure-factsheet/budget-2025-retail-hospitality-and-leisure-factsheet" >${messages("auto.requestDetailedValuation.future.rv.here")}</a>""")}
 
+@panelContent = @{
+    s"""<p class='govuk-body white'><strong>${messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText)}</strong><p>"""
+}
 
 <div class="govuk-grid-row">
     <div id="future-valuation-tab-content"  class="govuk-grid-column-three-quarters" >
         <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
         @rateableValueFormatted.map { rv =>
             @if(!isWelsh){
-              <p id="government-support-caption"><strong>@Html(messages("auto.requestDetailedValuation.future.rv.governmentSupport", linkText))</strong></p>
+                @govukPanel(Panel(
+                    content = HtmlContent(panelContent),
+                    attributes = Map("id" -> "government-support-panel")
+                ))
             }
             <span class="govuk-caption-l" id="future-valuation-caption">
                 @messages("auto.requestDetailedValuation.future.rv.caption", effectiveDate)
