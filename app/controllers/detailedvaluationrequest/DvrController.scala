@@ -495,7 +495,8 @@ class DvrController @Inject() (
                 listYear = assessment.listYear,
                 rateableValueFormatted = assessment.rateableValue.map(Formatters.formatCurrencyRoundedToPounds(_)),
                 fromDateFormatted = assessment.currentFromDate.fold("")(Formatters.formattedFullDate(_)),
-                toDateFormatted = assessment.currentToDate.map(Formatters.formattedFullDate(_))
+                toDateFormatted = assessment.currentToDate.map(Formatters.formattedFullDate(_)),
+                isWelsh = assessment.isWelsh
               )
             )
           }

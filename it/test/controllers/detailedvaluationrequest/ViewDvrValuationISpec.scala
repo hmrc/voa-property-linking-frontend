@@ -246,6 +246,10 @@ class ViewDvrValuationISpec extends ISpecBase {
   val sendCompletedCheckFormLocator = "#valuation-tab-send-check-form"
   val printThisPageLocator = "#main-content > div > div > p > a"
 
+  val valuationP1 =
+    "The government has introduced a support package worth £4.3 billion over the next three years to protect ratepayers seeing their bills increase because of the revaluation. If you previously received Small Business Rates Relief, Rural Rate Relief, the Supporting Small Business scheme or Retail, Hospitality and Leisure relief, you may be eligible for the Supporting Small Business scheme, which caps your bill increases. Further details can be found here."
+  val valuationP1Selector = "#government-support-panel > div > p.govuk-body.white"
+
   // todo write tests for flag on and off
 
   "DvrController myOrganisationRequestDetailValuationCheck method" should {
@@ -360,6 +364,10 @@ class ViewDvrValuationISpec extends ISpecBase {
 
       s"has a heading of $valuationHeadingText" in {
         page.select(valuationHeadingLocator).text() shouldBe valuationHeadingText
+      }
+
+      s"has a paragraph of $valuationP1" in {
+        page.select(valuationP1Selector).text shouldBe valuationP1
       }
 
       s"has a rateable value caption of $currentRateableValueText" in {

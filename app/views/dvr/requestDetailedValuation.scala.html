@@ -129,7 +129,7 @@
             <h2 class="govuk-heading-m" id="valuation-subhead">
                 @messages("auto.requestDetailedValuation.subhead.valuation")
             </h2>
-            @if((!model.isWelsh && model.listType == ListType.DRAFT) || (!model.isWelsh && model.listType == ListType.CURRENT)) {
+        @if((!model.isWelsh && model.listType == ListType.DRAFT) || (!model.isWelsh && model.listType == ListType.CURRENT)) {
                 @govukPanel(Panel(
                     content = HtmlContent(panelContent),
                     attributes = Map("id" -> "government-support-panel")
