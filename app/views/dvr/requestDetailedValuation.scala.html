@@ -27,7 +27,8 @@
   govukTabs: GovukTabs,
   formWithCSRF: FormWithCSRF,
   govukSummaryList: GovukSummaryList,
-  requestFutureValuationTab: views.html.dvr.tabs.requestFutureValuationTab
+  requestFutureValuationTab: views.html.dvr.tabs.requestFutureValuationTab,
+  govukPanel: GovukPanel
 )
 
 @(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String, enquiryUrl: String, estimatorUrl: String, localCouncilRef: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -43,6 +44,9 @@
 
 @linkText = @{Html(s"""<a id="business-rates-relief-link" class="govuk-link govuk-body" href="https://www.gov.uk/government/publications/budget-2025-retail-hospitality-and-leisure-factsheet/budget-2025-retail-hospitality-and-leisure-factsheet" >${messages("auto.requestDetailedValuation.rv.caption.future.here")}</a>""")}
 
+@panelContent = @{
+    s"""<p class='govuk-body white'><strong>${messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText)}</strong><p>"""
+}
 
 @if(model.listType == ListType.DRAFT) {
 
@@ -125,8 +129,11 @@
             <h2 class="govuk-heading-m" id="valuation-subhead">
                 @messages("auto.requestDetailedValuation.subhead.valuation")
             </h2>
-            @if(!model.isWelsh && model.listType == ListType.DRAFT) {
-                <p class="govuk-body" id="government-support-caption"><strong>@Html(messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText))</strong></p>
+            @if((!model.isWelsh && model.listType == ListType.DRAFT) || (!model.isWelsh && model.listType == ListType.CURRENT)) {
+                @govukPanel(Panel(
+                    content = HtmlContent(panelContent),
+                    attributes = Map("id" -> "government-support-panel")
+                ))
             }
             <div id="rateable-value">
                 <span class="govuk-caption-l">

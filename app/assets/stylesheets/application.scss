@@ -111,3 +111,7 @@ details#report-a-problem {
 #remove-file:focus {
   @include govuk-focused-text;
 }
+
+.govuk-body.white{
+  color: #fff;
+}
