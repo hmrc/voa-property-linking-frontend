@@ -33,8 +33,6 @@ import java.util.UUID
 
 class CheckYourAnswersControllerFEISpec extends ISpecBase {
 
-  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
-
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   val agentCode = 1234
   val agentName = "Test Agent"

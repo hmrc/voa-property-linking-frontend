@@ -31,8 +31,6 @@ import java.util.UUID
 
 class AppointOnePropertyFEISpec extends ISpecBase with HtmlComponentHelpers {
 
-  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
-
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
   lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =

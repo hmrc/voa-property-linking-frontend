@@ -116,8 +116,6 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
 
   lazy val comparablePropertiesEnabled: Boolean = loadBooleanConfig("feature-switch.comparablePropertiesEnabled")
 
-  lazy val agentJourney2026: Boolean = loadBooleanConfig("feature-switch.agentJourney2026Enabled")
-
 }
 
 private case class ConfigMissing(key: String) extends Exception(s"Missing config for $key")
