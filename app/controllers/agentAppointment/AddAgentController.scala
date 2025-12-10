@@ -362,13 +362,13 @@ class AddAgentController @Inject() (
 
   private def getBackLinkFromSession(implicit request: AppointAgentSessionRequest[AnyContent]) = {
     sessionRepo.get[AppointNewAgentSession].map { case Some(answer) =>
-        answer match {
-          case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
-            routes.SelectRatingListNewController.show().url
-          case answer: SelectedAgent if answer.ratingLists.nonEmpty =>
-            routes.SelectRatingListNewController.show().url
-          case _ => routes.AddAgentController.isCorrectAgent().url
-        }
+      answer match {
+        case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
+          routes.SelectRatingListNewController.show().url
+        case answer: SelectedAgent if answer.ratingLists.nonEmpty =>
+          routes.SelectRatingListNewController.show().url
+        case _ => routes.AddAgentController.isCorrectAgent().url
+      }
     }
 
     request.sessionData.backLink.getOrElse(config.dashboardUrl("home"))
@@ -404,13 +404,13 @@ class AddAgentController @Inject() (
     if (fromCya) Future.successful(routes.CheckYourAnswersController.onPageLoad().url)
     else
       sessionRepo.get[AppointNewAgentSession].map { case Some(answer) =>
-          answer match {
-            case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
-              routes.SelectRatingListNewController.show().url
-            case answer: SelectedAgent if answer.ratingLists.nonEmpty =>
-              routes.SelectRatingListNewController.show().url
-            case _ => routes.AddAgentController.isCorrectAgent().url
-          }
+        answer match {
+          case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
+            routes.SelectRatingListNewController.show().url
+          case answer: SelectedAgent if answer.ratingLists.nonEmpty =>
+            routes.SelectRatingListNewController.show().url
+          case _ => routes.AddAgentController.isCorrectAgent().url
+        }
       }
 
   def submitMultipleProperties: Action[AnyContent] =

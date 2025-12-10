@@ -221,7 +221,7 @@ class ManageAgentController @Inject() (
                   Redirect(controllers.agent.routes.ManageAgentController.showRemoveAgentFromIpOrganisation)
                 )
               case ChangeRatingList =>
-                  Future.successful(Redirect(controllers.manageAgent.routes.WhichRatingListController.showRevalEnabled))
+                Future.successful(Redirect(controllers.manageAgent.routes.WhichRatingListController.showRevalEnabled))
               case UnassignFromYourProperty =>
                 Future.successful(Redirect(controllers.agent.routes.ManageAgentController.showUnassignFromAll))
             }
