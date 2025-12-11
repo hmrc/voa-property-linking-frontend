@@ -76,6 +76,8 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
   val valuationP1 =
     "The government has introduced a support package worth £4.3 billion over the next three years to protect ratepayers seeing their bills increase because of the revaluation. If you previously received Small Business Rates Relief, Rural Rate Relief, the Supporting Small Business scheme or Retail, Hospitality and Leisure relief, you may be eligible for the Supporting Small Business scheme, which caps your bill increases. Further details can be found here."
+  val valuationP1TextWelsh =
+    "Mae’r llywodraeth wedi cyflwyno pecyn cymorth gwerth £4.3 biliwn dros y tair blynedd nesaf i ddiogelu trethdalwyr rhag weld eu biliau’n cynyddu oherwydd yr ailbrisiad. Os ydych wedi derbyn Rhyddhad Ardrethi Busnesau Bach, Rhyddhad Ardrethi Gwledig, y cynllun Cefnogi Busnesau Bach neu’r rhyddhad ar gyfer Manwerthu, Lletygarwch a Hamdden yn y gorffennol, efallai y byddwch yn gymwys ar gyfer y cynllun Cefnogi Busnesau Bach, sy’n cyfyngu ar gynnydd yn eich bil. Gellir dod o hyd i ragor o fanylion yma."
   val valuationP1Selector = "#government-support-panel > div > p.govuk-body.white"
 
   val rateableValue = "£1,000"
@@ -350,6 +352,10 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
     s"has a tab caption of $valuationTabCaption" in {
       document.select(valuationTabCaptionSelector).text shouldBe valuationTabCaptionWelsh
+    }
+
+    s"has a paragraph of $valuationP1" in {
+      document.select(valuationP1Selector).text shouldBe valuationP1TextWelsh
     }
 
     s"has a rateable value of $rateableValue" in {
