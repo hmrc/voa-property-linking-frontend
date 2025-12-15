@@ -24,13 +24,11 @@
 @year = @{if(chosenListYear.equals("2023")) "2017" else "2023"}
 
 @invalidListYear = @{
-    if (config.agentJourney2026){
-        chosenListYear match {
-            case "2026" => messages("ratingsListConfirmation.theyWillNot", "2023", "2017")
-            case "2023" => messages("ratingsListConfirmation.theyWillNot", "2026", "2017")
-            case "2017" => messages("ratingsListConfirmation.theyWillNot", "2026", "2023")
-        }
-    } else messages("ratingsListConfirmation.theyWillNot.single", year)
+    chosenListYear match {
+        case "2026" => messages("ratingsListConfirmation.theyWillNot", "2023", "2017")
+        case "2023" => messages("ratingsListConfirmation.theyWillNot", "2026", "2017")
+        case "2017" => messages("ratingsListConfirmation.theyWillNot", "2026", "2023")
+    }
 }
 
 

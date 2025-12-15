@@ -289,11 +289,8 @@ class AddAgentController @Inject() (
                       sessionRepo.saveOrUpdate(
                         SelectedAgent(searchedAgent, success, Seq.empty).copy(backLink = Some(backLink))
                       )
-                      if (config.agentJourney2026) {
-                        Future.successful(Redirect(routes.SelectRatingListNewController.show()))
-                      } else {
-                        Future.successful(Redirect(routes.RatingListOptionsController.show()))
-                      }
+                      Future.successful(Redirect(routes.SelectRatingListNewController.show()))
+
                   }
                 }
                 .flatten
@@ -365,26 +362,12 @@ class AddAgentController @Inject() (
 
   private def getBackLinkFromSession(implicit request: AppointAgentSessionRequest[AnyContent]) = {
     sessionRepo.get[AppointNewAgentSession].map { case Some(answer) =>
-      if (config.agentJourney2026) {
-        answer match {
-          case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
-            routes.SelectRatingListNewController.show().url
-          case answer: SelectedAgent if answer.ratingLists.nonEmpty =>
-            routes.SelectRatingListNewController.show().url
-          case _ => routes.AddAgentController.isCorrectAgent().url
-        }
-      } else {
-        answer match {
-          case answer: ManagingProperty if answer.ratingLists.size == 1 =>
-            routes.SelectRatingListController.show().url
-          case answer: ManagingProperty if answer.ratingLists.size == 2 =>
-            routes.RatingListOptionsController.show().url
-          case answer: SelectedAgent if answer.ratingLists.size == 1 =>
-            routes.SelectRatingListController.show().url
-          case answer: SelectedAgent if answer.ratingLists.size == 2 =>
-            routes.RatingListOptionsController.show().url
-          case _ => routes.AddAgentController.isCorrectAgent().url
-        }
+      answer match {
+        case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
+          routes.SelectRatingListNewController.show().url
+        case answer: SelectedAgent if answer.ratingLists.nonEmpty =>
+          routes.SelectRatingListNewController.show().url
+        case _ => routes.AddAgentController.isCorrectAgent().url
       }
     }
 
@@ -421,26 +404,12 @@ class AddAgentController @Inject() (
     if (fromCya) Future.successful(routes.CheckYourAnswersController.onPageLoad().url)
     else
       sessionRepo.get[AppointNewAgentSession].map { case Some(answer) =>
-        if (config.agentJourney2026) {
-          answer match {
-            case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
-              routes.SelectRatingListNewController.show().url
-            case answer: SelectedAgent if answer.ratingLists.nonEmpty =>
-              routes.SelectRatingListNewController.show().url
-            case _ => routes.AddAgentController.isCorrectAgent().url
-          }
-        } else {
-          answer match {
-            case answer: ManagingProperty if answer.ratingLists.size == 1 =>
-              routes.SelectRatingListController.show().url
-            case answer: ManagingProperty if answer.ratingLists.size == 2 =>
-              routes.RatingListOptionsController.show().url
-            case answer: SelectedAgent if answer.ratingLists.size == 1 =>
-              routes.SelectRatingListController.show().url
-            case answer: SelectedAgent if answer.ratingLists.size == 2 =>
-              routes.RatingListOptionsController.show().url
-            case _ => routes.AddAgentController.isCorrectAgent().url
-          }
+        answer match {
+          case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
+            routes.SelectRatingListNewController.show().url
+          case answer: SelectedAgent if answer.ratingLists.nonEmpty =>
+            routes.SelectRatingListNewController.show().url
+          case _ => routes.AddAgentController.isCorrectAgent().url
         }
       }
 

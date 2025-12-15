@@ -60,7 +60,7 @@
     <span class="govuk-caption-l" >@messages("propertyRepresentation.manageAgent.title")</span>
     <h1 class="govuk-heading-l">@ratingListHeader</h1>
 
-    @if(config.agentJourney2026 && listYears.size != 3){
+    @if(listYears.size != 3){
         <p class="govuk-body">@thisAgentWill</p>
         <p class="govuk-body">@theyWillNotText</p>
     }

@@ -33,9 +33,6 @@ import java.util.UUID
 
 class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
-  override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.agentJourney2026Enabled" -> "false")
-
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
@@ -387,7 +384,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
       s"should have the redirect location" in {
         result
           .headers("Location")
-          .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/choose"
+          .head shouldBe "/business-rates-property-linking/my-organisation/appoint/ratings-list/confirm-reval"
       }
     }
   }

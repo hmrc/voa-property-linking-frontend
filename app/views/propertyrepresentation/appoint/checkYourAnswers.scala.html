@@ -66,19 +66,7 @@
 }
 
 @ratingListAnswerUrl = @{
-  if(config.agentJourney2026) {
     controllers.agentAppointment.routes.SelectRatingListNewController.show(true).url
-  } else {
-    controllers.agentAppointment.routes.RatingListOptionsController.show(true).url
-  }
-}
-
-@ratingListAnswer = @{
-    if(data.ratingLists.size == 2){
-        messages("propertyRepresentation.checkYourAnswers.ratings.multiple.answer")
-    } else {
-        messages("propertyRepresentation.checkYourAnswers.ratings.single.answer",  data.ratingLists.head)
-    }
 }
 
 @threeRatingListYearsText = @{
@@ -160,7 +148,7 @@
             content = valueWithId(messages("propertyRepresentation.checkYourAnswers.ratings"), "ratings-heading")
             ),
             value = Value(
-                valueWithId(if(config.agentJourney2026) threeRatingListYearsText else ratingListAnswer, "ratings-value")
+                valueWithId(threeRatingListYearsText, "ratings-value")
             ),
             actions = Some(Actions(
             items = Seq(

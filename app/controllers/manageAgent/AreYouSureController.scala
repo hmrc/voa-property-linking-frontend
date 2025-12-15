@@ -46,7 +46,7 @@ class AreYouSureController @Inject() (
 
   def show(chosenListYear: String): Action[AnyContent] =
     authenticated.async { implicit request =>
-      if (chosenListYear == "2017" || chosenListYear == "2023" || (chosenListYear == "2026" && config.agentJourney2026))
+      if (chosenListYear == "2017" || chosenListYear == "2023" || chosenListYear == "2026")
         manageAgentSessionRepository.get[AgentSummary].map {
           case Some(AgentSummary(_, representativeCode, agentName, _, _, _, _)) =>
             Ok(
@@ -75,8 +75,6 @@ class AreYouSureController @Inject() (
       }
     }
 
-  def getBackLink: String = if (config.agentJourney2026)
-    controllers.manageAgent.routes.WhichRatingListController.showRevalEnabled.url
-  else
-    controllers.manageAgent.routes.WhichRatingListController.show.url
+  def getBackLink: String = controllers.manageAgent.routes.WhichRatingListController.showRevalEnabled.url
+
 }

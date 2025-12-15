@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.agentAppointment.agentJourney2026Enabled
+package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
@@ -33,8 +33,6 @@ import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
 import java.util.UUID
 
 class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
-
-  override lazy val extraConfig: Map[String, String] = Map("feature-switch.agentJourney2026Enabled" -> "true")
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 

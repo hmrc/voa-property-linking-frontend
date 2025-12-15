@@ -69,8 +69,7 @@ trait ISpecBase
     "microservice.services.business-rates-check.host"         -> mockHost,
     "microservice.services.business-rates-check.port"         -> mockPort.toString,
     "microservice.services.business-rates-challenge.host"     -> mockHost,
-    "microservice.services.business-rates-challenge.port"     -> mockPort.toString,
-    "feature-switch.agentJourney2026Enabled"                  -> false
+    "microservice.services.business-rates-challenge.port"     -> mockPort.toString
   ) ++ extraConfig
 
   override lazy val app: Application = new GuiceApplicationBuilder()

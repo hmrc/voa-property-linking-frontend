@@ -77,8 +77,6 @@ class AreYouSureMultipleController @Inject() (
       }
     }
 
-  def getBackLink: String = if (config.agentJourney2026)
-    controllers.manageAgent.routes.WhichRatingListController.showRevalEnabled.url
-  else
-    controllers.manageAgent.routes.ChooseRatingListController.show.url
+  def getBackLink: String = controllers.manageAgent.routes.WhichRatingListController.showRevalEnabled.url
+
 }
