@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.agentAppointment.agentJourney2026Enabled
+package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
