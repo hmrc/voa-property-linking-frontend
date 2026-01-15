@@ -101,6 +101,15 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
   lazy val bannerContentWelsh: Option[String] =
     configuration.getOptional[String]("encodedBannerContentWelsh").map(e => new String(Base64.getUrlDecoder.decode(e)))
 
+  val secondBannerContent: Option[String] = configuration.getOptional[String]("encodedSecondBannerContent") map { e =>
+    new String(Base64.getUrlDecoder.decode(e))
+  }
+
+  val secondBannerContentWelsh: Option[String] =
+    configuration.getOptional[String]("encodedSecondBannerContentWelsh") map { e =>
+      new String(Base64.getUrlDecoder.decode(e))
+    }
+
   lazy val plannedImprovementsContent: Option[String] = configuration
     .getOptional[String]("plannedImprovementsContent")
     .map(e => new String(Base64.getUrlDecoder.decode(e)))
