@@ -89,11 +89,11 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     "The Rates Liability Estimator - for England - has been removed ahead of bills being issued by local councils. For more information on how your rates bill will be calculated click here (opens in new tab)."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
 
-  val valuationTabInsetLinkText = "Estimate what the business rates bill may be from 1 April 2026"
-  val valuationTabInsetLinkTextWelsh = "Amcangyfrif beth all y bil ardrethi busnes fod o 1 Ebrill 2026"
+  val valuationTabInsetLinkText = "here (opens in new tab)"
+  val valuationTabInsetLinkTextWelsh = "here (opens in new tab)"
   val valuationTabInsetLinkTextSelector = "#future-estimate-link"
   val valuationTabInsetLinkHref =
-    "http://localhost:9300/business-rates-find/estimate-your-business-rates/start-from-dvr-valuation?authorisationId=1&propertyLinkSubmissionId=PL1ZRPBP7&valuationId=10028428&isOwner=true&uarn=7651789000&tabName=valuation-tab"
+    "https://www.gov.uk/calculate-your-business-rates"
 
   val valuationTabP1 =
     "This detailed valuation will not be available until 1 April 2026. You will be able to request it from that date."
