@@ -84,9 +84,9 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val rateableValueSelector = "#future-valuation-rv"
 
   val valuationTabInsetText =
-    "This will be the rateable value for the property. It is not what you will pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill."
+    "The Rates Liability Estimator - for England - has been removed ahead of bills being issued by local councils. For more information on how your rates bill will be calculated click here (opens in new tab)."
   val valuationTabInsetTextWelsh =
-    "Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes."
+    "The Rates Liability Estimator - for England - has been removed ahead of bills being issued by local councils. For more information on how your rates bill will be calculated click here (opens in new tab)."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
 
   val valuationTabInsetLinkText = "Estimate what the business rates bill may be from 1 April 2026"
