@@ -32,8 +32,13 @@
     </p>
 }
 
-@englishEstimatorDisabled = {
-    <p>@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled") <a id="estimate-business-rates-current" class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/calculate-your-business-rates">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link")</a>.</p>
+@estimatorLink = {<a id="estimate-business-rates-current" class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/calculate-your-business-rates">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link")</a>}
+
+@estimatorDisabledInsetText = {
+    <p class="govuk-body" id="draft-inset-text">
+    @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled", estimatorLink))
+    </p>
+
 }
 
 @welshEstimatorDisabled = {
@@ -42,10 +47,10 @@
 
 
 @inset = @{
-    if (!config.englishEstimatorEnabled){
+    if (!config.englishEstimatorEnabled && !isWelsh){
         govukInsetText(InsetText(
             id = Some("future-valuation-inset-rv"),
-            content = HtmlContent(englishEstimatorDisabled)))
+            content = HtmlContent(estimatorDisabledInsetText)))
     }
     else if((config.draftListEnabled && !isWelsh) || (config.welshEstimatorEnabled && isWelsh)){
         govukInsetText(InsetText(
