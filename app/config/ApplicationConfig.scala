@@ -86,6 +86,7 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
   lazy val ivEnabled: Boolean = loadBooleanConfig("featureFlags.ivEnabled")
   lazy val newRegistrationJourneyEnabled: Boolean = loadBooleanConfig("featureFlags.newRegistrationJourneyEnabled")
   lazy val draftListEnabled: Boolean = loadBooleanConfig("feature-switch.draftListEnabled")
+  lazy val englishEstimatorEnabled: Boolean = configuration.get[Boolean]("feature-switch.englishEstimatorEnabled")
   lazy val compiledListReval26Enabled: Boolean = loadBooleanConfig("feature-switch.compiledListReval26Enabled")
   lazy val welshEstimatorEnabled: Boolean = loadBooleanConfig("feature-switch.welshEstimatorEnabled")
   lazy val signOutUrl =
