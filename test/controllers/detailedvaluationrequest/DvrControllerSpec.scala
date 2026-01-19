@@ -955,6 +955,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val testAssessments: ApiAssessments =
       assessments.copy(assessments = assessments.assessments.map(a => a.copy(assessmentRef = assessment.assessmentRef)))
 
+    when(mockVmvConnector.getPropertyHistory(any())(any()))
+      .thenReturn(Future.successful(propertyHistory))
+
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(testAssessments)))
     when(mockDvrCaseManagement.getDvrRecord(any(), any())(any())).thenReturn(Future.successful(None))
@@ -1508,6 +1511,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     private val testAssessments =
       assessments.copy(assessments = assessments.assessments.map(a => a.copy(assessmentRef = assessment.assessmentRef)))
 
+
+    when(mockVmvConnector.getPropertyHistory(any())(any()))
+      .thenReturn(Future.successful(propertyHistory))
     when(mockPropertyLinkConnector.getOwnerAssessments(any())(any()))
       .thenReturn(Future.successful(Some(testAssessments)))
     when(mockDvrCaseManagement.getDvrRecord(any(), any())(any())).thenReturn(Future.successful(Some(dvrRecord)))
