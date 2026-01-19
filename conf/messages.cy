@@ -1297,6 +1297,7 @@ auto.requestDetailedValuation.future.rv.inset=Dyma fydd y gwerth ardrethol ar gy
 auto.requestDetailedValuation.future.rv.inset.link=Amcangyfrif beth all y bil ardrethi busnes fod o {0}
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled=The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click {0}. If you have any questions about your bill you should contact your local council. 
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link=here (opens in new tab)
+auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.download=here (opens in new tab)
 auto.requestDetailedValuation.future.p.1=Ni fydd y prisiad manwl hwn ar gael tan {0}. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw.
 auto.requestDetailedValuation.future.p.2= Gellir gwneud cais am y prisiad manwl cyfredol {0} o’r prisiad cyfredol.
 auto.requestDetailedValuation.future.rv.inset.welshEstimatorDisabled=Bydd amcangyfrifwr ardrethi busnes ar gael ar gyfer eiddo yng Nghymru unwaith y bydd Llywodraeth Cymru wedi cyhoeddi ei chyllideb.

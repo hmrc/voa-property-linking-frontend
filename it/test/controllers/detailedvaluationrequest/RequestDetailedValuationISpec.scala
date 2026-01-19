@@ -97,8 +97,11 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationTabInsetLinkText = "here (opens in new tab)"
   val valuationTabInsetLinkTextWelsh = "here (opens in new tab)"
   val valuationTabInsetLinkTextSelector = "#future-estimate-link"
+  val valuationTabInsetDownloadTextSelector = "#estimator-download"
   val valuationTabInsetLinkHref =
     "https://www.gov.uk/calculate-your-business-rates"
+val valuationTabInsetDownloadHref =
+    "/business-rates-property-linking/assets/downloads/2026-01-14 - Pub Liability Estimator.xls"
 
   val valuationTabInsetLinkWelshPropertyText = "Estimate what the business rates bill may be from 1 April 2026"
   val valuationTabInsetLinkWelshPropertyTextWelsh = "Amcangyfrif beth all y bil ardrethi busnes fod o 1 Ebrill 2026"
@@ -517,8 +520,8 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     s"has correct link text of $valuationTabInsetLinkText" in {
-      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkText
-      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe "Should be a download link here"
+      document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkText
+      document.select(valuationTabInsetDownloadTextSelector).attr("href") shouldBe valuationTabInsetDownloadHref
     }
 
     "has correct p1 content" in {
@@ -655,8 +658,8 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     s"has correct link text of $valuationTabInsetLinkText" in {
-      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkTextWelsh
-      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe "Should be a download link here"
+      document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkTextWelsh
+      document.select(valuationTabInsetDownloadTextSelector).attr("href") shouldBe valuationTabInsetDownloadHref
     }
 
     "has correct p1 content" in {
@@ -1060,8 +1063,9 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
   def getRequestStubs(welshProperty: Boolean = false, allowedEstimatorScatCode: Boolean = false): StubMapping = {
 
-    val stubbedPropertyHistory = if(allowedEstimatorScatCode) testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(scatCode = Some("062")))) else testPropertyHistory
+    val stubbedPropertyHistory = if(allowedEstimatorScatCode) testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(valuationId = valuationId,scatCode = Some("062")))) else testPropertyHistory
     val stubApiAssessment = testApiAssessments(assessments = List(if (welshProperty) draftApiAssessmentWelsh else draftApiAssessment))
+
 
     authStubs
 

@@ -898,6 +898,7 @@ auto.requestDetailedValuation.future.rv.inset=This will be the rateable value fo
 auto.requestDetailedValuation.future.rv.inset.link=Estimate what the business rates bill may be from {0}
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled=The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click {0}. If you have any questions about your bill you should contact your local council. 
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link=here (opens in new tab)
+auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.download=here (opens in new tab)
 auto.requestDetailedValuation.future.p.1=This detailed valuation will not be available until {0}. You will be able to request it from that date.
 auto.requestDetailedValuation.future.p.2=The current {0} detailed valuation can be requested from the current valuation.
 auto.requestDetailedValuation.future.rv.inset.welshEstimatorDisabled=A business rates estimator will be available for properties in Wales once Welsh Government have announced its budget.
