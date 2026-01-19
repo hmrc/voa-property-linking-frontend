@@ -475,282 +475,285 @@ val valuationTabInsetDownloadHref =
     }
   }
 
-  "myOrganisationAlreadyRequestedDetailValuation displays the correct content for viewing a draft valuation - English (English Property pub)" which {
-    lazy val document: Document = getPage(English, false, true)
+  Seq("062", "226", "227", "303").foreach{scatCode =>
+    s"myOrganisationAlreadyRequestedDetailValuation displays the correct content for viewing a draft valuation - English (English Property scatCode $scatCode)" which {
+      lazy val document: Document = getPage(English, false, true, scatCode)
 
-    s"has a title of $titleText" in {
-      document.title() shouldBe titleText
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleText
+      }
+
+      s"has a caption of $captionText" in {
+        document.select(captionTextSelector).text shouldBe captionText
+      }
+
+      s"has a heading of $h1Text" in {
+        document.select(h1TextSelector).text shouldBe h1Text
+      }
+
+      s"has text and value for $councilRefText" in {
+        document.select(councilRefTextSelector).text shouldBe councilRefText
+        document.select(councilRefValueSelector).text shouldBe "AMBER-VALLEY-REF"
+      }
+
+      s"has a $valuationTabText tab" in {
+        document.select(valuationTabTextSelector).text shouldBe valuationTabText
+      }
+
+      s"has a tab heading of $valuationTabHeading" in {
+        document.select(valuationTabHeadingSelector).text shouldBe valuationTabHeading
+      }
+
+      s"has a tab caption of $valuationTabCaption" in {
+        document.select(valuationTabCaptionSelector).text shouldBe valuationTabCaption
+      }
+
+      s"has a paragraph of $valuationP1" in {
+        document.select(valuationP1Selector).text shouldBe valuationP1
+      }
+
+      s"has a rateable value of $rateableValue" in {
+        document.select(rateableValueSelector).text shouldBe rateableValue
+      }
+
+      "has correct inset text" in {
+        document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetText
+      }
+
+      s"has correct link text of $valuationTabInsetLinkText" in {
+        document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkText
+        document.select(valuationTabInsetDownloadTextSelector).attr("href") shouldBe valuationTabInsetDownloadHref
+      }
+
+      "has correct p1 content" in {
+        document.select(valuationTabP1Selector).text shouldBe valuationTabP1
+      }
+
+      "has correct p2 content" in {
+        document.select(valuationTabP2Selector).text shouldBe valuationTabP2
+      }
+
+      s"has a $valuationHelpTabText tab" in {
+        document.select(valuationHelpTabTextSelector).text shouldBe valuationHelpTabText
+      }
+
+      s"has a tab heading of $valuationHelpTabHeadingText" in {
+        document.select(valuationHelpTabHeadingTextSelector).text shouldBe valuationHelpTabHeadingText
+      }
+
+      s"has a section heading of $valuationHelpTabRvMayChangeHeadingText" in {
+        document
+          .select(valuationHelpTabRvMayChangeHeadingTextSelector)
+          .text shouldBe valuationHelpTabRvMayChangeHeadingText
+      }
+
+      s"has correct content within $valuationHelpTabRvMayChangeHeadingText section" in {
+        document.select(valuationHelpTabRvMayChangeTextSelector).text shouldBe valuationHelpTabRvMayChangeText
+      }
+
+      s"has a section heading of $valuationHelpTabPropertyDetailsChangeHeadingText" in {
+        document
+          .select(valuationHelpTabPropertyDetailsChangeHeadingTextSelector)
+          .text shouldBe valuationHelpTabPropertyDetailsChangeHeadingText
+      }
+
+      s"has correct content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
+        document
+          .select(valuationHelpTabPropertyDetailsChangeTextSelector)
+          .text shouldBe valuationHelpTabPropertyDetailsChangeText
+      }
+
+      s"has a section heading of $valuationHelpTabRvTooHighHeadingText" in {
+        document.select(valuationHelpTabRvTooHighHeadingTextSelector).text shouldBe valuationHelpTabRvTooHighHeadingText
+      }
+
+      s"has correct p1 content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
+        document.select(valuationHelpTabRvTooHighP1TextSelector).text shouldBe valuationHelpTabRvTooHighP1Text
+      }
+
+      s"has correct p2 content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
+        document.select(valuationHelpTabRvTooHighP2TextSelector).text shouldBe valuationHelpTabRvTooHighP2Text
+      }
+
+      s"has a section heading of $valuationHelpTabValuationQuestionsHeadingText" in {
+        document
+          .select(valuationHelpTabValuationQuestionsHeadingTextSelector)
+          .text shouldBe valuationHelpTabValuationQuestionsHeadingText
+      }
+
+      s"has correct p1 content within $valuationHelpTabValuationQuestionsHeadingText section" in {
+        document
+          .select(valuationHelpTabValuationQuestionsTextSelector)
+          .text shouldBe valuationHelpTabValuationQuestionsText
+      }
+
+      s"has correct link content within $valuationHelpTabValuationQuestionsHeadingText section" in {
+        document
+          .select(valuationHelpTabValuationQuestionsLinkTextSelector)
+          .text shouldBe valuationHelpTabValuationQuestionsLinkText
+      }
+
+      s"has link for $link1Text" in {
+        document.select(link1Selector).text shouldBe link1Text
+        document.select(link1Selector).attr("href") shouldBe link1Href
+      }
+
+      s"has link for $link2Text" in {
+        document.select(link2Selector).text shouldBe link2Text
+        document.select(link2Selector).attr("href") shouldBe link2Href
+      }
+
+      s"has link for $link3Text" in {
+        document.select(link3Selector).text shouldBe link3Text
+        document.select(link3Selector).attr("href") shouldBe link3Href
+      }
+
+      s"has link for $link4Text" in {
+        document.select(link4Selector).text shouldBe link4Text
+        document.select(link4Selector).attr("href") shouldBe link4Href
+      }
     }
 
-    s"has a caption of $captionText" in {
-      document.select(captionTextSelector).text shouldBe captionText
+    s"myOrganisationAlreadyRequestedDetailValuation displays the correct content for viewing a draft valuation - Welsh (English Property scatCode $scatCode)" which {
+      lazy val document: Document = getPage(Welsh, false, true, scatCode)
+
+      s"has a title of $titleText" in {
+        document.title() shouldBe titleTextWelsh
+      }
+
+      s"has a caption of $captionText" in {
+        document.select(captionTextSelector).text shouldBe captionTextWelsh
+      }
+
+      s"has a heading of $h1Text" in {
+        document.select(h1TextSelector).text shouldBe h1TextWelsh
+      }
+
+      s"has text and value for $councilRefText" in {
+        document.select(councilRefTextSelector).text shouldBe councilRefTextWelsh
+        document.select(councilRefValueSelector).text shouldBe "AMBER-VALLEY-REF"
+      }
+
+      s"has a $valuationTabText tab" in {
+        document.select(valuationTabTextSelector).text shouldBe valuationTabTextWelsh
+      }
+
+      s"has a tab heading of $valuationTabHeading" in {
+        document.select(valuationTabHeadingSelector).text shouldBe valuationTabHeadingWelsh
+      }
+
+      s"has a tab caption of $valuationTabCaption" in {
+        document.select(valuationTabCaptionSelector).text shouldBe valuationTabCaptionWelsh
+      }
+
+      s"has a paragraph of $valuationP1" in {
+        document.select(valuationP1Selector).text shouldBe valuationP1TextWelsh
+      }
+
+      s"has a rateable value of $rateableValue" in {
+        document.select(rateableValueSelector).text shouldBe rateableValue
+      }
+
+      "has correct inset text" in {
+        document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetTextWelsh
+      }
+
+      s"has correct link text of $valuationTabInsetLinkText" in {
+        document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkTextWelsh
+        document.select(valuationTabInsetDownloadTextSelector).attr("href") shouldBe valuationTabInsetDownloadHref
+      }
+
+      "has correct p1 content" in {
+        document.select(valuationTabP1Selector).text shouldBe valuationTabP1Welsh
+      }
+
+      "has correct p2 content" in {
+        document.select(valuationTabP2Selector).text shouldBe valuationTabP2Welsh
+      }
+
+      s"has a $valuationHelpTabText tab" in {
+        document.select(valuationHelpTabTextSelector).text shouldBe valuationHelpTabTextWelsh
+      }
+
+      s"has a tab heading of $valuationHelpTabHeadingText" in {
+        document.select(valuationHelpTabHeadingTextSelector).text shouldBe valuationHelpTabHeadingTextWelsh
+      }
+
+      s"has a section heading of $valuationHelpTabRvMayChangeHeadingText" in {
+        document
+          .select(valuationHelpTabRvMayChangeHeadingTextSelector)
+          .text shouldBe valuationHelpTabRvMayChangeHeadingTextWelsh
+      }
+
+      s"has correct content within $valuationHelpTabRvMayChangeHeadingText section" in {
+        document.select(valuationHelpTabRvMayChangeTextSelector).text shouldBe valuationHelpTabRvMayChangeTextWelsh
+      }
+
+      s"has a section heading of $valuationHelpTabPropertyDetailsChangeHeadingText" in {
+        document
+          .select(valuationHelpTabPropertyDetailsChangeHeadingTextSelector)
+          .text shouldBe valuationHelpTabPropertyDetailsChangeHeadingTextWelsh
+      }
+
+      s"has correct content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
+        document
+          .select(valuationHelpTabPropertyDetailsChangeTextSelector)
+          .text shouldBe valuationHelpTabPropertyDetailsChangeTextWelsh
+      }
+
+      s"has a section heading of $valuationHelpTabRvTooHighHeadingText" in {
+        document
+          .select(valuationHelpTabRvTooHighHeadingTextSelector)
+          .text shouldBe valuationHelpTabRvTooHighHeadingTextWelsh
+      }
+
+      s"has correct p1 content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
+        document.select(valuationHelpTabRvTooHighP1TextSelector).text shouldBe valuationHelpTabRvTooHighP1TextWelsh
+      }
+
+      s"has correct p2 content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
+        document.select(valuationHelpTabRvTooHighP2TextSelector).text shouldBe valuationHelpTabRvTooHighP2TextWelsh
+      }
+
+      s"has a section heading of $valuationHelpTabValuationQuestionsHeadingText" in {
+        document
+          .select(valuationHelpTabValuationQuestionsHeadingTextSelector)
+          .text shouldBe valuationHelpTabValuationQuestionsHeadingTextWelsh
+      }
+
+      s"has correct p1 content within $valuationHelpTabValuationQuestionsHeadingText section" in {
+        document
+          .select(valuationHelpTabValuationQuestionsTextSelector)
+          .text shouldBe valuationHelpTabValuationQuestionsTextWelsh
+      }
+
+      s"has correct link content within $valuationHelpTabValuationQuestionsHeadingText section" in {
+        document
+          .select(valuationHelpTabValuationQuestionsLinkTextSelector)
+          .text shouldBe valuationHelpTabValuationQuestionsLinkTextWelsh
+      }
+
+      s"has link for $link1Text" in {
+        document.select(link1Selector).text shouldBe link1TextWelsh
+        document.select(link1Selector).attr("href") shouldBe link1Href
+      }
+
+      s"has link for $link2Text" in {
+        document.select(link2Selector).text shouldBe link2TextWelsh
+        document.select(link2Selector).attr("href") shouldBe link2Href
+      }
+
+      s"has link for $link3Text" in {
+        document.select(link3Selector).text shouldBe link3TextWelsh
+        document.select(link3Selector).attr("href") shouldBe link3Href
+      }
+
+      s"has link for $link4Text" in {
+        document.select(link4Selector).text shouldBe link4TextWelsh
+        document.select(link4Selector).attr("href") shouldBe link4Href
+      }
     }
 
-    s"has a heading of $h1Text" in {
-      document.select(h1TextSelector).text shouldBe h1Text
-    }
-
-    s"has text and value for $councilRefText" in {
-      document.select(councilRefTextSelector).text shouldBe councilRefText
-      document.select(councilRefValueSelector).text shouldBe "AMBER-VALLEY-REF"
-    }
-
-    s"has a $valuationTabText tab" in {
-      document.select(valuationTabTextSelector).text shouldBe valuationTabText
-    }
-
-    s"has a tab heading of $valuationTabHeading" in {
-      document.select(valuationTabHeadingSelector).text shouldBe valuationTabHeading
-    }
-
-    s"has a tab caption of $valuationTabCaption" in {
-      document.select(valuationTabCaptionSelector).text shouldBe valuationTabCaption
-    }
-
-    s"has a paragraph of $valuationP1" in {
-      document.select(valuationP1Selector).text shouldBe valuationP1
-    }
-
-    s"has a rateable value of $rateableValue" in {
-      document.select(rateableValueSelector).text shouldBe rateableValue
-    }
-
-    "has correct inset text" in {
-      document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetText
-    }
-
-    s"has correct link text of $valuationTabInsetLinkText" in {
-      document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkText
-      document.select(valuationTabInsetDownloadTextSelector).attr("href") shouldBe valuationTabInsetDownloadHref
-    }
-
-    "has correct p1 content" in {
-      document.select(valuationTabP1Selector).text shouldBe valuationTabP1
-    }
-
-    "has correct p2 content" in {
-      document.select(valuationTabP2Selector).text shouldBe valuationTabP2
-    }
-
-    s"has a $valuationHelpTabText tab" in {
-      document.select(valuationHelpTabTextSelector).text shouldBe valuationHelpTabText
-    }
-
-    s"has a tab heading of $valuationHelpTabHeadingText" in {
-      document.select(valuationHelpTabHeadingTextSelector).text shouldBe valuationHelpTabHeadingText
-    }
-
-    s"has a section heading of $valuationHelpTabRvMayChangeHeadingText" in {
-      document
-        .select(valuationHelpTabRvMayChangeHeadingTextSelector)
-        .text shouldBe valuationHelpTabRvMayChangeHeadingText
-    }
-
-    s"has correct content within $valuationHelpTabRvMayChangeHeadingText section" in {
-      document.select(valuationHelpTabRvMayChangeTextSelector).text shouldBe valuationHelpTabRvMayChangeText
-    }
-
-    s"has a section heading of $valuationHelpTabPropertyDetailsChangeHeadingText" in {
-      document
-        .select(valuationHelpTabPropertyDetailsChangeHeadingTextSelector)
-        .text shouldBe valuationHelpTabPropertyDetailsChangeHeadingText
-    }
-
-    s"has correct content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
-      document
-        .select(valuationHelpTabPropertyDetailsChangeTextSelector)
-        .text shouldBe valuationHelpTabPropertyDetailsChangeText
-    }
-
-    s"has a section heading of $valuationHelpTabRvTooHighHeadingText" in {
-      document.select(valuationHelpTabRvTooHighHeadingTextSelector).text shouldBe valuationHelpTabRvTooHighHeadingText
-    }
-
-    s"has correct p1 content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
-      document.select(valuationHelpTabRvTooHighP1TextSelector).text shouldBe valuationHelpTabRvTooHighP1Text
-    }
-
-    s"has correct p2 content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
-      document.select(valuationHelpTabRvTooHighP2TextSelector).text shouldBe valuationHelpTabRvTooHighP2Text
-    }
-
-    s"has a section heading of $valuationHelpTabValuationQuestionsHeadingText" in {
-      document
-        .select(valuationHelpTabValuationQuestionsHeadingTextSelector)
-        .text shouldBe valuationHelpTabValuationQuestionsHeadingText
-    }
-
-    s"has correct p1 content within $valuationHelpTabValuationQuestionsHeadingText section" in {
-      document
-        .select(valuationHelpTabValuationQuestionsTextSelector)
-        .text shouldBe valuationHelpTabValuationQuestionsText
-    }
-
-    s"has correct link content within $valuationHelpTabValuationQuestionsHeadingText section" in {
-      document
-        .select(valuationHelpTabValuationQuestionsLinkTextSelector)
-        .text shouldBe valuationHelpTabValuationQuestionsLinkText
-    }
-
-    s"has link for $link1Text" in {
-      document.select(link1Selector).text shouldBe link1Text
-      document.select(link1Selector).attr("href") shouldBe link1Href
-    }
-
-    s"has link for $link2Text" in {
-      document.select(link2Selector).text shouldBe link2Text
-      document.select(link2Selector).attr("href") shouldBe link2Href
-    }
-
-    s"has link for $link3Text" in {
-      document.select(link3Selector).text shouldBe link3Text
-      document.select(link3Selector).attr("href") shouldBe link3Href
-    }
-
-    s"has link for $link4Text" in {
-      document.select(link4Selector).text shouldBe link4Text
-      document.select(link4Selector).attr("href") shouldBe link4Href
-    }
-  }
-
-  "myOrganisationAlreadyRequestedDetailValuation displays the correct content for viewing a draft valuation - Welsh (English Property pub)" which {
-    lazy val document: Document = getPage(Welsh, false, true)
-
-    s"has a title of $titleText" in {
-      document.title() shouldBe titleTextWelsh
-    }
-
-    s"has a caption of $captionText" in {
-      document.select(captionTextSelector).text shouldBe captionTextWelsh
-    }
-
-    s"has a heading of $h1Text" in {
-      document.select(h1TextSelector).text shouldBe h1TextWelsh
-    }
-
-    s"has text and value for $councilRefText" in {
-      document.select(councilRefTextSelector).text shouldBe councilRefTextWelsh
-      document.select(councilRefValueSelector).text shouldBe "AMBER-VALLEY-REF"
-    }
-
-    s"has a $valuationTabText tab" in {
-      document.select(valuationTabTextSelector).text shouldBe valuationTabTextWelsh
-    }
-
-    s"has a tab heading of $valuationTabHeading" in {
-      document.select(valuationTabHeadingSelector).text shouldBe valuationTabHeadingWelsh
-    }
-
-    s"has a tab caption of $valuationTabCaption" in {
-      document.select(valuationTabCaptionSelector).text shouldBe valuationTabCaptionWelsh
-    }
-
-    s"has a paragraph of $valuationP1" in {
-      document.select(valuationP1Selector).text shouldBe valuationP1TextWelsh
-    }
-
-    s"has a rateable value of $rateableValue" in {
-      document.select(rateableValueSelector).text shouldBe rateableValue
-    }
-
-    "has correct inset text" in {
-      document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetTextWelsh
-    }
-
-    s"has correct link text of $valuationTabInsetLinkText" in {
-      document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkTextWelsh
-      document.select(valuationTabInsetDownloadTextSelector).attr("href") shouldBe valuationTabInsetDownloadHref
-    }
-
-    "has correct p1 content" in {
-      document.select(valuationTabP1Selector).text shouldBe valuationTabP1Welsh
-    }
-
-    "has correct p2 content" in {
-      document.select(valuationTabP2Selector).text shouldBe valuationTabP2Welsh
-    }
-
-    s"has a $valuationHelpTabText tab" in {
-      document.select(valuationHelpTabTextSelector).text shouldBe valuationHelpTabTextWelsh
-    }
-
-    s"has a tab heading of $valuationHelpTabHeadingText" in {
-      document.select(valuationHelpTabHeadingTextSelector).text shouldBe valuationHelpTabHeadingTextWelsh
-    }
-
-    s"has a section heading of $valuationHelpTabRvMayChangeHeadingText" in {
-      document
-        .select(valuationHelpTabRvMayChangeHeadingTextSelector)
-        .text shouldBe valuationHelpTabRvMayChangeHeadingTextWelsh
-    }
-
-    s"has correct content within $valuationHelpTabRvMayChangeHeadingText section" in {
-      document.select(valuationHelpTabRvMayChangeTextSelector).text shouldBe valuationHelpTabRvMayChangeTextWelsh
-    }
-
-    s"has a section heading of $valuationHelpTabPropertyDetailsChangeHeadingText" in {
-      document
-        .select(valuationHelpTabPropertyDetailsChangeHeadingTextSelector)
-        .text shouldBe valuationHelpTabPropertyDetailsChangeHeadingTextWelsh
-    }
-
-    s"has correct content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
-      document
-        .select(valuationHelpTabPropertyDetailsChangeTextSelector)
-        .text shouldBe valuationHelpTabPropertyDetailsChangeTextWelsh
-    }
-
-    s"has a section heading of $valuationHelpTabRvTooHighHeadingText" in {
-      document
-        .select(valuationHelpTabRvTooHighHeadingTextSelector)
-        .text shouldBe valuationHelpTabRvTooHighHeadingTextWelsh
-    }
-
-    s"has correct p1 content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
-      document.select(valuationHelpTabRvTooHighP1TextSelector).text shouldBe valuationHelpTabRvTooHighP1TextWelsh
-    }
-
-    s"has correct p2 content within $valuationHelpTabPropertyDetailsChangeHeadingText section" in {
-      document.select(valuationHelpTabRvTooHighP2TextSelector).text shouldBe valuationHelpTabRvTooHighP2TextWelsh
-    }
-
-    s"has a section heading of $valuationHelpTabValuationQuestionsHeadingText" in {
-      document
-        .select(valuationHelpTabValuationQuestionsHeadingTextSelector)
-        .text shouldBe valuationHelpTabValuationQuestionsHeadingTextWelsh
-    }
-
-    s"has correct p1 content within $valuationHelpTabValuationQuestionsHeadingText section" in {
-      document
-        .select(valuationHelpTabValuationQuestionsTextSelector)
-        .text shouldBe valuationHelpTabValuationQuestionsTextWelsh
-    }
-
-    s"has correct link content within $valuationHelpTabValuationQuestionsHeadingText section" in {
-      document
-        .select(valuationHelpTabValuationQuestionsLinkTextSelector)
-        .text shouldBe valuationHelpTabValuationQuestionsLinkTextWelsh
-    }
-
-    s"has link for $link1Text" in {
-      document.select(link1Selector).text shouldBe link1TextWelsh
-      document.select(link1Selector).attr("href") shouldBe link1Href
-    }
-
-    s"has link for $link2Text" in {
-      document.select(link2Selector).text shouldBe link2TextWelsh
-      document.select(link2Selector).attr("href") shouldBe link2Href
-    }
-
-    s"has link for $link3Text" in {
-      document.select(link3Selector).text shouldBe link3TextWelsh
-      document.select(link3Selector).attr("href") shouldBe link3Href
-    }
-
-    s"has link for $link4Text" in {
-      document.select(link4Selector).text shouldBe link4TextWelsh
-      document.select(link4Selector).attr("href") shouldBe link4Href
-    }
   }
 
   "myOrganisationAlreadyRequestedDetailValuation displays the correct content for viewing a draft valuation - English (Welsh Property)" which {
@@ -1040,9 +1043,9 @@ val valuationTabInsetDownloadHref =
     }
   }
 
-  private def getPage(language: Language, welshProperty: Boolean = false, allowedEstimatorScatCode: Boolean = false): Document = {
+  private def getPage(language: Language, welshProperty: Boolean = false, allowedEstimatorScatCode: Boolean = false, sCode: String = "111"): Document = {
 
-    getRequestStubs(welshProperty, allowedEstimatorScatCode)
+    getRequestStubs(welshProperty, allowedEstimatorScatCode, sCode)
 
     val res = await(
       ws.url(
@@ -1061,9 +1064,9 @@ val valuationTabInsetDownloadHref =
     Jsoup.parse(res.body)
   }
 
-  def getRequestStubs(welshProperty: Boolean = false, allowedEstimatorScatCode: Boolean = false): StubMapping = {
+  def getRequestStubs(welshProperty: Boolean = false, allowedEstimatorScatCode: Boolean = false, scatCode: String = "111"): StubMapping = {
 
-    val stubbedPropertyHistory = if(allowedEstimatorScatCode) testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(valuationId = valuationId,scatCode = Some("062")))) else testPropertyHistory
+    val stubbedPropertyHistory = if(allowedEstimatorScatCode) testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(valuationId = valuationId,scatCode = Some(scatCode)))) else testPropertyHistory
     val stubApiAssessment = testApiAssessments(assessments = List(if (welshProperty) draftApiAssessmentWelsh else draftApiAssessment))
 
 
