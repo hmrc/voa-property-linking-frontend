@@ -84,9 +84,9 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val rateableValueSelector = "#future-valuation-rv"
 
   val valuationTabInsetText =
-    "The Rates Liability Estimator - for England - has been removed ahead of bills being issued by local councils. For more information on how your rates bill will be calculated click here (opens in new tab)."
+    "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextWelsh =
-    "The Rates Liability Estimator - for England - has been removed ahead of bills being issued by local councils. For more information on how your rates bill will be calculated click here (opens in new tab)."
+    "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
 
   val valuationTabInsetLinkText = "here (opens in new tab)"
