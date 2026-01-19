@@ -32,7 +32,7 @@ import java.util.UUID
 class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with HtmlComponentHelpers {
 
   override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.draftListEnabled" -> "true", "feature-switch.welshEstimatorEnabled" -> "false")
+    Map("feature-switch.draftListEnabled" -> "true", "feature-switch.welshEstimatorEnabled" -> "false", "feature-switch.englishEstimatorEnabled" -> "true")
 
   override def submissionId = "PL1ZRPBP7"
   override def uarn: Long = 7651789000L
@@ -488,6 +488,13 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
   def getRequestStubs: StubMapping = {
 
     authStubs
+
+    stubFor {
+      get(s"/vmv/rating-listing/api/properties/$uarn")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(testPropertyHistory).toString())
+        }
+    }
 
     stubFor {
       get(s"/property-linking/dashboard/owner/assessments/$submissionId")
