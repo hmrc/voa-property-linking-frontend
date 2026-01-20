@@ -23,7 +23,7 @@
         effectiveDate: String,
         estimatorUrl: String,
         isWelsh: Boolean,
-        isEnglishEstimatorEnabled: Boolean)(implicit config: ApplicationConfig, messages: Messages)
+        isPub: Boolean)(implicit config: ApplicationConfig, messages: Messages)
 
 @insetMessages = {
     <p>@messages("auto.requestDetailedValuation.future.rv.inset")</p>
@@ -38,7 +38,7 @@
 
 @estimatorDisabledInsetText = {
     <p class="govuk-body" id="draft-inset-text">
-    @if(isEnglishEstimatorEnabled){
+    @if(isPub){
         @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.download", estimatorDownload))
     }else{
         @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link", estimatorLink))
