@@ -461,10 +461,10 @@ class DvrController @Inject() (
                           .url + s"#${tabName.getOrElse("valuation-tab")}"
                       }
             scatCode <- vmvConnector.getPropertyHistory(link.uarn).map { propertyHistory =>
-                propertyHistory
-                  .propertyValuation(valuationId)
-                  .flatMap(_.scatCode)
-              }
+                          propertyHistory
+                            .propertyValuation(valuationId)
+                            .flatMap(_.scatCode)
+                        }
 
           } yield record.fold {
             val isEnglishEstimatorEnabled = scatCode.exists(code => config.estimatorScatCodes.contains(code.take(3)))
