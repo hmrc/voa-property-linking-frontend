@@ -31,7 +31,7 @@
   govukPanel: GovukPanel
 )
 
-@(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String, enquiryUrl: String, estimatorUrl: String, localCouncilRef: String, englishEstimatorEnabled: Boolean = false)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String, enquiryUrl: String, estimatorUrl: String, localCouncilRef: String, isPub: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @returnUrl = @{
     if (owner)
@@ -88,7 +88,7 @@
                             model.effectiveDate,
                             estimatorUrl,
                             model.isWelsh,
-                            englishEstimatorEnabled
+                            isPub
                         )))
                     ),
                     TabItem(

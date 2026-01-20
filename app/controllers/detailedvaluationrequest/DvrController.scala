@@ -467,7 +467,7 @@ class DvrController @Inject() (
                         }
 
           } yield record.fold {
-            val isEnglishEstimatorEnabled = scatCode.exists(code => config.estimatorScatCodes.contains(code.take(3)))
+            val isPub = scatCode.exists(code => config.estimatorScatCodes.contains(code.take(3)))
             Ok(
               requestDetailedValuationView(
                 submissionId = submissionId,
@@ -489,7 +489,7 @@ class DvrController @Inject() (
                   "uarn"                     -> link.uarn
                 ),
                 localCouncilRef = assessment.billingAuthorityReference,
-                englishEstimatorEnabled = isEnglishEstimatorEnabled
+                isPub = isPub
               )
             )
           } { record =>
