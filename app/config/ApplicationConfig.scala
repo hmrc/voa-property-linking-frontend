@@ -111,6 +111,9 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
       new String(Base64.getUrlDecoder.decode(e))
     }
 
+  lazy val estimatorScatCodes: Set[String] =
+    configuration.get[Seq[String]]("estimator-allowed-scat-codes").toSet
+
   lazy val plannedImprovementsContent: Option[String] = configuration
     .getOptional[String]("plannedImprovementsContent")
     .map(e => new String(Base64.getUrlDecoder.decode(e)))
