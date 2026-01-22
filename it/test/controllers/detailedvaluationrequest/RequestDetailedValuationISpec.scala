@@ -85,6 +85,10 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
   val valuationTabInsetText =
     "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
+  val valuationTabPubInsetText =
+    "If you occupy a pub or music venue in England, the Government has introduced a new relief to provide further support. You can get an estimate of how the new relief reduces your 2026/27 business rates bill here (opens in new tab). The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
+  val valuationTabPubInsetTextWelsh =
+    "If you occupy a pub or music venue in England, the Government has introduced a new relief to provide further support. You can get an estimate of how the new relief reduces your 2026/27 business rates bill here (opens in new tab). The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
   val valuationTabInsetTextWelsh =
     "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
@@ -94,14 +98,16 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationTabInsetWelshPropertyTextWelsh =
     "Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes."
 
+  val valuationTabInsetPubLinkText = "an estimate of how the new relief reduces your 2026/27 business rates bill here (opens in new tab)"
+  val valuationTabInsetPubLinkTextWelsh = "an estimate of how the new relief reduces your 2026/27 business rates bill here (opens in new tab)"
   val valuationTabInsetLinkText = "here (opens in new tab)"
   val valuationTabInsetLinkTextWelsh = "here (opens in new tab)"
   val valuationTabInsetLinkTextSelector = "#future-estimate-link"
-  val valuationTabInsetDownloadTextSelector = "#estimator-download"
+  val valuationTabInsetDownloadTextSelector = "#estimator-link"
   val valuationTabInsetLinkHref =
     "https://www.gov.uk/calculate-your-business-rates"
 val valuationTabInsetDownloadHref =
-    "/business-rates-property-linking/assets/downloads/2026-01-14 - Pub Liability Estimator.xls"
+    "https://business-rate-calculator-eieo.vercel.app"
 
   val valuationTabInsetLinkWelshPropertyText = "Estimate what the business rates bill may be from 1 April 2026"
   val valuationTabInsetLinkWelshPropertyTextWelsh = "Amcangyfrif beth all y bil ardrethi busnes fod o 1 Ebrill 2026"
@@ -517,11 +523,11 @@ val valuationTabInsetDownloadHref =
       }
 
       "has correct inset text" in {
-        document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetText
+        document.select(valuationTabInsetTextSelector).text shouldBe valuationTabPubInsetText
       }
 
-      s"has correct link text of $valuationTabInsetLinkText" in {
-        document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkText
+      s"has correct link text of $valuationTabInsetPubLinkText" in {
+        document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetPubLinkText
         document.select(valuationTabInsetDownloadTextSelector).attr("href") shouldBe valuationTabInsetDownloadHref
       }
 
@@ -655,11 +661,11 @@ val valuationTabInsetDownloadHref =
       }
 
       "has correct inset text" in {
-        document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetTextWelsh
+        document.select(valuationTabInsetTextSelector).text shouldBe valuationTabPubInsetTextWelsh
       }
 
       s"has correct link text of $valuationTabInsetLinkText" in {
-        document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkTextWelsh
+        document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetPubLinkTextWelsh
         document.select(valuationTabInsetDownloadTextSelector).attr("href") shouldBe valuationTabInsetDownloadHref
       }
 
