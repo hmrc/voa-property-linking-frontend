@@ -32,7 +32,11 @@ import java.util.UUID
 class RequestDetailedValuationEnglishEstimatorEnabledISpec extends ISpecBase with HtmlComponentHelpers {
 
   override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.draftListEnabled" -> "true", "feature-switch.englishEstimatorEnabled" -> "true", "feature-switch.welshEstimatorEnabled" -> "true")
+    Map(
+      "feature-switch.draftListEnabled"        -> "true",
+      "feature-switch.englishEstimatorEnabled" -> "true",
+      "feature-switch.welshEstimatorEnabled"   -> "true"
+    )
 
   override def submissionId = "PL1ZRPBP7"
   override def uarn: Long = 7651789000L
@@ -494,7 +498,6 @@ class RequestDetailedValuationEnglishEstimatorEnabledISpec extends ISpecBase wit
       document.select(valuationTabCaptionSelector).text shouldBe valuationTabCaption
     }
 
-
     s"has a rateable value of $rateableValue" in {
       document.select(rateableValueSelector).text shouldBe rateableValue
     }
@@ -749,9 +752,13 @@ class RequestDetailedValuationEnglishEstimatorEnabledISpec extends ISpecBase wit
     }
   }
 
-  private def getPage(language: Language, welshProperty: Boolean = false, allowedEstimatorScatCode: Boolean = false): Document = {
+  private def getPage(
+        language: Language,
+        welshProperty: Boolean = false,
+        allowedEstimatorScatCode: Boolean = false
+  ): Document = {
 
-    getRequestStubs(welshProperty ,allowedEstimatorScatCode)
+    getRequestStubs(welshProperty, allowedEstimatorScatCode)
 
     val res = await(
       ws.url(
@@ -772,8 +779,12 @@ class RequestDetailedValuationEnglishEstimatorEnabledISpec extends ISpecBase wit
 
   def getRequestStubs(welshProperty: Boolean = false, allowedEstimatorScatCode: Boolean = false): StubMapping = {
 
-    val stubbedPropertyHistory = if(allowedEstimatorScatCode) testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(scatCode = Some("303")))) else testPropertyHistory
-    val stubApiAssessment = testApiAssessments(assessments = List(if (welshProperty) draftApiAssessmentWelsh else draftApiAssessment))
+    val stubbedPropertyHistory =
+      if (allowedEstimatorScatCode)
+        testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(scatCode = Some("303"))))
+      else testPropertyHistory
+    val stubApiAssessment =
+      testApiAssessments(assessments = List(if (welshProperty) draftApiAssessmentWelsh else draftApiAssessment))
 
     authStubs
 

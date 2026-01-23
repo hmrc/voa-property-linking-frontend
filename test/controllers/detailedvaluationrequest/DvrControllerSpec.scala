@@ -59,6 +59,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       "/check-case/{checkRef}/summary?propertyLinkSubmissionId={propertyLinkSubmissionId}&isOwner={isOwner}&valuationId={valuationId}"
     val enquiryUrlTemplate = "/draft-list-enquiry/start-from-dvr-valuation"
     val estimatorUrlTemplate = "/estimate-your-business-rates/start-from-dvr-valuation"
+    val pubEstimatorUrl = "/estimate-your-business-rates/calculator-start"
 
     lazy val config: ApplicationConfig = applicationConfig
 
@@ -79,7 +80,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
       checkSummaryUrlTemplate = checkSummaryUrlTemplate,
       enquiryUrlTemplate = enquiryUrlTemplate,
       estimatorUrlTemplate = estimatorUrlTemplate,
-      checkService = mockCheckService
+      checkService = mockCheckService,
+      pubEstimatorUrl = pubEstimatorUrl
     )(implicitly[ExecutionContext], implicitly[MessagesApi], implicitly[MessagesControllerComponents], config)
 
     lazy val mockSubmissionIds = {
@@ -853,7 +855,8 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         checkSummaryUrlTemplate = checkSummaryUrlTemplate,
         enquiryUrlTemplate = enquiryUrlTemplate,
         estimatorUrlTemplate = estimatorUrl,
-        checkService = mockCheckService
+        checkService = mockCheckService,
+        pubEstimatorUrl = pubEstimatorUrl
       )
 
     lazy val currentAssessment: ApiAssessment = super.assessments.assessments.drop(1).head

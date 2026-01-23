@@ -32,7 +32,11 @@ import java.util.UUID
 class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers {
 
   override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.draftListEnabled" -> "true", "feature-switch.englishEstimatorEnabled" -> "false", "feature-switch.welshEstimatorEnabled" -> "true")
+    Map(
+      "feature-switch.draftListEnabled"        -> "true",
+      "feature-switch.englishEstimatorEnabled" -> "false",
+      "feature-switch.welshEstimatorEnabled"   -> "true"
+    )
 
   override def submissionId = "PL1ZRPBP7"
   override def uarn: Long = 7651789000L
@@ -68,7 +72,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
   val valuationTabHeading = "Valuation"
   val valuationTabHeadingWelsh = "Prisiad"
-  val valuationTabHeadingSelector = "#future-valuation-tab-content > h2"
+  val valuationTabHeadingSelector = "#future-valuation-tab-content > h2:nth-child(1)"
 
   val valuationTabCaption = "Future rateable value (from 1 April 2026)"
   val valuationTabCaptionWelsh = "Gwerth ardrethol y dyfodol (o 1 Ebrill 2026)"
@@ -87,6 +91,10 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextWelsh =
     "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
+  val valuationTabInsetTextPub =
+    "If you occupy a pub or live music venue in England, the Government has introduced a new relief to provide further support. You can get an estimate of how the new relief reduces your 2026/27 business rates bill here (opens in new tab). The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
+  val valuationTabInsetTextPubWelsh =
+    "If you occupy a pub or live music venue in England, the Government has introduced a new relief to provide further support. You can get an estimate of how the new relief reduces your 2026/27 business rates bill here (opens in new tab). The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
 
   val valuationTabInsetWelshPropertyText =
@@ -96,12 +104,16 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
   val valuationTabInsetLinkText = "here (opens in new tab)"
   val valuationTabInsetLinkTextWelsh = "here (opens in new tab)"
+  val valuationTabInsetLinkTextPub =
+    "an estimate of how the new relief reduces your 2026/27 business rates bill here (opens in new tab)"
+  val valuationTabInsetLinkTextPubWelsh =
+    "an estimate of how the new relief reduces your 2026/27 business rates bill here (opens in new tab)"
   val valuationTabInsetLinkTextSelector = "#future-estimate-link"
-  val valuationTabInsetDownloadTextSelector = "#estimator-download"
+  val valuationTabInsetDownloadTextSelector = "#estimator-link"
   val valuationTabInsetLinkHref =
     "https://www.gov.uk/calculate-your-business-rates"
-val valuationTabInsetDownloadHref =
-    "/business-rates-property-linking/assets/downloads/2026-01-14 - Pub Liability Estimator.xls"
+  val valuationTabInsetDownloadHref =
+    "http://localhost:9300/business-rates-find/calculator-start"
 
   val valuationTabInsetLinkWelshPropertyText = "Estimate what the business rates bill may be from 1 April 2026"
   val valuationTabInsetLinkWelshPropertyTextWelsh = "Amcangyfrif beth all y bil ardrethi busnes fod o 1 Ebrill 2026"
@@ -475,7 +487,7 @@ val valuationTabInsetDownloadHref =
     }
   }
 
-  Seq("062", "226", "227", "303").foreach{scatCode =>
+  Seq("062", "226", "227", "303").foreach { scatCode =>
     s"myOrganisationAlreadyRequestedDetailValuation displays the correct content for viewing a draft valuation - English (English Property scatCode $scatCode)" which {
       lazy val document: Document = getPage(English, false, true, scatCode)
 
@@ -517,11 +529,11 @@ val valuationTabInsetDownloadHref =
       }
 
       "has correct inset text" in {
-        document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetText
+        document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetTextPub
       }
 
       s"has correct link text of $valuationTabInsetLinkText" in {
-        document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkText
+        document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkTextPub
         document.select(valuationTabInsetDownloadTextSelector).attr("href") shouldBe valuationTabInsetDownloadHref
       }
 
@@ -655,11 +667,11 @@ val valuationTabInsetDownloadHref =
       }
 
       "has correct inset text" in {
-        document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetTextWelsh
+        document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetTextPubWelsh
       }
 
       s"has correct link text of $valuationTabInsetLinkText" in {
-        document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkTextWelsh
+        document.select(valuationTabInsetDownloadTextSelector).text shouldBe valuationTabInsetLinkTextPubWelsh
         document.select(valuationTabInsetDownloadTextSelector).attr("href") shouldBe valuationTabInsetDownloadHref
       }
 
@@ -787,7 +799,6 @@ val valuationTabInsetDownloadHref =
     s"has a tab caption of $valuationTabCaption" in {
       document.select(valuationTabCaptionSelector).text shouldBe valuationTabCaption
     }
-
 
     s"has a rateable value of $rateableValue" in {
       document.select(rateableValueSelector).text shouldBe rateableValue
@@ -1043,7 +1054,12 @@ val valuationTabInsetDownloadHref =
     }
   }
 
-  private def getPage(language: Language, welshProperty: Boolean = false, allowedEstimatorScatCode: Boolean = false, sCode: String = "111"): Document = {
+  private def getPage(
+        language: Language,
+        welshProperty: Boolean = false,
+        allowedEstimatorScatCode: Boolean = false,
+        sCode: String = "111"
+  ): Document = {
 
     getRequestStubs(welshProperty, allowedEstimatorScatCode, sCode)
 
@@ -1064,11 +1080,19 @@ val valuationTabInsetDownloadHref =
     Jsoup.parse(res.body)
   }
 
-  def getRequestStubs(welshProperty: Boolean = false, allowedEstimatorScatCode: Boolean = false, scatCode: String = "111"): StubMapping = {
+  def getRequestStubs(
+        welshProperty: Boolean = false,
+        allowedEstimatorScatCode: Boolean = false,
+        scatCode: String = "111"
+  ): StubMapping = {
 
-    val stubbedPropertyHistory = if(allowedEstimatorScatCode) testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(valuationId = valuationId,scatCode = Some(scatCode)))) else testPropertyHistory
-    val stubApiAssessment = testApiAssessments(assessments = List(if (welshProperty) draftApiAssessmentWelsh else draftApiAssessment))
-
+    val stubbedPropertyHistory =
+      if (allowedEstimatorScatCode)
+        testPropertyHistory
+          .copy(history = Seq(testPropertyValuation.copy(valuationId = valuationId, scatCode = Some(scatCode))))
+      else testPropertyHistory
+    val stubApiAssessment =
+      testApiAssessments(assessments = List(if (welshProperty) draftApiAssessmentWelsh else draftApiAssessment))
 
     authStubs
 
