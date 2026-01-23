@@ -39,7 +39,11 @@
 
 @estimatorDisabledInsetText = {
     <p class="govuk-body" id="draft-inset-text">
-    @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.download", estimatorDownload))
+    @if(isPub){
+        @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.download", estimatorDownload))
+    }else{
+        @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link", estimatorLink))
+    }
     </p>
 
 }
