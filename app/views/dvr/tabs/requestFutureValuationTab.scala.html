@@ -23,7 +23,8 @@
         effectiveDate: String,
         estimatorUrl: String,
         isWelsh: Boolean,
-        isPub: Boolean)(implicit config: ApplicationConfig, messages: Messages)
+        isPub: Boolean,
+        pubEstimatorUrl: String)(implicit config: ApplicationConfig, messages: Messages)
 
 @insetMessages = {
     <p>@messages("auto.requestDetailedValuation.future.rv.inset")</p>
@@ -33,13 +34,13 @@
     </p>
 }
 
-@estimatorDownload = {<a id="estimator-download" class="govuk-link" href="@controllers.routes.Assets.at("downloads/2026-01-14 - Pub Liability Estimator.xls")" rel="noreferrer noopener" target="_blank">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.download.here")</a>}
+@pubEstimator = {<a id="estimator-link" class="govuk-link" href="@pubEstimatorUrl" rel="noreferrer noopener" target="_blank">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.here")</a>}
 @estimatorLink = {<a id="future-estimate-link" class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/calculate-your-business-rates">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link.here")</a>}
 
 @estimatorDisabledInsetText = {
     <p class="govuk-body" id="draft-inset-text">
     @if(isPub){
-        @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.download", estimatorDownload))
+        @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub", pubEstimator))
     }else{
         @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link", estimatorLink))
     }
@@ -91,6 +92,8 @@
             <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="future-valuation-rv">
             @rv
             </p>
+
+        @if(isPub) { <h2 class="govuk-heading-m">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.estimatorHeading")</h2> }
 
         @inset
         }

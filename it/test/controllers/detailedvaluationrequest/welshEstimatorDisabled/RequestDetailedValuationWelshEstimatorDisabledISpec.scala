@@ -32,7 +32,11 @@ import java.util.UUID
 class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with HtmlComponentHelpers {
 
   override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.draftListEnabled" -> "true", "feature-switch.welshEstimatorEnabled" -> "false", "feature-switch.englishEstimatorEnabled" -> "true")
+    Map(
+      "feature-switch.draftListEnabled"        -> "true",
+      "feature-switch.welshEstimatorEnabled"   -> "false",
+      "feature-switch.englishEstimatorEnabled" -> "true"
+    )
 
   override def submissionId = "PL1ZRPBP7"
   override def uarn: Long = 7651789000L
