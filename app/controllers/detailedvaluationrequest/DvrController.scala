@@ -66,7 +66,8 @@ class DvrController @Inject() (
       propertyMissingView: views.html.errors.propertyMissing,
       @Named("check.summary.url") checkSummaryUrlTemplate: String,
       @Named("vmv.send-enquiry.url") enquiryUrlTemplate: String,
-      @Named("vmv.estimator-dvr-valuation.url") estimatorUrlTemplate: String
+      @Named("vmv.estimator-dvr-valuation.url") estimatorUrlTemplate: String,
+      @Named("vmv.pubEstimator.url") pubEstimatorUrl: String
 )(implicit
       val executionContext: ExecutionContext,
       override val messagesApi: MessagesApi,
@@ -489,7 +490,8 @@ class DvrController @Inject() (
                   "uarn"                     -> link.uarn
                 ),
                 localCouncilRef = assessment.billingAuthorityReference,
-                isPub = isPub
+                isPub = isPub,
+                pubEstimatorUrl = pubEstimatorUrl
               )
             )
           } { record =>
