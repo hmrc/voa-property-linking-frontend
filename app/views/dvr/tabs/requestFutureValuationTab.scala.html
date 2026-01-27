@@ -34,18 +34,18 @@
     </p>
 }
 
-@pubEstimator = {<a id="estimator-link" class="govuk-link" href="@pubEstimatorUrl" rel="noreferrer noopener" target="_blank">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.here")</a>}
+@pubReliefs = {<a id="reliefs-link" class="govuk-link" href="https://www.gov.uk/government/news/pubs-and-live-music-venues-relief" rel="noreferrer noopener" target="_blank">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.1.link")</a>}
+@pubEstimator = {<a id="estimator-link" class="govuk-link" href="@pubEstimatorUrl" rel="noreferrer noopener" target="_blank">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.2.link")</a>}
 @estimatorLink = {<a id="future-estimate-link" class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/calculate-your-business-rates">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link.here")</a>}
 
 @estimatorDisabledInsetText = {
-    <p class="govuk-body" id="draft-inset-text">
-    @if(isPub){
-        @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub", pubEstimator))
-    }else{
-        @Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link", estimatorLink))
-    }
-    </p>
 
+    @if(isPub){
+        <p class="govuk-body" id="draft-inset-text-1">@Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.1", pubEstimator))</p>
+        <p class="govuk-body" id="draft-inset-text-2">@Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.2", pubReliefs))</p>
+    }else{
+        <p class="govuk-body" id="draft-inset-text">@Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link", estimatorLink))</p>
+    }
 }
 
 @welshEstimatorDisabled = {
