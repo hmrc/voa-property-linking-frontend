@@ -90,7 +90,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationTabInsetText =
     "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextWelsh =
-    "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
+    "Mae’r teclyn amcangyfrif ar gyfer Lloegr wedi’i dynnu i lawr cyn i filiau ardrethi busnes gael eu cyhoeddi gan gynghorau lleol. Gall Asiantaeth y Swyddfa Brisio eich helpu gydag unrhyw gwestiynau am eich gwerth ardrethol. Am ragor o wybodaeth am sut y caiff eich bil ei gyfrifo cliciwch yma (yn agor mewn tab newydd). Os oes gennych unrhyw gwestiynau am eich bil, dylech gysylltu â’ch cyngor lleol."
   val valuationTabInsetTextPub1 = "If you occupy a pub or live music venue in England, the Government has introduced a new relief to provide further support. Find more information about the relief and which properties are eligible for it (opens in new tab)."
   val valuationTabInsetTextPub1Welsh = "If you occupy a pub or live music venue in England, the Government has introduced a new relief to provide further support. Find more information about the relief and which properties are eligible for it (opens in new tab)."
   val valuationTabInsetTextPub2 = "You can get an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab). The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
@@ -106,7 +106,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     "Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes."
 
   val valuationTabInsetLinkText = "here (opens in new tab)"
-  val valuationTabInsetLinkTextWelsh = "here (opens in new tab)"
+  val valuationTabInsetLinkTextWelsh = "yma (yn agor mewn tab newydd)"
   val valuationTabInsetLinkTextPubEstimator =
     "an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab)"
   val valuationTabInsetLinkTextPubEstimatorWelsh =
@@ -118,6 +118,8 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationTabInsetReliefsTextSelector = "#reliefs-link"
   val valuationTabInsetLinkHref =
     "https://www.gov.uk/calculate-your-business-rates"
+  val valuationTabInsetLinkHrefWelsh =
+    "https://www.gov.uk/cyfrifwch-eich-ardrethibusnes"
   val valuationTabInsetDownloadHref =
     "http://localhost:9300/business-rates-find/calculator-start"
   val valuationTabInsetReliefsHref =
@@ -401,7 +403,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
     s"has correct link text of $valuationTabInsetLinkText" in {
       document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkTextWelsh
-      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkHref
+      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkHrefWelsh
     }
 
     "has correct p1 content" in {
