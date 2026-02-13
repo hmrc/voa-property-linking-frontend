@@ -35,7 +35,8 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     Map(
       "feature-switch.draftListEnabled"        -> "true",
       "feature-switch.englishEstimatorEnabled" -> "false",
-      "feature-switch.welshEstimatorEnabled"   -> "true"
+      "feature-switch.welshEstimatorEnabled"   -> "true",
+      "feature-switch.englishPubEstimatorEnabled"   -> "true"
     )
 
   override def submissionId = "PL1ZRPBP7"

@@ -40,7 +40,7 @@
 
 @estimatorDisabledInsetText = {
 
-    @if(isPub){
+    @if(isPub && config.englishPubEstimatorEnabled){
         <p class="govuk-body" id="draft-inset-text-1">@Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.1", pubReliefs))</p>
         <p class="govuk-body" id="draft-inset-text-2">@Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.2", pubEstimator))</p>
     }else{
@@ -93,7 +93,7 @@
             @rv
             </p>
 
-        @if(isPub) { <h2 class="govuk-heading-m">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.estimatorHeading")</h2> }
+        @if(isPub && config.englishPubEstimatorEnabled) { <h2 class="govuk-heading-m">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.estimatorHeading")</h2> }
 
         @inset
         }
