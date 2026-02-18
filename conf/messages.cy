@@ -182,7 +182,7 @@ assessments.table.2=Dyddiad dod i rym
 assessments.table.3=Cysylltiad a r eiddo
 assessments.table.4=Gwerth ardrethol
 assessments.enddate.present=Presennol
-assessments.enddate.historic.empty=31 Mawrth 2023
+assessments.enddate.historic.empty=31 Mawrth {0}
 
 assessments.localAuthorityRef=Cyfeirnod yr awdurdod lleol:
 assessments.property=Eiddo:
@@ -858,11 +858,11 @@ available.requestvaluation.listYear.2017.li3=mae’r achos Herio yn ymwneud â n
 available.requestvaluation.listYear.2017.rightToChallenge.li=Os ydych chi’n credu bod gennych chi hawl i herio’r prisiad hwn, ac nad oes asesiad 2026 i godi gwiriad, gallwch ofyn am wiriad â llaw trwy anfon e-bost at {0} gan nodi eich enw a chyfeiriad yr eiddo rydych chi am ei wirio.
 available.requestvaluation.listYear.2017.p3=Gallwch hefyd anfon achos Herio atom os (mae unrhyw un o’r rhain yn berthnasol):
 available.requestvaluation.listYear.2017.li4=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol.
-available.requestvaluation.listYear.2017.li5=effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2023, rydych yn anfon achos Gwirio o’r prisiad cyfredol.
+available.requestvaluation.listYear.2017.li5=effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref {0}, rydych yn anfon achos Gwirio o’r prisiad cyfredol.
 available.requestvaluation.listYear.2017.p4=Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar.
 
 available.requestvaluation.listYear.2017.noCurrent.altered=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon e-bost atom i {0} er mwyn anfon achos Gwirio
-available.requestvaluation.listYear.2017.noCurrent.court=yw penderfyniad llys wedi effeithio ar werth ardrethol yr eiddo hwn ac eich bod yn anfon e-bost atom i {0} cyn 1 Hydref 2023 er mwyn anfon achos Gwirio
+available.requestvaluation.listYear.2017.noCurrent.court=yw penderfyniad llys wedi effeithio ar werth ardrethol yr eiddo hwn ac eich bod yn anfon e-bost atom i {1} cyn 1 Hydref {0} er mwyn anfon achos Gwirio
 
 requestValuation.future.help.title=Cymorth gyda’ch prisiad yn y dyfodol
 requestValuation.future.help.subheading.1=Gall eich gwerth ardrethol newid ar {0}

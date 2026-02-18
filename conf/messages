@@ -237,7 +237,7 @@ assessments.table.3=Connection to property
 assessments.table.4=Rateable value
 assessments.enddate.present=Present
 assessments.enddate.present.lowercase=present
-assessments.enddate.historic.empty=31 March 2023
+assessments.enddate.historic.empty=31 March {0}
 
 assessments.localAuthorityRef=Local council reference:
 assessments.property=Property:
@@ -933,17 +933,17 @@ available.requestvaluation.agentsTab.table.header.totalCases=Total cases for thi
 available.requestvaluation.agentsTab.table.header.openCases=Open cases for this property
 
 
-available.requestvaluation.listYear.2017.p1=You can no longer tell us about changes to property details for any valuations on the 2017 rating list.
-available.requestvaluation.listYear.2017.p2=If you think the rateable value was too high, you can send us a Challenge case. You must have sent us a Check case before 1 April 2023 and (any of these apply):
+available.requestvaluation.listYear.2017.p1=You can no longer tell us about changes to property details for any valuations on the {0} rating list.
+available.requestvaluation.listYear.2017.p2=If you think the rateable value was too high, you can send us a Challenge case. You must have sent us a Check case before 1 April {0} and (any of these apply):
 available.requestvaluation.listYear.2017.li1=you send the Challenge case within 4 months of our Check case decision
 available.requestvaluation.listYear.2017.li2=you have waited more than 12 months and not received our Check case decision
 available.requestvaluation.listYear.2017.li3=the Challenge case is about a change in the local area (such as long-term roadworks), you send it within 16 months of sending the Check case and you have received our Check case decision
 available.requestvaluation.listYear.2017.rightToChallenge.li=If you think you have a right to challenge this valuation, and there is no 2026 assessment to raise a check, you can request a check manually by sending an email to {0} providing your name and the address of the property you wish to check.
 available.requestvaluation.listYear.2017.p3=You can also send us a Challenge case if (any of these apply):
 available.requestvaluation.listYear.2017.li4=we have altered this valuation in the last 6 months and you send a Check case from the current valuation.
-available.requestvaluation.listYear.2017.li5=a court decision affected this property’s rateable value and before 1 October 2023 you send a Check case from the current valuation.
+available.requestvaluation.listYear.2017.li5=a court decision affected this property’s rateable value and before 1 October {0} you send a Check case from the current valuation.
 available.requestvaluation.listYear.2017.noCurrent.altered=we have altered this valuation in the last 6 months and you email us at  {0} to send a Check case
-available.requestvaluation.listYear.2017.noCurrent.court=a court decision affected this property’s rateable value and before 1 October 2023 you email us at {0} to send a Check case
+available.requestvaluation.listYear.2017.noCurrent.court=a court decision affected this property’s rateable value and before 1 October {0} you email us at {1} to send a Check case
 available.requestvaluation.listYear.2017.p4=If the assessment has been deleted for either example, you can send a check case from the most recent live valuation.
 
 available.requestvaluation.downloadValuationButton=Download the detailed valuation

@@ -99,8 +99,8 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
     "Ni fydd y prisiad manwl hwn ar gael tan 1 Ebrill 2026. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw."
   val valuationTabP1Selector = "#future-valuation-not-available"
 
-  val valuationTabP2 = "The current 2023 detailed valuation can be requested from the current valuation."
-  val valuationTabP2Welsh = "Gellir gwneud cais am y prisiad manwl cyfredol 2023 o’r prisiad cyfredol."
+  val valuationTabP2 = "The current 2026 detailed valuation can be requested from the current valuation."
+  val valuationTabP2Welsh = "Gellir gwneud cais am y prisiad manwl cyfredol 2026 o’r prisiad cyfredol."
   val valuationTabP2Selector = "#request-current-valuation"
 
   // Help with future valuation tab content - draft
