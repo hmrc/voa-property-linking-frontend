@@ -942,7 +942,7 @@ available.requestvaluation.listYear.2017.rightToChallenge.li=If you think you ha
 available.requestvaluation.listYear.2017.p3=You can also send us a Challenge case if (any of these apply):
 available.requestvaluation.listYear.2017.li4=we have altered this valuation in the last 6 months and you send a Check case from the current valuation.
 available.requestvaluation.listYear.2017.li5=a court decision affected this property’s rateable value and before 1 October {0} you send a Check case from the current valuation.
-available.requestvaluation.listYear.2017.noCurrent.altered=we have altered this valuation in the last 6 months and you email us at  {0} to send a Check case
+available.requestvaluation.listYear.2017.noCurrent.altered=we have altered this valuation in the last 6 months and you email us at {0} to send a Check case
 available.requestvaluation.listYear.2017.noCurrent.court=a court decision affected this property’s rateable value and before 1 October {0} you email us at {1} to send a Check case
 available.requestvaluation.listYear.2017.p4=If the assessment has been deleted for either example, you can send a check case from the most recent live valuation.
 

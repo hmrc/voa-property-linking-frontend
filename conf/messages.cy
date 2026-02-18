@@ -850,8 +850,8 @@ available.requestvaluation.startCheckTab.option6.content=Mae penderfyniad llys y
 available.requestvaluation.startCheckTab.button.title=Parhau
 available.requestvaluation.startCheckTab.checkType.error.missing=Dewisiwch beth rydych am ei ddweud wrthym
 
-available.requestvaluation.listYear.2017.p1=Ni allwch ddweud wrthym bellach am newidiadau i fanylion eiddo ar gyfer unrhyw brisiadau ar restr ardrethu 2017.
-available.requestvaluation.listYear.2017.p2=Os ydych yn credu fod y gwerth ardrethol yn rhy uchel, gallwch anfon achos Herio atom. Mae’n rhaid eich bod wedi anfon achos Gwirio atom cyn 1 Ebrill 2023 ac (mae unrhyw un o’r rhain yn berthnasol):
+available.requestvaluation.listYear.2017.p1=Ni allwch ddweud wrthym bellach am newidiadau i fanylion eiddo ar gyfer unrhyw brisiadau ar restr ardrethu {0}.
+available.requestvaluation.listYear.2017.p2=Os ydych yn credu fod y gwerth ardrethol yn rhy uchel, gallwch anfon achos Herio atom. Mae’n rhaid eich bod wedi anfon achos Gwirio atom cyn 1 Ebrill {0} ac (mae unrhyw un o’r rhain yn berthnasol):
 available.requestvaluation.listYear.2017.li1=eich bod yn anfon yr achos Herio o fewn 4 mis i’n penderfyniad ar yr achos Gwirio
 available.requestvaluation.listYear.2017.li2=rydych wedi aros mwy na 12 mis a heb dderbyn ein penderfyniad ar yr achos Gwirio
 available.requestvaluation.listYear.2017.li3=mae’r achos Herio yn ymwneud â newid yn yr ardal leol (er enghraifft gwaith ffordd hirdymor), rydych yn ei anfon o fewn 16 mis i anfon yr achos Gwirio a’ch bod wedi derbyn ein penderfyniad ar yr achos Gwirio
