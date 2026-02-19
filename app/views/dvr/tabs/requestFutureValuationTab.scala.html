@@ -40,7 +40,7 @@
 
 @estimatorDisabledInsetText = {
 
-    @if(isPub && config.englishPubEstimatorEnabled){
+    @if(isPub && config.englishPubEstimatorEnabled && !isWelsh){
         <p class="govuk-body" id="draft-inset-text-1">@Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.1", pubReliefs))</p>
         <p class="govuk-body" id="draft-inset-text-2">@Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.2", pubEstimator))</p>
     }else{
@@ -54,7 +54,7 @@
 
 
 @inset = @{
-    if (!config.englishEstimatorEnabled && !isWelsh){
+    if (!config.englishEstimatorEnabled){
         govukInsetText(InsetText(
             id = Some("future-valuation-inset-rv"),
             content = HtmlContent(estimatorDisabledInsetText)))

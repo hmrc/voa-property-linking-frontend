@@ -826,12 +826,12 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     "has correct inset text" in {
-      document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetWelshPropertyText
+      document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetText
     }
 
-    s"has correct link text of $valuationTabInsetLinkWelshPropertyText" in {
-      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkWelshPropertyText
-      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkWelshPropertyHref
+    s"has correct link text of $valuationTabInsetLinkText" in {
+      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkText
+      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkHref
     }
 
     "has correct p1 content" in {
@@ -960,12 +960,12 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     }
 
     "has correct inset text" in {
-      document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetWelshPropertyTextWelsh
+      document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetText
     }
 
     s"has correct link text of $valuationTabInsetLinkText" in {
-      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkWelshPropertyTextWelsh
-      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkWelshPropertyHref
+      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkText
+      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkHref
     }
 
     "has correct p1 content" in {
