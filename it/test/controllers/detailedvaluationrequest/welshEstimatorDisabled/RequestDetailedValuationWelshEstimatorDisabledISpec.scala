@@ -82,16 +82,16 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
   val rateableValueSelector = "#future-valuation-rv"
 
   val valuationTabInsetText =
-    "A business rates estimator will be available for properties in Wales once Welsh Government have announced its budget."
+    "The estimator tool for Wales has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextWelsh =
-    "Bydd amcangyfrifwr ardrethi busnes ar gael ar gyfer eiddo yng Nghymru unwaith y bydd Llywodraeth Cymru wedi cyhoeddi ei chyllideb."
+    "The estimator tool for Wales has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
 
-  val valuationTabInsetLinkText = "Estimate what the business rates bill may be from 1 April 2026"
-  val valuationTabInsetLinkTextWelsh = "Amcangyfrif beth all y bil ardrethi busnes fod o 1 Ebrill 2026"
+  val valuationTabInsetLinkText = "here (opens in new tab)"
+  val valuationTabInsetLinkTextWelsh = "here (opens in new tab)"
   val valuationTabInsetLinkTextSelector = "#future-estimate-link"
   val valuationTabInsetLinkHref =
-    "http://localhost:9300/business-rates-find/estimate-your-business-rates/start-from-dvr-valuation?authorisationId=1&propertyLinkSubmissionId=PL1ZRPBP7&valuationId=10028428&isOwner=true&uarn=7651789000&tabName=valuation-tab"
+    "https://www.gov.uk/calculate-your-business-rates"
 
   val valuationTabP1 =
     "This detailed valuation will not be available until 1 April 2026. You will be able to request it from that date."
@@ -223,8 +223,8 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
     }
 
     s"not have the link text of $valuationTabInsetLinkText" in {
-      document.select(valuationTabInsetLinkTextSelector).isEmpty shouldBe true
-      document.select(valuationTabInsetLinkTextSelector).attr("href").isEmpty shouldBe true
+      document.select(valuationTabInsetLinkTextSelector).text() shouldBe valuationTabInsetLinkText
+      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkHref
     }
 
     "has correct p1 content" in {
@@ -357,8 +357,8 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
     }
 
     s"has correct link text of $valuationTabInsetLinkText" in {
-      document.select(valuationTabInsetLinkTextSelector).text.isEmpty shouldBe true
-      document.select(valuationTabInsetLinkTextSelector).attr("href").isEmpty shouldBe true
+      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkText
+      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkHref
     }
 
     "has correct p1 content" in {

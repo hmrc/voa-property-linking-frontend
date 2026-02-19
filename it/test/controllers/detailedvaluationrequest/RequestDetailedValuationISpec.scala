@@ -33,10 +33,10 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
   override lazy val extraConfig: Map[String, String] =
     Map(
-      "feature-switch.draftListEnabled"        -> "true",
-      "feature-switch.englishEstimatorEnabled" -> "false",
-      "feature-switch.welshEstimatorEnabled"   -> "true",
-      "feature-switch.englishPubEstimatorEnabled"   -> "true"
+      "feature-switch.draftListEnabled"           -> "true",
+      "feature-switch.englishEstimatorEnabled"    -> "false",
+      "feature-switch.welshEstimatorEnabled"      -> "true",
+      "feature-switch.englishPubEstimatorEnabled" -> "true"
     )
 
   override def submissionId = "PL1ZRPBP7"
@@ -92,14 +92,17 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextWelsh =
     "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
-  val valuationTabInsetTextPub1 = "If you occupy a pub or live music venue in England, the Government has introduced a new relief to provide further support. Find more information about the relief and which properties are eligible for it (opens in new tab)."
-  val valuationTabInsetTextPub1Welsh = "If you occupy a pub or live music venue in England, the Government has introduced a new relief to provide further support. Find more information about the relief and which properties are eligible for it (opens in new tab)."
-  val valuationTabInsetTextPub2 = "You can get an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab). The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
-  val valuationTabInsetTextPub2Welsh = "You can get an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab). The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
+  val valuationTabInsetTextPub1 =
+    "If you occupy a pub or live music venue in England, the Government has introduced a new relief to provide further support. Find more information about the relief and which properties are eligible for it (opens in new tab)."
+  val valuationTabInsetTextPub1Welsh =
+    "If you occupy a pub or live music venue in England, the Government has introduced a new relief to provide further support. Find more information about the relief and which properties are eligible for it (opens in new tab)."
+  val valuationTabInsetTextPub2 =
+    "You can get an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab). The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
+  val valuationTabInsetTextPub2Welsh =
+    "You can get an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab). The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
   val valuationTabInsetText1Selector = "#draft-inset-text-1"
   val valuationTabInsetText2Selector = "#draft-inset-text-2"
-
 
   val valuationTabInsetWelshPropertyText =
     "This will be the rateable value for the property. It is not what you will pay in business rates or rent. Your local council uses the rateable value to calculate the business rates bill."
@@ -112,8 +115,10 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     "an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab)"
   val valuationTabInsetLinkTextPubEstimatorWelsh =
     "an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab)"
-  val valuationTabInsetLinkTextPubReliefs = "about the relief and which properties are eligible for it (opens in new tab)"
-  val valuationTabInsetLinkTextPubReliefsWelsh = "about the relief and which properties are eligible for it (opens in new tab)"
+  val valuationTabInsetLinkTextPubReliefs =
+    "about the relief and which properties are eligible for it (opens in new tab)"
+  val valuationTabInsetLinkTextPubReliefsWelsh =
+    "about the relief and which properties are eligible for it (opens in new tab)"
   val valuationTabInsetLinkTextSelector = "#future-estimate-link"
   val valuationTabInsetDownloadTextSelector = "#estimator-link"
   val valuationTabInsetReliefsTextSelector = "#reliefs-link"
@@ -829,7 +834,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
       document.select(valuationTabInsetTextSelector).text shouldBe valuationTabInsetWelshPropertyText
     }
 
-    s"has correct link text of $valuationTabInsetLinkWelshPropertyText" in {
+    s"has correct link text of $valuationTabInsetLinkText" in {
       document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkWelshPropertyText
       document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkWelshPropertyHref
     }
