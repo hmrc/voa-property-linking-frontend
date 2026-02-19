@@ -39,8 +39,7 @@
 @estimatorLink = {<a id="future-estimate-link" class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/calculate-your-business-rates">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link.here")</a>}
 
 @estimatorDisabledInsetText = {
-
-    @if(isPub && config.englishPubEstimatorEnabled && !isWelsh){
+    @if(isPub && config.englishPubEstimatorEnabled){
         <p class="govuk-body" id="draft-inset-text-1">@Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.1", pubReliefs))</p>
         <p class="govuk-body" id="draft-inset-text-2">@Html(messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.2", pubEstimator))</p>
     }else{
@@ -49,24 +48,25 @@
 }
 
 @welshEstimatorDisabled = {
-    <p>@messages("auto.requestDetailedValuation.future.rv.inset.welshEstimatorDisabled")</p>
+    <p class="govuk-body" id="draft-inset-text">@Html(messages("auto.requestDetailedValuation.future.rv.inset.welshEstimatorDisabled", estimatorLink))</p>
 }
 
 
 @inset = @{
-    if (!config.englishEstimatorEnabled){
+    if (!config.englishEstimatorEnabled && !isWelsh){
         govukInsetText(InsetText(
             id = Some("future-valuation-inset-rv"),
             content = HtmlContent(estimatorDisabledInsetText)))
+    }
+    else if (!config.welshEstimatorEnabled && isWelsh){
+        govukInsetText(InsetText(
+            id = Some("future-valuation-inset-rv"),
+            content = HtmlContent(welshEstimatorDisabled)))
     }
     else if((config.draftListEnabled && !isWelsh) || (config.welshEstimatorEnabled && isWelsh)){
         govukInsetText(InsetText(
             id = Some("future-valuation-inset-rv"),
             content = HtmlContent(insetMessages)))
-    } else if (!config.welshEstimatorEnabled && isWelsh){
-        govukInsetText(InsetText(
-            id = Some("future-valuation-inset-rv"),
-            content = HtmlContent(welshEstimatorDisabled)))
     }
 }
 
@@ -93,7 +93,7 @@
             @rv
             </p>
 
-        @if(isPub && config.englishPubEstimatorEnabled) { <h2 class="govuk-heading-m">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.estimatorHeading")</h2> }
+        @if(isPub && config.englishPubEstimatorEnabled && !isWelsh) { <h2 class="govuk-heading-m">@messages("auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.estimatorHeading")</h2> }
 
         @inset
         }
