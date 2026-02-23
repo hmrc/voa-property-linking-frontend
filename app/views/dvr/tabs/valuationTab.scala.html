@@ -41,7 +41,7 @@
     if(!model.assessment.isDraft) {
         (model.assessment.currentFromDate, model.assessment.currentToDate) match {
             case (Some(_), None) if model.listYear == "2017"  => Some(Formatters.formattedFullDate(config.default2017AssessmentEndDate))
-            case (Some(_), None) if model.listYear == "2023"  => Some(Formatters.formattedFullDate(config.default2023AssessmentEndDate))
+            case (Some(_), None) if model.listYear == "2023" && !config.draftListEnabled  => Some(Formatters.formattedFullDate(config.default2023AssessmentEndDate))
             case (Some(_), None)     => Some(messages("assessments.enddate.present.lowercase"))
             case (Some(_), Some(to)) => Some(Formatters.formattedFullDate(to))
             case _                   => None
