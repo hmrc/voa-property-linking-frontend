@@ -182,7 +182,6 @@ assessments.table.2=Dyddiad dod i rym
 assessments.table.3=Cysylltiad a r eiddo
 assessments.table.4=Gwerth ardrethol
 assessments.enddate.present=Presennol
-assessments.enddate.historic.empty=31 Mawrth 2023
 
 assessments.localAuthorityRef=Cyfeirnod yr awdurdod lleol:
 assessments.property=Eiddo:
@@ -850,19 +849,19 @@ available.requestvaluation.startCheckTab.option6.content=Mae penderfyniad llys y
 available.requestvaluation.startCheckTab.button.title=Parhau
 available.requestvaluation.startCheckTab.checkType.error.missing=Dewisiwch beth rydych am ei ddweud wrthym
 
-available.requestvaluation.listYear.2017.p1=Ni allwch ddweud wrthym bellach am newidiadau i fanylion eiddo ar gyfer unrhyw brisiadau ar restr ardrethu 2017.
-available.requestvaluation.listYear.2017.p2=Os ydych yn credu fod y gwerth ardrethol yn rhy uchel, gallwch anfon achos Herio atom. Mae’n rhaid eich bod wedi anfon achos Gwirio atom cyn 1 Ebrill 2023 ac (mae unrhyw un o’r rhain yn berthnasol):
-available.requestvaluation.listYear.2017.li1=eich bod yn anfon yr achos Herio o fewn 4 mis i’n penderfyniad ar yr achos Gwirio
-available.requestvaluation.listYear.2017.li2=rydych wedi aros mwy na 12 mis a heb dderbyn ein penderfyniad ar yr achos Gwirio
-available.requestvaluation.listYear.2017.li3=mae’r achos Herio yn ymwneud â newid yn yr ardal leol (er enghraifft gwaith ffordd hirdymor), rydych yn ei anfon o fewn 16 mis i anfon yr achos Gwirio a’ch bod wedi derbyn ein penderfyniad ar yr achos Gwirio
-available.requestvaluation.listYear.2017.rightToChallenge.li=Os ydych chi’n credu bod gennych chi hawl i herio’r prisiad hwn, ac nad oes asesiad 2026 i godi gwiriad, gallwch ofyn am wiriad â llaw trwy anfon e-bost at {0} gan nodi eich enw a chyfeiriad yr eiddo rydych chi am ei wirio.
-available.requestvaluation.listYear.2017.p3=Gallwch hefyd anfon achos Herio atom os (mae unrhyw un o’r rhain yn berthnasol):
-available.requestvaluation.listYear.2017.li4=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol.
-available.requestvaluation.listYear.2017.li5=effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2023, rydych yn anfon achos Gwirio o’r prisiad cyfredol.
-available.requestvaluation.listYear.2017.p4=Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar.
+available.requestvaluation.listYear.p1=Ni allwch ddweud wrthym bellach am newidiadau i fanylion eiddo ar gyfer unrhyw brisiadau ar restr ardrethu {0}.
+available.requestvaluation.listYear.p2=Os ydych yn credu fod y gwerth ardrethol yn rhy uchel, gallwch anfon achos Herio atom. Mae’n rhaid eich bod wedi anfon achos Gwirio atom cyn 1 Ebrill {0} ac (mae unrhyw un o’r rhain yn berthnasol):
+available.requestvaluation.listYear.li1=eich bod yn anfon yr achos Herio o fewn 4 mis i’n penderfyniad ar yr achos Gwirio
+available.requestvaluation.listYear.li2=rydych wedi aros mwy na 12 mis a heb dderbyn ein penderfyniad ar yr achos Gwirio
+available.requestvaluation.listYear.li3=mae’r achos Herio yn ymwneud â newid yn yr ardal leol (er enghraifft gwaith ffordd hirdymor), rydych yn ei anfon o fewn 16 mis i anfon yr achos Gwirio a’ch bod wedi derbyn ein penderfyniad ar yr achos Gwirio
+available.requestvaluation.listYear.rightToChallenge.li=Os ydych chi’n credu bod gennych chi hawl i herio’r prisiad hwn, ac nad oes asesiad 2026 i godi gwiriad, gallwch ofyn am wiriad â llaw trwy anfon e-bost at {0} gan nodi eich enw a chyfeiriad yr eiddo rydych chi am ei wirio.
+available.requestvaluation.listYear.p3=Gallwch hefyd anfon achos Herio atom os (mae unrhyw un o’r rhain yn berthnasol):
+available.requestvaluation.listYear.li4=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol.
+available.requestvaluation.listYear.li5=effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref {0}, rydych yn anfon achos Gwirio o’r prisiad cyfredol.
+available.requestvaluation.listYear.p4=Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar.
 
-available.requestvaluation.listYear.2017.noCurrent.altered=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon e-bost atom i {0} er mwyn anfon achos Gwirio
-available.requestvaluation.listYear.2017.noCurrent.court=yw penderfyniad llys wedi effeithio ar werth ardrethol yr eiddo hwn ac eich bod yn anfon e-bost atom i {0} cyn 1 Hydref 2023 er mwyn anfon achos Gwirio
+available.requestvaluation.listYear.noCurrent.altered=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon e-bost atom i {0} er mwyn anfon achos Gwirio
+available.requestvaluation.listYear.noCurrent.court=yw penderfyniad llys wedi effeithio ar werth ardrethol yr eiddo hwn ac eich bod yn anfon e-bost atom i {1} cyn 1 Hydref {0} er mwyn anfon achos Gwirio
 
 requestValuation.future.help.title=Cymorth gyda’ch prisiad yn y dyfodol
 requestValuation.future.help.subheading.1=Gall eich gwerth ardrethol newid ar {0}

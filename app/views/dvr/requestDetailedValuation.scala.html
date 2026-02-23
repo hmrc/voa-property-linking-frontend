@@ -166,6 +166,7 @@
                                 model.formattedFromDate,
                                 model.formattedToDate.getOrElse(
                                     if (model.listYear == "2017") Formatters.formattedFullDate(config.default2017AssessmentEndDate)
+                                    else if (model.listYear == "2023") Formatters.formattedFullDate(config.default2023AssessmentEndDate)
                                     else ""
                                 )
                             )

@@ -121,6 +121,8 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
 
   val default2017AssessmentEndDate: LocalDate = LocalDate.of(2023, 3, 31)
 
+  val default2023AssessmentEndDate: LocalDate = LocalDate.of(2026, 3, 31)
+
   lazy val environmentHost: String = configuration.get[String]("environment-base.host")
 
   def safeRedirect(url: RedirectUrl): String =

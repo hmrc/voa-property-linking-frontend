@@ -1150,7 +1150,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     agent = false
   ) {
     override def assessments: ApiAssessments =
-      apiAssessments(ownerAuthorisation, toDate = None, listYear = 2023, isWelsh = true)
+      apiAssessments(ownerAuthorisation, toDate = None, listYear = 2026, isWelsh = true)
     html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
     Option(localAuthorityRef) should not be defined
     Option(propertyAddress) should not be defined
@@ -1254,7 +1254,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     agent = true
   ) {
     override def assessments: ApiAssessments =
-      clientApiAssessments(clientPropertyLink, toDate = None, listYear = 2023, isWelsh = true)
+      clientApiAssessments(clientPropertyLink, toDate = None, listYear = 2026, isWelsh = true)
 
     html.title() shouldBe "Confirmation - Valuation Office Agency - GOV.UK"
     Option(localAuthorityRef) should not be defined

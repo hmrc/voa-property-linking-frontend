@@ -392,6 +392,8 @@ class DvrController @Inject() (
               assessment.listType match {
                 case ListType.CURRENT if assessment.listYear == "2017" =>
                   Formatters.formattedFullDate(config.default2017AssessmentEndDate)
+                case ListType.CURRENT if assessment.listYear == "2023" && !config.draftListEnabled =>
+                  Formatters.formattedFullDate(config.default2023AssessmentEndDate)
                 case _ => implicitly[Messages].apply("assessments.enddate.present.lowercase")
               }
             }(Formatters.formattedFullDate)

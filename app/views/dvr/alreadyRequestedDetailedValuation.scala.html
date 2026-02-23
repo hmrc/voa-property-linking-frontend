@@ -103,6 +103,7 @@
                             fromDateFormatted,
                             toDateFormatted.getOrElse(
                                 if (listYear == "2017") Formatters.formattedFullDate(config.default2017AssessmentEndDate)
+                                else if (listYear == "2023") Formatters.formattedFullDate(config.default2023AssessmentEndDate)
                                 else ""
                             )
                         )
