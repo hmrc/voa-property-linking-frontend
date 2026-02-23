@@ -47,10 +47,10 @@
         (assessment.currentFromDate, assessment.currentToDate, assessment.listYear) match {
             case (Some(_), None, "2017")
                 if tableType == "historic" =>
-                Some(Messages("assessments.enddate.historic.empty", "2023"))
+                Some(Formatters.formattedFullDate(config.default2017AssessmentEndDate))
             case (Some(_), None, "2023")
                 if tableType == "historic" =>
-                Some(Messages("assessments.enddate.historic.empty", "2026"))
+                Some(Formatters.formattedFullDate(config.default2023AssessmentEndDate))
             case (Some(_), None, _)     => Some(Messages("assessments.enddate.present.lowercase"))
             case (Some(_), Some(to), _) => Some(Formatters.formattedFullDate(to))
             case _                   => None

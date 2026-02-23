@@ -106,7 +106,7 @@ trait TestData {
   )
 
   lazy val draftApiAssessmentWelsh: ApiAssessment = apiAssessment.copy(
-    listYear = "2026",
+    listYear = "2023",
     listType = ListType.DRAFT,
     effectiveDate = Some(april2026),
     currentFromDate = Some(april2026),

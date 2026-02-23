@@ -1576,7 +1576,6 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )(request)
     val page: HtmlPage = HtmlPage(Jsoup.parse(contentAsString(result)))
 
-    println(page.html.getElementById("valuation-tab-change-something-content").text())
     page.html.getElementById("valuation-tab-change-something-content").text() should include(
       "we have altered this valuation in the last 6 months and you send a Check case from the current valuation"
     )

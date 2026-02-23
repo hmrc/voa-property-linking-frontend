@@ -154,6 +154,7 @@ trait FakeObjects {
   )
   lazy val april2017 = LocalDate.of(2017, 4, 1)
   lazy val april2023 = LocalDate.of(2023, 4, 1)
+  lazy val april2026 = LocalDate.of(2026, 4, 1)
   lazy val dvrRecord: DvrRecord = DvrRecord(
     organisationId = orgIdIp,
     assessmentRef = assessmentRef,
@@ -578,6 +579,7 @@ trait FakeObjects {
   def apiAssessments(
         a: OwnerAuthorisation,
         toDate: Option[LocalDate] = Some(april2017.plusMonths(2L)),
+        fromDate: Option[LocalDate] = Some(april2017),
         listType: ListType = ListType.CURRENT,
         listYear: Int = 2017,
         isWelsh: Boolean = false
@@ -596,14 +598,14 @@ trait FakeObjects {
           assessmentRef = 1234L,
           listYear = listYear.toString,
           uarn = a.uarn,
-          effectiveDate = Some(april2017),
+          effectiveDate = fromDate,
           rateableValue = Some(123L),
           address = PropertyAddress(Seq(address.line1, address.line2, address.line3, address.line4), address.postcode),
           billingAuthorityReference = a.localAuthorityRef,
           billingAuthorityCode = Some(if (isWelsh) "62715" else "2715"),
           listType = listType,
           allowedActions = List(VIEW_DETAILED_VALUATION, CHECK),
-          currentFromDate = Some(april2017),
+          currentFromDate = fromDate,
           currentToDate = toDate
         ),
         ApiAssessment(

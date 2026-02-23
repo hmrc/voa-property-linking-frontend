@@ -437,7 +437,38 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Mae’r wybodaeth ar gyfer ambell eiddo yn gyfyngedig. Nid ydym yn darparu data eiddo y gellir eu cymharu ar gyfer yr eiddo hwn."
 
   "DvrController myOrganisationRequestDetailValuationCheck method" should {
-    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English" in {
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (list year 2017)" in {
+
+      val res = getDvrFilesPage(English, listYear = "2017")
+      val doc = Jsoup.parse(res.body)
+      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc
+        .getElementById("valuation-tab-li4")
+        .text() shouldBe "we have altered this valuation in the last 6 months and you send a Check case from the current valuation."
+      doc
+        .getElementById("valuation-tab-li5")
+        .text() shouldBe "a court decision affected this property’s rateable value and before 1 October 2023 you send a Check case from the current valuation."
+      doc
+        .getElementById("valuation-tab-p4")
+        .text() shouldBe "If the assessment has been deleted for either example, you can send a check case from the most recent live valuation."
+    }
+
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (list year 2017)" in {
+      val res = getDvrFilesPage(Welsh, listYear = "2017")
+      val doc = Jsoup.parse(res.body)
+      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc
+        .getElementById("valuation-tab-li4")
+        .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
+      doc
+        .getElementById("valuation-tab-li5")
+        .text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2023, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
+      doc
+        .getElementById("valuation-tab-p4")
+        .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
+    }
+
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (list year 2023)" in {
 
       val res = getDvrFilesPage(English)
       val doc = Jsoup.parse(res.body)
@@ -453,7 +484,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "If the assessment has been deleted for either example, you can send a check case from the most recent live valuation."
     }
 
-    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh" in {
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (list year 2023)" in {
       val res = getDvrFilesPage(Welsh)
       val doc = Jsoup.parse(res.body)
       doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
@@ -463,6 +494,37 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       doc
         .getElementById("valuation-tab-li5")
         .text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2026, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
+      doc
+        .getElementById("valuation-tab-p4")
+        .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
+    }
+
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (list year 2026)" in {
+
+      val res = getDvrFilesPage(English, listYear = "2026")
+      val doc = Jsoup.parse(res.body)
+      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc
+        .getElementById("valuation-tab-li4")
+        .text() shouldBe "we have altered this valuation in the last 6 months and you send a Check case from the current valuation."
+      doc
+        .getElementById("valuation-tab-li5")
+        .text() shouldBe "a court decision affected this property’s rateable value and before 1 October 2029 you send a Check case from the current valuation."
+      doc
+        .getElementById("valuation-tab-p4")
+        .text() shouldBe "If the assessment has been deleted for either example, you can send a check case from the most recent live valuation."
+    }
+
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (list year 2026)" in {
+      val res = getDvrFilesPage(Welsh, listYear = "2026")
+      val doc = Jsoup.parse(res.body)
+      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc
+        .getElementById("valuation-tab-li4")
+        .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
+      doc
+        .getElementById("valuation-tab-li5")
+        .text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2029, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
       doc
         .getElementById("valuation-tab-p4")
         .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
@@ -493,9 +555,9 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
-  private def getDvrFilesPage(language: Language): WSResponse = {
+  private def getDvrFilesPage(language: Language, listYear: String = "2023"): WSResponse = {
 
-    getRequestStubs
+    getRequestStubs(listYear)
 
     await(
       ws.url(
@@ -511,9 +573,11 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     )
   }
 
-  def getRequestStubs: StubMapping = {
+  def getRequestStubs(listYear: String): StubMapping = {
 
     authStubs
+
+    val assessment = testApiAssessmentsNoCheck.copy(assessments = List(currentApiAssessmentNoCheck.copy(listYear = listYear), previousApiAssessment))
 
     stubFor {
       get(s"/business-rates-challenge/my-organisations/challenge-cases?submissionId=$submissionId")
@@ -525,7 +589,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     stubFor {
       get(s"/property-linking/dashboard/owner/assessments/$submissionId")
         .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(testApiAssessmentsNoCheck).toString())
+          aResponse.withStatus(OK).withBody(Json.toJson(assessment).toString())
         }
     }
 
