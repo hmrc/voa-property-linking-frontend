@@ -182,7 +182,6 @@ assessments.table.2=Dyddiad dod i rym
 assessments.table.3=Cysylltiad a r eiddo
 assessments.table.4=Gwerth ardrethol
 assessments.enddate.present=Presennol
-assessments.enddate.historic.empty=31 Mawrth {0}
 
 assessments.localAuthorityRef=Cyfeirnod yr awdurdod lleol:
 assessments.property=Eiddo:

@@ -237,7 +237,6 @@ assessments.table.3=Connection to property
 assessments.table.4=Rateable value
 assessments.enddate.present=Present
 assessments.enddate.present.lowercase=present
-assessments.enddate.historic.empty=31 March {0}
 
 assessments.localAuthorityRef=Local council reference:
 assessments.property=Property:
