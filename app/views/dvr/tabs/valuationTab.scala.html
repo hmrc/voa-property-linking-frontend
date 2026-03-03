@@ -71,7 +71,7 @@
 @valuationTabContent = {
     @if(!model.assessment.allowedActions.contains(CHECK)) {
         <p class="govuk-body">@messages("available.requestvaluation.listYear.p1", model.assessment.listYear)</p>
-        <p class="govuk-body">@messages("available.requestvaluation.listYear.p2", model.assessment.listYear)</p>
+        <p class="govuk-body">@messages("available.requestvaluation.listYear.p2", listYearEnd)</p>
 
         <ul id="challenge-conditions-info" class="govuk-list govuk-list--bullet">
             <li class="govuk-!-margin-bottom-0 ">@messages("available.requestvaluation.listYear.li1")</li>
