@@ -42,7 +42,7 @@
 
 @address = @{Formatters.capitalisedAddress(model.address)}
 
-@linkText = @{Html(s"""<a id="business-rates-relief-link" class="govuk-link govuk-body" href="https://www.gov.uk/government/publications/budget-2025-retail-hospitality-and-leisure-factsheet/budget-2025-retail-hospitality-and-leisure-factsheet" >${messages("auto.requestDetailedValuation.rv.caption.future.here")}</a>""")}
+@linkText = @{Html(s"""<a id="business-rates-relief-link" class="govuk-link govuk-link--inverse govuk-body" href="https://www.gov.uk/government/publications/budget-2025-retail-hospitality-and-leisure-factsheet/budget-2025-retail-hospitality-and-leisure-factsheet" >${messages("auto.requestDetailedValuation.rv.caption.future.here")}</a>""")}
 
 @panelContent = @{
     s"""<p class='govuk-body white'><strong>${messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText)}</strong><p>"""
