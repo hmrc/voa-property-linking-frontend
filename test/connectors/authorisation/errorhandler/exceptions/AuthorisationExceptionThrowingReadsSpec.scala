@@ -28,13 +28,13 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
       new AuthorisationExceptionThrowingReads {}
 
     final def httpResponse(
-                            status:  Int,
-                            body:    String = "",
-                            headers: Map[String, Seq[String]] = Map.empty
-                          ): HttpResponse =
+          status: Int,
+          body: String = "",
+          headers: Map[String, Seq[String]] = Map.empty
+    ): HttpResponse =
       HttpResponse(
-        status  = status,
-        body    = body,
+        status = status,
+        body = body,
         headers = headers
       )
 
@@ -47,7 +47,8 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
       httpResponse(OK)
 
     val out =
-      exceptionThrowingReads.authorisationReads[HttpResponse]
+      exceptionThrowingReads
+        .authorisationReads[HttpResponse]
         .read("GET", "URL", response)
 
     out shouldBe response
@@ -58,7 +59,8 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
       httpResponse(UNAUTHORIZED, authorisationErrorResponseBody)
 
     intercept[AuthorisationFailure] {
-      exceptionThrowingReads.authorisationReads[HttpResponse]
+      exceptionThrowingReads
+        .authorisationReads[HttpResponse]
         .read("GET", "URL", response)
     }.getMessage shouldBe "INVALID_GATEWAY_SESSION"
   }
@@ -68,7 +70,8 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
       httpResponse(BAD_REQUEST)
 
     intercept[UpstreamErrorResponse] {
-      exceptionThrowingReads.authorisationReads[HttpResponse]
+      exceptionThrowingReads
+        .authorisationReads[HttpResponse]
         .read("GET", "URL", response)
     } match {
       case err @ UpstreamErrorResponse.WithStatusCode(BAD_REQUEST) =>
@@ -81,7 +84,8 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
       httpResponse(INTERNAL_SERVER_ERROR)
 
     intercept[UpstreamErrorResponse] {
-      exceptionThrowingReads.authorisationReads[HttpResponse]
+      exceptionThrowingReads
+        .authorisationReads[HttpResponse]
         .read("GET", "URL", response)
     } match {
       case err @ UpstreamErrorResponse.WithStatusCode(INTERNAL_SERVER_ERROR) =>
