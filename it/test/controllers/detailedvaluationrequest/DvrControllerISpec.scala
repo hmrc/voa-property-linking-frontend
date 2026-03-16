@@ -531,7 +531,9 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
   def getRequestStubs(listYear: String): StubMapping = {
 
-    val assessment = testApiAssessmentsNoCheck.copy(assessments = List(currentApiAssessmentNoCheck.copy(listYear = listYear), previousApiAssessment))
+    val assessment = testApiAssessmentsNoCheck.copy(assessments =
+      List(currentApiAssessmentNoCheck.copy(listYear = listYear), previousApiAssessment)
+    )
 
     authStubs
 

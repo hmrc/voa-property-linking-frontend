@@ -577,7 +577,9 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     authStubs
 
-    val assessment = testApiAssessmentsNoCheck.copy(assessments = List(currentApiAssessmentNoCheck.copy(listYear = listYear), previousApiAssessment))
+    val assessment = testApiAssessmentsNoCheck.copy(assessments =
+      List(currentApiAssessmentNoCheck.copy(listYear = listYear), previousApiAssessment)
+    )
 
     stubFor {
       get(s"/business-rates-challenge/my-organisations/challenge-cases?submissionId=$submissionId")
