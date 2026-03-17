@@ -22,7 +22,7 @@ import uk.gov.hmrc.versioning.SbtGitVersioning
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "2.13.17"
+ThisBuild / scalaVersion := "2.13.18"
 
 lazy val TemplateTest = config("tt") extend Test
 
@@ -118,8 +118,8 @@ ThisBuild / excludeDependencies ++= Seq(
   ExclusionRule(organization = "com.typesafe.play")
 )
 
-val bootstrapPlayVersion = "10.3.0"
-val hmrcMongoVersion = "2.10.0"
+val bootstrapPlayVersion = "10.7.0"
+val hmrcMongoVersion = "2.12.0"
 
 lazy val compileDependencies = Seq(
   guice,
@@ -128,11 +128,11 @@ lazy val compileDependencies = Seq(
   "ai.x"                 %% "play-json-extensions"                  % "0.42.0",
   "org.typelevel"        %% "cats-core"                             % "2.13.0",
   "uk.gov.hmrc"          %% "bootstrap-frontend-play-30"            % bootstrapPlayVersion,
-  "uk.gov.hmrc"          %% "play-frontend-hmrc-play-30"            % "12.19.0",
-  "uk.gov.hmrc"          %% "play-conditional-form-mapping-play-30" % "3.3.0",
+  "uk.gov.hmrc"          %% "play-frontend-hmrc-play-30"            % "12.32.0",
+  "uk.gov.hmrc"          %% "play-conditional-form-mapping-play-30" % "3.5.0",
   "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-30"                    % hmrcMongoVersion,
-  "uk.gov.hmrc"          %% "uri-template"                          % "1.18.0",
-  "uk.gov.hmrc"          %% "business-rates-values"                 % "3.9.0"
+  "uk.gov.hmrc"          %% "uri-template"                          % "1.19.0",
+  "uk.gov.hmrc"          %% "business-rates-values"                 % "3.10.0"
 )
 
 lazy val testDependencies = Seq(

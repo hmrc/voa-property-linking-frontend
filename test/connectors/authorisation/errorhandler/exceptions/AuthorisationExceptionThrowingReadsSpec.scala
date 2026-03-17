@@ -17,7 +17,6 @@
 package connectors.authorisation.errorhandler.exceptions
 
 import controllers.VoaPropertyLinkingSpec
-import org.mockito.Mockito.when
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HttpResponse, UpstreamErrorResponse}
 import uk.gov.hmrc.http.HttpReads.Implicits._
@@ -25,35 +24,55 @@ import uk.gov.hmrc.http.HttpReads.Implicits._
 class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
   trait Setup {
 
-    val exceptionThrowingReads: AuthorisationExceptionThrowingReads = new AuthorisationExceptionThrowingReads {}
+    val exceptionThrowingReads: AuthorisationExceptionThrowingReads =
+      new AuthorisationExceptionThrowingReads {}
 
-    val mockHttpResponse: HttpResponse = mock[HttpResponse]
+    final def httpResponse(
+          status: Int,
+          body: String = "",
+          headers: Map[String, Seq[String]] = Map.empty
+    ): HttpResponse =
+      HttpResponse(
+        status = status,
+        body = body,
+        headers = headers
+      )
 
-    val authorisationErrorResponseBody: String = """{ "errorCode": "INVALID_GATEWAY_SESSION"}"""
+    val authorisationErrorResponseBody: String =
+      """{ "errorCode": "INVALID_GATEWAY_SESSION"}"""
   }
 
   "when handling a 2xx http response" should "return the response" in new Setup {
-    when(mockHttpResponse.status).thenReturn(OK)
-
     val response: HttpResponse =
-      exceptionThrowingReads.authorisationReads[HttpResponse].read("GET", "URL", mockHttpResponse)
-    response shouldBe mockHttpResponse
+      httpResponse(OK)
+
+    val out =
+      exceptionThrowingReads
+        .authorisationReads[HttpResponse]
+        .read("GET", "URL", response)
+
+    out shouldBe response
   }
 
   "when handling a 401 http response" should "throw an AuthorisationFailure exception" in new Setup {
-    when(mockHttpResponse.status).thenReturn(UNAUTHORIZED)
-    when(mockHttpResponse.body).thenReturn(authorisationErrorResponseBody)
+    val response: HttpResponse =
+      httpResponse(UNAUTHORIZED, authorisationErrorResponseBody)
 
     intercept[AuthorisationFailure] {
-      exceptionThrowingReads.authorisationReads[HttpResponse].read("GET", "URL", mockHttpResponse)
+      exceptionThrowingReads
+        .authorisationReads[HttpResponse]
+        .read("GET", "URL", response)
     }.getMessage shouldBe "INVALID_GATEWAY_SESSION"
   }
 
   "when handling other 4xx http response" should "throw an UpstreamErrorResponse (4xx)" in new Setup {
-    when(mockHttpResponse.status).thenReturn(BAD_REQUEST)
+    val response: HttpResponse =
+      httpResponse(BAD_REQUEST)
 
     intercept[UpstreamErrorResponse] {
-      exceptionThrowingReads.authorisationReads[HttpResponse].read("GET", "URL", mockHttpResponse)
+      exceptionThrowingReads
+        .authorisationReads[HttpResponse]
+        .read("GET", "URL", response)
     } match {
       case err @ UpstreamErrorResponse.WithStatusCode(BAD_REQUEST) =>
         err.getMessage() should startWith("GET of 'URL' returned 400")
@@ -61,14 +80,16 @@ class AuthorisationExceptionThrowingReadsSpec extends VoaPropertyLinkingSpec {
   }
 
   "when handling a 5xx http response" should "throw an UpstreamErrorResponse (5xx)" in new Setup {
-    when(mockHttpResponse.status).thenReturn(INTERNAL_SERVER_ERROR)
+    val response: HttpResponse =
+      httpResponse(INTERNAL_SERVER_ERROR)
 
     intercept[UpstreamErrorResponse] {
-      exceptionThrowingReads.authorisationReads[HttpResponse].read("GET", "URL", mockHttpResponse)
+      exceptionThrowingReads
+        .authorisationReads[HttpResponse]
+        .read("GET", "URL", response)
     } match {
       case err @ UpstreamErrorResponse.WithStatusCode(INTERNAL_SERVER_ERROR) =>
         err.getMessage() should startWith("GET of 'URL' returned 500")
     }
   }
-
 }
