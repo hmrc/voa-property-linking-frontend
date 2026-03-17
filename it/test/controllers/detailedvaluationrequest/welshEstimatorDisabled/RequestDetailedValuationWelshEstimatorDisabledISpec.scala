@@ -84,14 +84,16 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
   val valuationTabInsetText =
     "The estimator tool for Wales has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextWelsh =
-    "The estimator tool for Wales has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
+    "Mae’r teclyn amcangyfrif ar gyfer Cymru wedi’i dynnu i lawr cyn i filiau ardrethi busnes gael eu cyhoeddi gan gynghorau lleol. Gall Asiantaeth y Swyddfa Brisio eich helpu gydag unrhyw gwestiynau am eich gwerth ardrethol. Am ragor o wybodaeth am sut y caiff eich bil ei gyfrifo cliciwch yma (yn agor mewn tab newydd). Os oes gennych unrhyw gwestiynau am eich bil, dylech gysylltu â’ch cyngor lleol."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
 
   val valuationTabInsetLinkText = "here (opens in new tab)"
-  val valuationTabInsetLinkTextWelsh = "here (opens in new tab)"
+  val valuationTabInsetLinkTextWelsh = "yma (yn agor mewn tab newydd)"
   val valuationTabInsetLinkTextSelector = "#future-estimate-link"
   val valuationTabInsetLinkHref =
     "https://www.gov.uk/calculate-your-business-rates"
+  val valuationTabInsetLinkHrefWelsh =
+    "https://www.gov.uk/cyfrifwch-eich-ardrethibusnes"
 
   val valuationTabP1 =
     "This detailed valuation will not be available until 1 April 2026. You will be able to request it from that date."
@@ -357,8 +359,8 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
     }
 
     s"has correct link text of $valuationTabInsetLinkText" in {
-      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkText
-      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkHref
+      document.select(valuationTabInsetLinkTextSelector).text shouldBe valuationTabInsetLinkTextWelsh
+      document.select(valuationTabInsetLinkTextSelector).attr("href") shouldBe valuationTabInsetLinkHrefWelsh
     }
 
     "has correct p1 content" in {
