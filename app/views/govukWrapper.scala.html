@@ -76,8 +76,8 @@
     }
 
     @banner = {
-        <div class="new-centered-content">
-            @bannerContent.map { content =>
+        @bannerContent.map { content =>
+            <div class="new-centered-content">
                 <div class="notification-banner">
                     <p>@Html(content)</p>
                 </div>
@@ -86,8 +86,8 @@
                         <p>@Html(secondContent)</p>
                     </div>
                 }
-            }
-        </div>
+            </div>
+        }
     }
 
     @phaseBanner = {
