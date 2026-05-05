@@ -17,7 +17,7 @@
 @import config.ApplicationConfig
 @import controllers.propertyLinking.ClaimPropertyRelationshipVM
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF)
 
 @(model: ClaimPropertyRelationshipVM, clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -50,7 +50,7 @@
     <p class="govuk-body">@messages(s"declareCapacity.details.notOwner.text.2$clientSuffix")</p>
 }
 
-@mainLayout(
+@layout(
     pageTitle = messages("declarePropertyRelationship.title"),
     backUri = Some(backLink),
     hasErrors = form.hasErrors) {

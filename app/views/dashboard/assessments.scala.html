@@ -21,7 +21,7 @@
 @import views.html.dashboard.assessmentDetailsWithRatingList
 
 
-@this(mainLayout: views.html.mainLayout,
+@this(layout: layout,
       assessmentDetailsWithRatingListView: assessmentDetailsWithRatingList,
       naRateableDetailSection: naRateableDetailSection)
 
@@ -30,10 +30,10 @@
     @formattedAddress =@{
         if (model.assessmentsWithLinks.nonEmpty) Formatters.capitalisedAddress(model.address) else Formatters.capitalisedAddress(address)
     }
-    @mainLayout(
+    @layout(
     pageTitle = formattedAddress ,
     backUri = Some(model.backLink),
-    mainClass = Some("govuk-grid-column-full")
+    mainClass = Some(MainClass.FullColumn)
 ) {
 
  <div class="govuk-grid-row">

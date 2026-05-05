@@ -22,7 +22,7 @@
 @import views.html.includes.assessmentHeading
 @import java.net.URLEncoder
 
-@this(govukPanel: GovukPanel, mainLayout: views.html.mainLayout)
+@this(govukPanel: GovukPanel, layout: layout)
 
 @(model: RequestSubmittedVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -52,7 +52,7 @@
     }
 }
 
-@mainLayout(
+@layout(
     pageTitle = messages("linkingRequestSubmitted.title1")
 ) {
     @assessmentHeading(model.localAuthorityReference, model.address)

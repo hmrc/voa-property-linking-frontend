@@ -16,11 +16,11 @@
 
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout)
+@this(layout: layout)
 
 @()(implicit messages: Messages, request: Request[_], config: ApplicationConfig)
 
-@mainLayout(pageTitle = messages("serviceUnavailable.title"), showTopNavigation = false) {
+@layout(pageTitle = messages("serviceUnavailable.title"), showTopNavigation = false) {
 
     <h1 class="govuk-heading-l">@messages("serviceUnavailable.title")</h1>
 

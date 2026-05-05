@@ -22,13 +22,13 @@
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 @import views.html.propertyrepresentation.revokedAgentPrivileges
 
-@this(revokedAgentPrivilegesView: revokedAgentPrivileges, govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(revokedAgentPrivilegesView: revokedAgentPrivileges, govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AgentAppointmentChangesRequest], agent: AgentSummary, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{messages("propertyRepresentation.manageAgent.unassignFromProperty.question", agent.name)}
 
-@mainLayout(
+@layout(
     pageTitle = title,
     backUri = Some(backLink),
     hasErrors = form.hasErrors

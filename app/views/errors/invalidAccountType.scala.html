@@ -16,11 +16,11 @@
 
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
+@this(layout: layout, govukButton: GovukButton)
 
 @()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(pageTitle = messages("invalidAccountType.title"), showTopNavigation = false) {
+@layout(pageTitle = messages("invalidAccountType.title"), showTopNavigation = false) {
     <h1 class="govuk-heading-l">@messages("invalidAccountType.title")</h1>
 
     <p class="govuk-body">@messages("invalidAccountTypeEnrolment.p.1")</p>

@@ -18,7 +18,7 @@
 @import actions.propertylinking.requests.LinkingSessionRequest
 @import _root_.utils.Formatters
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF)
 
 
 @(form: Form[_], backlink: Option[String])(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
@@ -28,7 +28,7 @@
     case _          => {messages("chooseEvidence.title")}
 }}
 
-@mainLayout(
+@layout(
     pageTitle = messages(title),
     backUri = backlink,
     hasErrors = form.hasErrors

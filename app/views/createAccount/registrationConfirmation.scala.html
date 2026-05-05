@@ -20,13 +20,13 @@
 @import uk.gov.hmrc.auth.core.AffinityGroup._
 @import uk.gov.hmrc.auth.core.CredentialRole
 @import uk.gov.hmrc.auth.core.Assistant
-@import views.html.mainLayout
+@import views.html.layout
 
-@this(mainLayout: mainLayout, govukButton: GovukButton)
+@this(layout: layout, govukButton: GovukButton)
 
 @(id: String, affinityGroup: AffinityGroup, credentialRole: CredentialRole)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
 pageTitle = messages("account.confirmation.title"), showTopNavigation = false) {
 
         <div class="govuk-panel govuk-panel--confirmation">

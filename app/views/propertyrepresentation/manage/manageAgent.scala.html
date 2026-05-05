@@ -21,7 +21,7 @@
 @import models.propertyrepresentation.AgentSummary
 @import config.ApplicationConfig
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF)
 @(form: Form[ManageAgentRequest], radioOptions: List[ManageAgentOptionItem], agent: AgentSummary, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
     @radioItems = @{
         radioOptions.map { item =>
@@ -33,7 +33,7 @@
             )
         }
     }
-@mainLayout(
+@layout(
     pageTitle = messages("propertyRepresentation.manageAgent.question", agent.name),
     backUri = Some(backLink),
     hasErrors = form.hasErrors

@@ -19,11 +19,11 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components.link
 
-@this(govukButton: GovukButton, mainLayout: views.html.mainLayout)
+@this(govukButton: GovukButton, layout: layout)
 
 @(backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
   pageTitle = messages("propertyRepresentation.start.title"),
   backUri = Some(backLink),
     ) {

@@ -20,7 +20,7 @@
 @import models.propertyrepresentation.AgentSummary
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(govukTable : GovukTable, mainLayout: views.html.mainLayout)
+@this(govukTable : GovukTable, layout: layout)
 
 @(agents: List[AgentSummary], propertyLinkingCount: Int)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -37,10 +37,10 @@
     }
 }
 
-@mainLayout(
+@layout(
     pageTitle = messages("propertyRepresentation.showAgents.title"),
     backUri = Some(config.dashboardUrl("home")),
-    mainClass = Some("govuk-!-width-full")
+    mainClass = Some(MainClass.FullWidth)
 ) {
 
     <h1 class="govuk-heading-l">@messages("propertyRepresentation.showAgents.title")</h1>

@@ -17,12 +17,12 @@
 @import config.ApplicationConfig
 @import models.propertyrepresentation.RatingListYearsNew
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukCheckboxes : GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukCheckboxes : GovukCheckboxes, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF,
         govukInsetText: GovukInsetText)
 
 @(agentName: String, fromCyaChange: Boolean, form: Form[RatingListYearsNew], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
     backUri = Some(backLink),
     pageTitle = messages("selectRatingList.header", agentName),
     hasErrors = form.hasErrors) {

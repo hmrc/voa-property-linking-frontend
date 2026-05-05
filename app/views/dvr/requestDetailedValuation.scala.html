@@ -21,7 +21,7 @@
 @import views.html.dvr.tabs.futureHelpTab
 
 @this(
-  mainLayout: views.html.mainLayout,
+  layout: layout,
   govukButton: GovukButton,
   govukInsetText: GovukInsetText,
   govukTabs: GovukTabs,
@@ -50,10 +50,10 @@
 
 @if(model.listType == ListType.DRAFT) {
 
-    @mainLayout(
+    @layout(
         pageTitle = address,
         backUri = Some(backUrl),
-        mainClass = Some("govuk-grid-column-full govuk-!-padding-left-0 govuk-!-padding-right-0")) {
+        mainClass = Some(MainClass.FullWidthPaddingZero)) {
 
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
@@ -107,7 +107,7 @@
     }
 
 } else {
-    @mainLayout(pageTitle = address, backUri = Some(backUrl)) {
+    @layout(pageTitle = address, backUri = Some(backUrl)) {
 
         <span class="govuk-caption-l" id="assessment-address-caption">@messages("auto.requestDetailedValuation.smallTitle.yourProperty")</span>
         <h1 class="govuk-heading-l margin-top-20" id="assessment-address">@address</h1>

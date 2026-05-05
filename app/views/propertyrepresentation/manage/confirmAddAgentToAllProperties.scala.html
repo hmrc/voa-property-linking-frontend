@@ -18,7 +18,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components.link
 
-@this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
+@this(govukPanel : GovukPanel, layout: layout)
 
 @(agentName: String, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -26,7 +26,7 @@
 
 @title = @{messages(s"propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.$multipleLinksSuffix", agentName)}
 
-@mainLayout(pageTitle = title, backUri = None) {
+@layout(pageTitle = title, backUri = None) {
 
     @govukPanel(Panel(title = Text(title), content = HtmlContent("")))
 

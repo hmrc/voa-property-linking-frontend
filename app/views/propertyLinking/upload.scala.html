@@ -23,7 +23,7 @@
 @import views.html.helper.CSRF
 @import views.html.helper.form
 
-@this(govukButton: GovukButton, govukFileUpload: GovukFileUpload, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
+@this(govukButton: GovukButton, govukFileUpload: GovukFileUpload, layout: layout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary)
 
 @(
         evidenceType: EvidenceType,
@@ -80,7 +80,7 @@
     }
 }
 
-@mainLayout(
+@layout(
     pageTitle = title,
     backUri = backUri,
     hasErrors = errorCode.nonEmpty

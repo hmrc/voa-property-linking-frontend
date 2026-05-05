@@ -19,7 +19,7 @@
 @import models.searchApi.OwnerAuthResult
 @import models.propertyrepresentation.AgentDetails
 @import utils.Formatters
-@this(govukTable: GovukTable, mainLayout: views.html.mainLayout)
+@this(govukTable: GovukTable, layout: layout)
 
 @(      ownerAuthResult: OwnerAuthResult,
         agentCode: Long,
@@ -36,7 +36,7 @@
     }
 }
 
-@mainLayout(
+@layout(
     pageTitle = messages("propertyRepresentation.agentProperties.assigned.title"),
     backUri = Some(backLink)
 

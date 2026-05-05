@@ -16,11 +16,11 @@
 
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout)
+@this(layout: layout)
 
 @()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(pageTitle = messages("addUserToGG.heading"), showTopNavigation = false) {
+@layout(pageTitle = messages("addUserToGG.heading"), showTopNavigation = false) {
 
     <h1 class="govuk-heading-l">@messages("addUserToGG.heading")</h1>
 

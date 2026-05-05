@@ -22,11 +22,11 @@
 @import models.propertyrepresentation.NoProperties
 @import models.propertyrepresentation.ChooseFromList
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AddAgentOptions], agentName: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
     pageTitle = messages("propertyRepresentation.multipleProperties.title", agentName),
     backUri = Some(backLink),
     hasErrors = form.hasErrors

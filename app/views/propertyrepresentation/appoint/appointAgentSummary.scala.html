@@ -18,13 +18,13 @@
 @import config.ApplicationConfig
 @import views.html.components.link
 
-@this(mainLayout: views.html.mainLayout, govukPanel: GovukPanel)
+@this(layout: layout, govukPanel: GovukPanel)
 
 @(action: AgentAppointBulkAction)(implicit request: AuthenticatedRequest[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{messages("propertyRepresentation.agentSummary.title", action.name)}
 
-@mainLayout(pageTitle = title) {
+@layout(pageTitle = title) {
 
     @govukPanel(Panel(title = Text(title)))
 

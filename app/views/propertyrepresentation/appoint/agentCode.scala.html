@@ -19,11 +19,11 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 
-@this(govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, layout: layout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[String], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
   pageTitle = messages("propertyRepresentation.agentCode.title"),
   backUri = Some(backLink),
   hasErrors = form.hasErrors

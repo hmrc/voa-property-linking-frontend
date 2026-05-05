@@ -1,0 +1,130 @@
+@*
+ * Copyright 2024 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
+@import config.ApplicationConfig
+@import play.twirl.api.HtmlFormat
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.TemplateOverrides
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+@import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTrackingConsentSnippet
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTimeoutDialogHelper
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.HmrcStandardPageParams
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.ServiceURLs
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.Banners
+@import views.html.helpers.ContentLayout
+@import views.html.includes.analytics
+
+@this(hmrcStandardPage: HmrcStandardPage,
+        navigationBar: navigationBar,
+        govukDetails: GovukDetails,
+        hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet,
+        hmrcTimeoutDialogHelper: HmrcTimeoutDialogHelper,
+        standardBetaBanner: StandardBetaBanner,
+        contentLayout: ContentLayout,
+        govukNotificationBanner: GovukNotificationBanner)
+
+@(
+        pageTitle: String,
+        mainClass: Option[MainClass] = None,
+        backUri: Option[String] = None,
+        headExtras: Html = Html(""),
+        backLinkClass: String = "govuk-back-link",
+        hasErrors: Boolean = false,
+        showTopNavigation: Boolean = true
+)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
+
+
+@head = {
+    @views.html.includes.designSystemsStylesheets()
+    @headExtras
+    @hmrcTimeoutDialogHelper(
+        signOutUrl = config.signOutUrl,
+        synchroniseTabs = Option(true),
+        title = Option(messages("timeout.title")),
+        message = Option(messages("timeout.message")),
+        keepAliveButtonText = Option(messages("timeout.keep-alive-button")),
+        signOutButtonText = Option(messages("timeout.sing-out-button")),
+        keepAliveUrl = Option(controllers.routes.KeepAliveController.keepAlive.url)
+    )
+}
+
+@helpContent = {
+    <p class="govuk-body">@messages("getHelpContent.1")</p>
+    <p class="govuk-body">@Html(messages("getHelpContent.2", """<a href="mailto:ccaservice@voa.gov.uk" class="govuk-link">ccaservice@voa.gov.uk</a>"""))</p>
+}
+
+@mainContent = {
+    <div class="govuk-grid-row">
+        <div class="@mainClass.getOrElse(MainClass.TwoThirds)">
+            @contentBlock
+            @govukDetails(
+                Details(
+                    summary = Text(messages("getHelpLink")),
+                    content = HtmlContent(helpContent),
+                    id = Some("report-a-problem")
+                )
+            )
+        </div>
+    </div>
+}
+
+@bannerHtml(content: String) = {
+    <p class="govuk-notification-banner__heading">@Html(content)</p>
+}
+@banner = @{
+    val isWelsh = messages.lang.code == "cy"
+    val maybeBannerContent: Option[String] = if(isWelsh) {
+        config.bannerContentWelsh
+    } else {
+        config.bannerContent
+    }
+
+    maybeBannerContent.map { bannerContent =>
+        govukNotificationBanner(NotificationBanner(
+            content = HtmlContent(bannerHtml(bannerContent))
+        ))
+    }
+}
+
+@title = @{
+    if(hasErrors){
+        s"${messages("common.titleErrorPrefix")} $pageTitle ${messages("common.titleSuffix")}"
+    } else s"$pageTitle ${messages("common.titleSuffix")}"
+}
+
+
+@hmrcStandardPage(
+    HmrcStandardPageParams(
+        pageTitle = Some(pageTitle),
+        serviceURLs = ServiceURLs(
+            serviceUrl = Some(config.dashboardUrl("home"))
+        ),
+        isWelshTranslationAvailable = true,
+        banners = Banners(
+            phaseBanner = Some(standardBetaBanner(url = s"${config.vmvUrl}/send-beta-feedback?serviceIdentifier=CCA"))
+        ),
+        templateOverrides = TemplateOverrides(
+            additionalHeadBlock = Some(head),
+            beforeContentBlock = Some(navigationBar(showTopNavigation, backUri)),
+            mainContentLayout = Some(contentLayout.apply _),
+            additionalScriptsBlock = Some(analytics())
+        )
+    )
+)(contentBlock)
+
+@views.html.includes.scripts()

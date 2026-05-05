@@ -16,7 +16,7 @@
 
 @import config.ApplicationConfig
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF,
     govukInsetText: GovukInsetText, govukWarningText: GovukWarningText, govukPanel: GovukPanel)
 
 @(agentName: String, chosenListYears: List[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -30,7 +30,7 @@
                     }
 }
 
-@mainLayout(
+@layout(
     pageTitle = messages("ratingsListConfirmed.header", agentName)) {
 
     @govukPanel(Panel(

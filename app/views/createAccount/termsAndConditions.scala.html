@@ -16,12 +16,12 @@
 
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout)
+@this(layout: layout)
 
 @()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
-@mainLayout(
+@layout(
     pageTitle = messages("termsAndConditions.title"),
 ) {
 

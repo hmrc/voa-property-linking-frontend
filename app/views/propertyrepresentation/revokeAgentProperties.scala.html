@@ -25,7 +25,7 @@
 @import _root_.utils.Formatters
 @import views.html.propertyrepresentation.revokedAgentPrivileges
 
-@this(revokedAgentPrivilegesView: revokedAgentPrivileges, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukTable: GovukTable, govukButton: GovukButton, govukWarningText: GovukWarningText)
+@this(revokedAgentPrivilegesView: revokedAgentPrivileges, layout: layout, formWithCSRF: FormWithCSRF, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukTable: GovukTable, govukButton: GovukButton, govukWarningText: GovukWarningText)
 
 @(
     f: Option[Form[_]],
@@ -129,7 +129,7 @@
         }
     }
 
-@mainLayout(pageTitle = title, backUri = Some(backLink), mainClass = Some("govuk-grid-column-full"), hasErrors = errorLinks.nonEmpty) {
+@layout(pageTitle = title, backUri = Some(backLink), mainClass = Some(MainClass.FullColumn), hasErrors = errorLinks.nonEmpty) {
 
     @if(f.isDefined){
         @govukErrorSummary(

@@ -16,11 +16,11 @@
 
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout)
+@this(layout: layout)
 
 @()(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
-@mainLayout(pageTitle = messages("error.404.title"), showTopNavigation = false) {
+@layout(pageTitle = messages("error.404.title"), showTopNavigation = false) {
     <h1 class="govuk-heading-l">@messages("error.404.title")</h1>
     <p class="govuk-body">@messages("error.404.message")</p>
 }

@@ -15,20 +15,20 @@
  *@
 
 @import config.ApplicationConfig
-@import views.html.mainLayout
+@import views.html.layout
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import helpers._
 @import uk.gov.hmrc.govukfrontend.views.Implicits.RichRadios
 
-@this(mainLayout: mainLayout, formErrorSummary: formErrorSummary, govukButton: GovukButton, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF)
+@this(layout: layout, formErrorSummary: formErrorSummary, govukButton: GovukButton, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF)
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
-@mainLayout(
+@layout(
     pageTitle = messages("accountType.heading"),
     backUri = Some(controllers.registration.routes.DoYouHaveAccountController.show.url),
-    mainClass = Some("govuk-grid-column-two-thirds"),
+    mainClass = Some(MainClass.TwoThirds),
     hasErrors = form.hasErrors
 
 ){

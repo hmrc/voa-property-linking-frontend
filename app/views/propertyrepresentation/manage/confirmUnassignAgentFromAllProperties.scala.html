@@ -17,14 +17,14 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
 
-@this(govukPanel: GovukPanel, mainLayout: views.html.mainLayout)
+@this(govukPanel: GovukPanel, layout: layout)
 
 
 @(agentName: String, agentCode: Long, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{messages(s"propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.${if(multiplePropertyLinks) "multipleProperties" else "singleProperty"}", agentName)}
 
-    @mainLayout(
+    @layout(
         pageTitle = title,
         backUri = None
     ) {

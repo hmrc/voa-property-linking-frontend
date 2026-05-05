@@ -18,11 +18,11 @@
 @import config.ApplicationConfig
 @import views.html.includes.assessmentHeading
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton)
+@this(layout: layout, govukButton: GovukButton)
 
 @(model: CanChallengeResponse, address: String, localAuth: String, homePageUrl: String, authorisationId: Long, backLinkUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
     pageTitle = messages("cannotRaiseChallenge.title"),
     backUri = Some(backLinkUrl)
 ) {

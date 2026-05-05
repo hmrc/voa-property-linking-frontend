@@ -93,6 +93,7 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
 
+  lazy val mailToUrl = "mailto:ccaservice@voa.gov.uk"
   lazy val signOutUrlWithoutParams = loadConfig("sign-out.url")
 
   lazy val stubEnrolment: Boolean = loadBooleanConfig("enrolment.useStub")
