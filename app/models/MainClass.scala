@@ -23,6 +23,8 @@ sealed trait MainClass {
 object MainClass {
   case object TwoThirds extends MainClass { val value = "govuk-grid-column-two-thirds" }
   case object FullColumn extends MainClass { val value = "govuk-grid-column-full" }
-  case object FullWidth extends MainClass { val value = "govuk-!-width-full"}
-  case object FullWidthPaddingZero extends MainClass { val value = "govuk-grid-column-full govuk-!-padding-left-0 govuk-!-padding-right-0"}
+  case object FullWidth extends MainClass { val value = "govuk-!-width-full" }
+  case object FullWidthPaddingZero extends MainClass {
+    val value = "govuk-grid-column-full govuk-!-padding-left-0 govuk-!-padding-right-0"
+  }
 }
