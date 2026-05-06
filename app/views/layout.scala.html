@@ -46,7 +46,7 @@
         backLinkClass: String = "govuk-back-link",
         hasErrors: Boolean = false,
         showTopNavigation: Boolean = true
-)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
+)(content: Html)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
 
 @head = {
@@ -69,9 +69,8 @@
 }
 
 @mainContent = {
-    <div class="govuk-grid-row">
-        <div class="@mainClass.getOrElse(MainClass.TwoThirds)">
-            @contentBlock
+        <div class="@mainClass.getOrElse(MainClass.TwoThirds).value">
+            @content
             @govukDetails(
                 Details(
                     summary = Text(messages("getHelpLink")),
@@ -80,7 +79,6 @@
                 )
             )
         </div>
-    </div>
 }
 
 @bannerHtml(content: String) = {
@@ -125,6 +123,6 @@
             additionalScriptsBlock = Some(analytics())
         )
     )
-)(contentBlock)
+)(mainContent)
 
 @views.html.includes.scripts()

@@ -31,7 +31,7 @@ class DowntimePageSpec extends VoaPropertyLinkingSpec {
       mockCustomErrorHandler,
       preAuthenticatedStaticPage(),
       stubMessagesControllerComponents(),
-      new downtimePage(mainLayout)
+      new downtimePage(layout)
     )
 
   "plannedImprovements" should "display the downtime page when user is logged in" in {
@@ -49,7 +49,7 @@ class DowntimePageSpec extends VoaPropertyLinkingSpec {
       mockCustomErrorHandler,
       preAuthenticatedStaticPage(accounts = None),
       stubMessagesControllerComponents(),
-      new downtimePage(mainLayout)
+      new downtimePage(layout)
     ).plannedImprovements()(FakeRequest())
 
     status(result) shouldBe OK
