@@ -69,7 +69,7 @@
 }
 
 @mainContent = {
-        <div class="@mainClass.getOrElse(MainClass.TwoThirds).value">
+        <div class="@mainClass.map(_.value).getOrElse(MainClass.TwoThirds.value)">
             @content
             @govukDetails(
                 Details(
