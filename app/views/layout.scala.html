@@ -28,6 +28,8 @@
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.Banners
 @import views.html.helpers.ContentLayout
 @import views.html.includes.analytics
+@import actions.requests.CcaWrappedRequestHelper.RequestOps
+
 
 @this(hmrcStandardPage: HmrcStandardPage,
         navigationBar: navigationBar,
@@ -42,8 +44,6 @@
         pageTitle: String,
         mainClass: Option[MainClass] = None,
         backUri: Option[String] = None,
-        headExtras: Html = Html(""),
-        backLinkClass: String = "govuk-back-link",
         hasErrors: Boolean = false,
         showTopNavigation: Boolean = true
 )(content: Html)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
@@ -51,16 +51,17 @@
 
 @head = {
     @views.html.includes.designSystemsStylesheets()
-    @headExtras
-    @hmrcTimeoutDialogHelper(
-        signOutUrl = config.signOutUrl,
-        synchroniseTabs = Option(true),
-        title = Option(messages("timeout.title")),
-        message = Option(messages("timeout.message")),
-        keepAliveButtonText = Option(messages("timeout.keep-alive-button")),
-        signOutButtonText = Option(messages("timeout.sing-out-button")),
-        keepAliveUrl = Option(controllers.routes.KeepAliveController.keepAlive.url)
-    )
+    @if(request.isLoggedIn){
+        @hmrcTimeoutDialogHelper(
+            signOutUrl = config.signOutUrl,
+            synchroniseTabs = Some(true),
+            title = Some(messages("timeout.title")),
+            message = Some(messages("timeout.message")),
+            keepAliveButtonText = Some(messages("timeout.keep-alive-button")),
+            signOutButtonText = Some(messages("timeout.sign-out-button")),
+            keepAliveUrl = Some(controllers.routes.KeepAliveController.keepAlive.url)
+        )
+}
 }
 
 @helpContent = {
@@ -81,20 +82,33 @@
         </div>
 }
 
-@bannerHtml(content: String) = {
+@bannerHtml(content: String, secondContent: Option[String]) = {
     <p class="govuk-notification-banner__heading">@Html(content)</p>
-}
-@banner = @{
-    val isWelsh = messages.lang.code == "cy"
-    val maybeBannerContent: Option[String] = if(isWelsh) {
-        config.bannerContentWelsh
-    } else {
-        config.bannerContent
+    @if(Some(secondContent).exists(_.nonEmpty)) {
+    <p class="govuk-notification-banner__heading">@Html(secondContent)</p>
     }
+}
 
-    maybeBannerContent.map { bannerContent =>
+@bannerContent = @{
+    if(messages.lang.code == "cy"){
+        config.bannerContentWelsh
+    } else config.bannerContent
+}
+
+@secondBannerContent = @{
+    if(messages.lang.code == "cy"){
+        config.secondBannerContentWelsh
+    } else config.secondBannerContent
+}
+
+@banner = @{
+    bannerContent.map { content =>
+        val html =
+            secondBannerContent
+            .map(secondContent => bannerHtml(content, Some(secondContent)))
+            .getOrElse(bannerHtml(content, None))
         govukNotificationBanner(NotificationBanner(
-            content = HtmlContent(bannerHtml(bannerContent))
+            content = HtmlContent(html)
         ))
     }
 }
