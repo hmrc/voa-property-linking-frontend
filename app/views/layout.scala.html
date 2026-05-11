@@ -84,8 +84,8 @@
 
 @bannerHtml(content: String, secondContent: Option[String]) = {
     <p class="govuk-notification-banner__heading">@Html(content)</p>
-    @if(Some(secondContent).exists(_.nonEmpty)) {
-    <p class="govuk-notification-banner__heading">@Html(secondContent)</p>
+    @secondContent.map { second =>
+        <p class="govuk-notification-banner__heading">@Html(second)</p>
     }
 }
 
@@ -101,14 +101,11 @@
     } else config.secondBannerContent
 }
 
+
 @banner = @{
     bannerContent.map { content =>
-        val html =
-            secondBannerContent
-            .map(secondContent => bannerHtml(content, Some(secondContent)))
-            .getOrElse(bannerHtml(content, None))
         govukNotificationBanner(NotificationBanner(
-            content = HtmlContent(html)
+            content = HtmlContent(bannerHtml(content, secondBannerContent))
         ))
     }
 }
