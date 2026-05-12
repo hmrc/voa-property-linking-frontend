@@ -181,7 +181,7 @@ class IdentityVerificationSpec extends VoaPropertyLinkingSpec {
         identityVerificationConnector = StubIdentityVerification,
         identityVerificationService = stubIdentityVerificationServiceEnrolmentOrg,
         personalDetailsSessionRepo = mockSessionRepoOrgDetails,
-        ivFailedView = new ivFailed(mainLayout)
+        ivFailedView = new ivFailed(layout)
       )
 
     def requestWithJourneyId(id: String) = FakeRequest(GET, s"/?journeyId=$id").withSession("journeyId" -> id)

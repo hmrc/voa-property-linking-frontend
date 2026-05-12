@@ -19,12 +19,12 @@
 @import models.propertyrepresentation.ratingList2017
 @import models.propertyrepresentation.ratingList2023
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF,
         govukInsetText: GovukInsetText)
 
 @(fromCyaChange: Boolean, form: Form[RatingListYearsOptions], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
     backUri = Some(backLink),
     pageTitle = messages("whichRatingList.header"),
     hasErrors = form.hasErrors) {

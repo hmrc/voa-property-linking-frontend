@@ -97,9 +97,9 @@ trait VoaPropertyLinkingSpec
       mockBusinessRatesAuthorisation,
       mockEnrolmentService,
       mockAuthConnector,
-      errorView = new views.html.errors.error(mainLayout),
-      forbiddenView = new views.html.errors.forbidden(mainLayout),
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
+      errorView = new views.html.errors.error(layout),
+      forbiddenView = new views.html.errors.forbidden(layout),
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(layout, govukButton)
     ) {
       override def invokeBlock[A](
             request: Request[A],
@@ -113,7 +113,7 @@ trait VoaPropertyLinkingSpec
       messageApi,
       mockGovernmentGatewayProvider,
       mockAuthConnector,
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(layout, govukButton)
     ) {
       override def invokeBlock[A](
             request: Request[A],
@@ -135,9 +135,9 @@ trait VoaPropertyLinkingSpec
       mockBusinessRatesAuthorisation,
       mockEnrolmentService,
       mockAuthConnector,
-      errorView = new views.html.errors.error(mainLayout),
-      forbiddenView = new views.html.errors.forbidden(mainLayout),
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
+      errorView = new views.html.errors.error(layout),
+      forbiddenView = new views.html.errors.forbidden(layout),
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(layout, govukButton)
     ) {
       override def invokeBlock[A](
             request: Request[A],

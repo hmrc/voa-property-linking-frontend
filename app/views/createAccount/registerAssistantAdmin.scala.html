@@ -20,11 +20,11 @@
 @import models.registration.FieldData
 @import config.ApplicationConfig
 @import utils.Formatters._
-@import views.html.mainLayout
+@import views.html.layout
 @import views.html._
 @import utils.FrontendComponentHelper._
 
-@this(address: address, mainLayout: mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, dateFields: dateFields, formWithCSRF: FormWithCSRF)
+@this(address: address, layout: layout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, dateFields: dateFields, formWithCSRF: FormWithCSRF)
 
 @(organisationFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -32,7 +32,7 @@
     if(selected) """checked="checked""" else """ disabled="disabled" """
 }
 
-@mainLayout(pageTitle = messages("admin.enrolment.title"),
+@layout(pageTitle = messages("admin.enrolment.title"),
 showTopNavigation = false) {
 
         <h1 class="govuk-heading-l">@messages("admin.enrolment.title")</h1>

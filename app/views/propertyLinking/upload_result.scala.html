@@ -24,7 +24,7 @@
 @import models.upscan._
 
 
-@this(govukTag: GovukTag, govukSummaryList: GovukSummaryList, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukButton: GovukButton, govukErrorSummary: GovukErrorSummary)
+@this(govukTag: GovukTag, govukSummaryList: GovukSummaryList, layout: layout, formWithCSRF: FormWithCSRF, govukButton: GovukButton, govukErrorSummary: GovukErrorSummary)
 
 @(
         evidenceType: EvidenceType,
@@ -110,7 +110,7 @@
     }
 }
 
-@mainLayout(
+@layout(
     pageTitle = title,
     backUri = backUri
 ) {

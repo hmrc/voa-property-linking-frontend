@@ -19,7 +19,7 @@
 @import binders.propertylinks._
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout, govukButton: GovukButton, govukPanel: GovukPanel)
+@this(layout: layout, govukButton: GovukButton, govukPanel: GovukPanel)
 
 @(
  action: AgentRevokeBulkAction,
@@ -28,7 +28,7 @@
 
 @heading = @{ messages("propertyRepresentation.agentRemoveSummary.h1", agentOrganisation)}
 
-@mainLayout(
+@layout(
  pageTitle = heading
 ) {
  @govukPanel(Panel(

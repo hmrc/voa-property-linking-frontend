@@ -20,11 +20,11 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
-@this(mainLayout: views.html.mainLayout, formErrorSummary: formErrorSummary, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
+@this(layout: layout, formErrorSummary: formErrorSummary, govukButton: GovukButton, govukInput: GovukInput, formWithCSRF: FormWithCSRF)
 
 @(model: UpdateOrganisationDetailsVM)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
     pageTitle = messages("updateBusinessName.title"),
     backUri = Some(controllers.manageDetails.routes.ViewDetails.show.url),
     hasErrors = model.form.hasErrors

@@ -16,7 +16,7 @@
 
 @import config.ApplicationConfig
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF,
     govukInsetText: GovukInsetText, govukCheckboxes: GovukCheckboxes)
 
 @(form: Form[RatingListYearsNew], currentRatingList: Seq[String], backLink: String, agentName: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -30,7 +30,7 @@
     }
 }
 
-@mainLayout(
+@layout(
     backUri = Some(backLink),
     pageTitle = messages("whichRatingListNew.header", agentName),
     hasErrors = form.hasErrors) {

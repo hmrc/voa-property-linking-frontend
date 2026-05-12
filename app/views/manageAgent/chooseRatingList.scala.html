@@ -16,7 +16,7 @@
 
 @import config.ApplicationConfig
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF,
     govukInsetText: GovukInsetText)
 
 @(form: Form[_], agentName: String, currentRatingList: List[String], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -34,7 +34,7 @@
 @bothListYearsChecked = @{currentRatingList.size.equals(2)}
 @oneListYearChecked = @{currentRatingList.size.equals(1)}
 
-@mainLayout(
+@layout(
     backUri = Some(backLink),
     pageTitle = messages("chooseRatingList.header", agentName),
     hasErrors = form.hasErrors) {

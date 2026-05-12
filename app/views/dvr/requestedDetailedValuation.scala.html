@@ -18,7 +18,7 @@
 @import config.ApplicationConfig
 @import views.html.components.link
 
-@this(mainLayout: views.html.mainLayout, govukPanel: GovukPanel, govukSummaryList: GovukSummaryList)
+@this(layout: layout, govukPanel: GovukPanel, govukSummaryList: GovukSummaryList)
 
 @(
   submissionId: String,
@@ -52,7 +52,7 @@
 )}
 
 
-    @mainLayout(pageTitle = messages("auto.detailedValuationRequested.title.confirmation")) {
+    @layout(pageTitle = messages("auto.detailedValuationRequested.title.confirmation")) {
 
         @govukPanel(Panel(
             attributes = Map("id" -> "dvr-confirmation-panel"),

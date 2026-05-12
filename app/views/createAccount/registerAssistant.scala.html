@@ -20,10 +20,10 @@
 @import models.registration.FieldData
 @import config.ApplicationConfig
 @import utils.Formatters._
-@import views.html.mainLayout
+@import views.html.layout
 @import views.html._
 
-@this(address: address, mainLayout: mainLayout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
+@this(address: address, layout: layout, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AssistantUserAccountDetails], assistantFieldData: FieldData)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -37,7 +37,7 @@
     content = HtmlContent(s"${messages(s"label.${error.key}")} - ${messages(error.message)}") )}
 }
 
-@mainLayout(
+@layout(
 pageTitle = messages("enrolment.title"),
 showTopNavigation = false,
 hasErrors = form.hasErrors) {

@@ -141,9 +141,9 @@ class AuthenticatedActionSpec
       mockBusinessRatesAuthorisation,
       mockEnrolmentService,
       authConnector,
-      errorView = new views.html.errors.error(mainLayout),
-      forbiddenView = new views.html.errors.forbidden(mainLayout),
-      invalidAccountTypeView = new views.html.errors.invalidAccountType(mainLayout, govukButton)
+      errorView = new views.html.errors.error(layout),
+      forbiddenView = new views.html.errors.forbidden(layout),
+      invalidAccountTypeView = new views.html.errors.invalidAccountType(layout, govukButton)
     )
   }
 

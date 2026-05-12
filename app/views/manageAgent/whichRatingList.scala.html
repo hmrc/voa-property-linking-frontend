@@ -16,7 +16,7 @@
 
 @import config.ApplicationConfig
 
-@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF,
+@this(govukErrorSummary : GovukErrorSummary, govukDetails : GovukDetails, govukRadios : GovukRadios, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF,
     govukInsetText: GovukInsetText)
 
 @(form: Form[_], currentRatingList: List[String], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -27,7 +27,7 @@
 @listYear2023Checked = @{currentRatingList.size.equals(1) && currentRatingList.head.equals("2023")}
 @listYear2017Checked = @{currentRatingList.size.equals(1) && currentRatingList.head.equals("2017")}
 
-@mainLayout(
+@layout(
     backUri = Some(backLink),
     pageTitle = messages("whichRatingList.header"),
     hasErrors = form.hasErrors) {

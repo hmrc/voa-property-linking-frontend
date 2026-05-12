@@ -24,7 +24,7 @@
 @import models._
 @import java.time.LocalDate
 
-@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
+@this(govukErrorSummary : GovukErrorSummary, govukWarningText: GovukWarningText, govukCheckboxes: GovukCheckboxes, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
 @(model: DeclarationVM)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
@@ -77,7 +77,7 @@
 
 @evidenceType = @{request.ses.uploadEvidenceData.fileInfo.map(_.evidenceType.name)}
 
-@mainLayout(
+@layout(
     pageTitle = messages("declaration.title"),
     backUri = Some(controllers.propertyLinking.routes.DeclarationController.back.url),
     hasErrors = model.form.hasErrors

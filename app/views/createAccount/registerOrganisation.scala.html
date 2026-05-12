@@ -19,12 +19,12 @@
 
 @import models.registration.FieldData
 @import config.ApplicationConfig
-@import views.html.mainLayout
+@import views.html.layout
 @import views.html._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import utils.FrontendComponentHelper._
 
-@this(address: address, mainLayout: mainLayout, govukButton: GovukButton, dateFields: dateFields, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF)
+@this(address: address, layout: layout, govukButton: GovukButton, dateFields: dateFields, govukInsetText: GovukInsetText, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, govukRadios: GovukRadios, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AdminOrganisationAccountDetailsUplift], organisationFieldData: FieldDataUplift)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -35,7 +35,7 @@
     }
 }
 
-@mainLayout(
+@layout(
     pageTitle = messages("enrolment.title"),
     showTopNavigation = false,
     hasErrors = form.hasErrors) {

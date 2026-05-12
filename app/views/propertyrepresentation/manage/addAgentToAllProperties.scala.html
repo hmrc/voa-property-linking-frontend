@@ -22,7 +22,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components.link
 
-@this(govukErrorSummary: GovukErrorSummary, govukButton: GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary: GovukErrorSummary, govukButton: GovukButton, layout: layout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AgentAppointmentChangesRequest], agentName: String, agentCode: Long, multiplePropertyLinks: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -30,7 +30,7 @@
 
 @title = @{messages(s"propertyRepresentation.manageAgent.assignToAllProperties.title.$multipleLinksSuffix", agentName)}
 
-@mainLayout(
+@layout(
     pageTitle = title,
     backUri = Some(controllers.agent.routes.ManageAgentController.showManageAgent.url),
     hasErrors = form.hasErrors

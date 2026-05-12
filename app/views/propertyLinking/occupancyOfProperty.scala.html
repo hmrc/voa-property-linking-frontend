@@ -22,7 +22,7 @@
 @import play.api.data._
 
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, dateFields: dateFields, layout: layout, formWithCSRF: FormWithCSRF)
 
 
 @(form: Form[_], clientDetails: Option[ClientDetails] = None, backLink: String)(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
@@ -89,7 +89,7 @@ val helper = request.ses.propertyRelationship.map(_.capacity).fold(
   }
 }
 
-@mainLayout(
+@layout(
     pageTitle = messages(s"propertyOccupancy.title$clientSuffix"),
     backUri = Some(backLink),
     hasErrors = form.hasErrors

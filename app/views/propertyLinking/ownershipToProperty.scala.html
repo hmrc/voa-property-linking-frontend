@@ -27,7 +27,7 @@
   govukRadios: GovukRadios,
   govukButton: GovukButton,
   dateFields: dateFields,
-  mainLayout: views.html.mainLayout,
+  layout: layout,
   formWithCSRF: FormWithCSRF
 )
 
@@ -63,7 +63,7 @@
     handler
 }
 
-@mainLayout(
+@layout(
     pageTitle = messages(s"declareCapacity.title$clientSuffix"),
     backUri = Some(backLink),
     hasErrors = form.hasErrors

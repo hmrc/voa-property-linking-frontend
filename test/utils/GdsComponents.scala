@@ -20,10 +20,11 @@ import com.typesafe.config.{Config, ConfigFactory}
 import play.api.Configuration
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.html.helpers.{GovukFormGroup, GovukHintAndErrorMessage, GovukLogo}
-import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, AssetsConfig, RebrandConfig, TimeoutDialogConfig, TrackingConsentConfig, TudorCrownConfig}
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, AssetsConfig, RebrandConfig, ServiceNavigationConfig, TimeoutDialogConfig, TrackingConsentConfig, TudorCrownConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems, StandardBetaBanner}
-import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcTimeoutDialog}
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcScripts, HmrcStandardFooter, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
+import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcBanner, HmrcFooter, HmrcHeader, HmrcLanguageSelect, HmrcTimeoutDialog, HmrcUserResearchBanner}
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcHead, HmrcLanguageSelectHelper, HmrcScripts, HmrcStandardFooter, HmrcStandardHeader, HmrcStandardPage, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
+import views.html.helpers.ContentLayout
 
 trait GdsComponents {
 
@@ -38,6 +39,7 @@ trait GdsComponents {
                                 |session.timeoutSeconds=10
                                 |session.timeout=10
                                 |play-frontend-hmrc.useRebrand=true
+                                |play-frontend-hmrc.forceServiceNavigation=false
                             """.stripMargin)
 
   lazy val minimalConfiguration = Configuration(minimalConfig)
@@ -92,4 +94,43 @@ trait GdsComponents {
     new HmrcTimeoutDialogHelper(new HmrcTimeoutDialog, new TimeoutDialogConfig(minimalConfiguration))
   lazy val standardBetaBanner = new StandardBetaBanner
   lazy val hmrcScripts = new HmrcScripts(new AssetsConfig)
+  lazy val govukNotificationBanner = new GovukNotificationBanner
+  lazy val hmrcLanguageSelectHelper = new HmrcLanguageSelectHelper(
+    new HmrcLanguageSelect(),
+    serviceNavigationConfig
+  )
+  lazy val tudorCrownConfig = new TudorCrownConfig(minimalConfiguration)
+  lazy val serviceNavigationConfig = new ServiceNavigationConfig(minimalConfiguration)
+  lazy val hmrcStandardPage = new HmrcStandardPage(
+    new GovukLayout(
+      govukTemplate,
+      govukHeader,
+      govukFooter,
+      govukBackLink,
+      new TwoThirdsMainContent(),
+      new FixedWidthPageLayout()
+    ),
+    new HmrcStandardHeader(
+      new HmrcHeader(
+        new HmrcBanner(tudorCrownConfig),
+        new HmrcUserResearchBanner(),
+        govukPhaseBanner,
+        tudorCrownConfig,
+        rebrandConfig,
+        govukLogo,
+        new GovukServiceNavigation()
+      ),
+      serviceNavigationConfig,
+      minimalConfiguration
+    ),
+    hmrcStandardFooter,
+    new HmrcHead(hmrcTrackingConsentSnippet, new AssetsConfig()),
+    hmrcLanguageSelectHelper,
+    hmrcScripts,
+    govukBackLink,
+    new GovukExitThisPage(govukButton),
+    new TwoThirdsMainContent(),
+    new FixedWidthPageLayout()
+  )
+  lazy val contentLayout = new ContentLayout()
 }

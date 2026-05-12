@@ -27,7 +27,7 @@
   govukErrorSummary: GovukErrorSummary,
   govukRadios: GovukRadios,
   govukButton: GovukButton,
-  mainLayout: views.html.mainLayout,
+        layout: layout,
   formWithCSRF: FormWithCSRF
 )
 
@@ -61,7 +61,7 @@
     }
 }
 
-@mainLayout(
+@layout(
     pageTitle = Messages("uploadOtherEvidence.title"),
     backUri = Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url),
     hasErrors = formEvidence.hasErrors

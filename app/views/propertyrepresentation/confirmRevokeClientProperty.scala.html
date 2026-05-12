@@ -18,12 +18,12 @@
 @import config.ApplicationConfig
 @import utils.Formatters
 
-@this(govukPanel : GovukPanel, mainLayout: views.html.mainLayout)
+@this(govukPanel : GovukPanel, layout: layout)
 
 
 @(address: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
     pageTitle = messages("propertyRepresentation.revokeClientProperty.title"),
     backUri = None
 ) {

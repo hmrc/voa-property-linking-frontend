@@ -18,12 +18,12 @@
 
 @import models.identityVerificationProxy.IvResult.IvFailure
 
-@this(mainLayout: views.html.mainLayout)
+@this(layout: layout)
 
 @(failureReason: IvFailure)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
-@mainLayout(pageTitle = messages("failedIdentityVerification.title"), showTopNavigation = false) {
+@layout(pageTitle = messages("failedIdentityVerification.title"), showTopNavigation = false) {
 
     <h1 class="govuk-heading-l">@messages("failedIdentityVerification.title")</h1>
 

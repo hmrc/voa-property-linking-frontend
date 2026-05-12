@@ -19,11 +19,11 @@
 
 @import models.registration.FieldData
 @import config.ApplicationConfig
-@import views.html.mainLayout
+@import views.html.layout
 @import views.html._
 @import utils.FrontendComponentHelper._
 
-@this(address: address, mainLayout: mainLayout, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, dateFields: dateFields, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
+@this(address: address, layout: layout, govukDetails: GovukDetails, govukErrorSummary: GovukErrorSummary, govukInput: GovukInput, dateFields: dateFields, govukButton: GovukButton, formWithCSRF: FormWithCSRF)
 @(form: Form[IndividualUserAccountDetailsUplift], individualFieldData: FieldDataUplift)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @emailLengthCheck: Option[String] = @{
@@ -33,7 +33,7 @@
     }
 }
 
-@mainLayout(
+@layout(
     pageTitle = messages("enrolment.title"),
     showTopNavigation = false,
     hasErrors = form.hasErrors) {

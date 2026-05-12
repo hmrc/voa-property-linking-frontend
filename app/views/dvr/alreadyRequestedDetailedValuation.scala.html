@@ -19,7 +19,7 @@
 @import _root_.utils.Formatters
 @import views.html.components.link
 
-@this(mainLayout: views.html.mainLayout, govukInsetText: GovukInsetText, govukSummaryList: GovukSummaryList, govukPanel:GovukPanel)
+@this(layout: layout, govukInsetText: GovukInsetText, govukSummaryList: GovukSummaryList, govukPanel:GovukPanel)
 
 @(
     addressFormatted: String,
@@ -39,7 +39,7 @@
 @panelContent = @{
     s"""<p class='govuk-body white'><strong>${messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText)}</strong><p>"""
 }
-    @mainLayout(
+    @layout(
       pageTitle = addressFormatted,
       backUri = Some(backLink)
     ) {

@@ -15,17 +15,17 @@
  *@
 
 @import config.ApplicationConfig
-@import views.html.mainLayout
+@import views.html.layout
 
-@this(mainLayout: mainLayout, govukInsetText: GovukInsetText, govukButton: GovukButton)
+@this(layout: layout, govukInsetText: GovukInsetText, govukButton: GovukButton)
 
 @(data: Form[String])(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
     pageTitle = messages("start.heading.register"),
     backUri = Some(config.dashboardUrl("home")),
     showTopNavigation = false,
-    mainClass = Some("govuk-grid-column-two-thirds")
+    mainClass = Some(MainClass.TwoThirds)
 ){
     <h2 class="govuk-heading-xl">@messages("start.heading.register")</h2>
 

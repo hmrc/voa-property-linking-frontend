@@ -23,7 +23,7 @@
 @import views.html.helper.CSPNonce
 
 @this(
-  mainLayout: views.html.mainLayout,
+        layout: layout,
   agentsTab: views.html.dvr.tabs.agentsTab,
   challengeCasesDetailsTab: views.html.dvr.tabs.challengeCasesDetailsTab,
   checkCasesDetailsTab: views.html.dvr.tabs.checkCasesDetailsTab,
@@ -132,7 +132,7 @@
     ).flatten
 }
 
-@mainLayout(pageTitle = address, backUri = Some(model.backUrl), mainClass = Some("govuk-grid-column-full")) {
+@layout(pageTitle = address, backUri = Some(model.backUrl), mainClass = Some(MainClass.FullColumn)) {
     @if(startCheckForm.hasErrors){
         @govukErrorSummary(ErrorSummary(
             errorList = startCheckForm.errors.headOption.map(e => ErrorLink(

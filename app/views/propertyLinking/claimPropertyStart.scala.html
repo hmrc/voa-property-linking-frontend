@@ -20,7 +20,7 @@
 @import binders.propertylinks.ClaimPropertyReturnToPage._
 @import _root_.utils.Formatters
 
-@this(govukSummaryList: GovukSummaryList, govukButton: GovukButton, mainLayout: views.html.mainLayout)
+@this(govukSummaryList: GovukSummaryList, govukButton: GovukButton, layout: views.html.layout)
 
 @(model: ClaimPropertyRelationshipVM, clientDetails: Option[ClientDetails], backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
@@ -29,7 +29,7 @@
     case _         => {messages("addPropertyStart.title")}
 }}
 
-@mainLayout(
+@layout(
     pageTitle = title,
     backUri = Some(backLink)) {
 

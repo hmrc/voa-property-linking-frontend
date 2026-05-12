@@ -15,13 +15,13 @@
  *@
 
 @import config.ApplicationConfig
-@import views.html.mainLayout
+@import views.html.layout
 
-@this(mainLayout: mainLayout, govukButton: GovukButton, govukPanel: GovukPanel)
+@this(layout: layout, govukButton: GovukButton, govukPanel: GovukPanel)
 
 @(id: String, agentCode: Option[Long], email: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(pageTitle = messages("registration.successful"), showTopNavigation = false) {
+@layout(pageTitle = messages("registration.successful"), showTopNavigation = false) {
 
         @govukPanel(Panel(
             title = Text(messages("registration.successful")),

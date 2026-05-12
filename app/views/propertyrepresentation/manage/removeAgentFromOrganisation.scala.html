@@ -21,13 +21,13 @@
 @import config.ApplicationConfig
 @import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 
-@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[AgentAppointmentChangesRequest], agentCode: Long, agentName: String, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @title = @{messages("propertyRepresentation.manageAgent.removeFromAccount.question", agentName)}
 
-@mainLayout(
+@layout(
     pageTitle = title,
     backUri = Some(backLink),
     hasErrors = form.hasErrors

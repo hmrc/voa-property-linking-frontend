@@ -16,10 +16,10 @@
 
 @import config.ApplicationConfig
 
-@this(mainLayout: views.html.mainLayout)
+@this(layout: layout)
 
 @()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(pageTitle = messages("plannedImprovements.title")) {
+@layout(pageTitle = messages("plannedImprovements.title")) {
     @config.plannedImprovementsContent.map(Html.apply)
 }

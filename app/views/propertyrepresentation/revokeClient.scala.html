@@ -17,11 +17,11 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import config.ApplicationConfig
 
-@this(formWithCSRF: FormWithCSRF, govukButton : GovukButton, mainLayout: views.html.mainLayout)
+@this(formWithCSRF: FormWithCSRF, govukButton : GovukButton, layout: layout)
 
 @(clientProperty: ClientPropertyLink)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
     pageTitle = messages("propertyRepresentation.revokeClient.title"),
     backUri = Some(config.dashboardUrl("client-properties"))
 ) {

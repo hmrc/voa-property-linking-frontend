@@ -18,10 +18,10 @@
 @import binders.propertylinks._
 @import actions.propertylinking.requests.LinkingSessionRequest
 
-@this(mainLayout: views.html.mainLayout)
+@this(layout: layout)
 @()(implicit request: LinkingSessionRequest[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
     pageTitle = messages("cannotProvideEvidence.title"),
     backUri = Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
 ) {

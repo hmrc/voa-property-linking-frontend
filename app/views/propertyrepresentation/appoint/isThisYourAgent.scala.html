@@ -21,11 +21,11 @@
 @import utils.Formatters
 @import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
 
-@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, mainLayout: views.html.mainLayout, formWithCSRF: FormWithCSRF)
+@this(govukErrorSummary : GovukErrorSummary, govukRadios : GovukRadios, govukButton : GovukButton, layout: layout, formWithCSRF: FormWithCSRF)
 
 @(form: Form[Boolean], agentDetails: AgentDetails, backLink: String, fromCyaChange: Boolean)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
-@mainLayout(
+@layout(
     pageTitle = messages("propertyRepresentation.isThisYourAgent.title"),
     backUri = Some(backLink), hasErrors = form.hasErrors
 ) {

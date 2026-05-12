@@ -1,5 +1,5 @@
-@*
- * Copyright 2024 HM Revenue & Customs
+/*
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,18 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.ApplicationConfig
+package models
 
-@this(layout: layout)
+sealed trait MainClass {
+  def value: String
+}
 
-@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
-@layout(pageTitle = messages("title.propertyMissing"), showTopNavigation = false) {
-
-    <h1 class="govuk-heading-l">@messages("title.error.404")</h1>
-
-    <p class="govuk-body">@messages("dvr.error.description")</p>
-
+object MainClass {
+  case object TwoThirds extends MainClass { val value = "govuk-grid-column-two-thirds" }
+  case object FullColumn extends MainClass { val value = "govuk-grid-column-full" }
+  case object FullWidth extends MainClass { val value = "govuk-!-width-full" }
+  case object FullWidthPaddingZero extends MainClass {
+    val value = "govuk-grid-column-full govuk-!-padding-left-0 govuk-!-padding-right-0"
+  }
 }

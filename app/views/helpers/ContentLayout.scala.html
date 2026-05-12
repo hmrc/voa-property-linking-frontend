@@ -1,5 +1,5 @@
 @*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,10 @@
  * limitations under the License.
  *@
 
-@import config.ApplicationConfig
+@this()
 
-@this(layout: layout)
+@(contentBlock: Html)
 
-@()(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
-
-@layout(pageTitle = messages("title.propertyMissing"), showTopNavigation = false) {
-
-    <h1 class="govuk-heading-l">@messages("title.error.404")</h1>
-
-    <p class="govuk-body">@messages("dvr.error.description")</p>
-
-}
+<div class="govuk-grid-row">
+        @contentBlock
+</div>
