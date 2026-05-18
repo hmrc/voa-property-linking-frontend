@@ -150,7 +150,7 @@ class PropertyLinkConnector @Inject() (config: ServicesConfig, http: DefaultHttp
   def getClientAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
     http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId").recover {
       case UpstreamErrorResponse(message, status, _, _)
-        if Status.isClientError(status) && message.contains("\\\"errorTypeNum\\\":3010") =>
+          if Status.isClientError(status) && message.contains("\\\"errorTypeNum\\\":3010") =>
         throw PropertyLinkForbiddenDueToListYearsException(submissionId)
       case UpstreamErrorResponse(_, status, _, _) if status == 403 =>
         throw PropertyLinkForbiddenException(submissionId)

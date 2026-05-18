@@ -71,13 +71,13 @@ class CustomErrorHandler @Inject() (
     )
 
   def valuationErrorTemplate(
-                                      clientPropertiesUrl: String,
-                                      pageTitle: String,
-                                      heading: String,
-                                      messageSeq: Seq[String]
-                                    )(implicit request: RequestHeader): Html ={
-  val messages: Messages = messagesApi.preferred(request)
-  valuationErrorView(clientPropertiesUrl, pageTitle, heading, messageSeq)(request, messages, appConfig)
+        clientPropertiesUrl: String,
+        pageTitle: String,
+        heading: String,
+        messageSeq: Seq[String]
+  )(implicit request: RequestHeader): Html = {
+    val messages: Messages = messagesApi.preferred(request)
+    valuationErrorView(clientPropertiesUrl, pageTitle, heading, messageSeq)(request, messages, appConfig)
   }
 
   def notFoundErrorTemplate(implicit request: RequestHeader): Html = {

@@ -51,16 +51,18 @@ class DVRCaseManagementConnector @Inject() (config: ServicesConfig, val wsClient
   def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(implicit
         hc: HeaderCarrier
   ): Future[Option[DvrDocumentFiles]] =
-    http.GET[Option[DvrDocumentFiles]](
-      s"$url/properties/$uarn/valuation/$valuationId/files",
-      Seq("propertyLinkId" -> propertyLinkId)
-    ).recover {
-      case UpstreamErrorResponse(message, status, _, _)
-        if Status.isClientError(status) && message.contains("\\\"errorTypeNum\\\":3010") =>
+    http
+      .GET[Option[DvrDocumentFiles]](
+        s"$url/properties/$uarn/valuation/$valuationId/files",
+        Seq("propertyLinkId" -> propertyLinkId)
+      )
+      .recover {
+        case UpstreamErrorResponse(message, status, _, _)
+            if Status.isClientError(status) && message.contains("\\\"errorTypeNum\\\":3010") =>
           throw PropertyLinkForbiddenDueToListYearsException(propertyLinkId)
-      case UpstreamErrorResponse(_, status, _, _) if status == 403 =>
-        throw PropertyLinkForbiddenException(propertyLinkId)
-    }
+        case UpstreamErrorResponse(_, status, _, _) if status == 403 =>
+          throw PropertyLinkForbiddenException(propertyLinkId)
+      }
 
   def getDvrDocument(uarn: Long, valuationId: Long, propertyLinkId: String, fileRef: String)(implicit
         hc: HeaderCarrier
