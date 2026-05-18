@@ -44,6 +44,7 @@ import utils.{Cats, Formatters}
 import javax.inject.{Inject, Named}
 import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
 import models.dvr.cases.check.common.{Agent, AgentCount}
+import models.propertylinking.{PropertyLinkForbiddenDueToListYearsException, PropertyLinkForbiddenException}
 import services.BusinessRatesCheckService
 import uk.gov.voa.businessrates.values.{AssessmentRef, PropertyLinkId}
 
@@ -285,9 +286,21 @@ class DvrController @Inject() (
                     )
                 )
               )
+          }.recoverWith {
+            case PropertyLinkForbiddenException(_) => // Exception from not being allowed to see a different property link
+              errorHandler.valuationForbiddenTemplate.map(Forbidden(_))
+            case PropertyLinkForbiddenDueToListYearsException(_) => // Exception from not being allowed due to list years
+              Future.successful(Forbidden(errorHandler.valuationError(config.dashboardUrl("client-properties") )))
+            case _ =>
+              errorHandler.internalServerErrorTemplate.map(InternalServerError(_))
           }
-        case None =>
+        case _ =>
           Future.successful(BadRequest(propertyMissingView()))
+      }.recoverWith {
+        case PropertyLinkForbiddenException(_) => // Exception from not being allowed to see a different property link
+          errorHandler.valuationForbiddenTemplate.map(Forbidden(_))
+        case _ =>
+          errorHandler.internalServerErrorTemplate.map(InternalServerError(_))
       }
     }
 

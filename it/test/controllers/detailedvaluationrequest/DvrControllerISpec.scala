@@ -28,7 +28,7 @@ import play.api.libs.json.Json.toJson
 import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
-
+import scala.jdk.CollectionConverters._
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.UUID
@@ -42,6 +42,12 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val currentReadableValueSelector = "#rateable-value-caption"
   val errorAtRadioSelector = "#checkType_-error"
   val errorSummarySelector = "#error-link"
+  val forbiddenHeadingSelector = "#main-content > div > div > h1"
+  val forbiddenP1Selector = "#main-content > div > div > p"
+  val forbiddenListYearHeadingSelector = "#main-content > div > div > h1"
+  val forbiddenListYearP1Selector = "#main-content > div > div > p:nth-of-type(1)"
+  val forbiddenListYearP2Selector = "#main-content > div > div > p:nth-of-type(2)"
+  val forbiddenListYearButtonSelector = "#main-content > div > div > div > a"
 
   val errorTitleText = "ADDRESS - Valuation Office Agency - GOV.UK" // TODO: This is a bug, should error
   val noRadioSelectedErrorText = "Select what you want to tell us"
@@ -49,10 +55,30 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val noRadioSelectedErrorTextWelsh = "Dewisiwch beth rydych am ei ddweud wrthym"
   val errorText = "Error: "
   val errorTextWelsh = "Gwall: "
+  val forbiddenTitleText = "Cannot access valuation - Valuation Office Agency - GOV.UK"
+  val forbiddenTitleTextWelsh = "Methu â chael mynediad at y prisiad - Valuation Office Agency - GOV.UK"
+  val forbiddenHeadingText = "Cannot access valuation"
+  val forbiddenHeadingTextWelsh = "Methu â chael mynediad at y prisiad"
+  val forbiddenP1Text = "You do not have permission to view this valuation (or it does not exist)"
+  val forbiddenP1TextWelsh = "Nid oes gennych ganiatâd i weld y prisiad hwn (neu nid yw’n bodoli)"
+  val forbiddenListYearTitleText = "Sorry, there is a problem with this valuation - Valuation Office Agency - GOV.UK"
+  val forbiddenListYearTitleTextWelsh = "Mae’n ddrwg gennym, mae yna broblem gyda’r prisiad hwn - Valuation Office Agency - GOV.UK"
+  val forbiddenListYearHeadingText = "Sorry, there is a problem with this valuation"
+  val forbiddenListYearHeadingTextWelsh = "Mae’n ddrwg gennym, mae yna broblem gyda’r prisiad hwn"
+  val forbiddenListYearP1Text = "We can only show you valuations that are on the rating lists your client wants you to act on."
+  val forbiddenListYearP1TextWelsh = "Dim ond prisiadau sydd ar y rhestrau ardrethu y mae eich cleient am i chi weithredu arnynt y gallwn eu dangos i chi."
+  val forbiddenListYearP2Text = "Contact your client if you need them to change which rating lists you can act on."
+  val forbiddenListYearP2TextWelsh = "Cysylltwch â’ch cleient os oes eu hangen arnoch i newid pa restrau ardrethu y gallwch chi weithredu arnynt."
+  val forbiddenListYearButtonText = "Back to your client’s properties"
+  val forbiddenListYearButtonTextWelsh = "Yn ôl at eiddo eich cleient"
+  val forbiddenListYearButtonHref= "/business-rates-dashboard/client-properties"
 
   override def submissionId = "PL1ZRPBP7"
+
   override def uarn: Long = 7651789000L
+
   override def valuationId: Long = 10028428L
+
   override def propertyLinkId: Long = 128L
 
   val checkId = "1774b2a8-4ad1-4351-88fa-f9dc4868fa1c"
@@ -60,6 +86,63 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
+
+  "DvrController detailedValuationCheck method" should {
+    "Return 403 with the valuation forbidden page when the DVR documents call returns 403 without errorTypeNum 3010" in {
+      val res = getClientDvrFilesPageWithClientAssessmentsStatus(English, FORBIDDEN, """""")
+      res.status shouldBe FORBIDDEN
+
+      val doc = Jsoup.parse(res.body)
+      doc.title shouldBe forbiddenTitleText
+      doc.select(forbiddenHeadingSelector).text shouldBe forbiddenHeadingText
+      doc.select(forbiddenP1Selector).text shouldBe forbiddenP1Text
+    }
+
+    "Return 403 with the valuation forbidden page when the DVR documents call returns 403 without errorTypeNum 3010 in Welsh" in {
+      val res = getClientDvrFilesPageWithClientAssessmentsStatus(Welsh, FORBIDDEN, """""")
+      res.status shouldBe FORBIDDEN
+
+      val doc = Jsoup.parse(res.body)
+      doc.title shouldBe forbiddenTitleTextWelsh
+      doc.select(forbiddenHeadingSelector).text shouldBe forbiddenHeadingTextWelsh
+      doc.select(forbiddenP1Selector).text shouldBe forbiddenP1TextWelsh
+    }
+
+    "Return 403 with the list-years valuation error page when the DVR documents call returns 403 with errorTypeNum 3010" in {
+      val responseBody = """{{\"errorTypeNum\":3010}"}"""
+
+      val res = getClientDvrFilesPageWithClientAssessmentsStatus(English, FORBIDDEN, responseBody)
+      res.status shouldBe FORBIDDEN
+
+      val doc = Jsoup.parse(res.body)
+      doc.title shouldBe forbiddenListYearTitleText
+      doc.select(forbiddenListYearHeadingSelector).text shouldBe forbiddenListYearHeadingText
+      doc.select(forbiddenListYearP1Selector).text shouldBe forbiddenListYearP1Text
+      doc.select(forbiddenListYearP2Selector).text shouldBe forbiddenListYearP2Text
+      doc.select(forbiddenListYearButtonSelector).text() shouldBe forbiddenListYearButtonText
+      doc.select(forbiddenListYearButtonSelector).attr("href") shouldBe forbiddenListYearButtonHref
+    }
+
+    "Return 403 with the list-years valuation error page when the DVR documents call returns 403 with errorTypeNum 3010 in Welsh" in {
+      val responseBody = """{{\"errorTypeNum\":3010}"}"""
+
+      val res = getClientDvrFilesPageWithClientAssessmentsStatus(Welsh, FORBIDDEN, responseBody)
+      res.status shouldBe FORBIDDEN
+
+      val doc = Jsoup.parse(res.body)
+      doc.title shouldBe forbiddenListYearTitleTextWelsh
+      doc.select(forbiddenListYearHeadingSelector).text shouldBe forbiddenListYearHeadingTextWelsh
+      doc.select(forbiddenListYearP1Selector).text shouldBe forbiddenListYearP1TextWelsh
+      doc.select(forbiddenListYearP2Selector).text shouldBe forbiddenListYearP2TextWelsh
+      doc.select(forbiddenListYearButtonSelector).text() shouldBe forbiddenListYearButtonTextWelsh
+      doc.select(forbiddenListYearButtonSelector).attr("href") shouldBe forbiddenListYearButtonHref
+    }
+
+    "Return 500 when the DVR documents call returns a server error" in {
+      val res = getClientDvrFilesPageWithClientAssessmentsStatus(English, INTERNAL_SERVER_ERROR, "")
+      res.status shouldBe INTERNAL_SERVER_ERROR
+    }
+  }
 
   "DvrController startCheck method" should {
     "Redirect to the 'The property details need changing' page and create a draft check when they choose the 'The property details need changing' radio button" in {
@@ -281,12 +364,13 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
   }
+
   private def postStartCheckPage(
-        language: Language,
-        checkType: String,
-        dvrCheck: Boolean,
-        rateableValueTooHigh: Boolean
-  ): WSResponse = {
+                                  language: Language,
+                                  checkType: String,
+                                  dvrCheck: Boolean,
+                                  rateableValueTooHigh: Boolean
+                                ): WSResponse = {
 
     postRequestStubs(checkType, dvrCheck, rateableValueTooHigh)
 
@@ -300,24 +384,24 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     ).mkString("&")
     await(
       ws.url(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
-      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
+        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
-          "Csrf-Token"       -> "nocheck",
-          "Content-Type"     -> "application/x-www-form-urlencoded"
+          "Csrf-Token" -> "nocheck",
+          "Content-Type" -> "application/x-www-form-urlencoded"
         )
         .post(formUrlEncodedBody)
     )
   }
 
   private def invalidPostStartCheckPage(
-        language: Language,
-        checkType: String,
-        dvrCheck: Boolean,
-        rateableValueTooHigh: Boolean
-  ): WSResponse = {
+                                         language: Language,
+                                         checkType: String,
+                                         dvrCheck: Boolean,
+                                         rateableValueTooHigh: Boolean
+                                       ): WSResponse = {
 
     postRequestStubs(checkType, dvrCheck, rateableValueTooHigh)
 
@@ -331,13 +415,13 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(
       ws.url(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
-      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
+        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
-          "Csrf-Token"       -> "nocheck",
-          "Content-Type"     -> "application/x-www-form-urlencoded"
+          "Csrf-Token" -> "nocheck",
+          "Content-Type" -> "application/x-www-form-urlencoded"
         )
         .post(formUrlEncodedBody)
     )
@@ -358,6 +442,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         }
     }
   }
+
   def postRequestStubs(checkType: String, dvrCheck: Boolean, rateableValueTooHigh: Boolean): StubMapping = {
 
     authStubs
@@ -517,13 +602,13 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(
       ws.url(
-        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId"
-      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId"
+        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
-          "Csrf-Token"       -> "nocheck",
-          "Content-Type"     -> "application/x-www-form-urlencoded"
+          "Csrf-Token" -> "nocheck",
+          "Content-Type" -> "application/x-www-form-urlencoded"
         )
         .get()
     )
@@ -571,5 +656,41 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
           aResponse.withStatus(OK).withBody(Json.toJson(testChallengeCasesWithClient).toString())
         }
     }
+  }
+
+  private def getClientDvrFilesPageWithClientAssessmentsStatus(
+                                                                language: Language,
+                                                                status: Int,
+                                                                body: String
+                                                              ): WSResponse = {
+    authStubs
+    stubOwnerProperties(List(draftApiAssessment, currentApiAssessment, previousApiAssessment), "OWNER")
+
+    stubFor {
+      get(s"/property-linking/dashboard/agent/assessments/$plSubmissionId")
+        .willReturn {
+          aResponse
+            .withStatus(OK)
+            .withBody(Json.toJson(testApiAssessments(List(draftApiAssessment, currentApiAssessment, previousApiAssessment), "OWNER", isAgent = true)).toString())
+        }
+    }
+
+    stubFor {
+      get(s"/property-linking/properties/$uarn/valuation/$valuationId/files?propertyLinkId=$submissionId")
+        .willReturn(aResponse.withStatus(status).withBody(body))
+    }
+
+    await(
+      ws.url(
+          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/clients/all/$plSubmissionId/valuations/$valuationId"
+        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        .withFollowRedirects(follow = false)
+        .withHttpHeaders(
+          HeaderNames.COOKIE -> "sessionId",
+          "Csrf-Token"       -> "nocheck",
+          "Content-Type"     -> "application/x-www-form-urlencoded"
+        )
+        .get()
+    )
   }
 }

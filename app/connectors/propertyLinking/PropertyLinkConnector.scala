@@ -24,10 +24,12 @@ import models.dvr.cases.check.myclients.CheckCasesWithClient
 import models.dvr.cases.check.myorganisation.CheckCasesWithAgent
 import models.dvr.cases.check.projection.CaseDetails
 import models.properties.PropertyHistory
+import models.propertylinking.{PropertyLinkForbiddenDueToListYearsException, PropertyLinkForbiddenException}
 import models.propertylinking.payload.PropertyLinkPayload
 import models.propertyrepresentation.{AgentAppointmentChangeRequest, AgentAppointmentChangesResponse, AgentList}
 import models.searchApi.OwnerAuthResult
 import play.api.Logging
+import play.api.http.Status
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http._
@@ -140,10 +142,19 @@ class PropertyLinkConnector @Inject() (config: ServicesConfig, http: DefaultHttp
   }
 
   def getOwnerAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
-    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId")
+    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/owner/assessments/$submissionId").recover {
+      case UpstreamErrorResponse(_, status, _, _) if status == 403 =>
+        throw PropertyLinkForbiddenException(submissionId)
+    }
 
   def getClientAssessments(submissionId: String)(implicit hc: HeaderCarrier): Future[Option[ApiAssessments]] =
-    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId")
+    http.GET[Option[ApiAssessments]](s"$baseUrl/dashboard/agent/assessments/$submissionId").recover {
+      case UpstreamErrorResponse(message, status, _, _)
+        if Status.isClientError(status) && message.contains("\\\"errorTypeNum\\\":3010") =>
+        throw PropertyLinkForbiddenDueToListYearsException(submissionId)
+      case UpstreamErrorResponse(_, status, _, _) if status == 403 =>
+        throw PropertyLinkForbiddenException(submissionId)
+    }
 
   def canChallenge(plSubmissionId: String, assessmentRef: Long, caseRef: String, isOwner: Boolean)(implicit
         hc: HeaderCarrier

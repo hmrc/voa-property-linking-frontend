@@ -27,6 +27,8 @@ import org.scalatest.OptionValues
 import play.api.libs.ws.{WSClient, WSRequest}
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import models.propertylinking.{PropertyLinkForbiddenDueToListYearsException, PropertyLinkForbiddenException}
+import uk.gov.hmrc.http.UpstreamErrorResponse
 
 import scala.concurrent.Future
 
@@ -112,6 +114,52 @@ class DVRCaseManagementConnectorSpec extends VoaPropertyLinkingSpec with OptionV
 
     val result = await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
     result shouldBe None
+  }
+
+  "get dvr documents" should "throw PropertyLinkForbiddenDueToListYearsException when a 403 response contains errorTypeNum 3010" in new Setup {
+    val valuationId = 1L
+    val uarn = 2L
+    val propertyLinkId = "PL-123456789"
+
+    val errorMessage = """{\"errorTypeNum\":3010}"""
+
+    when(
+      mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any(), Matchers.any())(
+        Matchers.any(),
+        Matchers.any[HeaderCarrier](),
+        Matchers.any()
+      )
+    ).thenReturn(
+      Future.failed(UpstreamErrorResponse(errorMessage, FORBIDDEN, FORBIDDEN, Map.empty))
+    )
+
+    val ex = intercept[PropertyLinkForbiddenDueToListYearsException] {
+      await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
+    }
+
+    ex shouldBe PropertyLinkForbiddenDueToListYearsException(propertyLinkId)
+  }
+
+  "get dvr documents" should "throw PropertyLinkForbiddenException when a 403 response is returned without errorTypeNum 3010" in new Setup {
+    val valuationId = 1L
+    val uarn = 2L
+    val propertyLinkId = "PL-123456789"
+
+    when(
+      mockHttpClient.GET[Option[DvrDocumentFiles]](Matchers.anyString(), Matchers.any(), Matchers.any())(
+        Matchers.any(),
+        Matchers.any[HeaderCarrier](),
+        Matchers.any()
+      )
+    ).thenReturn(
+      Future.failed(UpstreamErrorResponse("Forbidden", FORBIDDEN, FORBIDDEN, Map.empty))
+    )
+
+    val ex = intercept[PropertyLinkForbiddenException] {
+      await(connector.getDvrDocuments(valuationId, uarn, propertyLinkId))
+    }
+
+    ex shouldBe PropertyLinkForbiddenException(propertyLinkId)
   }
 
   "get dvr document" should "return streamed Documents" in new Setup {
