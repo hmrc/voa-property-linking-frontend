@@ -19,11 +19,13 @@ package connectors
 import javax.inject.Inject
 import models.dvr.{DetailedValuationRequest, DvrRecord}
 import models.dvr.documents.DvrDocumentFiles
+import models.propertylinking.{PropertyLinkForbiddenDueToListYearsException, PropertyLinkForbiddenException}
 import play.api.libs.ws.{WSClient, WSResponse}
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http._
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.DefaultHttpClient
+import play.api.http.Status
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -49,10 +51,18 @@ class DVRCaseManagementConnector @Inject() (config: ServicesConfig, val wsClient
   def getDvrDocuments(uarn: Long, valuationId: Long, propertyLinkId: String)(implicit
         hc: HeaderCarrier
   ): Future[Option[DvrDocumentFiles]] =
-    http.GET[Option[DvrDocumentFiles]](
-      s"$url/properties/$uarn/valuation/$valuationId/files",
-      Seq("propertyLinkId" -> propertyLinkId)
-    )
+    http
+      .GET[Option[DvrDocumentFiles]](
+        s"$url/properties/$uarn/valuation/$valuationId/files",
+        Seq("propertyLinkId" -> propertyLinkId)
+      )
+      .recover {
+        case UpstreamErrorResponse(message, status, _, _)
+            if Status.isClientError(status) && message.contains("\\\"errorTypeNum\\\":3010") =>
+          throw PropertyLinkForbiddenDueToListYearsException(propertyLinkId)
+        case UpstreamErrorResponse(_, status, _, _) if status == 403 =>
+          throw PropertyLinkForbiddenException(propertyLinkId)
+      }
 
   def getDvrDocument(uarn: Long, valuationId: Long, propertyLinkId: String, fileRef: String)(implicit
         hc: HeaderCarrier

@@ -44,6 +44,7 @@ import utils.{Cats, Formatters}
 import javax.inject.{Inject, Named}
 import models.dvr.cases.check.CheckType.{Internal, RateableValueTooHigh}
 import models.dvr.cases.check.common.{Agent, AgentCount}
+import models.propertylinking.{PropertyLinkForbiddenDueToListYearsException, PropertyLinkForbiddenException}
 import services.BusinessRatesCheckService
 import uk.gov.voa.businessrates.values.{AssessmentRef, PropertyLinkId}
 
@@ -142,153 +143,176 @@ class DvrController @Inject() (
         if (owner) propertyLinks.getOwnerAssessments(propertyLinkSubmissionId)
         else propertyLinks.getClientAssessments(propertyLinkSubmissionId)
 
-      pLink.flatMap {
-        case Some(link) =>
-          dvrCaseManagement.getDvrDocuments(link.uarn, valuationId, link.submissionId).flatMap {
-            case Some(documents) =>
-              val assessment: ApiAssessment = link.assessments
-                .find(a => a.assessmentRef == valuationId)
-                .getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
+      pLink
+        .flatMap {
+          case Some(link) =>
+            dvrCaseManagement
+              .getDvrDocuments(link.uarn, valuationId, link.submissionId)
+              .flatMap {
+                case Some(documents) =>
+                  val assessment: ApiAssessment = link.assessments
+                    .find(a => a.assessmentRef == valuationId)
+                    .getOrElse(throw new IllegalStateException(s"Assessment with ref: $valuationId does not exist"))
 
-              val backUrl = challengeCaseRef
-                .map { ref =>
-                  config.businessRatesChallengeUrl(
-                    s"summary/property-link/${link.authorisationId}/submission-id/$propertyLinkSubmissionId/challenge-cases/$ref?isAgent=${!owner}&valuationId=${otherValuationId
-                        .getOrElse(valuationId)}"
-                  )
-                }
-                .orElse {
-                  fromValuation.map { fromValuationId =>
-                    controllers.routes.Assessments
-                      .viewDetailedAssessment(
-                        link.submissionId,
-                        link.authorisationId,
-                        fromValuationId,
-                        owner,
-                        fromValuation = None
+                  val backUrl = challengeCaseRef
+                    .map { ref =>
+                      config.businessRatesChallengeUrl(
+                        s"summary/property-link/${link.authorisationId}/submission-id/$propertyLinkSubmissionId/challenge-cases/$ref?isAgent=${!owner}&valuationId=${otherValuationId
+                            .getOrElse(valuationId)}"
                       )
-                      .url + s"#${tabName.getOrElse("valuation-tab")}"
-                  }
-                }
-                .getOrElse {
-                  uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
-                    .valuations(propertyLinkSubmissionId, owner)
-                    .url
-                }
+                    }
+                    .orElse {
+                      fromValuation.map { fromValuationId =>
+                        controllers.routes.Assessments
+                          .viewDetailedAssessment(
+                            link.submissionId,
+                            link.authorisationId,
+                            fromValuationId,
+                            owner,
+                            fromValuation = None
+                          )
+                          .url + s"#${tabName.getOrElse("valuation-tab")}"
+                      }
+                    }
+                    .getOrElse {
+                      uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
+                        .valuations(propertyLinkSubmissionId, owner)
+                        .url
+                    }
 
-              val caseDetails: Future[Option[(List[CaseDetails], List[CaseDetails])]] =
-                if (assessment.isDraft)
-                  Future.successful(None)
-                else {
-                  def checkCases =
-                    if (owner)
-                      propertyLinks.getMyOrganisationsCheckCases(link.submissionId)
-                    else propertyLinks.getMyClientsCheckCases(link.submissionId)
+                  val caseDetails: Future[Option[(List[CaseDetails], List[CaseDetails])]] =
+                    if (assessment.isDraft)
+                      Future.successful(None)
+                    else {
+                      def checkCases =
+                        if (owner)
+                          propertyLinks.getMyOrganisationsCheckCases(link.submissionId)
+                        else propertyLinks.getMyClientsCheckCases(link.submissionId)
 
-                  def challengeCases =
-                    if (owner)
-                      challengeConnector.getMyOrganisationsChallengeCases(link.submissionId)
-                    else challengeConnector.getMyClientsChallengeCases(link.submissionId)
+                      def challengeCases =
+                        if (owner)
+                          challengeConnector.getMyOrganisationsChallengeCases(link.submissionId)
+                        else challengeConnector.getMyClientsChallengeCases(link.submissionId)
 
-                  (checkCases, challengeCases).tupled.map(Option.apply)
-                }
+                      (checkCases, challengeCases).tupled.map(Option.apply)
+                    }
 
-              caseDetails.map { optCases =>
-                val agentsData: Option[Seq[AgentCount]] = optCases match {
-                  case Some(cases)   => Some(collateAgentTabData(cases._1 ++ cases._2, link.agents))
-                  case None if owner => Some(Seq.empty)
-                  case _             => None
-                }
-                val form = formWithErrors.getOrElse(startCheckForm)
-                val evaluateRoute = { t: String =>
-                  if (owner)
-                    controllers.detailedvaluationrequest.routes.DvrController
-                      .myOrganisationRequestDetailedValuationRequestFile(propertyLinkSubmissionId, valuationId, t)
-                      .url
-                  else
-                    controllers.detailedvaluationrequest.routes.DvrController
-                      .myClientsRequestDetailedValuationRequestFile(propertyLinkSubmissionId, valuationId, t)
-                      .url
-                }
-                val view = dvrFilesView(
-                  model = AvailableRequestDetailedValuation(
-                    activeTabId = formWithErrors.map(_ => "start-check-tab"),
-                    check = documents.checkForm.documentSummary.documentId,
-                    valuation = documents.detailedValuation.documentSummary.documentId,
-                    valuationId = valuationId,
-                    baRef = link.assessments.head.billingAuthorityReference,
-                    address = link.address,
-                    uarn = link.uarn,
-                    isDraftList = assessment.isDraft,
-                    isWelshProperty = assessment.isWelsh,
-                    submissionId = propertyLinkSubmissionId,
-                    owner = owner,
-                    authorisationId = link.authorisationId,
-                    clientOrgName = link.clientOrgName.getOrElse(""),
-                    backUrl = backUrl,
-                    checksAndChallenges = optCases,
-                    rateableValueFormatted =
-                      assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv)),
-                    listYear = assessment.listYear,
-                    agentTabData = agentsData,
-                    assessment = assessment,
-                    evaluateRoute = evaluateRoute,
-                    checkCasesDetailsTab = CheckCasesDetailsTab(
-                      assessmentRef = assessment.assessmentRef,
-                      authorisationId = link.authorisationId,
-                      checkCases = optCases.fold(List.empty[CaseDetails])(_._1),
-                      checkSummaryUrl = { checkReference: String =>
-                        checkSummaryUrlTemplate.templated(
-                          "checkRef"                 -> checkReference,
-                          "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
-                          "isOwner"                  -> owner,
-                          "valuationId"              -> valuationId
-                        )
-                      },
-                      downloadUrl = evaluateRoute(documents.checkForm.documentSummary.documentId),
-                      isOwner = owner,
-                      listYear = assessment.listYear,
-                      propertyLinkSubmissionId = propertyLinkSubmissionId,
-                      startCheckUrl = "#start-check-tab",
-                      uarn = link.uarn
-                    )
-                  ),
-                  startCheckForm = form,
-                  currentValuationUrl = DvrController.currentValuationUrl(link, owner, thisValuationId = valuationId),
-                  valuationsUrl = uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
-                    .valuations(
-                      link.submissionId,
-                      owner
-                    )
-                    .url
-                )
-                if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
-              }
-
-            case None =>
-              Future.successful(
-                Redirect(
-                  if (owner)
-                    controllers.detailedvaluationrequest.routes.DvrController
-                      .myOrganisationAlreadyRequestedDetailValuation(
-                        propertyLinkSubmissionId = propertyLinkSubmissionId,
+                  caseDetails.map { optCases =>
+                    val agentsData: Option[Seq[AgentCount]] = optCases match {
+                      case Some(cases)   => Some(collateAgentTabData(cases._1 ++ cases._2, link.agents))
+                      case None if owner => Some(Seq.empty)
+                      case _             => None
+                    }
+                    val form = formWithErrors.getOrElse(startCheckForm)
+                    val evaluateRoute = { t: String =>
+                      if (owner)
+                        controllers.detailedvaluationrequest.routes.DvrController
+                          .myOrganisationRequestDetailedValuationRequestFile(propertyLinkSubmissionId, valuationId, t)
+                          .url
+                      else
+                        controllers.detailedvaluationrequest.routes.DvrController
+                          .myClientsRequestDetailedValuationRequestFile(propertyLinkSubmissionId, valuationId, t)
+                          .url
+                    }
+                    val view = dvrFilesView(
+                      model = AvailableRequestDetailedValuation(
+                        activeTabId = formWithErrors.map(_ => "start-check-tab"),
+                        check = documents.checkForm.documentSummary.documentId,
+                        valuation = documents.detailedValuation.documentSummary.documentId,
                         valuationId = valuationId,
-                        fromValuation = fromValuation,
-                        tabName = tabName
-                      )
-                  else
-                    controllers.detailedvaluationrequest.routes.DvrController.myClientsAlreadyRequestedDetailValuation(
-                      propertyLinkSubmissionId = propertyLinkSubmissionId,
-                      valuationId = valuationId,
-                      fromValuation = fromValuation,
-                      tabName = tabName
+                        baRef = link.assessments.head.billingAuthorityReference,
+                        address = link.address,
+                        uarn = link.uarn,
+                        isDraftList = assessment.isDraft,
+                        isWelshProperty = assessment.isWelsh,
+                        submissionId = propertyLinkSubmissionId,
+                        owner = owner,
+                        authorisationId = link.authorisationId,
+                        clientOrgName = link.clientOrgName.getOrElse(""),
+                        backUrl = backUrl,
+                        checksAndChallenges = optCases,
+                        rateableValueFormatted =
+                          assessment.rateableValue.map(rv => Formatters.formatCurrencyRoundedToPounds(rv)),
+                        listYear = assessment.listYear,
+                        agentTabData = agentsData,
+                        assessment = assessment,
+                        evaluateRoute = evaluateRoute,
+                        checkCasesDetailsTab = CheckCasesDetailsTab(
+                          assessmentRef = assessment.assessmentRef,
+                          authorisationId = link.authorisationId,
+                          checkCases = optCases.fold(List.empty[CaseDetails])(_._1),
+                          checkSummaryUrl = { checkReference: String =>
+                            checkSummaryUrlTemplate.templated(
+                              "checkRef"                 -> checkReference,
+                              "propertyLinkSubmissionId" -> propertyLinkSubmissionId,
+                              "isOwner"                  -> owner,
+                              "valuationId"              -> valuationId
+                            )
+                          },
+                          downloadUrl = evaluateRoute(documents.checkForm.documentSummary.documentId),
+                          isOwner = owner,
+                          listYear = assessment.listYear,
+                          propertyLinkSubmissionId = propertyLinkSubmissionId,
+                          startCheckUrl = "#start-check-tab",
+                          uarn = link.uarn
+                        )
+                      ),
+                      startCheckForm = form,
+                      currentValuationUrl =
+                        DvrController.currentValuationUrl(link, owner, thisValuationId = valuationId),
+                      valuationsUrl = uk.gov.hmrc.propertylinking.controllers.valuations.routes.ValuationsController
+                        .valuations(
+                          link.submissionId,
+                          owner
+                        )
+                        .url
                     )
-                )
-              )
-          }
-        case None =>
-          Future.successful(BadRequest(propertyMissingView()))
-      }
+                    if (formWithErrors.exists(_.hasErrors)) BadRequest(view) else Ok(view)
+                  }
+
+                case None =>
+                  Future.successful(
+                    Redirect(
+                      if (owner)
+                        controllers.detailedvaluationrequest.routes.DvrController
+                          .myOrganisationAlreadyRequestedDetailValuation(
+                            propertyLinkSubmissionId = propertyLinkSubmissionId,
+                            valuationId = valuationId,
+                            fromValuation = fromValuation,
+                            tabName = tabName
+                          )
+                      else
+                        controllers.detailedvaluationrequest.routes.DvrController
+                          .myClientsAlreadyRequestedDetailValuation(
+                            propertyLinkSubmissionId = propertyLinkSubmissionId,
+                            valuationId = valuationId,
+                            fromValuation = fromValuation,
+                            tabName = tabName
+                          )
+                    )
+                  )
+              }
+              .recoverWith {
+                case PropertyLinkForbiddenException(
+                      _
+                    ) => // Exception from not being allowed to see a different property link
+                  errorHandler.valuationForbiddenTemplate.map(Forbidden(_))
+                case PropertyLinkForbiddenDueToListYearsException(
+                      _
+                    ) => // Exception from not being allowed due to list years
+                  Future.successful(Forbidden(errorHandler.valuationError(config.dashboardUrl("client-properties"))))
+                case _ =>
+                  errorHandler.internalServerErrorTemplate.map(InternalServerError(_))
+              }
+          case _ =>
+            Future.successful(BadRequest(propertyMissingView()))
+        }
+        .recoverWith {
+          case PropertyLinkForbiddenException(_) => // Exception from not being allowed to see a different property link
+            errorHandler.valuationForbiddenTemplate.map(Forbidden(_))
+          case _ =>
+            errorHandler.internalServerErrorTemplate.map(InternalServerError(_))
+        }
     }
 
   def myOrganisationRequestDetailValuation(propertyLinkSubmissionId: String, valuationId: Long): Action[AnyContent] =

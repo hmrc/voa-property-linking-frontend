@@ -37,6 +37,7 @@ class CustomErrorHandler @Inject() (
       technicalDifficultiesView: views.html.errors.technicalDifficulties,
       notFoundView: views.html.errors.notFound,
       alreadySubmittedView: views.html.errors.alreadySubmitted,
+      valuationErrorView: views.html.errors.detailedValuationError,
       dateTime: DateTimeUtil
 )(implicit override val messagesApi: MessagesApi, appConfig: ApplicationConfig, implicit val ec: ExecutionContext)
     extends FrontendErrorHandler with Logging with I18nSupport {
@@ -53,6 +54,32 @@ class CustomErrorHandler @Inject() (
     val messages: Messages = messagesApi.preferred(request)
     forbiddenView()(request, messages, appConfig)
   }
+
+  def valuationForbiddenTemplate(implicit request: RequestHeader) =
+    standardErrorTemplate(
+      Messages("global.error.forbidden.title"),
+      Messages("global.error.forbidden.heading"),
+      Messages("global.error.forbidden.message")
+    )
+
+  def valuationError(clientPropertiesUrl: String)(implicit request: RequestHeader) =
+    valuationErrorTemplate(
+      clientPropertiesUrl,
+      Messages("detailedValuation.error.title"),
+      Messages("detailedValuation.error.heading"),
+      Seq(Messages("detailedValuation.error.message.p1"), Messages("detailedValuation.error.message.p2"))
+    )
+
+  def valuationErrorTemplate(
+        clientPropertiesUrl: String,
+        pageTitle: String,
+        heading: String,
+        messageSeq: Seq[String]
+  )(implicit request: RequestHeader): Html = {
+    val messages: Messages = messagesApi.preferred(request)
+    valuationErrorView(clientPropertiesUrl, pageTitle, heading, messageSeq)(request, messages, appConfig)
+  }
+
   def notFoundErrorTemplate(implicit request: RequestHeader): Html = {
     val messages: Messages = messagesApi.preferred(request)
     notFoundView()(request, messages, appConfig)

@@ -14,6 +14,17 @@ caption.add.property=Ychwanegu eiddo
 error.404.title=Ni ellir dod o hyd i’r dudalen hon
 error.404.message=Gwiriwch eich bod wedi nodi’r cyfeiriad gwe cywir.
 
+# Valuation custom errors
+detailedValuation.error.title=Mae’n ddrwg gennym, mae yna broblem gyda’r prisiad hwn
+detailedValuation.error.heading=Mae’n ddrwg gennym, mae yna broblem gyda’r prisiad hwn
+detailedValuation.error.message.p1=Dim ond prisiadau sydd ar y rhestrau ardrethu y mae eich cleient am i chi weithredu arnynt y gallwn eu dangos i chi.
+detailedValuation.error.message.p2=Cysylltwch â’ch cleient os oes eu hangen arnoch i newid pa restrau ardrethu y gallwch chi weithredu arnynt.
+detailedValuation.error.button=Yn ôl at eiddo eich cleient
+
+global.error.forbidden.title=Methu â chael mynediad at y prisiad
+global.error.forbidden.heading=Methu â chael mynediad at y prisiad
+global.error.forbidden.message=Nid oes gennych ganiatâd i weld y prisiad hwn (neu nid yw’n bodoli)
+
 #START PAGE OLD JOURNEY
 start.heading.register.old=Cofrestru i ddefnyddio’r gwasanaeth hwn
 start.registration.p.1.old=Os ydych chi’n ddefnyddiwr sy’n dychwelyd, gallwch {0} i ddefnyddio’r gwasanaeth.

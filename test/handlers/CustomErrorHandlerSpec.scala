@@ -45,6 +45,7 @@ class CustomErrorHandlerSpec extends VoaPropertyLinkingSpec {
         technicalDifficultiesView,
         notFoundView,
         alreadySubmittedView,
+        valuationErrorView,
         mockDateTimeUtil
       )
   }
