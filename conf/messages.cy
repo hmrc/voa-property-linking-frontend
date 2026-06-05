@@ -1179,7 +1179,7 @@ registration.error.p1=Ni allwch gofrestru tan i’r Gweinyddwr o’ch sefydliad 
 registration.error.p2=Bydd angen i chi siarad â’r person a roddodd eich manylion Porth y Llywodraeth i chi.
 
 #challenge
-challengeRules.summary=Pryd gallaf herio’r prisiad?
+challengeRules.summary=Cymorth gydag achosion Gwirio ac achosion Herio
 challengeRules.rules=Gallwch anfon achos Herio atom (mae unrhyw un o’r rhain yn berthnasol):
 challengeRules.rules.1=o fewn 4 mis i’n penderfyniad ar yr achos Gwirio
 challengeRules.rules.2=os ydych wedi aros mwy na 12 mis a heb dderbyn ein penderfyniad ar yr achos Gwirio
