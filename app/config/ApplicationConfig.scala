@@ -90,6 +90,7 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
   lazy val englishPubEstimatorEnabled: Boolean = configuration.get[Boolean]("feature-switch.englishPubEstimatorEnabled")
   lazy val compiledListReval26Enabled: Boolean = loadBooleanConfig("feature-switch.compiledListReval26Enabled")
   lazy val welshEstimatorEnabled: Boolean = loadBooleanConfig("feature-switch.welshEstimatorEnabled")
+  lazy val newFeedbackForm: Boolean = loadBooleanConfig("feature-switch.newFeedbackForm")
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
 

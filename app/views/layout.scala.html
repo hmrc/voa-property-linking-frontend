@@ -116,6 +116,13 @@
     } else s"$pageTitle ${messages("common.titleSuffix")}"
 }
 
+@feedbackUrl = @{
+  if(config.newFeedbackForm){
+      "http://www.tax.service.gov.uk/feedback/cca-inpage"
+  } else {
+      s"${config.vmvUrl}/send-beta-feedback?serviceIdentifier=CCA"
+  }
+}
 
 @hmrcStandardPage(
     HmrcStandardPageParams(
@@ -125,7 +132,7 @@
         ),
         isWelshTranslationAvailable = true,
         banners = Banners(
-            phaseBanner = Some(standardBetaBanner(url = s"${config.vmvUrl}/send-beta-feedback?serviceIdentifier=CCA"))
+            phaseBanner = Some(standardBetaBanner(url = feedbackUrl))
         ),
         templateOverrides = TemplateOverrides(
             additionalHeadBlock = Some(head),
