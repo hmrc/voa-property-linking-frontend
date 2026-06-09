@@ -118,7 +118,7 @@
 
 @feedbackUrl = @{
   if(config.newFeedbackForm){
-      "http://www.tax.service.gov.uk/feedback/cca-inpage"
+      config.feedbackUrl("cca-inpage")
   } else {
       s"${config.vmvUrl}/send-beta-feedback?serviceIdentifier=CCA"
   }

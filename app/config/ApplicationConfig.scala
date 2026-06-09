@@ -52,6 +52,8 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
 
   def dashboardUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
 
+  def feedbackUrl(page: String): String = loadConfig("feedback-frontend.url") + s"/$page"
+
   def yourDetailsUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
 
   def businessRatesChallengeUrl(page: String): String =
