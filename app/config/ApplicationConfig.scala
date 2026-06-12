@@ -52,6 +52,8 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
 
   def dashboardUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
 
+  def feedbackUrl(page: String): String = loadConfig("feedback-frontend.url") + s"/$page"
+
   def yourDetailsUrl(page: String): String = loadConfig("business-rates-dashboard-frontend.url") + s"/$page"
 
   def businessRatesChallengeUrl(page: String): String =
@@ -90,6 +92,7 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
   lazy val englishPubEstimatorEnabled: Boolean = configuration.get[Boolean]("feature-switch.englishPubEstimatorEnabled")
   lazy val compiledListReval26Enabled: Boolean = loadBooleanConfig("feature-switch.compiledListReval26Enabled")
   lazy val welshEstimatorEnabled: Boolean = loadBooleanConfig("feature-switch.welshEstimatorEnabled")
+  lazy val newFeedbackForm: Boolean = loadBooleanConfig("feature-switch.newFeedbackForm")
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
 
