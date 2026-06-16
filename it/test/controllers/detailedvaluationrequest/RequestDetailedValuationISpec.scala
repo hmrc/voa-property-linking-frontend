@@ -227,7 +227,8 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
   val englishEstimatorDisabledHeadingSelector = "h2.govuk-heading-m"
   val englishEstimatorDisabledHeadingText = "Estimate your business rates liability for pubs in England"
-  val englishEstimatorDisabledHeadingTextWelsh = "Amcangyfrifwch eich atebolrwydd ardrethi busnes ar gyfer tafarnau yn Lloegr"
+  val englishEstimatorDisabledHeadingTextWelsh =
+    "Amcangyfrifwch eich atebolrwydd ardrethi busnes ar gyfer tafarnau yn Lloegr"
 
   "myOrganisationAlreadyRequestedDetailValuation displays the correct content for viewing a draft valuation - English (English Property)" which {
     lazy val document: Document = getPage(English)

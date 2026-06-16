@@ -62,16 +62,20 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val forbiddenP1Text = "You do not have permission to view this valuation (or it does not exist)"
   val forbiddenP1TextWelsh = "Nid oes gennych ganiatâd i weld y prisiad hwn (neu nid yw’n bodoli)"
   val forbiddenListYearTitleText = "Sorry, there is a problem with this valuation - Valuation Office Agency - GOV.UK"
-  val forbiddenListYearTitleTextWelsh = "Mae’n ddrwg gennym, mae yna broblem gyda’r prisiad hwn - Valuation Office Agency - GOV.UK"
+  val forbiddenListYearTitleTextWelsh =
+    "Mae’n ddrwg gennym, mae yna broblem gyda’r prisiad hwn - Valuation Office Agency - GOV.UK"
   val forbiddenListYearHeadingText = "Sorry, there is a problem with this valuation"
   val forbiddenListYearHeadingTextWelsh = "Mae’n ddrwg gennym, mae yna broblem gyda’r prisiad hwn"
-  val forbiddenListYearP1Text = "We can only show you valuations that are on the rating lists your client wants you to act on."
-  val forbiddenListYearP1TextWelsh = "Dim ond prisiadau sydd ar y rhestrau ardrethu y mae eich cleient am i chi weithredu arnynt y gallwn eu dangos i chi."
+  val forbiddenListYearP1Text =
+    "We can only show you valuations that are on the rating lists your client wants you to act on."
+  val forbiddenListYearP1TextWelsh =
+    "Dim ond prisiadau sydd ar y rhestrau ardrethu y mae eich cleient am i chi weithredu arnynt y gallwn eu dangos i chi."
   val forbiddenListYearP2Text = "Contact your client if you need them to change which rating lists you can act on."
-  val forbiddenListYearP2TextWelsh = "Cysylltwch â’ch cleient os oes eu hangen arnoch i newid pa restrau ardrethu y gallwch chi weithredu arnynt."
+  val forbiddenListYearP2TextWelsh =
+    "Cysylltwch â’ch cleient os oes eu hangen arnoch i newid pa restrau ardrethu y gallwch chi weithredu arnynt."
   val forbiddenListYearButtonText = "Back to your client’s properties"
   val forbiddenListYearButtonTextWelsh = "Yn ôl at eiddo eich cleient"
-  val forbiddenListYearButtonHref= "/business-rates-dashboard/client-properties"
+  val forbiddenListYearButtonHref = "/business-rates-dashboard/client-properties"
 
   override def submissionId = "PL1ZRPBP7"
 
@@ -366,11 +370,11 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   }
 
   private def postStartCheckPage(
-                                  language: Language,
-                                  checkType: String,
-                                  dvrCheck: Boolean,
-                                  rateableValueTooHigh: Boolean
-                                ): WSResponse = {
+        language: Language,
+        checkType: String,
+        dvrCheck: Boolean,
+        rateableValueTooHigh: Boolean
+  ): WSResponse = {
 
     postRequestStubs(checkType, dvrCheck, rateableValueTooHigh)
 
@@ -384,24 +388,24 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     ).mkString("&")
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
-        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
-          "Csrf-Token" -> "nocheck",
-          "Content-Type" -> "application/x-www-form-urlencoded"
+          "Csrf-Token"       -> "nocheck",
+          "Content-Type"     -> "application/x-www-form-urlencoded"
         )
         .post(formUrlEncodedBody)
     )
   }
 
   private def invalidPostStartCheckPage(
-                                         language: Language,
-                                         checkType: String,
-                                         dvrCheck: Boolean,
-                                         rateableValueTooHigh: Boolean
-                                       ): WSResponse = {
+        language: Language,
+        checkType: String,
+        dvrCheck: Boolean,
+        rateableValueTooHigh: Boolean
+  ): WSResponse = {
 
     postRequestStubs(checkType, dvrCheck, rateableValueTooHigh)
 
@@ -415,13 +419,13 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
-        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/startCheck"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
-          "Csrf-Token" -> "nocheck",
-          "Content-Type" -> "application/x-www-form-urlencoded"
+          "Csrf-Token"       -> "nocheck",
+          "Content-Type"     -> "application/x-www-form-urlencoded"
         )
         .post(formUrlEncodedBody)
     )
@@ -602,13 +606,13 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId"
-        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",
-          "Csrf-Token" -> "nocheck",
-          "Content-Type" -> "application/x-www-form-urlencoded"
+          "Csrf-Token"       -> "nocheck",
+          "Content-Type"     -> "application/x-www-form-urlencoded"
         )
         .get()
     )
@@ -659,10 +663,10 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   }
 
   private def getClientDvrFilesPageWithClientAssessmentsStatus(
-                                                                language: Language,
-                                                                status: Int,
-                                                                body: String
-                                                              ): WSResponse = {
+        language: Language,
+        status: Int,
+        body: String
+  ): WSResponse = {
     authStubs
     stubOwnerProperties(List(draftApiAssessment, currentApiAssessment, previousApiAssessment), "OWNER")
 
@@ -671,7 +675,17 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .willReturn {
           aResponse
             .withStatus(OK)
-            .withBody(Json.toJson(testApiAssessments(List(draftApiAssessment, currentApiAssessment, previousApiAssessment), "OWNER", isAgent = true)).toString())
+            .withBody(
+              Json
+                .toJson(
+                  testApiAssessments(
+                    List(draftApiAssessment, currentApiAssessment, previousApiAssessment),
+                    "OWNER",
+                    isAgent = true
+                  )
+                )
+                .toString()
+            )
         }
     }
 
@@ -682,8 +696,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
     await(
       ws.url(
-          s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/clients/all/$plSubmissionId/valuations/$valuationId"
-        ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
+        s"http://localhost:$port/business-rates-property-linking/my-organisation/property-link/clients/all/$plSubmissionId/valuations/$valuationId"
+      ).withCookies(languageCookie(language), getSessionCookie(testSessionId))
         .withFollowRedirects(follow = false)
         .withHttpHeaders(
           HeaderNames.COOKIE -> "sessionId",

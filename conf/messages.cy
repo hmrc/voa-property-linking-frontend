@@ -843,8 +843,8 @@ available.requestvaluation.welsh.ccaEmail.valuationPeriod=({0} i {1})
 available.requestvaluation.startCheckTab.heading=Dechrau achos Gwirio
 available.requestvaluation.startCheckTab.new.guidance.link=Cymorth gyda gwirio manylion eich eiddo (yn agor tab newydd)
 available.requestvaluation.startCheckTab.guidance.summary=Cymorth gyda dechrau achos Gwirio
-available.requestvaluation.startCheckTab.guidance.content.p1=Mae achos Gwirio yn eich galluogi chi a ni i gytuno ar fanylion eiddo.
-available.requestvaluation.startCheckTab.guidance.content.p2=Dechreuwch achos Gwirio i ddweud wrthym fod manylion eiddo yn gywir neu’n os ydych eisiau gwneud newidiadau iddynt.
+available.requestvaluation.startCheckTab.guidance.content.p1=Anfonwch achos Gwirio i ddweud wrthym am newidiadau i fanylion yr eiddo. Efallai y byddwn yn derbyn eich newidiadau ac yn addasu'r gwerth ardrethol.
+available.requestvaluation.startCheckTab.guidance.content.p2=Os ydych yn meddwl bod y gwerth ardrethol yn rhy uchel ac nad oes angen newid manylion yr eiddo, mae’n dal yn rhaid i chi anfon achos Gwirio atom. Mae'r achos Gwirio yn cadarnhau bod gennym y manylion eiddo cywir. Pan fydd yr achos Gwirio wedi’i gwblhau, anfonwch achos Herio i ddweud wrthym eich bod yn meddwl bod y gwerth ardrethol yn rhy uchel.
 available.requestvaluation.startCheckTab.guidance.content.p3=Efallai byddwn yn derbyn eich newidiadau ac yn addasu’r gwerth ardrethol.
 available.requestvaluation.startCheckTab.guidance.content.p4=Os ydych chi’n meddwl bod y gwerth ardrethol yn rhy uchel, gallwch anfon achos Herio atom.
 available.requestvaluation.startCheckTab.guidance.content.p5=Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio.
@@ -856,7 +856,7 @@ available.requestvaluation.startCheckTab.option3.content=Mae’r eiddo wedi ei r
 available.requestvaluation.startCheckTab.option4.content=Unwyd yr eiddo
 available.requestvaluation.startCheckTab.option5.content=Mae newid yn yr ardal leol yn effeithio ar werth ardrethol yr eiddo
 available.requestvaluation.startCheckTab.option5.hint=Er enghraifft, gweithfeydd ffordd, sgaffaldiau neu lifogydd hir dymor
-available.requestvaluation.startCheckTab.option6.content=Mae penderfyniad llys yn effeithio gwerth ardrethol yr eiddo
+available.requestvaluation.startCheckTab.option6.content=Mae penderfyniad llys yn effeithio ar werth ardrethol yr eiddo
 available.requestvaluation.startCheckTab.button.title=Parhau
 available.requestvaluation.startCheckTab.checkType.error.missing=Dewisiwch beth rydych am ei ddweud wrthym
 
@@ -1179,7 +1179,7 @@ registration.error.p1=Ni allwch gofrestru tan i’r Gweinyddwr o’ch sefydliad 
 registration.error.p2=Bydd angen i chi siarad â’r person a roddodd eich manylion Porth y Llywodraeth i chi.
 
 #challenge
-challengeRules.summary=Pryd gallaf herio’r prisiad?
+challengeRules.summary=Cymorth gydag achosion Gwirio ac achosion Herio
 challengeRules.rules=Gallwch anfon achos Herio atom (mae unrhyw un o’r rhain yn berthnasol):
 challengeRules.rules.1=o fewn 4 mis i’n penderfyniad ar yr achos Gwirio
 challengeRules.rules.2=os ydych wedi aros mwy na 12 mis a heb dderbyn ein penderfyniad ar yr achos Gwirio
