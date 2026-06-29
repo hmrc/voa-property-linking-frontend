@@ -38,7 +38,7 @@ class RatingListConfirmedISpec extends ISpecBase with HtmlComponentHelpers {
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
   val titleText =
-    "The rating lists that Test Agent can act for you on has been changed - Valuation Office Agency - GOV.UK"
+    "The rating lists that Test Agent can act for you on has been changed - Valuation Office - GOV.UK"
   val headerText = "The rating lists that Test Agent can act for you on has been changed"
   def thisAgentTextSingle(listYear: String) =
     s"This agent can act for you on your property valuations on the $listYear rating list, for properties that you assign to them or they add to your account"
@@ -52,7 +52,7 @@ class RatingListConfirmedISpec extends ISpecBase with HtmlComponentHelpers {
   val goToYourText = "Go to your account home"
 
   val titleTextWelsh =
-    "Mae’r rhestrau ardrethu y gall Test Agent weithredu arnynt ar eich rhan wedi newid - Valuation Office Agency - GOV.UK"
+    "Mae’r rhestrau ardrethu y gall Test Agent weithredu arnynt ar eich rhan wedi newid - Y Swyddfa Brisio - GOV.UK"
   val headerTextWelsh = "Mae’r rhestrau ardrethu y gall Test Agent weithredu arnynt ar eich rhan wedi newid"
   def thisAgentTextSingleWelsh(listYear: String) =
     s"Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu $listYear, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"

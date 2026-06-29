@@ -43,7 +43,7 @@ class ValuationsControllerISpec extends ISpecBase {
   val currentRv = "£2,000"
   val previousRv = "£3,000"
 
-  val titleText = s"$propertyAddress - Valuation Office Agency - GOV.UK"
+  val titleText = s"$propertyAddress - Valuation Office - GOV.UK"
   val captionText = "Your property"
   val agentCaptionText = "Client property: Client Name"
   val backText = "Back"
@@ -92,7 +92,7 @@ class ValuationsControllerISpec extends ISpecBase {
     "The property can also be removed from the rating list and have a rateable value N/A when it’s no longer used for business. For example, the property may be being redeveloped, be exempt or have changed to domestic use."
   val toText = "to"
 
-  val titleTextWelsh = s"$propertyAddress - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = s"$propertyAddress - Y Swyddfa Brisio - GOV.UK"
   val captionTextWelsh = "Eich eiddo"
   val agentCaptionTextWelsh = "Eiddo‘r cleient: Client Name"
   val backTextWelsh = "Yn ôl"

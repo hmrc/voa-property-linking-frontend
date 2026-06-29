@@ -71,9 +71,9 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val emptyAddressErrorLabelSelector = "#main-content > div > div > div:nth-child(2) > div > form > div > span"
 
   val titleText =
-    s"Which of your properties do you want to unassign $agentName from? - Valuation Office Agency - GOV.UK"
+    s"Which of your properties do you want to unassign $agentName from? - Valuation Office - GOV.UK"
   val errorTitleText =
-    s"Error: Which of your properties do you want to unassign $agentName from? - Valuation Office Agency - GOV.UK"
+    s"Error: Which of your properties do you want to unassign $agentName from? - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val headingText = s"Which of your properties do you want to unassign $agentName from?"
   val forThePropertiesText = "For the properties you select, the agent will not be able to:"
@@ -95,9 +95,9 @@ class RevokeAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val noAddressChoiceText = "Select which properties you want to unassign this agent from"
   val emptyAddressErrorText = "You must enter something to search for"
 
-  val titleTextWelsh = s"O ba eiddo ydych chi am ddadneilltuo $agentName? - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = s"O ba eiddo ydych chi am ddadneilltuo $agentName? - Y Swyddfa Brisio - GOV.UK"
   val errorTitleTextWelsh =
-    s"Gwall: O ba eiddo ydych chi am ddadneilltuo $agentName? - Valuation Office Agency - GOV.UK"
+    s"Gwall: O ba eiddo ydych chi am ddadneilltuo $agentName? - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val headingTextWelsh = s"O ba eiddo ydych chi am ddadneilltuo $agentName?"
   val forThePropertiesTextWelsh = "Ar gyfer yr eiddo a ddewiswch, ni fydd yr asiant yn gallu:"

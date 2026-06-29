@@ -35,19 +35,19 @@ class AgentCodeISpec extends ISpecBase with HtmlComponentHelpers {
 
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "What is your agent’s code? - Valuation Office Agency - GOV.UK"
+  val titleText = "What is your agent’s code? - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val continueButtonText = "Continue"
   val captionText = "Appoint an agent"
   val headerText = "What is your agent’s code?"
-  val hintText = "This is a number given to the agent by the Valuation Office Agency."
+  val hintText = "This is a number given to the agent by the Valuation Office."
 
-  val titleTextWelsh = "Beth yw cod eich asiant? - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Beth yw cod eich asiant? - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val continueButtonTextWelsh = "Yn eich blaen"
   val captionTextWelsh = "Penodi asiant"
   val headerTextWelsh = "Beth yw cod eich asiant?"
-  val hintTextWelsh = "Dyma’r rhif a roddir i’r asiant gan Asiantaeth y Swyddfa Brisio."
+  val hintTextWelsh = "Dyma’r rhif a roddir i’r asiant gan y Swyddfa Brisio."
 
   val backLinkSelector = "#back-link"
   val captionSelector = ".govuk-caption-l"

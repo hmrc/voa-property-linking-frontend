@@ -30,14 +30,14 @@ import utils.ListYearsHelpers
 
 class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
-  val titleText = "Registration successful - Valuation Office Agency - GOV.UK"
+  val titleText = "Registration successful - Valuation Office - GOV.UK"
   val headingText = "Registration successful"
-  val yourVoaIdText = "Your VOA personal ID number 3164"
+  val yourVoaIdText = "Your VO personal ID number 3164"
   val yourAgentCodeText = "Your Agent code 100"
   val weHaveSentText = "We have sent these details to individual@test.com"
   val whatHappensNextText = "What happens next"
   val nextTimeYouText = "Next time you sign in to the service, use your Government Gateway details."
-  val ifYouNeedToText = "If you need to reset your password, you’ll need to provide your VOA personal ID number."
+  val ifYouNeedToText = "If you need to reset your password, you’ll need to provide your VO personal ID number."
   val giveYourAgentText = "Give your Agent code to your client so they can appoint you to act for them."
   val ifAnyoneElseText =
     "If anyone else wants to register on behalf of the organisation, you’ll need to add them to your Government Gateway account."
@@ -49,16 +49,16 @@ class RegistrationConfirmationISpec extends ISpecBase with HtmlComponentHelpers 
   val termsLinkText = "terms and conditions"
   val goToDashboardText = "Go To Dashboard"
 
-  val titleTextWelsh = "Wedi cofrestru’n llwyddiannus - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Wedi cofrestru’n llwyddiannus - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Wedi cofrestru’n llwyddiannus"
-  val yourVoaIdTextWelsh = "Eich rhif adnabod personol (ID) VOA 3164"
+  val yourVoaIdTextWelsh = "Eich rhif Dynodydd Defnyddiwr (ID) Personol VO 3164"
   val yourAgentCodeTextWelsh = "Eich cod Asiant 100"
   val weHaveSentTextWelsh = "Rydym wedi anfon y manylion yma at individual@test.com"
   val whatHappensNextTextWelsh = "Beth sy’n digwydd nesaf"
   val nextTimeYouTextWelsh =
     "Y tro nesaf y byddwch yn mewngofnodi i ddefnyddio’r gwasanaeth, defnyddiwch eich manylion Porth y Llywodraeth."
   val ifYouNeedToTextWelsh =
-    "Os oes angen i chi ailosod eich cyfrinair, bydd angen i chi ddarparu eich rhif adnabod personol (ID) VOA."
+    "Os oes angen i chi ailosod eich cyfrinair, bydd angen i chi ddarparu eich rhif Dynodydd Defnyddiwr (ID) Personol VO."
   val giveYourAgentTextWelsh = "Rhowch eich cod Asiant i’ch cleient fel y gallant eich penodi i weithredu ar eu rhan."
   val ifAnyoneElseTextWelsh =
     "Os oes unrhyw un arall eisiau cofrestru ar ran y sefydliad, bydd angen i chi eu hychwanegu at eich cyfrif Porth y Llywodraeth."

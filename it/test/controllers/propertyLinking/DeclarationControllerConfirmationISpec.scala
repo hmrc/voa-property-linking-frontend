@@ -38,7 +38,7 @@ class DeclarationControllerConfirmationISpec extends ISpecBase {
     app.injector.instanceOf[PropertyLinkingSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Property claim submitted - Valuation Office Agency - GOV.UK"
+  val titleText = "Property claim submitted - Valuation Office - GOV.UK"
   val localCouncilReferenceText = "Local council reference: 2050466366770"
   val propertyText = "Property: Test Address, Test Lane, T35 T3R"
   val headingText = "Property claim submitted Your submission number PL-123456"
@@ -55,7 +55,7 @@ class DeclarationControllerConfirmationISpec extends ISpecBase {
   val weWillContactText = "We will contact you if we need more information."
   val goBackText = "Go back to your dashboard"
 
-  val titleTextWelsh = "Cais i hawlio eiddo wedi’i gyflwyno - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Cais i hawlio eiddo wedi’i gyflwyno - Y Swyddfa Brisio - GOV.UK"
   val localCouncilReferenceTextWelsh = "Cyfeirnod yr awdurdod lleol: 2050466366770"
   val propertyTextWelsh = "Eiddo: Test Address, Test Lane, T35 T3R"
   val headingTextWelsh = "Cais i hawlio eiddo wedi’i gyflwyno Eich rhif cyflwyno PL-123456"

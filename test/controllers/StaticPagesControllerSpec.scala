@@ -33,7 +33,7 @@ class StaticPagesControllerSpec extends VoaPropertyLinkingSpec {
     "return terms and conditions page and returns 200 when user is logged in" in {
       val res = TestStaticPagesController.termsAndConditions()(FakeRequest())
       status(res) shouldBe OK
-      verifyLoggedIn(Jsoup.parse(contentAsString(res)), "Terms and conditions - Valuation Office Agency - GOV.UK")
+      verifyLoggedIn(Jsoup.parse(contentAsString(res)), "Terms and conditions - Valuation Office - GOV.UK")
     }
 
   "Static page controller" should
@@ -45,7 +45,7 @@ class StaticPagesControllerSpec extends VoaPropertyLinkingSpec {
         termsAndConditionsView
       ).termsAndConditions()(FakeRequest())
       status(res) shouldBe OK
-      verifyNotLoggedIn(Jsoup.parse(contentAsString(res)), "Terms and conditions - Valuation Office Agency - GOV.UK")
+      verifyNotLoggedIn(Jsoup.parse(contentAsString(res)), "Terms and conditions - Valuation Office - GOV.UK")
     }
 
 }

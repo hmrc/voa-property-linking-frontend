@@ -198,7 +198,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title shouldBe "Update business name - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update business name - Valuation Office - GOV.UK"
   }
 
   "viewBusinessAddress" should "display the business address" in new Setup {
@@ -207,7 +207,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title shouldBe "Update business address - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update business address - Valuation Office - GOV.UK"
     html.getElementsByClass("manualAddress").hasClass("govuk-!-display-block") shouldBe true
     html.getElementsByClass("lookupAddressCancel").hasClass("govuk-!-display-none") shouldBe true
   }
@@ -218,7 +218,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title shouldBe "Update business telephone number - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update business telephone number - Valuation Office - GOV.UK"
   }
 
   "viewBusinessEmail" should "display the users email" in new Setup {
@@ -227,7 +227,7 @@ class UpdateOrganisationDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title shouldBe "Update business email - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update business email - Valuation Office - GOV.UK"
   }
 
   trait Setup {

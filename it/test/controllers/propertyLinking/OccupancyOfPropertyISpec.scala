@@ -39,8 +39,8 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
   lazy val mockRepository: PropertyLinkingSessionRepository = app.injector.instanceOf[PropertyLinkingSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Do you still own or occupy the property? - Valuation Office Agency - GOV.UK"
-  val titleTextAgent = "Does your client still own or occupy the property? - Valuation Office Agency - GOV.UK"
+  val titleText = "Do you still own or occupy the property? - Valuation Office - GOV.UK"
+  val titleTextAgent = "Does your client still own or occupy the property? - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Add a property"
   val headerText = "Do you still own or occupy the property?"
@@ -58,9 +58,9 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
   val monthText = "Month"
   val yearText = "Year"
   val continueText = "Continue"
-  val errorTitleText = "Error: Do you still own or occupy the property? - Valuation Office Agency - GOV.UK"
+  val errorTitleText = "Error: Do you still own or occupy the property? - Valuation Office - GOV.UK"
   val errorTitleTextAgent =
-    "Error: Does your client still own or occupy the property? - Valuation Office Agency - GOV.UK"
+    "Error: Does your client still own or occupy the property? - Valuation Office - GOV.UK"
   val thereIsAProblemText = "There is a problem"
   val ownerOccupierErrorText = "Select if you are still the owner and occupier of the property"
   val ownerErrorText = "Select if you are still the owner of the property"
@@ -93,9 +93,9 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
   val enterValidDateErrorText = "Enter a valid date"
   val errorPrefix = "Error: "
 
-  val titleTextWelsh = "Ydych chi dal i fod yn berchen neu’n meddiannu’r eiddo? - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Ydych chi dal i fod yn berchen neu’n meddiannu’r eiddo? - Y Swyddfa Brisio - GOV.UK"
   val titleTextWelshAgent =
-    "Ydy’ch cleient dal i fod yn berchen neu’n meddiannu’r eiddo? - Valuation Office Agency - GOV.UK"
+    "Ydy’ch cleient dal i fod yn berchen neu’n meddiannu’r eiddo? - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Ychwanegu eiddo"
   val headerTextWelsh = "Ydych chi dal i fod yn berchen neu’n meddiannu’r eiddo?"
@@ -114,9 +114,9 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
   val yearTextWelsh = "Blwyddyn"
   val continueTextWelsh = "Parhau"
   val errorTitleTextWelsh =
-    "Gwall: Ydych chi dal i fod yn berchen neu’n meddiannu’r eiddo? - Valuation Office Agency - GOV.UK"
+    "Gwall: Ydych chi dal i fod yn berchen neu’n meddiannu’r eiddo? - Y Swyddfa Brisio - GOV.UK"
   val errorTitleTextWelshAgent =
-    "Gwall: Ydy’ch cleient dal i fod yn berchen neu’n meddiannu’r eiddo? - Valuation Office Agency - GOV.UK"
+    "Gwall: Ydy’ch cleient dal i fod yn berchen neu’n meddiannu’r eiddo? - Y Swyddfa Brisio - GOV.UK"
   val thereIsAProblemTextWelsh = "Mae yna broblem"
   val ownerOccupierErrorTextWelsh = "Dewiswch os taw chi yw perchennog a meddiannydd yr eiddo o hyd"
   val ownerErrorTextWelsh = "Dewiswch os ydych dal yn berchennog yr eiddo"

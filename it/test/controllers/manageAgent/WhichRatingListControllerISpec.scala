@@ -36,8 +36,8 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
   val testSessionId = s"stubbed-${UUID.randomUUID}"
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
-  val titleText = "Choose the 2023 or 2017 rating list - Valuation Office Agency - GOV.UK"
-  val errorTitleText = "Error: Choose the 2023 or 2017 rating list - Valuation Office Agency - GOV.UK"
+  val titleText = "Choose the 2023 or 2017 rating list - Valuation Office - GOV.UK"
+  val errorTitleText = "Error: Choose the 2023 or 2017 rating list - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Manage agent"
   val headerText = "Choose the 2023 or 2017 rating list"
@@ -56,8 +56,8 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
   val errorText = "Select which rating list you want this agent to act on for you"
   val thereIsAProblemText = "There is a problem"
   val aboveRadioErrorText = "Error: Select which rating list you want this agent to act on for you"
-  val titleTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017 - Valuation Office Agency - GOV.UK"
-  val errorTitleTextWelsh = "Gwall: Dewiswch restr ardrethu 2023 neu 2017 - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017 - Y Swyddfa Brisio - GOV.UK"
+  val errorTitleTextWelsh = "Gwall: Dewiswch restr ardrethu 2023 neu 2017 - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
   val headerTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017"

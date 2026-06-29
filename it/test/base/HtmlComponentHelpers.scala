@@ -32,8 +32,8 @@ trait HtmlComponentHelpers { self: ISpecBase =>
       case Welsh   => expectedWelshText
     }
     language match {
-      case English => document.title shouldBe s"$expectedText - Valuation Office Agency - GOV.UK"
-      case Welsh   => document.title shouldBe s"$expectedText - Asiantaeth y Swyddfa Brisio - GOV.UK"
+      case English => document.title shouldBe s"$expectedText - Valuation Office - GOV.UK"
+      case Welsh   => document.title shouldBe s"$expectedText - Y Swyddfa Brisio - GOV.UK"
     }
     element.text shouldBe expectedText
     element.classNames should contain(titleClass)

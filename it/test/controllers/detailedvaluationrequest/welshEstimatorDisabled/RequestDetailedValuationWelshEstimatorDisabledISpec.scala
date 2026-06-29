@@ -48,8 +48,8 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
 
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "ADDRESS - Valuation Office Agency - GOV.UK"
-  val titleTextWelsh = "ADDRESS - Valuation Office Agency - GOV.UK"
+  val titleText = "ADDRESS - Valuation Office - GOV.UK"
+  val titleTextWelsh = "ADDRESS - Y Swyddfa Brisio - GOV.UK"
 
   val captionText = "Your property"
   val captionTextWelsh = "Eich eiddo"
@@ -82,13 +82,13 @@ class RequestDetailedValuationWelshEstimatorDisabledISpec extends ISpecBase with
   val rateableValueSelector = "#future-valuation-rv"
 
   val valuationTabInsetText =
-    "The estimator tool for Wales has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
+    "The estimator tool for Wales has been removed ahead of business rates bills being issued by local councils. The Valuation Office can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextWelsh =
-    "Mae’r teclyn amcangyfrif ar gyfer Cymru wedi’i dynnu i lawr cyn i filiau ardrethi busnes gael eu cyhoeddi gan gynghorau lleol. Gall Asiantaeth y Swyddfa Brisio eich helpu gydag unrhyw gwestiynau am eich gwerth ardrethol. Am ragor o wybodaeth am sut y caiff eich bil ei gyfrifo cliciwch yma (yn agor mewn tab newydd). Os oes gennych unrhyw gwestiynau am eich bil, dylech gysylltu â’ch cyngor lleol."
+    "Mae’r offeryn amcangyfrif ar gyfer Cymru wedi cael ei dynnu cyn i gynghorau lleol ddosbarthu biliau ardrethi busnes. Gall y Swyddfa Brisio gynnig help gydag unrhyw gwestiwn ynglŷn â’ch gwerth ardrethol. Er mwyn cael rhagor o wybodaeth ynghylch y ffordd caiff eich bil ei gyfrifo, cliciwch yma (yn agor tab newydd). Cysylltwch â’ch cyngor lleol os oes gennych unrhyw gwestiynau ynglŷn â’ch bil."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
 
   val valuationTabInsetLinkText = "here (opens in new tab)"
-  val valuationTabInsetLinkTextWelsh = "yma (yn agor mewn tab newydd)"
+  val valuationTabInsetLinkTextWelsh = "yma (yn agor tab newydd)"
   val valuationTabInsetLinkTextSelector = "#future-estimate-link"
   val valuationTabInsetLinkHref =
     "https://www.gov.uk/calculate-your-business-rates"

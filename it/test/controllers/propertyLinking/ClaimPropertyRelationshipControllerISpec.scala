@@ -39,8 +39,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
     app.injector.instanceOf[PropertyLinkingSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Connection to the property - Valuation Office Agency - GOV.UK"
-  val errorTitleText = "Error: Connection to the property - Valuation Office Agency - GOV.UK"
+  val titleText = "Connection to the property - Valuation Office - GOV.UK"
+  val errorTitleText = "Error: Connection to the property - Valuation Office - GOV.UK"
   val headingText = "Connection to the property:"
   val captionText = "Add a property"
   val backLinkText = "Back"
@@ -51,7 +51,7 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val ownOrOccupySummaryLinkText = "I own or occupy a part of this property"
   val ownOrOccupySummaryLinkTextAgent = "My client owns or occupies part of this property"
   val ownOrOccupySummaryContentText =
-    "After the Valuation Office Agency have approved your connection, you may want to ask them to split this property to get separate valuations for each part."
+    "After the Valuation Office have approved your connection, you may want to ask them to split this property to get separate valuations for each part."
   val ownOrOccupySummaryContentTextAgent =
     "You can still add this property on behalf of your client, as if they owned or occupied the whole property. After we’ve approved your client’s connection to the property, you can ask us to split the property to get separate valuations for each part."
   val dontOwnOrOccupySummaryLinkText = "I do not own the property but I sublet it to someone else"
@@ -61,7 +61,7 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val dontOwnOrOccupySummaryContentP1TextAgent =
     "Your client is considered to be the owner if they sublet the property to another person or business. Enter the date the sublet started."
   val dontOwnOrOccupySummaryContentP2Text =
-    "If you only sublet part of the property, you may want to ask the Valuation Office Agency to split this property to get separate valuations for each part. You can do this after they have approved your connection to the property."
+    "If you only sublet part of the property, you may want to ask the Valuation Office to split this property to get separate valuations for each part. You can do this after they have approved your connection to the property."
   val dontOwnOrOccupySummaryContentP2TextAgent =
     "If only part of the property is sublet, you can ask us to split the property to get separate valuations for each part. You can do this after we’ve approved your client’s connection to the property."
   val whatIsYourConnectionText = "What is your connection to the property?"
@@ -71,8 +71,8 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val ownerAndOccupierText = "Owner and occupier"
   val continueButtonText = "Continue"
 
-  val titleTextWelsh = "Cysylltiad â’r eiddo - Valuation Office Agency - GOV.UK"
-  val errorTitleTextWelsh = "Gwall: Cysylltiad â’r eiddo - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Cysylltiad â’r eiddo - Y Swyddfa Brisio - GOV.UK"
+  val errorTitleTextWelsh = "Gwall: Cysylltiad â’r eiddo - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Cysylltiad â’r eiddo:"
   val captionTextWelsh = "Ychwanegu eiddo"
   val backLinkTextWelsh = "Yn ôl"
@@ -83,7 +83,7 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val ownOrOccupySummaryLinkTextWelsh = "Rwy’n berchen neu’n meddiannu rhan o’r eiddo hwn"
   val ownOrOccupySummaryLinkTextAgentWelsh = "Fy nghleient sydd berchen ar neu’n meddiannu rhan o’r eiddo hwn"
   val ownOrOccupySummaryContentTextWelsh =
-    "Ar ôl i Asiantaeth y Swyddfa Brisio gymeradwyo eich cysylltiad, efallai byddwch yn dymuno eu holi i rannu’r eiddo hwn er mwyn cael prisiadau ar wahân ar gyfer pob rhan."
+    "Ar ôl i’r Swyddfa Brisio gymeradwyo’ch cysylltiad, efallai y byddwch am ofyn iddynt rannu’r eiddo er mwyn cael prisiad ar wahân ar gyfer pob rhan."
   val ownOrOccupySummaryContentTextAgentWelsh =
     "Gallwch barhau i ychwanegu’r eiddo hwn ar ran eich cleient, fel pe baent yn berchen neu’n meddiannu’r eiddo cyfan. Ar ôl i ni gymeradwyo cysylltiad eich cleient â’r eiddo, gallwch ofyn i ni rannu’r eiddo i gael prisiadau ar wahân ar gyfer pob rhan."
   val dontOwnOrOccupySummaryLinkTextWelsh = "Nid fi sy’n berchen ar yr eiddo ond rwy’n ei isosod i rywun arall"
@@ -94,7 +94,7 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val dontOwnOrOccupySummaryContentP1TextAgentWelsh =
     "Ystyrir mai eich cleient yw’r perchennog os ydynt yn isosod yr eiddo i berson neu fusnes arall. Nodwch y dyddiad dechreuodd yr isosod."
   val dontOwnOrOccupySummaryContentP2TextWelsh =
-    "Os ydych yn isosod rhan o’r eiddo yn unig, efallai dymunwch holi Asiantaeth y Swyddfa Brisio i rannu’r eiddo er mwyn derbyn prisiadau ar wahân ar gyfer pob rhan. Gallwch wneud hyn wedi iddynt gymeradwyo eich cysylltiad â’r eiddo."
+    "Os mai rhan o’r eiddo rydych yn ei is-osod yn unig, efallai y byddwch am ofyn ir Swyddfa Brisio rannu’r eiddo er mwyn cael prisiad ar wahân ar gyfer pob rhan. Gallwch wneud hyn ar ôl i’r VO gymeradwyo eich cysylltiad â’r eiddo."
   val dontOwnOrOccupySummaryContentP2TextAgentWelsh =
     "Os mai dim ond rhan o’r eiddo sy’n cael ei isosod, gallwch ofyn i ni rannu’r eiddo i gael prisiadau ar wahân ar gyfer pob rhan. Gallwch wneud hyn ar ôl i ni gymeradwyo cysylltiad eich cleient â’r eiddo."
   val whatIsYourConnectionTextWelsh = "Beth yw eich cysylltiad chi â’r eiddo?"

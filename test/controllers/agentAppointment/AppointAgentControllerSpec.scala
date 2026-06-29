@@ -84,7 +84,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   "getMyOrganisationPropertyLinksWithAgentFiltering" should "display correctly in English" in new UnfilteredResultsTestCase
     with English {
-    doc.title shouldBe s"Choose which of your properties you want to assign ${agent.companyName} to - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"Choose which of your properties you want to assign ${agent.companyName} to - Valuation Office - GOV.UK"
     heading shouldBe s"Choose which of your properties you want to assign ${agent.companyName} to"
     explainerIntro shouldBe "For the properties you select, the agent will be able to:"
     explainerList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
@@ -151,7 +151,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   it should "display correctly in Welsh" in new UnfilteredResultsTestCase with Welsh {
-    doc.title shouldBe s"Dewis pa eiddo yr hoffech ei neilltuo i ${agent.companyName} - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"Dewis pa eiddo yr hoffech ei neilltuo i ${agent.companyName} - Y Swyddfa Brisio - GOV.UK"
     heading shouldBe s"Dewis pa eiddo yr hoffech ei neilltuo i ${agent.companyName}"
     explainerIntro shouldBe "Ar gyfer yr eiddo a ddewiswch, bydd yr asiant yn gallu:"
     explainerList.children.asScala.map(_.text) should contain theSameElementsInOrderAs Seq(
@@ -403,7 +403,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     with English {
     status(errorResult) shouldBe BAD_REQUEST
     emptySearchError.value shouldBe "You must enter something to search for"
-    errorDoc.title shouldBe s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
+    errorDoc.title shouldBe s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office - GOV.UK"
 
     val secondForm = errorDoc.select("form").get(1) // Nested form
     val actionUrl = secondForm.attr("action")
@@ -418,7 +418,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     with Welsh {
     status(errorResult) shouldBe BAD_REQUEST
     emptySearchError.value shouldBe "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano"
-    errorDoc.title shouldBe s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Valuation Office Agency - GOV.UK"
+    errorDoc.title shouldBe s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Y Swyddfa Brisio - GOV.UK"
 
     val secondForm = errorDoc.select("form").get(1) // Nested form
     val actionUrl = secondForm.attr("action")
@@ -432,7 +432,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     with English {
     status(errorResult) shouldBe BAD_REQUEST
     emptySearchError.value shouldBe "You must enter something to search for"
-    errorDoc.title shouldBe s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
+    errorDoc.title shouldBe s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office - GOV.UK"
 
     val secondForm = errorDoc.select("form").get(1) // Nested form
     val actionUrl = secondForm.attr("action")
@@ -447,7 +447,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     with Welsh {
     status(errorResult) shouldBe BAD_REQUEST
     emptySearchError.value shouldBe "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano"
-    errorDoc.title shouldBe s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Valuation Office Agency - GOV.UK"
+    errorDoc.title shouldBe s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Y Swyddfa Brisio - GOV.UK"
 
     val secondForm = errorDoc.select("form").get(1) // Nested form
     val actionUrl = secondForm.attr("action")
@@ -526,7 +526,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   it should "display content correctly in English" in new AppointToSomeConfirmationTestCase with English {
-    doc.title shouldBe s"${agentAppointAction.name} has been assigned to your selected properties - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"${agentAppointAction.name} has been assigned to your selected properties - Valuation Office - GOV.UK"
     panel shouldBe s"${agentAppointAction.name} has been assigned to your selected properties"
     explainer shouldBe "The agent can act for you on any of the properties you selected."
     nextStepsSubhead shouldBe "What happens next"
@@ -536,7 +536,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   }
 
   it should "display content correctly in Welsh" in new AppointToSomeConfirmationTestCase with Welsh {
-    doc.title shouldBe s"Mae ${agentAppointAction.name} wedi’i neilltuo i’r eiddo a ddewiswyd gennych - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"Mae ${agentAppointAction.name} wedi’i neilltuo i’r eiddo a ddewiswyd gennych - Y Swyddfa Brisio - GOV.UK"
     panel shouldBe s"Mae ${agentAppointAction.name} wedi’i neilltuo i’r eiddo a ddewiswyd gennych"
     explainer shouldBe "Gall yr asiant weithredu ar eich rhan ar gyfer unrhyw un o’r eiddo a ddewiswyd gennych."
     nextStepsSubhead shouldBe "Beth sy’n digwydd nesaf"
@@ -599,7 +599,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
     page.shouldContainTable("#agentPropertiesTableBody")
     page.titleShouldMatch(
-      s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
+      s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office - GOV.UK"
     )
 
     val secondForm = Jsoup.parse(contentAsString(res)).select("form").get(1) // Nested form
@@ -711,21 +711,21 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   private def verifyPageErrorTitle(page: HtmlPage, isWelsh: Boolean = false) =
     if (isWelsh)
       page.titleShouldMatch(
-        s"Gwall: O ba eiddo ydych chi am ddadneilltuo $ggExternalId? - Valuation Office Agency - GOV.UK"
+        s"Gwall: O ba eiddo ydych chi am ddadneilltuo $ggExternalId? - Y Swyddfa Brisio - GOV.UK"
       )
     else
       page.titleShouldMatch(
-        s"Error: Which of your properties do you want to unassign $ggExternalId from? - Valuation Office Agency - GOV.UK"
+        s"Error: Which of your properties do you want to unassign $ggExternalId from? - Valuation Office - GOV.UK"
       )
 
   private def verifyPageErrorTitleAssign(page: HtmlPage, isWelsh: Boolean = false) =
     if (isWelsh)
       page.titleShouldMatch(
-        s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Valuation Office Agency - GOV.UK"
+        s"Gwall: Dewis pa eiddo yr hoffech ei neilltuo i $ggExternalId - Y Swyddfa Brisio - GOV.UK"
       )
     else
       page.titleShouldMatch(
-        s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office Agency - GOV.UK"
+        s"Error: Choose which of your properties you want to assign $ggExternalId to - Valuation Office - GOV.UK"
       )
 
   private lazy val testController = new AppointAgentController(

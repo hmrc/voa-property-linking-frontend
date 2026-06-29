@@ -220,7 +220,7 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
     val html = HtmlPage(res)
     // Page title
-    html.titleShouldMatch("Registration successful - Valuation Office Agency - GOV.UK")
+    html.titleShouldMatch("Registration successful - Valuation Office - GOV.UK")
     // Page should contains VOA Person ID value 100
     html.verifyElementText("personal-id", "100")
     // Page should contains VOA Agent code value 300

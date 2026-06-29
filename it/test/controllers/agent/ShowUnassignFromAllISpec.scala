@@ -51,9 +51,9 @@ class ShowUnassignFromAllISpec extends ISpecBase with HtmlComponentHelpers {
   val backLinkId = "back-link"
 
   val titleOnePropertyText =
-    "Are you sure you want to unassign Test Agent from your property? - Valuation Office Agency - GOV.UK"
+    "Are you sure you want to unassign Test Agent from your property? - Valuation Office - GOV.UK"
   val titleMultiplePropertiesText =
-    "Are you sure you want to unassign Test Agent from all your properties? - Valuation Office Agency - GOV.UK"
+    "Are you sure you want to unassign Test Agent from all your properties? - Valuation Office - GOV.UK"
   val headingOnePropertyText = "Are you sure you want to unassign Test Agent from your property?"
   val headingMultiplePropertiesText = "Are you sure you want to unassign Test Agent from all your properties?"
   val captionText = "Manage agent"
@@ -68,9 +68,9 @@ class ShowUnassignFromAllISpec extends ISpecBase with HtmlComponentHelpers {
   val cancelLinkText = "Cancel"
   val backLinkText = "Back"
 
-  val titleOnePropertyTextWelsh = "A hoffwch ddad-neilltuo Test Agent o’ch eiddo? - Valuation Office Agency - GOV.UK"
+  val titleOnePropertyTextWelsh = "A hoffwch ddad-neilltuo Test Agent o’ch eiddo? - Y Swyddfa Brisio - GOV.UK"
   val titleMultiplePropertiesTextWelsh =
-    "Ydych chi’n siŵr eich bod am ddadneilltuo Test Agent o’ch holl eiddo? - Valuation Office Agency - GOV.UK"
+    "Ydych chi’n siŵr eich bod am ddadneilltuo Test Agent o’ch holl eiddo? - Y Swyddfa Brisio - GOV.UK"
   val headingOnePropertyTextWelsh = "A hoffwch ddad-neilltuo Test Agent o’ch eiddo?"
   val headingMultiplePropertiesTextWelsh = "Ydych chi’n siŵr eich bod am ddadneilltuo Test Agent o’ch holl eiddo?"
   val captionTextWelsh = "Rheoli asiant"

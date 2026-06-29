@@ -38,7 +38,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "What do you want to do with your agent Test Agent? - Valuation Office Agency - GOV.UK"
+  val titleText = "What do you want to do with your agent Test Agent? - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val continueButtonText = "Continue"
   val captionText = "Manage agent"
@@ -56,7 +56,7 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
   val errorSpan = "Error: "
   val noOptionChoiceText = "Select what you want to do with this agent"
 
-  val titleTextWelsh = "Beth hoffech ei wneud â’ch asiant Test Agent? - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Beth hoffech ei wneud â’ch asiant Test Agent? - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val continueButtonTextWelsh = "Parhau"
   val captionTextWelsh = "Rheoli asiant"

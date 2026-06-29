@@ -34,7 +34,7 @@ import java.util.UUID
 
 class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
-  val titleText = "Choose which of your properties you want to assign gg-ext-id to - Valuation Office Agency - GOV.UK"
+  val titleText = "Choose which of your properties you want to assign gg-ext-id to - Valuation Office - GOV.UK"
   val headingText = "Choose which of your properties you want to assign gg-ext-id to"
   val captionText = "Appoint an agent"
   val backLinkText = "Back"
@@ -58,7 +58,7 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val selectWhichPropertiesErrorText = "Select which properties you want to assign this agent to"
   val youMustEnterSomethingErrorText = "You must enter something to search for"
 
-  val titleTextWelsh = "Dewis pa eiddo yr hoffech ei neilltuo i gg-ext-id - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Dewis pa eiddo yr hoffech ei neilltuo i gg-ext-id - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Dewis pa eiddo yr hoffech ei neilltuo i gg-ext-id"
   val captionTextWelsh = "Penodi asiant"
   val backLinkTextWelsh = "Yn ôl"

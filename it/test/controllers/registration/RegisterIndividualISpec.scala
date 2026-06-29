@@ -31,7 +31,7 @@ import utils.ListYearsHelpers
 
 class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
-  val titleText = "Complete your contact details - Valuation Office Agency - GOV.UK"
+  val titleText = "Complete your contact details - Valuation Office - GOV.UK"
   val headingText = "Complete your contact details"
   val weUseYourText = "We use your contact details to send you correspondence related to the service and your account."
   val enterAddressManuallyText = "Enter address manually"
@@ -52,7 +52,7 @@ class RegisterIndividualISpec extends ISpecBase with HtmlComponentHelpers with L
   val emailInvalidErrorText = "Enter a valid email address"
   val emailLengthErrorText = "This field must be 150 characters or less"
 
-  val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Cwblhewch eich manylion cyswllt"
   val weUseYourTextWelsh =
     "Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth."

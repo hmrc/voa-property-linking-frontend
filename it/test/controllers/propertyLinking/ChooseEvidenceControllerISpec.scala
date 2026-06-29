@@ -40,13 +40,13 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
     app.injector.instanceOf[PropertyLinkingSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Do you have a business rates bill for this property? - Valuation Office Agency - GOV.UK"
+  val titleText = "Do you have a business rates bill for this property? - Valuation Office - GOV.UK"
   val occupierTitleText =
-    "Do you have a lease or a licence to occupy for this property? - Valuation Office Agency - GOV.UK"
+    "Do you have a lease or a licence to occupy for this property? - Valuation Office - GOV.UK"
   val clientTitleText =
-    "Do you have your client’s business rates bill for this property? - Valuation Office Agency - GOV.UK"
+    "Do you have your client’s business rates bill for this property? - Valuation Office - GOV.UK"
   val clientOccupierTitleText =
-    "Do you have your client’s lease or licence to occupy for this property? - Valuation Office Agency - GOV.UK"
+    "Do you have your client’s lease or licence to occupy for this property? - Valuation Office - GOV.UK"
   val headingText = "Do you have a business rates bill for this property?"
   val occupierHeadingText = "Do you have a lease or a licence to occupy for this property?"
   val clientHeadingText = "Do you have your client’s business rates bill for this property?"
@@ -66,13 +66,13 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
   val errorMessageText = "Select an option"
   val occupierErrorMessageText = "Select if you have a lease or licence to occupy for this property"
 
-  val titleTextWelsh = "Oes gennych chi fil ardrethi busnes ar gyfer yr eiddo hwn? - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Oes gennych chi fil ardrethi busnes ar gyfer yr eiddo hwn? - Y Swyddfa Brisio - GOV.UK"
   val occupierTitleTextWelsh =
-    "A oes gennych brydles neu drwydded i feddiannu’r eiddo hwn? - Valuation Office Agency - GOV.UK"
+    "A oes gennych brydles neu drwydded i feddiannu’r eiddo hwn? - Y Swyddfa Brisio - GOV.UK"
   val clientTitleTextWelsh =
-    "Oes gennych chi gopi o fil ardrethi busnes eich cleient ar gyfer yr eiddo hwn? - Valuation Office Agency - GOV.UK"
+    "Oes gennych chi gopi o fil ardrethi busnes eich cleient ar gyfer yr eiddo hwn? - Y Swyddfa Brisio - GOV.UK"
   val clientOccupierTitleTextWelsh =
-    "Oes gennych chi brydles neu drwydded eich cleient i feddiannu ar gyfer yr eiddo hwn? - Valuation Office Agency - GOV.UK"
+    "Oes gennych chi brydles neu drwydded eich cleient i feddiannu ar gyfer yr eiddo hwn? - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Oes gennych chi fil ardrethi busnes ar gyfer yr eiddo hwn?"
   val occupierHeadingTextWelsh = "A oes gennych brydles neu drwydded i feddiannu’r eiddo hwn?"
   val clientHeadingTextWelsh = "Oes gennych chi gopi o fil ardrethi busnes eich cleient ar gyfer yr eiddo hwn?"

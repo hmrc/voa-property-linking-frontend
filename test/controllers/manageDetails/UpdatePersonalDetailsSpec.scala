@@ -245,7 +245,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title shouldBe "Update email - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update email - Valuation Office - GOV.UK"
   }
 
   "viewAddress" should "display the users address" in {
@@ -254,7 +254,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title shouldBe "Update address - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update address - Valuation Office - GOV.UK"
     html.getElementsByClass("manualAddress").hasClass("govuk-!-display-block") shouldBe true
     html.getElementsByClass("lookupAddressCancel").hasClass("govuk-!-display-none") shouldBe true
   }
@@ -265,7 +265,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title shouldBe "Update telephone number - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update telephone number - Valuation Office - GOV.UK"
   }
 
   "viewName" should "display the users name" in {
@@ -274,7 +274,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title shouldBe "Update your name - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update your name - Valuation Office - GOV.UK"
   }
 
   "viewMobile" should "display the users name" in {
@@ -283,7 +283,7 @@ class UpdatePersonalDetailsSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title shouldBe "Update mobile number - Valuation Office Agency - GOV.UK"
+    html.title shouldBe "Update mobile number - Valuation Office - GOV.UK"
   }
 
   private lazy val viewDetailsPage = controllers.manageDetails.routes.ViewDetails.show.url

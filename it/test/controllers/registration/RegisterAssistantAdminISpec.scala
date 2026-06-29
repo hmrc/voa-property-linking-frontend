@@ -30,7 +30,7 @@ import utils.ListYearsHelpers
 
 class RegisterAssistantAdminISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
-  val titleText = "Confirm your organisation details - Valuation Office Agency - GOV.UK"
+  val titleText = "Confirm your organisation details - Valuation Office - GOV.UK"
   val headingText = "Confirm your organisation details"
   val weUseYourText =
     "We use your organisation details to send you correspondence related to the service and your account."
@@ -41,7 +41,7 @@ class RegisterAssistantAdminISpec extends ISpecBase with HtmlComponentHelpers wi
   val emailText = "Correspondence email address"
   val confirmText = "Confirm"
 
-  val titleTextWelsh = "Cadarnhau manylion eich sefydliad - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Cadarnhau manylion eich sefydliad - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Cadarnhau manylion eich sefydliad"
   val weUseYourTextWelsh =
     "Rydym yn defnyddio manylion eich sefydliad i anfon gohebiaeth atoch yn ymwneud â’r gwasanaeth a’ch cyfrif."

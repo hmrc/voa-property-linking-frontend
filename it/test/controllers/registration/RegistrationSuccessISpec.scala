@@ -30,9 +30,9 @@ import utils.ListYearsHelpers
 
 class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
-  val titleText = "You’ve successfully registered - Valuation Office Agency - GOV.UK"
+  val titleText = "You’ve successfully registered - Valuation Office - GOV.UK"
   val headingText = "You’ve successfully registered"
-  val voaIdText = "VOA Personal ID: 3164"
+  val voaIdText = "VO Personal ID: 3164"
   val youShouldKeepText =
     "You should keep a note of this number in a safe place as you’ll need it if you want to reset your password."
   val youWillNotText =
@@ -46,9 +46,9 @@ class RegistrationSuccessISpec extends ISpecBase with HtmlComponentHelpers with 
   val termsLinkText = "terms and conditions"
   val continueText = "Continue"
 
-  val titleTextWelsh = "Rydych chi wedi cofrestru’n llwyddiannus - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Rydych chi wedi cofrestru’n llwyddiannus - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Rydych chi wedi cofrestru’n llwyddiannus"
-  val voaIdTextWelsh = "Cyfeirnod adnabod personol y VOA (ID): 3164"
+  val voaIdTextWelsh = "Dynodydd Defnyddiwr (ID) Personol VO: 3164"
   val youShouldKeepTextWelsh =
     "Dylech gadw nodyn o’r rhif hwn mewn lle diogel gan y bydd ei angen arnoch os ydych am ailosod eich cyfrinair."
   val youWillNotTextWelsh =

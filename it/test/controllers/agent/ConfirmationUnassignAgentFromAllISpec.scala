@@ -48,8 +48,8 @@ class ConfirmationUnassignAgentFromAllISpec extends ISpecBase with HtmlComponent
   val goHomeLinkLocator = "#main-content > div > div > p:nth-child(7) > a"
 
   val titleMultiplePropertiesText =
-    "Test Agent has been unassigned from all your properties - Valuation Office Agency - GOV.UK"
-  val titleOnePropertyText = "Test Agent has been unassigned from your property - Valuation Office Agency - GOV.UK"
+    "Test Agent has been unassigned from all your properties - Valuation Office - GOV.UK"
+  val titleOnePropertyText = "Test Agent has been unassigned from your property - Valuation Office - GOV.UK"
   val headingMultiplePropertiesText = "Test Agent has been unassigned from all your properties"
   val headingOnePropertyText = "Test Agent has been unassigned from your property"
   val paragraphOneText = "The agent can no longer act for you on any of your properties."
@@ -62,8 +62,8 @@ class ConfirmationUnassignAgentFromAllISpec extends ISpecBase with HtmlComponent
   val goHomeLinkText = "Go to your account home"
 
   val titleMultiplePropertiesTextWelsh =
-    "Mae Test Agent wedi’i ddadneilltuo o’ch holl eiddo - Valuation Office Agency - GOV.UK"
-  val titleOnePropertyTextWelsh = "Mae Test Agent wedi’i ddad-neilltuo o’ch eiddo - Valuation Office Agency - GOV.UK"
+    "Mae Test Agent wedi’i ddadneilltuo o’ch holl eiddo - Y Swyddfa Brisio - GOV.UK"
+  val titleOnePropertyTextWelsh = "Mae Test Agent wedi’i ddad-neilltuo o’ch eiddo - Y Swyddfa Brisio - GOV.UK"
   val headingMultiplePropertiesTextWelsh = "Mae Test Agent wedi’i ddadneilltuo o’ch holl eiddo"
   val headingOnePropertyTextWelsh = "Mae Test Agent wedi’i ddad-neilltuo o’ch eiddo"
   val paragraphOneTextWelsh = "Ni all yr asiant weithredu ar eich rhan mwyach ar unrhyw un o’ch eiddo."

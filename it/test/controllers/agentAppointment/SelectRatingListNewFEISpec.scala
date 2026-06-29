@@ -37,7 +37,7 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
 //  TODO: Should the title be sanitised?
-  val titleText = "Select which rating list Some Org can act on for you - Valuation Office Agency - GOV.UK"
+  val titleText = "Select which rating list Some Org can act on for you - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Appoint an agent"
   val headerText = "Select which rating list Some Org can act on for you"
@@ -59,7 +59,7 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
   val selectionErrorText = "Select which rating list you want this agent to act on for you"
 
   val titleTextWelsh =
-    "Dewiswch pa restr ardrethu y gall Some Org weithredu arni ar eich rhan - Valuation Office Agency - GOV.UK"
+    "Dewiswch pa restr ardrethu y gall Some Org weithredu arni ar eich rhan - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Penodi Asiant"
   val headerTextWelsh = "Dewiswch pa restr ardrethu y gall Some Org weithredu arni ar eich rhan"

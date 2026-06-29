@@ -37,19 +37,19 @@ class AppointOnePropertyFEISpec extends ISpecBase with HtmlComponentHelpers {
     app.injector.instanceOf[AppointAgentSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Do you want to assign Test Agent to your property? - Valuation Office Agency - GOV.UK"
+  val titleText = "Do you want to assign Test Agent to your property? - Valuation Office - GOV.UK"
   val headingText = "Do you want to assign Test Agent to your property?"
   val captionText = "Appoint an agent"
   val backLinkText = "Back"
   val yesRadioText = "Yes"
   val noRadioText = "No"
   val continueButtonText = "Continue"
-  val errorTitleText = "Error: Do you want to assign Test Agent to your property? - Valuation Office Agency - GOV.UK"
+  val errorTitleText = "Error: Do you want to assign Test Agent to your property? - Valuation Office - GOV.UK"
   val errorSummaryTitleText = "There is a problem"
   val errorMessageText = "Select if you want your agent to manage your property"
   val error = "Error: "
 
-  val titleTextWelsh = "Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent? - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent? - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent?"
   val captionTextWelsh = "Penodi asiant"
   val backLinkTextWelsh = "Yn ôl"
@@ -57,7 +57,7 @@ class AppointOnePropertyFEISpec extends ISpecBase with HtmlComponentHelpers {
   val noRadioTextWelsh = "Na"
   val continueButtonTextWelsh = "Yn eich blaen"
   val errorTitleTextWelsh =
-    "Gwall: Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent? - Valuation Office Agency - GOV.UK"
+    "Gwall: Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent? - Y Swyddfa Brisio - GOV.UK"
   val errorSummaryTitleTextWelsh = "Mae yna broblem"
   val errorMessageTextWelsh = "Dewiswch os ydych am i’ch asiant reoli eich eiddo"
   val errorWelsh = "Gwall: "

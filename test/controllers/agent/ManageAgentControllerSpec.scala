@@ -97,7 +97,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"${messages("propertyRepresentation.agentProperties.assigned.title")} - Valuation Office Agency - GOV.UK"
+      s"${messages("propertyRepresentation.agentProperties.assigned.title")} - Valuation Office - GOV.UK"
     )
 
     html.html
@@ -230,7 +230,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "showAssignToAll" should "display dynamic content correctly in English when assigning to one property" in new AssignToAllTestCase
     with English {
     override lazy val numberOfIpPropertyLinks = 1
-    doc.title shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to your property? - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to your property? - Valuation Office - GOV.UK"
     heading shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to your property?"
     explainerIntro shouldBe "For your property, the agent will be able to:"
   }
@@ -238,7 +238,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "showAssignToAll" should "display dynamic content correctly in Welsh when assigning to one property" in new AssignToAllTestCase
     with Welsh {
     override lazy val numberOfIpPropertyLinks = 1
-    doc.title shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch eiddo? - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch eiddo? - Y Swyddfa Brisio - GOV.UK"
     heading shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch eiddo?"
     explainerIntro shouldBe "Ar gyfer eich eiddo, bydd yr asiant yn gallu:"
   }
@@ -246,7 +246,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "showAssignToAll" should "display dynamic content correctly in English when assigning to multiple properties" in new AssignToAllTestCase
     with English {
     override lazy val numberOfIpPropertyLinks = 2
-    doc.title shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to all your properties? - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to all your properties? - Valuation Office - GOV.UK"
     heading shouldBe s"Are you sure you want to assign ${agentToAppoint.name} to all your properties?"
     explainerIntro shouldBe "For all your properties, the agent will be able to:"
   }
@@ -254,7 +254,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "showAssignToAll" should "display dynamic content correctly in Welsh when assigning to multiple properties" in new AssignToAllTestCase
     with Welsh {
     override lazy val numberOfIpPropertyLinks = 2
-    doc.title shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch holl eiddo? - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch holl eiddo? - Y Swyddfa Brisio - GOV.UK"
     heading shouldBe s"Ydych chi’n siŵr eich bod am neilltuo ${agentToAppoint.name} i’ch holl eiddo?"
     explainerIntro shouldBe "Ar gyfer eich holl eiddo, bydd yr asiant yn gallu:"
   }
@@ -385,7 +385,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe BAD_REQUEST
 
     val html = Jsoup.parse(contentAsString(res))
-    html.title shouldBe s"Error: Are you sure you want to assign Some agent org to all your properties? - Valuation Office Agency - GOV.UK"
+    html.title shouldBe s"Error: Are you sure you want to assign Some agent org to all your properties? - Valuation Office - GOV.UK"
   }
 
   "assignAgentToAll" should "return 303 SEE OTHER when valid form is submitted" in {
@@ -442,7 +442,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "confirmAssignAgentToAll" should "display dynamic content correctly in English when assigned to one property" in new ConfirmAssignToAllTestCase
     with English {
     override lazy val numberOfIpPropertyLinks: Int = 1
-    doc.title shouldBe s"${appointedAgent.name} has been assigned to your property - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"${appointedAgent.name} has been assigned to your property - Valuation Office - GOV.UK"
     panel shouldBe s"${appointedAgent.name} has been assigned to your property"
     explainer shouldBe "The agent can act for you on your property."
     nextStepsContent shouldBe "You can unassign this agent from your property at any time."
@@ -451,7 +451,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "confirmAssignAgentToAll" should "display dynamic content correctly in Welsh when assigned to one property" in new ConfirmAssignToAllTestCase
     with Welsh {
     override lazy val numberOfIpPropertyLinks: Int = 1
-    doc.title shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch eiddo - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch eiddo - Y Swyddfa Brisio - GOV.UK"
     panel shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch eiddo"
     explainer shouldBe "Gall yr asiant weithredu ar eich rhan ar o’ch eiddo."
     nextStepsContent shouldBe "Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
@@ -460,7 +460,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "confirmAssignAgentToAll" should "display dynamic content correctly in English when assigned to multiple properties" in new ConfirmAssignToAllTestCase
     with English {
     override lazy val numberOfIpPropertyLinks: Int = 2
-    doc.title shouldBe s"${appointedAgent.name} has been assigned to all your properties - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"${appointedAgent.name} has been assigned to all your properties - Valuation Office - GOV.UK"
     panel shouldBe s"${appointedAgent.name} has been assigned to all your properties"
     explainer shouldBe "The agent can act for you on all of your properties."
     nextStepsContent shouldBe "You can unassign this agent from your properties at any time."
@@ -469,7 +469,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   "confirmAssignAgentToAll" should "display dynamic content correctly in Welsh when assigned to multiple properties" in new ConfirmAssignToAllTestCase
     with Welsh {
     override lazy val numberOfIpPropertyLinks: Int = 2
-    doc.title shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch holl eiddo - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch holl eiddo - Y Swyddfa Brisio - GOV.UK"
     panel shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch holl eiddo"
     explainer shouldBe "Gall yr asiant weithredu ar eich rhan ar gyfer pob un o’ch eiddo."
     nextStepsContent shouldBe "Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
@@ -485,7 +485,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      "Are you sure you want to unassign Some agent org from all your properties? - Valuation Office Agency - GOV.UK"
+      "Are you sure you want to unassign Some agent org from all your properties? - Valuation Office - GOV.UK"
     )
 
   }
@@ -500,7 +500,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"Ydych chi’n siŵr eich bod am ddadneilltuo $agentName o’ch holl eiddo? - Valuation Office Agency - GOV.UK"
+      s"Ydych chi’n siŵr eich bod am ddadneilltuo $agentName o’ch holl eiddo? - Y Swyddfa Brisio - GOV.UK"
     )
 
   }
@@ -532,7 +532,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      "Error: Are you sure you want to remove Some agent org from your account? - Valuation Office Agency - GOV.UK"
+      "Error: Are you sure you want to remove Some agent org from your account? - Valuation Office - GOV.UK"
     )
   }
 
@@ -548,7 +548,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"Gwall: Ydych chi’n siŵr eich bod am dynnu $agentName o’ch cyfrif? - Valuation Office Agency - GOV.UK"
+      s"Gwall: Ydych chi’n siŵr eich bod am dynnu $agentName o’ch cyfrif? - Y Swyddfa Brisio - GOV.UK"
     )
   }
 

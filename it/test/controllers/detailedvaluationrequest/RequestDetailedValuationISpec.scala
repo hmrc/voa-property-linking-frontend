@@ -49,8 +49,8 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
 
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "ADDRESS - Valuation Office Agency - GOV.UK"
-  val titleTextWelsh = "ADDRESS - Valuation Office Agency - GOV.UK"
+  val titleText = "ADDRESS - Valuation Office - GOV.UK"
+  val titleTextWelsh = "ADDRESS - Y Swyddfa Brisio - GOV.UK"
 
   val captionText = "Your property"
   val captionTextWelsh = "Eich eiddo"
@@ -89,17 +89,17 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val rateableValueSelector = "#future-valuation-rv"
 
   val valuationTabInsetText =
-    "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
+    "The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office can help with any questions about your rateable value. For more information on how your bill will be calculated click here (opens in new tab). If you have any questions about your bill you should contact your local council."
   val valuationTabInsetTextWelsh =
-    "Mae’r teclyn amcangyfrif ar gyfer Lloegr wedi’i dynnu i lawr cyn i filiau ardrethi busnes gael eu cyhoeddi gan gynghorau lleol. Gall Asiantaeth y Swyddfa Brisio eich helpu gydag unrhyw gwestiynau am eich gwerth ardrethol. Am ragor o wybodaeth am sut y caiff eich bil ei gyfrifo cliciwch yma (yn agor mewn tab newydd). Os oes gennych unrhyw gwestiynau am eich bil, dylech gysylltu â’ch cyngor lleol."
+    "Mae’r offeryn amcangyfrif ar gyfer Lloegr wedi cael ei dynnu cyn i gynghorau lleol ddosbarthu biliau ardrethi busnes. Gall y Swyddfa Brisio gynnig help gydag unrhyw gwestiwn ynglŷn â’ch gwerth ardrethol. Er mwyn cael rhagor o wybodaeth ynghylch y ffordd caiff eich bil ei gyfrifo, cliciwch yma (yn agor tab newydd). Cysylltwch â’ch cyngor lleol os oes gennych unrhyw gwestiynau ynglŷn â’ch bil."
   val valuationTabInsetTextPub1 =
     "If you occupy a pub or live music venue in England, the Government has introduced a new relief to provide further support. Find more information about the relief and which properties are eligible for it (opens in new tab)."
   val valuationTabInsetTextPub1Welsh =
     "Os ydych yn meddiannu tafarn neu leoliad cerddoriaeth fyw yn Lloegr, mae’r Llywodraeth wedi cyflwyno rhyddhad newydd i ddarparu cymorth pellach. Gallwch ddod o hyd i ragor o wybodaeth am y rhyddhad a pha eiddo sy’n gymwys ar ei gyfer (yn agor mewn tab newydd)."
   val valuationTabInsetTextPub2 =
-    "You can get an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab). The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
+    "You can get an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab). The Valuation Office can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council."
   val valuationTabInsetTextPub2Welsh =
-    "Gallwch gael amcangyfrif o sut mae’r rhyddhad newydd yn lleihau eich bil ardrethi busnes ar gyfer 2026/27 drwy glicio yma (yn agor mewn tab newydd). Gall Asiantaeth y Swyddfa Brisio helpu gydag unrhyw gwestiynau ynglŷn â’ch gwerth ardrethol. Os oes gennych unrhyw gwestiynau am eich bil, dylech gysylltu â’ch cyngor lleol."
+    "Gallwch gael amcangyfrif o effaith y lleihad y bydd y rhyddhad newydd yn ei gael ar bil ardrethi busnes 2026/27 drwy glicio yma (yn agor tab newydd). Gall y Swyddfa Brisio gynnig help gydag unrhyw gwestiwn ynglŷn â’ch gwerth ardrethol. Cysylltwch â’ch cyngor lleol os oes gennych unrhyw gwestiynau ynglŷn â’ch bil."
   val valuationTabInsetTextSelector = "#future-valuation-inset-rv > p:nth-child(1)"
   val valuationTabInsetText1Selector = "#draft-inset-text-1"
   val valuationTabInsetText2Selector = "#draft-inset-text-2"
@@ -110,11 +110,11 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     "Dyma fydd y gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm byddwch yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes."
 
   val valuationTabInsetLinkText = "here (opens in new tab)"
-  val valuationTabInsetLinkTextWelsh = "yma (yn agor mewn tab newydd)"
+  val valuationTabInsetLinkTextWelsh = "yma (yn agor tab newydd)"
   val valuationTabInsetLinkTextPubEstimator =
     "an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab)"
   val valuationTabInsetLinkTextPubEstimatorWelsh =
-    "amcangyfrif o sut mae’r rhyddhad newydd yn lleihau eich bil ardrethi busnes ar gyfer 2026/27 drwy glicio yma (yn agor mewn tab newydd)"
+    "amcangyfrif o effaith y lleihad y bydd y rhyddhad newydd yn ei gael ar bil ardrethi busnes 2026/27 drwy glicio yma (yn agor tab newydd)"
   val valuationTabInsetLinkTextPubReliefs =
     "about the relief and which properties are eligible for it (opens in new tab)"
   val valuationTabInsetLinkTextPubReliefsWelsh =

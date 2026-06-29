@@ -350,11 +350,11 @@ class RevokeAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   private def verifyPageErrorTitle(page: HtmlPage, isWelsh: Boolean = false) =
     if (isWelsh)
       page.titleShouldMatch(
-        s"Gwall: O ba eiddo ydych chi am ddadneilltuo $ggExternalId? - Valuation Office Agency - GOV.UK"
+        s"Gwall: O ba eiddo ydych chi am ddadneilltuo $ggExternalId? - Y Swyddfa Brisio - GOV.UK"
       )
     else
       page.titleShouldMatch(
-        s"Error: Which of your properties do you want to unassign $ggExternalId from? - Valuation Office Agency - GOV.UK"
+        s"Error: Which of your properties do you want to unassign $ggExternalId from? - Valuation Office - GOV.UK"
       )
 
   private lazy val testController = new RevokeAgentController(

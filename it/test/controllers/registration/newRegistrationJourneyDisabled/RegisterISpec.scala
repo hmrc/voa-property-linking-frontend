@@ -28,7 +28,7 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   override lazy val extraConfig: Map[String, String] =
     Map("featureFlags.newRegistrationJourneyEnabled" -> "false")
 
-  val titleText = "Register to use this service - Valuation Office Agency - GOV.UK"
+  val titleText = "Register to use this service - Valuation Office - GOV.UK"
   val headingText = "Register to use this service"
   val returningUserText = "If you’re a returning user, you can sign in to use this service."
   val alreadyRegisteredText =
@@ -41,14 +41,14 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   val insetText = "You should allow approximately 15 minutes without interruption to complete the registration process."
   val iDontHaveTheseDetailsText = "I don’t have these details"
   val iDontHaveTheseDetailsExpandedText =
-    "If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to contact the Valuation Office Agency (VOA)."
+    "If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to contact the Valuation Office (VO)."
   val whichTypeOfAccountText = "Which type of account would you like to create?"
   val individualText = "Individual (you represent yourself) – you won’t be able to add others to this account"
   val organisationText =
     "Organisation (you represent a business, charity or other organisation) – you’ll be able to add others to this account"
   val iWantToRegisterUsingGGText = "I want to register using my existing Government Gateway account"
 
-  val titleTextWelsh = "Cofrestru i ddefnyddio’r gwasanaeth hwn - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Cofrestru i ddefnyddio’r gwasanaeth hwn - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Cofrestru i ddefnyddio’r gwasanaeth hwn"
   val returningUserTextWelsh =
     "Os ydych chi’n ddefnyddiwr sy’n dychwelyd, gallwch fewngofnodi i ddefnyddio’r gwasanaeth."
@@ -62,7 +62,7 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   val insetTextWelsh = "Dylech ganiatáu tua 15 munud yn ddi-dor er mwyn cwblhau’r broses gofrestru."
   val iDontHaveTheseDetailsTextWelsh = "Does gen i ddim y manylion yma"
   val iDontHaveTheseDetailsExpandedTextWelsh =
-    "Os nad oes gennych y manylion er mwyn gallu cofrestru (er enghraifft, nid ydych wedi cael rhif Yswiriant Gwladol, neu nad oes gennych basbort, P60 neu slip cyflog, bydd angen i chi cysylltu ag Asiantaethy Swyddfa Brisio (VOA)."
+    "Os nad oes gennych y manylion er mwyn gallu cofrestru (er enghraifft, nid ydych wedi cael rhif Yswiriant Gwladol, neu nad oes gennych basbort, P60 neu slip cyflog, bydd angen i chi cysylltwch â’r Swyddfa Brisio (VO)."
   val whichTypeOfAccountTextWelsh = "Pa fath o gyfrif hoffech chi ei greu?"
   val individualTextWelsh =
     "Unigolyn (rydych yn cynrychioli chi’ch hunain) - ni fyddwch yn gallu ychwanegu eraill i’r cyfrif hwn"

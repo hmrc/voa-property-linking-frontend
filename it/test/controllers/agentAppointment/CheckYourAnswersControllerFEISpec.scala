@@ -44,7 +44,7 @@ class CheckYourAnswersControllerFEISpec extends ISpecBase {
 
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Check and confirm your details - Valuation Office Agency - GOV.UK"
+  val titleText = "Check and confirm your details - Valuation Office - GOV.UK"
   val headingText = "Check and confirm your details"
   val captionText = "Appoint an agent"
   val backLinkText = "Back"
@@ -63,7 +63,7 @@ class CheckYourAnswersControllerFEISpec extends ISpecBase {
   val changeLinkText = "Change"
   val confirmAndAppointButtonText = "Confirm and appoint"
 
-  val titleTextWelsh = "Gwirio a chadarnhau eich manylion - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Gwirio a chadarnhau eich manylion - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Gwirio a chadarnhau eich manylion"
   val captionTextWelsh = "Penodi asiant"
   val backLinkTextWelsh = "Yn ôl"

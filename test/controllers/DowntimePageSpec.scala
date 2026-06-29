@@ -39,7 +39,7 @@ class DowntimePageSpec extends VoaPropertyLinkingSpec {
     val result = applicationTestController.plannedImprovements()(FakeRequest())
 
     status(result) shouldBe OK
-    verifyLoggedIn(Jsoup.parse(contentAsString(result)), "Service unavailable - Valuation Office Agency - GOV.UK")
+    verifyLoggedIn(Jsoup.parse(contentAsString(result)), "Service unavailable - Valuation Office - GOV.UK")
 
   }
 
@@ -53,7 +53,7 @@ class DowntimePageSpec extends VoaPropertyLinkingSpec {
     ).plannedImprovements()(FakeRequest())
 
     status(result) shouldBe OK
-    verifyNotLoggedIn(Jsoup.parse(contentAsString(result)), "Service unavailable - Valuation Office Agency - GOV.UK")
+    verifyNotLoggedIn(Jsoup.parse(contentAsString(result)), "Service unavailable - Valuation Office - GOV.UK")
 
   }
 

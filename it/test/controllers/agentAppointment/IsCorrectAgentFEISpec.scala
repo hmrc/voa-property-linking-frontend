@@ -37,7 +37,7 @@ class IsCorrectAgentFEISpec extends ISpecBase with HtmlComponentHelpers {
   val agentName = "Test Organisation"
   val agentAddress = "Test Street, Test Road, TE5 7ER"
 
-  val titleText = "Is this your agent? - Valuation Office Agency - GOV.UK"
+  val titleText = "Is this your agent? - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val headerText = "Is this your agent?"
   val captionText = "Appoint an agent"
@@ -47,7 +47,7 @@ class IsCorrectAgentFEISpec extends ISpecBase with HtmlComponentHelpers {
   val noSelectionErrorText = "Select yes if this is your agent"
   val errorText = "Error:"
 
-  val titleTextWelsh = "Ai’ch asiant chi yw hwn? - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Ai’ch asiant chi yw hwn? - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val headerTextWelsh = "Ai’ch asiant chi yw hwn?"
   val captionTextWelsh = "Penodi asiant"

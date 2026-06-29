@@ -87,7 +87,7 @@ class ClaimPropertyRelationshipShowStartISpec extends ISpecBase with HtmlCompone
       lazy val document: Document = getShowStartPage(language = English, isAgent = false)
 
       s"has a title of $titleText" in {
-        document.title() shouldBe titleText + " - Valuation Office Agency - GOV.UK"
+        document.title() shouldBe titleText + " - Valuation Office - GOV.UK"
       }
 
       "has a back link which takes you to the business rates valuations page" in {
@@ -142,7 +142,7 @@ class ClaimPropertyRelationshipShowStartISpec extends ISpecBase with HtmlCompone
       lazy val document: Document = getShowStartPage(language = English, isAgent = true)
 
       s"has a title of $clientTitleText" in {
-        document.title() shouldBe clientTitleText + " - Valuation Office Agency - GOV.UK"
+        document.title() shouldBe clientTitleText + " - Valuation Office - GOV.UK"
       }
 
       "has a back link which takes you to the business rates valuations page" in {
@@ -197,7 +197,7 @@ class ClaimPropertyRelationshipShowStartISpec extends ISpecBase with HtmlCompone
       lazy val document: Document = getShowStartPage(language = Welsh, isAgent = false)
 
       s"has a title of $titleText in welsh" in {
-        document.title() shouldBe titleTextWelsh + " - Valuation Office Agency - GOV.UK"
+        document.title() shouldBe titleTextWelsh + " - Y Swyddfa Brisio - GOV.UK"
       }
 
       "has a back link which takes you to the business rates valuations page" in {
@@ -252,7 +252,7 @@ class ClaimPropertyRelationshipShowStartISpec extends ISpecBase with HtmlCompone
       lazy val document: Document = getShowStartPage(language = Welsh, isAgent = true)
 
       s"has a title of $clientTitleText in welsh" in {
-        document.title() shouldBe clientTitleTextWelsh + " - Valuation Office Agency - GOV.UK"
+        document.title() shouldBe clientTitleTextWelsh + " - Y Swyddfa Brisio - GOV.UK"
       }
 
       "has a back link which takes you to the business rates valuations page" in {

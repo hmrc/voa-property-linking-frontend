@@ -62,7 +62,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) should be(OK)
 
     val html = HtmlPage(res)
-    html.titleShouldMatch("Client has been revoked - Valuation Office Agency - GOV.UK")
+    html.titleShouldMatch("Client has been revoked - Valuation Office - GOV.UK")
   }
 
   behavior of "revokeClient method"
@@ -75,7 +75,7 @@ class RepresentationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) should be(OK)
 
     val html = HtmlPage(res)
-    html.titleShouldMatch("Revoking client - Valuation Office Agency - GOV.UK")
+    html.titleShouldMatch("Revoking client - Valuation Office - GOV.UK")
   }
   it should "revoke an agent should return not found when clientPropertyLink cannot be found" in {
     when(mockCustomErrorHandler.notFoundTemplate(any()))

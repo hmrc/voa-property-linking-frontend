@@ -63,17 +63,17 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     verifyBackLink(res, "/business-rates-property-linking/my-organisation/appoint-new-agent/check-your-answers")
   }
   "showAgentCodePage" should "display the correct content in english" in new AgentCodePageTestCase with English {
-    doc.title shouldBe "What is your agent’s code? - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe "What is your agent’s code? - Valuation Office - GOV.UK"
     caption shouldBe "Appoint an agent"
     heading shouldBe "What is your agent’s code?"
-    agentCodeHint shouldBe "This is a number given to the agent by the Valuation Office Agency."
+    agentCodeHint shouldBe "This is a number given to the agent by the Valuation Office."
     continueButton shouldBe "Continue"
   }
   "showAgentCodePage" should "display the correct content in welsh" in new AgentCodePageTestCase with Welsh {
-    doc.title shouldBe "Beth yw cod eich asiant? - Valuation Office Agency - GOV.UK"
+    doc.title shouldBe "Beth yw cod eich asiant? - Y Swyddfa Brisio - GOV.UK"
     caption shouldBe "Penodi asiant"
     heading shouldBe "Beth yw cod eich asiant?"
-    agentCodeHint shouldBe "Dyma’r rhif a roddir i’r asiant gan Asiantaeth y Swyddfa Brisio."
+    agentCodeHint shouldBe "Dyma’r rhif a roddir i’r asiant gan y Swyddfa Brisio."
     continueButton shouldBe "Yn eich blaen"
   }
 

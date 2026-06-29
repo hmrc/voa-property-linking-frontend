@@ -39,7 +39,7 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   lazy val mockRepository: ManageAgentSessionRepository = app.injector.instanceOf[ManageAgentSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Your agent - Valuation Office Agency - GOV.UK"
+  val titleText = "Your agent - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Agent"
   val headerText = "Test Agent"
@@ -54,7 +54,7 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val assignedPropertiesHeadingText = "Assigned properties"
   val assignedToNoPropertiesText = "This agent is not assigned to any properties."
 
-  val titleTextWelsh = "Eich asiant - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Eich asiant - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Asiant"
   val headerTextWelsh = "Test Agent"

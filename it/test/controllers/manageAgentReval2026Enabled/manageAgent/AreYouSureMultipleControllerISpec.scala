@@ -32,10 +32,10 @@ import utils.ListYearsHelpers
 class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
   def titleText(firstYear: String, secondYear: String) =
-    s"Are you sure you want Test Agent to act for you on the $firstYear and $secondYear rating lists? - Valuation Office Agency - GOV.UK"
+    s"Are you sure you want Test Agent to act for you on the $firstYear and $secondYear rating lists? - Valuation Office - GOV.UK"
 
   val titleTextReval =
-    "Are you sure you want Test Agent to act for you on the 2026, 2023, and 2017 rating lists? - Valuation Office Agency - GOV.UK"
+    "Are you sure you want Test Agent to act for you on the 2026, 2023, and 2017 rating lists? - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Manage agent"
 
@@ -63,10 +63,10 @@ class AreYouSureMultipleControllerISpec extends ISpecBase with HtmlComponentHelp
     s"They will not be able to see valuations on the $year rating list, or act on them for you."
 
   def titleTextWelsh(firstYear: String, secondYear: String) =
-    s"Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu $firstYear a $secondYear? - Valuation Office Agency - GOV.UK"
+    s"Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu $firstYear a $secondYear? - Y Swyddfa Brisio - GOV.UK"
 
   val titleTextRevalWelsh =
-    "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2026, 2023, a 2017? - Valuation Office Agency - GOV.UK"
+    "Ydych chi’n siŵr eich bod am i Test Agent weithredu ar eich rhan ar restrau ardrethu 2026, 2023, a 2017? - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
 

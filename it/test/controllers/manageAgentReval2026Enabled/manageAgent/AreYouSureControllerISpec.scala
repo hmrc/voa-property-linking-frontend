@@ -32,7 +32,7 @@ import utils.ListYearsHelpers
 class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHelpers {
 
   def titleText(listYear: String) =
-    s"Are you sure you want Test Agent to act for you on the $listYear rating list? - Valuation Office Agency - GOV.UK"
+    s"Are you sure you want Test Agent to act for you on the $listYear rating list? - Valuation Office - GOV.UK"
 
   val backLinkText = "Back"
   val captionText = "Manage agent"
@@ -64,7 +64,7 @@ class AreYouSureControllerISpec extends ISpecBase with HtmlComponentHelpers with
   val cancelText = "Cancel"
 
   def titleTextWelsh(listYear: String) =
-    s"A ydych yn siŵr eich bod am i Test Agent weithredu ar restr ardrethu $listYear ar eich rhan? - Valuation Office Agency - GOV.UK"
+    s"A ydych yn siŵr eich bod am i Test Agent weithredu ar restr ardrethu $listYear ar eich rhan? - Y Swyddfa Brisio - GOV.UK"
 
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"

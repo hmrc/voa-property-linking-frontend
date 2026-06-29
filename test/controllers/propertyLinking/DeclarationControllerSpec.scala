@@ -88,7 +88,7 @@ class DeclarationControllerSpec extends VoaPropertyLinkingSpec {
     status(res) shouldBe OK
     val html = HtmlPage(res)
 
-    html.titleShouldMatch("Check and confirm your details - Valuation Office Agency - GOV.UK")
+    html.titleShouldMatch("Check and confirm your details - Valuation Office - GOV.UK")
     html.verifyElementText("page-header", "Check and confirm your details")
     html.verifyElementText("caption", "Add a property")
     html.shouldNotContainText("Started")

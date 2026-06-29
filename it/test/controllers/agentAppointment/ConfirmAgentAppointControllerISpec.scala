@@ -43,7 +43,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
     app.injector.instanceOf[AppointAgentPropertiesSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = s"$agentName has been appointed to your account - Valuation Office Agency - GOV.UK"
+  val titleText = s"$agentName has been appointed to your account - Valuation Office - GOV.UK"
   val headingText = s"$agentName has been appointed to your account"
   val thisAgentCanText = "This agent can:"
   val addPropertiesText = "add properties to your account"
@@ -59,7 +59,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
   val managingAgentsText = "managing your agents."
   val goToHomeText = "Go to your account home"
 
-  val titleTextWelsh = s"Mae $agentName wedi’i benodi i’ch cyfrif - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = s"Mae $agentName wedi’i benodi i’ch cyfrif - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = s"Mae $agentName wedi’i benodi i’ch cyfrif"
   val thisAgentCanTextWelsh = "Gall yr asiant hwn:"
   val addPropertiesTextWelsh = "ychwanegu eiddo at eich cyfrif"

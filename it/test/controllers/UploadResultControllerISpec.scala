@@ -41,13 +41,13 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
   val fileRef = "ad344c3c-0560-40be-842a-511b4b09b404"
 
-  val rateTitleText = "Upload your business rates bill - Valuation Office Agency - GOV.UK"
+  val rateTitleText = "Upload your business rates bill - Valuation Office - GOV.UK"
   val rateHeaderText = "Upload your business rates bill"
 
   val captionText = "Add a property"
   val captionTextWelsh = ""
 
-  val rateTitleTextWelsh = "Lanlwytho eich bil ardrethi busnes - Valuation Office Agency - GOV.UK"
+  val rateTitleTextWelsh = "Lanlwytho eich bil ardrethi busnes - Y Swyddfa Brisio - GOV.UK"
   val rateHeaderTextWelsh = "Lanlwytho eich bil ardrethi busnes"
 
   val fileUploadTextWelsh =

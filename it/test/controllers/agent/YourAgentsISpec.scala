@@ -34,7 +34,7 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
 
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Your agents - Valuation Office Agency - GOV.UK"
+  val titleText = "Your agents - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val headingText = "Your agents"
   val appointAgentLinkText = "Appoint an agent"
@@ -48,7 +48,7 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
   val ofText = "of"
   val noAgentsText = "You have no agents."
 
-  val titleTextWelsh = "Eich asiantiaid - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Eich asiantiaid - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val headingTextWelsh = "Eich asiantiaid"
   val appointAgentLinkTextWelsh = "Penodi asiant"

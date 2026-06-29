@@ -28,7 +28,7 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   override lazy val extraConfig: Map[String, String] =
     Map("featureFlags.newRegistrationJourneyEnabled" -> "true")
 
-  val titleText = "Register to check and challenge your business rates valuation - Valuation Office Agency - GOV.UK"
+  val titleText = "Register to check and challenge your business rates valuation - Valuation Office - GOV.UK"
   val headingText = "Register to check and challenge your business rates valuation"
   val registerForThisServiceText = "Register for this service to:"
   val checkYourPropertyDetailsText = "check your property details"
@@ -38,7 +38,7 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   val ifOtherPeopleText =
     "If other people from your organisation need online sign in details and you’ve already created them, you will need to add them to your business Government Gateway account."
 
-  val titleTextWelsh = "Cofrestrwch i wirio a herio prisiad eich ardrethi busnes - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Cofrestrwch i wirio a herio prisiad eich ardrethi busnes - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Cofrestrwch i wirio a herio prisiad eich ardrethi busnes"
   val registerForThisServiceTextWelsh = "Cofrestrwch ar gyfer y gwasanaeth hwn i:"
   val checkYourPropertyDetailsTextWelsh = "wirio manylion eich eiddo"

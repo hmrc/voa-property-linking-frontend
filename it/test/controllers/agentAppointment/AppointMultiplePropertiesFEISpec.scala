@@ -37,9 +37,9 @@ class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpe
     app.injector.instanceOf[AppointAgentSessionRepository]
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Which of your properties do you want to assign Test Agent to? - Valuation Office Agency - GOV.UK"
+  val titleText = "Which of your properties do you want to assign Test Agent to? - Valuation Office - GOV.UK"
   val errorTitleText =
-    "Error: Which of your properties do you want to assign Test Agent to? - Valuation Office Agency - GOV.UK"
+    "Error: Which of your properties do you want to assign Test Agent to? - Valuation Office - GOV.UK"
   val headingText = "Which of your properties do you want to assign Test Agent to?"
   val captionText = "Appoint an agent"
   val backLinkText = "Back"
@@ -54,9 +54,9 @@ class AppointMultiplePropertiesFEISpec extends ISpecBase with HtmlComponentHelpe
   val assignToOneOrMoreHintText = "Your agent will have access only to the properties you select"
   val doNotAssignHintText = "Your agent will not have access to any of the properties on your account"
 
-  val titleTextWelsh = "Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent? - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent? - Y Swyddfa Brisio - GOV.UK"
   val errorTitleTextWelsh =
-    "Gwall: Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent? - Valuation Office Agency - GOV.UK"
+    "Gwall: Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent? - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent?"
   val captionTextWelsh = "Penodi asiant"
   val backLinkTextWelsh = "Yn ôl"

@@ -34,7 +34,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
-  val titleText = "Choose a rating list Some Org can act on for you - Valuation Office Agency - GOV.UK"
+  val titleText = "Choose a rating list Some Org can act on for you - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Appoint an agent"
   val headerText = "Choose a rating list Some Org can act on for you"
@@ -44,8 +44,8 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
   val bothListsText = "both rating lists"
   val moreAboutText = "More about rating lists"
   val theVoaCalculatesText =
-    "The Valuation Office Agency (VOA) calculates the rateable values for business properties in England and Wales. It holds the information on rating lists."
-  val theVoaUpdatesText = "The VOA updates rateable values and publishes a new rating list every few years."
+    "The Valuation Office (VO) calculates the rateable values for business properties in England and Wales. It holds the information on rating lists."
+  val theVoaUpdatesText = "The VO updates rateable values and publishes a new rating list every few years."
   val the2023ListText =
     "The 2023 rating list is the current rating list and has the current valuation for your property. It may also have previous valuations for your property that have an effective date after 1 April 2023."
   val the2017ListText =
@@ -64,7 +64,7 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
   val aboveRadioErrorText = "Error: Select an option"
 
   val titleTextWelsh =
-    "Dewis rhestr ardrethu y gall Some Org ei gweithredu ar eich rhan - Valuation Office Agency - GOV.UK"
+    "Dewis rhestr ardrethu y gall Some Org ei gweithredu ar eich rhan - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Penodi Asiant"
   val headerTextWelsh = "Dewis rhestr ardrethu y gall Some Org ei gweithredu ar eich rhan"
@@ -74,9 +74,9 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
   val bothListsTextWelsh = "y ddwy restr ardrethu"
   val moreAboutTextWelsh = "Rhagor o wybodaeth am restrau ardrethu"
   val theVoaCalculatesTextWelsh =
-    "Mae Asiantaeth y Swyddfa Brisio (VOA) yn cyfrifo’r gwerth ardrethol ar gyfer eiddo busnes yng Nghymru a Lloegr. Mae’n cadw’r wybodaeth ar restrau ardrethu."
+    "Mae’r Swyddfa Brisio (VO) yn cyfrifo’r gwerth ardrethol ar gyfer eiddo busnes yng Nghymru a Lloegr. Mae’n cadw’r wybodaeth ar restrau ardrethu."
   val theVoaUpdatesTextWelsh =
-    "Mae’r VOA yn diweddaru gwerthoedd ardrethol ac yn cyhoeddi rhestr ardrethu newydd bob ychydig flynyddoedd."
+    "Mae’r VO yn diweddaru gwerthoedd ardrethol ac yn cyhoeddi rhestr ardrethu newydd bob ychydig flynyddoedd."
   val the2023ListTextWelsh =
     "Rhestr ardrethu 2023 yw’r rhestr ardrethu presennol, ac mae ganddi brisiad cyfredol eich eiddo. Os oes gan eich eiddo brisiadau blaenorol a ddaeth i rym ar ôl 1 Ebrill 2023, mae’n bosibl bod y prisiadau hyn ar restr ardrethu 2023 hefyd."
   val the2017ListTextWelsh =

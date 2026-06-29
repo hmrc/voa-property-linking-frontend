@@ -48,7 +48,7 @@ class ConfirmRemoveAgentFromOrgISpec extends ISpecBase with HtmlComponentHelpers
   val agentCodeSelector = "#remove-agent-confirmation-p2 > strong"
   val goToLinkSelector = "#main-content > div > div > p:nth-child(5) > a"
 
-  val titleText = s"$agentName has been removed from your account - Valuation Office Agency - GOV.UK"
+  val titleText = s"$agentName has been removed from your account - Valuation Office - GOV.UK"
   val headingText = s"$agentName has been removed from your account"
   val theAgentText = "The agent can no longer act for you."
   val whatHappensText = "What happens next"
@@ -56,7 +56,7 @@ class ConfirmRemoveAgentFromOrgISpec extends ISpecBase with HtmlComponentHelpers
     s"If you want the agent to act for you again, you can reappoint them to your account using agent code ${agentCode.toString}."
   val goToLinkText = "Go to your account home"
 
-  val titleTextWelsh = s"Mae $agentName wedi’i dynnu o’ch cyfrif - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = s"Mae $agentName wedi’i dynnu o’ch cyfrif - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = s"Mae $agentName wedi’i dynnu o’ch cyfrif"
   val theAgentTextWelsh = "Ni all yr asiant weithredu ar eich rhan mwyach."
   val whatHappensTextWelsh = "Beth sy’n digwydd nesaf"

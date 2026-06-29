@@ -38,9 +38,9 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
   // English content
-  val titleText = "Select which rating list Test Agent can act on for you - Valuation Office Agency - GOV.UK"
+  val titleText = "Select which rating list Test Agent can act on for you - Valuation Office - GOV.UK"
   val errorTitleText =
-    "Error: Select which rating list Test Agent can act on for you - Valuation Office Agency - GOV.UK"
+    "Error: Select which rating list Test Agent can act on for you - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Manage agent"
   val headerText = "Select which rating list Test Agent can act on for you"
@@ -64,9 +64,9 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
 
   // Welsh Content
   val titleTextWelsh =
-    "Dewiswch pa restr ardrethu y gall Test Agent weithredu arni ar eich rhan - Valuation Office Agency - GOV.UK"
+    "Dewiswch pa restr ardrethu y gall Test Agent weithredu arni ar eich rhan - Y Swyddfa Brisio - GOV.UK"
   val errorTitleTextWelsh =
-    "Gwall: Dewiswch pa restr ardrethu y gall Test Agent weithredu arni ar eich rhan - Valuation Office Agency - GOV.UK"
+    "Gwall: Dewiswch pa restr ardrethu y gall Test Agent weithredu arni ar eich rhan - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Rheoli asiant"
   val headerTextWelsh = "Dewiswch pa restr ardrethu y gall Test Agent weithredu arni ar eich rhan"

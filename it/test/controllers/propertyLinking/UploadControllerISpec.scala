@@ -89,7 +89,7 @@ class UploadControllerISpec extends ISpecBase {
   val utilityBillHeadingTextAgentWelsh = "Lanlwytho eich bil cyfleustodau"
 
   // Other evidence page text
-  val otherEvidenceTitleText = "What evidence can you provide? - Valuation Office Agency - GOV.UK"
+  val otherEvidenceTitleText = "What evidence can you provide? - Valuation Office - GOV.UK"
   val otherEvidenceHeadingText = "What evidence can you provide?"
   val otherEvidenceHintText = "Your evidence should be for Test Address, Test Lane, T35 T3R"
   val businessRatesBillText = "Business rates bill"
@@ -104,7 +104,7 @@ class UploadControllerISpec extends ISpecBase {
   val cannotProvideEvidenceText = "I cannot provide evidence"
   val otherEvidenceErrorMessageText = "Select evidence type"
 
-  val otherEvidenceTitleTextWelsh = "Pa dystiolaeth allwch chi ei darparu? - Valuation Office Agency - GOV.UK"
+  val otherEvidenceTitleTextWelsh = "Pa dystiolaeth allwch chi ei darparu? - Y Swyddfa Brisio - GOV.UK"
   val otherEvidenceHeadingTextWelsh = "Pa dystiolaeth allwch chi ei darparu?"
   val otherEvidenceHintTextWelsh = "Dylai eich tystiolaeth fod ar gyfer Test Address, Test Lane, T35 T3R"
   val businessRatesBillTextWelsh = "Bil ardrethi busnes"
@@ -120,7 +120,7 @@ class UploadControllerISpec extends ISpecBase {
   val otherEvidenceErrorMessageTextWelsh = "Dewiswch y math o dystiolaeth"
 
   // Cannot provide evidence page text
-  val cannotProvideEvidenceTitleText = "If you cannot provide evidence - Valuation Office Agency - GOV.UK"
+  val cannotProvideEvidenceTitleText = "If you cannot provide evidence - Valuation Office - GOV.UK"
   val cannotProvideEvidenceHeadingText = "If you cannot provide evidence"
   val cannotProvideEvidenceP1 =
     "If you can’t provide evidence to prove your link to the property, you won’t be able to claim it or view the detailed valuation."
@@ -133,7 +133,7 @@ class UploadControllerISpec extends ISpecBase {
     "You’ll need to contact us to discuss other documents that prove your client’s link to this property."
   val cannotProvideEvidenceEmailText = "ccaservice@voa.gov.uk"
 
-  val cannotProvideEvidenceTitleTextWelsh = "Os na allwch ddarparu - Valuation Office Agency - GOV.UK"
+  val cannotProvideEvidenceTitleTextWelsh = "Os na allwch ddarparu - Y Swyddfa Brisio - GOV.UK"
   val cannotProvideEvidenceHeadingTextWelsh = "Os na allwch ddarparu"
   val cannotProvideEvidenceP1Welsh =
     "Os na allwch ddarparu tystiolaeth i brofi eich cysylltiad â’r eiddo, ni fyddwch yn gallu ei hawlio na gweld y prisiad manwl."
@@ -1456,7 +1456,9 @@ class UploadControllerISpec extends ISpecBase {
 
       val title = {
         val errorPrefix = if (language == English) errorText else errorTextWelsh
-        val titleSuffix = "- Valuation Office Agency - GOV.UK"
+        val titleSuffixEnglish = "- Valuation Office - GOV.UK"
+        val titleSuffixWelsh = "- Y Swyddfa Brisio - GOV.UK"
+        val titleSuffix = if (language == English) titleSuffixEnglish else titleSuffixWelsh
         if (errorPage) s"$errorPrefix $heading $titleSuffix" else s"$heading $titleSuffix"
       }
 
@@ -1562,7 +1564,7 @@ class UploadControllerISpec extends ISpecBase {
 
       val title = {
         val errorPrefix = if (language == English) errorText else errorTextWelsh
-        val titleSuffix = "- Valuation Office Agency - GOV.UK"
+        val titleSuffix = "- Valuation Office - GOV.UK"
         if (errorPage) s"$errorPrefix $heading $titleSuffix" else s"$heading $titleSuffix"
       }
 

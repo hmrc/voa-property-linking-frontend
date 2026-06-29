@@ -34,7 +34,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 
-  val titleText = "Choose the 2023 or 2017 rating list - Valuation Office Agency - GOV.UK"
+  val titleText = "Choose the 2023 or 2017 rating list - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val captionText = "Appoint an agent"
   val headerText = "Choose the 2023 or 2017 rating list"
@@ -52,7 +52,7 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
   val thereIsAProblemText = "There is a problem"
   val selectionErrorText = "Select which rating list you want this agent to act on for you"
 
-  val titleTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017 - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017 - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val captionTextWelsh = "Penodi Asiant"
   val headerTextWelsh = "Dewiswch restr ardrethu 2023 neu 2017"

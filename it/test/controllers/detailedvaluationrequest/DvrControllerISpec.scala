@@ -49,21 +49,21 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val forbiddenListYearP2Selector = "#main-content > div > div > p:nth-of-type(2)"
   val forbiddenListYearButtonSelector = "#main-content > div > div > div > a"
 
-  val errorTitleText = "ADDRESS - Valuation Office Agency - GOV.UK" // TODO: This is a bug, should error
+  val errorTitleText = "ADDRESS - Valuation Office - GOV.UK" // TODO: This is a bug, should error
   val noRadioSelectedErrorText = "Select what you want to tell us"
-  val errorTitleTextWelsh = "ADDRESS - Valuation Office Agency - GOV.UK" // TODO: This is a bug, should error
+  val errorTitleTextWelsh = "ADDRESS - Y Swyddfa Brisio - GOV.UK" // TODO: This is a bug, should error
   val noRadioSelectedErrorTextWelsh = "Dewisiwch beth rydych am ei ddweud wrthym"
   val errorText = "Error: "
   val errorTextWelsh = "Gwall: "
-  val forbiddenTitleText = "Cannot access valuation - Valuation Office Agency - GOV.UK"
-  val forbiddenTitleTextWelsh = "Methu â chael mynediad at y prisiad - Valuation Office Agency - GOV.UK"
+  val forbiddenTitleText = "Cannot access valuation - Valuation Office - GOV.UK"
+  val forbiddenTitleTextWelsh = "Methu â chael mynediad at y prisiad - Y Swyddfa Brisio - GOV.UK"
   val forbiddenHeadingText = "Cannot access valuation"
   val forbiddenHeadingTextWelsh = "Methu â chael mynediad at y prisiad"
   val forbiddenP1Text = "You do not have permission to view this valuation (or it does not exist)"
   val forbiddenP1TextWelsh = "Nid oes gennych ganiatâd i weld y prisiad hwn (neu nid yw’n bodoli)"
-  val forbiddenListYearTitleText = "Sorry, there is a problem with this valuation - Valuation Office Agency - GOV.UK"
+  val forbiddenListYearTitleText = "Sorry, there is a problem with this valuation - Valuation Office - GOV.UK"
   val forbiddenListYearTitleTextWelsh =
-    "Mae’n ddrwg gennym, mae yna broblem gyda’r prisiad hwn - Valuation Office Agency - GOV.UK"
+    "Mae’n ddrwg gennym, mae yna broblem gyda’r prisiad hwn - Y Swyddfa Brisio - GOV.UK"
   val forbiddenListYearHeadingText = "Sorry, there is a problem with this valuation"
   val forbiddenListYearHeadingTextWelsh = "Mae’n ddrwg gennym, mae yna broblem gyda’r prisiad hwn"
   val forbiddenListYearP1Text =
@@ -512,7 +512,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (2017 list year)" in {
       val res = getDvrFilesPage(English, listYear = "2017")
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "we have altered this valuation in the last 6 months and you send a Check case from the current valuation."
@@ -527,7 +527,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (2017 list year)" in {
       val res = getDvrFilesPage(Welsh, listYear = "2017")
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
@@ -542,7 +542,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (2023 list year)" in {
       val res = getDvrFilesPage(English)
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "we have altered this valuation in the last 6 months and you send a Check case from the current valuation."
@@ -557,7 +557,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (2023 list year)" in {
       val res = getDvrFilesPage(Welsh)
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
@@ -572,7 +572,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (2026 list year)" in {
       val res = getDvrFilesPage(English, listYear = "2026")
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "we have altered this valuation in the last 6 months and you send a Check case from the current valuation."
@@ -587,7 +587,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (2026 list year)" in {
       val res = getDvrFilesPage(Welsh, listYear = "2026")
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."

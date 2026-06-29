@@ -35,7 +35,7 @@ class StartPageISpec extends ISpecBase with HtmlComponentHelpers {
 
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "Appoint an agent to your account - Valuation Office Agency - GOV.UK"
+  val titleText = "Appoint an agent to your account - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val startButtonText = "Start now"
   val headerText = "Appoint an agent to your account"
@@ -51,7 +51,7 @@ class StartPageISpec extends ISpecBase with HtmlComponentHelpers {
   val bullet7Text = "choose the rating lists an agent can act on for you"
   val helpLinkText = "Help with appointing and managing agents"
 
-  val titleTextWelsh = "Penodi asiant i’ch cyfrif - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Penodi asiant i’ch cyfrif - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val startButtonTextWelsh = "Dechrau nawr"
   val headerTextWelsh = "Penodi asiant i’ch cyfrif"

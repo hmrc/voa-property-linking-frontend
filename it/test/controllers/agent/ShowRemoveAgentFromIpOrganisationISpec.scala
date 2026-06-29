@@ -45,7 +45,7 @@ class ShowRemoveAgentFromIpOrganisationISpec extends ISpecBase with HtmlComponen
   val cancelLinkId = "cancel-link"
   val backLinkId = "back-link"
 
-  val titleText = "Are you sure you want to remove Test Agent from your account? - Valuation Office Agency - GOV.UK"
+  val titleText = "Are you sure you want to remove Test Agent from your account? - Valuation Office - GOV.UK"
   val headingText = "Are you sure you want to remove Test Agent from your account?"
   val paragraph1Text = "They will no longer be able to add properties to your account and act on them for you."
   val paragraph2Text = "You will no longer be able to assign properties to them or have them act for you."
@@ -53,7 +53,7 @@ class ShowRemoveAgentFromIpOrganisationISpec extends ISpecBase with HtmlComponen
   val cancelLinkText = "Cancel"
   val backLinkText = "Back"
 
-  val titleTextWelsh = "Ydych chi’n siŵr eich bod am dynnu Test Agent o’ch cyfrif? - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Ydych chi’n siŵr eich bod am dynnu Test Agent o’ch cyfrif? - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Ydych chi’n siŵr eich bod am dynnu Test Agent o’ch cyfrif?"
   val paragraph1TextWelsh =
     "Ni fyddant bellach yn gallu ychwanegu eiddo at eich cyfrif a gweithredu arnynt ar eich rhan."

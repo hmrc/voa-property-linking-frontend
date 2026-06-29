@@ -48,7 +48,7 @@ class ConfirmRevokeAgentFromSomeISpec extends ISpecBase with HtmlComponentHelper
   val youCanReassignSelector = "#revoke-agent-summary-p3"
   val goHomeLinkSelector = "#main-content > div > div > p:nth-child(6) > a"
 
-  val titleText = s"$agentName has been unassigned from your selected properties - Valuation Office Agency - GOV.UK"
+  val titleText = s"$agentName has been unassigned from your selected properties - Valuation Office - GOV.UK"
   val headingText = s"$agentName has been unassigned from your selected properties"
   val theAgentCanText = "The agent can no longer act for you on any of the properties you selected."
   val theAgentHasText =
@@ -58,7 +58,7 @@ class ConfirmRevokeAgentFromSomeISpec extends ISpecBase with HtmlComponentHelper
   val goHomeLinkText = "Go to your account home"
 
   val titleTextWelsh =
-    s"Mae $agentName wedi’i ddadneilltuo o’r eiddo a ddewiswyd gennych - Valuation Office Agency - GOV.UK"
+    s"Mae $agentName wedi’i ddadneilltuo o’r eiddo a ddewiswyd gennych - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = s"Mae $agentName wedi’i ddadneilltuo o’r eiddo a ddewiswyd gennych"
   val theAgentCanTextWelsh =
     "Ni all yr asiant weithredu ar eich rhan mwyach ar unrhyw un o’r eiddo a ddewiswyd gennych."

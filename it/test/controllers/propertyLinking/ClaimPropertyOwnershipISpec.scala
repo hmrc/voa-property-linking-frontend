@@ -46,9 +46,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     PropertyOccupancy(stillOccupied = false, lastOccupiedDate = Some(LocalDate.of(2021, 1, 1)))
   )
 
-  val titleText = "When you became the owner or occupier of the property - Valuation Office Agency - GOV.UK"
+  val titleText = "When you became the owner or occupier of the property - Valuation Office - GOV.UK"
   val titleTextAgent =
-    "When your client became the owner or occupier of the property - Valuation Office Agency - GOV.UK"
+    "When your client became the owner or occupier of the property - Valuation Office - GOV.UK"
   val backLinkText = "Back"
   val localCouncilText = s"Local council reference: $localCouncilReferenceValue"
   val captionText = "Add a property"
@@ -57,9 +57,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val iHaveOwnedText = "I have owned or occupied the property on more than one occasion"
   val iHaveOwnedTextAgent = "My client has owned or occupied the property on more than one occasion"
   val youCanAddText =
-    "You can add the property for each period you were connected to it, but you need to do it one period at a time. However, if you want to talk to the Valuation Office Agency about the valuation, you will need to select the right valuation period."
+    "You can add the property for each period you were connected to it, but you need to do it one period at a time. However, if you want to talk to the Valuation Office about the valuation, you will need to select the right valuation period."
   val youCanAddTextAgent =
-    "You can add the property for each period your client was connected to it, but you need to do it one period at a time. However, if you want to talk to the Valuation Office Agency about the valuation, you will need to select the right valuation period."
+    "You can add the property for each period your client was connected to it, but you need to do it one period at a time. However, if you want to talk to the Valuation Office about the valuation, you will need to select the right valuation period."
   val onWhatDateText = "On what date did you become the owner or occupier?"
   val onWhatDateTextAgent = "On what date did your client become the owner or occupier?"
   val forExampleText = "For example, 1 4 2017"
@@ -94,9 +94,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
 
   val errorSummaryTitleText = "There is a problem"
 
-  val titleTextWelsh = "Pryd y daethoch yn berchennog neu’n feddiannydd yr eiddo - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Pryd y daethoch yn berchennog neu’n feddiannydd yr eiddo - Y Swyddfa Brisio - GOV.UK"
   val titleTextAgentWelsh =
-    "Pryd ddaeth eich cleient yn berchennog neu’n feddiannydd yr eiddo - Valuation Office Agency - GOV.UK"
+    "Pryd ddaeth eich cleient yn berchennog neu’n feddiannydd yr eiddo - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
   val localCouncilTextWelsh = s"Cyfeirnod yr awdurdod lleol: $localCouncilReferenceValue"
   val captionTextWelsh = "Ychwanegu eiddo"
@@ -106,9 +106,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val iHaveOwnedTextAgentWelsh =
     "Mae fy nghleient wedi bod yn berchen ar yr eiddo neu wedi meddiannu’r eiddo ar fwy nag un achlysur"
   val youCanAddTextWelsh =
-    "Gallwch ychwanegu’r eiddo ar gyfer pob cyfnod amser roeddech yn gysylltiedig ag ef, ond mae’n rhaid i chi wneud hyn un cyfnod amser ar y tro. Serch hyn, os ydych eisiau siarad gydag Asiantaeth y Swyddfa Brisio am eich prisiad, bydd rhaid i chi ddewis y cyfnod prisio cywir."
+    "Gallwch ychwanegu’r eiddo ar gyfer pob cyfnod yr oedd gennych gysylltiad ag ef, ond mae angen i chi wneud hynny un cyfnod ar y tro. Fodd bynnag, os ydych am siarad â’r Swyddfa Brisio ynglŷn â’r prisiad, bydd angen i chi ddewis y cyfnod prisio cywir."
   val youCanAddTextAgentWelsh =
-    "Gallwch ychwanegu’r eiddo ar gyfer pob cyfnod amser roedd eich cleient yn gysylltiedig ag ef, ond mae’n rhaid i chi wneud hyn un cyfnod amser ar y tro. Serch hyn, os ydych eisiau siarad gydag Asiantaeth y Swyddfa Brisio am eich prisiad, bydd rhaid i chi ddewis y cyfnod prisio cywir."
+    "Gallwch ychwanegu’r eiddo ar gyfer pob cyfnod yr oedd gan eich cleient gysylltiad ag ef, ond mae angen i chi wneud hynny un cyfnod ar y tro. Fodd bynnag, os ydych am siarad â’r Swyddfa Brisio ynglŷn â’r prisiad, bydd angen i chi ddewis y cyfnod prisio cywir."
   val onWhatDateTextWelsh = "Ar ba ddyddiad ddaethoch chi’n berchennog neu’r meddiannydd?"
   val onWhatDateTextAgentWelsh = "Ar ba ddyddiad y daeth eich cleient yn berchennog neu’n feddiannydd?"
   val forExampleTextWelsh = "Er enghraifft, 1 4 2017"

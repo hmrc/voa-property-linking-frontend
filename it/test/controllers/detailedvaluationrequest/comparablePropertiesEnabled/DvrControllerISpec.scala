@@ -43,9 +43,9 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val errorAtRadioSelector = "#checkType_-error"
   val errorSummarySelector = "#error-link"
 
-  val errorTitleText = "ADDRESS - Valuation Office Agency - GOV.UK" // TODO: This is a bug, should error
+  val errorTitleText = "ADDRESS - Valuation Office - GOV.UK" // TODO: This is a bug, should error
   val noRadioSelectedErrorText = "Select what you want to tell us"
-  val errorTitleTextWelsh = "ADDRESS - Valuation Office Agency - GOV.UK" // TODO: This is a bug, should error
+  val errorTitleTextWelsh = "ADDRESS - Y Swyddfa Brisio - GOV.UK" // TODO: This is a bug, should error
   val noRadioSelectedErrorTextWelsh = "Dewisiwch beth rydych am ei ddweud wrthym"
   val errorText = "Error: "
   val errorTextWelsh = "Gwall: "
@@ -441,7 +441,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = getDvrFilesPage(English, listYear = "2017")
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "we have altered this valuation in the last 6 months and you send a Check case from the current valuation."
@@ -456,7 +456,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (list year 2017)" in {
       val res = getDvrFilesPage(Welsh, listYear = "2017")
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
@@ -472,7 +472,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = getDvrFilesPage(English)
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "we have altered this valuation in the last 6 months and you send a Check case from the current valuation."
@@ -487,7 +487,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (list year 2023)" in {
       val res = getDvrFilesPage(Welsh)
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
@@ -503,7 +503,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = getDvrFilesPage(English, listYear = "2026")
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "we have altered this valuation in the last 6 months and you send a Check case from the current valuation."
@@ -518,7 +518,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (list year 2026)" in {
       val res = getDvrFilesPage(Welsh, listYear = "2026")
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
       doc
         .getElementById("valuation-tab-li4")
         .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
@@ -537,7 +537,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
       val res = getDvrFilesPage(English)
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
       doc.toString contains comparableTabText
       doc.toString contains comparableTabHeadingText
       doc.toString contains comparableTabP1Text
@@ -547,7 +547,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     "Load to the 'Dvr files' page & display the correct content on the comparable properties tab - Welsh" in {
       val res = getDvrFilesPage(Welsh)
       val doc = Jsoup.parse(res.body)
-      doc.title() shouldBe "ADDRESS - Valuation Office Agency - GOV.UK"
+      doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
       doc.toString contains comparableTabTextWelsh
       doc.toString contains comparableTabHeadingTextWelsh
       doc.toString contains comparableTabP1TextWelsh

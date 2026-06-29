@@ -6,7 +6,7 @@ link.register=Register
 label.search.for=Search for
 label.appoint=Appoint
 common.titleErrorPrefix=Error:
-common.titleSuffix=- Valuation Office Agency - GOV.UK
+common.titleSuffix=- Valuation Office - GOV.UK
 errors.heading.title=There is a problem
 navigation.your.details=Your details
 heading.terms.of.use=Terms of use
@@ -43,7 +43,7 @@ start.registration.youNeed.3.old=P60
 start.registration.p.5.old=You should allow approximately 15 minutes without interruption to complete the registration process.
 start.registration.IdontHave.old=I don’t have these details
 start.registration.IdontHave.answer.old=If you don’t have the details that you need to register (for example, you haven’t been assigned a National Insurance number, or you don’t have a passport, P60 or payslip, you’ll need to {0}.
-start.registration.IdontHave.answer.old.link=contact the Valuation Office Agency (VOA)
+start.registration.IdontHave.answer.old.link=contact the Valuation Office (VO)
 start.registration.enrolment.hyperlink.old=I want to register using my existing Government Gateway account
 start.registration.individual.hyperlink.old=Individual (you represent yourself)
 start.registration.individual.old={0} – you won’t be able to add others to this account
@@ -70,7 +70,7 @@ start.registration.bp.6=Self Assessment details
 start.registration.bp.7=Tax Credit details
 start.registration.bp.8=Credit reference details
 start.registration.bp.9=a Northern Ireland driving licence
-start.registration.p6.link=contact the Valuation Office Agency (VOA)
+start.registration.p6.link=contact the Valuation Office (VO)
 start.registration.p6=If you don’t have these details you’ll need to {0}.
 
 #DO YOU HAVE GOVERNMENT GATEWAY ACCOUNT
@@ -128,17 +128,17 @@ failedIdentityVerification.p.2=You can either {0} or contact us to continue your
 failedIv.telephone.england=Telephone
 failedIv.telephone.england.number=03000 501 501
 failedIv.email=Email
-failedIv.emailaddress=ccaservice@voa.gov.uk
+failedIv.emailaddress=ccaservice@hmrc.gov.uk
 failedIv.telephone.openingHours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
 heading.whatNext=What happens next
 
 #TermsAndConditions
 termsAndConditions.title=Terms and conditions
-termsAndConditions.p1=These terms and conditions govern your use of the Valuation Office Agency&#39;s (VOA) ‘Check and challenge your business rates valuation’ (CCBRV) online service, as governed by the laws of England. Please read these terms and conditions carefully as they affect your rights and liabilities in the law.
+termsAndConditions.p1=These terms and conditions govern your use of the Valuation Office’s (VO) ‘Check and challenge your business rates valuation’ (CCBRV) online service, as governed by the laws of England. Please read these terms and conditions carefully as they affect your rights and liabilities in the law.
 termsAndConditions.p2=These terms and conditions are not a full and authoritative statement of the law that applies.
 termsAndConditions.p3=By using this service, you agree to these terms and conditions.
 termsAndConditions.publication-use.h2=Purposes of publication and use
-termsAndConditions.publication-use.p1=Publication of this information by the VOA and its use is restricted to permit a user to check, challenge and appeal a Non Domestic Rating (NDR) valuation they have an interest in.
+termsAndConditions.publication-use.p1=Publication of this information by the VO and its use is restricted to permit a user to check, challenge and appeal a Non Domestic Rating (NDR) valuation they have an interest in.
 termsAndConditions.onward-disclosure.h2=Onward Disclosure
 termsAndConditions.onward-disclosure.p1=Disclosure to a third party is prohibited.
 termsAndConditions.user-definition.h2=Definition of a user
@@ -159,7 +159,7 @@ termsAndConditions.check.meaning.h2=Meaning of check
 termsAndConditions.check.meaning.p1=‘Check’ has the meaning given in regulation 4A to 4F of the Non-Domestic Rating (Alteration of Lists and Appeals) (England) Regulations 2009, as amended by the Non-Domestic Rating (Alteration of Lists and Appeals) (England) (Amendment) Regulations 2017.
 termsAndConditions.checking-and-challenging.h2=Checking and challenging valuations
 termsAndConditions.checking-and-challenging.p1=A user can
-termsAndConditions.checking-and-challenging.li1=view a valuation and request to see factual information held by the VOA of the user’s assessment
+termsAndConditions.checking-and-challenging.li1=view a valuation and request to see factual information held by the VO of the user’s assessment
 termsAndConditions.checking-and-challenging.li2=check the valuation of assessments,
 termsAndConditions.checking-and-challenging.li3=confirm the accuracy of facts used in relation to the assessment, provide missing facts and suggest amendments to facts held
 termsAndConditions.checking-and-challenging.li4=challenge the valuation of assessments within 4 months of a check being completed
@@ -172,7 +172,7 @@ termsAndConditions.use-information.li4=departmental or public sector organisatio
 termsAndConditions.use-information.li5=third party rights the Information Provider is not authorised to license
 termsAndConditions.use-information.li6=information subject to other intellectual property rights
 termsAndConditions.use-information.p2=All users must ensure that
-termsAndConditions.use-information.li7=they do not use the information in a way that suggests any official status or that the VOA endorses them or their use of the information
+termsAndConditions.use-information.li7=they do not use the information in a way that suggests any official status or that the VO endorses them or their use of the information
 termsAndConditions.use-information.li8=they do not use the information in a way which is likely to mislead others or misrepresent the information or its source
 termsAndConditions.use-information.li9=their use of the information does not breach the Data Protection Act 1998 or the Privacy and Electronic Communications (EC Directive) Regulations 2003
 termsAndConditions.use-information.li10=The user will delete this information when they no longer have a need associated with the stated purposes to hold the information
@@ -181,9 +181,9 @@ termsAndConditions.crown-copyright.p1=The Database and Data used to provide this
 termsAndConditions.amendments.h2=Amendments to terms and conditions
 termsAndConditions.amendments.p1=We may update these terms and conditions from time to time and by continuing to use the service, you confirm your continued agreement to these terms and conditions of use.
 termsAndConditions.using-service.h2=Using this service
-termsAndConditions.using-service.p1=We make every effort to ensure that the information provided is accurate. However, the VOA cannot accept any liability for the accuracy of this information, and those who use it do so at their own risk. We cannot guarantee that the service will be fault free. If there is a problem with the service, you should use the &#39;Get help with this form&#39; link at the bottom of each page and we will come back to you as soon as we can.
-termsAndConditions.using-service.p2=The VOA accepts no responsibility for any loss, disruption or damage to your data or computer system while using this service.
-termsAndConditions.using-service.p3=The VOA reserves the right to remove access to the service to an individual or organisation if it believes the service has been misused or there has been a failure to comply with published guidance or these terms and conditions.
+termsAndConditions.using-service.p1=We make every effort to ensure that the information provided is accurate. However, the VO cannot accept any liability for the accuracy of this information, and those who use it do so at their own risk. We cannot guarantee that the service will be fault free. If there is a problem with the service, you should use the ‘Get help with this form’ link at the bottom of each page and we will come back to you as soon as we can.
+termsAndConditions.using-service.p2=The VO accepts no responsibility for any loss, disruption or damage to your data or computer system while using this service.
+termsAndConditions.using-service.p3=The VO reserves the right to remove access to the service to an individual or organisation if it believes the service has been misused or there has been a failure to comply with published guidance or these terms and conditions.
 
 #CREATE GROUP ACCOUNT
 label.createAccount.companyName=Business name
@@ -206,7 +206,7 @@ createAccount.group.details.content.multipleAddress=You should enter the address
 
 #REGISTRATION SUCCESS PAGE
 account.confirmation.title=You’ve successfully registered
-create.success.personId=VOA Personal ID:
+create.success.personId=VO Personal ID:
 create.success.keepNote=You should keep a note of this number in a safe place as you’ll need it if you want to reset your password.
 create.success.keepUsingGg=You will not need it to sign in to the check and challenge service - you should continue to use your existing sign in details.
 account.confirmation.addToGG.link=add them to your Government Gateway account
@@ -218,11 +218,11 @@ account.enrolment.link.success=Continue
 
 #REGISTRATION CONFIRMATION PAGE
 registration.successful=Registration successful
-registration.confirmation.voa.personal.id.number=Your VOA personal ID number
+registration.confirmation.voa.personal.id.number=Your VO personal ID number
 registration.confirmation.agent.code=Your Agent code
 registration.confirmation.email.sent.to=We have sent these details to {0}
 registration.confirmation.whatNext.p1=Next time you sign in to the service, use your Government Gateway details.
-registration.confirmation.whatNext.p2=If you need to reset your password, you’ll need to provide your VOA personal ID number.
+registration.confirmation.whatNext.p2=If you need to reset your password, you’ll need to provide your VO personal ID number.
 registration.confirmation.whatNext.p3=Give your Agent code to your client so they can appoint you to act for them.
 registration.confirmation.whatNext.p4.link=add them to your Government Gateway account
 registration.confirmation.whatNext.p4=If anyone else wants to register on behalf of the organisation, you’ll need to {0}.
@@ -317,7 +317,7 @@ propertyRepresentation.start.help.link=Help with appointing and managing agents
 propertyRepresentation.start.startNow=Start now
 
 propertyRepresentation.agentCode.title=What is your agent’s code?
-propertyRepresentation.agentCode.codeInput.hint=This is a number given to the agent by the Valuation Office Agency.
+propertyRepresentation.agentCode.codeInput.hint=This is a number given to the agent by the Valuation Office.
 
 propertyRepresentation.isThisYourAgent.title=Is this your agent?
 propertyRepresentation.isThisYourAgent.yes=Yes
@@ -521,8 +521,8 @@ chooseRatingList.the2023List = the 2023 rating list
 chooseRatingList.the2017List = the 2017 rating list
 chooseRatingList.bothLists = both rating lists
 chooseRatingList.moreAboutLists = More about rating lists
-chooseRatingList.theVoaCalculates = The Valuation Office Agency (VOA) calculates the rateable values for business properties in England and Wales. It holds the information on rating lists.
-chooseRatingList.theVoaUpdates = The VOA updates rateable values and publishes a new rating list every few years.
+chooseRatingList.theVoaCalculates = The Valuation Office (VO) calculates the rateable values for business properties in England and Wales. It holds the information on rating lists.
+chooseRatingList.theVoaUpdates = The VO updates rateable values and publishes a new rating list every few years.
 chooseRatingList.the2023RatingList = The 2023 rating list is the current rating list and has the current valuation for your property. It may also have previous valuations for your property that have an effective date after 1 April 2023.
 chooseRatingList.the2017RatingList = The 2017 rating list has previous valuations for your property that have an effective date between 1 April 2017 and 31 March 2023.
 chooseRatingList.choosingAList = Choosing a rating list is different to assigning properties to the agent. You can assign properties to them by {0}.
@@ -643,9 +643,9 @@ label.lastOccupiedDate.client=Date of last day your client as the owner or occup
 declareCapacity.title=When you became the owner or occupier of the property
 declareCapacity.title.client=When your client became the owner or occupier of the property
 declareCapacity.panel.title=I have owned or occupied the property on more than one occasion
-declareCapacity.panel.text=You can add the property for each period you were connected to it, but you need to do it one period at a time. However, if you want to talk to the Valuation Office Agency about the valuation, you will need to select the right valuation period.
+declareCapacity.panel.text=You can add the property for each period you were connected to it, but you need to do it one period at a time. However, if you want to talk to the Valuation Office about the valuation, you will need to select the right valuation period.
 declareCapacity.panel.title.client=My client has owned or occupied the property on more than one occasion
-declareCapacity.panel.text.client=You can add the property for each period your client was connected to it, but you need to do it one period at a time. However, if you want to talk to the Valuation Office Agency about the valuation, you will need to select the right valuation period.
+declareCapacity.panel.text.client=You can add the property for each period your client was connected to it, but you need to do it one period at a time. However, if you want to talk to the Valuation Office about the valuation, you will need to select the right valuation period.
 label.interestedStartDate=When did you become the owner or occupier of the property?
 label.interestedStartDate.client=When did your client become the owner or occupier of the property?
 interestedStartDate.error.dateInFuture=Date you became {0} of the property must be in the past
@@ -696,10 +696,10 @@ error.date.mustBeAfterStartDate=Date of your last day as {0} of the property mus
 error.date.mustBeAfterStartDate.client=Date of your client’s last day as {0} of the property must be after {1}
 error.date.mustBeAfterStartDate.relationship.fallback=owner or occupier
 declareCapacity.details.ownerOrOccupier=I own or occupy a part of this property
-declareCapacity.details.ownerOrOccupier.text=After the Valuation Office Agency have approved your connection, you may want to ask them to split this property to get separate valuations for each part.
+declareCapacity.details.ownerOrOccupier.text=After the Valuation Office have approved your connection, you may want to ask them to split this property to get separate valuations for each part.
 declareCapacity.details.notOwner=I do not own the property but I sublet it to someone else
 declareCapacity.details.notOwner.text.1=If you sublet the property to another person or business, select ‘Owner’ and enter the dates of the sublet period.
-declareCapacity.details.notOwner.text.2=If you only sublet part of the property, you may want to ask the Valuation Office Agency to split this property to get separate valuations for each part. You can do this after they have approved your connection to the property.
+declareCapacity.details.notOwner.text.2=If you only sublet part of the property, you may want to ask the Valuation Office to split this property to get separate valuations for each part. You can do this after they have approved your connection to the property.
 declareCapacity.details.ownerOrOccupier.client=My client owns or occupies part of this property
 declareCapacity.details.ownerOrOccupier.text.1.client=You can still add this property on behalf of your client, as if they owned or occupied the whole property.
 declareCapacity.details.ownerOrOccupier.text.2.client=After we’ve approved your client’s connection to the property, you can ask us to split the property to get separate valuations for each part.
@@ -908,17 +908,17 @@ auto.requestDetailedValuation.future.rv.inset=This will be the rateable value fo
 auto.requestDetailedValuation.future.rv.inset.link=Estimate what the business rates bill may be from {0}
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.1=If you occupy a pub or live music venue in England, the Government has introduced a new relief to provide further support. Find more information {0}.
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.1.link=about the relief and which properties are eligible for it (opens in new tab)
-auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.2=You can get {0}. The Valuation Office Agency can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council.
+auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.2=You can get {0}. The Valuation Office can help with any questions about your rateable value. If you have any questions about your bill, you should contact your local council.
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.pub.2.link=an estimate of how the new relief reduces your 2026/27 business rates bill click here (opens in a new tab)
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.estimatorHeading=Estimate your business rates liability for pubs in England
-auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link=The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click {0}. If you have any questions about your bill you should contact your local council.
+auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link=The estimator tool for England has been removed ahead of business rates bills being issued by local councils. The Valuation Office can help with any questions about your rateable value. For more information on how your bill will be calculated click {0}. If you have any questions about your bill you should contact your local council.
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link.here=here (opens in new tab)
 auto.requestDetailedValuation.future.p.1=This detailed valuation will not be available until {0}. You will be able to request it from that date.
 auto.requestDetailedValuation.future.p.2=The current {0} detailed valuation can be requested from the current valuation.
-auto.requestDetailedValuation.future.rv.inset.welshEstimatorDisabled=The estimator tool for Wales has been removed ahead of business rates bills being issued by local councils. The Valuation Office Agency can help with any questions about your rateable value. For more information on how your bill will be calculated click {0}. If you have any questions about your bill you should contact your local council.
+auto.requestDetailedValuation.future.rv.inset.welshEstimatorDisabled=The estimator tool for Wales has been removed ahead of business rates bills being issued by local councils. The Valuation Office can help with any questions about your rateable value. For more information on how your bill will be calculated click {0}. If you have any questions about your bill you should contact your local council.
 
 requestDetailedValuation.heading.challenge=Already completed a check?
-requestDetailedValuation.challenge.p=Once you’ve completed a check, the VOA will contact you with the outcome. If you disagree with the outcome of the check or you believe the rateable value of your property is incorrect, you can let us know. Doing this is known as a challenge. (You can’t start a challenge until you’ve received the outcome for your check)
+requestDetailedValuation.challenge.p=Once you’ve completed a check, the VO will contact you with the outcome. If you disagree with the outcome of the check or you believe the rateable value of your property is incorrect, you can let us know. Doing this is known as a challenge. (You can’t start a challenge until you’ve received the outcome for your check)
 
 auto.requestDetailedValuation.challenge.start=Challenge this valuation
 
@@ -1301,7 +1301,7 @@ enrolment.address.maxLengthError = This field must be 30 characters or less
 app.common.saveAndContinue = Save and continue
 app.common.yes = Yes
 app.common.no = No
-common.titleSuffix=- Valuation Office Agency - GOV.UK
+common.titleSuffix=- Valuation Office - GOV.UK
 common.localAuthorityReference=Local authority reference:
 
 #Registration Failure
@@ -1379,5 +1379,5 @@ month.12=December
 govukErrorMessage.visuallyHiddenText = Error
 
 detailed.valuation.tab.comparableProperties.h2=Comparable properties
-detailed.valuation.tab.comparableProperties.restricted.p1=The VOA values similar properties together.
+detailed.valuation.tab.comparableProperties.restricted.p1=The VO values similar properties together.
 detailed.valuation.tab.comparableProperties.restricted.p2=The information for some properties is restricted. We do not provide comparable property data for this property.

@@ -48,8 +48,8 @@ class RequestDetailedValuationEnglishEstimatorEnabledISpec extends ISpecBase wit
 
   implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-  val titleText = "ADDRESS - Valuation Office Agency - GOV.UK"
-  val titleTextWelsh = "ADDRESS - Valuation Office Agency - GOV.UK"
+  val titleText = "ADDRESS - Valuation Office - GOV.UK"
+  val titleTextWelsh = "ADDRESS - Y Swyddfa Brisio - GOV.UK"
 
   val captionText = "Your property"
   val captionTextWelsh = "Eich eiddo"

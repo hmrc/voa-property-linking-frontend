@@ -47,7 +47,7 @@ class ViewDvrValuationWelshEstimatorDisabledISpec extends ISpecBase {
   override def valuationId: Long = 10028428L
   override def propertyLinkId: Long = 128L
 
-  val titleText = "ADDRESS - Valuation Office Agency - GOV.UK"
+  val titleText = "ADDRESS - Valuation Office - GOV.UK"
   val backText = "Back"
   val captionText = "Your property"
   val headerText = "ADDRESS"
@@ -98,7 +98,7 @@ class ViewDvrValuationWelshEstimatorDisabledISpec extends ISpecBase {
   val sendCompletedCheckFormText = "Send my completed Check case form"
   val printThisPageText = "Print this page"
 
-  val titleTextWelsh = "ADDRESS - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "ADDRESS - Y Swyddfa Brisio - GOV.UK"
   val backTextWelsh = "Yn ôl"
   val captionTextWelsh = "Eich eiddo"
   val headerTextWelsh = "ADDRESS"
@@ -535,7 +535,7 @@ class ViewDvrValuationWelshEstimatorDisabledISpec extends ISpecBase {
       }
 
       s"has a title of $titleText in Welsh" in {
-        page.title() shouldBe titleText
+        page.title() shouldBe titleTextWelsh
       }
 
       "has a back link with the correct href in Welsh" in {

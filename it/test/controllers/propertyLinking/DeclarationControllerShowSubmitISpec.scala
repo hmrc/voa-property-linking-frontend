@@ -44,7 +44,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
   val startedValue = "2 April 2017"
   val lastDayValue = "3 April 2017"
 
-  val titleText = "Check and confirm your details - Valuation Office Agency - GOV.UK"
+  val titleText = "Check and confirm your details - Valuation Office - GOV.UK"
   val captionText = "Add a property"
   val headerText = "Check and confirm your details"
   val addressText = "Address"
@@ -85,7 +85,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
   val errorText = "Error: "
   val errorMessageText = "You must agree to the declaration to continue"
 
-  val titleTextWelsh = "Gwiriwch a chadarnhau eich manylion - Valuation Office Agency - GOV.UK"
+  val titleTextWelsh = "Gwiriwch a chadarnhau eich manylion - Y Swyddfa Brisio - GOV.UK"
   val captionTextWelsh = "Ychwanegu eiddo"
   val headerTextWelsh = "Gwiriwch a chadarnhau eich manylion"
   val addressTextWelsh = "Cyfeiriad"
