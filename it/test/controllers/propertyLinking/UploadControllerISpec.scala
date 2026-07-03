@@ -126,12 +126,12 @@ class UploadControllerISpec extends ISpecBase {
     "If you can’t provide evidence to prove your link to the property, you won’t be able to claim it or view the detailed valuation."
   val cannotProvideEvidenceP2 =
     "You’ll need to contact us to discuss other documents that prove your link to this property."
-  val cannotProvideEvidenceP3 = "Email: ccaservice@voa.gov.uk"
+  val cannotProvideEvidenceP3 = "Email: ccaservicevo@hmrc.gov.uk"
   val cannotProvideEvidenceP1Agent =
     "If you can’t provide evidence to prove your client’s link to the property, you won’t be able to claim it or view the detailed valuation."
   val cannotProvideEvidenceP2Agent =
     "You’ll need to contact us to discuss other documents that prove your client’s link to this property."
-  val cannotProvideEvidenceEmailText = "ccaservice@voa.gov.uk"
+  val cannotProvideEvidenceEmailText = "ccaservicevo@hmrc.gov.uk"
 
   val cannotProvideEvidenceTitleTextWelsh = "Os na allwch ddarparu - Y Swyddfa Brisio - GOV.UK"
   val cannotProvideEvidenceHeadingTextWelsh = "Os na allwch ddarparu"
@@ -143,7 +143,7 @@ class UploadControllerISpec extends ISpecBase {
     "Os na allwch ddarparu tystiolaeth i brofi eich cysylltiad â’r eiddo, ni fyddwch yn gallu ei hawlio na gweld y prisiad manwl."
   val cannotProvideEvidenceP2AgentWelsh =
     "Bydd angen i chi gysylltu â ni i drafod dogfennau eraill sy’n profi cysylltiad eich cleient â’r eiddo hwn."
-  val cannotProvideEvidenceP3Welsh = "E-bost: ccaservice@voa.gov.uk"
+  val cannotProvideEvidenceP3Welsh = "E-bost: ccaservicevo@hmrc.gov.uk"
 
   // Common page text
   val backLinkText = "Back"
@@ -195,7 +195,7 @@ class UploadControllerISpec extends ISpecBase {
   val cannotProvideEvidenceEmailLocator = "#main-content > div > div > p:nth-child(5) > a"
 
   // Links
-  val emailHref = "mailto:ccaservice@voa.gov.uk"
+  val emailHref = "mailto:ccaservicevo@hmrc.gov.uk"
   val backToEvidenceQuestionHref = "/business-rates-property-linking/my-organisation/claim/property-links/evidence"
   val backToOtherEvidenceHref =
     "/business-rates-property-linking/my-organisation/claim/property-links/evidence/OTHER/upload"

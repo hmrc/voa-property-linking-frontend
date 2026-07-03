@@ -864,7 +864,7 @@ class ViewDvrValuationISpec extends ISpecBase {
       lazy val page = Jsoup.parse(res.body)
 
       val expected =
-        "If you think you have a right to challenge this valuation, and there is no 2026 assessment to raise a check, you can request a check manually by sending an email to ccaservice@voa.gov.uk providing your name and the address of the property you wish to check."
+        "If you think you have a right to challenge this valuation, and there is no 2026 assessment to raise a check, you can request a check manually by sending an email to ccaservicevo@hmrc.gov.uk providing your name and the address of the property you wish to check."
 
       page.select("#challenge-conditions-info > li:nth-child(4)").text() shouldBe expected
     }
@@ -887,7 +887,7 @@ class ViewDvrValuationISpec extends ISpecBase {
       lazy val page = Jsoup.parse(res.body)
 
       val expected =
-        "Os ydych chi’n credu bod gennych chi hawl i herio’r prisiad hwn, ac nad oes asesiad 2026 i godi gwiriad, gallwch ofyn am wiriad â llaw trwy anfon e-bost at ccaservice@voa.gov.uk gan nodi eich enw a chyfeiriad yr eiddo rydych chi am ei wirio."
+        "Os ydych chi’n credu bod gennych chi hawl i herio’r prisiad hwn, ac nad oes asesiad 2026 i godi gwiriad, gallwch ofyn am wiriad â llaw trwy anfon e-bost at ccaservicevo@hmrc.gov.uk gan nodi eich enw a chyfeiriad yr eiddo rydych chi am ei wirio."
 
       page.select("#challenge-conditions-info > li:nth-child(4)").text() shouldBe expected
     }

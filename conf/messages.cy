@@ -124,7 +124,7 @@ failedIdentityVerification.p.2=Gallwch naill ai {0} neu gysylltu â ni i barhau 
 failedIv.telephone.england=Rhif ffôn
 failedIv.telephone.england.number=03000 505 505
 failedIv.email=E-bost
-failedIv.emailaddress=ccaservice@hmrc.gov.uk
+failedIv.emailaddress=ccaservicevo@hmrc.gov.uk
 failedIv.telephone.openingHours=Oriau agor: 09:00y.b i 4:30y.h. Llun i Gwener. Ar gau dros Wyliau Banc.
 heading.whatNext=Beth sy’n digwydd nesaf
 

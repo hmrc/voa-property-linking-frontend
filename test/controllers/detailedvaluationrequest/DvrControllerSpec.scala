@@ -563,9 +563,9 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         dvrDocuments.detailedValuation.documentSummary.documentId
       )
       .url
-    welshLanguageExplainer.text shouldBe "If you need this valuation in Welsh, email ccaservice@voa.gov.uk with your request. Include the property address and valuation period (1 April 2017 to 1 June 2017) in the email."
-    emailCcaLink.text shouldBe "ccaservice@voa.gov.uk"
-    emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    welshLanguageExplainer.text shouldBe "If you need this valuation in Welsh, email ccaservicevo@hmrc.gov.uk with your request. Include the property address and valuation period (1 April 2017 to 1 June 2017) in the email."
+    emailCcaLink.text shouldBe "ccaservicevo@hmrc.gov.uk"
+    emailCcaLink.attr("href") shouldBe "mailto:ccaservicevo@hmrc.gov.uk"
   }
 
   "detailed valuation tab when in compiled list" should "display the correct 'change something' section" in new ValuationTabSetup(
@@ -1174,10 +1174,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     yourPropertiesLink.attr("href") shouldBe compiledList.dashboardUrl("your-properties")
     welshValuationHeading.text() shouldBe "If you need this valuation in Welsh"
     welshValuationContent.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Email your request to ccaservice@voa.gov.uk. Include the property address and valuation period (1 April 2017 to present) in the email.",
+      "Email your request to ccaservicevo@hmrc.gov.uk. Include the property address and valuation period (1 April 2017 to present) in the email.",
       "Go to your account home"
     )
-    ccaEmailLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    ccaEmailLink.attr("href") shouldBe "mailto:ccaservicevo@hmrc.gov.uk"
     backToDashboardLink.attr("href") shouldBe compiledList.dashboardUrl("home")
   }
 
@@ -1211,10 +1211,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     yourPropertiesLink.attr("href") shouldBe compiledList.dashboardUrl("your-properties")
     welshValuationHeading.text() shouldBe "If you need this valuation in Welsh"
     welshValuationContent.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Email your request to ccaservice@voa.gov.uk. Include the property address and valuation period (1 April 2017 to 1 January 2023) in the email.",
+      "Email your request to ccaservicevo@hmrc.gov.uk. Include the property address and valuation period (1 April 2017 to 1 January 2023) in the email.",
       "Go to your account home"
     )
-    ccaEmailLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    ccaEmailLink.attr("href") shouldBe "mailto:ccaservicevo@hmrc.gov.uk"
     backToDashboardLink.attr("href") shouldBe compiledList.dashboardUrl("home")
   }
 
@@ -1281,10 +1281,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     welshValuationHeading.text() shouldBe "If you need this valuation in Welsh"
     welshValuationContent.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Email your request to ccaservice@voa.gov.uk. Include the property address and valuation period (1 April 2017 to present) in the email.",
+      "Email your request to ccaservicevo@hmrc.gov.uk. Include the property address and valuation period (1 April 2017 to present) in the email.",
       "Go to your account home"
     )
-    ccaEmailLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    ccaEmailLink.attr("href") shouldBe "mailto:ccaservicevo@hmrc.gov.uk"
     backToDashboardLink.attr("href") shouldBe compiledList.dashboardUrl("home")
   }
 
@@ -1318,10 +1318,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     yourPropertiesLink.attr("href") shouldBe compiledList.dashboardUrl("your-properties")
     welshValuationHeading.text() shouldBe "If you need this valuation in Welsh"
     welshValuationContent.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "Email your request to ccaservice@voa.gov.uk. Include the property address and valuation period (1 April 2017 to 1 January 2023) in the email.",
+      "Email your request to ccaservicevo@hmrc.gov.uk. Include the property address and valuation period (1 April 2017 to 1 January 2023) in the email.",
       "Go to your account home"
     )
-    ccaEmailLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    ccaEmailLink.attr("href") shouldBe "mailto:ccaservicevo@hmrc.gov.uk"
     backToDashboardLink.attr("href") shouldBe compiledList.dashboardUrl("home")
   }
 
@@ -1408,10 +1408,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservice@voa.gov.uk and ask for your request to be prioritised.",
+      "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservicevo@hmrc.gov.uk and ask for your request to be prioritised.",
       "Include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and the request reference number in the email."
     )
-    emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    emailCcaLink.attr("href") shouldBe "mailto:ccaservicevo@hmrc.gov.uk"
     Option(homePageLink) should not be defined
   }
   "already sent dvr screen" should "display correctly in compiled list when viewing a previous valuation when no dvrSubmissionId has been stored" in new AlreadySentDvrTestCase(
@@ -1440,10 +1440,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservice@voa.gov.uk and ask for your request to be prioritised.",
+      "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservicevo@hmrc.gov.uk and ask for your request to be prioritised.",
       "Include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and the request reference number in the email."
     )
-    emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    emailCcaLink.attr("href") shouldBe "mailto:ccaservicevo@hmrc.gov.uk"
     Option(homePageLink) should not be defined
   }
   "already sent dvr screen" should "display correctly in compiled list when viewing a current valuation with no toDate" in new AlreadySentDvrTestCase(
@@ -1470,10 +1470,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservice@voa.gov.uk and ask for your request to be prioritised.",
+      "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservicevo@hmrc.gov.uk and ask for your request to be prioritised.",
       "Include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and the request reference number in the email."
     )
-    emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    emailCcaLink.attr("href") shouldBe "mailto:ccaservicevo@hmrc.gov.uk"
     Option(homePageLink) should not be defined
   }
   "already sent dvr screen" should "display correctly in compiled list when viewing a current valuation with a toDate" in new AlreadySentDvrTestCase(
@@ -1501,10 +1501,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
     mccHeading.text() shouldBe "If you need to tell us about a change in the local area"
     mccExplainer.children().asScala.map(_.text()) should contain theSameElementsInOrderAs Seq(
-      "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservice@voa.gov.uk and ask for your request to be prioritised.",
+      "If you need to tell us about a change in the local area that affects your property, and you are waiting for the detailed valuation to be available, you can email ccaservicevo@hmrc.gov.uk and ask for your request to be prioritised.",
       "Include ‘Urgent: external Material Change of Circumstances’ in the subject line and include the property address and the request reference number in the email."
     )
-    emailCcaLink.attr("href") shouldBe "mailto:ccaservice@voa.gov.uk"
+    emailCcaLink.attr("href") shouldBe "mailto:ccaservicevo@hmrc.gov.uk"
     Option(homePageLink) should not be defined
   }
 
@@ -1616,10 +1616,10 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val page = HtmlPage(Jsoup.parse(contentAsString(result)))
 
     page.html.getElementById("valuation-tab-change-something-content").text() should include(
-      "we have altered this valuation in the last 6 months and you email us at ccaservice@voa.gov.uk to send a Check case"
+      "we have altered this valuation in the last 6 months and you email us at ccaservicevo@hmrc.gov.uk to send a Check case"
     )
     page.html.getElementById("valuation-tab-change-something-content").text() should include(
-      "a court decision affected this property’s rateable value and before 1 October 2023 you email us at ccaservice@voa.gov.uk to send a Check case"
+      "a court decision affected this property’s rateable value and before 1 October 2023 you email us at ccaservicevo@hmrc.gov.uk to send a Check case"
     )
   }
 }

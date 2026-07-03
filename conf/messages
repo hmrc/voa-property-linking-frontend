@@ -128,7 +128,7 @@ failedIdentityVerification.p.2=You can either {0} or contact us to continue your
 failedIv.telephone.england=Telephone
 failedIv.telephone.england.number=03000 501 501
 failedIv.email=Email
-failedIv.emailaddress=ccaservice@hmrc.gov.uk
+failedIv.emailaddress=ccaservicevo@hmrc.gov.uk
 failedIv.telephone.openingHours=Opening hours: 8:30am to 5:00pm Monday to Friday. Closed on bank holidays.
 heading.whatNext=What happens next
 

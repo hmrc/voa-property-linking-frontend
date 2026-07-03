@@ -78,7 +78,7 @@
             <li>@messages("available.requestvaluation.listYear.li2")</li>
             <li>@messages("available.requestvaluation.listYear.li3")</li>
             @if(config.compiledListReval26Enabled && model.listYear == "2023" && !config.draftListEnabled) {
-                <li>@Html(messages("available.requestvaluation.listYear.rightToChallenge.li", """<a id="cca-email-link-1" class="govuk-link"  href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>"""))</li>
+                <li>@Html(messages("available.requestvaluation.listYear.rightToChallenge.li", """<a id="cca-email-link-1" class="govuk-link"  href="mailto:ccaservicevo@hmrc.gov.uk">ccaservicevo@hmrc.gov.uk</a>"""))</li>
             }
         </ul>
 
@@ -89,8 +89,8 @@
             <li id="valuation-tab-li4" class="govuk-body govuk-!-margin-bottom-0">@messages("available.requestvaluation.listYear.li4")</li>
             <li id="valuation-tab-li5" class="govuk-body govuk-!-margin-bottom-0">@messages("available.requestvaluation.listYear.li5", listYearEnd)</li>
         } else {
-            <li>@Html(messages("available.requestvaluation.listYear.noCurrent.altered", """<a id="cca-service-link-1" class="govuk-link"  href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>"""))</li>
-            <li>@Html(messages("available.requestvaluation.listYear.noCurrent.court", listYearEnd, """<a id="cca-service-link-2" class="govuk-link"  href="mailto:ccaservice@voa.gov.uk">ccaservice@voa.gov.uk</a>"""))</li>
+            <li>@Html(messages("available.requestvaluation.listYear.noCurrent.altered", """<a id="cca-service-link-1" class="govuk-link"  href="mailto:ccaservicevo@hmrc.gov.uk">ccaservicevo@hmrc.gov.uk</a>"""))</li>
+            <li>@Html(messages("available.requestvaluation.listYear.noCurrent.court", listYearEnd, """<a id="cca-service-link-2" class="govuk-link"  href="mailto:ccaservicevo@hmrc.gov.uk">ccaservicevo@hmrc.gov.uk</a>"""))</li>
         }
         </ul>
         <p id="valuation-tab-p4" class="govuk-body">@messages("available.requestvaluation.listYear.p4")</p>
@@ -150,7 +150,7 @@
         @if(model.isWelshProperty) {
           @link(
             preLinkText = Some(messages("available.requestvaluation.welsh.ccaEmail.preLink")),
-            linkText = "ccaservice@voa.gov.uk",
+            linkText = "ccaservicevo@hmrc.gov.uk",
             postLinkText = Some(
                 messages(
                     "available.requestvaluation.welsh.ccaEmail.postLink",
@@ -161,7 +161,7 @@
                     )
                 )
             ),
-            location = "mailto:ccaservice@voa.gov.uk",
+            location = "mailto:ccaservicevo@hmrc.gov.uk",
             pId = Some("welsh-language-explainer"),
             linkId = Some("valuation-tab-email-cca-link")
           )
