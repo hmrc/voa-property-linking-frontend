@@ -32,7 +32,6 @@
 
 
 @this(hmrcStandardPage: HmrcStandardPage,
-        navigationBar: navigationBar,
         govukDetails: GovukDetails,
         hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet,
         hmrcTimeoutDialogHelper: HmrcTimeoutDialogHelper,
@@ -124,11 +123,59 @@
   }
 }
 
+@signOutLink = @{
+    config.dashboardUrl("sign-out-feedback?serviceName=business-rates-property-linking")
+}
+
+@serviceNav = @{
+    val navItems =
+        if(!showTopNavigation) {
+            Seq.empty[ServiceNavigationItem]
+        } else if(request.isLoggedIn) {
+            Seq(
+                ServiceNavigationItem(
+                    content = Text(messages("link.home")),
+                    href = config.dashboardUrl("home")
+                ),
+                ServiceNavigationItem(
+                    content = Text(request.yourDetailsName.getOrElse(messages("navigation.your.details"))),
+                    href = config.dashboardUrl("your-details")
+                )
+            )
+        } else {
+            Seq(
+                ServiceNavigationItem(
+                    content = Text(messages("link.login")),
+                    href = config.dashboardUrl("home")
+                ),
+                ServiceNavigationItem(
+                    content = Text(messages("link.register")),
+                    href = controllers.routes.Application.start.url
+                )
+            )
+        }
+    Some(ServiceNavigation(
+        serviceName = Some(messages("service.name")),
+        serviceUrl = Some(config.dashboardUrl("home")),
+        navigation = navItems,
+        navigationId = "navigation"
+    ).withLanguageToggle)
+}
+
 @hmrcStandardPage(
     HmrcStandardPageParams(
         pageTitle = Some(title),
         serviceURLs = ServiceURLs(
-            serviceUrl = Some(config.dashboardUrl("home"))
+            serviceUrl = Some(config.dashboardUrl("home")),
+            signOutUrl = if(request.isLoggedIn && showTopNavigation) Some(signOutLink) else None
+        ),
+        serviceNavigation = serviceNav,
+        backLink = backUri.map(uri =>
+            BackLink(
+                href = uri,
+                content = Text(messages("link.back")),
+                attributes = Map("id" -> "back-link")
+            )
         ),
         isWelshTranslationAvailable = true,
         banners = Banners(
@@ -136,7 +183,6 @@
         ),
         templateOverrides = TemplateOverrides(
             additionalHeadBlock = Some(head),
-            beforeContentBlock = Some(navigationBar(showTopNavigation, backUri)),
             mainContentLayout = Some(contentLayout.apply _),
             additionalScriptsBlock = Some(analytics())
         )

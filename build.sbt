@@ -118,7 +118,7 @@ ThisBuild / excludeDependencies ++= Seq(
   ExclusionRule(organization = "com.typesafe.play")
 )
 
-val bootstrapPlayVersion = "10.7.0"
+val bootstrapPlayVersion = "10.8.0"
 val hmrcMongoVersion = "2.12.0"
 
 lazy val compileDependencies = Seq(
@@ -128,7 +128,7 @@ lazy val compileDependencies = Seq(
   "ai.x"                 %% "play-json-extensions"                  % "0.42.0",
   "org.typelevel"        %% "cats-core"                             % "2.13.0",
   "uk.gov.hmrc"          %% "bootstrap-frontend-play-30"            % bootstrapPlayVersion,
-  "uk.gov.hmrc"          %% "play-frontend-hmrc-play-30"            % "12.32.0",
+  "uk.gov.hmrc"          %% "play-frontend-hmrc-play-30"            % "13.9.0",
   "uk.gov.hmrc"          %% "play-conditional-form-mapping-play-30" % "3.5.0",
   "uk.gov.hmrc.mongo"    %% "hmrc-mongo-play-30"                    % hmrcMongoVersion,
   "uk.gov.hmrc"          %% "uri-template"                          % "1.19.0",
@@ -143,4 +143,4 @@ lazy val testDependencies = Seq(
   "uk.gov.hmrc.mongo"      %% "hmrc-mongo-test-play-30" % hmrcMongoVersion     % Test
 )
 
-addCommandAlias("precommit", ";reload;scalafmt;test:scalafmt;it/test:scalafmt;coverage;test;it/test;coverageReport")
+addCommandAlias("precommit", ";reload;scalafmt;sassify;test:scalafmt;it/test:scalafmt;coverage;test;it/test;coverageReport")

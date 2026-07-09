@@ -31,11 +31,8 @@ import views.html.propertyrepresentation._
 
 trait FakeViews extends GdsComponents {
 
-  lazy val navigationBar = new navigationBar(hmrcLanguageSelectHelper)
-
   lazy val layout = new layout(
     hmrcStandardPage,
-    navigationBar,
     govukDetails,
     hmrcTrackingConsentSnippet,
     hmrcTimeoutDialogHelper,

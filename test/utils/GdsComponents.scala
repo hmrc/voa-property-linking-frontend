@@ -20,10 +20,10 @@ import com.typesafe.config.{Config, ConfigFactory}
 import play.api.Configuration
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.html.helpers.{GovukFormGroup, GovukHintAndErrorMessage, GovukLogo}
-import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, AssetsConfig, RebrandConfig, ServiceNavigationConfig, TimeoutDialogConfig, TrackingConsentConfig, TudorCrownConfig}
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, AssetsConfig, TimeoutDialogConfig, TrackingConsentConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems, StandardBetaBanner}
-import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcBanner, HmrcFooter, HmrcHeader, HmrcLanguageSelect, HmrcTimeoutDialog, HmrcUserResearchBanner}
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcHead, HmrcLanguageSelectHelper, HmrcScripts, HmrcStandardFooter, HmrcStandardHeader, HmrcStandardPage, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
+import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcBanner, HmrcFooter, HmrcHeader, HmrcTimeoutDialog, HmrcUserResearchBanner}
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcHead, HmrcScripts, HmrcStandardFooter, HmrcStandardHeader, HmrcStandardPage, HmrcTimeoutDialogHelper, HmrcTrackingConsentSnippet}
 import views.html.helpers.ContentLayout
 
 trait GdsComponents {
@@ -31,19 +31,15 @@ trait GdsComponents {
   private val minimalConfig: Config =
     ConfigFactory.parseString("""
                                 |timeoutDialog.timeout=13min
-                                |timeoutDialog.timeout=13min
                                 |timeoutDialog.countdown=3min
                                 |hmrc-timeout-dialog.defaultTimeoutInSeconds=15
                                 |hmrc-timeout-dialog.defaultCountdownInSeconds=15
                                 |hmrc-timeout-dialog.enableSynchroniseTabs=true
                                 |session.timeoutSeconds=10
                                 |session.timeout=10
-                                |play-frontend-hmrc.useRebrand=true
-                                |play-frontend-hmrc.forceServiceNavigation=false
                             """.stripMargin)
 
   lazy val minimalConfiguration = Configuration(minimalConfig)
-  lazy val rebrandConfig = new RebrandConfig(minimalConfiguration)
   lazy val formWithCSRF = new FormWithCSRF
   lazy val govukAccordion = new GovukAccordion
   lazy val govukBackLink = new GovukBackLink
@@ -57,10 +53,10 @@ trait GdsComponents {
   lazy val govukErrorMessage = new GovukErrorMessage
   lazy val govukErrorSummary = new GovukErrorSummary
   lazy val govukFieldset = new GovukFieldset
-  lazy val govukFooter = new GovukFooter(rebrandConfig, govukLogo)
+  lazy val govukFooter = new GovukFooter(govukLogo)
   lazy val govukFormGroup = new GovukFormGroup
   lazy val govukHeader =
-    new GovukHeader(new TudorCrownConfig(minimalConfiguration), rebrandConfig, govukLogo)
+    new GovukHeader(govukLogo)
   lazy val govukHint = new GovukHint
   lazy val govukHintAndErrorMessage = new GovukHintAndErrorMessage(govukHint, govukErrorMessage)
   lazy val govukInput = new GovukInput(govukLabel, govukFormGroup, govukHintAndErrorMessage)
@@ -80,8 +76,7 @@ trait GdsComponents {
     govukHeader,
     govukFooter,
     govukSkipLink,
-    new FixedWidthPageLayout(),
-    rebrandConfig
+    new FixedWidthPageLayout()
   )
   lazy val govukTextarea = new GovukTextarea(govukLabel, govukFormGroup, govukHintAndErrorMessage)
   lazy val govukWarningText = new GovukWarningText
@@ -95,16 +90,12 @@ trait GdsComponents {
   lazy val standardBetaBanner = new StandardBetaBanner
   lazy val hmrcScripts = new HmrcScripts(new AssetsConfig)
   lazy val govukNotificationBanner = new GovukNotificationBanner
-  lazy val hmrcLanguageSelectHelper = new HmrcLanguageSelectHelper(
-    new HmrcLanguageSelect(),
-    serviceNavigationConfig
-  )
-  lazy val tudorCrownConfig = new TudorCrownConfig(minimalConfiguration)
-  lazy val serviceNavigationConfig = new ServiceNavigationConfig(minimalConfiguration)
+  lazy val govukServiceNavigation = new GovukServiceNavigation()
   lazy val hmrcStandardPage = new HmrcStandardPage(
     new GovukLayout(
       govukTemplate,
       govukHeader,
+      govukServiceNavigation,
       govukFooter,
       govukBackLink,
       new TwoThirdsMainContent(),
@@ -112,20 +103,16 @@ trait GdsComponents {
     ),
     new HmrcStandardHeader(
       new HmrcHeader(
-        new HmrcBanner(tudorCrownConfig),
+        new HmrcBanner(),
         new HmrcUserResearchBanner(),
         govukPhaseBanner,
-        tudorCrownConfig,
-        rebrandConfig,
         govukLogo,
-        new GovukServiceNavigation()
+        govukServiceNavigation
       ),
-      serviceNavigationConfig,
       minimalConfiguration
     ),
     hmrcStandardFooter,
     new HmrcHead(hmrcTrackingConsentSnippet, new AssetsConfig()),
-    hmrcLanguageSelectHelper,
     hmrcScripts,
     govukBackLink,
     new GovukExitThisPage(govukButton),

@@ -2,7 +2,7 @@
 a.cca-icon {
   margin-left: 5px;
   text-align: center;
-  background-color: $govuk-link-colour;
+  background-color: govuk-colour("blue", "shade-10");
   border-radius: 50%;
   width: 25px;
   height: 25px;
@@ -10,21 +10,22 @@ a.cca-icon {
   font-style: normal;
   text-decoration: none;
   &:hover {
-    background-color: $govuk-link-hover-colour;
+    background-color: govuk-colour("blue", "shade-50");
   }
   &:focus {
-    background-color: $govuk-focus-colour;
+    background-color: govuk-colour("yellow");
     outline: 3px solid govuk-colour("black");
     box-shadow: none;
     &:before {
-      color: $govuk-focus-text-colour;
+      color: govuk-colour("black");
     }
   }
   &:before {
     color: govuk-colour("white");
-    font-weight: $govuk-font-weight-bold;
+    font-weight: 700;
   }
-  @include govuk-media-query($until: tablet) {
+  // equivalent to govuk-media-query($until: tablet)
+  @media (max-width: 40.0525em) {
     width: 20px;
     height: 20px;
   }

@@ -261,14 +261,14 @@ trait VoaPropertyLinkingSpec
 
   def verifyLoggedIn(html: Document, pageTitle: String): Unit = {
     html.title shouldBe pageTitle
-    html.getElementById("home-link").text() shouldBe "Home"
-    html.getElementById("sign-out-link").text() shouldBe "Sign out"
+    html.select("#navigation > li:nth-child(1) > a").text() shouldBe "Home"
+    html.select("""a[href*="sign-out-feedback"]""").text() shouldBe "Sign out"
   }
 
   def verifyNotLoggedIn(html: Document, pageTitle: String): Unit = {
     html.title shouldBe pageTitle
-    html.getElementById("login-link").text() shouldBe "Login"
-    html.getElementById("register-link").text() shouldBe "Register"
+    html.select("#navigation > li:nth-child(1) > a").text() shouldBe "Login"
+    html.select("#navigation > li:nth-child(2) > a").text() shouldBe "Register"
   }
 
   def verifyUnassignedPrivilegesDisplayed(html: Document, isWelsh: Boolean = false) =

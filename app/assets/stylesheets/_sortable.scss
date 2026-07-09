@@ -34,14 +34,14 @@ th a{
 }
 
 [aria-sort] a:hover {
-  color: $govuk-link-colour;
+  color: govuk-colour("blue", "shade-10");
   text-decoration-thickness: 3px;
 }
 
 [aria-sort] a:focus {
-  background-color: $govuk-focus-colour;
-  color: $govuk-focus-text-colour;
-  box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+  background-color: govuk-colour("yellow");
+  color: govuk-colour("black");
+  box-shadow: 0 -2px govuk-colour("yellow"), 0 4px govuk-colour("black");
   outline: none;
   text-decoration: none;
 }
