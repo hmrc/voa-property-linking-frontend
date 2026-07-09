@@ -1,41 +1,47 @@
 
 a.cca-icon {
   margin-left: 5px;
-  text-align: center;
-  background-color: govuk-colour("blue", "shade-10");
+  background-color: var(--govuk-brand-colour);
   border-radius: 50%;
   width: 25px;
   height: 25px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-style: normal;
   text-decoration: none;
+  vertical-align: middle;
   &:hover {
-    background-color: govuk-colour("blue", "shade-50");
+    background-color: var(--govuk-link-hover-colour);
   }
   &:focus {
-    background-color: govuk-colour("yellow");
-    outline: 3px solid govuk-colour("black");
+    background-color: var(--govuk-focus-colour);
+    outline: 3px solid var(--govuk-focus-text-colour);
     box-shadow: none;
     &:before {
-      color: govuk-colour("black");
+      color: var(--govuk-focus-text-colour);
     }
   }
   &:before {
-    color: govuk-colour("white");
+    color: var(--govuk-body-background-colour);
     font-weight: 700;
+    font-size: 1.1875rem;
+    line-height: 1;
   }
-  // equivalent to govuk-media-query($until: tablet)
   @media (max-width: 40.0525em) {
     width: 20px;
     height: 20px;
+    &:before {
+      font-size: 0.875rem;
+    }
   }
 }
 
-br + a.cca-icon {
+br + .cca-icon {
   margin-left: 0;
 }
 
-a.cca-icon__help {
+.cca-icon__help {
   &:before {
     content:'?';
   }

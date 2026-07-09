@@ -172,7 +172,6 @@ class UploadControllerISpec extends ISpecBase {
   val fileUploadComponentLocator = "choose-file"
   val evidenceLocator = "#main-content > div > div > dl > div > dt"
   val fileNameLocator = "#main-content > div > div > dl > div > dd.govuk-summary-list__value"
-  val removeFileLocator = "#remove-file"
   val continueButtonLocator = "#continue"
   val errorSummaryTitleLocator = "#main-content > div > div > div.govuk-error-summary > div > h2"
   val errorSummaryMessageLocator = "#main-content > div > div > div.govuk-error-summary > div > div > ul > li > a"
