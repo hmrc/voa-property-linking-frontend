@@ -241,6 +241,36 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     )
   }
 
+  "cannot raise challenge page" should "show the message mapped from the reasonCode, not the raw Modernised reason" in new CanChallengeSetup {
+
+    val testCanChallengeResponse =
+      canChallengeResponse.copy(result = false, reasonCode = Some("C0"), reason = Some("RAW-MODERNISED-TEXT"))
+
+    when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(Some(testCanChallengeResponse)))
+
+    val result = resultCanChallenge(true)
+
+    status(result) shouldBe OK
+    contentAsString(result)      should include("You cannot raise a Challenge on a cancelled Check case.")
+    contentAsString(result) should not include "RAW-MODERNISED-TEXT"
+  }
+
+  "cannot raise challenge page" should "fall back to the Modernised reason when the reasonCode has no matching message" in new CanChallengeSetup {
+
+    val testCanChallengeResponse =
+      canChallengeResponse.copy(result = false, reasonCode = Some("C99"), reason = Some("Fallback reason 123"))
+
+    when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(Some(testCanChallengeResponse)))
+
+    val result = resultCanChallenge(true)
+
+    status(result) shouldBe OK
+    contentAsString(result)      should include("Fallback reason 123")
+    contentAsString(result) should not include "cannotRaiseChallenge.reason.C99"
+  }
+
   "current valuation" should "return 200 OK and have the correct caption" in new Setup {
 
     val ownerAssessments = assessments.copy(assessments = Seq(apiAssessment(ownerAuthorisation)))

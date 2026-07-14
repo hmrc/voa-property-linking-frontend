@@ -1025,6 +1025,14 @@ requestValuation.future.help.help.link.3=Estimate what this property’s busines
 requestValuation.future.help.help.link.4=Business rates relief
 
 cannotRaiseChallenge.title=You cannot challenge this valuation
+cannotRaiseChallenge.reason.C0=You cannot raise a Challenge on a cancelled Check case.
+cannotRaiseChallenge.reason.C6=The Check case hasn’t been completed - you have to wait until 12 months have passed since the Check case was submitted.
+cannotRaiseChallenge.reason.C9=You cannot raise a Challenge case as it has been more than 4 months since the Check Decision notice was sent or the check case was Deemed Complete.
+cannotRaiseChallenge.reason.C10A=You cannot raise a Challenge case as it has been more than 16 months since the Check was submitted.
+cannotRaiseChallenge.reason.C11=You cannot send a Challenge case for valuations on the 2023 rating list before 1 April 2023.
+cannotRaiseChallenge.reason.C12=You cannot send a Challenge case about a change in the local area or a change to the property details for valuations on this rating list if the Check case was not sent from the same rating list.
+cannotRaiseChallenge.reason.C13=You cannot send a Challenge case for this grounds for valuations on the 2017 rating list if the Check case was sent from the 2023 rating list.
+cannotRaiseChallenge.reason.C14=You may still be eligible to raise a Challenge, depending on further information you supply.
 
 property.details.checkcases.p=You can no longer tell us about a change to the property details for valuations in the 2017 rating list period by starting a Check case.
 property.details.checkcases.table.1=Check reference

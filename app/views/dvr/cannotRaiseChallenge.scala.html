@@ -22,6 +22,15 @@
 
 @(model: CanChallengeResponse, address: String, localAuth: String, homePageUrl: String, authorisationId: Long, backLinkUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
+@challengeReason = @{
+    model.reasonCode
+      .map(code => s"cannotRaiseChallenge.reason.${code.toUpperCase}")
+      .filter(key => messages.isDefinedAt(key))
+      .map(key => messages(key))
+      .orElse(model.reason)
+      .getOrElse("")
+}
+
 @layout(
     pageTitle = messages("cannotRaiseChallenge.title"),
     backUri = Some(backLinkUrl)
@@ -31,7 +40,7 @@
     <div id="cannot-raise-challenge">
         <h1 class="govuk-heading-l">@messages("cannotRaiseChallenge.title")</h1>
 
-        <p class="govuk-body">@model.reason.getOrElse("")</p>
+        <p class="govuk-body" id="reason">@challengeReason</p>
         <p class="govuk-body"> @Html(messages("property.dvr.challenge.error", s"""<a class="govuk-link" href="${config.businessRatesValuationFrontendUrl(s"property-link/valuations/startChallenge?backLinkUrl=$backLinkUrl")}">${messages("property.dvr.challenge.error.link")}</a>"""))</p>
 
 

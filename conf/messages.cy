@@ -892,6 +892,14 @@ requestValuation.future.help.help.link.3=Amcangyfrif beth all bil ardrethi busne
 requestValuation.future.help.help.link.4=Rhyddhad Ardrethi Busnesau
 
 cannotRaiseChallenge.title=Nid oes modd I chi herio’r prisiad hwn
+cannotRaiseChallenge.reason.C0=Ni allwch godi Her ar achos Gwirio sydd eisoes wedi’i ganslo.
+cannotRaiseChallenge.reason.C6=Nid yw’r achos Gwirio wedi’i gwblhau - mae’n rhaid i chi aros nes bod 12 mis wedi mynd heibio ers i’r achos Gwirio gael ei gyflwyno.
+cannotRaiseChallenge.reason.C9=Ni allwch godi achos Herio gan fod mwy na 4 mis wedi mynd heibio ers i’r hysbysiad Penderfyniad Gwiriad gael ei anfon, neu bod yr achos Gwirio wedi’i Bennu’n Gyflawn.
+cannotRaiseChallenge.reason.C10A=Ni allwch godi achos Herio gan fod mwy nag 16 mis wedi pasio ers cyflwyno’r Gwiriad.
+cannotRaiseChallenge.reason.C11=Ni allwch anfon achos Herio ar gyfer prisiadau ar restr ardrethu 2023 cyn 1 Ebrill 2023.
+cannotRaiseChallenge.reason.C12=Ni allwch anfon achos Herio ynghylch newid yn yr ardal leol neu newid i fanylion yr eiddo ar gyfer prisiadau ar y rhestr ardrethu hon os na anfonwyd yr achos Gwirio o’r un rhestr ardrethu.
+cannotRaiseChallenge.reason.C13=Ni allwch anfon achos Herio ar y seiliau hyn ar gyfer prisiadau ar restr ardrethu 2017 os anfonwyd yr achos Gwirio o restr ardrethu 2023.
+cannotRaiseChallenge.reason.C14=Efallai byddwch dal yn gymwys i godi Her yn ddibynol ar yr wybodaeth bellach a ddarperir gennych.
 
 property.details.checkcases.p=Ni allwch ddweud wrthym bellach am newid i fanylion yr eiddo ar gyfer prisiadau yng nghyfnod rhestr ardrethu 2017 trwy ddechrau achos Gwirio.
 property.details.checkcases.table.1=Cyfeirnod y Gwiriad
