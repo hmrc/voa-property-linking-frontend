@@ -252,7 +252,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = resultCanChallenge(true)
 
     status(result) shouldBe OK
-    contentAsString(result)      should include("You cannot raise a Challenge on a cancelled Check case.")
+    contentAsString(result) should include("You cannot raise a Challenge on a cancelled Check case.")
     contentAsString(result) should not include "RAW-MODERNISED-TEXT"
   }
 
@@ -267,7 +267,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     val result = resultCanChallenge(true)
 
     status(result) shouldBe OK
-    contentAsString(result)      should include("Fallback reason 123")
+    contentAsString(result) should include("Fallback reason 123")
     contentAsString(result) should not include "cannotRaiseChallenge.reason.C99"
   }
 
