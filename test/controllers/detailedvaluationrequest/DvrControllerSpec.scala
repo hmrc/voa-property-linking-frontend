@@ -127,7 +127,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     when(mockVmvConnector.getPropertyHistory(any())(any()))
       .thenReturn(Future.successful(testPropertyHistory))
 
-    def resultCanChallenge(isOwner: Boolean) =
+    def resultCanChallenge(isOwner: Boolean, req: FakeRequest[AnyContentAsEmpty.type] = request) =
       controller.canChallenge(
         plSubmissionId = plSubmissionId,
         assessmentRef = assessmentRef,
@@ -136,7 +136,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
         uarn = uarn,
         isOwner = isOwner,
         listYear = listYear
-      )(request)
+      )(req)
   }
 
   "can Challenge for IP" should "redirect to challenge advice page when canChallenge return None" in new CanChallengeSetup {
@@ -269,6 +269,36 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
     status(result) shouldBe OK
     contentAsString(result) should include("Fallback reason 123")
     contentAsString(result) should not include "cannotRaiseChallenge.reason.C99"
+  }
+
+  "Welsh cannot raise challenge page" should "show the Welsh message mapped from the reasonCode" in new CanChallengeSetup {
+
+    val testCanChallengeResponse =
+      canChallengeResponse.copy(result = false, reasonCode = Some("C0"), reason = Some("RAW-MODERNISED-TEXT"))
+
+    when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(Some(testCanChallengeResponse)))
+
+    val result = resultCanChallenge(true, welshFakeRequest)
+
+    status(result) shouldBe OK
+    contentAsString(result) should include("Ni allwch godi Her ar achos Gwirio sydd eisoes wedi’i ganslo.")
+    contentAsString(result) should not include "RAW-MODERNISED-TEXT"
+  }
+
+  "cannot raise challenge page" should "show the message mapped from the reasonCode when reasonCode is lowercase" in new CanChallengeSetup {
+
+    val testCanChallengeResponse =
+      canChallengeResponse.copy(result = false, reasonCode = Some("c0"), reason = Some("RAW-MODERNISED-TEXT"))
+
+    when(mockPropertyLinkConnector.canChallenge(any(), any(), any(), any())(any()))
+      .thenReturn(Future.successful(Some(testCanChallengeResponse)))
+
+    val result = resultCanChallenge(true)
+
+    status(result) shouldBe OK
+    contentAsString(result) should include("You cannot raise a Challenge on a cancelled Check case.")
+    contentAsString(result) should not include "RAW-MODERNISED-TEXT"
   }
 
   "current valuation" should "return 200 OK and have the correct caption" in new Setup {
