@@ -23,7 +23,7 @@
 
        function submitEvidenceType(evidenceType){
                     if (evidenceType !== "") {
-                        var csrfToken = $("#uploadForm input[name='csrfToken']").val();
+                        var csrfToken = $("input[name='csrfToken']").val();
                         clearErrors("evidenceType");
                         $.ajax({
                             url: $("#updateEvidenceTypeURL").text(),
