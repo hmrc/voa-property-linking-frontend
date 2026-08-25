@@ -68,18 +68,6 @@
     <p class="govuk-body">@Html(messages("getHelpContent.2", """<a href="mailto:ccaservicevo@hmrc.gov.uk" class="govuk-link">ccaservicevo@hmrc.gov.uk</a>"""))</p>
 }
 
-@mainContent = {
-        <div class="@mainClass.map(_.value).getOrElse(MainClass.TwoThirds.value)">
-            @content
-            @govukDetails(
-                Details(
-                    summary = Text(messages("getHelpLink")),
-                    content = HtmlContent(helpContent),
-                    id = Some("report-a-problem")
-                )
-            )
-        </div>
-}
 
 @bannerHtml(content: String, secondContent: Option[String]) = {
     <p class="govuk-notification-banner__heading">@Html(content)</p>
@@ -107,6 +95,20 @@
             content = HtmlContent(bannerHtml(content, secondBannerContent))
         ))
     }
+}
+
+@mainContent = {
+    @banner
+    <div class="@mainClass.map(_.value).getOrElse(MainClass.TwoThirds.value)">
+        @content
+            @govukDetails(
+                Details(
+                    summary = Text(messages("getHelpLink")),
+                    content = HtmlContent(helpContent),
+                    id = Some("report-a-problem")
+                )
+            )
+    </div>
 }
 
 @title = @{
