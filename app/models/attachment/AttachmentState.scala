@@ -54,7 +54,7 @@ object AttachmentState {
         case JsString("UploadingScanResults")      => JsSuccess(UploadingScanResults)
         case JsString("UploadScanResultsFailed")   => JsSuccess(UploadScanResultsFailed)
         case JsString("UploadScanResultsComplete") => JsSuccess(UploadScanResultsComplete)
-        case _                                     => JsError("Invalid AttachmentState")
+        case _                                     => JsError(s"Invalid AttachmentState: ${Json.stringify(json)}")
       }
 
     override def writes(o: AttachmentState): JsValue =
