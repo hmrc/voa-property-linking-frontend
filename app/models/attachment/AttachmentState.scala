@@ -26,6 +26,7 @@ case object ScanPending extends AttachmentState
 case object ScanReceived extends AttachmentState
 case object MetadataPending extends AttachmentState
 case object MetadataReceived extends AttachmentState
+case object ObjectStorePending extends AttachmentState
 case object UploadPending extends AttachmentState
 case object Uploading extends AttachmentState
 case object UploadAttachmentFailed extends AttachmentState
@@ -45,6 +46,7 @@ object AttachmentState {
         case JsString("ScanReceived")              => JsSuccess(ScanReceived)
         case JsString("MetadataPending")           => JsSuccess(MetadataPending)
         case JsString("MetadataReceived")          => JsSuccess(MetadataReceived)
+        case JsString("ObjectStorePending")        => JsSuccess(ObjectStorePending)
         case JsString("UploadPending")             => JsSuccess(UploadPending)
         case JsString("Uploading")                 => JsSuccess(Uploading)
         case JsString("UploadAttachmentFailed")    => JsSuccess(UploadAttachmentFailed)
@@ -52,7 +54,7 @@ object AttachmentState {
         case JsString("UploadingScanResults")      => JsSuccess(UploadingScanResults)
         case JsString("UploadScanResultsFailed")   => JsSuccess(UploadScanResultsFailed)
         case JsString("UploadScanResultsComplete") => JsSuccess(UploadScanResultsComplete)
-        case _                                     => JsError("Invalid AttachmentState")
+        case _                                     => JsError(s"Invalid AttachmentState: ${Json.stringify(json)}")
       }
 
     override def writes(o: AttachmentState): JsValue =
@@ -64,6 +66,7 @@ object AttachmentState {
         case ScanReceived              => JsString("ScanReceived")
         case MetadataPending           => JsString("MetadataPending")
         case MetadataReceived          => JsString("MetadataReceived")
+        case ObjectStorePending        => JsString("ObjectStorePending")
         case UploadPending             => JsString("UploadPending")
         case Uploading                 => JsString("Uploading")
         case UploadAttachmentFailed    => JsString("UploadAttachmentFailed")
