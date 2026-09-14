@@ -275,7 +275,7 @@ propertyRepresentation.isThisYourAgent.title=Ai’ch asiant chi yw hwn?
 propertyRepresentation.isThisYourAgent.yes=Iawn
 propertyRepresentation.isThisYourAgent.no=Na, nodwch god newydd
 
-propertyRepresentation.onePropertyNoExistingAgent.question=Ydych chi am neilltuo {0} i'ch eiddo?
+propertyRepresentation.onePropertyNoExistingAgent.question=Ydych chi am neilltuo {0} i’ch eiddo?
 
 propertyRepresentation.oneProperty.title=Pa un o’ch eiddo yr hoffech ei neilltuo i {0}?
 propertyRepresentation.oneProperty.options.yes=Ie
@@ -291,7 +291,7 @@ propertyRepresentation.multipleProperties.options.noProperties.hint=Ni fydd gan 
 
 propertyRepresentation.checkYourAnswers.title=Gwirio a chadarnhau eich manylion
 propertyRepresentation.checkYourAnswers.agent=Asiant
-propertyRepresentation.checkYourAnswers.properties=Pa eiddo ydych chi’n dymuno neilltuo i'r asiant hwn?
+propertyRepresentation.checkYourAnswers.properties=Pa eiddo ydych chi’n dymuno neilltuo i’r asiant hwn?
 propertyRepresentation.checkYourAnswers.ofProperties={0} o {1} eiddo
 propertyRepresentation.checkYourAnswers.yourProperty=Eich eiddo
 propertyRepresentation.checkYourAnswers.options.all=Pob eiddo
@@ -627,7 +627,7 @@ declareCapacity.details.ownerOrOccupier=Rwy’n berchen neu’n meddiannu rhan o
 declareCapacity.details.ownerOrOccupier.text=Ar ôl i’r Swyddfa Brisio gymeradwyo’ch cysylltiad, efallai y byddwch am ofyn iddynt rannu’r eiddo er mwyn cael prisiad ar wahân ar gyfer pob rhan.
 declareCapacity.details.notOwner=Nid fi sy’n berchen ar yr eiddo ond rwy’n ei isosod i rywun arall
 declareCapacity.details.notOwner.text.1=Os ydych yn isosod yr eiddo i berson neu fusnes arall, dewiswch ’Perchennog’ a nodi’r dyddiadau neu’r cyfnod isosod.
-declareCapacity.details.notOwner.text.2=Os mai rhan o’r eiddo rydych yn ei is-osod yn unig, efallai y byddwch am ofyn i'r Swyddfa Brisio rannu’r eiddo er mwyn cael prisiad ar wahân ar gyfer pob rhan. Gallwch wneud hyn ar ôl i’r VO gymeradwyo eich cysylltiad â’r eiddo.
+declareCapacity.details.notOwner.text.2=Os mai rhan o’r eiddo rydych yn ei is-osod yn unig, efallai y byddwch am ofyn i’r Swyddfa Brisio rannu’r eiddo er mwyn cael prisiad ar wahân ar gyfer pob rhan. Gallwch wneud hyn ar ôl i’r VO gymeradwyo eich cysylltiad â’r eiddo.
 declareCapacity.details.ownerOrOccupier.client=Fy nghleient sydd berchen ar neu’n meddiannu rhan o’r eiddo hwn
 declareCapacity.details.ownerOrOccupier.text.1.client=Gallwch barhau i ychwanegu’r eiddo hwn ar ran eich cleient, fel pe baent yn berchen neu’n meddiannu’r eiddo cyfan.
 declareCapacity.details.ownerOrOccupier.text.2.client=Ar ôl i ni gymeradwyo cysylltiad eich cleient â’r eiddo, gallwch ofyn i ni rannu’r eiddo i gael prisiadau ar wahân ar gyfer pob rhan.
@@ -806,7 +806,7 @@ auto.requestDetailedValuation.change.challenge.link=ddechrau achos Herio
 auto.requestDetailedValuation.change.challenge.postLink=Mae’n rhaid i chi gwblhau achos Gwirio cyn danfon achos i Herio.
 
 requestDetailedValuation.heading.challenge=Wedi cwblhau gwiriad yn barod?
-requestDetailedValuation.challenge.p=Unwaith y byddwch wedi cwblhau gwiriad, bydd y VO yn cysylltu â chi gyda’r canlyniad. Os byddwch yn anghytuno â chanlyniad y gwiriad, neu eich bod chi'n meddwl bod gwerth ardrethol eich eiddo yn anghywir, gallwch roi gwybod i ni. Gelwir hyn yn her. (Ni allwch ddechrau arni gyda her hyd nes eich bod wedi cael canlyniad eich gwiriad)
+requestDetailedValuation.challenge.p=Unwaith y byddwch wedi cwblhau gwiriad, bydd y VO yn cysylltu â chi gyda’r canlyniad. Os byddwch yn anghytuno â chanlyniad y gwiriad, neu eich bod chi’n meddwl bod gwerth ardrethol eich eiddo yn anghywir, gallwch roi gwybod i ni. Gelwir hyn yn her. (Ni allwch ddechrau arni gyda her hyd nes eich bod wedi cael canlyniad eich gwiriad)
 
 auto.requestDetailedValuation.challenge.start=Herio’r prisiad hwn
 
@@ -833,7 +833,7 @@ available.requestvaluation.nonDraft.check.p1=Os yw manylion yr eiddo yn anghywir
 available.requestvaluation.nonDraft.check.p1.draftListEnabled=Os yw manylion yr eiddo yn anghywir, neu os ydych yn credu bod y gwerth ardrethol yn anghywir, mae’n rhaid i chi gwblhau ffurflen achos Gwirio. Bydd unrhyw newidiadau yn cael ei gario ymlaen i’r prisiad yn y dyfodol.
 available.requestvaluation.nonDraft.check.link=Lawrlwythwch y ffurflen achos Gwirio
 available.requestvaluation.nonDraft.check.p2=Ar ôl cwblhau’r ffurflen, anfonwch hi atom fel rhan o achos Gwirio.
-available.requestvaluation.nonDraft.check.warning=Efallai bod rhai ffurflenni achos Gwirio hŷn yn dweud wrthych am e-bostio neu bostio eich ffurflen. Anwybyddwch hyn a defnyddiwch y botwm ''Anfon fy ffurflen achos Gwirio wedi’i chwblhau''  yn lle.
+available.requestvaluation.nonDraft.check.warning=Efallai bod rhai ffurflenni achos Gwirio hŷn yn dweud wrthych am e-bostio neu bostio eich ffurflen. Anwybyddwch hyn a defnyddiwch y botwm ‘Anfon fy ffurflen achos Gwirio wedi’i chwblhau’  yn lle.
 available.requestvaluation.nonDraft.check.button.send=Anfon fy ffurflen achos Gwirio wedi’i chwblhau
 
 available.requestvaluation.welsh.ccaEmail.preLink=Os ydych angen y prisiad hwn yn Gymraeg anfonwch e-bost i
@@ -843,8 +843,8 @@ available.requestvaluation.welsh.ccaEmail.valuationPeriod=({0} i {1})
 available.requestvaluation.startCheckTab.heading=Dechrau achos Gwirio
 available.requestvaluation.startCheckTab.new.guidance.link=Cymorth gyda gwirio manylion eich eiddo (yn agor tab newydd)
 available.requestvaluation.startCheckTab.guidance.summary=Cymorth gyda dechrau achos Gwirio
-available.requestvaluation.startCheckTab.guidance.content.p1=Anfonwch achos Gwirio i ddweud wrthym am newidiadau i fanylion yr eiddo. Efallai y byddwn yn derbyn eich newidiadau ac yn addasu'r gwerth ardrethol.
-available.requestvaluation.startCheckTab.guidance.content.p2=Os ydych yn meddwl bod y gwerth ardrethol yn rhy uchel ac nad oes angen newid manylion yr eiddo, mae’n dal yn rhaid i chi anfon achos Gwirio atom. Mae'r achos Gwirio yn cadarnhau bod gennym y manylion eiddo cywir. Pan fydd yr achos Gwirio wedi’i gwblhau, anfonwch achos Herio i ddweud wrthym eich bod yn meddwl bod y gwerth ardrethol yn rhy uchel.
+available.requestvaluation.startCheckTab.guidance.content.p1=Anfonwch achos Gwirio i ddweud wrthym am newidiadau i fanylion yr eiddo. Efallai y byddwn yn derbyn eich newidiadau ac yn addasu’r gwerth ardrethol.
+available.requestvaluation.startCheckTab.guidance.content.p2=Os ydych yn meddwl bod y gwerth ardrethol yn rhy uchel ac nad oes angen newid manylion yr eiddo, mae’n dal yn rhaid i chi anfon achos Gwirio atom. Mae’r achos Gwirio yn cadarnhau bod gennym y manylion eiddo cywir. Pan fydd yr achos Gwirio wedi’i gwblhau, anfonwch achos Herio i ddweud wrthym eich bod yn meddwl bod y gwerth ardrethol yn rhy uchel.
 available.requestvaluation.startCheckTab.guidance.content.p3=Efallai byddwn yn derbyn eich newidiadau ac yn addasu’r gwerth ardrethol.
 available.requestvaluation.startCheckTab.guidance.content.p4=Os ydych chi’n meddwl bod y gwerth ardrethol yn rhy uchel, gallwch anfon achos Herio atom.
 available.requestvaluation.startCheckTab.guidance.content.p5=Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio.

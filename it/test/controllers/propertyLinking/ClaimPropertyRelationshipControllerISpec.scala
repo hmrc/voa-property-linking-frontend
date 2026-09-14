@@ -94,7 +94,7 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val dontOwnOrOccupySummaryContentP1TextAgentWelsh =
     "Ystyrir mai eich cleient yw’r perchennog os ydynt yn isosod yr eiddo i berson neu fusnes arall. Nodwch y dyddiad dechreuodd yr isosod."
   val dontOwnOrOccupySummaryContentP2TextWelsh =
-    "Os mai rhan o’r eiddo rydych yn ei is-osod yn unig, efallai y byddwch am ofyn ir Swyddfa Brisio rannu’r eiddo er mwyn cael prisiad ar wahân ar gyfer pob rhan. Gallwch wneud hyn ar ôl i’r VO gymeradwyo eich cysylltiad â’r eiddo."
+    "Os mai rhan o’r eiddo rydych yn ei is-osod yn unig, efallai y byddwch am ofyn i’r Swyddfa Brisio rannu’r eiddo er mwyn cael prisiad ar wahân ar gyfer pob rhan. Gallwch wneud hyn ar ôl i’r VO gymeradwyo eich cysylltiad â’r eiddo."
   val dontOwnOrOccupySummaryContentP2TextAgentWelsh =
     "Os mai dim ond rhan o’r eiddo sy’n cael ei isosod, gallwch ofyn i ni rannu’r eiddo i gael prisiadau ar wahân ar gyfer pob rhan. Gallwch wneud hyn ar ôl i ni gymeradwyo cysylltiad eich cleient â’r eiddo."
   val whatIsYourConnectionTextWelsh = "Beth yw eich cysylltiad chi â’r eiddo?"

@@ -141,7 +141,7 @@ class ViewDvrValuationWelshEstimatorDisabledISpec extends ISpecBase {
   val downloadCheckFormTextWelsh = "Lawrlwythwch y ffurflen achos Gwirio"
   val afterCompletingTextWelsh = "Ar ôl cwblhau’r ffurflen, anfonwch hi atom fel rhan o achos Gwirio."
   val warningTextWelsh =
-    "Rhybudd Efallai bod rhai ffurflenni achos Gwirio hŷn yn dweud wrthych am e-bostio neu bostio eich ffurflen. Anwybyddwch hyn a defnyddiwch y botwm 'Anfon fy ffurflen achos Gwirio wedi’i chwblhau' yn lle."
+    "Rhybudd Efallai bod rhai ffurflenni achos Gwirio hŷn yn dweud wrthych am e-bostio neu bostio eich ffurflen. Anwybyddwch hyn a defnyddiwch y botwm ‘Anfon fy ffurflen achos Gwirio wedi’i chwblhau’ yn lle."
   val sendCompletedCheckFormTextWelsh = "Anfon fy ffurflen achos Gwirio wedi’i chwblhau"
   val printThisPageTextWelsh = "Argraffu’r dudalen hon"
 
