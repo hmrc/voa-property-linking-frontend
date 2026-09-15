@@ -74,7 +74,7 @@ class CheckYourAnswersControllerFEISpec extends ISpecBase {
   val ratingListAnswerTwoTextWelsh = "Rhestrau ardrethu 2023 a 2017"
   val ratingListAnswer2017TextWelsh = "Rhestr ardrethi 2017"
   val ratingListAnswer2023TextWelsh = "Rhestr ardrethi 2023"
-  val propertiesHeadingTextWelsh = "Pa eiddo ydych chi’n dymuno neilltuo ir asiant hwn?"
+  val propertiesHeadingTextWelsh = "Pa eiddo ydych chi’n dymuno neilltuo i’r asiant hwn?"
   val propertiesAnswerNoPropertiesTextWelsh = "Dim eiddo"
   val propertiesAnswerOnePropertyTextWelsh = "Eich eiddo"
   val propertiesAnswerAllPropertiesTextWelsh = "Pob eiddo"
