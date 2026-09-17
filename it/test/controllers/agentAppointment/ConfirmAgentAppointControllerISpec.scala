@@ -71,8 +71,8 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
     s"weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu $listYear, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
   val whatHappensNextTextWelsh = "Beth sy’n digwydd nesaf"
   val youCanAssignTextWelsh =
-    "Gallwch neilltuo’ch eiddo i’r asiant hwn neu dynnu’r asiant, neu newid y rhestrau ardrethu y gall weithredu arnynt ar eich rhan, drwy reoli eich asiantau"
-  val managingAgentsTextWelsh = "reoli eich asiantau"
+    "Gallwch neilltuo’ch eiddo i’r asiant hwn neu dynnu’r asiant, neu newid y rhestrau ardrethu y gall weithredu arnynt ar eich rhan, drwy reoli eich asiantiaid."
+  val managingAgentsTextWelsh = "reoli eich asiantiaid."
   val goToHomeTextWelsh = "Ewch i hafan eich cyfrif"
 
   val headingSelector = "h1"

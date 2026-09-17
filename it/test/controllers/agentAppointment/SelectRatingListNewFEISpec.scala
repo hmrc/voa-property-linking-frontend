@@ -66,7 +66,7 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
   val choosingTextWelsh =
     "Mae dewis rhestr ardrethu yn wahanol i neilltuo eiddo i asiant. Byddwch yn neilltuo eiddo ar ôl i chi ddewis rhestr ardrethu."
   val theRatingListTextWelsh =
-    "Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac maen nhw’n ychwanegu at eich cyfrif."
+    "Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei neilltuo iddynt ac maen nhw’n ychwanegu at eich cyfrif."
   val theAgentTextWelsh =
     "Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan."
   val selectAllTextWelsh = "Dewiswch bob un sy’n berthnasol."

@@ -454,7 +454,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     doc.title shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch eiddo - Y Swyddfa Brisio - GOV.UK"
     panel shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch eiddo"
     explainer shouldBe "Gall yr asiant weithredu ar eich rhan ar o’ch eiddo."
-    nextStepsContent shouldBe "Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
+    nextStepsContent shouldBe "Gallwch ddad-neilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
   }
 
   "confirmAssignAgentToAll" should "display dynamic content correctly in English when assigned to multiple properties" in new ConfirmAssignToAllTestCase
@@ -472,7 +472,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     doc.title shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch holl eiddo - Y Swyddfa Brisio - GOV.UK"
     panel shouldBe s"Mae ${appointedAgent.name} wedi’i neilltuo i’ch holl eiddo"
     explainer shouldBe "Gall yr asiant weithredu ar eich rhan ar gyfer pob un o’ch eiddo."
-    nextStepsContent shouldBe "Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
+    nextStepsContent shouldBe "Gallwch ddad-neilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
   }
 
   "unassignAgentFromAll" should "return 400 Bad Request when invalid form submitted" in {
@@ -500,7 +500,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     val html = HtmlPage(res)
     html.titleShouldMatch(
-      s"Ydych chi’n siŵr eich bod am ddadneilltuo $agentName o’ch holl eiddo? - Y Swyddfa Brisio - GOV.UK"
+      s"Ydych chi’n siŵr eich bod am ddad-neilltuo $agentName o’ch holl eiddo? - Y Swyddfa Brisio - GOV.UK"
     )
 
   }

@@ -58,8 +58,8 @@ class ConfirmRevokeAgentFromSomeISpec extends ISpecBase with HtmlComponentHelper
   val goHomeLinkText = "Go to your account home"
 
   val titleTextWelsh =
-    s"Mae $agentName wedi’i ddadneilltuo o’r eiddo a ddewiswyd gennych - Y Swyddfa Brisio - GOV.UK"
-  val headingTextWelsh = s"Mae $agentName wedi’i ddadneilltuo o’r eiddo a ddewiswyd gennych"
+    s"Mae $agentName wedi’i ddad-neilltuo o’r eiddo a ddewiswyd gennych - Y Swyddfa Brisio - GOV.UK"
+  val headingTextWelsh = s"Mae $agentName wedi’i ddad-neilltuo o’r eiddo a ddewiswyd gennych"
   val theAgentCanTextWelsh =
     "Ni all yr asiant weithredu ar eich rhan mwyach ar unrhyw un o’r eiddo a ddewiswyd gennych."
   val theAgentHasTextWelsh =

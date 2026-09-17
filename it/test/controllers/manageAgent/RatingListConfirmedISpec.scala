@@ -55,11 +55,11 @@ class RatingListConfirmedISpec extends ISpecBase with HtmlComponentHelpers {
     "Mae’r rhestrau ardrethu y gall Test Agent weithredu arnynt ar eich rhan wedi newid - Y Swyddfa Brisio - GOV.UK"
   val headerTextWelsh = "Mae’r rhestrau ardrethu y gall Test Agent weithredu arnynt ar eich rhan wedi newid"
   def thisAgentTextSingleWelsh(listYear: String) =
-    s"Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu $listYear, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
+    s"Gall yr asiant hwn gweithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu $listYear, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
   val thisAgentTextTwoWelsh =
-    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
+    "Gall yr asiant hwn gweithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
   val thisAgentTextThreeWelsh =
-    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026, 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
+    "Gall yr asiant hwn gweithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026, 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif"
   val whatHappensTextWelsh = "Yr hyn sy’n digwydd nesaf"
   val youCanTextWelsh =
     "Gallwch newid pa restrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan ar unrhyw adeg."

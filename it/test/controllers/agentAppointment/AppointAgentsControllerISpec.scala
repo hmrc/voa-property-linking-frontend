@@ -78,8 +78,8 @@ class AppointAgentsControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val showAllLinkWelsh = "Show all properties"
   val addressHeaderSortableWelsh = "Cyfeiriad"
   val appointedAgentsHeaderSortableWelsh = "Asiantiaid penodedig"
-  val continueButtonTextWelsh = "Yn eich blaen"
-  val selectWhichPropertiesErrorTextWelsh = "Dewiswch pa eiddo rydych chi am aseinio’r asiant hwn iddynt"
+  val continueButtonTextWelsh = "Parhau"
+  val selectWhichPropertiesErrorTextWelsh = "Dewiswch pa eiddo rydych chi am neilltuo’r asiant hwn iddynt"
   val youMustEnterSomethingErrorTextWelsh = "Mae’n rhaid i chi nodi rhywbeth i chwilio amdano"
 
   val headingLocator = "h1"

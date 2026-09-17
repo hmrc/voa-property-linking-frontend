@@ -65,10 +65,10 @@ class ManageAgentISpec extends ISpecBase with HtmlComponentHelpers {
 
   val radioAssignYourTextWelsh = "Neilltuo i’ch eiddo"
   val radioAssignAllTextWelsh = "Neilltuo i bob eiddo"
-  val radioAssignASomeTextWelsh = "Neilltuo un eiddo neu fwy iddo"
+  val radioAssignASomeTextWelsh = "Neilltuo i un eiddo neu fwy"
   val radioUnassignedAllTextWelsh = "Dad-neilltuo o’ch holl eiddo"
-  val radioUnassignedASomeTextWelsh = "Tynnu o un eiddo neu fwy"
-  val radioChangeTextWelsh = "Newid pa restr ardrethu y gall yr asiant hwn weithredu arni ar eich rhan"
+  val radioUnassignedASomeTextWelsh = "Dad-neilltuo o un eiddo neu fwy"
+  val radioChangeTextWelsh = "Newid pa restr ardrethu gallant weithredu arni ar eich rhan"
   val radioRemoveTextWelsh = "Dileu o’ch cyfrif"
   val radioUnAssignYourTextWelsh = "Tynnu o’m heiddo"
   val errorSpanWelsh = "Gwall: "

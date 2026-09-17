@@ -109,7 +109,7 @@ class RevokeAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     page.html
       .getElementById("question-text")
-      .text() shouldBe "O ba eiddo ydych chi am ddadneilltuo gg-ext-id?"
+      .text() shouldBe "O ba eiddo ycych chi am ddad-neilltuo gg-ext-id?"
     verifyUnassignedPrivilegesDisplayed(page.html, isWelsh = true)
 
   }
@@ -293,7 +293,7 @@ class RevokeAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
     status(res) shouldBe BAD_REQUEST
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainText("Dewiswch ba eiddo rydych chi am ddadaseinio’r asiant hwn oddi wrthynt")
+    page.shouldContainText("Dewiswch ba eiddo rydych chi am ddad-neilltuo’r asiant hwn oddi wrthynt")
     verifyPageErrorTitle(page, isWelsh = true)
   }
 
@@ -350,7 +350,7 @@ class RevokeAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
   private def verifyPageErrorTitle(page: HtmlPage, isWelsh: Boolean = false) =
     if (isWelsh)
       page.titleShouldMatch(
-        s"Gwall: O ba eiddo ydych chi am ddadneilltuo $ggExternalId? - Y Swyddfa Brisio - GOV.UK"
+        s"Gwall: O ba eiddo ycych chi am ddad-neilltuo $ggExternalId? - Y Swyddfa Brisio - GOV.UK"
       )
     else
       page.titleShouldMatch(
