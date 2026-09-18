@@ -70,9 +70,9 @@ class ShowUnassignFromAllISpec extends ISpecBase with HtmlComponentHelpers {
 
   val titleOnePropertyTextWelsh = "A hoffwch ddad-neilltuo Test Agent o’ch eiddo? - Y Swyddfa Brisio - GOV.UK"
   val titleMultiplePropertiesTextWelsh =
-    "Ydych chi’n siŵr eich bod am ddadneilltuo Test Agent o’ch holl eiddo? - Y Swyddfa Brisio - GOV.UK"
+    "Ydych chi’n siŵr eich bod am ddad-neilltuo Test Agent o’ch holl eiddo? - Y Swyddfa Brisio - GOV.UK"
   val headingOnePropertyTextWelsh = "A hoffwch ddad-neilltuo Test Agent o’ch eiddo?"
-  val headingMultiplePropertiesTextWelsh = "Ydych chi’n siŵr eich bod am ddadneilltuo Test Agent o’ch holl eiddo?"
+  val headingMultiplePropertiesTextWelsh = "Ydych chi’n siŵr eich bod am ddad-neilltuo Test Agent o’ch holl eiddo?"
   val captionTextWelsh = "Rheoli asiant"
   val paragraph1OnePropertyTextWelsh = "Ar gyfer eich eiddo, ni fydd yr asiant yn gallu:"
   val paragraph1MultiplePropertiesTextWelsh = "Ar gyfer eich holl eiddo, ni fydd yr asiant yn gallu:"
@@ -80,8 +80,8 @@ class ShowUnassignFromAllISpec extends ISpecBase with HtmlComponentHelpers {
   val bulletTwoTextWelsh = "gweld gohebiaeth achos Gwirio a Herio newydd, er enghraifft negeseuon ac e-byst"
   val bulletThreeTextWelsh = "gweld gwybodaeth eiddo fanwl"
   val warningTextWelsh =
-    "Rhybudd Mae dadneilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach."
-  val unassignButtonTextWelsh = "Cadarnhau a dadneilltuo"
+    "Rhybudd Mae dad-neilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach."
+  val unassignButtonTextWelsh = "Cadarnhau a dad-neilltuo"
   val cancelLinkTextWelsh = "Canslo"
   val cancelAndGoBackLinkTextWelsh = "Canslo a dychwelyd i’r hafan"
   val backLinkTextWelsh = "Yn ôl"

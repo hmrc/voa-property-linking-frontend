@@ -54,7 +54,7 @@ class YourAgentsISpec extends ISpecBase with HtmlComponentHelpers {
   val appointAgentLinkTextWelsh = "Penodi asiant"
   val helpWithAppointingLinkTextWelsh = "Help gyda phenodi a rheoli asiantau"
   val agentTableHeadingTextWelsh = "Asiant"
-  val ratingListTableHeadingTextWelsh = "Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan"
+  val ratingListTableHeadingTextWelsh = "Rhestrau ardrethu y gallant weithredu arnynt ar eich rhan"
   val assignedToTableHeadingTextWelsh = "Neilltuwyd i"
   val twoListYearsTextWelsh = "Rhestrau ardrethu 2023 a 2017"
   val threeListYearsTextWelsh = "Rhestrau ardrethu 2026, 2023, a 2017"

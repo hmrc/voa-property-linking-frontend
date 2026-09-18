@@ -59,13 +59,13 @@ class ManageAgentPropertiesISpec extends ISpecBase with HtmlComponentHelpers {
   val captionTextWelsh = "Asiant"
   val headerTextWelsh = "Test Agent"
   val manageButtonTextWelsh = "Rheoli’r asiant hwn"
-  val ratingListSectionHeadingTextWelsh = "Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan"
+  val ratingListSectionHeadingTextWelsh = "Rhestrau ardrethu y gallant weithredu arnynt ar eich rhan"
   val oneRatingListTextWelsh =
-    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu 2026, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif."
+    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu 2026, ac ar gyfer eiddo rydych wedi’i neilltuo iddynt, neu maent wedi’u hychwanegu at eich cyfrif."
   val twoRatingListTextWelsh =
-    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026 a 2023, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif."
+    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026 a 2023, ac ar gyfer eiddo rydych wedi’i neilltuo iddynt, neu maent wedi’u hychwanegu at eich cyfrif."
   val threeRatingListTextWelsh =
-    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026, 2023 a 2017, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif."
+    "Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026, 2023 a 2017, ac ar gyfer eiddo rydych wedi’i neilltuo iddynt, neu maent wedi’u hychwanegu at eich cyfrif."
   val assignedPropertiesHeadingTextWelsh = "Eiddo wedi’u neilltuo"
   val assignedToNoPropertiesTextWelsh = "Nid oes eiddo wedi’i neilltuo i’r asiant hwn."
 

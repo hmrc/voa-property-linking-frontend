@@ -180,7 +180,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       )
       .url
 
-    selectAll shouldBe "Dewiswch popeth"
+    selectAll shouldBe "Dewiswch bopeth"
     filterNoAgent.text shouldBe "Yn dangos eiddo heb unrhyw asiant yn unig"
     filterNoAgent.attr("href") shouldBe routes.AppointAgentController
       .getMyOrganisationPropertyLinksWithAgentFiltering(
@@ -214,7 +214,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
         fromManageAgentJourney = false
       )
       .url
-    confirmButton shouldBe "Yn eich blaen"
+    confirmButton shouldBe "Parhau"
   }
 
   it should "return 200 OK" in new UnfilteredResultsTestCase with English {
@@ -540,7 +540,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     panel shouldBe s"Mae ${agentAppointAction.name} wedi’i neilltuo i’r eiddo a ddewiswyd gennych"
     explainer shouldBe "Gall yr asiant weithredu ar eich rhan ar gyfer unrhyw un o’r eiddo a ddewiswyd gennych."
     nextStepsSubhead shouldBe "Beth sy’n digwydd nesaf"
-    nextStepsContent shouldBe "Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
+    nextStepsContent shouldBe "Gallwch ddad-neilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg."
     accountHomeLink.text shouldBe "Ewch i hafan eich cyfrif"
     accountHomeLink.attr("href") shouldBe applicationConfig.dashboardUrl("home")
   }
@@ -673,7 +673,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe BAD_REQUEST
 
     val page = HtmlPage(Jsoup.parse(contentAsString(res)))
-    page.shouldContainText("Dewiswch pa eiddo rydych chi am aseinio’r asiant hwn iddynt")
+    page.shouldContainText("Dewiswch pa eiddo rydych chi am neilltuo’r asiant hwn iddynt")
     verifyPageErrorTitleAssign(page, isWelsh = true)
 
     val secondForm = Jsoup.parse(contentAsString(res)).select("form").get(1) // Nested form
@@ -711,7 +711,7 @@ class AppointAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
   private def verifyPageErrorTitle(page: HtmlPage, isWelsh: Boolean = false) =
     if (isWelsh)
       page.titleShouldMatch(
-        s"Gwall: O ba eiddo ydych chi am ddadneilltuo $ggExternalId? - Y Swyddfa Brisio - GOV.UK"
+        s"Gwall: O ba eiddo ydych chi am ddad-neilltuo $ggExternalId? - Y Swyddfa Brisio - GOV.UK"
       )
     else
       page.titleShouldMatch(

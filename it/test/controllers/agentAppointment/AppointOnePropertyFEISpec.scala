@@ -55,7 +55,7 @@ class AppointOnePropertyFEISpec extends ISpecBase with HtmlComponentHelpers {
   val backLinkTextWelsh = "Yn ôl"
   val yesRadioTextWelsh = "Ie"
   val noRadioTextWelsh = "Na"
-  val continueButtonTextWelsh = "Yn eich blaen"
+  val continueButtonTextWelsh = "Parhau"
   val errorTitleTextWelsh =
     "Gwall: Pa un o’ch eiddo yr hoffech ei neilltuo i Test Agent? - Y Swyddfa Brisio - GOV.UK"
   val errorSummaryTitleTextWelsh = "Mae yna broblem"

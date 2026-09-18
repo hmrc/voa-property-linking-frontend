@@ -74,7 +74,7 @@ class AddAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar wi
     caption shouldBe "Penodi asiant"
     heading shouldBe "Beth yw cod eich asiant?"
     agentCodeHint shouldBe "Dyma’r rhif a roddir i’r asiant gan y Swyddfa Brisio."
-    continueButton shouldBe "Yn eich blaen"
+    continueButton shouldBe "Parhau"
   }
 
   "getAgentDetails" should "return 400 Bad Request when agentCode is not provided" in {

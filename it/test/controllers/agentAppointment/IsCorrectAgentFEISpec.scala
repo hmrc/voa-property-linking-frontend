@@ -51,9 +51,9 @@ class IsCorrectAgentFEISpec extends ISpecBase with HtmlComponentHelpers {
   val backLinkTextWelsh = "Yn ôl"
   val headerTextWelsh = "Ai’ch asiant chi yw hwn?"
   val captionTextWelsh = "Penodi asiant"
-  val yesTextWelsh = "Iawn"
-  val noTextWelsh = "Na, nodwch god newydd"
-  val continueTextWelsh = "Yn eich blaen"
+  val yesTextWelsh = "Ie"
+  val noTextWelsh = "Na, rhowch god newydd"
+  val continueTextWelsh = "Parhau"
   val noSelectionErrorTextWelsh = "Dewiswch ie os mai hwn yw eich asiant"
   val errorTextWelsh = "Gwall:"
 

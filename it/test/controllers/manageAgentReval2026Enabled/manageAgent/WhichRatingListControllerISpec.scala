@@ -77,7 +77,7 @@ class WhichRatingListControllerISpec extends ISpecBase with HtmlComponentHelpers
   val currentlyThisTextThreeListYearsWelsh =
     "Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restrau ardrethu 2026, 2023 a 2017"
   val p1TextWelsh =
-    "Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac maen nhw’n ychwanegu at eich cyfrif."
+    "Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei neilltuo iddynt ac maen nhw’n ychwanegu at eich cyfrif."
   val p2TextWelsh =
     "Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan."
   val selectAllThatApplyTextWelsh = "Dewiswch bob un sy’n berthnasol."

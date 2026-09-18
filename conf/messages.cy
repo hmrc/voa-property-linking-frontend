@@ -241,7 +241,7 @@ assessments.no.valuation.available= Nid oes prisiadau ar gael ar gyfer yr eiddo 
 label.help=Cymorth gyda {0}
 
 #remove property
-propertyRepresentation.removeAgentProperties.title=O ba eiddo ydych chi am ddadneilltuo {0}?
+propertyRepresentation.removeAgentProperties.title=O ba eiddo ycych chi am ddad-neilltuo {0}?
 propertyRepresentation.removeAgentProperties.p1=Ar gyfer yr eiddo a ddewiswch, ni fydd yr asiant yn gallu:
 propertyRepresentation.removeAgentProperties.revoke=Tynnu penodiad yn ei ôl
 
@@ -252,28 +252,28 @@ propertyRepresentation.appointAgent.choosingAList=Mae dewis rhestr ardrethu yn w
 #New appoint agent journey
 #New appoint agent journey
 caption.appoint.agent=Penodi asiant
-propertyRepresentation.appointAgent.button.continue=Yn eich blaen
+propertyRepresentation.appointAgent.button.continue=Parhau
 
 propertyRepresentation.start.title=Penodi asiant i’ch cyfrif
-propertyRepresentation.start.theyCan.1=Pan fyddwch yn penodi asiant i’ch cyfrif, bydd yr asiant hwn yn gallu gweithredu ar eich rhan. Mae hyn yn golygu ei fod yn gallu:
+propertyRepresentation.start.theyCan.1=Pan fyddwch yn penodi asiant i’ch cyfrif, byddant yn gallu gweithredu ar eich rhan. Mae hyn yn golygu y byddant yn gallu:
 propertyRepresentation.start.theyCan.list.1=gweld gwybodaeth manwl am eiddo
 propertyRepresentation.start.theyCan.list.2=gweld gohebiaeth ynghylch achosion Gwirio a Herio, megis negeseuon ac e-byst
 propertyRepresentation.start.theyCan.list.3=anfon achosion Gwirio a Herio
 propertyRepresentation.start.theyCan.list.4=ychwanegu eich eiddo i’ch cyfrif
-propertyRepresentation.start.theyCan.2=Gall yr asiant weithredu ar eiddo rydych yn eu neilltuo iddo, ac ar eiddo y mae’n eu hychwanegu at eich cyfrif.
+propertyRepresentation.start.theyCan.2=Gall asiant weithredu ar eiddo rydych yn neilltuo iddynt, ac ar eiddo y maen nhw’n ychwanegu at eich cyfrif.
 propertyRepresentation.start.youCan.1=Gallwch wneud y canlynol:
 propertyRepresentation.start.youCan.list.1=penodi mwy nag un asiant i’ch cyfrif
 propertyRepresentation.start.youCan.list.2=neilltuo’ch eiddo i fwy nag un asiant
 propertyRepresentation.start.youCan.list.3=dewis pa restr ardrethu y gall asiant ei gweithredu ar eich rhan
-propertyRepresentation.start.help.link=Help gyda phenodi a rheoli asiantau
+propertyRepresentation.start.help.link=Help gyda phenodi a rheoli asiantiaid
 propertyRepresentation.start.startNow=Dechrau nawr
 
 propertyRepresentation.agentCode.title=Beth yw cod eich asiant?
 propertyRepresentation.agentCode.codeInput.hint=Dyma’r rhif a roddir i’r asiant gan y Swyddfa Brisio.
 
 propertyRepresentation.isThisYourAgent.title=Ai’ch asiant chi yw hwn?
-propertyRepresentation.isThisYourAgent.yes=Iawn
-propertyRepresentation.isThisYourAgent.no=Na, nodwch god newydd
+propertyRepresentation.isThisYourAgent.yes=Ie
+propertyRepresentation.isThisYourAgent.no=Na, rhowch god newydd
 
 propertyRepresentation.onePropertyNoExistingAgent.question=Ydych chi am neilltuo {0} i’ch eiddo?
 
@@ -282,9 +282,9 @@ propertyRepresentation.oneProperty.options.yes=Ie
 propertyRepresentation.oneProperty.options.no=Na
 
 propertyRepresentation.multipleProperties.title=Pa un o’ch eiddo yr hoffech ei neilltuo i {0}?
-propertyRepresentation.multipleProperties.options.all=Neilltuo pob eiddo iddo
-propertyRepresentation.multipleProperties.options.noProperties=Peidio â neilltuo unrhyw eiddo iddo
-propertyRepresentation.multipleProperties.options.oneOrMore=Neilltuo un eiddo neu fwy iddo
+propertyRepresentation.multipleProperties.options.all=Neilltuo i bob eiddo
+propertyRepresentation.multipleProperties.options.noProperties=Peidio â neilltuo i unrhyw eiddo
+propertyRepresentation.multipleProperties.options.oneOrMore=Neilltuo i un eiddo neu fwy
 propertyRepresentation.multipleProperties.options.all.hint=Bydd gan eich asiant fynediad i bob eiddo ar eich cyfrif
 propertyRepresentation.multipleProperties.options.oneOrMore.hint=Dim ond yr at yr eiddo a ddewiswch fydd gan eich asiant fynediad
 propertyRepresentation.multipleProperties.options.noProperties.hint=Ni fydd gan eich asiant fynediad i unrhyw eiddo ar eich cyfrif
@@ -319,7 +319,7 @@ propertyRepresentation.confirmation.secondBulletPoint.2026.2023=weithredu ar eic
 propertyRepresentation.confirmation.secondBulletPoint.2026.2017=weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2026 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
 propertyRepresentation.confirmation.secondBulletPoint.2023.2017=weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
 propertyRepresentation.confirmation.whatHappensNext.new.p1=Gallwch neilltuo’ch eiddo i’r asiant hwn neu dynnu’r asiant, neu newid y rhestrau ardrethu y gall weithredu arnynt ar eich rhan, drwy
-propertyRepresentation.confirmation.whatHappensNext.new.p1.link=reoli eich asiantau
+propertyRepresentation.confirmation.whatHappensNext.new.p1.link=reoli eich asiantiaid.
 
 error.propertyRepresentation.title=Mae yna broblem
 error.propertyRepresentation.unknownAgent=Does ddim asiant ar gyfer y cod asiant a ddarparwyd;
@@ -333,7 +333,7 @@ propertyRepresentation.showAgents.title=Eich asiantiaid
 propertyRepresentation.showAgents.appointNewAgent.link=Penodi asiant
 propertyRepresentation.noAgents=Does gennych chi ddim asiantiaid.
 propertyRepresentation.showAgents.help.link=Help gyda phenodi a rheoli asiantau
-propertyRepresentation.showAgents.label.rating=Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan
+propertyRepresentation.showAgents.label.rating=Rhestrau ardrethu y gallant weithredu arnynt ar eich rhan
 propertyRepresentation.showAgents.properties.assigned={0} o {1}
 propertyRepresentation.showAgents.viewAgent=Bwrw golwg dros asiant
 propertyRepresentation.showAgents.listYears.one=Rhestr ardrethu {0}
@@ -342,12 +342,12 @@ propertyRepresentation.showAgents.listYears.three=Rhestrau ardrethu {0}, {1}, a 
 
 
 propertyRepresentation.caption=Asiant
-propertyRepresentation.ratingLists.heading=Rhestrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan
-propertyRepresentation.ratingList.p.one=Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu {0}, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif.
-propertyRepresentation.ratingList.p.two=Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu {0} a {1}, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif.
-propertyRepresentation.ratingList.p.three=Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu {0}, {1} a {2}, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif.
+propertyRepresentation.ratingLists.heading=Rhestrau ardrethu y gallant weithredu arnynt ar eich rhan
+propertyRepresentation.ratingList.p.one=Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu {0}, ac ar gyfer eiddo rydych wedi’i neilltuo iddynt, neu maent wedi’u hychwanegu at eich cyfrif.
+propertyRepresentation.ratingList.p.two=Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu {0} a {1}, ac ar gyfer eiddo rydych wedi’i neilltuo iddynt, neu maent wedi’u hychwanegu at eich cyfrif.
+propertyRepresentation.ratingList.p.three=Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu {0}, {1} a {2}, ac ar gyfer eiddo rydych wedi’i neilltuo iddynt, neu maent wedi’u hychwanegu at eich cyfrif.
 propertyRepresentation.agentProperties.assigned.none=Nid oes eiddo wedi’i neilltuo i’r asiant hwn.
-propertyRepresentation.manageAgent.options.changeRatingList=Newid pa restr ardrethu y gall yr asiant hwn weithredu arni ar eich rhan
+propertyRepresentation.manageAgent.options.changeRatingList=Newid pa restr ardrethu gallant weithredu arni ar eich rhan
 
 propertyRepresentation.agentProperties.assigned.title=Eich asiant
 propertyRepresentation.agentProperties.assigned=Eiddo wedi’u neilltuo
@@ -378,17 +378,17 @@ propertyRepresentation.manageAgent.removeFromAccount.confirmation.p2=Os ydych am
 propertyRepresentation.manageAgent.unassignFromProperty.title=Asiant wedi ei ddad-neilltuo o’ch cyfrif
 propertyRepresentation.manageAgent.unassignFromProperty.question=A hoffwch ddad-neilltuo {0} o’ch eiddo?
 propertyRepresentation.manageAgent.unassignFromProperty.p1=Ar gyfer eich eiddo, ni fydd yr asiant yn gallu:
-propertyRepresentation.manageAgent.unassignFromProperty.confirm=Cadarnhau a dadneilltuo
+propertyRepresentation.manageAgent.unassignFromProperty.confirm=Cadarnhau a dad-neilltuo
 propertyRepresentation.manageAgent.unassignFromProperty.cancel=Canslo a dychwelyd i’r hafan
 
 propertyRepresentation.manageAgent.unassignFromProperties.li1=anfon neu barhau ag achosion Gwirio a Herio
 propertyRepresentation.manageAgent.unassignFromProperties.li2=gweld gohebiaeth achos Gwirio a Herio newydd, er enghraifft negeseuon ac e-byst
 propertyRepresentation.manageAgent.unassignFromProperties.li3=gweld gwybodaeth eiddo fanwl
-propertyRepresentation.manageAgent.unassignFromProperties.warningText=Mae dadneilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach.
-propertyRepresentation.manageAgent.unassignFromProperties.confirm=Cadarnhau a dadneilltuo
+propertyRepresentation.manageAgent.unassignFromProperties.warningText=Mae dad-neilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach.
+propertyRepresentation.manageAgent.unassignFromProperties.confirm=Cadarnhau a dad-neilltuo
 
-propertyRepresentation.manageAgent.options.unassignFromOneOrMoreProperties=Tynnu o un eiddo neu fwy
-propertyRepresentation.manageAgent.options.assignToOneOrMoreProperties=Neilltuo un eiddo neu fwy iddo
+propertyRepresentation.manageAgent.options.unassignFromOneOrMoreProperties=Dad-neilltuo o un eiddo neu fwy
+propertyRepresentation.manageAgent.options.assignToOneOrMoreProperties=Neilltuo i un eiddo neu fwy
 propertyRepresentation.manageAgent.options.assignToAllProperties=Neilltuo i bob eiddo
 propertyRepresentation.manageAgent.options.assignToSomeProperties=Neilltuo i ambell eiddo
 propertyRepresentation.manageAgent.options.unassignFromAllProperties=Dad-neilltuo o’ch holl eiddo
@@ -412,16 +412,16 @@ propertyRepresentation.manageAgent.assignToAllProperties.confirmation.title.sing
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.info.multiple=Gall yr asiant weithredu ar eich rhan ar gyfer pob un o’ch eiddo.
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.info.single=Gall yr asiant weithredu ar eich rhan ar o’ch eiddo.
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.subhead=Yr hyn sy’n digwydd nesaf
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.multiple=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
-propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.single=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.multiple=Gallwch ddad-neilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
+propertyRepresentation.manageAgent.assignToAllProperties.confirmation.next.content.single=Gallwch ddad-neilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
 propertyRepresentation.manageAgent.assignToAllProperties.confirmation.homeLink=Ewch i hafan eich cyfrif
 
-propertyRepresentation.manageAgent.unassignFromAllProperties.question=Ydych chi’n siŵr eich bod am ddadneilltuo {0} o’ch holl eiddo?
+propertyRepresentation.manageAgent.unassignFromAllProperties.question=Ydych chi’n siŵr eich bod am ddad-neilltuo {0} o’ch holl eiddo?
 propertyRepresentation.manageAgent.unassignFromAllProperties.p1=Ar gyfer eich holl eiddo, ni fydd yr asiant yn gallu:
 
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.multipleProperties=Mae’r asiant wedi’i ddad-neilltuo o’ch holl eiddo
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.title.singleProperty=Mae’r asiant wedi’i ddad-neilltuo o’ch eiddo
-propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.multipleProperties=Mae {0} wedi’i ddadneilltuo o’ch holl eiddo
+propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.multipleProperties=Mae {0} wedi’i ddad-neilltuo o’ch holl eiddo
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.singleProperty=Mae {0} wedi’i ddad-neilltuo o’ch eiddo
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.insetText=Nid yw’r asiant hwn wedi cael ei ddileu o’ch cyfrif.
 propertyRepresentation.manageAgent.unassignFromAllProperties.confirmation.youCanNow=Gallwch nawr:
@@ -445,16 +445,16 @@ propertyRepresentation.appointAgentProperties.list.2=gweld gohebiaeth achosion G
 propertyRepresentation.appointAgentProperties.list.3=anfon achosion Gwirio a Herio
 propertyRepresentation.appointAgentProperties.dropdown.single=Dewis o 1 asiant
 propertyRepresentation.appointAgentProperties.dropdown.multiple=Dewiswch o {0} o asiantiaid
-propertyRepresentation.appointAgentProperties.select=Dewiswch popeth
+propertyRepresentation.appointAgentProperties.select=Dewiswch bopeth
 propertyRepresentation.appointAgentProperties.deselect=Dad-ddewis popeth
 propertyRepresentation.th.ADDRESS=Cyfeiriad
 propertyRepresentation.th.AGENT=Asiantiaid penodedig
 propertyRepresentation.th.BAREF=Cyfeirnod yr awdurdod lleol
 propertyRepresentation.search.filter=Chwiliwch eich eiddo
-label.assign.linkIds=Dewiswch pa eiddo rydych chi am aseinio’r asiant hwn iddynt
-label.unassign.linkIds=Dewiswch ba eiddo rydych chi am ddadaseinio’r asiant hwn oddi wrthynt
+label.assign.linkIds=Dewiswch pa eiddo rydych chi am neilltuo’r asiant hwn iddynt
+label.unassign.linkIds=Dewiswch ba eiddo rydych chi am ddad-neilltuo’r asiant hwn oddi wrthynt
 propertyRepresentation.appointAgents.showPropertiesNoAgent.link=Yn dangos eiddo heb unrhyw asiant yn unig
-propertyRepresentation.appointAgents.showAllProperties.link=Dangos holl eiddo
+propertyRepresentation.appointAgents.showAllProperties.link=Dangos pob un eiddo
 label.propertyRepresentation.address=Cyfeiriad
 label.propertyRepresentation.appointedAgents=Asiant
 error.propertyRepresentation.appoint.filter=Mae’n rhaid i chi nodi rhywbeth i chwilio amdano
@@ -464,7 +464,7 @@ propertyRepresentation.appointAgent.agentCode=Cod yr asiant
 propertyRepresentation.appointAgent.button=Parhau
 
 #Remove agent summary
-propertyRepresentation.agentRemoveSummary.h1=Mae {0} wedi’i ddadneilltuo o’r eiddo a ddewiswyd gennych
+propertyRepresentation.agentRemoveSummary.h1=Mae {0} wedi’i ddad-neilltuo o’r eiddo a ddewiswyd gennych
 propertyRepresentation.agentRemoveSummary.p1=Ni all yr asiant weithredu ar eich rhan mwyach ar unrhyw un o’r eiddo a ddewiswyd gennych.
 propertyRepresentation.agentRemoveSummary.p2=Nid yw’r asiant wedi’i dynnu o’ch cyfrif. Gallant barhau i weithredu ar eich rhan os ydynt yn ychwanegu eiddo eraill at eich cyfrif.
 propertyRepresentation.agentRemoveSummary.whatHappens=Yr hyn sy’n digwydd nesaf
@@ -478,7 +478,7 @@ propertyRepresentation.revokeClient.button=Parhau
 propertyRepresentation.agentSummary.title=Mae {0} wedi’i neilltuo i’r eiddo a ddewiswyd gennych
 propertyRepresentation.agentSummary.explainer=Gall yr asiant weithredu ar eich rhan ar gyfer unrhyw un o’r eiddo a ddewiswyd gennych.
 propertyRepresentation.agentSummary.nextSteps.subhead=Beth sy’n digwydd nesaf
-propertyRepresentation.agentSummary.nextSteps.content=Gallwch ddadneilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
+propertyRepresentation.agentSummary.nextSteps.content=Gallwch ddad-neilltuo’r asiant hwn o’ch eiddo ar unrhyw adeg.
 propertyRepresentation.agentSummary.homeLink=Ewch i hafan eich cyfrif
 
 #Choose rating list years
@@ -506,7 +506,7 @@ chooseRatingList.youWantToChoose = Rydych am ddewis naill ai restr ardrethu 2023
 whichRatingList.header = Dewiswch restr ardrethu 2023 neu 2017
 whichRatingList.currentYears.single = Ar hyn o bryd, gall yr asiant hwn weithredu ar restr ardrethu {0} ar eich rhan
 whichRatingList.currentYears.multiple = Ar hyn o bryd, gall yr asiant hwn weithredu ar restrau ardrethu 2023 a 2017 ar eich rhan
-whichRatingList.theRatingList = Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac i’r rheiny maen nhw’n ychwanegu at eich cyfrif.
+whichRatingList.theRatingList = Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei neilltuo iddynt ac i’r rheiny maen nhw’n ychwanegu at eich cyfrif.
 whichRatingList.theAgentWill = Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan.
 whichRatingList.whichRatingList = Pa restr ardrethu yr hoffech i’r asiant hwn ei gweithredu ar eich rhan?
 whichRatingList.2023List = rhestr ardrethu 2023
@@ -522,7 +522,7 @@ whichRatingListNew.inset.text.one.listYear=Ar hyn o bryd gall yr asiant hwn weit
 whichRatingListNew.inset.text.two.listYears=Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restrau ardrethu {0} a {1}
 whichRatingListNew.inset.text.three.listYears=Ar hyn o bryd gall yr asiant hwn weithredu ar eich rhan ar restrau ardrethu 2026, 2023 a 2017
 
-whichRatingListNew.p1.text=Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac maen nhw’n ychwanegu at eich cyfrif.
+whichRatingListNew.p1.text=Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei neilltuo iddynt ac maen nhw’n ychwanegu at eich cyfrif.
 whichRatingListNew.p2.text=Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan.
 whichRatingListNew.checkbox.hint=Dewiswch bob un sy’n berthnasol.
 whichRatingListNew.2026.checkbox.hint=Ar gyfer prisiadau o 1 Ebrill 2026.
@@ -533,7 +533,7 @@ whichRatingListNew.error=Dewiswch pa restr ardrethu rydych chi am i’r asiant h
 #New Select rating list page
 selectRatingList.header = Dewiswch pa restr ardrethu y gall {0} weithredu arni ar eich rhan
 selectRatingList.choosingAList=Mae dewis rhestr ardrethu yn wahanol i neilltuo eiddo i asiant. Byddwch yn neilltuo eiddo ar ôl i chi ddewis rhestr ardrethu.
-selectRatingList.theRatingList = Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei aseinio iddynt ac maen nhw’n ychwanegu at eich cyfrif.
+selectRatingList.theRatingList = Bydd y rhestr ardrethu a ddewiswch ar gyfer yr asiant hwn yn berthnasol i’r holl eiddo rydych chi’n ei neilltuo iddynt ac maen nhw’n ychwanegu at eich cyfrif.
 selectRatingList.theAgentWill = Dim ond ar brisiadau ar y rhestr ardrethu a ddewiswch y bydd yr asiant yn gallu gweithredu ar eich rhan.
 selectRatingList.allThatApply = Dewiswch bob un sy’n berthnasol.
 selectRatingList.valuationsFrom2026 = Ar gyfer prisiadau o 1 Ebrill 2026.
@@ -560,10 +560,10 @@ ratingsListConfirmation.restricting = Bydd cyfyngu asiant i un rhestr ardrethu t
 
 #Rating list years confirmed screen
 ratingsListConfirmed.header = Mae’r rhestrau ardrethu y gall {0} weithredu arnynt ar eich rhan wedi newid
-ratingsListConfirmed.thisAgent.multiple = Gall yr asiant hwn weithredu ar eich rhan ar brisiadau eich eiddo o restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
-ratingsListConfirmed.thisAgent.multiple.three = Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu {0}, {1} a {2}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
-ratingsListConfirmed.thisAgent.multiple.two = Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu {0} a {1}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
-ratingsListConfirmed.thisAgent.single = Gall yr asiant hwn weithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu {0}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+ratingsListConfirmed.thisAgent.multiple = Gall yr asiant hwn gweithredu ar eich rhan ar brisiadau eich eiddo o restrau ardrethu 2023 a 2017, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+ratingsListConfirmed.thisAgent.multiple.three = Gall yr asiant hwn gweithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu {0}, {1} a {2}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+ratingsListConfirmed.thisAgent.multiple.two = Gall yr asiant hwn gweithredu ar eich rhan ar eich prisiadau eiddo ar restrau ardrethu {0} a {1}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
+ratingsListConfirmed.thisAgent.single = Gall yr asiant hwn gweithredu ar eich rhan ar eich prisiadau eiddo ar restr ardrethu {0}, ar gyfer eiddo rydych yn eu neilltuo iddo, ac ar gyfer eiddo y mae’n eu hychwanegu at eich cyfrif
 ratingsListConfirmed.whatHappens = Yr hyn sy’n digwydd nesaf
 ratingsListConfirmed.youCanChange = Gallwch newid pa restrau ardrethu y gall yr asiant hwn weithredu arnynt ar eich rhan ar unrhyw adeg.
 ratingsListConfirmed.goToYour = Ewch i hafan eich cyfrif

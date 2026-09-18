@@ -294,6 +294,6 @@ trait VoaPropertyLinkingSpec
     html.getElementById("unassigned-privilege-3").text() shouldBe "gweld gwybodaeth eiddo fanwl"
     html
       .getElementById("warning-text")
-      .text() shouldBe "! Rhybudd Mae dadneilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach."
+      .text() shouldBe "! Rhybudd Mae dad-neilltuo asiant sydd ag achosion Gwirio a Herio ar y gweill yn golygu na fydd yn gallu gweithredu arnynt ar eich rhan mwyach."
   }
 }

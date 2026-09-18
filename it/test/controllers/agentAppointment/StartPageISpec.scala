@@ -56,18 +56,18 @@ class StartPageISpec extends ISpecBase with HtmlComponentHelpers {
   val startButtonTextWelsh = "Dechrau nawr"
   val headerTextWelsh = "Penodi asiant i’ch cyfrif"
   val p1TextWelsh =
-    "Pan fyddwch yn penodi asiant i’ch cyfrif, bydd yr asiant hwn yn gallu gweithredu ar eich rhan. Mae hyn yn golygu ei fod yn gallu:"
+    "Pan fyddwch yn penodi asiant i’ch cyfrif, byddant yn gallu gweithredu ar eich rhan. Mae hyn yn golygu y byddant yn gallu:"
   val bullet1TextWelsh = "gweld gwybodaeth manwl am eiddo"
   val bullet2TextWelsh = "gweld gohebiaeth ynghylch achosion Gwirio a Herio, megis negeseuon ac e-byst"
   val bullet3TextWelsh = "anfon achosion Gwirio a Herio"
   val bullet4TextWelsh = "ychwanegu eich eiddo i’ch cyfrif"
   val p2TextWelsh =
-    "Gall yr asiant weithredu ar eiddo rydych yn eu neilltuo iddo, ac ar eiddo y mae’n eu hychwanegu at eich cyfrif."
+    "Gall asiant weithredu ar eiddo rydych yn neilltuo iddynt, ac ar eiddo y maen nhw’n ychwanegu at eich cyfrif."
   val bulletHeaderTextWelsh = "Gallwch wneud y canlynol:"
   val bullet5TextWelsh = "penodi mwy nag un asiant i’ch cyfrif"
   val bullet6TextWelsh = "neilltuo’ch eiddo i fwy nag un asiant"
   val bullet7TextWelsh = "dewis pa restr ardrethu y gall asiant ei gweithredu ar eich rhan"
-  val helpLinkTextWelsh = "Help gyda phenodi a rheoli asiantau"
+  val helpLinkTextWelsh = "Help gyda phenodi a rheoli asiantiaid"
 
   val backLinkSelector = "#back-link"
   val headerSelector = "#main-content > div > div > h1"

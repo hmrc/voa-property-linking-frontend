@@ -44,7 +44,7 @@ class AgentCodeISpec extends ISpecBase with HtmlComponentHelpers {
 
   val titleTextWelsh = "Beth yw cod eich asiant? - Y Swyddfa Brisio - GOV.UK"
   val backLinkTextWelsh = "Yn ôl"
-  val continueButtonTextWelsh = "Yn eich blaen"
+  val continueButtonTextWelsh = "Parhau"
   val captionTextWelsh = "Penodi asiant"
   val headerTextWelsh = "Beth yw cod eich asiant?"
   val hintTextWelsh = "Dyma’r rhif a roddir i’r asiant gan y Swyddfa Brisio."

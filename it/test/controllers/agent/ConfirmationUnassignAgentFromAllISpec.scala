@@ -62,9 +62,9 @@ class ConfirmationUnassignAgentFromAllISpec extends ISpecBase with HtmlComponent
   val goHomeLinkText = "Go to your account home"
 
   val titleMultiplePropertiesTextWelsh =
-    "Mae Test Agent wedi’i ddadneilltuo o’ch holl eiddo - Y Swyddfa Brisio - GOV.UK"
+    "Mae Test Agent wedi’i ddad-neilltuo o’ch holl eiddo - Y Swyddfa Brisio - GOV.UK"
   val titleOnePropertyTextWelsh = "Mae Test Agent wedi’i ddad-neilltuo o’ch eiddo - Y Swyddfa Brisio - GOV.UK"
-  val headingMultiplePropertiesTextWelsh = "Mae Test Agent wedi’i ddadneilltuo o’ch holl eiddo"
+  val headingMultiplePropertiesTextWelsh = "Mae Test Agent wedi’i ddad-neilltuo o’ch holl eiddo"
   val headingOnePropertyTextWelsh = "Mae Test Agent wedi’i ddad-neilltuo o’ch eiddo"
   val paragraphOneTextWelsh = "Ni all yr asiant weithredu ar eich rhan mwyach ar unrhyw un o’ch eiddo."
   val paragraphTwoTextWelsh =
