@@ -259,6 +259,7 @@ assessments.subtitle=Valuations for this property
 assessments.icon.help.valuationPeriod=Help with valuation
 assessments.icon.help.effectiveDate=Help with effective date
 assessments.selectValuation.to=to
+assessments.selectValuation.toPresent=to
 assessments.from.text=from
 assessments.aria.label.full=Select this valuation - {0} from {1} to {2}
 assessments.aria.label.partial=Select this valuation - {0} from {1}

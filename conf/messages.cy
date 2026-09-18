@@ -184,13 +184,13 @@ search.sort.page.size.view=Gweld
 search.sort.page.size.properties.per.page=eiddo fesul tudalen
 search.sort.showing=Yn dangos {0} i {1} o {2}
 
-property.dvr.challenge.error=Os ydych chi’n dal i feddwl bod gennych chi’r hawl i wneud Her,   bydd angen i chi {0}.
+property.dvr.challenge.error=Os ydych chi’n dal i feddwl bod gennych chi’r hawl i wneud Her, bydd angen i chi {0}.
 property.dvr.challenge.error.link=lawrlwytho a llenwi ffurflen Her (T012)
 
 assessments.table.caption=Prisiadau
 assessments.table.1=Prisiadau
 assessments.table.2=Dyddiad dod i rym
-assessments.table.3=Cysylltiad a r eiddo
+assessments.table.3=Cysylltiad a’r eiddo
 assessments.table.4=Gwerth ardrethol
 assessments.enddate.present=Presennol
 
@@ -204,6 +204,7 @@ assessments.historic.title=Prisiadau blaenorol
 assessments.aria.label.full=Dewiswch y prisiad hwn - {0} o {1} i {2}
 assessments.aria.label.partial=Dewiswch y prisiad hwn - {0} o {1}
 assessments.selectValuation.to=i
+assessments.selectValuation.toPresent=i’r
 assessments.from.text=o
 
 assessments.na.help.summary=Cymorth gyda gwerth ardrethol sydd ddim ar gael
@@ -224,7 +225,7 @@ assessments.na.help.fifth.sentence=Gall yr eiddo hefyd gael ei dynnu oddi ar y r
 assessments.na=Dim ar gael
 assessments.icon.help.valuationPeriod = Cymorth gyda Prisiadau
 assessments.caption.ip = Eich eiddo
-assessments.caption.agent = Eiddo‘r cleient: {0}
+assessments.caption.agent = Eiddo’r cleient: {0}
 assessments.icon.help.effectiveDate = Cymorth gyda Dyddiad dod i rym
 
 
@@ -782,18 +783,18 @@ declaration.iAgree=Rwy’n cytuno â’r datganiad uchod
 declaration.required=Rhaid i chi gytuno â’r datganiad er mwyn parhau
 declaration.file.receipt=Rhowch gynnig arall arni ymhen ychydig funudau.
 
-auto.requestDetailedValuation.smallTitle.yourProperty=Eich eidd
+auto.requestDetailedValuation.smallTitle.yourProperty=Eich eiddo
 auto.requestDetailedValuation.localCouncilRef=Cyfeirnod yr awdurdod lleol:
 auto.requestDetailedValuation.subhead.valuation=Prisiad
 auto.requestDetailedValuation.rv.caption.future=Gwerth ardrethol y dyfodol (o {0})
 auto.requestDetailedValuation.rv.caption.future.governmentSupport=Mae’r llywodraeth wedi cyflwyno pecyn cymorth gwerth £4.3 biliwn dros y tair blynedd nesaf i ddiogelu trethdalwyr rhag weld eu biliau’n cynyddu oherwydd yr ailbrisiad. Os ydych wedi derbyn Rhyddhad Ardrethi Busnesau Bach, Rhyddhad Ardrethi Gwledig, y cynllun Cefnogi Busnesau Bach neu’r rhyddhad ar gyfer Manwerthu, Lletygarwch a Hamdden yn y gorffennol, efallai y byddwch yn gymwys ar gyfer y cynllun Cefnogi Busnesau Bach, sy’n cyfyngu ar gynnydd yn eich bil. Gellir dod o hyd i ragor o fanylion {0}.
 auto.requestDetailedValuation.rv.caption.future.here=here
-auto.requestDetailedValuation.rv.caption.current=Gwerth ardrethol cyfredol ({0} i presennol)
+auto.requestDetailedValuation.rv.caption.current=Gwerth ardrethol cyfredol ({0} i’r presennol)
 auto.requestDetailedValuation.rv.caption.previous=Gwerth ardrethol blaenorol ({0} i {1})
 auto.requestDetailedValuation.rv.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 auto.requestDetailedValuation.rv.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 
-auto.requestDetailedValuation.subhead.valuationDetails=Manylion prisio
+auto.requestDetailedValuation.subhead.valuationDetails=Manylion y prisiad
 auto.requestDetailedValuation.request.howCalculated=I weld sut y gwnaethom gyfrifo’r gwerth ardrethol hwn, gwnewch gais am y prisiad manwl.
 auto.requestDetailedValuation.request.whenApproved=Bydd y prisiad manwl ar gael i’w lawrlwytho unwaith bydd eich cais wedi’i gymeradwyo.
 auto.requestDetailedValuation.request.button=Gwneud cais am y prisiad manwl
@@ -820,11 +821,11 @@ available.requestvaluation.checksTab.title=Gwiriadau ({0})
 available.requestvaluation.challengesTab.title=Heriau ({0})
 available.requestvaluation.downloadValuationButton=Lawrlwythwch y prisiad manwl
 available.requestvaluation.changeValuation=Os ydych eisiau newid rhywbeth yn y prisiad hwn
-available.requestvaluation.dvrCheck.startCheck=Anfon fy ffurflen Gwirio wedi’i chwblhau
-available.requestvaluation.p2=Cyn y gallwch gyflwyno Gwiriad, mae angen i chi {0}.
-available.requestvaluation.p2.link=lawrlwytho a chwblhau ffurflen Gwirio
-available.requestvaluation.p3=Ar ôl cwblhau’r ffurflen, mae angen i chi ei hanfon fel rhan o’r Gwiriad.
-available.requestvaluation.warning=Efallai y bydd rhai ffurflenni Gwirio hŷn yn dweud wrthych am e-bostio’ch ffurflen. Anwybyddwch hwn a defnyddiwch  y botwm ’’Anfonwch fy ffurflen Wirio wedi’i chwblhau’’ yn lle.
+available.requestvaluation.dvrCheck.startCheck=Anfon fy ffurflen Wirio wedi’i chwblhau
+available.requestvaluation.p2=Cyn y gallwch gyflwyno achos Gwirio, mae angen i chi {0}.
+available.requestvaluation.p2.link=lawrlwytho a chwblhau ffurflen Wirio
+available.requestvaluation.p3=Ar ôl cwblhau’r ffurflen, mae angen i chi ei hanfon fel rhan o’r achos Gwirio.
+available.requestvaluation.warning=Efallai y bydd rhai ffurflenni Gwirio hŷn yn dweud wrthych am e-bostio’ch ffurflen. Anwybyddwch hwn a defnyddiwch y botwm ‘Anfon fy ffurflen Wirio wedi’i chwblhau’ yn lle.
 available.requestvaluation.print=Argraffu’r dudalen hon
 available.requestvaluation.check.title=Cyflwyno gwiriad
 available.requestvaluation.address=Gwasanaeth Gwirio a Herio (Check and challenge service), PO BOX 308, PLYMOUTH, PL5 9DT
@@ -843,17 +844,17 @@ available.requestvaluation.welsh.ccaEmail.valuationPeriod=({0} i {1})
 available.requestvaluation.startCheckTab.heading=Dechrau achos Gwirio
 available.requestvaluation.startCheckTab.new.guidance.link=Cymorth gyda gwirio manylion eich eiddo (yn agor tab newydd)
 available.requestvaluation.startCheckTab.guidance.summary=Cymorth gyda dechrau achos Gwirio
-available.requestvaluation.startCheckTab.guidance.content.p1=Anfonwch achos Gwirio i ddweud wrthym am newidiadau i fanylion yr eiddo. Efallai y byddwn yn derbyn eich newidiadau ac yn addasu’r gwerth ardrethol.
-available.requestvaluation.startCheckTab.guidance.content.p2=Os ydych yn meddwl bod y gwerth ardrethol yn rhy uchel ac nad oes angen newid manylion yr eiddo, mae’n dal yn rhaid i chi anfon achos Gwirio atom. Mae’r achos Gwirio yn cadarnhau bod gennym y manylion eiddo cywir. Pan fydd yr achos Gwirio wedi’i gwblhau, anfonwch achos Herio i ddweud wrthym eich bod yn meddwl bod y gwerth ardrethol yn rhy uchel.
+available.requestvaluation.startCheckTab.guidance.content.p1=Anfonwch achos Gwirio atom i ddweud wrthym am unrhyw newidiadau i fanylion yr eiddo. Efallai y byddwn yn derbyn eich newidiadau ac yn addasu’r gwerth ardrethol.
+available.requestvaluation.startCheckTab.guidance.content.p2=Os ydych chi’n credu bod y gwerth ardrethol yn rhy uchel ac nad oes angen newid manylion yr eiddo, mae dal angen i chi anfon achos Gwirio atom. Mae’r achos Gwirio yn cadarnhau bod gennym y manylion eiddo cywir. Pan fydd yr achos Gwirio wedi’i gwblhau, anfonwch achos Herio atom i ddweud wrthym eich bod chi’n credu bod y gwerth ardrethol yn rhy uchel.
 available.requestvaluation.startCheckTab.guidance.content.p3=Efallai byddwn yn derbyn eich newidiadau ac yn addasu’r gwerth ardrethol.
 available.requestvaluation.startCheckTab.guidance.content.p4=Os ydych chi’n meddwl bod y gwerth ardrethol yn rhy uchel, gallwch anfon achos Herio atom.
 available.requestvaluation.startCheckTab.guidance.content.p5=Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio.
 available.requestvaluation.startCheckTab.question=Beth ydych chi eisiau dweud wrthon ni?
 available.requestvaluation.startCheckTab.option1.content=Newid neu gadarnhau manylion yr eiddo
 available.requestvaluation.startCheckTab.option1.hint=Er enghraifft, maint arwynebedd llawr a pharcio
-available.requestvaluation.startCheckTab.option2.content=Mae’r eiddo wedi ei ddymchwel, ei ailddatblygu, neu ddim yn cael ei ddefnyddio ar gyfer busnes bellach
-available.requestvaluation.startCheckTab.option3.content=Mae’r eiddo wedi ei rannu
-available.requestvaluation.startCheckTab.option4.content=Unwyd yr eiddo
+available.requestvaluation.startCheckTab.option2.content=Rydych yn meddwl na ddylech dalu ardrethi busnes ar gyfer yr eiddo
+available.requestvaluation.startCheckTab.option3.content=Mae’r eiddo wedi cael ei rannu
+available.requestvaluation.startCheckTab.option4.content=Mae’r eiddo wedi cael ei uno
 available.requestvaluation.startCheckTab.option5.content=Mae newid yn yr ardal leol yn effeithio ar werth ardrethol yr eiddo
 available.requestvaluation.startCheckTab.option5.hint=Er enghraifft, gweithfeydd ffordd, sgaffaldiau neu lifogydd hir dymor
 available.requestvaluation.startCheckTab.option6.content=Mae penderfyniad llys yn effeithio ar werth ardrethol yr eiddo
@@ -868,8 +869,8 @@ available.requestvaluation.listYear.li3=mae’r achos Herio yn ymwneud â newid 
 available.requestvaluation.listYear.rightToChallenge.li=Os ydych chi’n credu bod gennych chi hawl i herio’r prisiad hwn, ac nad oes asesiad 2026 i godi gwiriad, gallwch ofyn am wiriad â llaw trwy anfon e-bost at {0} gan nodi eich enw a chyfeiriad yr eiddo rydych chi am ei wirio.
 available.requestvaluation.listYear.p3=Gallwch hefyd anfon achos Herio atom os (mae unrhyw un o’r rhain yn berthnasol):
 available.requestvaluation.listYear.li4=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol.
-available.requestvaluation.listYear.li5=effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref {0}, rydych yn anfon achos Gwirio o’r prisiad cyfredol.
-available.requestvaluation.listYear.p4=Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar.
+available.requestvaluation.listYear.li5=effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn, a rydych yn anfon achos Gwirio o’r prisiad cyfredol cyn 1 Hydref {0}, rydych yn anfon achos Gwirio o’r prisiad cyfredol.
+available.requestvaluation.listYear.p4=Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos Gwirio o’r prisiad byw mwyaf diweddar.
 
 available.requestvaluation.listYear.noCurrent.altered=ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon e-bost atom i {0} er mwyn anfon achos Gwirio
 available.requestvaluation.listYear.noCurrent.court=yw penderfyniad llys wedi effeithio ar werth ardrethol yr eiddo hwn ac eich bod yn anfon e-bost atom i {1} cyn 1 Hydref {0} er mwyn anfon achos Gwirio
@@ -882,14 +883,14 @@ requestValuation.future.help.subheading.4=Mae gennych gwestiwn arall ynglŷn â�
 
 requestValuation.future.help.p.1=Rydym yn diweddaru gwerthoedd ardrethol pob eiddo busnes yng Nghymru a Lloegr yn rheolaidd i adlewyrchu newidiadau yn y farchnad eiddo. Bydd yr ailbrisiad nesaf yn dod i rym ar {0}.
 requestValuation.future.help.p.2=Anfonwch achos Gwirio atom ni i ddweud wrthym fod angen newid manylion eich eiddo (megis meintiau arwynebedd llawr a pharcio). Efallai byddwn yn derbyn eich newidiadau ac yn diweddaru’r prisiadau cyfredol a dyfodol.
-requestValuation.future.help.p.4=O’r {0}, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel.
-requestValuation.future.help.p.5=Rhaid i chi gwblhau achos Gwirio cyn anfon achos Her. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Her atom.
+requestValuation.future.help.p.4=O {0}, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel.
+requestValuation.future.help.p.5=Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Herio atom.
 requestValuation.future.help.p.6=Cyn {0}, {1}.
-requestValuation.future.help.p.6.link=anfon ymholiad
+requestValuation.future.help.p.6.link=anfonwch ymholiad
 requestValuation.future.help.help.link.1=Sut i ddefnyddio cyfrif prisio ardrethi busnes
-requestValuation.future.help.help.link.2=Sut y prisir eiddo busnes
+requestValuation.future.help.help.link.2=Sut mae eiddo busnes yn cael ei brisio
 requestValuation.future.help.help.link.3=Amcangyfrif beth all bil ardrethi busnes yr eiddo hwn fod o {0}
-requestValuation.future.help.help.link.4=Rhyddhad Ardrethi Busnesau
+requestValuation.future.help.help.link.4=Rhyddhad Ardrethi Busnes
 
 cannotRaiseChallenge.title=Nid oes modd I chi herio’r prisiad hwn
 cannotRaiseChallenge.reason.C0=Ni allwch godi Her ar achos Gwirio sydd eisoes wedi’i ganslo.
@@ -910,7 +911,7 @@ property.details.checkcases.table.5=Cyflwynwyd gan
 property.details.checkcases.table.6=Gweithred
 property.details.checkcases.table.challenge=Dechrau her
 property.details.div.submitted=Gwiriadau
-property.details.div.noSubmittedCheck=Nid oes unrhyw achosion gwirio ar gael ar gyfer eich eiddo.
+property.details.div.noSubmittedCheck=Nid oes unrhyw achosion Gwirio ar gael ar gyfer eich eiddo.
 property.details.checks.status.help=Help gyda statws: {0}
 
 property.details.challengecases.table.1=Cyfeirnod Her
@@ -948,22 +949,22 @@ auto.detailedValuationRequested.welsh.ccaEmail.preLink=Ebostiwch eich cais i
 auto.detailedValuationRequested.welsh.ccaEmail.postLink=Dylech gynnwys cyfeiriad yr eiddo a chyfnod y prisiad {0} yn yr e-bost.
 auto.detailedValuationRequested.welsh.ccaEmail.valuationPeriod=({0} i {1})
 
-auto.duplicateRequestDetailedValuation.title.caption=Eich eidd
+auto.duplicateRequestDetailedValuation.title.caption=Eich eiddo
 auto.duplicateRequestDetailedValuation.localCouncilReference=Cyfeirnod yr awdurdod lleol:
 auto.duplicateRequestDetailedValuation.rv.heading=Prisiad
 auto.duplicateRequestDetailedValuation.rv.caption.future=Gwerth ardrethol y dyfodol (o {0})
-auto.duplicateRequestDetailedValuation.rv.caption.current=Gwerth ardrethol cyfredol ({0} i presennol)
+auto.duplicateRequestDetailedValuation.rv.caption.current=Gwerth ardrethol cyfredol ({0} i’r presennol)
 auto.duplicateRequestDetailedValuation.rv.caption.previous=Gwerth ardrethol blaenorol ({0} i {1})
 auto.duplicateRequestDetailedValuation.rv.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
 auto.duplicateRequestDetailedValuation.rv.inset.previous=Dyma oedd gwerth ardrethol yr eiddo. Nid dyma’r swm fyddech wedi ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
-auto.duplicateRequestDetailedValuation.details.subhead=Manylion prisio
+auto.duplicateRequestDetailedValuation.details.subhead=Manylion y prisiad
 auto.duplicateRequestDetailedValuation.details.requested=Rydych wedi anfon cais atom i gael y prisiad manwl.
 auto.duplicateRequestDetailedValuation.details.whenApproved=Bydd y prisiad manwl ar gael i’w lawrlwytho o fewn 20 diwrnod gwaith o anfon y cais. Byddwn yn anfon neges atoch pan fydd ar gael.
 auto.duplicateRequestDetailedValuation.details.reference=Cyfeirnod eich cais yw {0}.
 auto.duplicateRequestDetailedValuation.mcc.subhead=Os oes angen i chi ddweud wrthym am newid yn yr ardal leol
 auto.duplicateRequestDetailedValuation.mcc.email.preLink=Os oes angen i chi ddweud wrthym am newid yn yr ardal leol sy’n effeithio ar eich eiddo, ac rydych yn aros i’r prisiad manwl fod ar gael, gallwch e-bostio
-auto.duplicateRequestDetailedValuation.mcc.email.postLink=a gofynnwch i’ch cais gael ei flaenoriaethu.
-auto.duplicateRequestDetailedValuation.mcc.email.instruction=Nodwch ''Pwysig: Newid Amgylchiadau Materol allanol'' yn y llinell destun gan gynnwys cyfeiriad yr eiddo a chyfeirnod y cais yn yr e-bost.
+auto.duplicateRequestDetailedValuation.mcc.email.postLink=a gofyn i’ch cais gael ei flaenoriaethu.
+auto.duplicateRequestDetailedValuation.mcc.email.instruction=Rhowch ‘Pwysig: Newid Perthnasol mewn Amgylchiadau allanol’ yn y llinell destun gan gynnwys cyfeiriad yr eiddo a chyfeirnod y cais yn yr e-bost.
 
 #COMMON
 label.email=E-bost
@@ -1190,10 +1191,10 @@ registration.error.p2=Bydd angen i chi siarad â’r person a roddodd eich manyl
 challengeRules.summary=Cymorth gydag achosion Gwirio ac achosion Herio
 challengeRules.rules=Gallwch anfon achos Herio atom (mae unrhyw un o’r rhain yn berthnasol):
 challengeRules.rules.1=o fewn 4 mis i’n penderfyniad ar yr achos Gwirio
-challengeRules.rules.2=os ydych wedi aros mwy na 12 mis a heb dderbyn ein penderfyniad ar yr achos Gwirio
-challengeRules.rules.3=os yw’r Her yn ymwneud â newid yn yr ardal leol (er enghraifft gwaith ffordd hirdymor), rydych yn ei anfon o fewn 16 mis o fod wedi anfon yr achos Gwirio ac eich bod wedi derbyn ein penderfyniad ar yr achos Gwirio. Rhaid i’r achos Herio fod ar yr un rhestr ardrethu â’r achos Gwirio.
-challengeRules.rules.paper=Os ydych yn parhau i feddwl bod gennych hawl i gyflwyno Her ond bod ddim achos Gwirio yn ymddangos, bydd angen i chi {0}.
-challengeRules.rules.paper.link=lawrlwytho a chwblhau ffurflen Herio (T012)
+challengeRules.rules.2=os ydych wedi disgwyl mwy na 12 mis a heb dderbyn ein penderfyniad ar yr achos Gwirio
+challengeRules.rules.3=os yw’r achos Herio yn ymwneud â newid yn yr ardal leol (er enghraifft gwaith ffordd hirdymor), rydych yn ei anfon o fewn 16 mis o fod wedi anfon yr achos Gwirio ac eich bod wedi derbyn ein penderfyniad ar yr achos Gwirio.
+challengeRules.rules.paper=Os nad oes gennych unrhyw achosion Gwirio ond yn meddwl y dylech allu anfon achos Herio atom, bydd angen i chi {0}.
+challengeRules.rules.paper.link=lawrlwytho a chwblhau ffurflen Herio
 
 ## TIME OUT DIALOG
 timeout.dialog.title=Mae eich amser bron a dod i ben
@@ -1321,7 +1322,7 @@ auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.estimatorHeadin
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link=Mae’r offeryn amcangyfrif ar gyfer Lloegr wedi cael ei dynnu cyn i gynghorau lleol ddosbarthu biliau ardrethi busnes. Gall y Swyddfa Brisio gynnig help gydag unrhyw gwestiwn ynglŷn â’ch gwerth ardrethol. Er mwyn cael rhagor o wybodaeth ynghylch y ffordd caiff eich bil ei gyfrifo, cliciwch {0}. Cysylltwch â’ch cyngor lleol os oes gennych unrhyw gwestiynau ynglŷn â’ch bil.
 auto.requestDetailedValuation.future.rv.englishEstimatorDisabled.link.here=yma (yn agor tab newydd)
 auto.requestDetailedValuation.future.p.1=Ni fydd y prisiad manwl hwn ar gael tan {0}. Byddwch yn gallu gwneud cais amdano o’r dyddiad hwnnw.
-auto.requestDetailedValuation.future.p.2= Gellir gwneud cais am y prisiad manwl cyfredol {0} o’r prisiad cyfredol.
+auto.requestDetailedValuation.future.p.2=Gellir gwneud cais am y prisiad manwl cyfredol ar gyfer {0} o’r prisiad cyfredol.
 auto.requestDetailedValuation.future.rv.inset.welshEstimatorDisabled=Mae’r offeryn amcangyfrif ar gyfer Cymru wedi cael ei dynnu cyn i gynghorau lleol ddosbarthu biliau ardrethi busnes. Gall y Swyddfa Brisio gynnig help gydag unrhyw gwestiwn ynglŷn â’ch gwerth ardrethol. Er mwyn cael rhagor o wybodaeth ynghylch y ffordd caiff eich bil ei gyfrifo, cliciwch {0}. Cysylltwch â’ch cyngor lleol os oes gennych unrhyw gwestiynau ynglŷn â’ch bil.
 
 available.requestvaluation.agentsTab.title=Asiantiaid ({0})
@@ -1332,9 +1333,9 @@ available.requestvaluation.agentsTab.assignAnAgent=Penodi asiant i’r eiddo hwn
 available.requestvaluation.agentsTab.helpWithAppoint=Cymorth gyda phenodi asiant
 available.requestvaluation.agentsTab.table.header.agent=Asiant
 available.requestvaluation.agentsTab.table.header.totalCases=Cyfanswm yr achosion ar gyfer yr eiddo hwn
-available.requestvaluation.agentsTab.table.header.openCases=Agor achosion ar gyfer yr eiddo hwn
+available.requestvaluation.agentsTab.table.header.openCases=Achosion agored ar gyfer yr eiddo hwn
 available.requestvaluation.h2.previous=Gwerth ardrethol blaenorol ({0} i {1})
-available.requestvaluation.h2.current=Gwerth ardrethol cyfredol ({0} i presennol)
+available.requestvaluation.h2.current=Gwerth ardrethol cyfredol ({0} i’r presennol)
 available.requestvaluation.h2.future=Gwerth ardrethol y dyfodol (o {0})
 available.requestvaluation.inset=Nid dyma’r swm rydych yn ei dalu. Defnyddir i gyfrifo eich bil ardrethi busnes.
 available.requestvaluation.inset.current=Dyma’r gwerth ardrethol ar gyfer yr eiddo. Nid dyma’r swm rydych yn ei dalu mewn ardrethi busnes neu rent. Mae eich cyngor lleol yn defnyddio’r gwerth ardrethol er mwyn cyfrifo’r bil ardrethi busnes.
@@ -1347,9 +1348,9 @@ available.requestvaluation.startCheckTab.option2.hint=Gall hyn fod oherwydd bod 
 common.and=ac
 error.common.title=There yna broblem 
 
-challengeRules.p1=Mae achos gwirio yn gadael i chi ddweud wrthym fod manylion eiddo yn gywir neu angen eu newid. Efallai byddwn yn derbyn eich newidiadau ac yn addasu’r gwerth ardrethol.
-challengeRules.p2=Mae achos Herio yn eich galluogi i ddweud wrthym eich bod yn meddwl bod y gwerth ardrethol yn rhy uchel. Gallwch esbonio’r hyn rydych chi’n meddwl y dylai fod, a darparu tystiolaeth i gefnogi’r hyn rydych chi’n ei ddweud. Efallai byddwn yn derbyn eich her ac yn newid y gwerth ardrethol.
-challengeRules.p3=Mae’n rhaid i chi gwblhau achos Gwirio cyn danfon achos i Herio.
+challengeRules.p1=Mae achos Gwirio yn gadael i chi ddweud wrthym fod manylion eiddo yn gywir neu angen eu newid. Efallai byddwn yn derbyn eich newidiadau ac yn addasu’r gwerth ardrethol.
+challengeRules.p2=Mae achos Herio yn gadael i chi ddweud wrthym. eich bod yn meddwl bod y gwerth ardrethol yn rhy uchel. Gallwch esbonio’r hyn rydych chi’n meddwl y dylai fod, a darparu tystiolaeth i gefnogi’r hyn rydych chi’n ei ddweud. Efallai byddwn yn derbyn eich her ac yn newid y gwerth ardrethol.
+challengeRules.p3=Mae’n rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio.
 
 supportingDocuments.defaultError=Anhysbys/Estyniad ar goll
 fileUpload.descriptionList.key=Tystiolaeth

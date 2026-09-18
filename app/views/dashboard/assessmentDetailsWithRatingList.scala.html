@@ -42,6 +42,12 @@
     assessment.currentFromDate.map(Formatters.formattedFullDate).getOrElse("")
 }
 
+@useToPresent(assessment: ApiAssessment, tableType: String) = @{
+    assessment.currentFromDate.isDefined &&
+    assessment.currentToDate.isEmpty &&
+    !(tableType == "historic" && Set("2017", "2023").contains(assessment.listYear))
+}
+
 @endDate(assessment: ApiAssessment, isDraft: Boolean, tableType: String) = @{
     if(!isDraft) {
         (assessment.currentFromDate, assessment.currentToDate, assessment.listYear) match {
@@ -51,7 +57,7 @@
             case (Some(_), None, "2023")
                 if tableType == "historic" =>
                 Some(Formatters.formattedFullDate(config.default2023AssessmentEndDate))
-            case (Some(_), None, _)     => Some(Messages("assessments.enddate.present.lowercase"))
+            case (Some(_), None, _)     => Some(Messages("assessments.enddate.present.lowercase")) // this here, needs to be i'r instead of i
             case (Some(_), Some(to), _) => Some(Formatters.formattedFullDate(to))
             case _                   => None
         }
@@ -62,7 +68,12 @@
     if (isDraft) {
         s"${messages("assessments.from.text")} ${fromDate(assessment)}"
     } else {
-        s"${fromDate(assessment)} ${messages("assessments.selectValuation.to")} ${endDate(assessment, isDraft, tableType).getOrElse("")}"
+        val to = if (useToPresent(assessment, tableType))
+            messages("assessments.selectValuation.toPresent")
+        else
+            messages("assessments.selectValuation.to")
+
+        s"${fromDate(assessment)} ${to} ${endDate(assessment, isDraft, tableType).getOrElse("")}"
     }
 }
 
