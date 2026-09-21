@@ -28,8 +28,8 @@ class RegisterISpec extends ISpecBase with HtmlComponentHelpers with ListYearsHe
   override lazy val extraConfig: Map[String, String] =
     Map("featureFlags.newRegistrationJourneyEnabled" -> "true")
 
-  val titleText = "Register to check and challenge your business rates valuation - Valuation Office - GOV.UK"
-  val headingText = "Register to check and challenge your business rates valuation"
+  val titleText = "Register to Check and Challenge your business rates valuation - Valuation Office - GOV.UK"
+  val headingText = "Register to Check and Challenge your business rates valuation"
   val registerForThisServiceText = "Register for this service to:"
   val checkYourPropertyDetailsText = "check your property details"
   val challengeYourValuationText = "challenge your valuation"

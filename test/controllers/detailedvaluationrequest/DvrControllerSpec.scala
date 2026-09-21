@@ -214,7 +214,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe OK
     contentAsString(result) should include(
-      "<title>You cannot challenge this valuation - Valuation Office - GOV.UK</title>"
+      "<title>You cannot Challenge this valuation - Valuation Office - GOV.UK</title>"
     )
     // Backlink
     contentAsString(result) should include(
@@ -233,7 +233,7 @@ class DvrControllerSpec extends VoaPropertyLinkingSpec {
 
     status(result) shouldBe OK
     contentAsString(result) should include(
-      "<title>You cannot challenge this valuation - Valuation Office - GOV.UK</title>"
+      "<title>You cannot Challenge this valuation - Valuation Office - GOV.UK</title>"
     )
     // Backlink
     contentAsString(result) should include(

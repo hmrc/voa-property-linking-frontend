@@ -86,7 +86,7 @@ class ViewDvrValuationISpec extends ISpecBase {
   val checksTableStatusRowText = "DECISION SENT Help with status: DECISION SENT"
   val checksTableClosedDateRowText = "22 July 2020"
   val checksTableSubmittedByRowText = "Some other person 2"
-  val checksTableActionRowText = "Start a challenge"
+  val checksTableActionRowText = "Start a Challenge"
   val challengesTabText = "Challenges (1)"
   val challengesTableReferenceText = "Challenge reference"
   val challengesTableSubmittedDateText = "Submitted date"
@@ -99,7 +99,7 @@ class ViewDvrValuationISpec extends ISpecBase {
   val challengesTableStatusRowText = "DECISION SENT Help with status: DECISION SENT"
   val challengesTableClosedDateRowText = "22 July 2020"
   val challengesTableSubmittedByRowText = "Some other person 2"
-  val challengesTableActionRowText = "Start a challenge"
+  val challengesTableActionRowText = "Start a Challenge"
   val agentsTabText = "Agents (2)"
   val comparablePropertiesTabText = "Comparable properties"
   val valuationHeadingText = "Valuation"
@@ -864,7 +864,7 @@ class ViewDvrValuationISpec extends ISpecBase {
       lazy val page = Jsoup.parse(res.body)
 
       val expected =
-        "If you think you have a right to challenge this valuation, and there is no 2026 assessment to raise a check, you can request a check manually by sending an email to ccaservicevo@hmrc.gov.uk providing your name and the address of the property you wish to check."
+        "If you think you have a right to Challenge this valuation, and there is no 2026 assessment to raise a Check, you can request a Check manually by sending an email to ccaservicevo@hmrc.gov.uk providing your name and the address of the property you wish to Check."
 
       page.select("#challenge-conditions-info > li:nth-child(4)").text() shouldBe expected
     }
@@ -887,7 +887,7 @@ class ViewDvrValuationISpec extends ISpecBase {
       lazy val page = Jsoup.parse(res.body)
 
       val expected =
-        "Os ydych chi’n credu bod gennych chi hawl i herio’r prisiad hwn, ac nad oes asesiad 2026 i godi gwiriad, gallwch ofyn am wiriad â llaw trwy anfon e-bost at ccaservicevo@hmrc.gov.uk gan nodi eich enw a chyfeiriad yr eiddo rydych chi am ei wirio."
+        "Os ydych chi’n credu bod gennych chi hawl i Herio’r prisiad hwn, ac nad oes asesiad 2026 i godi gwiriad, gallwch ofyn am wiriad â llaw trwy anfon e-bost at ccaservicevo@hmrc.gov.uk gan nodi eich enw a chyfeiriad yr eiddo rydych chi am ei wirio."
 
       page.select("#challenge-conditions-info > li:nth-child(4)").text() shouldBe expected
     }
