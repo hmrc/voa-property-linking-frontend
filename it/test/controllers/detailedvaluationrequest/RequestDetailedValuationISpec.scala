@@ -143,7 +143,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationTabP1Selector = "#future-valuation-not-available"
 
   val valuationTabP2 = "The current 2026 detailed valuation can be requested from the current valuation."
-  val valuationTabP2Welsh = "Gellir gwneud cais am y prisiad manwl cyfredol 2026 o’r prisiad cyfredol."
+  val valuationTabP2Welsh = "Gellir gwneud cais am y prisiad manwl cyfredol ar gyfer 2026 o’r prisiad cyfredol."
   val valuationTabP2Selector = "#request-current-valuation"
 
   // Help with future valuation tab content - draft
@@ -182,13 +182,13 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationHelpTabRvTooHighP1Text =
     "From 1 April 2026, send us a Challenge case to tell us you think the rateable value is too high."
   val valuationHelpTabRvTooHighP1TextWelsh =
-    "O’r 1 Ebrill 2026, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel."
+    "O 1 Ebrill 2026, anfonwch achos Herio atom i ddweud wrthym eich bod yn credu bod y gwerth ardrethol yn rhy uchel."
   val valuationHelpTabRvTooHighP1TextSelector = "#rateable-value-too-high-content-1"
 
   val valuationHelpTabRvTooHighP2Text =
     "You must complete a Check case before sending a Challenge case. When you get our decision on your Check case, you have 4 months to send us a Challenge case."
   val valuationHelpTabRvTooHighP2TextWelsh =
-    "Rhaid i chi gwblhau achos Gwirio cyn anfon achos Her. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Her atom."
+    "Rhaid i chi gwblhau achos Gwirio cyn anfon achos Herio. Pan fyddwch yn derbyn ein penderfyniad ar eich achos Gwirio, mae gennych 4 mis i anfon achos Herio atom."
   val valuationHelpTabRvTooHighP2TextSelector = "#rateable-value-too-high-content-2"
 
   val valuationHelpTabValuationQuestionsHeadingText = "You have another question about your valuation"
@@ -196,11 +196,11 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val valuationHelpTabValuationQuestionsHeadingTextSelector = "#other-question-subhead"
 
   val valuationHelpTabValuationQuestionsText = "Before 1 April 2026, send an enquiry."
-  val valuationHelpTabValuationQuestionsTextWelsh = "Cyn 1 Ebrill 2026, anfon ymholiad."
+  val valuationHelpTabValuationQuestionsTextWelsh = "Cyn 1 Ebrill 2026, anfonwch ymholiad."
   val valuationHelpTabValuationQuestionsTextSelector = "#other-question-content"
 
   val valuationHelpTabValuationQuestionsLinkText = "send an enquiry"
-  val valuationHelpTabValuationQuestionsLinkTextWelsh = "anfon ymholiad"
+  val valuationHelpTabValuationQuestionsLinkTextWelsh = "anfonwch ymholiad"
   val valuationHelpTabValuationQuestionsLinkTextSelector = "#future-valuation-enquiry-link"
   val valuationHelpTabValuationQuestionsLinkHref = ""
 
@@ -210,7 +210,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
   val link1Href = "https://www.gov.uk/government/collections/check-and-challenge-step-by-step"
 
   val link2Text = "How business properties are valued"
-  val link2TextWelsh = "Sut y prisir eiddo busnes"
+  val link2TextWelsh = "Sut mae eiddo busnes yn cael ei brisio"
   val link2Selector = "#how-properties-are-valued"
   val link2Href = "https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued"
 
@@ -221,7 +221,7 @@ class RequestDetailedValuationISpec extends ISpecBase with HtmlComponentHelpers 
     "http://localhost:9300/business-rates-find/estimate-your-business-rates/start-from-dvr-valuation?authorisationId=1&propertyLinkSubmissionId=PL1ZRPBP7&valuationId=10028428&isOwner=true&uarn=7651789000&tabName=help-tab"
 
   val link4Text = "Business rates relief"
-  val link4TextWelsh = "Rhyddhad Ardrethi Busnesau"
+  val link4TextWelsh = "Rhyddhad Ardrethi Busnes"
   val link4Selector = "#rates-relief"
   val link4Href = "https://www.gov.uk/apply-for-business-rate-relief"
 
