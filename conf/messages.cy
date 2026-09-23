@@ -142,7 +142,7 @@ createAccount.group.details.header=Dydw i ddim yn fusnes
 createAccount.group.details.content=Os ydych chi’n sefydliad anfasnachol fel menter gymunedol sy’n llogi ystafelloedd,   neuadd y pentref, ymddiriedaeth neu elusen, dylech greu cyfrif yn yr un ffordd ag y byddech chi ar gyfer busnes. Mae hyn hefyd yn berthnasol ar gyfer unrhyw eiddo arall sy’n atebol am ardrethi busnes, fel cytiau traeth a stablau.
 
 #ACCOUNT CREATED
-link.return.home=Dychwelyd i’ch hafan
+link.return.home=Ddychwelyd i’ch hafan
 link.go.back.property=Ewch yn ôl i’r eiddo hwn
 createAccount.group.details.header.agent=Rwy’n cofrestru fel asiant
 createAccount.group.details.content.agent=Bydd angen i chi ddarparu gwybodaeth am eich busnes eich hun yma, nid busnes eich cleient.
@@ -471,7 +471,7 @@ propertyRepresentation.agentRemoveSummary.whatHappens=Yr hyn sy’n digwydd nesa
 propertyRepresentation.agentRemoveSummary.p3=Gallwch ailbennu asiant i eiddo os ydych am iddynt weithredu ar eich rhan eto.
 
 propertyRepresentation.revokeClient.title=Dirymu’r cleient
-propertyRepresentation.revokeClient.message=Ydych chi’n siŵr nad ydych chi am weithredu ar ran {0} ar gyfer {1} bellach?
+propertyRepresentation.revokeClient.message=Ydych chi’n siŵr nad ydych chi am weithredu ar ran {0} bellach ar gyfer {1}?
 propertyRepresentation.revokeClient.button=Parhau
 
 ##Appoint agent summary
@@ -1103,8 +1103,8 @@ getHelpContent.2=Cyfeiriad e-bost: {0}
 
 ##ADD USER TO GG
 addUserToGG.heading=Ychwanegu defnyddiwr arall at eich cyfrif GOV.UK
-addUserToGG.p1=Bydd angen i chi fod yn weinyddwr ar gyfer cyfrif Porth y Llywodraeth i ychwanegu defnyddwyr.   Rydych chi’n weinyddwr os creoch chi gyfrif Porth y Llywodraeth, neu os ydych chi wedi cael eich ychwanegu fel gweinyddwr i’r cyfrif. Rydym yn argymell bod gennych o leiaf 2 weinyddwr ar gyfer eich sefydliad.
-addUserToGG.p2=Os ydych yn ychwanegu asiant at eich cyfrif Porth y Llywodraeth Dylech fod yn ymwybodol   bydd ganddynt yr un hawliau mynediad â defnyddwyr cynorthwyol eraill yn eich sefydliad.
+addUserToGG.p1=Bydd angen i chi fod yn weinyddwr ar gyfer cyfrif Porth y Llywodraeth i ychwanegu defnyddwyr. Rydych chi’n weinyddwr os  wnaethoch chi greu y cyfrif Porth y Llywodraeth, neu os ydych chi wedi cael eich ychwanegu fel gweinyddwr i’r cyfrif. Rydym yn argymell bod gennych o leiaf 2 weinyddwr ar gyfer eich sefydliad.
+addUserToGG.p2=Os ydych yn ychwanegu asiant at eich cyfrif Porth y Llywodraeth dylech fod yn ymwybodol bydd ganddynt yr un hawliau mynediad â defnyddwyr cynorthwyol eraill yn eich sefydliad.
 addUserToGG.p3=Gallwch ychwanegu defnyddiwr ar y sgrin nesaf drwy ddewis ’Defnyddwyr cyfrif’ yna "Rheoli defnyddwyr’
 addUserToGG.l1=Ychwanegu defnyddiwr
 
