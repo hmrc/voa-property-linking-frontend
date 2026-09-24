@@ -119,11 +119,11 @@ val helper = request.ses.propertyRelationship.map(_.capacity).fold(
           name = "stillOccupied",
             items = Seq(
                 RadioItem(
-                    content = Text(messages("app.common.yes")),
+                    content = Text(messages(if (clientDetails.isDefined) "app.common.ydy.yes" else "app.common.ydw.yes")),
                     value = Some("true")
                 ),
                 RadioItem(
-                    content = Text(messages("app.common.no")),
+                    content = Text(messages(if (clientDetails.isDefined) "app.common.ydy.no" else "app.common.ydw.no")),
                     value = Some("false"),
                     conditionalHtml = Some(
                         dateFields(

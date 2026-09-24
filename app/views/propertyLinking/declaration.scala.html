@@ -49,19 +49,26 @@
 @propertyStillOccupied = @{request.ses.propertyOccupancy.exists(_.stillOccupied)}
 
 @propertyOwnedOccupiedKey = @{
-    messages("declaration.checkAnswers.ownershipHeading.builder",
+    val isOwnerCase = request.ses.propertyRelationship.exists(_.capacity == Owner)
+    val isIpOwner = !isAgent && isOwnerCase
 
-        if(isAgent) messages("declaration.checkAnswers.ownershipHeading.agent")
-        else messages("declaration.checkAnswers.ownershipHeading.ip"),
+    if (isIpOwner) {
+        messages("declaration.checkAnswers.ownershipHeading.ip.owner")
+    } else {
+        messages("declaration.checkAnswers.ownershipHeading.builder",
 
-        request.ses.propertyRelationship.fold(
-            messages("declaration.checkAnswers.ownershipHeading.fallback")
-        )(_.capacity match {
-            case Occupier      => messages("declaration.checkAnswers.ownershipHeading.occupy")
-            case Owner         => messages("declaration.checkAnswers.ownershipHeading.own")
-            case OwnerOccupier => messages("declaration.checkAnswers.ownershipHeading.ownAndOccupy")
-        })
-    )
+            if(isAgent) messages("declaration.checkAnswers.ownershipHeading.agent")
+            else messages("declaration.checkAnswers.ownershipHeading.ip"),
+
+            request.ses.propertyRelationship.fold(
+                messages("declaration.checkAnswers.ownershipHeading.fallback")
+            )(_.capacity match {
+                case Occupier      => messages("declaration.checkAnswers.ownershipHeading.occupy")
+                case Owner         => messages("declaration.checkAnswers.ownershipHeading.own")
+                case OwnerOccupier => messages("declaration.checkAnswers.ownershipHeading.ownAndOccupy")
+            })
+        )
+    }
 }
 
 @lastOccupiedKey = @{propertyRelationshipCapacityName.fold("")(
