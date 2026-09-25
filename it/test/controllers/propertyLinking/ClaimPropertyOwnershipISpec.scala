@@ -106,10 +106,10 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val iHaveOwnedTextAgentWelsh =
     "Mae fy nghleient wedi bod yn berchen ar yr eiddo neu wedi meddiannu’r eiddo ar fwy nag un achlysur"
   val youCanAddTextWelsh =
-    "Gallwch ychwanegu’r eiddo ar gyfer pob cyfnod yr oedd gennych gysylltiad ag ef, ond mae angen i chi wneud hynny un cyfnod ar y tro. Fodd bynnag, os ydych am siarad â’r Swyddfa Brisio ynglŷn â’r prisiad, bydd angen i chi ddewis y cyfnod prisio cywir."
+    "Gallwch ychwanegu’r eiddo ar gyfer pob cyfnod yr oedd gennych gysylltiad ag ef, ond mae angen i chi wneud hynny un cyfnod ar y tro. Serch hyn, os ydych am siarad â’r Swyddfa Brisio ynglŷn â’r prisiad, bydd angen i chi ddewis y cyfnod prisio cywir."
   val youCanAddTextAgentWelsh =
-    "Gallwch ychwanegu’r eiddo ar gyfer pob cyfnod yr oedd gan eich cleient gysylltiad ag ef, ond mae angen i chi wneud hynny un cyfnod ar y tro. Fodd bynnag, os ydych am siarad â’r Swyddfa Brisio ynglŷn â’r prisiad, bydd angen i chi ddewis y cyfnod prisio cywir."
-  val onWhatDateTextWelsh = "Ar ba ddyddiad ddaethoch chi’n berchennog neu’r meddiannydd?"
+    "Gallwch ychwanegu’r eiddo ar gyfer pob cyfnod yr oedd gan eich cleient gysylltiad ag ef, ond mae angen i chi wneud hynny un cyfnod ar y tro. Serch hyn, os ydych am siarad â’r Swyddfa Brisio ynglŷn â’r prisiad, bydd angen i chi ddewis y cyfnod prisio cywir."
+  val onWhatDateTextWelsh = "Ar ba ddyddiad ddaethoch chi’n berchennog neu’n feddiannydd?"
   val onWhatDateTextAgentWelsh = "Ar ba ddyddiad y daeth eich cleient yn berchennog neu’n feddiannydd?"
   val forExampleTextWelsh = "Er enghraifft, 1 4 2017"
   val dayTextWelsh = "Diwrnod"
@@ -141,7 +141,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val dateBeforeErrorOwnerOccupierAgentTextWelsh =
     "Rhaid i’r dyddiad y daeth eich cleient yn owner ac occupier yr eiddo fod cyn 1 Ionawr 2021"
 
-  val emptyInputErrorTextWelsh = "Ar ba ddyddiad ddaethoch chi’n berchennog neu’r meddiannydd? - Nodwch ddyddiad dilys"
+  val emptyInputErrorTextWelsh = "Ar ba ddyddiad ddaethoch chi’n berchennog neu’n feddiannydd? - Nodwch ddyddiad dilys"
   val emptyInputErrorAgentTextWelsh =
     "Ar ba ddyddiad y daeth eich cleient yn berchennog neu’n feddiannydd? - Nodwch ddyddiad dilys"
   val emptyInputAboveLabelErrorTextWelsh = "Nodwch ddyddiad dilys"

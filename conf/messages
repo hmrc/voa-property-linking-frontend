@@ -857,6 +857,7 @@ declaration.checkAnswers.propertyOwnership.yes=Yes
 declaration.checkAnswers.propertyOwnership.no=No
 declaration.checkAnswers.lastOccupiedDate=Last day as {0}
 declaration.checkAnswers.evidenceType.heading=Evidence
+declaration.checkAnswers.ownershipHeading.ip.owner = Do you still own the property?
 
 declaration.checkAnswers.change=Change
 declaration.button=Confirm and send
@@ -1311,6 +1312,11 @@ app.common.yes = Yes
 app.common.no = No
 common.titleSuffix=- Valuation Office - GOV.UK
 common.localAuthorityReference=Local authority reference:
+app.common.ydw.yes = Yes
+app.common.ydw.no = No
+app.common.ydy.yes = Yes
+app.common.ydy.no = No
+
 
 #Registration Failure
 registration.error.title=You are unable to register

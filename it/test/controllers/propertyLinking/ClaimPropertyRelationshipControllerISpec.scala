@@ -83,18 +83,18 @@ class ClaimPropertyRelationshipControllerISpec extends ISpecBase {
   val ownOrOccupySummaryLinkTextWelsh = "Rwy’n berchen neu’n meddiannu rhan o’r eiddo hwn"
   val ownOrOccupySummaryLinkTextAgentWelsh = "Fy nghleient sydd berchen ar neu’n meddiannu rhan o’r eiddo hwn"
   val ownOrOccupySummaryContentTextWelsh =
-    "Ar ôl i’r Swyddfa Brisio gymeradwyo’ch cysylltiad, efallai y byddwch am ofyn iddynt rannu’r eiddo er mwyn cael prisiad ar wahân ar gyfer pob rhan."
+    "Ar ôl i’r Swyddfa Brisio gymeradwyo’ch cysylltiad, efallai hoffech ei holi rannu’r eiddo er mwyn cael prisiad ar wahân ar gyfer pob rhan."
   val ownOrOccupySummaryContentTextAgentWelsh =
     "Gallwch barhau i ychwanegu’r eiddo hwn ar ran eich cleient, fel pe baent yn berchen neu’n meddiannu’r eiddo cyfan. Ar ôl i ni gymeradwyo cysylltiad eich cleient â’r eiddo, gallwch ofyn i ni rannu’r eiddo i gael prisiadau ar wahân ar gyfer pob rhan."
   val dontOwnOrOccupySummaryLinkTextWelsh = "Nid fi sy’n berchen ar yr eiddo ond rwy’n ei isosod i rywun arall"
   val dontOwnOrOccupySummaryLinkTextAgentWelsh =
     "Nid fy nghleient sydd berchen yr eiddo, ond maen nhw’n ei isosod i rywun arall"
   val dontOwnOrOccupySummaryContentP1TextWelsh =
-    "Os ydych yn isosod yr eiddo i berson neu fusnes arall, dewiswch ’Perchennog’ a nodi’r dyddiadau neu’r cyfnod isosod."
+    "Os ydych yn isosod yr eiddo i berson neu fusnes arall, dewiswch ’Perchennog’ a nodwch ddyddiadau’r cyfnod isosod."
   val dontOwnOrOccupySummaryContentP1TextAgentWelsh =
     "Ystyrir mai eich cleient yw’r perchennog os ydynt yn isosod yr eiddo i berson neu fusnes arall. Nodwch y dyddiad dechreuodd yr isosod."
   val dontOwnOrOccupySummaryContentP2TextWelsh =
-    "Os mai rhan o’r eiddo rydych yn ei is-osod yn unig, efallai y byddwch am ofyn i’r Swyddfa Brisio rannu’r eiddo er mwyn cael prisiad ar wahân ar gyfer pob rhan. Gallwch wneud hyn ar ôl i’r VO gymeradwyo eich cysylltiad â’r eiddo."
+    "Os mai rhan o’r eiddo rydych yn ei is-osod yn unig, efallai hoffech holi Asiantaeth y Swyddfa Brisio i rannu’r eiddo er mwyn cael prisiadau. Gallwch wneud hyn ar ôl iddynt gymeradwyo eich cysylltiad â’r eiddo."
   val dontOwnOrOccupySummaryContentP2TextAgentWelsh =
     "Os mai dim ond rhan o’r eiddo sy’n cael ei isosod, gallwch ofyn i ni rannu’r eiddo i gael prisiadau ar wahân ar gyfer pob rhan. Gallwch wneud hyn ar ôl i ni gymeradwyo cysylltiad eich cleient â’r eiddo."
   val whatIsYourConnectionTextWelsh = "Beth yw eich cysylltiad chi â’r eiddo?"

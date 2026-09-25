@@ -96,7 +96,7 @@ class ValuationsControllerISpec extends ISpecBase {
   val captionTextWelsh = "Eich eiddo"
   val agentCaptionTextWelsh = "Eiddo‘r cleient: Client Name"
   val backTextWelsh = "Yn ôl"
-  val localCouncilReferenceTextWelsh = s"Cyfeirnod yr awdurdod lleol:"
+  val localCouncilReferenceTextWelsh = s"Cyfeirnod y cyngor lleol:"
   val valuationsForThisPropertyTextWelsh = "Prisiadau ar gyfer yr eiddo hwn"
   val valuationTextWelsh = "Prisiadau"
   val helpWithValuationTextWelsh = "Cymorth gyda Prisiadau"
