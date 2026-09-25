@@ -102,7 +102,7 @@ class ViewDvrValuationWelshEstimatorDisabledISpec extends ISpecBase {
   val backTextWelsh = "Yn ôl"
   val captionTextWelsh = "Eich eiddo"
   val headerTextWelsh = "ADDRESS"
-  val localAuthorityReferenceTextWelsh = s"Cyfeirnod yr awdurdod lleol: $localAuthorityRef"
+  val localAuthorityReferenceTextWelsh = s"Cyfeirnod y cyngor lleol: $localAuthorityRef"
   val valuationTabTextWelsh = "Prisiad"
   val startCheckTabTextWelsh = "Dechrau Gwiriad"
   val checksTabTextWelsh = "Gwiriadau (1)"

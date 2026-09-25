@@ -60,7 +60,7 @@ class RequestDetailedValuationEnglishEstimatorEnabledISpec extends ISpecBase wit
   val h1TextSelector = "#main-content > div > div > div > div.govuk-grid-column-two-thirds > h1"
 
   val councilRefText = "Local council reference:"
-  val councilRefTextWelsh = "Cyfeirnod yr awdurdod lleol:"
+  val councilRefTextWelsh = "Cyfeirnod y cyngor lleol:"
   val councilRefTextSelector = "#main-content > div > div > div > div.govuk-grid-column-two-thirds > dl > div > dt"
   val councilRefValueSelector = "#main-content > div > div > div > div.govuk-grid-column-two-thirds > dl > div > dd"
 

@@ -85,13 +85,13 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
   val errorText = "Error: "
   val errorMessageText = "You must agree to the declaration to continue"
 
-  val titleTextWelsh = "Gwiriwch a chadarnhau eich manylion - Y Swyddfa Brisio - GOV.UK"
+  val titleTextWelsh = "Gwirio a chadarnhau eich manylion - Y Swyddfa Brisio - GOV.UK"
   val captionTextWelsh = "Ychwanegu eiddo"
-  val headerTextWelsh = "Gwiriwch a chadarnhau eich manylion"
+  val headerTextWelsh = "Gwirio a chadarnhau eich manylion"
   val addressTextWelsh = "Cyfeiriad"
   val connectionToPropertyTextWelsh = "Cysylltiad â’r eiddo"
   val startedTextWelsh = "Wedi dechrau"
-  val stillOwnTextWelsh = "Ydych chi yn parhau yn berchen ar gyfer yr eiddo?"
+  val stillOwnTextWelsh = "Ydych chi dal yn berchen ar yr eiddo?"
   val stillOwnAgentTextWelsh = "Yw eich cleient yn parhau yn berchen ar gyfer yr eiddo?"
   val stillOccupyTextWelsh = "Ydych chi yn parhau yn meddiannu ar gyfer yr eiddo?"
   val stillOccupyAgentTextWelsh = "Yw eich cleient yn parhau yn meddiannu ar gyfer yr eiddo?"
@@ -106,9 +106,9 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
   val youCouldBeTextWelsh =
     "! Rhybudd Gallwch gael eich anfon i’r llys os byddwch yn cyflwyno gwybodaeth ffug yn fwriadol."
   val iDeclareTextWelsh =
-    "Rwy’n datgan bod y wybodaeth a roddais yn gywir ac yn gyflawn. Mae’r dystiolaeth yr wyf wedi’i lanlwytho yn cynnwys prawf o fy nghysylltiad â’r eiddo ar gyfer y ddyddiadau sy’n ymestyn dros y cyfnod yr wyf wedi’i nodi."
+    "Rwy’n datgan bod yr wybodaeth rwyf wedi’i rhoi yn gywir ac yn gyflawn. Mae’r dystiolaeth yr wyf wedi’i lanlwytho yn cynnwys prawf o fy nghysylltiad â’r eiddo aar gyfer y dyddiadau sy’n gorgyffwrdd â’r cyfnod yr wyf wedi’i nodi."
   val iDeclareAgentTextWelsh =
-    "Rwy’n datgan bod y wybodaeth a roddais yn gywir ac yn gyflawn. Mae’r dystiolaeth yr wyf wedi’i lanlwytho yn cynnwys prawf o gysylltiad fy nghleient â’r eiddo ar gyfer y ddyddiadau sy’n ymestyn dros y cyfnod yr wyf wedi’i nodi."
+    "Rwy’n datgan bod yr wybodaeth rwyf wedi’i rhoi yn gywir ac yn gyflawn.. Mae’r dystiolaeth yr wyf wedi’i lanlwytho yn cynnwys prawf o gysylltiad fy nghleient â’r eiddo ar gyfer y dyddiadau sy’n gorgyffwrdd â’r cyfnod yr wyf wedi’i nodi."
   val confirmTextWelsh = "Cadarnhau ac anfon"
   val ownerTextWelsh = "Perchennog"
   val occupierTextWelsh = "Meddiannydd"

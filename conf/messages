@@ -636,7 +636,7 @@ addPropertyStart.startNow=Start now
 #DECLARE CAPACITY
 declarePropertyRelationship.title=Connection to the property
 declarePropertyOwnership.title=Claim this property ownership
-propertyOccupancy.title=Do you still own or aoccupy the property?
+propertyOccupancy.title=Do you still own or occupy the property?
 propertyOccupancy.title.client=Does your client still own or occupy the property?
 label.lastOccupiedDate=Date of last day as the owner or occupier
 label.lastOccupiedDate.client=Date of last day your client as the owner or occupier

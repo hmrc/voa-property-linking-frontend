@@ -100,8 +100,10 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
   val captionTextWelsh = "Ychwanegu eiddo"
   val headerTextWelsh = "Ydych chi dal i fod yn berchen neu’n meddiannu’r eiddo?"
   val headerTextWelshAgent = "Ydy’ch cleient dal i fod yn berchen neu’n meddiannu’r eiddo?"
-  val yesTextWelsh = "Ie"
-  val noTextWelsh = "Na"
+  val yesTextWelshYdy = "Ydy"
+  val noTextWelshYdy = "Nac ydy"
+  val yesTextWelsh = "Ydw"
+  val noTextWelsh = "Nac ydw"
   val forExampleTextWelsh = "Er enghraifft, 2 4 2017"
   val dateOfTextWelsh = "Dyddiad eich diwrnod olaf fel perchennog a meddiannydd yr eiddo"
   val dateOfOwnerTextWelsh = "Dyddiad eich diwrnod olaf fel perchennog yr eiddo"
@@ -624,12 +626,12 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a $yesText radio button that is checked" in {
-        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
+        document.select(radioSelector).get(0).text() shouldBe yesTextWelshYdy
         document.select(yesSelector).hasAttr("checked") shouldBe true
       }
 
       s"has a $noText radio button" in {
-        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
+        document.select(radioSelector).get(1).text() shouldBe noTextWelshYdy
         document.select(noSelector).hasAttr("checked") shouldBe false
       }
 
@@ -672,12 +674,12 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a $yesText radio button that is un-checked" in {
-        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
+        document.select(radioSelector).get(0).text() shouldBe yesTextWelshYdy
         document.select(yesSelector).hasAttr("checked") shouldBe false
       }
 
       s"has a $noText radio button" in {
-        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
+        document.select(radioSelector).get(1).text() shouldBe noTextWelshYdy
         document.select(noSelector).hasAttr("checked") shouldBe false
       }
 
@@ -715,12 +717,12 @@ class OccupancyOfPropertyISpec extends ISpecBase with HtmlComponentHelpers {
       }
 
       s"has a $yesText radio button that is checked" in {
-        document.select(radioSelector).get(0).text() shouldBe yesTextWelsh
+        document.select(radioSelector).get(0).text() shouldBe yesTextWelshYdy
         document.select(yesSelector).hasAttr("checked") shouldBe true
       }
 
       s"has a $noText radio button" in {
-        document.select(radioSelector).get(1).text() shouldBe noTextWelsh
+        document.select(radioSelector).get(1).text() shouldBe noTextWelshYdy
         document.select(noSelector).hasAttr("checked") shouldBe false
       }
 
