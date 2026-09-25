@@ -33,9 +33,8 @@ class ViewDvrValuationWelshEstimatorDisabledISpec extends ISpecBase {
 
   override lazy val extraConfig: Map[String, String] =
     Map(
-      "feature-switch.draftListEnabled"            -> "false",
-      "feature-switch.comparablePropertiesEnabled" -> "false",
-      "feature-switch.welshEstimatorEnabled"       -> "false"
+      "feature-switch.draftListEnabled"      -> "false",
+      "feature-switch.welshEstimatorEnabled" -> "false"
     )
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"

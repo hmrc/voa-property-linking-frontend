@@ -28,20 +28,19 @@ import play.api.libs.json.Json.toJson
 import play.api.libs.ws.WSResponse
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
-import scala.jdk.CollectionConverters._
+
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.UUID
 
 class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
-  override lazy val extraConfig: Map[String, String] = Map("feature-switch.comparablePropertiesEnabled" -> "false")
-
   val introSelector = "#intro"
   val mainContendSelector = "#main-content"
   val currentReadableValueSelector = "#rateable-value-caption"
   val errorAtRadioSelector = "#checkType_-error"
   val errorSummarySelector = "#error-link"
+
   val forbiddenHeadingSelector = "#main-content > div > div > h1"
   val forbiddenP1Selector = "#main-content > div > div > p"
   val forbiddenListYearHeadingSelector = "#main-content > div > div > h1"
@@ -55,6 +54,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val noRadioSelectedErrorTextWelsh = "Dewisiwch beth rydych am ei ddweud wrthym"
   val errorText = "Error: "
   val errorTextWelsh = "Gwall: "
+
   val forbiddenTitleText = "Cannot access valuation - Valuation Office - GOV.UK"
   val forbiddenTitleTextWelsh = "Methu â chael mynediad at y prisiad - Y Swyddfa Brisio - GOV.UK"
   val forbiddenHeadingText = "Cannot access valuation"
@@ -78,11 +78,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val forbiddenListYearButtonHref = "/business-rates-dashboard/client-properties"
 
   override def submissionId = "PL1ZRPBP7"
-
   override def uarn: Long = 7651789000L
-
   override def valuationId: Long = 10028428L
-
   override def propertyLinkId: Long = 128L
 
   val checkId = "1774b2a8-4ad1-4351-88fa-f9dc4868fa1c"
@@ -368,7 +365,6 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
 
   }
-
   private def postStartCheckPage(
         language: Language,
         checkType: String,
@@ -446,7 +442,6 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         }
     }
   }
-
   def postRequestStubs(checkType: String, dvrCheck: Boolean, rateableValueTooHigh: Boolean): StubMapping = {
 
     authStubs
@@ -508,8 +503,26 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
     }
   }
 
+  val comparableTabLocator = "#tab_comparable-properties-tab"
+  val comparableTabHeadingLocator = "#comparable-properties > h2"
+  val comparableTabP1Locator = "##comparable-properties > p:nth-child(2)"
+  val comparableTabP2Locator = "#comparable-properties > p:nth-child(3)"
+
+  val comparableTabText = "Comparable properties"
+  val comparableTabHeadingText = "Comparable properties"
+  val comparableTabP1Text = "The VOA values similar properties together."
+  val comparableTabP2Text =
+    "The information for some properties is restricted. We do not provide comparable property data for this property."
+
+  val comparableTabTextWelsh = "Eiddo y gellir eu cymharu"
+  val comparableTabHeadingTextWelsh = "Eiddo y gellir eu cymharu"
+  val comparableTabP1TextWelsh = "Mae’r VOA yn prisio eiddo tebyg gyda’i gilydd."
+  val comparableTabP2TextWelsh =
+    "Mae’r wybodaeth ar gyfer ambell eiddo yn gyfyngedig. Nid ydym yn darparu data eiddo y gellir eu cymharu ar gyfer yr eiddo hwn."
+
   "DvrController myOrganisationRequestDetailValuationCheck method" should {
-    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (2017 list year)" in {
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (list year 2017)" in {
+
       val res = getDvrFilesPage(English, listYear = "2017")
       val doc = Jsoup.parse(res.body)
       doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
@@ -524,7 +537,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "If the assessment has been deleted for either example, you can send a check case from the most recent live valuation."
     }
 
-    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (2017 list year)" in {
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (list year 2017)" in {
       val res = getDvrFilesPage(Welsh, listYear = "2017")
       val doc = Jsoup.parse(res.body)
       doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
@@ -539,7 +552,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
     }
 
-    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (2023 list year)" in {
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (list year 2023)" in {
+
       val res = getDvrFilesPage(English)
       val doc = Jsoup.parse(res.body)
       doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
@@ -554,7 +568,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "If the assessment has been deleted for either example, you can send a check case from the most recent live valuation."
     }
 
-    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (2023 list year)" in {
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (list year 2023)" in {
       val res = getDvrFilesPage(Welsh)
       val doc = Jsoup.parse(res.body)
       doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
@@ -569,7 +583,8 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
     }
 
-    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (2026 list year)" in {
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (list year 2026)" in {
+
       val res = getDvrFilesPage(English, listYear = "2026")
       val doc = Jsoup.parse(res.body)
       doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
@@ -584,7 +599,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "If the assessment has been deleted for either example, you can send a check case from the most recent live valuation."
     }
 
-    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (2026 list year)" in {
+    "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (list year 2026)" in {
       val res = getDvrFilesPage(Welsh, listYear = "2026")
       val doc = Jsoup.parse(res.body)
       doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
@@ -597,6 +612,30 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
       doc
         .getElementById("valuation-tab-p4")
         .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
+    }
+  }
+
+  // JS messing up these test as the tabs visually hidden
+  "DvrController myOrganisationRequestDetailValuationCheck method" should {
+    "Load to the 'Dvr files' page & display the correct content on the comparable properties tab - English" in {
+
+      val res = getDvrFilesPage(English)
+      val doc = Jsoup.parse(res.body)
+      doc.title() shouldBe "ADDRESS - Valuation Office - GOV.UK"
+      doc.toString contains comparableTabText
+      doc.toString contains comparableTabHeadingText
+      doc.toString contains comparableTabP1Text
+      doc.toString contains comparableTabP2Text
+    }
+
+    "Load to the 'Dvr files' page & display the correct content on the comparable properties tab - Welsh" in {
+      val res = getDvrFilesPage(Welsh)
+      val doc = Jsoup.parse(res.body)
+      doc.title() shouldBe "ADDRESS - Y Swyddfa Brisio - GOV.UK"
+      doc.toString contains comparableTabTextWelsh
+      doc.toString contains comparableTabHeadingTextWelsh
+      doc.toString contains comparableTabP1TextWelsh
+      doc.toString contains comparableTabP2TextWelsh
     }
   }
 
@@ -620,11 +659,11 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
 
   def getRequestStubs(listYear: String): StubMapping = {
 
+    authStubs
+
     val assessment = testApiAssessmentsNoCheck.copy(assessments =
       List(currentApiAssessmentNoCheck.copy(listYear = listYear), previousApiAssessment)
     )
-
-    authStubs
 
     stubFor {
       get(s"/business-rates-challenge/my-organisations/challenge-cases?submissionId=$submissionId")
