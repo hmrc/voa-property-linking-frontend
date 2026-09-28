@@ -17,11 +17,14 @@
 package utils
 
 import models.PropertyAddress
+import play.api.i18n.{Lang, Messages, MessagesImpl}
 import tests.BaseUnitSpec
 
 import java.time.{LocalDateTime, LocalTime}
 
-class FormattersSpec extends BaseUnitSpec {
+class FormattersSpec extends BaseUnitSpec with StubMessageControllerComponents {
+
+  implicit val implicitMessages: Messages = MessagesImpl(Lang("en"), messagesApi)
 
   "capitalisedAddress" should {
     "capitalise the first letter of each word in a string, with the postcode in caps" in {

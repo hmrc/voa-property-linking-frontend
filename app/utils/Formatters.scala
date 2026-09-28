@@ -52,8 +52,8 @@ object Formatters {
   def formattedFullDate(date: LocalDate)(implicit messages: Messages): String =
     s"${date.getDayOfMonth} ${messages(s"month.${date.getMonthValue}")} ${date.getYear}"
 
-  def formatDateTimeToDate(date: LocalDateTime): String =
-    date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"))
+  def formatDateTimeToDate(date: LocalDateTime)(implicit messages: Messages): String =
+    s"${date.getDayOfMonth} ${messages(s"month.${date.getMonthValue}")} ${date.getYear}"
 
   def formatDateHint(date: LocalDate): String =
     date.format(DateTimeFormatter.ofPattern("d M yyyy"))

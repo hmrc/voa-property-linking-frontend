@@ -521,7 +521,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "a court decision affected this property’s rateable value and before 1 October 2023 you send a Check case from the current valuation."
       doc
         .getElementById("valuation-tab-p4")
-        .text() shouldBe "If the assessment has been deleted for either example, you can send a check case from the most recent live valuation."
+        .text() shouldBe "If the assessment has been deleted for either example, you can send a Check case from the most recent live valuation."
     }
 
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (2017 list year)" in {
@@ -533,10 +533,10 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
       doc
         .getElementById("valuation-tab-li5")
-        .text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2023, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
+        .text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn, a rydych yn anfon achos Gwirio o’r prisiad cyfredol cyn 1 Hydref 2023, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
       doc
         .getElementById("valuation-tab-p4")
-        .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
+        .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos Gwirio o’r prisiad byw mwyaf diweddar."
     }
 
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (2023 list year)" in {
@@ -551,7 +551,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "a court decision affected this property’s rateable value and before 1 October 2026 you send a Check case from the current valuation."
       doc
         .getElementById("valuation-tab-p4")
-        .text() shouldBe "If the assessment has been deleted for either example, you can send a check case from the most recent live valuation."
+        .text() shouldBe "If the assessment has been deleted for either example, you can send a Check case from the most recent live valuation."
     }
 
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (2023 list year)" in {
@@ -563,10 +563,10 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
       doc
         .getElementById("valuation-tab-li5")
-        .text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2026, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
+        .text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn, a rydych yn anfon achos Gwirio o’r prisiad cyfredol cyn 1 Hydref 2026, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
       doc
         .getElementById("valuation-tab-p4")
-        .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
+        .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos Gwirio o’r prisiad byw mwyaf diweddar."
     }
 
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - English (2026 list year)" in {
@@ -581,7 +581,7 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "a court decision affected this property’s rateable value and before 1 October 2029 you send a Check case from the current valuation."
       doc
         .getElementById("valuation-tab-p4")
-        .text() shouldBe "If the assessment has been deleted for either example, you can send a check case from the most recent live valuation."
+        .text() shouldBe "If the assessment has been deleted for either example, you can send a Check case from the most recent live valuation."
     }
 
     "Load to the 'Dvr files' page & display the correct content on the valuationTab - Welsh (2026 list year)" in {
@@ -593,10 +593,10 @@ class DvrControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .text() shouldBe "ydym wedi newid y prisiad hwn yn ystod y 6 mis diwethaf ac eich bod yn anfon achos Gwirio o’r prisiad cyfredol."
       doc
         .getElementById("valuation-tab-li5")
-        .text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn a chyn 1 Hydref 2029, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
+        .text() shouldBe "effeithiodd benderfyniad llys ar werth ardrethol yr eiddo hwn, a rydych yn anfon achos Gwirio o’r prisiad cyfredol cyn 1 Hydref 2029, rydych yn anfon achos Gwirio o’r prisiad cyfredol."
       doc
         .getElementById("valuation-tab-p4")
-        .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos gwirio o’r prisiad byw mwyaf diweddar."
+        .text() shouldBe "Os yw’r asesiad wedi’i ddileu ar gyfer y naill enghraifft neu’r llall, gallwch anfon achos Gwirio o’r prisiad byw mwyaf diweddar."
     }
   }
 
