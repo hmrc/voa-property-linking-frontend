@@ -111,16 +111,15 @@
             )
           )
 
-    val comparablePropertiesTab: Option[TabItem] = if(config.comparablePropertiesEnabled) {
-        Some(TabItem(
-        id = Some("comparable-properties-tab"),
-        label = messages("detailed.valuation.tab.comparableProperties.h2"),
-        attributes = Map("id" -> "comparables-tab"),
-        panel = TabPanel(
+    val comparablePropertiesTab: TabItem =
+        TabItem(
+            id = Some("comparable-properties-tab"),
+            label = messages("detailed.valuation.tab.comparableProperties.h2"),
+            attributes = Map("id" -> "comparables-tab"),
+            panel = TabPanel(
             content = HtmlContent(comparablePropertyTab())
         )
-    ))
-    } else {None}
+    )
 
     Seq(
         Some(valuation),
@@ -128,7 +127,7 @@
         Some(check).filterNot(_ => model.isDraftList),
         Some(challenge).filterNot(_ => model.isDraftList || challengeCases.isEmpty),
         Some(agents).filterNot(_ => !model.owner),
-        comparablePropertiesTab
+        Some(comparablePropertiesTab)
     ).flatten
 }
 

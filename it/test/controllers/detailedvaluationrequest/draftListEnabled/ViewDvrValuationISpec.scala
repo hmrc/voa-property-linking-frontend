@@ -32,7 +32,7 @@ import java.util.UUID
 class ViewDvrValuationISpec extends ISpecBase {
 
   override lazy val extraConfig: Map[String, String] =
-    Map("feature-switch.draftListEnabled" -> "true", "feature-switch.comparablePropertiesEnabled" -> "false")
+    Map("feature-switch.draftListEnabled" -> "true")
 
   val testSessionId = s"stubbed-${UUID.randomUUID}"
 

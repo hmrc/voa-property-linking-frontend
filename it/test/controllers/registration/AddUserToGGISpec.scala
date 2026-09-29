@@ -27,16 +27,21 @@ class AddUserToGGISpec extends ISpecBase with HtmlComponentHelpers with ListYear
 
   val titleText = "Add another user to your GOV.UK account - Valuation Office - GOV.UK"
   val headingText = "Add another user to your GOV.UK account"
-  val p1Text = "You’ll need to be an administrator for the Government Gateway account to add users. You’re an administrator if you created the Government Gateway account, or if you’ve been added as an administrator to the account. We recommend you have at least 2 administrators for your organisation."
-  val p2Text = "You should be aware that if you add an agent to your Government Gateway account, they’ll have the same access rights as other assistant users within your organisation."
+  val p1Text =
+    "You’ll need to be an administrator for the Government Gateway account to add users. You’re an administrator if you created the Government Gateway account, or if you’ve been added as an administrator to the account. We recommend you have at least 2 administrators for your organisation."
+  val p2Text =
+    "You should be aware that if you add an agent to your Government Gateway account, they’ll have the same access rights as other assistant users within your organisation."
   val p3Text = "You can add a user on the next screen by selecting “Account users” then “Manage users”."
   val addUserButtonText = "Add a user"
 
   val titleTextWelsh = "Ychwanegu defnyddiwr arall at eich cyfrif GOV.UK - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Ychwanegu defnyddiwr arall at eich cyfrif GOV.UK"
-  val p1TextWelsh = "Bydd angen i chi fod yn weinyddwr ar gyfer cyfrif Porth y Llywodraeth i ychwanegu defnyddwyr. Rydych chi’n weinyddwr os wnaethoch chi greu y cyfrif Porth y Llywodraeth, neu os ydych chi wedi cael eich ychwanegu fel gweinyddwr i’r cyfrif. Rydym yn argymell bod gennych o leiaf 2 weinyddwr ar gyfer eich sefydliad."
-  val p2TextWelsh = "Os ydych yn ychwanegu asiant at eich cyfrif Porth y Llywodraeth dylech fod yn ymwybodol bydd ganddynt yr un hawliau mynediad â defnyddwyr cynorthwyol eraill yn eich sefydliad."
-  val p3TextWelsh = "Gallwch ychwanegu defnyddiwr ar y sgrin nesaf drwy ddewis ’Defnyddwyr cyfrif’ yna \"Rheoli defnyddwyr’"
+  val p1TextWelsh =
+    "Bydd angen i chi fod yn weinyddwr ar gyfer cyfrif Porth y Llywodraeth i ychwanegu defnyddwyr. Rydych chi’n weinyddwr os wnaethoch chi greu y cyfrif Porth y Llywodraeth, neu os ydych chi wedi cael eich ychwanegu fel gweinyddwr i’r cyfrif. Rydym yn argymell bod gennych o leiaf 2 weinyddwr ar gyfer eich sefydliad."
+  val p2TextWelsh =
+    "Os ydych yn ychwanegu asiant at eich cyfrif Porth y Llywodraeth dylech fod yn ymwybodol bydd ganddynt yr un hawliau mynediad â defnyddwyr cynorthwyol eraill yn eich sefydliad."
+  val p3TextWelsh =
+    "Gallwch ychwanegu defnyddiwr ar y sgrin nesaf drwy ddewis ’Defnyddwyr cyfrif’ yna \"Rheoli defnyddwyr’"
   val addUserButtonTextWelsh = "Ychwanegu defnyddiwr"
 
   val headingSelector = "#main-content > div > div > h1"
@@ -45,8 +50,6 @@ class AddUserToGGISpec extends ISpecBase with HtmlComponentHelpers with ListYear
   val p3Selector = "#main-content > div > div > p:nth-child(4)"
   val addUserButtonSelector = "#main-content > div > div > a"
   val returningUserHref = "/business-rates-property-linking/login"
-
-
 
   "Add user to GG controller method" should {
     "Show an Add user to GG screen with the correct text" which {
