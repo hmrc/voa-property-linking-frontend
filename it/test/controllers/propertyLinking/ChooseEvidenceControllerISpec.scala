@@ -68,16 +68,16 @@ class ChooseEvidenceControllerISpec extends ISpecBase {
 
   val titleTextWelsh = "Oes gennych chi fil ardrethi busnes ar gyfer yr eiddo hwn? - Y Swyddfa Brisio - GOV.UK"
   val occupierTitleTextWelsh =
-    "A oes gennych brydles neu drwydded i feddiannu’r eiddo hwn? - Y Swyddfa Brisio - GOV.UK"
+    "Oes gennych chi brydles neu drwydded i feddiannu ar gyfer yr eiddo hwn? - Y Swyddfa Brisio - GOV.UK"
   val clientTitleTextWelsh =
     "Oes gennych chi gopi o fil ardrethi busnes eich cleient ar gyfer yr eiddo hwn? - Y Swyddfa Brisio - GOV.UK"
   val clientOccupierTitleTextWelsh =
-    "Oes gennych chi brydles neu drwydded eich cleient i feddiannu ar gyfer yr eiddo hwn? - Y Swyddfa Brisio - GOV.UK"
+    "Oes gennych chi brydles neu drwydded i feddiannu eich cleient ar gyfer yr eiddo hwn? - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Oes gennych chi fil ardrethi busnes ar gyfer yr eiddo hwn?"
-  val occupierHeadingTextWelsh = "A oes gennych brydles neu drwydded i feddiannu’r eiddo hwn?"
+  val occupierHeadingTextWelsh = "Oes gennych chi brydles neu drwydded i feddiannu ar gyfer yr eiddo hwn?"
   val clientHeadingTextWelsh = "Oes gennych chi gopi o fil ardrethi busnes eich cleient ar gyfer yr eiddo hwn?"
   val clientOccupierHeadingTextWelsh =
-    "Oes gennych chi brydles neu drwydded eich cleient i feddiannu ar gyfer yr eiddo hwn?"
+    "Oes gennych chi brydles neu drwydded i feddiannu eich cleient ar gyfer yr eiddo hwn?"
   val captionTextWelsh = "Ychwanegu eiddo"
   val backLinkTextWelsh = "Yn ôl"
   val hintTextWelsh = "Dylai’r bil fod ar gyfer Test Address, Test Lane, T35 T3R."

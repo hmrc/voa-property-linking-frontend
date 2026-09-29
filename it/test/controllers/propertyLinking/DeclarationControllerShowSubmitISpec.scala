@@ -42,7 +42,9 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
   val addressValue = "Test Address, Test Lane, T35 T3R"
   val startedValue = "2 April 2017"
+  val startedValueWelsh = "2 Ebrill 2017"
   val lastDayValue = "3 April 2017"
+  val lastDayValueWelsh = "3 Ebrill 2017"
 
   val titleText = "Check and confirm your details - Valuation Office - GOV.UK"
   val captionText = "Add a property"
@@ -85,13 +87,13 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
   val errorText = "Error: "
   val errorMessageText = "You must agree to the declaration to continue"
 
-  val titleTextWelsh = "Gwiriwch a chadarnhau eich manylion - Y Swyddfa Brisio - GOV.UK"
+  val titleTextWelsh = "Gwirio a chadarnhau eich manylion - Y Swyddfa Brisio - GOV.UK"
   val captionTextWelsh = "Ychwanegu eiddo"
-  val headerTextWelsh = "Gwiriwch a chadarnhau eich manylion"
+  val headerTextWelsh = "Gwirio a chadarnhau eich manylion"
   val addressTextWelsh = "Cyfeiriad"
   val connectionToPropertyTextWelsh = "Cysylltiad â’r eiddo"
   val startedTextWelsh = "Wedi dechrau"
-  val stillOwnTextWelsh = "Ydych chi yn parhau yn berchen ar gyfer yr eiddo?"
+  val stillOwnTextWelsh = "Ydych chi dal yn berchen ar yr eiddo?"
   val stillOwnAgentTextWelsh = "Yw eich cleient yn parhau yn berchen ar gyfer yr eiddo?"
   val stillOccupyTextWelsh = "Ydych chi yn parhau yn meddiannu ar gyfer yr eiddo?"
   val stillOccupyAgentTextWelsh = "Yw eich cleient yn parhau yn meddiannu ar gyfer yr eiddo?"
@@ -106,9 +108,9 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
   val youCouldBeTextWelsh =
     "! Rhybudd Gallwch gael eich anfon i’r llys os byddwch yn cyflwyno gwybodaeth ffug yn fwriadol."
   val iDeclareTextWelsh =
-    "Rwy’n datgan bod y wybodaeth a roddais yn gywir ac yn gyflawn. Mae’r dystiolaeth yr wyf wedi’i lanlwytho yn cynnwys prawf o fy nghysylltiad â’r eiddo ar gyfer y ddyddiadau sy’n ymestyn dros y cyfnod yr wyf wedi’i nodi."
+    "Rwy’n datgan bod yr wybodaeth rwyf wedi’i rhoi yn gywir ac yn gyflawn. Mae’r dystiolaeth yr wyf wedi’i lanlwytho yn cynnwys prawf o fy nghysylltiad â’r eiddo ar gyfer y dyddiadau sy’n gorgyffwrdd â’r cyfnod yr wyf wedi’i nodi."
   val iDeclareAgentTextWelsh =
-    "Rwy’n datgan bod y wybodaeth a roddais yn gywir ac yn gyflawn. Mae’r dystiolaeth yr wyf wedi’i lanlwytho yn cynnwys prawf o gysylltiad fy nghleient â’r eiddo ar gyfer y ddyddiadau sy’n ymestyn dros y cyfnod yr wyf wedi’i nodi."
+    "Rwy’n datgan bod yr wybodaeth rwyf wedi’i rhoi yn gywir ac yn gyflawn.. Mae’r dystiolaeth yr wyf wedi’i lanlwytho yn cynnwys prawf o gysylltiad fy nghleient â’r eiddo ar gyfer y dyddiadau sy’n gorgyffwrdd â’r cyfnod yr wyf wedi’i nodi."
   val confirmTextWelsh = "Cadarnhau ac anfon"
   val ownerTextWelsh = "Perchennog"
   val occupierTextWelsh = "Meddiannydd"
@@ -1155,7 +1157,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -1235,7 +1237,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -1315,7 +1317,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -1395,7 +1397,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -1474,7 +1476,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -1553,7 +1555,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -1632,7 +1634,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -1712,7 +1714,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -1792,7 +1794,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -1872,7 +1874,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -1951,7 +1953,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -2030,7 +2032,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }
@@ -2221,7 +2223,7 @@ class DeclarationControllerShowSubmitISpec extends ISpecBase {
 
     s"has an $startedText row with the $startedValue and $changeText link in welsh" in {
       document.select(startedHeaderSelector).text shouldBe startedTextWelsh
-      document.select(startedValueSelector).text shouldBe startedValue
+      document.select(startedValueSelector).text shouldBe startedValueWelsh
       document.select(startedHrefSelector).text shouldBe changeTextWelsh + startedTextWelsh
       document.select(startedHrefSelector).attr("href") shouldBe changeStartDateHref
     }

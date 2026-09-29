@@ -56,7 +56,7 @@ class UploadControllerISpec extends ISpecBase {
   val licenceHeadingText = "Upload your licence to occupy"
   val licenceHeadingTextWelsh = "Lanlwytho eich trwydded i feddiannu"
   val licenceHeadingTextAgent = "Upload your client’s licence to occupy"
-  val licenceHeadingTextAgentWelsh = "Lanlwytho trwydded eich cleient i feddiannu"
+  val licenceHeadingTextAgentWelsh = "Lanlwytho trwydded i feddiannu eich cleient"
 
   // Service charge statement
   val serviceChargeHeadingText = "Upload your service charge statement"
@@ -133,14 +133,14 @@ class UploadControllerISpec extends ISpecBase {
     "You’ll need to contact us to discuss other documents that prove your client’s link to this property."
   val cannotProvideEvidenceEmailText = "ccaservicevo@hmrc.gov.uk"
 
-  val cannotProvideEvidenceTitleTextWelsh = "Os na allwch ddarparu - Y Swyddfa Brisio - GOV.UK"
-  val cannotProvideEvidenceHeadingTextWelsh = "Os na allwch ddarparu"
+  val cannotProvideEvidenceTitleTextWelsh = "Os na allwch ddarparu tystiolaeth - Y Swyddfa Brisio - GOV.UK"
+  val cannotProvideEvidenceHeadingTextWelsh = "Os na allwch ddarparu tystiolaeth"
   val cannotProvideEvidenceP1Welsh =
-    "Os na allwch ddarparu tystiolaeth i brofi eich cysylltiad â’r eiddo, ni fyddwch yn gallu ei hawlio na gweld y prisiad manwl."
+    "Os na allwch ddarparu tystiolaeth i brofi cysylltiad eich cleient â’r eiddo, ni fyddwch yn gallu ei hawlio na gweld y prisiad manwl."
   val cannotProvideEvidenceP2Welsh =
     "Bydd angen i chi gysylltu â ni i drafod dogfennau eraill sy’n profi eich cysylltiad â’r eiddo hwn."
   val cannotProvideEvidenceP1AgentWelsh =
-    "Os na allwch ddarparu tystiolaeth i brofi eich cysylltiad â’r eiddo, ni fyddwch yn gallu ei hawlio na gweld y prisiad manwl."
+    "Os na allwch ddarparu tystiolaeth i brofi cysylltiad eich cleient â’r eiddo, ni fyddwch yn gallu ei hawlio na gweld y prisiad manwl."
   val cannotProvideEvidenceP2AgentWelsh =
     "Bydd angen i chi gysylltu â ni i drafod dogfennau eraill sy’n profi cysylltiad eich cleient â’r eiddo hwn."
   val cannotProvideEvidenceP3Welsh = "E-bost: ccaservicevo@hmrc.gov.uk"

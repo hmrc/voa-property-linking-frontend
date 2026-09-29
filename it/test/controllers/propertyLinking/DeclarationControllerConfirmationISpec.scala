@@ -56,7 +56,7 @@ class DeclarationControllerConfirmationISpec extends ISpecBase {
   val goBackText = "Go back to your dashboard"
 
   val titleTextWelsh = "Cais i hawlio eiddo wedi’i gyflwyno - Y Swyddfa Brisio - GOV.UK"
-  val localCouncilReferenceTextWelsh = "Cyfeirnod yr awdurdod lleol: 2050466366770"
+  val localCouncilReferenceTextWelsh = "Cyfeirnod y cyngor lleol: 2050466366770"
   val propertyTextWelsh = "Eiddo: Test Address, Test Lane, T35 T3R"
   val headingTextWelsh = "Cais i hawlio eiddo wedi’i gyflwyno Eich rhif cyflwyno PL-123456"
   val makeANoteTextWelsh =
@@ -65,9 +65,9 @@ class DeclarationControllerConfirmationISpec extends ISpecBase {
   val weWillProcessTextWelsh =
     "Byddwn yn prosesu’ch cais i hawlio’r eiddo hwn cyn gynted â phosibl ond gall hyn gymryd hyd at 15 diwrnod gwaith."
   val youCanSeeTextWelsh =
-    "Gallwch weld statws eich hawliad yn eich eiddo. Unwaith y bydd yr hawliad wedi’i gymeradwyo, bydd y statws yn cael ei ddiweddaru."
+    "Gallwch weld statws eich cais yn eich eiddo. Unwaith y bydd yr hawliad wedi’i gymeradwyo, bydd y statws yn cael ei ddiweddaru."
   val youCanSeeAgentTextWelsh =
-    "Gallwch weld statws eich cais ar eiddo eich cleient. Unwaith y bydd y cais wedi’i gymeradwyo, bydd y statws yn diweddaru."
+    "Gallwch weld statws eich cais yn eiddo eich cleient. Unwaith y bydd y cais wedi’i gymeradwyo, bydd y statws yn diweddaru."
   val yourPropertiesTextWelsh = "eich eiddo"
   val yourClientsPropertiesTextWelsh = "eiddo eich cleient"
   val weWillContactTextWelsh = "Byddwn yn cysylltu â chi os bydd angen mwy o wybodaeth arnom."

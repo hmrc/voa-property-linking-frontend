@@ -62,7 +62,7 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
   val uploadingStatusTextWelsh = "Wrthi’n lanlwytho"
 
   val failedStatusText = "failed"
-  val failedStatusTextWelsh = "methu"
+  val failedStatusTextWelsh = "wedi methu"
 
   val removeFileText = "Remove"
   val removeFileTextWelsh = "Dileu"

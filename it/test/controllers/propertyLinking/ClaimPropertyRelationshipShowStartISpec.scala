@@ -49,7 +49,7 @@ class ClaimPropertyRelationshipShowStartISpec extends ISpecBase with HtmlCompone
   val clientTitleTextWelsh = "Ychwanegu eiddo i gyfrif eich cleient"
   val backLinkTextWelsh = "Yn ôl"
   val addressTextWelsh = "Cyfeiriad"
-  val localAuthTextWelsh = "Cyfeirnod yr awdurdod lleol"
+  val localAuthTextWelsh = "Cyfeirnod y cyngor lleol"
   val youllNeedTextWelsh =
     "Bydd angen i chi brofi’ch cysylltiad â’r eiddo drwy ddarparu tystiolaeth megis bil ardrethi busnes neu brydles. Rhaid i ddyddiad y dystiolaeth orgyffwrdd â’r cyfnod yr oeddech yn berchen neu’n meddiannu’r eiddo. Ewch i sut rydym yn defnyddio’r wybodaeth rydych yn ei darparu."
   val clientYoullNeedTextWelsh =
@@ -59,7 +59,7 @@ class ClaimPropertyRelationshipShowStartISpec extends ISpecBase with HtmlCompone
     "Ein nod yw rhoi penderfyniad i chi ar eich cais i ychwanegu eiddo cyn gynted â phosibl, ond gall gymryd hyd at 15 diwrnod gwaith."
   val whenWeTextWelsh = "Pan fyddwn yn cymeradwyo eich cais, gallwch wneud y canlynol:"
   val changePropertyTextWelsh = "newid manylion eich eiddo"
-  val challengeTextWelsh = "herio’r gwerth ardrethol os ydych chi’n credu ei fod yn rhy uchel"
+  val challengeTextWelsh = "herio’r gwerth ardrethol os ydych chi’n meddwl ei fod yn rhy uchel"
   val startNowTextWelsh = "Dechrau nawr"
 
   val backLinkSelector = "#back-link"
