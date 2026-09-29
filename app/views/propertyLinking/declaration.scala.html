@@ -135,8 +135,8 @@
                         content = valueWithId(
                             value = propertyOwnershipFromDate
                                 .fold(messages("declaration.checkAnswers.startDate.onOrBefore",
-                                        request.ses.earliestStartDate.format(dateFormatter)))
-                                    (_.format(dateFormatter)),
+                                Formatters.formattedFullDate(request.ses.earliestStartDate)))
+                                    (Formatters.formattedFullDate(_)),
                             id = "start-date-value")
                     ),
                     actions = Some(Actions(
