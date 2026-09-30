@@ -16,7 +16,6 @@
 
 package controllers
 
-import actions.registration.SessionUserDetailsAction
 import controllers.registration.RegistrationController
 import models.registration.{RegistrationSuccess, UserDetails}
 import models.{DetailedIndividualAccount, GroupAccount}
@@ -49,14 +48,11 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
 
   val mockRegistrationService: RegistrationService = mock[RegistrationService]
 
-  val mockSessionUserDetailsAction: SessionUserDetailsAction = mock[SessionUserDetailsAction]
-
   private def testRegistrationController(userDetails: UserDetails): RegistrationController =
     new RegistrationController(
       errorHandler = mockCustomErrorHandler,
       ggAuthenticated = ggPreauthenticated(userDetails),
       authenticated = preAuthenticatedActionBuilders(),
-      sessionUserDetailsAction = sessionUserDetailsAction,
       groupAccounts = StubGroupAccountConnector,
       individualAccounts = StubIndividualAccountConnector,
       addresses = StubAddresses,
@@ -185,6 +181,26 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       html.shouldContainText(
         "Registration failed You can’t register until the Administrator from your organisation registers first."
       )
+    }
+
+  "Going to the create account page with an Individual user below CL200" should
+    "redirect to uplift IV" in {
+
+      val user = userDetails(affinityGroup = AffinityGroup.Individual, confidenceLevel = ConfidenceLevel.L50)
+      val res = testRegistrationController(user).show()(FakeRequest())
+
+      status(res) shouldBe SEE_OTHER
+      redirectLocation(res) shouldBe Some(controllers.routes.IdentityVerification.upliftIv.url)
+    }
+
+  "Going to the create account page with an Organisation user below CL200" should
+    "redirect to uplift IV" in {
+
+      val user = userDetails(affinityGroup = AffinityGroup.Organisation, confidenceLevel = ConfidenceLevel.L50)
+      val res = testRegistrationController(user).show()(FakeRequest())
+
+      status(res) shouldBe SEE_OTHER
+      redirectLocation(res) shouldBe Some(controllers.routes.IdentityVerification.upliftIv.url)
     }
 
   "Call confirmation" should "return an valid page" in {

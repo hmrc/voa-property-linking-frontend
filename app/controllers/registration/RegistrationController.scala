@@ -18,7 +18,7 @@ package controllers.registration
 
 import actions.AuthenticatedAction
 import actions.registration.requests.RequestWithUserDetails
-import actions.registration.{GgAuthenticatedAction, SessionUserDetailsAction}
+import actions.registration.GgAuthenticatedAction
 import cats.data.OptionT
 import cats.implicits._
 import config.ApplicationConfig
@@ -44,7 +44,6 @@ class RegistrationController @Inject() (
       val errorHandler: CustomErrorHandler,
       ggAuthenticated: GgAuthenticatedAction,
       authenticated: AuthenticatedAction,
-      sessionUserDetailsAction: SessionUserDetailsAction,
       groupAccounts: GroupAccounts,
       individualAccounts: IndividualAccounts,
       addresses: Addresses,
@@ -66,7 +65,7 @@ class RegistrationController @Inject() (
 ) extends PropertyLinkingController with Logging {
 
   def show: Action[AnyContent] =
-    (ggAuthenticated andThen sessionUserDetailsAction).async { implicit request =>
+    ggAuthenticated.async { implicit request =>
       individualAccounts.withExternalId(request.externalId).flatMap {
         case Some(_) =>
           Future.successful(Redirect(config.dashboardUrl("home")))
