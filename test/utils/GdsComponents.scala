@@ -63,7 +63,7 @@ trait GdsComponents {
   lazy val govukInsetText = new GovukInsetText
   lazy val govukLabel = new GovukLabel
   lazy val govukLogo = new GovukLogo
-  lazy val govukPanel = new GovukPanel
+  lazy val govukPanel = new GovukPanel(govukButton)
   lazy val govukPhaseBanner = new GovukPhaseBanner(govukTag)
   lazy val govukRadios = new GovukRadios(govukFieldset, govukHint, govukLabel, govukFormGroup, govukHintAndErrorMessage)
   lazy val govukSelect = new GovukSelect(govukLabel, govukFormGroup, govukHintAndErrorMessage)
