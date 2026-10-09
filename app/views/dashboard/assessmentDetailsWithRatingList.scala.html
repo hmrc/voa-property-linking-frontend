@@ -33,7 +33,7 @@
 }
 
 @effectiveDate(assessment: ApiAssessment) = {
-    <span class="govuk-table__header" aria-hidden="true">@messages("assessments.table.2")<a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-effectiveDate")" class="cca-icon cca-icon__help">
+    <span class="govuk-table__header">@messages("assessments.table.2")<a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-effectiveDate")" class="cca-icon cca-icon__help">
         <span class="govuk-visually-hidden">@messages("assessments.icon.help.effectiveDate")</span>
     </a></span><p class="govuk-body">@assessment.effectiveDate.map(Formatters.formattedFullDate).getOrElse("")</p>
 }
@@ -101,7 +101,7 @@
 }
 
 @valuationRow(url: String, assessment: ApiAssessment,tableType: String, isDraft: Boolean) = {
-    <span class="govuk-table__header" aria-hidden="true">@messages("assessments.table.1")<a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-valuationPeriod")" class="cca-icon cca-icon__help">
+    <span class="govuk-table__header">@messages("assessments.table.1")<a href="@config.businessRatesValuationFrontendUrl("show-help#dialog-valuationPeriod")" class="cca-icon cca-icon__help">
         <span class="govuk-visually-hidden">@messages("assessments.icon.help.valuationPeriod")</span>
     </a></span><p class="govuk-body">@valuationTypeTag(tableType)
         @if(assessment.rateableValue.isDefined){
@@ -120,11 +120,11 @@
 }
 
 @capacity = {
-        <span class="govuk-table__header" aria-hidden="true">@messages("assessments.table.3")</span><p class="govuk-body">@model.capacity.fold("")(cap => messages(s"capacity.$cap"))</p>
+        <span class="govuk-table__header">@messages("assessments.table.3")</span><p class="govuk-body">@model.capacity.fold("")(cap => messages(s"capacity.$cap"))</p>
 }
 
 @rateableValue(assessment: ApiAssessment) = {
-    <span class="govuk-table__header" aria-hidden="true">@messages("assessments.table.4")</span><p class="govuk-body">@assessment.rateableValue.fold(messages("assessments.na"))(rv => Formatters.formatCurrencyRoundedToPounds(rv))</p>
+    <span class="govuk-table__header">@messages("assessments.table.4")</span><p class="govuk-body">@assessment.rateableValue.fold(messages("assessments.na"))(rv => Formatters.formatCurrencyRoundedToPounds(rv))</p>
 
 }
 
