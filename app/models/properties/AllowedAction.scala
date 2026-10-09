@@ -30,8 +30,6 @@ object AllowedAction extends Enumeration {
   val VIEW_DETAILED_VALUATION: AllowedAction = Value("viewDetailedValuation")
   val BUSINESS_RATES_ESTIMATOR: AllowedAction = Value("businessRatesEstimator")
   val SIMILAR_PROPERTIES: AllowedAction = Value("similarProperties")
-  val VIEW_APPEALS: AllowedAction = Value("viewAppeals")
-  val PROPOSAL: AllowedAction = Value("proposal")
 
   implicit val format: Format[AllowedAction] = JsonUtils.enumFormat(AllowedAction)
 }
