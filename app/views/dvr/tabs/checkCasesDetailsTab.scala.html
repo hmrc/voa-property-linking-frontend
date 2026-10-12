@@ -82,28 +82,28 @@
 }
 
 @reference(checkReference: String) = {
-    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.1")</span><a href="@model.checkSummaryUrl(checkReference)" class='govuk-link'>@checkReference</a>
+    <span class="govuk-table__header">@messages("property.details.checkcases.table.1")</span><a href="@model.checkSummaryUrl(checkReference)" class='govuk-link'>@checkReference</a>
 }
 
 @submitDate(submittedDate: LocalDateTime) = {
-    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.2")</span><p class="govuk-body">@formatDateTimeToDate(submittedDate)</p>
+    <span class="govuk-table__header">@messages("property.details.checkcases.table.2")</span><p class="govuk-body">@formatDateTimeToDate(submittedDate)</p>
 }
 
 @tagColumn(status: String) = {
-    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.3")</span><p class="govuk-body">@statusTagWithHelpLink(status)</p>
+    <span class="govuk-table__header">@messages("property.details.checkcases.table.3")</span><p class="govuk-body">@statusTagWithHelpLink(status)</p>
 }
 
 @closeDate(closedDate: Option[LocalDate]) = {
-    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.4")</span><p class="govuk-body">@closedDate.fold("")(formattedFullDate(_))</p>
+    <span class="govuk-table__header">@messages("property.details.checkcases.table.4")</span><p class="govuk-body">@closedDate.fold("")(formattedFullDate(_))</p>
 }
 
 @submittedByColumn(submittedBy: String) = {
-    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.5")</span><p class="govuk-body">@submittedBy</p>
+    <span class="govuk-table__header">@messages("property.details.checkcases.table.5")</span><p class="govuk-body">@submittedBy</p>
 
 }
 
 @challengeColumn(checkReference: String) = {
-    <span class="govuk-table__header" aria-hidden="true">@messages("property.details.checkcases.table.6")</span><p class="govuk-body">@challengeLink(model.assessmentRef, checkReference)</p>
+    <span class="govuk-table__header">@messages("property.details.checkcases.table.6")</span><p class="govuk-body">@challengeLink(model.assessmentRef, checkReference)</p>
 }
 
 
