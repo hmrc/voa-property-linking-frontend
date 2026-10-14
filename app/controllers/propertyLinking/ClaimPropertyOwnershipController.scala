@@ -21,13 +21,15 @@ import actions.propertylinking.WithLinkingSession
 import actions.propertylinking.requests.LinkingSessionRequest
 import com.google.inject.Singleton
 import config.ApplicationConfig
+import connectors.vmv.VmvConnector
 import controllers._
 import form.Mappings._
 import models._
+import models.properties.PropertyHistory
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import repositories.SessionRepo
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
@@ -41,6 +43,7 @@ class ClaimPropertyOwnershipController @Inject() (
       @Named("propertyLinkingSession") val sessionRepository: SessionRepo,
       authenticatedAction: AuthenticatedAction,
       withLinkingSession: WithLinkingSession,
+      vmvConnector: VmvConnector,
       ownershipToPropertyView: views.html.propertyLinking.ownershipToProperty
 )(implicit
       executionContext: ExecutionContext,
@@ -85,32 +88,41 @@ class ClaimPropertyOwnershipController @Inject() (
 
   def submitOwnership: Action[AnyContent] =
     authenticatedAction.andThen(withLinkingSession).async { implicit request =>
-      ownershipForm(request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate))
-        .bindFromRequest()
-        .fold(
-          errors =>
-            Future.successful(
-              BadRequest(
-                ownershipToPropertyView(
-                  ClaimPropertyOwnershipVM(
-                    errors,
-                    request.ses.address,
-                    request.ses.earliestStartDate,
-                    request.ses.localAuthorityReference
-                  ),
-                  request.ses.clientDetails,
-                  getBackLink
-                )
-              )
+      def badRequest(form: Form[PropertyOwnership]): Result =
+        BadRequest(
+          ownershipToPropertyView(
+            ClaimPropertyOwnershipVM(
+              form,
+              request.ses.address,
+              request.ses.earliestStartDate,
+              request.ses.localAuthorityReference
             ),
-          formData =>
-            sessionRepository
-              .saveOrUpdate[LinkingSession](request.ses.copy(propertyOwnership = Some(formData)))
-              .map { _ =>
-                if (request.ses.fromCya.contains(true)) Redirect(propertyLinking.routes.DeclarationController.show)
-                else Redirect(propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy)
-              }
+            request.ses.clientDetails,
+            getBackLink
+          )
         )
+
+      val boundForm = ownershipForm(request.ses.propertyOccupancy.flatMap(_.lastOccupiedDate)).bindFromRequest()
+
+      boundForm.fold(
+        errors => Future.successful(badRequest(errors)),
+        formData =>
+          vmvConnector.getPropertyHistory(request.ses.uarn).flatMap { propertyHistory =>
+            listYearError(formData.fromDate, propertyHistory, config.currentListYear) match {
+              case Some(errorKey) =>
+                Future.successful(
+                  badRequest(boundForm.withError("interestedStartDate", errorKey))
+                )
+              case None =>
+                sessionRepository
+                  .saveOrUpdate[LinkingSession](request.ses.copy(propertyOwnership = Some(formData)))
+                  .map { _ =>
+                    if (request.ses.fromCya.contains(true)) Redirect(propertyLinking.routes.DeclarationController.show)
+                    else Redirect(propertyLinking.routes.ClaimPropertyOccupancyController.showOccupancy)
+                  }
+            }
+          }
+      )
     }
 }
 
@@ -131,6 +143,14 @@ object ClaimPropertyOwnership {
   def getBackLink(implicit request: LinkingSessionRequest[_]): String =
     if (request.ses.fromCya.contains(true)) propertyLinking.routes.DeclarationController.show.url
     else propertyLinking.routes.ClaimPropertyRelationshipController.back.url
+
+  def listYearError(startDate: LocalDate, propertyHistory: PropertyHistory, currentListYear: String): Option[String] = {
+
+    propertyHistory.history.filter(_.listYear == currentListYear) match {
+      case entries if entries.forall(_.currentToDate.exists(_.isBefore(startDate))) => Some("interestedStartDate.error.removedFromListYear")
+      case _                                                                       => None
+    }
+  }
 }
 
 case class ClaimPropertyOwnershipVM(

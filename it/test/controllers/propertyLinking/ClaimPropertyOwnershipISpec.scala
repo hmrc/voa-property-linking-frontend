@@ -20,6 +20,7 @@ import base.{HtmlComponentHelpers, ISpecBase}
 import binders.propertylinks.ClaimPropertyReturnToPage
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
+import models.properties.PropertyHistory
 import models.{ClientDetails, LinkingSession, Occupier, Owner, OwnerOccupier, PropertyOccupancy, PropertyOwnership, PropertyRelationship}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -147,6 +148,25 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val emptyInputAboveLabelErrorTextWelsh = "Nodwch ddyddiad dilys"
 
   val errorSummaryTitleTextWelsh = "Mae yna broblem"
+
+  val removedFromListErrorText =
+    "Your property occupation date must be before the property was removed from the rating list"
+  val removedFromListErrorTextWelsh =
+    "Mae’n rhaid i ddyddiad meddiannu eich eiddo fod cyn y dyddiad y cafodd yr eiddo ei dynnu oddi ar y rhestr ardrethu."
+
+  val currentListYear = "2026"
+  val validPropertyHistory: PropertyHistory =
+    testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(listYear = currentListYear)))
+  val noCurrentListYearHistory: PropertyHistory =
+    testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(listYear = "2023")))
+  val removedFromListHistory: PropertyHistory = testPropertyHistory.copy(history =
+    Seq(
+      testPropertyValuation.copy(
+        listYear = currentListYear,
+        currentToDate = Some(LocalDate.of(2021, 6, 1))
+      )
+    )
+  )
 
   val backLinkSelector = "#back-link"
   val captionSelector = "span.govuk-caption-l"
@@ -475,6 +495,102 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
       res
         .headers("Location")
         .head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/summary"
+
+    }
+
+    "Redirect to the summary page when the start date is before the property was removed from the current list year" in {
+
+      val res = submitOwnership(
+        day = "01",
+        month = "01",
+        year = "2020",
+        relationship = "owner",
+        propertyHistory = removedFromListHistory
+      )
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/summary"
+
+    }
+
+    "Return a bad request with the removed from list error when the property has no current list year" which {
+
+      lazy val res = submitOwnership(
+        day = "01",
+        month = "01",
+        year = "2020",
+        relationship = "owner",
+        propertyHistory = noCurrentListYearHistory
+      )
+
+      lazy val document = Jsoup.parse(res.body)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has an error summary with the message $removedFromListErrorText" in {
+        document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorText
+        document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
+        document.getElementById(radioErrorMessageLocator).text shouldBe errorText + removedFromListErrorText
+      }
+
+    }
+
+    "Return a bad request with the removed from list error when the start date is after the property was removed from the list" which {
+
+      lazy val res = submitOwnership(
+        day = "01",
+        month = "01",
+        year = "2022",
+        relationship = "owner",
+        propertyHistory = removedFromListHistory
+      )
+
+      lazy val document = Jsoup.parse(res.body)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has a title of ${errorText + titleText}" in {
+        document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error summary with the message $removedFromListErrorText" in {
+        document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorText
+        document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
+        document.getElementById(radioErrorMessageLocator).text shouldBe errorText + removedFromListErrorText
+      }
+
+    }
+
+    "Return a bad request with the removed from list error in welsh when the start date is after the property was removed from the list" which {
+
+      lazy val res = submitOwnership(
+        language = Welsh,
+        day = "01",
+        month = "01",
+        year = "2022",
+        relationship = "owner",
+        propertyHistory = removedFromListHistory
+      )
+
+      lazy val document = Jsoup.parse(res.body)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has an error summary with the welsh message $removedFromListErrorTextWelsh" in {
+        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorTextWelsh
+        document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
+        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + removedFromListErrorTextWelsh
+      }
 
     }
 
@@ -1150,9 +1266,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe dateBeforeErrorOccupierTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document
-          .getElementById(radioErrorMessageLocator)
-          .text shouldBe errorTextWelsh + dateBeforeErrorOccupierTextWelsh
+        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOccupierTextWelsh
       }
 
       genericUserPageTestsInWelsh("01", "02", "2021", "occupier", endDate = occupancyEndDate)
@@ -1184,9 +1298,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe dateBeforeErrorOwnerOccupierTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document
-          .getElementById(radioErrorMessageLocator)
-          .text shouldBe errorTextWelsh + dateBeforeErrorOwnerOccupierTextWelsh
+        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOwnerOccupierTextWelsh
       }
 
       genericUserPageTestsInWelsh("01", "02", "2021", "both", endDate = occupancyEndDate)
@@ -1219,9 +1331,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe dateBeforeErrorOwnerAgentTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document
-          .getElementById(radioErrorMessageLocator)
-          .text shouldBe errorTextWelsh + dateBeforeErrorOwnerAgentTextWelsh
+        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOwnerAgentTextWelsh
       }
 
       genericAgentPageTestsInWelsh("01", "02", "2021", "owner", endDate = occupancyEndDate)
@@ -1254,9 +1364,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe dateBeforeErrorOccupierAgentTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document
-          .getElementById(radioErrorMessageLocator)
-          .text shouldBe errorTextWelsh + dateBeforeErrorOccupierAgentTextWelsh
+        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOccupierAgentTextWelsh
       }
 
       genericAgentPageTestsInWelsh("01", "02", "2021", "occupier", endDate = occupancyEndDate)
@@ -1289,9 +1397,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe dateBeforeErrorOwnerOccupierAgentTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document
-          .getElementById(radioErrorMessageLocator)
-          .text shouldBe errorTextWelsh + dateBeforeErrorOwnerOccupierAgentTextWelsh
+        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOwnerOccupierAgentTextWelsh
       }
 
       genericAgentPageTestsInWelsh("01", "02", "2021", "both", endDate = occupancyEndDate)
@@ -1374,7 +1480,8 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         userIsAgent: Boolean = false,
         fromCya: Boolean = true,
         relationship: String,
-        endDate: Option[PropertyOccupancy] = None
+        endDate: Option[PropertyOccupancy] = None,
+        propertyHistory: PropertyHistory = validPropertyHistory
   ): WSResponse = {
 
     stubsSetup(
@@ -1383,6 +1490,13 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
       relationshipChoice = relationship,
       propertyOccupancy = endDate
     )
+
+    stubFor {
+      get("/vmv/rating-listing/api/properties/1")
+        .willReturn {
+          aResponse.withStatus(OK).withBody(Json.toJson(propertyHistory).toString())
+        }
+    }
 
     val requestBody = Json.obj(
       "interestedStartDate.day"   -> day,
