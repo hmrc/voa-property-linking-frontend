@@ -515,31 +515,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
 
     }
 
-    "Return a bad request with the removed from list error when the property has no current list year" which {
-
-      lazy val res = submitOwnership(
-        day = "01",
-        month = "01",
-        year = "2020",
-        relationship = "owner",
-        propertyHistory = noCurrentListYearHistory
-      )
-
-      lazy val document = Jsoup.parse(res.body)
-
-      "has a status of 400" in {
-        res.status shouldBe BAD_REQUEST
-      }
-
-      s"has an error summary with the message $removedFromListErrorText" in {
-        document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleText
-        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorText
-        document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorText + removedFromListErrorText
-      }
-
-    }
-
     "Return a bad request with the removed from list error when the start date is after the property was removed from the list" which {
 
       lazy val res = submitOwnership(

@@ -108,7 +108,7 @@ class ClaimPropertyOwnershipController @Inject() (
         errors => Future.successful(badRequest(errors)),
         formData =>
           vmvConnector.getPropertyHistory(request.ses.uarn).flatMap { propertyHistory =>
-            listYearError(formData.fromDate, propertyHistory, config.currentListYear) match {
+            listYearError(formData.fromDate, propertyHistory) match {
               case Some(errorKey) =>
                 Future.successful(
                   badRequest(boundForm.withError("interestedStartDate", errorKey))
@@ -144,13 +144,32 @@ object ClaimPropertyOwnership {
     if (request.ses.fromCya.contains(true)) propertyLinking.routes.DeclarationController.show.url
     else propertyLinking.routes.ClaimPropertyRelationshipController.back.url
 
-  def listYearError(startDate: LocalDate, propertyHistory: PropertyHistory, currentListYear: String): Option[String] = {
+  def listYearError(startDate: LocalDate, propertyHistory: PropertyHistory): Option[String] = {
+    val maxAllowedDate: Option[LocalDate] =
+      propertyHistory.history.maxByOption(_.currentFromDate).flatMap { latest =>
+        latest.currentToDate match {
+          case Some(_) => latest.currentToDate
+          case None    => endOfListYear(latest.listYear)
+        }
+      }
 
-    propertyHistory.history.filter(_.listYear == currentListYear) match {
-      case entries if entries.forall(_.currentToDate.exists(_.isBefore(startDate))) => Some("interestedStartDate.error.removedFromListYear")
-      case _                                                                       => None
-    }
+    if (maxAllowedDate.exists(max => !startDate.isAfter(max))) None
+    else Some("interestedStartDate.error.removedFromListYear")
   }
+
+  private def endOfListYear(listYear: String): Option[LocalDate] =
+    nextListYear(listYear).map { next =>
+      val end = LocalDate.of(next, 3, 31)
+      if (end.isAfter(LocalDate.now)) LocalDate.now else end
+    }
+
+  private def nextListYear(listYear: String): Option[Int] =
+    listYear match {
+      case "2017" => Some(2023)
+      case "2023" => Some(2026)
+      case "2026" => Some(2029)
+      case _      => None
+    }
 }
 
 case class ClaimPropertyOwnershipVM(
