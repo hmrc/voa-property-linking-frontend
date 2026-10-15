@@ -40,6 +40,15 @@
     showTopNavigation = false,
     hasErrors = form.hasErrors) {
 
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(
+            ErrorSummary(
+                errorList = form.errors.asTextErrorLinks,
+                title = Text(messages("error.title"))
+            )
+        )
+    }
+
     <h1 class="govuk-heading-l">@messages("enrolment.title")</h1>
     <p id="contactDetailsUse" class="govuk-body">@messages("details.contactDetailsUse")</p>
 

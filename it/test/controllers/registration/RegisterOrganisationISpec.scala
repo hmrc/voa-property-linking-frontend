@@ -59,6 +59,7 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val errorText = "Error: "
   val addressLengthLine1ErrorText = "This field must be 80 characters or less"
   val addressLengthErrorText = "This field must be 30 characters or less"
+  val enterRealPostcodeText = "Enter a real postcode"
   val emailInvalidErrorText = "Enter a valid email address"
   val emailLengthErrorText = "This field must be 150 characters or less"
   val businessNameErrorText = "This must be filled in"
@@ -66,6 +67,8 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val phoneNumberErrorText = "Enter a telephone number"
   val phoneNumberInvalidErrorText = "Enter a telephone number, like 01623 960 001 or +44 0808 157 0192"
   val phoneNumberShortErrorText = "Telephone number must be between 11 and 20 characters"
+  val errorSummaryTitleText = "There is a problem"
+  val emailsMustMatchText = "Email addresses must match. Check them and try again"
 
   val titleTextWelsh = "Cwblhewch eich manylion cyswllt - Y Swyddfa Brisio - GOV.UK"
   val headingTextWelsh = "Cwblhewch eich manylion cyswllt"
@@ -97,6 +100,7 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val errorTextWelsh = "Gwall: "
   val addressLengthErrorTextWelsh = "Mae’n rhaid i’r maes hwn fod yn 30 o gymeriadau neu lai"
   val addressLengthLine1ErrorTextWelsh = "Mae’n rhaid i’r maes hwn fod yn 80 o gymeriadau neu lai"
+  val enterRealPostcodeTextWelsh = "Nodwch god post dilys"
   val emailInvalidErrorTextWelsh = "Nodwch gyfeiriad e-bost dilys"
   val emailLengthErrorTextWelsh = "Mae’n rhaid i’r maes hwn fod yn 150 o gymeriadau neu lai"
   val businessNameErrorTextWelsh = "Rhaid llenwi hwn"
@@ -104,6 +108,8 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val phoneNumberErrorTextWelsh = "Nodwch rif ffôn"
   val phoneNumberInvalidErrorTextWelsh = "Nodwch rif ffôn, fel 01623 960 001 neu +44 0808 157 0192"
   val phoneNumberShortErrorTextWelsh = "Rhaid i’r rhif ffôn fod rhwng 11 ac 20 o nodau"
+  val errorSummaryTitleTextWelsh = "Mae yna broblem"
+  val emailsMustMatchTextWelsh = "Rhaid i gyfeiriadau e-bost gyfateb â’i gilydd. Gwiriwch nhw a cheisiwch eto"
 
   val headingSelector = "#main-content > div > div > h1"
   val weUseYourSelector = "#contactDetailsUse"
@@ -143,9 +149,25 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
   val addressLine2ErrorSelector = "p[id='address.line2-error']"
   val addressLine3ErrorSelector = "p[id='address.line3-error']"
   val addressLine4ErrorSelector = "p[id='address.line4-error']"
+  val postcodeErrorSelector = "#address\\.postcode-error"
   val emailErrorSelector = "p[id='email-error']"
   val businessNameErrorSelector = "p[id='companyName-error']"
   val phoneNumberErrorSelector = "p[id='phone-error']"
+  val mobileErrorSelector = "#mobilePhone-error"
+  val confirmedEmailErrorSelector = "#confirmedBusinessEmail-error"
+  val errorSummaryTitleSelector = "#main-content > div > div > div > div > h2"
+  val errorSummaryMessageSelector = (row: Int) =>
+    s"#main-content > div > div > div > div > div > ul > li:nth-child($row) > a"
+
+  val addressLine1Href = "#address.line1"
+  val addressLine2Href = "#address.line2"
+  val addressLine3Href = "#address.line3"
+  val addressLine4Href = "#address.line4"
+  val postcodeHref = "#address.postcode"
+  val emailHref = "#email"
+  val confirmedEmailHref = "#confirmedBusinessEmail"
+  val telephoneNumberHref = "#phone"
+  val businessNameHref = "#companyName"
 
   "RegistrationController show method for a new organisation" should {
     "Show an English registration contact details screen with the correct text" which {
@@ -527,7 +549,7 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
           "line2"    -> "Address line of 31 charssssssss",
           "line3"    -> "Address line of 31 charssssssss",
           "line4"    -> "Address line of 31 charssssssss",
-          "postcode" -> "LS1 3SP"
+          "postcode" -> "Address line of 31 charssssssss"
         ),
         "phone"                  -> "0177728837298",
         "email"                  -> "test@email.com",
@@ -548,6 +570,20 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.title() shouldBe errorText + titleText
       }
 
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe addressLengthLine1ErrorText
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe addressLine1Href
+        document.select(errorSummaryMessageSelector(2)).text() shouldBe addressLengthErrorText
+        document.select(errorSummaryMessageSelector(2)).attr("href") shouldBe addressLine2Href
+        document.select(errorSummaryMessageSelector(3)).text() shouldBe addressLengthErrorText
+        document.select(errorSummaryMessageSelector(3)).attr("href") shouldBe addressLine3Href
+        document.select(errorSummaryMessageSelector(4)).text() shouldBe addressLengthErrorText
+        document.select(errorSummaryMessageSelector(4)).attr("href") shouldBe addressLine4Href
+        document.select(errorSummaryMessageSelector(5)).text() shouldBe enterRealPostcodeText
+        document.select(errorSummaryMessageSelector(5)).attr("href") shouldBe postcodeHref
+      }
+
       s"has an error above the address line 1 field of ${errorText + addressLengthLine1ErrorText}" in {
         document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthLine1ErrorText
       }
@@ -562,6 +598,10 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
       s"has an error above the address line 4 field of ${errorText + addressLengthErrorText}" in {
         document.select(addressLine4ErrorSelector).text() shouldBe errorText + addressLengthErrorText
+      }
+
+      s"has an error above the postcode field of ${errorText + enterRealPostcodeText}" in {
+        document.select(postcodeErrorSelector).text() shouldBe errorText + enterRealPostcodeText
       }
 
     }
@@ -595,13 +635,19 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.title() shouldBe errorText + titleText
       }
 
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe emailInvalidErrorText
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe emailHref
+      }
+
       s"has an error above the email field of ${errorText + emailInvalidErrorText}" in {
         document.select(emailErrorSelector).text() shouldBe errorText + emailInvalidErrorText
       }
 
     }
 
-    "Return a bad request with the relevant errors when the phone number is in the empty in English" which {
+    "Return a bad request with the relevant errors when the phone number is empty in English" which {
 
       val requestBody: JsObject = Json.obj(
         "address" -> Json.obj(
@@ -628,6 +674,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
       s"has a title of ${errorText + titleText} in English" in {
         document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe phoneNumberErrorText
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe telephoneNumberHref
       }
 
       s"has an error above the telephone number of ${errorText + phoneNumberErrorText} in English" in {
@@ -665,6 +717,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.title() shouldBe errorText + titleText
       }
 
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe phoneNumberInvalidErrorText
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe telephoneNumberHref
+      }
+
       s"has an error above the telephone number of ${errorText + phoneNumberInvalidErrorText} in English" in {
         document.select(phoneNumberErrorSelector).text() shouldBe errorText + phoneNumberInvalidErrorText
       }
@@ -698,6 +756,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
       s"has a title of ${errorText + titleText} in English" in {
         document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe phoneNumberShortErrorText
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe telephoneNumberHref
       }
 
       s"has an error above the telephone number of ${errorText + phoneNumberShortErrorText} in English" in {
@@ -735,6 +799,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.title() shouldBe errorText + titleText
       }
 
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe businessNameErrorText
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe businessNameHref
+      }
+
       s"has an error above the business name of ${errorText + businessNameErrorText} in English" in {
         document.select(businessNameErrorSelector).text() shouldBe errorText + businessNameErrorText
       }
@@ -768,6 +838,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
       s"has a title of ${errorText + titleText} in English" in {
         document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe businessNameTooLongText
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe businessNameHref
       }
 
       s"has an error above the business name of ${errorText + businessNameTooLongText} in English" in {
@@ -805,10 +881,50 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.title() shouldBe errorText + titleText
       }
 
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe businessNameErrorText
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe businessNameHref
+      }
+
       s"has an error above the business name of ${errorText + businessNameErrorText} in English" in {
         document.select(businessNameErrorSelector).text() shouldBe errorText + businessNameErrorText
       }
 
+    }
+
+    "Return a bad request with the relevant errors when the emails don't match in English" which {
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json
+          .obj("line1" -> "test street", "line2" -> "", "line3" -> "", "line4" -> "", "postcode" -> "LS1 3SP"),
+        "phone"                  -> "0177728837298",
+        "email"                  -> "test@email.com",
+        "confirmedBusinessEmail" -> "test@differentemail.com",
+        "isAgent"                -> false,
+        "companyName"            -> "business name"
+      )
+
+      lazy val res = postContactDetailsPage(language = English, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText}" in {
+        document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe emailsMustMatchText
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe confirmedEmailHref
+      }
+
+      s"has an error above the email field of ${errorText + emailsMustMatchText}" in {
+        document.select(confirmedEmailErrorSelector).text() shouldBe errorText + emailsMustMatchText
+      }
     }
 
     "Return a bad request with the relevant errors when each address line is greater than 30 characters in Welsh" which {
@@ -819,7 +935,7 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
           "line2"    -> "Address line of 31 charssssssss",
           "line3"    -> "Address line of 31 charssssssss",
           "line4"    -> "Address line of 31 charssssssss",
-          "postcode" -> "LS1 3SP"
+          "postcode" -> "Address line of 31 charssssssss"
         ),
         "phone"                  -> "0177728837298",
         "email"                  -> "test@email.com",
@@ -840,24 +956,38 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.title() shouldBe errorTextWelsh + titleTextWelsh
       }
 
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs in Welsh" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleTextWelsh
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe addressLengthLine1ErrorTextWelsh
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe addressLine1Href
+        document.select(errorSummaryMessageSelector(2)).text() shouldBe addressLengthErrorTextWelsh
+        document.select(errorSummaryMessageSelector(2)).attr("href") shouldBe addressLine2Href
+        document.select(errorSummaryMessageSelector(3)).text() shouldBe addressLengthErrorTextWelsh
+        document.select(errorSummaryMessageSelector(3)).attr("href") shouldBe addressLine3Href
+        document.select(errorSummaryMessageSelector(4)).text() shouldBe addressLengthErrorTextWelsh
+        document.select(errorSummaryMessageSelector(4)).attr("href") shouldBe addressLine4Href
+        document.select(errorSummaryMessageSelector(5)).text() shouldBe enterRealPostcodeTextWelsh
+        document.select(errorSummaryMessageSelector(5)).attr("href") shouldBe postcodeHref
+      }
+
       s"has an error above the address line 1 field of ${errorText + addressLengthLine1ErrorText} in welsh" in {
-        // The below is a bug, it should translate the Error part to welsh too
-        document.select(addressLine1ErrorSelector).text() shouldBe errorText + addressLengthLine1ErrorTextWelsh
+        document.select(addressLine1ErrorSelector).text() shouldBe errorTextWelsh + addressLengthLine1ErrorTextWelsh
       }
 
       s"has an error above the address line 2 field of ${errorText + addressLengthErrorText} in welsh" in {
-        // The below is a bug, it should translate the Error part to welsh too
-        document.select(addressLine2ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+        document.select(addressLine2ErrorSelector).text() shouldBe errorTextWelsh + addressLengthErrorTextWelsh
       }
 
       s"has an error above the address line 3 field of ${errorText + addressLengthErrorText} in welsh" in {
-        // The below is a bug, it should translate the Error part to welsh too
-        document.select(addressLine3ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+        document.select(addressLine3ErrorSelector).text() shouldBe errorTextWelsh + addressLengthErrorTextWelsh
       }
 
       s"has an error above the address line 4 field of ${errorText + addressLengthErrorText} in welsh" in {
-        // The below is a bug, it should translate the Error part to welsh too
-        document.select(addressLine4ErrorSelector).text() shouldBe errorText + addressLengthErrorTextWelsh
+        document.select(addressLine4ErrorSelector).text() shouldBe errorTextWelsh + addressLengthErrorTextWelsh
+      }
+
+      s"has an error above the postcode field of ${errorText + enterRealPostcodeText}" in {
+        document.select(postcodeErrorSelector).text() shouldBe errorTextWelsh + enterRealPostcodeTextWelsh
       }
 
     }
@@ -889,6 +1019,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
       s"has a title of ${errorText + titleText} in welsh" in {
         document.title() shouldBe errorTextWelsh + titleTextWelsh
+      }
+
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs in Welsh" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleTextWelsh
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe emailInvalidErrorTextWelsh
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe emailHref
       }
 
       s"has an error above the email field of ${errorText + emailInvalidErrorText} in welsh" in {
@@ -926,6 +1062,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.title() shouldBe errorTextWelsh + titleTextWelsh
       }
 
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs in Welsh" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleTextWelsh
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe phoneNumberErrorTextWelsh
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe telephoneNumberHref
+      }
+
       s"has an error above the telephone number of ${errorText + phoneNumberErrorText} in Welsh" in {
         document.select(phoneNumberErrorSelector).text() shouldBe errorTextWelsh + phoneNumberErrorTextWelsh
       }
@@ -959,6 +1101,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
       s"has a title of ${errorText + titleText} in Welsh" in {
         document.title() shouldBe errorTextWelsh + titleTextWelsh
+      }
+
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs in Welsh" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleTextWelsh
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe phoneNumberInvalidErrorTextWelsh
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe telephoneNumberHref
       }
 
       s"has an error above the telephone number of ${errorText + phoneNumberInvalidErrorText} in Welsh" in {
@@ -996,6 +1144,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.title() shouldBe errorTextWelsh + titleTextWelsh
       }
 
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs in Welsh" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleTextWelsh
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe phoneNumberShortErrorTextWelsh
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe telephoneNumberHref
+      }
+
       s"has an error above the telephone number of ${errorText + phoneNumberShortErrorText} in Welsh" in {
         document.select(phoneNumberErrorSelector).text() shouldBe errorTextWelsh + phoneNumberShortErrorTextWelsh
       }
@@ -1029,6 +1183,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
 
       s"has a title of ${errorText + titleText} in Welsh" in {
         document.title() shouldBe errorTextWelsh + titleTextWelsh
+      }
+
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs in Welsh" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleTextWelsh
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe businessNameErrorTextWelsh
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe businessNameHref
       }
 
       s"has an error above the trading name of ${errorTextWelsh + businessNameErrorText} in Welsh" in {
@@ -1066,6 +1226,12 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.title() shouldBe errorTextWelsh + titleTextWelsh
       }
 
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs in Welsh" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleTextWelsh
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe businessNameTooLongTextWelsh
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe businessNameHref
+      }
+
       s"has an error above the business name of ${errorTextWelsh + businessNameTooLongText} in Welsh" in {
         document.select(businessNameErrorSelector).text() shouldBe errorTextWelsh + businessNameTooLongTextWelsh
       }
@@ -1101,10 +1267,50 @@ class RegisterOrganisationISpec extends ISpecBase with HtmlComponentHelpers with
         document.title() shouldBe errorTextWelsh + titleTextWelsh
       }
 
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs in Welsh" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleTextWelsh
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe businessNameErrorTextWelsh
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe businessNameHref
+      }
+
       s"has an error above the trading name of ${errorTextWelsh + businessNameErrorText} in Welsh" in {
         document.select(businessNameErrorSelector).text() shouldBe errorTextWelsh + businessNameErrorTextWelsh
       }
 
+    }
+
+    "Return a bad request with the relevant errors when the emails don't match in Welsh" which {
+      val requestBody: JsObject = Json.obj(
+        "address" -> Json
+          .obj("line1" -> "test street", "line2" -> "", "line3" -> "", "line4" -> "", "postcode" -> "LS1 3SP"),
+        "phone"                  -> "0177728837298",
+        "email"                  -> "test@email.com",
+        "confirmedBusinessEmail" -> "test@differentemail.com",
+        "isAgent"                -> false,
+        "companyName"            -> "business name"
+      )
+
+      lazy val res = postContactDetailsPage(language = Welsh, postBody = requestBody)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      lazy val document = Jsoup.parse(res.body)
+
+      s"has a title of ${errorText + titleText} in Welsh" in {
+        document.title() shouldBe errorTextWelsh + titleTextWelsh
+      }
+
+      s"has an error summary title of $errorSummaryTitleText with correct error messages and hrefs in Welsh" in {
+        document.select(errorSummaryTitleSelector).text() shouldBe errorSummaryTitleTextWelsh
+        document.select(errorSummaryMessageSelector(1)).text() shouldBe emailsMustMatchTextWelsh
+        document.select(errorSummaryMessageSelector(1)).attr("href") shouldBe confirmedEmailHref
+      }
+
+      s"has an error above the email field of ${errorText + emailsMustMatchText} in Welsh" in {
+        document.select(confirmedEmailErrorSelector).text() shouldBe errorTextWelsh + emailsMustMatchTextWelsh
+      }
     }
 
   }
