@@ -22,6 +22,7 @@ import models.domain._
 import models.{Address, IndividualAccountSubmission, IndividualDetails, email => _}
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.data.validation.Constraints.maxLength
 import play.api.libs.json._
 import utils.EmailAddressValidation.isValidEmail
 import utils.PhoneNumberValidation.validatePhoneNumber
@@ -64,7 +65,7 @@ object AdminUserUplift {
       keys.mobilePhone     -> validatePhoneNumber, // FIXME mobile phone regex
       keys.email           -> isValidEmail,
       keys.confirmedEmail  -> TextMatching(keys.email, Errors.emailsMustMatch),
-      keys.tradingName     -> optional(text(maxLength = 45)),
+      keys.tradingName     -> optional(tradingName),
       keys.selectedAddress -> optional(text)
     )(IndividualUserAccountDetailsUplift.apply)(IndividualUserAccountDetailsUplift.unapply)
   )
