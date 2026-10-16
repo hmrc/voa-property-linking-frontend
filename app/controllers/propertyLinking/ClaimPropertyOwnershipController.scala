@@ -151,9 +151,7 @@ object ClaimPropertyOwnership {
   )
 
   def listYearCheck(startDate: LocalDate, propertyHistory: PropertyHistory): Option[String] = {
-    val derivedListYear = listYearStarts
-      .collect { case (year, start) if !startDate.isBefore(start) => year }
-      .lastOption
+    val derivedListYear = listYearStarts.collect { case (year, start) if !startDate.isBefore(start) => year }.lastOption
 
     derivedListYear.flatMap { year =>
       val claimable = propertyHistory.history.filter(h => h.listYear == year)
