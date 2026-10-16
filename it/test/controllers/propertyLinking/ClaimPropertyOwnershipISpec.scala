@@ -155,17 +155,15 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     "Mae’n rhaid i ddyddiad meddiannu eich eiddo fod cyn y dyddiad y cafodd yr eiddo ei dynnu oddi ar y rhestr ardrethu."
 
   val currentListYear = "2026"
-  val validPropertyHistory: PropertyHistory =
-    testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(listYear = currentListYear)))
-  val noCurrentListYearHistory: PropertyHistory =
-    testPropertyHistory.copy(history = Seq(testPropertyValuation.copy(listYear = "2023")))
+
+  private def valuationFor(listYear: String, rateableValue: Option[BigDecimal] = Some(BigDecimal(1000))) =
+    testPropertyValuation.copy(listYear = listYear, rateableValue = rateableValue)
+
+  val validPropertyHistory: PropertyHistory = testPropertyHistory.copy(history =
+    Seq(valuationFor("2017"), valuationFor("2023"), valuationFor(currentListYear))
+  )
   val removedFromListHistory: PropertyHistory = testPropertyHistory.copy(history =
-    Seq(
-      testPropertyValuation.copy(
-        listYear = currentListYear,
-        currentToDate = Some(LocalDate.of(2021, 6, 1))
-      )
-    )
+    Seq(valuationFor("2017", rateableValue = None), valuationFor("2023"), valuationFor(currentListYear))
   )
 
   val backLinkSelector = "#back-link"
@@ -498,12 +496,12 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
 
     }
 
-    "Redirect to the summary page when the start date is before the property was removed from the current list year" in {
+    "Redirect to the summary page when the start date is in a list year the property is still in" in {
 
       val res = submitOwnership(
         day = "01",
         month = "01",
-        year = "2020",
+        year = "2024",
         relationship = "owner",
         propertyHistory = removedFromListHistory
       )

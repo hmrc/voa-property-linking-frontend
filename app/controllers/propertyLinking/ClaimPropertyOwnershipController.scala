@@ -108,7 +108,7 @@ class ClaimPropertyOwnershipController @Inject() (
         errors => Future.successful(badRequest(errors)),
         formData =>
           vmvConnector.getPropertyHistory(request.ses.uarn).flatMap { propertyHistory =>
-            listYearError(formData.fromDate, propertyHistory) match {
+            listYearCheck(formData.fromDate, propertyHistory) match {
               case Some(errorKey) =>
                 Future.successful(
                   badRequest(boundForm.withError("interestedStartDate", errorKey))
@@ -144,32 +144,22 @@ object ClaimPropertyOwnership {
     if (request.ses.fromCya.contains(true)) propertyLinking.routes.DeclarationController.show.url
     else propertyLinking.routes.ClaimPropertyRelationshipController.back.url
 
-  def listYearError(startDate: LocalDate, propertyHistory: PropertyHistory): Option[String] = {
-    val maxAllowedDate: Option[LocalDate] =
-      propertyHistory.history.maxByOption(_.currentFromDate).flatMap { latest =>
-        latest.currentToDate match {
-          case Some(_) => latest.currentToDate
-          case None    => endOfListYear(latest.listYear)
-        }
-      }
+  private val listYearStarts: Seq[(String, LocalDate)] = Seq(
+    "2017" -> LocalDate.of(2017, 4, 1),
+    "2023" -> LocalDate.of(2023, 4, 1),
+    "2026" -> LocalDate.of(2026, 4, 1)
+  )
 
-    if (maxAllowedDate.exists(max => !startDate.isAfter(max))) None
-    else Some("interestedStartDate.error.removedFromListYear")
+  def listYearCheck(startDate: LocalDate, propertyHistory: PropertyHistory): Option[String] = {
+
+    listYearStarts.collect { case (year, start) if !startDate.isBefore(start) => year }.lastOption match {
+      case None => None
+      case Some(listYear) =>
+        val claimable = propertyHistory.history.filter(h => h.listYear == listYear && h.rateableValue.isDefined)
+        if (claimable.isEmpty) Some("interestedStartDate.error.removedFromListYear")
+        else None
+    }
   }
-
-  private def endOfListYear(listYear: String): Option[LocalDate] =
-    nextListYear(listYear).map { next =>
-      val end = LocalDate.of(next, 3, 31)
-      if (end.isAfter(LocalDate.now)) LocalDate.now else end
-    }
-
-  private def nextListYear(listYear: String): Option[Int] =
-    listYear match {
-      case "2017" => Some(2023)
-      case "2023" => Some(2026)
-      case "2026" => Some(2029)
-      case _      => None
-    }
 }
 
 case class ClaimPropertyOwnershipVM(
