@@ -162,11 +162,13 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val validPropertyHistory: PropertyHistory = testPropertyHistory.copy(history =
     Seq(valuationFor("2017"), valuationFor("2023"), valuationFor(currentListYear))
   )
+
   val removedFromListHistory: PropertyHistory = testPropertyHistory.copy(history =
-    Seq(valuationFor("2017", rateableValue = None), valuationFor("2023"), valuationFor(currentListYear))
+    Seq(valuationFor("2017"), valuationFor(currentListYear))
   )
-  val removedInSameListYearHistory: PropertyHistory = testPropertyHistory.copy(history =
-    Seq(valuationFor("2017"), valuationFor("2023", rateableValue = None))
+
+  val removedFrom2026History: PropertyHistory = testPropertyHistory.copy(history =
+    Seq(valuationFor("2017"), valuationFor("2023"))
   )
 
   val backLinkSelector = "#back-link"
@@ -499,29 +501,72 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
 
     }
 
-    "Redirect to the summary page when the start date is in a list year the property is still in" in {
+    "Redirect to the occupancy page when they enter a date in the 2026 list year with a property with a valid 2026 valuation" in {
 
       val res = submitOwnership(
-        day = "01",
-        month = "01",
-        year = "2024",
+        day = "15",
+        month = "05",
+        year = "2026",
+        userIsAgent = true,
+        fromCya = false,
         relationship = "owner",
-        propertyHistory = removedFromListHistory
+        propertyHistory = validPropertyHistory
       )
 
       res.status shouldBe SEE_OTHER
       res
         .headers("Location")
-        .head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/summary"
+        .head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/occupancy"
 
     }
 
-    "Return a bad request with the removed from list error when the start date is in a list year after the property was removed from the list" which {
+    "Redirect to the occupancy page when they enter a date before the earliest list year (2017)" in {
+
+      val res = submitOwnership(
+        day = "01",
+        month = "01",
+        year = "2010",
+        userIsAgent = true,
+        fromCya = false,
+        relationship = "owner",
+        propertyHistory = validPropertyHistory
+      )
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/occupancy"
+
+    }
+
+    "Return a bad request when the date is in the 2026 list year but property does not have 2026 valuation" which {
+
+      lazy val res = submitOwnership(
+        day = "15",
+        month = "05",
+        year = "2026",
+        relationship = "owner",
+        propertyHistory = removedFrom2026History
+      )
+
+      lazy val document = Jsoup.parse(res.body)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has an error summary with the message $removedFromListErrorText" in {
+        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorText
+      }
+
+    }
+
+    "Return a bad request with the removed from list error when the start date is in a list year the property has been removed in" which {
 
       lazy val res = submitOwnership(
         day = "01",
-        month = "01",
-        year = "2022",
+        month = "05",
+        year = "2023",
         relationship = "owner",
         propertyHistory = removedFromListHistory
       )
@@ -545,13 +590,13 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
 
     }
 
-    "Return a bad request with the removed from list error in welsh when the start date is after the property was removed from the list" which {
+    "Return a bad request with the removed from list error in welsh when the start date is in a list year the property has been removed in" which {
 
       lazy val res = submitOwnership(
         language = Welsh,
         day = "01",
-        month = "01",
-        year = "2022",
+        month = "05",
+        year = "2023",
         relationship = "owner",
         propertyHistory = removedFromListHistory
       )
@@ -570,29 +615,6 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
 
     }
 
-    "Return a bad request with the removed from list error when the start date is in the same list year the property was removed from" which {
-
-      lazy val res = submitOwnership(
-        day = "01",
-        month = "06",
-        year = "2024",
-        relationship = "owner",
-        propertyHistory = removedInSameListYearHistory
-      )
-
-      lazy val document = Jsoup.parse(res.body)
-
-      "has a status of 400" in {
-        res.status shouldBe BAD_REQUEST
-      }
-
-      s"has an error summary with the message $removedFromListErrorText" in {
-        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorText
-        document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorText + removedFromListErrorText
-      }
-
-    }
 
     "Return a bad request with errors for a user when no data is entered for the day/month/year" which {
 

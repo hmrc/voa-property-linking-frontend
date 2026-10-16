@@ -150,15 +150,16 @@ object ClaimPropertyOwnership {
     "2026" -> LocalDate.of(2026, 4, 1)
   )
 
-  def listYearCheck(startDate: LocalDate, propertyHistory: PropertyHistory): Option[String] =
+  def listYearCheck(startDate: LocalDate, propertyHistory: PropertyHistory): Option[String] = {
+    val derivedListYear = listYearStarts
+      .collect { case (year, start) if !startDate.isBefore(start) => year }
+      .lastOption
 
-    listYearStarts.collect { case (year, start) if !startDate.isBefore(start) => year }.lastOption match {
-      case None => None
-      case Some(listYear) =>
-        val claimable = propertyHistory.history.filter(h => h.listYear == listYear && h.rateableValue.isDefined)
-        if (claimable.isEmpty) Some("interestedStartDate.error.removedFromListYear")
-        else None
+    derivedListYear.flatMap { year =>
+      val claimable = propertyHistory.history.filter(h => h.listYear == year)
+      if (claimable.isEmpty) Some("interestedStartDate.error.removedFromListYear") else None
     }
+  }
 }
 
 case class ClaimPropertyOwnershipVM(
