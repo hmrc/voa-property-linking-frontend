@@ -51,6 +51,8 @@
     val handler: PartialFunction[String, String] = {
         case e @ "interestedStartDate.error.dateInFuture" => messages(e + clientSuffix, relationshipCapacity)
 
+        case e @ "interestedStartDate.error.removedFromListYear" => messages(e)
+
         case e @ "interestedStartDate.error.startDateMustBeBeforeEnd" =>
             messages(
                 e + clientSuffix,
