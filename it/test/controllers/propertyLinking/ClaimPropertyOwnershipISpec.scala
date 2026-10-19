@@ -152,7 +152,7 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   val removedFromListErrorText =
     "Your property occupation date must be before the property was removed from the rating list"
   val removedFromListErrorTextWelsh =
-    "Mae’n rhaid i ddyddiad meddiannu eich eiddo fod cyn y dyddiad y cafodd yr eiddo ei dynnu oddi ar y rhestr ardrethu."
+    "Mae’n rhaid i ddyddiad meddiannu eich eiddo fod cyn y dyddiad y cafodd yr eiddo ei dynnu oddi ar y rhestr ardrethu"
 
   val currentListYear = "2026"
 
