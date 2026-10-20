@@ -20,17 +20,16 @@
 @import _root_.utils.FrontendComponentHelper._
 
 @import config.ApplicationConfig
-@import models.propertyrepresentation.ManagingProperty
+@import models.propertyrepresentation.AppointNewAgentDetails
 @import models.propertyrepresentation.AppointmentScope.ALL_PROPERTIES
 @import models.propertyrepresentation.AppointmentScope.RELATIONSHIP
 @import models.propertyrepresentation.AppointmentScope.PROPERTY_LIST
-@import models.propertyrepresentation.All
-@import models.propertyrepresentation.ChooseFromList
+@import models.propertyrepresentation._
 @import models.propertyrepresentation.AgentAppointmentChangesRequest
 
 @this(govukErrorSummary : GovukErrorSummary, govukButton : GovukButton, govukTable : GovukTable, layout: layout, formWithCSRF: FormWithCSRF, govukSummaryList: GovukSummaryList)
 
-@(backLink: String, form: Form[AgentAppointmentChangesRequest], data: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(backLink: String, form: Form[AgentAppointmentChangesRequest], data: AppointNewAgentDetails)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 
 @answerMessage = @{
@@ -45,9 +44,9 @@
 
 @appointmentScope = @{
     data.managingPropertyChoice match {
-        case All.name => ALL_PROPERTIES.toString
-        case ChooseFromList.name => PROPERTY_LIST.toString
-        case models.propertyrepresentation.NoProperties.name | models.propertyrepresentation.No.name => RELATIONSHIP.toString
+        case Some(All) => ALL_PROPERTIES.toString
+        case Some(ChooseFromList) => PROPERTY_LIST.toString
+        case Some(NoProperties) | Some(No) => RELATIONSHIP.toString
     }
 }
 

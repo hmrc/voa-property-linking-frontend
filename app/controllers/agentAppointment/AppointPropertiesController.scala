@@ -24,7 +24,7 @@ import connectors._
 import controllers._
 import form.FormValidation.nonEmptyList
 import models._
-import models.propertyrepresentation.{AppointAgentToSomePropertiesSession, AppointNewAgentSession, ManagingProperty}
+import models.propertyrepresentation.{AppointAgentToSomePropertiesSession, AppointNewAgentDetails, AppointNewAgentSession}
 import models.searchApi._
 import play.api.Logger
 import play.api.data.Form
@@ -105,7 +105,7 @@ class AppointPropertiesController @Inject() (
               propertySelectionSize <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
               agentSessionData      <- appointNewAgentSession.get[AppointNewAgentSession]
               result <- agentSessionData match {
-                          case Some(data: ManagingProperty) =>
+                          case Some(data: AppointNewAgentDetails) =>
                             appointNewAgentSession
                               .saveOrUpdate(
                                 data.copy(

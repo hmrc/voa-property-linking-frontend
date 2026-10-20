@@ -766,17 +766,17 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
 
   def getDocument(language: Language, ratingsLists: Seq[String]): Document = {
 
-    val managingPropertyData: ManagingProperty = ManagingProperty(
+    val appointNewAgentDetails: AppointNewAgentDetails = AppointNewAgentDetails(
       agentCode = agentCode,
       agentOrganisationName = agentName,
-      isCorrectAgent = true,
-      managingPropertyChoice = ChooseFromList.name,
+      isCorrectAgent = Some(true),
+      managingPropertyChoice = Some(ChooseFromList),
       agentAddress = "An Address",
       backLink = None,
       totalPropertySelectionSize = 2,
       propertySelectedSize = 2,
-      singleProperty = true,
-      ratingLists = ratingsLists
+      ratingLists = ratingsLists,
+      status = ManagingPropertySelected
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(
@@ -791,7 +791,7 @@ class ConfirmAgentAppointControllerISpec extends ISpecBase with HtmlComponentHel
       filters = FilterAppointProperties(None, None)
     )
 
-    await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData))
+    await(mockAppointAgentSessionRepository.saveOrUpdate(appointNewAgentDetails))
     await(mockAppointAgentPropertiesSessionRepository.saveOrUpdate(propertiesSessionData))
 
     stubFor {

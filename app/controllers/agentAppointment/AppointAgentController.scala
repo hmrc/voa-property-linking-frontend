@@ -20,12 +20,11 @@ import actions.AuthenticatedAction
 import actions.requests.{AuthenticatedRequest, BasicAuthenticatedRequest}
 import binders.pagination.PaginationParameters
 import binders.propertylinks.ExternalPropertyLinkManagementSortField.ExternalPropertyLinkManagementSortField
-import binders.propertylinks.{ExternalPropertyLinkManagementSortField, ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
+import binders.propertylinks.{ExternalPropertyLinkManagementSortOrder, GetPropertyLinksParameters}
 import config.ApplicationConfig
 import connectors._
 import controllers._
 import form.FormValidation.nonEmptyList
-import models.GroupAccount.AgentGroupAccount
 import models._
 import models.propertyrepresentation._
 import models.searchApi.AgentPropertiesFilter.Both
