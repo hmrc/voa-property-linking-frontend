@@ -651,7 +651,6 @@ label.interestedStartDate=When did you become the owner or occupier of the prope
 label.interestedStartDate.client=When did your client become the owner or occupier of the property?
 interestedStartDate.error.dateInFuture=Date you became {0} of the property must be in the past
 interestedStartDate.error.dateInFuture.client=Date your client became {0} of the property must be in the past
-interestedStartDate.error.removedFromListYear=Your property occupation date must be before the property was removed from the rating list
 interestedEndDate.error.dateInFuture=Date of your last day as {0} of the property must be in the past
 interestedEndDate.error.dateInFuture.client=Date of your client’s last day as {0} of the property must be in the past
 interestedStartDate.error.startDateMustBeBeforeEnd=Date you became the {0} of the property must be before {1}
