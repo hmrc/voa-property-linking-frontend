@@ -1245,6 +1245,8 @@ addUserToGG.p3=You can add a user on the next screen by selecting “Account use
 addUserToGG.l1=Add a user
 
 #TECHNICAL DIFFICULTIES
+internalServerError.title = Sorry, we’re experiencing technical difficulties
+internalServerError.heading = Sorry, we’re experiencing technical difficulties
 internalServerError.p.1=Please try again in a few minutes.
 internalServerError.p.2=If you continue to experience problems, please contact us on 03000 501 501. You’ll need to tell us the date, time and your reference number.
 internalServerError.reference=Reference number: {0}

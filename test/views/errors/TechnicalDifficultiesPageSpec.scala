@@ -36,18 +36,26 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
 
     lazy val html =
       view(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(req, messagesApi.preferred(req), Configs.applicationConfig)
-    lazy val page = html.toString
+    lazy val page = HtmlPage(html)
+
+    "display the correct page title" in {
+      page.titleShouldMatch("Sorry, we’re experiencing technical difficulties - Valuation Office - GOV.UK")
+    }
+
+    "display the correct page heading" in {
+      page.verifyElementTextByClass("govuk-heading-l", "Sorry, we’re experiencing technical difficulties")
+    }
 
     "display an error reference number" in {
-      page should include(s"Reference number: $ref")
+      page.shouldContainText(s"Reference number: $ref")
     }
 
     "display the current date" in {
-      page should include("Date: 1 April 2017")
+      page.shouldContainText("Date: 1 April 2017")
     }
 
     "display the current time in 12 hour format" in {
-      page should include("Time: 9:30am")
+      page.shouldContainText("Time: 9:30am")
     }
   }
 
