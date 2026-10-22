@@ -163,8 +163,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     Seq(valuationFor("2017"), valuationFor("2023"), valuationFor(currentListYear))
   )
 
+  // Property missing from 2023 and later - claiming with 2023 date should error
   val removedFromListHistory: PropertyHistory = testPropertyHistory.copy(history =
-    Seq(valuationFor("2017"), valuationFor(currentListYear))
+    Seq(valuationFor("2017"))
   )
 
   val removedFrom2026History: PropertyHistory = testPropertyHistory.copy(history =
@@ -539,82 +540,81 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
 
     }
 
-//    TODO: Uncomment or remove these tests when modernised logic is figured out
-//    "Return a bad request when the date is in the 2026 list year but property does not have 2026 valuation" which {
-//
-//      lazy val res = submitOwnership(
-//        day = "15",
-//        month = "05",
-//        year = "2026",
-//        relationship = "owner",
-//        propertyHistory = removedFrom2026History
-//      )
-//
-//      lazy val document = Jsoup.parse(res.body)
-//
-//      "has a status of 400" in {
-//        res.status shouldBe BAD_REQUEST
-//      }
-//
-//      s"has an error summary with the message $removedFromListErrorText" in {
-//        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorText
-//      }
-//
-//    }
-//
-//    "Return a bad request with the removed from list error when the start date is in a list year the property has been removed in" which {
-//
-//      lazy val res = submitOwnership(
-//        day = "01",
-//        month = "05",
-//        year = "2023",
-//        relationship = "owner",
-//        propertyHistory = removedFromListHistory
-//      )
-//
-//      lazy val document = Jsoup.parse(res.body)
-//
-//      "has a status of 400" in {
-//        res.status shouldBe BAD_REQUEST
-//      }
-//
-//      s"has a title of ${errorText + titleText}" in {
-//        document.title() shouldBe errorText + titleText
-//      }
-//
-//      s"has an error summary with the message $removedFromListErrorText" in {
-//        document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleText
-//        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorText
-//        document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-//        document.getElementById(radioErrorMessageLocator).text shouldBe errorText + removedFromListErrorText
-//      }
-//
-//    }
-//
-//    "Return a bad request with the removed from list error in welsh when the start date is in a list year the property has been removed in" which {
-//
-//      lazy val res = submitOwnership(
-//        language = Welsh,
-//        day = "01",
-//        month = "05",
-//        year = "2023",
-//        relationship = "owner",
-//        propertyHistory = removedFromListHistory
-//      )
-//
-//      lazy val document = Jsoup.parse(res.body)
-//
-//      "has a status of 400" in {
-//        res.status shouldBe BAD_REQUEST
-//      }
-//
-//      s"has an error summary with the welsh message $removedFromListErrorTextWelsh" in {
-//        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorTextWelsh
-//        document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-//        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + removedFromListErrorTextWelsh
-//      }
-//
-//    }
+    "Return a bad request when the date is in the 2026 list year but property does not have 2026 valuation" which {
+
+      lazy val res = submitOwnership(
+        day = "15",
+        month = "05",
+        year = "2026",
+        relationship = "owner",
+        propertyHistory = removedFrom2026History
+      )
+
+      lazy val document = Jsoup.parse(res.body)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has an error summary with the message $removedFromListErrorText" in {
+        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorText
+      }
+
+    }
+
+    "Return a bad request with the removed from list error when the start date is in a list year the property has been removed in" which {
+
+      lazy val res = submitOwnership(
+        day = "01",
+        month = "05",
+        year = "2023",
+        relationship = "owner",
+        propertyHistory = removedFromListHistory
+      )
+
+      lazy val document = Jsoup.parse(res.body)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has a title of ${errorText + titleText}" in {
+        document.title() shouldBe errorText + titleText
+      }
+
+      s"has an error summary with the message $removedFromListErrorText" in {
+        document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleText
+        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorText
+        document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
+        document.getElementById(radioErrorMessageLocator).text shouldBe errorText + removedFromListErrorText
+      }
+
+    }
+
+    "Return a bad request with the removed from list error in welsh when the start date is in a list year the property has been removed in" which {
+
+      lazy val res = submitOwnership(
+        language = Welsh,
+        day = "01",
+        month = "05",
+        year = "2023",
+        relationship = "owner",
+        propertyHistory = removedFromListHistory
+      )
+
+      lazy val document = Jsoup.parse(res.body)
+
+      "has a status of 400" in {
+        res.status shouldBe BAD_REQUEST
+      }
+
+      s"has an error summary with the welsh message $removedFromListErrorTextWelsh" in {
+        document.select(errorSummaryMessageLocator).text shouldBe removedFromListErrorTextWelsh
+        document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
+        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + removedFromListErrorTextWelsh
+      }
+
+    }
 
 
     "Return a bad request with errors for a user when no data is entered for the day/month/year" which {

@@ -160,8 +160,8 @@ object ClaimPropertyOwnership {
     val derivedListYear = listYearStarts.collect { case (year, start) if !startDate.isBefore(start) => year }.lastOption
 
     derivedListYear.flatMap { year =>
-      val claimable = propertyHistory.history.filter(h => h.listYear == year)
-      if (claimable.isEmpty) Some("interestedStartDate.error.removedFromListYear") else None
+      val existsInYearOrLater = propertyHistory.history.exists(h => h.listYear.toInt >= year.toInt)
+      if (!existsInYearOrLater) Some("interestedStartDate.error.removedFromListYear") else None
     }
   }
 }
