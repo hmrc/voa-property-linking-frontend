@@ -1253,6 +1253,10 @@ internalServerError.reference=Reference number: {0}
 internalServerError.date=Date: {0}
 internalServerError.time=Time: {0}
 
+#TIME SUFFIX
+time.am={0}am
+time.pm={0}pm
+
 #PAGINATION CONTROLS
 pagination.next=Next
 pagination.previous=Previous

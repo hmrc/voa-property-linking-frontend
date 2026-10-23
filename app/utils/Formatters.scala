@@ -61,6 +61,12 @@ object Formatters {
   def formatTime(time: LocalTime): String =
     time.format(DateTimeFormatter.ofPattern("h:mma").withLocale(Locale.UK))
 
+  def formatTimeWithAmPm(time: LocalTime)(implicit messages: Messages): String = {
+    val timeFormatter = DateTimeFormatter.ofPattern("h:mm").withLocale(Locale.UK)
+    val amPmKey = if (time.getHour < 12) "am" else "pm"
+    messages(s"time.$amPmKey", time.format(timeFormatter))
+  }
+
   def buildQueryParams(name: String, value: Option[String]): String =
     value match { case Some(paramValue) if paramValue != "" => s"&$name=${paramValue.trim}"; case _ => "" }
 

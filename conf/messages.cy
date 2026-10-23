@@ -1118,6 +1118,10 @@ internalServerError.reference=Cyfeirnod: {0}
 internalServerError.date=Dyddiad: {0}
 internalServerError.time=Amser: {0}
 
+#TIME SUFFIX
+time.am={0}y.b
+time.pm={0}y.h
+
 #PAGINATION CONTROLS
 pagination.next=Nesaf
 pagination.previous=Blaenorol

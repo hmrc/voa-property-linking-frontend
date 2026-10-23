@@ -34,6 +34,6 @@
     }
 
     <p class="govuk-body">@messages("internalServerError.date", formattedFullDate(dateTime.toLocalDate))</p>
-    <p class="govuk-body">@messages("internalServerError.time", formatTime(dateTime.toLocalTime))</p>
+    <p class="govuk-body">@messages("internalServerError.time", formatTimeWithAmPm(dateTime.toLocalTime))</p>
 
 }
