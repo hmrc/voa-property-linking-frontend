@@ -90,15 +90,10 @@ class CustomErrorHandler @Inject() (
     alreadySubmittedView()(request, messages, appConfig)
   }
 
-  private def extractErrorReference(request: RequestHeader): Option[String] = {
-    val requestId = Option(MDC.get(HeaderNames.xRequestId))
-      .orElse(Option(MDC.get("X-Request-ID")))
-      .orElse(request.headers.get(HeaderNames.xRequestId))
-
-    requestId.map { id =>
-      if (id.contains("govuk-tax-")) id.split("govuk-tax-")(1) else id
-    }
-  }
+  private def extractErrorReference(request: RequestHeader): Option[String] =
+    request.headers.get(HeaderNames.xRequestId)
+      .orElse(Option(MDC.get(HeaderNames.xRequestId)))
+      .map(id => if (id.contains("govuk-tax-")) id.split("govuk-tax-")(1) else id)
 
   override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] =
     statusCode match {

@@ -1110,10 +1110,10 @@ addUserToGG.p3=Gallwch ychwanegu defnyddiwr ar y sgrin nesaf drwy ddewis ’Defn
 addUserToGG.l1=Ychwanegu defnyddiwr
 
 #TECHNICAL DIFFICULTIES
-internalServerError.title = Mae’n ddrwg gennym - rydym yn profi anawsterau technegol
-internalServerError.heading = Mae’n ddrwg gennym - rydym yn profi anawsterau technegol
+internalServerError.title = Ymddiheuriadau, rydym yn profi anawsterau technegol
+internalServerError.heading = Ymddiheuriadau, rydym yn profi anawsterau technegol
 internalServerError.p.1=Rhowch gynig arall arni mewn ychydig funudau
-internalServerError.p.2=Os ydych yn parhau i brofi problemau, cysylltwch â ni ar 03000 505 505.   Bydd angen i chi ddweud y dyddiad, yr amser a’ch cyfeirnod wrthym.
+internalServerError.p.2=Os ydych yn parhau i gael problemau, cysylltwch â ni ar 03000 505 505. Bydd angen i chi ddweud y dyddiad, yr amser, a’ch cyfeirnod wrthym.
 internalServerError.reference=Cyfeirnod: {0}
 internalServerError.date=Dyddiad: {0}
 internalServerError.time=Amser: {0}
