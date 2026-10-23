@@ -163,13 +163,16 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
     Seq(valuationFor("2017"), valuationFor("2023"), valuationFor(currentListYear))
   )
 
-  // Property missing from 2023 and later - claiming with 2023 date should error
   val removedFromListHistory: PropertyHistory = testPropertyHistory.copy(history =
     Seq(valuationFor("2017"))
   )
 
   val removedFrom2026History: PropertyHistory = testPropertyHistory.copy(history =
     Seq(valuationFor("2017"), valuationFor("2023"))
+  )
+
+  val removedFrom2017History: PropertyHistory = testPropertyHistory.copy(history =
+    Seq(valuationFor("2023"), valuationFor(currentListYear))
   )
 
   val backLinkSelector = "#back-link"
@@ -616,6 +619,24 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
 
     }
 
+    "Redirect when claiming with 2017 date and property exists from 2023 onwards (later list year)" in {
+
+      val res = submitOwnership(
+        day = "01",
+        month = "05",
+        year = "2017",
+        userIsAgent = true,
+        fromCya = false,
+        relationship = "owner",
+        propertyHistory = removedFrom2017History
+      )
+
+      res.status shouldBe SEE_OTHER
+      res
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/occupancy"
+
+    }
 
     "Return a bad request with errors for a user when no data is entered for the day/month/year" which {
 
