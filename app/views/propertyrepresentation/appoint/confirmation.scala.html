@@ -17,11 +17,11 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components.link
 @import config.ApplicationConfig
-@import models.propertyrepresentation.ManagingProperty
+@import models.propertyrepresentation.AppointNewAgentDetails
 
 @this(govukPanel : GovukPanel, layout: layout)
 
-@(agentName: String, managingPropertyData: ManagingProperty)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agentName: String, appointNewAgentDetails: AppointNewAgentDetails)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @layout(
     pageTitle = messages("propertyRepresentation.confirmation.title", agentName),
@@ -36,7 +36,7 @@
     <p class="govuk-body" id="agent-can-text">@messages("propertyRepresentation.confirmation.thisAgentCan")</p>
     <ul class="govuk-list govuk-list--bullet" id="agent-can-list">
         <li id="add-properties-text">@messages("propertyRepresentation.confirmation.thisAgentCan.list.1")</li>
-        <li id="act-on-valuations-text">@messages(s"propertyRepresentation.confirmation.secondBulletPoint.${managingPropertyData.ratingLists.sorted(Ordering.String.reverse).mkString(".")}")</li>
+        <li id="act-on-valuations-text">@messages(s"propertyRepresentation.confirmation.secondBulletPoint.${appointNewAgentDetails.ratingLists.sorted(Ordering.String.reverse).mkString(".")}")</li>
 
     </ul>
 
