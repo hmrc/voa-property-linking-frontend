@@ -120,7 +120,7 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
       pageCy.verifyElementTextByClass("govuk-heading-l", "Ymddiheuriadau, rydym yn profi anawsterau technegol")
 
     "display the first Welsh paragraph" in
-      pageCy.shouldContainText("Rhowch gynig arall arni mewn ychydig funudau")
+      pageCy.shouldContainText("Rhowch gynnig arall arni ymhen ychydig funudau.")
 
     "display the second Welsh paragraph" in
       pageCy.shouldContainText(
@@ -158,7 +158,7 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
       pageCy.verifyElementTextByClass("govuk-heading-l", "Ymddiheuriadau, rydym yn profi anawsterau technegol")
 
     "display the first Welsh paragraph" in
-      pageCy.shouldContainText("Rhowch gynig arall arni mewn ychydig funudau")
+      pageCy.shouldContainText("Rhowch gynnig arall arni ymhen ychydig funudau.")
 
     "display the second Welsh paragraph" in
       pageCy.shouldContainText(
