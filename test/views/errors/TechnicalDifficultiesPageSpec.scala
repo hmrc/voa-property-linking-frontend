@@ -38,33 +38,28 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
       view(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(req, messagesApi.preferred(req), Configs.applicationConfig)
     lazy val page = HtmlPage(html)
 
-    "display the correct page title" in {
+    "display the correct page title" in
       page.titleShouldMatch("Sorry, we’re experiencing technical difficulties - Valuation Office - GOV.UK")
-    }
 
-    "display the correct page heading" in {
+    "display the correct page heading" in
       page.verifyElementTextByClass("govuk-heading-l", "Sorry, we’re experiencing technical difficulties")
-    }
 
-    "display the first paragraph" in {
+    "display the first paragraph" in
       page.shouldContainText("Please try again in a few minutes")
-    }
 
-    "display the second paragraph" in {
-      page.shouldContainText("If you continue to experience problems, please contact us on 03000 501 501. You’ll need to tell us the date, time and your reference number.")
-    }
+    "display the second paragraph" in
+      page.shouldContainText(
+        "If you continue to experience problems, please contact us on 03000 501 501. You’ll need to tell us the date, time and your reference number."
+      )
 
-    "display an error reference number" in {
+    "display an error reference number" in
       page.shouldContainText(s"Reference number: $ref")
-    }
 
-    "display the current date" in {
+    "display the current date" in
       page.shouldContainText("Date: 1 April 2017")
-    }
 
-    "display the current time in 12 hour format" in {
+    "display the current time in 12 hour format" in
       page.shouldContainText("Time: 9:30am")
-    }
   }
 
   "The technical difficulties page in Welsh" should {
@@ -74,36 +69,35 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
     lazy val viewCy = new views.html.errors.technicalDifficulties(layout)
 
     lazy val htmlCy =
-      viewCy(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(reqCy, messagesApi.preferred(reqCy), Configs.applicationConfig)
+      viewCy(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(
+        reqCy,
+        messagesApi.preferred(reqCy),
+        Configs.applicationConfig
+      )
     lazy val pageCy = HtmlPage(htmlCy)
 
-    "display the correct Welsh page title" in {
+    "display the correct Welsh page title" in
       pageCy.titleShouldMatch("Ymddiheuriadau, rydym yn profi anawsterau technegol - Y Swyddfa Brisio - GOV.UK")
-    }
 
-    "display the correct Welsh page heading" in {
+    "display the correct Welsh page heading" in
       pageCy.verifyElementTextByClass("govuk-heading-l", "Ymddiheuriadau, rydym yn profi anawsterau technegol")
-    }
 
-    "display the first Welsh paragraph" in {
+    "display the first Welsh paragraph" in
       pageCy.shouldContainText("Rhowch gynig arall arni mewn ychydig funudau")
-    }
 
-    "display the second Welsh paragraph" in {
-      pageCy.shouldContainText("Os ydych yn parhau i gael problemau, cysylltwch â ni ar 03000 505 505. Bydd angen i chi ddweud y dyddiad, yr amser, a’ch cyfeirnod wrthym.")
-    }
+    "display the second Welsh paragraph" in
+      pageCy.shouldContainText(
+        "Os ydych yn parhau i gael problemau, cysylltwch â ni ar 03000 505 505. Bydd angen i chi ddweud y dyddiad, yr amser, a’ch cyfeirnod wrthym."
+      )
 
-    "display a Welsh error reference number" in {
+    "display a Welsh error reference number" in
       pageCy.shouldContainText(s"Cyfeirnod: $ref")
-    }
 
-    "display the current date in Welsh" in {
+    "display the current date in Welsh" in
       pageCy.shouldContainText("Dyddiad: 1 Ebrill 2017")
-    }
 
-    "display the current time in 12 hour format in Welsh" in {
+    "display the current time in 12 hour format in Welsh" in
       pageCy.shouldContainText("Amser: 9:30am")
-    }
   }
 
 }

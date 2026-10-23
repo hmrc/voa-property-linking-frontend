@@ -91,7 +91,8 @@ class CustomErrorHandler @Inject() (
   }
 
   private def extractErrorReference(request: RequestHeader): Option[String] =
-    request.headers.get(HeaderNames.xRequestId)
+    request.headers
+      .get(HeaderNames.xRequestId)
       .orElse(Option(MDC.get(HeaderNames.xRequestId)))
       .map(id => if (id.contains("govuk-tax-")) id.split("govuk-tax-")(1) else id)
 
