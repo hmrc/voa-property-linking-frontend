@@ -1291,6 +1291,7 @@ addPropertyStart.p3.li2=herio’r gwerth ardrethol os ydych chi’n meddwl ei fo
 addPropertyStart.startNow=Dechrau nawr
 interestedStartDate.error.dateInFuture=Rhaid i’r dyddiad y daethoch yn {0} yr eiddo fod yn y gorffennol
 interestedStartDate.error.dateInFuture.client=Rhaid i’r dyddiad y daeth eich cleient yn {0} yr eiddo fod yn y gorffennol
+interestedStartDate.error.removedFromListYear=Mae’n rhaid i ddyddiad meddiannu eich eiddo fod cyn y dyddiad y cafodd yr eiddo ei dynnu oddi ar y rhestr ardrethu
 interestedEndDate.error.dateInFuture=Rhaid i ddyddiad eich diwrnod olaf fel {0} yr eiddo fod yn y gorffennol
 interestedEndDate.error.dateInFuture.client=Rhaid i ddyddiad diwrnod olaf eich cleient fel {0} yr eiddo fod yn y gorffennol
 interestedStartDate.error.startDateMustBeBeforeEnd=Rhaid i’r dyddiad y daethoch yn {0} yr eiddo fod cyn {1}
