@@ -108,13 +108,7 @@ class ClaimPropertyOwnershipController @Inject() (
         errors => Future.successful(badRequest(errors)),
         formData =>
           vmvConnector.getPropertyHistory(request.ses.uarn).flatMap { propertyHistory =>
-            val listYearCheckError = if (config.claimPropertyDateCheckerEnabled) {
-              listYearCheck(formData.fromDate, propertyHistory)
-            } else {
-              None
-            }
-
-            listYearCheckError match {
+            listYearCheck(formData.fromDate, propertyHistory) match {
               case Some(errorKey) =>
                 Future.successful(
                   badRequest(boundForm.withError("interestedStartDate", errorKey))

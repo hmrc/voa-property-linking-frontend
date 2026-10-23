@@ -93,9 +93,6 @@ class ApplicationConfig @Inject() (configuration: Configuration) {
   lazy val compiledListReval26Enabled: Boolean = loadBooleanConfig("feature-switch.compiledListReval26Enabled")
   lazy val welshEstimatorEnabled: Boolean = loadBooleanConfig("feature-switch.welshEstimatorEnabled")
   lazy val newFeedbackForm: Boolean = loadBooleanConfig("feature-switch.newFeedbackForm")
-  lazy val claimPropertyDateCheckerEnabled: Boolean = loadBooleanConfig(
-    "feature-switch.claimPropertyDateCheckerEnabled"
-  )
   lazy val signOutUrl =
     s"${loadConfig("sign-out.url")}?continue_url=${dashboardUrl("home")}&accountType=organisation&origin=voa"
 
