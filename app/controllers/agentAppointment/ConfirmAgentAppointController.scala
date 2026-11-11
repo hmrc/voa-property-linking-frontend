@@ -45,11 +45,11 @@ class ConfirmAgentAppointController @Inject() (
   def onPageLoad(): Action[AnyContent] =
     authenticated.andThen(withAppointAgentSession) { implicit request =>
       request.sessionData match {
-        case data: ManagingProperty =>
+        case data: AppointNewAgentDetails =>
           Ok(
             confirmationView(
               agentName = request.agentDetails.name,
-              managingPropertyData = data
+              appointNewAgentDetails = data
             )
           )
       }

@@ -826,21 +826,22 @@ class CheckYourAnswersControllerFEISpec extends ISpecBase {
   ) = {
 
     val selectedOption = (assignedProperties, totalProperties) match {
-      case (0, _)                                                 => "none"
-      case (assigned, total) if assigned >= 1 && assigned < total => "choose_from_list"
-      case _                                                      => "all"
+      case (0, _)                                                 => NoProperties
+      case (assigned, total) if assigned >= 1 && assigned < total => ChooseFromList
+      case _                                                      => All
     }
 
-    val managingPropertyData: ManagingProperty = ManagingProperty(
+    val appointNewAgentDetails: AppointNewAgentDetails = AppointNewAgentDetails(
       agentCode = agentCode,
       agentOrganisationName = agentName,
-      isCorrectAgent = true,
-      managingPropertyChoice = selectedOption,
-      agentAddress = "1 Agent Street, AG3 NT1",
+      isCorrectAgent = Some(true),
+      managingPropertyChoice = Some(selectedOption),
+      agentAddress = "An Address",
       backLink = backLink,
       totalPropertySelectionSize = totalProperties,
       propertySelectedSize = assignedProperties,
-      ratingLists = listYear
+      ratingLists = listYear,
+      status = ManagingPropertySelected
     )
 
     val propertiesSessionData: AppointAgentToSomePropertiesSession = AppointAgentToSomePropertiesSession(
@@ -855,7 +856,7 @@ class CheckYourAnswersControllerFEISpec extends ISpecBase {
       filters = FilterAppointProperties(None, None)
     )
 
-    await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData))
+    await(mockAppointAgentSessionRepository.saveOrUpdate(appointNewAgentDetails))
     await(mockAppointAgentPropertiesSessionRepository.saveOrUpdate(propertiesSessionData))
 
     stubFor {

@@ -19,7 +19,7 @@ package controllers.agentAppointment
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
-import models.propertyrepresentation.{AgentSelected, SearchedAgent, SelectedAgent}
+import models.propertyrepresentation.{AgentSelected, AppointNewAgentDetails}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
@@ -277,11 +277,16 @@ class IsCorrectAgentFEISpec extends ISpecBase with HtmlComponentHelpers {
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =
       app.injector.instanceOf[AppointAgentSessionRepository]
 
-    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, agentName, agentAddress, AgentSelected, None)
+    val appointNewAgentDetails: AppointNewAgentDetails =
+      AppointNewAgentDetails(
+        agentCode = 1001,
+        agentOrganisationName = agentName,
+        agentAddress = agentAddress,
+        status = AgentSelected,
+        isCorrectAgent = Some(true)
+      )
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, isTheCorrectAgent = true, Seq.empty)
-
-    await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
+    await(mockAppointAgentSessionRepository.saveOrUpdate(appointNewAgentDetails))
 
     stubFor {
       get("/business-rates-authorisation/authenticate")

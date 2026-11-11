@@ -22,7 +22,7 @@ import binders.propertylinks.GetPropertyLinksParameters
 import com.google.inject.Singleton
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
-import models.propertyrepresentation.{AppointNewAgentSession, ManagingProperty, RatingListYearsNew, SelectedAgent}
+import models.propertyrepresentation.{AppointNewAgentDetails, AppointNewAgentSession, ManagingPropertySelected, NoProperties, RatingListYearsNew}
 import models.searchApi.AgentPropertiesParameters
 import play.api.data.Form
 import play.api.data.Forms.{mapping, optional, text}
@@ -53,67 +53,30 @@ class SelectRatingListNewController @Inject() (
 
   def show(fromCyaChange: Boolean = false): Action[AnyContent] =
     authenticated.async { implicit request =>
-      (for {
-        agentDetailsOpt <- sessionRepo.get[AppointNewAgentSession]
-        selectedAgent = agentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
-      } yield selectedAgent match {
-        case answers: ManagingProperty if answers.ratingLists.nonEmpty =>
-          Future.successful(
-            Ok(
-              selectRatingListNewView(
-                answers.agentOrganisationName,
-                fromCyaChange,
-                ratingListYearsNew.fill(
-                  RatingListYearsNew(
-                    listYearOne = Some("2026").filter(answers.ratingLists.contains),
-                    listYearTwo = Some("2023").filter(answers.ratingLists.contains),
-                    listYearThree = Some("2017").filter(answers.ratingLists.contains)
-                  )
-                ),
-                backLink = getBackLink(fromCyaChange, answers.ratingLists)
+      sessionRepo.get[AppointNewAgentSession].map {
+        case Some(answers: AppointNewAgentDetails) =>
+          val form = if (answers.ratingLists.nonEmpty) {
+            ratingListYearsNew.fill(
+              RatingListYearsNew(
+                listYearOne = Some("2026").filter(answers.ratingLists.contains),
+                listYearTwo = Some("2023").filter(answers.ratingLists.contains),
+                listYearThree = Some("2017").filter(answers.ratingLists.contains)
               )
             )
-          )
-        case answers: SelectedAgent if answers.ratingLists.nonEmpty =>
-          Future.successful(
-            Ok(
-              selectRatingListNewView(
-                answers.agentOrganisationName,
-                fromCyaChange,
-                ratingListYearsNew.fill(
-                  RatingListYearsNew(
-                    listYearOne = Some("2026").filter(answers.ratingLists.contains),
-                    listYearTwo = Some("2023").filter(answers.ratingLists.contains),
-                    listYearThree = Some("2017").filter(answers.ratingLists.contains)
-                  )
-                ),
-                backLink = getBackLink(fromCyaChange, answers.ratingLists)
-              )
+          } else ratingListYearsNew
+
+          Ok(
+            selectRatingListNewView(
+              answers.agentOrganisationName,
+              fromCyaChange,
+              form,
+              backLink = getBackLink(fromCyaChange, answers.ratingLists)
             )
           )
-        case answers: SelectedAgent =>
-          Future.successful(
-            Ok(
-              selectRatingListNewView(
-                answers.agentOrganisationName,
-                fromCyaChange,
-                ratingListYearsNew,
-                backLink = getBackLink(fromCyaChange, answers.ratingLists)
-              )
-            )
-          )
-        case answers: ManagingProperty =>
-          Future.successful(
-            Ok(
-              selectRatingListNewView(
-                answers.agentOrganisationName,
-                fromCyaChange,
-                ratingListYearsNew,
-                backLink = getBackLink(fromCyaChange, answers.ratingLists)
-              )
-            )
-          )
-      }).flatten
+
+        case _ =>
+          throw NoAgentSavedException("no agent saved")
+      }
     }
 
   def submitRatingListYear(fromCyaChange: Boolean = false): Action[AnyContent] =
@@ -124,15 +87,16 @@ class SelectRatingListNewController @Inject() (
           errors =>
             {
               for {
-                selectedAgentOpt <- sessionRepo.get[SelectedAgent]
-                selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+                appointNewAgentDetailsOpt <- sessionRepo.get[AppointNewAgentDetails]
+                appointNewAgentDetails =
+                  appointNewAgentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
               } yield Future.successful(
                 BadRequest(
                   selectRatingListNewView(
-                    selectedAgent.agentOrganisationName,
+                    appointNewAgentDetails.agentOrganisationName,
                     fromCyaChange,
                     errors,
-                    getBackLink(fromCyaChange, selectedAgent.ratingLists)
+                    getBackLink(fromCyaChange, appointNewAgentDetails.ratingLists)
                   )
                 )
               )
@@ -140,12 +104,13 @@ class SelectRatingListNewController @Inject() (
           success =>
             {
               for {
-                selectedAgentOpt <- sessionRepo.get[SelectedAgent]
-                selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+                appointNewAgentDetailsOpt <- sessionRepo.get[AppointNewAgentDetails]
+                appointNewAgentDetails =
+                  appointNewAgentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
                 propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
                                    params = GetPropertyLinksParameters(),
-                                   pagination = AgentPropertiesParameters(agentCode = selectedAgent.agentCode),
-                                   agentOrganisationId = selectedAgent.agentCode,
+                                   pagination = AgentPropertiesParameters(agentCode = appointNewAgentDetails.agentCode),
+                                   agentOrganisationId = appointNewAgentDetails.agentCode,
                                    organisationId = request.organisationId
                                  )
                 ratingLists: List[String] =
@@ -154,9 +119,10 @@ class SelectRatingListNewController @Inject() (
                 .get[AppointNewAgentSession]
                 .map { case Some(sessionData) =>
                   sessionData match {
-                    case managingProperty: ManagingProperty if fromCyaChange =>
+                    case appointNewAgentDetails: AppointNewAgentDetails
+                        if appointNewAgentDetails.status == ManagingPropertySelected && fromCyaChange =>
                       sessionRepo.saveOrUpdate(
-                        managingProperty.copy(
+                        appointNewAgentDetails.copy(
                           ratingLists = ratingLists,
                           backLink = Some(
                             getBacklinkForCheckAnswersPage(
@@ -166,9 +132,10 @@ class SelectRatingListNewController @Inject() (
                         )
                       )
                       Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
-                    case managingProperty: ManagingProperty =>
+                    case appointNewAgentDetails: AppointNewAgentDetails
+                        if appointNewAgentDetails.status == ManagingPropertySelected =>
                       sessionRepo.saveOrUpdate(
-                        managingProperty.copy(
+                        appointNewAgentDetails.copy(
                           ratingLists = ratingLists,
                           backLink = Some(
                             getBacklinkForCheckAnswersPage(
@@ -184,16 +151,15 @@ class SelectRatingListNewController @Inject() (
                           )
                         )
                       )
-                    case _ =>
+                    case appointNewAgentDetails: AppointNewAgentDetails =>
                       propertyLinks.authorisations.size match {
                         case 0 =>
                           sessionRepo.saveOrUpdate(
-                            ManagingProperty(
-                              selectedAgent.copy(
-                                ratingLists = ratingLists,
-                                backLink = Some(routes.SelectRatingListNewController.show(fromCyaChange).url)
-                              ),
-                              selection = "none",
+                            appointNewAgentDetails.copy(
+                              status = ManagingPropertySelected,
+                              ratingLists = ratingLists,
+                              backLink = Some(routes.SelectRatingListNewController.show(fromCyaChange).url),
+                              managingPropertyChoice = Some(NoProperties),
                               singleProperty = false,
                               totalPropertySelectionSize = 0,
                               propertySelectedSize = 0
@@ -202,7 +168,7 @@ class SelectRatingListNewController @Inject() (
                           Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
                         case 1 =>
                           sessionRepo.saveOrUpdate(
-                            selectedAgent.copy(
+                            appointNewAgentDetails.copy(
                               ratingLists = ratingLists,
                               backLink = Some(routes.SelectRatingListNewController.show(fromCyaChange).url)
                             )
@@ -210,7 +176,7 @@ class SelectRatingListNewController @Inject() (
                           Future.successful(Redirect(routes.AddAgentController.oneProperty()))
                         case _ =>
                           sessionRepo.saveOrUpdate(
-                            selectedAgent.copy(
+                            appointNewAgentDetails.copy(
                               ratingLists = ratingLists,
                               backLink = Some(routes.SelectRatingListNewController.show(fromCyaChange).url)
                             )

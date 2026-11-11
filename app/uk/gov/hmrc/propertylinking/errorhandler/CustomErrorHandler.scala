@@ -18,6 +18,7 @@ package uk.gov.hmrc.propertylinking.errorhandler
 
 import config.ApplicationConfig
 import connectors.authorisation.errorhandler.exceptions.AuthorisationFailure
+import org.slf4j.MDC
 import play.api.Logging
 import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.mvc.Results.{Forbidden, NotFound, Redirect}
@@ -89,15 +90,11 @@ class CustomErrorHandler @Inject() (
     alreadySubmittedView()(request, messages, appConfig)
   }
 
-  private def extractErrorReference(request: RequestHeader): Option[String] = {
-    val requestId = request.headers.get(HeaderNames.xRequestId)
-    if (requestId.exists(_.contains("govuk-tax-")))
-      // old xRequestId format with gov-uk-tax prefix
-      requestId.map(_.split("govuk-tax-")(1))
-    else
-      // new xRequestId format
-      requestId
-  }
+  private def extractErrorReference(request: RequestHeader): Option[String] =
+    request.headers
+      .get(HeaderNames.xRequestId)
+      .orElse(Option(MDC.get(HeaderNames.xRequestId)))
+      .map(id => if (id.contains("govuk-tax-")) id.split("govuk-tax-")(1) else id)
 
   override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] =
     statusCode match {

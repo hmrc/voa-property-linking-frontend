@@ -18,7 +18,7 @@ package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.{AgentSelected, ManagingProperty, SearchedAgent, SelectedAgent}
+import models.propertyrepresentation.{AgentSelected, AppointNewAgentDetails, ChooseFromList, ManagingPropertySelected}
 import models.searchApi.OwnerAuthResult
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -776,16 +776,36 @@ class SelectRatingListNewFEISpec extends ISpecBase with HtmlComponentHelpers {
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =
       app.injector.instanceOf[AppointAgentSessionRepository]
 
-    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, None)
+    val appointNewAgentDetails: AppointNewAgentDetails =
+      AppointNewAgentDetails(
+        agentCode = 1001,
+        agentOrganisationName = "Some Org",
+        agentAddress = "street",
+        status = AgentSelected,
+        backLink = None,
+        isCorrectAgent = Some(true),
+        ratingLists = listYears
+      )
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, isTheCorrectAgent = true, listYears)
-
-    val managingProperty = ManagingProperty.apply(selectedAgentData, "selection", singleProperty = false, 1, 1)
+    val appointNewAgentDetailsWithProperty: AppointNewAgentDetails =
+      AppointNewAgentDetails(
+        agentCode = 1001,
+        agentOrganisationName = "Some Org",
+        agentAddress = "street",
+        status = ManagingPropertySelected,
+        backLink = None,
+        isCorrectAgent = Some(true),
+        ratingLists = listYears,
+        managingPropertyChoice = Some(ChooseFromList),
+        singleProperty = false,
+        totalPropertySelectionSize = 1,
+        propertySelectedSize = 1
+      )
 
     if (cacheDataType.equals("selectedAgent")) {
-      await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
+      await(mockAppointAgentSessionRepository.saveOrUpdate(appointNewAgentDetails))
     } else {
-      await(mockAppointAgentSessionRepository.saveOrUpdate(managingProperty))
+      await(mockAppointAgentSessionRepository.saveOrUpdate(appointNewAgentDetailsWithProperty))
     }
 
     stubFor {

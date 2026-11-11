@@ -18,7 +18,7 @@ package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock._
-import models.propertyrepresentation.{All, ManagingProperty}
+import models.propertyrepresentation.{All, AppointNewAgentDetails, ManagingPropertySelected}
 import play.api.http.HeaderNames
 import play.api.http.Status.OK
 import play.api.libs.json.Json
@@ -137,18 +137,19 @@ class AppointPropertiesControllerISpec extends ISpecBase with HtmlComponentHelpe
       app.injector.instanceOf[AppointAgentPropertiesSessionRepository]
     implicit val hc: HeaderCarrier = HeaderCarrier(sessionId = Some(SessionId(testSessionId)))
 
-    val managingPropertyData: ManagingProperty = ManagingProperty(
+    val appointNewAgentDetails: AppointNewAgentDetails = AppointNewAgentDetails(
       agentCode = agentCode,
       agentOrganisationName = "Some Org",
-      isCorrectAgent = true,
-      managingPropertyChoice = All.name,
+      isCorrectAgent = Some(true),
+      managingPropertyChoice = Some(All),
       agentAddress = "An Address",
       backLink = None,
       totalPropertySelectionSize = 2,
-      propertySelectedSize = 2
+      propertySelectedSize = 2,
+      status = ManagingPropertySelected
     )
 
-    await(mockAppointAgentSessionRepository.saveOrUpdate(managingPropertyData))
+    await(mockAppointAgentSessionRepository.saveOrUpdate(appointNewAgentDetails))
 
     stubFor {
       get("/property-linking/owner/agents")

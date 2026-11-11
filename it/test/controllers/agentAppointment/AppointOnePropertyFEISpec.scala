@@ -18,7 +18,7 @@ package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.{ManagingProperty, ManagingPropertySelected, SelectedAgent}
+import models.propertyrepresentation.{AddAgentOptions, AgentSelected, AppointNewAgentDetails, ManagingPropertySelected}
 import org.jsoup.Jsoup
 import play.api.http.HeaderNames
 import play.api.http.Status.{BAD_REQUEST, OK, SEE_OTHER}
@@ -433,30 +433,33 @@ class AppointOnePropertyFEISpec extends ISpecBase with HtmlComponentHelpers {
     stubAuth()
 
     if (fromCya) {
-      val cacheData = ManagingProperty(
-        agentCode = 1234,
-        agentOrganisationName = "Test Agent",
-        agentAddress = "1 Agent Street, AG3 NT1",
-        isCorrectAgent = true,
-        managingPropertyChoice = cyaPreSelectedRadioButton.getOrElse(""),
-        singleProperty = true,
-        status = ManagingPropertySelected,
-        backLink = None,
-        totalPropertySelectionSize = 1,
-        propertySelectedSize = 1,
-        appointmentScope = None
-      )
+      val cacheData: AppointNewAgentDetails =
+        AppointNewAgentDetails(
+          agentCode = 1234,
+          agentOrganisationName = "Test Agent",
+          agentAddress = "1 Agent Street, AG3 NT1",
+          status = ManagingPropertySelected,
+          backLink = None,
+          isCorrectAgent = Some(true),
+          managingPropertyChoice = cyaPreSelectedRadioButton.flatMap(AddAgentOptions.fromName),
+          singleProperty = false,
+          totalPropertySelectionSize = 1,
+          propertySelectedSize = 1,
+          appointmentScope = None
+        )
 
       await(mockAppointAgentSessionRepository.saveOrUpdate(cacheData))
     } else {
-      val cacheData = SelectedAgent(
-        agentCode = 1234,
-        agentOrganisationName = "Test Agent",
-        agentAddress = "1 Agent Street, AG3 NT1",
-        isCorrectAgent = true,
-        backLink = None,
-        ratingLists = Seq("2023", "2017")
-      )
+      val cacheData: AppointNewAgentDetails =
+        AppointNewAgentDetails(
+          agentCode = 1234,
+          agentOrganisationName = "Test Agent",
+          agentAddress = "1 Agent Street, AG3 NT1",
+          status = AgentSelected,
+          backLink = None,
+          isCorrectAgent = Some(true),
+          ratingLists = Seq("2023", "2017")
+        )
 
       await(mockAppointAgentSessionRepository.saveOrUpdate(cacheData))
     }
@@ -476,14 +479,16 @@ class AppointOnePropertyFEISpec extends ISpecBase with HtmlComponentHelpers {
   private def postAssignToOnePropertyPage(language: Language, selectedRadio: Option[String]) = {
     stubAuth()
 
-    val cacheData = SelectedAgent(
-      agentCode = 1234,
-      agentOrganisationName = "Test Agent",
-      agentAddress = "1 Agent Street, AG3 NT1",
-      isCorrectAgent = true,
-      backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new"),
-      ratingLists = Seq("2023", "2017")
-    )
+    val cacheData: AppointNewAgentDetails =
+      AppointNewAgentDetails(
+        agentCode = 1234,
+        agentOrganisationName = "Test Agent",
+        agentAddress = "1 Agent Street, AG3 NT1",
+        status = AgentSelected,
+        backLink = Some("/business-rates-property-linking/my-organisation/appoint-new-agent/ratings-list-new"),
+        isCorrectAgent = Some(true),
+        ratingLists = Seq("2023", "2017")
+      )
 
     await(mockAppointAgentSessionRepository.saveOrUpdate(cacheData))
 

@@ -18,7 +18,7 @@ package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.{AgentSelected, SearchedAgent, SelectedAgent}
+import models.propertyrepresentation.{AgentSelected, AppointNewAgentDetails}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.Status._
@@ -447,11 +447,16 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =
       app.injector.instanceOf[AppointAgentSessionRepository]
 
-    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, None)
+    val appointNewAgentDetails: AppointNewAgentDetails =
+      AppointNewAgentDetails(
+        agentCode = 1001,
+        agentOrganisationName = "Some Org",
+        agentAddress = "street",
+        status = AgentSelected,
+        isCorrectAgent = Some(true)
+      )
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Seq.empty)
-
-    await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
+    await(mockAppointAgentSessionRepository.saveOrUpdate(appointNewAgentDetails))
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -486,11 +491,16 @@ class RatingListOptionsISpec extends ISpecBase with HtmlComponentHelpers {
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =
       app.injector.instanceOf[AppointAgentSessionRepository]
 
-    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, None)
+    val appointNewAgentDetails: AppointNewAgentDetails =
+      AppointNewAgentDetails(
+        agentCode = 1001,
+        agentOrganisationName = "Some Org",
+        agentAddress = "street",
+        status = AgentSelected,
+        isCorrectAgent = Some(true)
+      )
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Seq.empty)
-
-    await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
+    await(mockAppointAgentSessionRepository.saveOrUpdate(appointNewAgentDetails))
 
     stubFor {
       post("/auth/authorise")

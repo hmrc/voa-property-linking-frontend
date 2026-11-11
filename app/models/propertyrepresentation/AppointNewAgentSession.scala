@@ -31,92 +31,33 @@ object Start {
   implicit val format: OFormat[Start] = Json.format[Start]
 }
 
-case class SearchedAgent(
+case class AppointNewAgentDetails(
       agentCode: Long,
       agentOrganisationName: String,
       agentAddress: String,
-      status: AppointAgentJourneyStatus = AgentSearched,
-      backLink: Option[String]
-) extends AppointNewAgentSession
-
-object SearchedAgent {
-  implicit val format: OFormat[SearchedAgent] = Json.format[SearchedAgent]
-}
-
-case class SelectedAgent(
-      agentCode: Long,
-      agentOrganisationName: String,
-      agentAddress: String,
-      isCorrectAgent: Boolean,
-      status: AppointAgentJourneyStatus = AgentSelected,
-      backLink: Option[String],
-      ratingLists: Seq[String]
-) extends AppointNewAgentSession
-
-object SelectedAgent {
-  implicit val format: OFormat[SelectedAgent] = Json.format[SelectedAgent]
-
-  def apply(
-        searchedAgent: SearchedAgent,
-        isTheCorrectAgent: Boolean,
-        ratingLists: Seq[String]
-  ): SelectedAgent =
-    SelectedAgent(
-      agentCode = searchedAgent.agentCode,
-      agentOrganisationName = searchedAgent.agentOrganisationName,
-      agentAddress = searchedAgent.agentAddress,
-      isCorrectAgent = isTheCorrectAgent,
-      backLink = searchedAgent.backLink,
-      ratingLists = ratingLists
-    )
-}
-
-case class ManagingProperty(
-      agentCode: Long,
-      agentOrganisationName: String,
-      agentAddress: String,
-      isCorrectAgent: Boolean,
-      managingPropertyChoice: String,
+      status: AppointAgentJourneyStatus,
+      backLink: Option[String] = None,
+      isCorrectAgent: Option[Boolean] = None,
+      ratingLists: Seq[String] = Seq.empty,
+      managingPropertyChoice: Option[AddAgentOptions] = None,
       singleProperty: Boolean = false,
-      status: AppointAgentJourneyStatus = ManagingPropertySelected,
-      backLink: Option[String],
       totalPropertySelectionSize: Int = 0,
       propertySelectedSize: Int = 0,
-      appointmentScope: Option[AppointmentScope] = None,
-      ratingLists: Seq[String] = Seq.empty
+      appointmentScope: Option[AppointmentScope] = None
 ) extends AppointNewAgentSession
 
-object ManagingProperty {
-  implicit val format: OFormat[ManagingProperty] = Json.format[ManagingProperty]
-
-  def apply(
-        selectedAgent: SelectedAgent,
-        selection: String,
-        singleProperty: Boolean,
-        totalPropertySelectionSize: Int,
-        propertySelectedSize: Int
-  ): ManagingProperty =
-    ManagingProperty(
-      agentCode = selectedAgent.agentCode,
-      agentOrganisationName = selectedAgent.agentOrganisationName,
-      agentAddress = selectedAgent.agentAddress,
-      isCorrectAgent = selectedAgent.isCorrectAgent,
-      managingPropertyChoice = selection,
-      singleProperty = singleProperty,
-      backLink = selectedAgent.backLink,
-      totalPropertySelectionSize = totalPropertySelectionSize,
-      propertySelectedSize = propertySelectedSize,
-      ratingLists = selectedAgent.ratingLists
-    )
+object AppointNewAgentDetails {
+  implicit val format: OFormat[AppointNewAgentDetails] =
+    Json.using[Json.WithDefaultValues].format[AppointNewAgentDetails]
 }
 
 object AppointNewAgentSession {
 
   val readers: Map[String, Reads[_ <: AppointNewAgentSession]] = Map(
     StartJourney.name             -> implicitly[Reads[Start]],
-    AgentSearched.name            -> implicitly[Reads[SearchedAgent]],
-    AgentSelected.name            -> implicitly[Reads[SelectedAgent]],
-    ManagingPropertySelected.name -> implicitly[Reads[ManagingProperty]]
+    AgentSearched.name            -> implicitly[Reads[AppointNewAgentDetails]],
+    AgentSelected.name            -> implicitly[Reads[AppointNewAgentDetails]],
+    ManagingPropertySelected.name -> implicitly[Reads[AppointNewAgentDetails]]
   )
 
   implicit val appointNewAgentSessionReads: Reads[AppointNewAgentSession] = new Reads[AppointNewAgentSession] {

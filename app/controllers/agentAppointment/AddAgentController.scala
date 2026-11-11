@@ -100,7 +100,7 @@ class AddAgentController @Inject() (
       } yield agentDetailsOpt match {
         case Some(answers) =>
           answers match {
-            case answers: ManagingProperty =>
+            case answers: AppointNewAgentDetails =>
               Ok(agentCodeView(agentCode.fill(answers.agentCode.toString), backLink = backLink))
             case _ =>
               Ok(agentCodeView(agentCode, backLink))
@@ -180,7 +180,7 @@ class AddAgentController @Inject() (
                         .map {
                           case Some(sessionData) =>
                             sessionData match {
-                              case answers: ManagingProperty =>
+                              case answers: AppointNewAgentDetails =>
                                 sessionRepo
                                   .saveOrUpdate(
                                     answers.copy(
@@ -199,10 +199,11 @@ class AddAgentController @Inject() (
                               case _ =>
                                 sessionRepo
                                   .saveOrUpdate(
-                                    SearchedAgent(
+                                    AppointNewAgentDetails(
                                       agentCode = representativeCode,
                                       agentOrganisationName = agent.name,
                                       agentAddress = agent.address,
+                                      status = AgentSearched,
                                       backLink = Some(backLink)
                                     )
                                   )
@@ -216,10 +217,11 @@ class AddAgentController @Inject() (
                           case _ =>
                             sessionRepo
                               .saveOrUpdate(
-                                SearchedAgent(
+                                AppointNewAgentDetails(
                                   agentCode = representativeCode,
                                   agentOrganisationName = agent.name,
                                   agentAddress = agent.address,
+                                  status = AgentSearched,
                                   backLink = Some(backLink)
                                 )
                               )
@@ -261,19 +263,20 @@ class AddAgentController @Inject() (
           success =>
             if (success) {
               for {
-                searchedAgentOpt <- sessionRepo.get[SearchedAgent]
-                searchedAgent = searchedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+                appointNewAgentDetailsOpt <- sessionRepo.get[AppointNewAgentDetails]
+                appointNewAgentDetails =
+                  appointNewAgentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
                 propertyLinks <- agentRelationshipService.getMyOrganisationPropertyLinksWithAgentFiltering(
                                    params = GetPropertyLinksParameters(),
-                                   pagination = AgentPropertiesParameters(agentCode = searchedAgent.agentCode),
-                                   agentOrganisationId = searchedAgent.agentCode,
+                                   pagination = AgentPropertiesParameters(agentCode = appointNewAgentDetails.agentCode),
+                                   agentOrganisationId = appointNewAgentDetails.agentCode,
                                    organisationId = request.organisationId
                                  )
               } yield sessionRepo
                 .get[AppointNewAgentSession]
                 .map { case Some(sessionData) =>
                   sessionData match {
-                    case answers: ManagingProperty if fromCyaChange =>
+                    case answers: AppointNewAgentDetails if fromCyaChange =>
                       sessionRepo.saveOrUpdate(
                         answers.copy(
                           backLink = Some(
@@ -287,7 +290,12 @@ class AddAgentController @Inject() (
                       Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
                     case _ =>
                       sessionRepo.saveOrUpdate(
-                        SelectedAgent(searchedAgent, success, Seq.empty).copy(backLink = Some(backLink))
+                        appointNewAgentDetails.copy(
+                          status = AgentSelected,
+                          isCorrectAgent = Some(success),
+                          ratingLists = Seq.empty,
+                          backLink = Some(backLink)
+                        )
                       )
                       Future.successful(Redirect(routes.SelectRatingListNewController.show()))
 
@@ -320,10 +328,10 @@ class AddAgentController @Inject() (
       } yield agentDetailsOpt match {
         case Some(answers) =>
           answers match {
-            case answers: ManagingProperty if answers.managingPropertyChoice != "" =>
+            case answers: AppointNewAgentDetails if answers.managingPropertyChoice.isDefined =>
               Ok(
                 agentToManageOnePropertyView(
-                  manageOneProperty.fill(AddAgentOptions.fromName(answers.managingPropertyChoice).get),
+                  manageOneProperty.fill(answers.managingPropertyChoice.get),
                   request.agentDetails.name,
                   backLink
                 )
@@ -345,16 +353,18 @@ class AddAgentController @Inject() (
             ),
           success =>
             for {
-              selectedAgentOpt <- sessionRepo.get[SelectedAgent]
-              selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+              appointNewAgentDetailsOpt <- sessionRepo.get[AppointNewAgentDetails]
+              appointNewAgentDetails =
+                appointNewAgentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
               _ <- sessionRepo.saveOrUpdate(
-                     ManagingProperty(
-                       selectedAgent = selectedAgent,
-                       selection = success.name,
+                     appointNewAgentDetails.copy(
+                       status = ManagingPropertySelected,
+                       managingPropertyChoice = Some(success),
                        singleProperty = true,
                        totalPropertySelectionSize = 1,
-                       propertySelectedSize = if (success.name == "no") 0 else 1
-                     ).copy(backLink = Some(routes.AddAgentController.oneProperty().url))
+                       propertySelectedSize = if (success == No) 0 else 1,
+                       backLink = Some(routes.AddAgentController.oneProperty().url)
+                     )
                    )
             } yield Redirect(routes.CheckYourAnswersController.onPageLoad())
         )
@@ -363,9 +373,7 @@ class AddAgentController @Inject() (
   private def getBackLinkFromSession(implicit request: AppointAgentSessionRequest[AnyContent]) = {
     sessionRepo.get[AppointNewAgentSession].map { case Some(answer) =>
       answer match {
-        case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
-          routes.SelectRatingListNewController.show().url
-        case answer: SelectedAgent if answer.ratingLists.nonEmpty =>
+        case answer: AppointNewAgentDetails if answer.ratingLists.nonEmpty =>
           routes.SelectRatingListNewController.show().url
         case _ => routes.AddAgentController.isCorrectAgent().url
       }
@@ -382,10 +390,10 @@ class AddAgentController @Inject() (
       } yield agentDetailsOpt match {
         case Some(answers) =>
           answers match {
-            case answers: ManagingProperty if answers.managingPropertyChoice != "" =>
+            case answers: AppointNewAgentDetails if answers.managingPropertyChoice.isDefined =>
               Ok(
                 agentToManageMultiplePropertiesView(
-                  manageMultipleProperties.fill(AddAgentOptions.fromName(answers.managingPropertyChoice).get),
+                  manageMultipleProperties.fill(answers.managingPropertyChoice.get),
                   request.agentDetails.name,
                   backLink
                 )
@@ -405,9 +413,7 @@ class AddAgentController @Inject() (
     else
       sessionRepo.get[AppointNewAgentSession].map { case Some(answer) =>
         answer match {
-          case answer: ManagingProperty if answer.ratingLists.nonEmpty =>
-            routes.SelectRatingListNewController.show().url
-          case answer: SelectedAgent if answer.ratingLists.nonEmpty =>
+          case answer: AppointNewAgentDetails if answer.ratingLists.nonEmpty =>
             routes.SelectRatingListNewController.show().url
           case _ => routes.AddAgentController.isCorrectAgent().url
         }
@@ -424,22 +430,23 @@ class AddAgentController @Inject() (
             ),
           success =>
             for {
-              selectedAgentOpt <- sessionRepo.get[SelectedAgent]
-              selectedAgent = selectedAgentOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
+              appointNewAgentDetailsOpt <- sessionRepo.get[AppointNewAgentDetails]
+              appointNewAgentDetails =
+                appointNewAgentDetailsOpt.getOrElse(throw NoAgentSavedException("no agent saved"))
               propertyCount <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
               _ <- sessionRepo.saveOrUpdate(
-                     ManagingProperty(
-                       selectedAgent =
-                         selectedAgent.copy(backLink = Some(routes.AddAgentController.multipleProperties().url)),
-                       selection = success.name,
+                     appointNewAgentDetails.copy(
+                       status = ManagingPropertySelected,
+                       managingPropertyChoice = Some(success),
                        singleProperty = false,
                        totalPropertySelectionSize = propertyCount,
-                       propertySelectedSize = if (success.name == "all") propertyCount else 0
-                     ).copy(backLink = Some(routes.AddAgentController.multipleProperties().url))
+                       propertySelectedSize = if (success == All) propertyCount else 0,
+                       backLink = Some(routes.AddAgentController.multipleProperties().url)
+                     )
                    )
             } yield success match {
               case ChooseFromList =>
-                joinOldJourney(selectedAgent.agentCode)
+                joinOldJourney(appointNewAgentDetails.agentCode)
               case propertyrepresentation.All | propertyrepresentation.NoProperties =>
                 Redirect(routes.CheckYourAnswersController.onPageLoad())
             }

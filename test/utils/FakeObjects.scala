@@ -144,13 +144,14 @@ trait FakeObjects {
       challengeCases = List(agentChallengeCase)
     )
   lazy val assessmentPageSession: AssessmentsPageSession = AssessmentsPageSession(PreviousPage.SelectedClient)
-  lazy val appointNewAgentSession: AppointNewAgentSession = SelectedAgent(
+  lazy val appointNewAgentSession: AppointNewAgentSession = AppointNewAgentDetails(
     agentCode = agentCode,
     agentOrganisationName = agentDetails.name,
     agentAddress = agentDetails.address,
-    isCorrectAgent = true,
+    isCorrectAgent = Some(true),
     backLink = None,
-    ratingLists = Seq.empty
+    ratingLists = Seq.empty,
+    status = AgentSelected
   )
   lazy val april2017 = LocalDate.of(2017, 4, 1)
   lazy val april2023 = LocalDate.of(2023, 4, 1)
@@ -282,47 +283,52 @@ trait FakeObjects {
     persons = List()
   )
   val startJourney = Start(backLink = None)
-  val searchedAgent = SearchedAgent(
+  val searchedAgent = AppointNewAgentDetails(
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
-    agentAddress = "An Address",
-    backLink = None
-  )
-  val selectedAgent = SelectedAgent(
-    agentCode = agentCode,
-    agentOrganisationName = "Some Org",
-    isCorrectAgent = true,
     agentAddress = "An Address",
     backLink = None,
-    ratingLists = Seq.empty
+    status = AgentSearched
   )
-  val managingProperty = ManagingProperty(
+  val selectedAgent = AppointNewAgentDetails(
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
-    isCorrectAgent = true,
-    managingPropertyChoice = All.name,
+    isCorrectAgent = Some(true),
     agentAddress = "An Address",
     backLink = None,
-    totalPropertySelectionSize = 1,
-    propertySelectedSize = 1
+    ratingLists = Seq.empty,
+    status = AgentSelected
   )
-  val managingPropertyNoProperties = ManagingProperty(
+  val managingProperty = AppointNewAgentDetails(
     agentCode = agentCode,
     agentOrganisationName = "Some Org",
-    isCorrectAgent = true,
-    managingPropertyChoice = NoProperties.name,
-    agentAddress = "An Address",
-    backLink = None
-  )
-  val managingPropertyChooseProperties = ManagingProperty(
-    agentCode = agentCode,
-    agentOrganisationName = "Some Org",
-    isCorrectAgent = true,
-    managingPropertyChoice = ChooseFromList.name,
+    isCorrectAgent = Some(true),
+    managingPropertyChoice = Some(All),
     agentAddress = "An Address",
     backLink = None,
     totalPropertySelectionSize = 1,
-    propertySelectedSize = 1
+    propertySelectedSize = 1,
+    status = ManagingPropertySelected
+  )
+  val managingPropertyNoProperties = AppointNewAgentDetails(
+    agentCode = agentCode,
+    agentOrganisationName = "Some Org",
+    isCorrectAgent = Some(true),
+    managingPropertyChoice = Some(NoProperties),
+    agentAddress = "An Address",
+    backLink = None,
+    status = ManagingPropertySelected
+  )
+  val managingPropertyChooseProperties = AppointNewAgentDetails(
+    agentCode = agentCode,
+    agentOrganisationName = "Some Org",
+    isCorrectAgent = Some(true),
+    managingPropertyChoice = Some(ChooseFromList),
+    agentAddress = "An Address",
+    backLink = None,
+    totalPropertySelectionSize = 1,
+    propertySelectedSize = 1,
+    status = ManagingPropertySelected
   )
   val ownerAuthAgent = OwnerAuthAgent(
     authorisedPartyId = 12L,

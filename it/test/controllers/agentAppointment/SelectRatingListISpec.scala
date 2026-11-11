@@ -18,7 +18,7 @@ package controllers.agentAppointment
 
 import base.{HtmlComponentHelpers, ISpecBase}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, stubFor}
-import models.propertyrepresentation.{AgentSelected, ManagingProperty, SearchedAgent, SelectedAgent}
+import models.propertyrepresentation.{AgentSelected, AppointNewAgentDetails, ManagingPropertySelected, NoProperties}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.Status.{BAD_REQUEST, OK, SEE_OTHER}
@@ -388,12 +388,18 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =
       app.injector.instanceOf[AppointAgentSessionRepository]
 
-    val searchedAgentData: SearchedAgent =
-      SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, Some("back-link"))
+    val appointNewAgentDetails: AppointNewAgentDetails =
+      AppointNewAgentDetails(
+        agentCode = 1001,
+        agentOrganisationName = "Some Org",
+        agentAddress = "street",
+        status = AgentSelected,
+        backLink = Some("back-link"),
+        isCorrectAgent = Some(true),
+        ratingLists = Seq("2023", "2017")
+      )
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Seq("2023", "2017"))
-
-    await(mockAppointAgentSessionRepository.saveOrUpdate(selectedAgentData))
+    await(mockAppointAgentSessionRepository.saveOrUpdate(appointNewAgentDetails))
 
     stubFor {
       get("/business-rates-authorisation/authenticate")
@@ -427,12 +433,22 @@ class SelectRatingListISpec extends ISpecBase with HtmlComponentHelpers {
     lazy val mockAppointAgentSessionRepository: AppointAgentSessionRepository =
       app.injector.instanceOf[AppointAgentSessionRepository]
 
-    val searchedAgentData: SearchedAgent = SearchedAgent.apply(1001, "Some Org", "street", AgentSelected, None)
+    val appointNewAgentDetails: AppointNewAgentDetails =
+      AppointNewAgentDetails(
+        agentCode = 1001,
+        agentOrganisationName = "Some Org",
+        agentAddress = "street",
+        status = ManagingPropertySelected,
+        backLink = None,
+        isCorrectAgent = Some(true),
+        ratingLists = Seq("2023", "2017"),
+        managingPropertyChoice = Some(NoProperties),
+        singleProperty = false,
+        totalPropertySelectionSize = 1,
+        propertySelectedSize = 1
+      )
 
-    val selectedAgentData = SelectedAgent.apply(searchedAgentData, true, Seq("2023", "2017"))
-
-    val managedAgentData = ManagingProperty.apply(selectedAgentData, "None", false, 1, 1)
-    await(mockAppointAgentSessionRepository.saveOrUpdate(managedAgentData))
+    await(mockAppointAgentSessionRepository.saveOrUpdate(appointNewAgentDetails))
 
     stubFor {
       post("/auth/authorise")

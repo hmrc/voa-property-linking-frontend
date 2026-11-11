@@ -51,11 +51,11 @@ class CheckYourAnswersController @Inject() (
   def onPageLoad(): Action[AnyContent] =
     authenticated.andThen(withAppointAgentSession).async { implicit request =>
       PartialFunction
-        .condOpt(request.sessionData) { case data: ManagingProperty =>
+        .condOpt(request.sessionData) { case data: AppointNewAgentDetails =>
           Future.successful(Ok(checkYourAnswersView(getBackLinkFromSession, submitAgentAppointmentRequest, data)))
         }
         .getOrElse {
-          logger.info("Failed to find ManagingProperty data in the session cache.")
+          logger.info("Failed to find AppointNewAgentDetails data in the session cache.")
           errorHandler.notFoundTemplate.map(html => NotFound(html))
         }
     }
@@ -67,13 +67,13 @@ class CheckYourAnswersController @Inject() (
         .fold(
           errors =>
             request.sessionData match {
-              case data: ManagingProperty =>
+              case data: AppointNewAgentDetails =>
                 Future.successful(BadRequest(checkYourAnswersView(getBackLinkFromSession, errors, data)))
             },
           success =>
             for {
               _ <- request.sessionData match {
-                     case data: ManagingProperty =>
+                     case data: AppointNewAgentDetails =>
                        appointNewAgentSession.saveOrUpdate(
                          data
                            .copy(appointmentScope = Some(AppointmentScope.withName(success.scope)))
@@ -81,7 +81,7 @@ class CheckYourAnswersController @Inject() (
                        )
                    }
               sessionDataOpt <- appointAgentPropertiesSession.get[AppointAgentToSomePropertiesSession]
-              agentAnswers   <- appointNewAgentSession.get[ManagingProperty]
+              agentAnswers   <- appointNewAgentSession.get[AppointNewAgentDetails]
               listYears: List[String] =
                 agentAnswers match {
                   case Some(answers) => answers.ratingLists.toList.sorted(Ordering.String)

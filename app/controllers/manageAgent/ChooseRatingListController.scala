@@ -31,7 +31,7 @@ import repositories.ManageAgentSessionRepository
 import uk.gov.hmrc.propertylinking.errorhandler.CustomErrorHandler
 
 import javax.inject.Inject
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 @Singleton
 class ChooseRatingListController @Inject() (
