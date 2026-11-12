@@ -50,7 +50,7 @@
 
 @head = {
     @views.html.includes.designSystemsStylesheets()
-    @if(request.isLoggedIn){
+    @if(request.shouldShowTimeoutDialog){
         @hmrcTimeoutDialogHelper(
             signOutUrl = config.signOutUrl,
             synchroniseTabs = Some(true),
@@ -60,7 +60,7 @@
             signOutButtonText = Some(messages("timeout.sign-out-button")),
             keepAliveUrl = Some(controllers.routes.KeepAliveController.keepAlive.url)
         )
-}
+    }
 }
 
 @helpContent = {

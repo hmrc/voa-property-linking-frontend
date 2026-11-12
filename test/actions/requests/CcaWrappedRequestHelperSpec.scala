@@ -16,13 +16,22 @@
 
 package actions.requests
 
+import actions.registration.requests.RequestWithUserDetails
+import config.ApplicationConfig
 import models.analytics.GoogleAnalyticsUserData
 import models.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
+import play.api.i18n.MessagesApi
+import play.api.test.FakeRequest
+import play.twirl.api.Html
 import tests.BaseUnitSpec
+import utils.{Configs, FakeViews, StubMessageControllerComponents}
 
-class CcaWrappedRequestHelperSpec extends BaseUnitSpec {
+class CcaWrappedRequestHelperSpec extends BaseUnitSpec with FakeViews with StubMessageControllerComponents {
 
   import actions.requests.CcaWrappedRequestHelper._
+
+  implicit lazy val messageApi: MessagesApi = StubMessageControllerComponents.messagesApi
+  implicit val appConfig: ApplicationConfig = Configs.applicationConfig
 
   abstract class Setup(sameName: Boolean = false, isAgent: Boolean = false) {
     val firstName = "first"
@@ -51,13 +60,39 @@ class CcaWrappedRequestHelperSpec extends BaseUnitSpec {
       )
 
     val testRequest: BasicAuthenticatedRequest[_] =
-      BasicAuthenticatedRequest(testGroupAccount, testDetailedIndividualAccount, testRequest)
+      BasicAuthenticatedRequest(testGroupAccount, testDetailedIndividualAccount, FakeRequest())
 
     val googleAnalyticsData: GoogleAnalyticsUserData = GoogleAnalyticsUserData(
       personId = testDetailedIndividualAccount.individualId.toString,
       loggedIn = "Yes",
       ccaAgent = if (isAgent) "Yes" else "No"
     )
+  }
+
+  "shouldShowTimeoutDialog" should {
+    "be true for a GG-authenticated request" in new Setup {
+      val request = new RequestWithUserDetails(individualUserDetails, FakeRequest())
+      request.shouldShowTimeoutDialog shouldBe true
+    }
+
+    "be false for a plain request" in new Setup {
+      FakeRequest().shouldShowTimeoutDialog shouldBe false
+    }
+  }
+
+  "layout" should {
+    "render the timeout dialog for a GG-authenticated request" in new Setup {
+      val request = new RequestWithUserDetails(individualUserDetails, FakeRequest())
+      val rendered = layout(
+        pageTitle = "Test page",
+        showTopNavigation = false
+      )(
+        Html("<p>hello</p>")
+      )(request, messagesApi.preferred(request), appConfig)
+
+      rendered.body should include("meta name=\"hmrc-timeout-dialog\"")
+      rendered.body should include("keep-alive")
+    }
   }
 
   "your details name" when {

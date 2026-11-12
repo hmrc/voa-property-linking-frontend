@@ -159,21 +159,16 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   private def valuationFor(listYear: String, rateableValue: Option[BigDecimal] = Some(BigDecimal(1000))) =
     testPropertyValuation.copy(listYear = listYear, rateableValue = rateableValue)
 
-  val validPropertyHistory: PropertyHistory = testPropertyHistory.copy(history =
-    Seq(valuationFor("2017"), valuationFor("2023"), valuationFor(currentListYear))
-  )
+  val validPropertyHistory: PropertyHistory =
+    testPropertyHistory.copy(history = Seq(valuationFor("2017"), valuationFor("2023"), valuationFor(currentListYear)))
 
-  val removedFromListHistory: PropertyHistory = testPropertyHistory.copy(history =
-    Seq(valuationFor("2017"))
-  )
+  val removedFromListHistory: PropertyHistory = testPropertyHistory.copy(history = Seq(valuationFor("2017")))
 
-  val removedFrom2026History: PropertyHistory = testPropertyHistory.copy(history =
-    Seq(valuationFor("2017"), valuationFor("2023"))
-  )
+  val removedFrom2026History: PropertyHistory =
+    testPropertyHistory.copy(history = Seq(valuationFor("2017"), valuationFor("2023")))
 
-  val removedFrom2017History: PropertyHistory = testPropertyHistory.copy(history =
-    Seq(valuationFor("2023"), valuationFor(currentListYear))
-  )
+  val removedFrom2017History: PropertyHistory =
+    testPropertyHistory.copy(history = Seq(valuationFor("2023"), valuationFor(currentListYear)))
 
   val backLinkSelector = "#back-link"
   val captionSelector = "span.govuk-caption-l"
@@ -1115,7 +1110,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe futureDateErrorOccupierTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOccupierTextWelsh
+        document
+          .getElementById(radioErrorMessageLocator)
+          .text shouldBe errorTextWelsh + futureDateErrorOccupierTextWelsh
       }
 
       genericUserPageTestsInWelsh("01", "01", "2999", "occupier")
@@ -1140,7 +1137,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe futureDateErrorOwnerOccupierTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOwnerOccupierTextWelsh
+        document
+          .getElementById(radioErrorMessageLocator)
+          .text shouldBe errorTextWelsh + futureDateErrorOwnerOccupierTextWelsh
       }
 
       genericUserPageTestsInWelsh("01", "01", "2999", "both")
@@ -1172,7 +1171,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe futureDateErrorOwnerAgentTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOwnerAgentTextWelsh
+        document
+          .getElementById(radioErrorMessageLocator)
+          .text shouldBe errorTextWelsh + futureDateErrorOwnerAgentTextWelsh
       }
 
       genericAgentPageTestsInWelsh("01", "01", "2999", "owner")
@@ -1204,7 +1205,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe futureDateErrorOccupierAgentTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOccupierAgentTextWelsh
+        document
+          .getElementById(radioErrorMessageLocator)
+          .text shouldBe errorTextWelsh + futureDateErrorOccupierAgentTextWelsh
       }
 
       genericAgentPageTestsInWelsh("01", "01", "2999", "occupier")
@@ -1236,7 +1239,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe futureDateErrorOwnerOccupierAgentTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + futureDateErrorOwnerOccupierAgentTextWelsh
+        document
+          .getElementById(radioErrorMessageLocator)
+          .text shouldBe errorTextWelsh + futureDateErrorOwnerOccupierAgentTextWelsh
       }
 
       genericAgentPageTestsInWelsh("01", "01", "2999", "both")
@@ -1300,7 +1305,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe dateBeforeErrorOccupierTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOccupierTextWelsh
+        document
+          .getElementById(radioErrorMessageLocator)
+          .text shouldBe errorTextWelsh + dateBeforeErrorOccupierTextWelsh
       }
 
       genericUserPageTestsInWelsh("01", "02", "2021", "occupier", endDate = occupancyEndDate)
@@ -1332,7 +1339,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe dateBeforeErrorOwnerOccupierTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOwnerOccupierTextWelsh
+        document
+          .getElementById(radioErrorMessageLocator)
+          .text shouldBe errorTextWelsh + dateBeforeErrorOwnerOccupierTextWelsh
       }
 
       genericUserPageTestsInWelsh("01", "02", "2021", "both", endDate = occupancyEndDate)
@@ -1365,7 +1374,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe dateBeforeErrorOwnerAgentTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOwnerAgentTextWelsh
+        document
+          .getElementById(radioErrorMessageLocator)
+          .text shouldBe errorTextWelsh + dateBeforeErrorOwnerAgentTextWelsh
       }
 
       genericAgentPageTestsInWelsh("01", "02", "2021", "owner", endDate = occupancyEndDate)
@@ -1398,7 +1409,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe dateBeforeErrorOccupierAgentTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOccupierAgentTextWelsh
+        document
+          .getElementById(radioErrorMessageLocator)
+          .text shouldBe errorTextWelsh + dateBeforeErrorOccupierAgentTextWelsh
       }
 
       genericAgentPageTestsInWelsh("01", "02", "2021", "occupier", endDate = occupancyEndDate)
@@ -1431,7 +1444,9 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
         document.select(errorSummaryTitleLocator).text shouldBe errorSummaryTitleTextWelsh
         document.select(errorSummaryMessageLocator).text shouldBe dateBeforeErrorOwnerOccupierAgentTextWelsh
         document.select(errorSummaryMessageLocator).attr("href") shouldBe errorHref
-        document.getElementById(radioErrorMessageLocator).text shouldBe errorTextWelsh + dateBeforeErrorOwnerOccupierAgentTextWelsh
+        document
+          .getElementById(radioErrorMessageLocator)
+          .text shouldBe errorTextWelsh + dateBeforeErrorOwnerOccupierAgentTextWelsh
       }
 
       genericAgentPageTestsInWelsh("01", "02", "2021", "both", endDate = occupancyEndDate)
