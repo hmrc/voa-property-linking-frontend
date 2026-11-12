@@ -36,6 +36,13 @@ import scala.util.matching.Regex
 
 object Mappings extends DateMappings {
 
+  object AddressValidationLimits {
+    val line1: Int = 47
+    val line2: Int = 30
+    val line3: Int = 30
+    val line4: Int = 30
+  }
+
   val businessName: Mapping[String] =
     nonEmptyText.verifying(maxLength(45, "enrolment.business.name.error"))
 
@@ -56,11 +63,14 @@ object Mappings extends DateMappings {
     "addressId" -> addressId,
     "line1" -> onlyIf(
       addressEnteredManually,
-      text.verifying(nonEmpty, maxLength(80, "enrolment.address.line1.maxLengthError"))
+      text.verifying(
+        nonEmpty,
+        maxLength(AddressValidationLimits.line1, "enrolment.address.line1.maxLengthError")
+      ) // CDB accepts a maximum of 47 characters for line1
     )(""),
-    "line2" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
-    "line3" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
-    "line4" -> text.verifying(maxLength(30, "enrolment.address.maxLengthError")),
+    "line2" -> text.verifying(maxLength(AddressValidationLimits.line2, "enrolment.address.maxLengthError")),
+    "line3" -> text.verifying(maxLength(AddressValidationLimits.line3, "enrolment.address.maxLengthError")),
+    "line4" -> text.verifying(maxLength(AddressValidationLimits.line4, "enrolment.address.maxLengthError")),
     "postcode" -> onlyIf(
       addressEnteredManually,
       text

@@ -16,6 +16,7 @@
 
 package utils
 
+import form.Mappings
 import models.registration.keys
 import models.{NamedEnum, NamedEnumSupport}
 import org.scalatest.AppendedClues
@@ -87,10 +88,10 @@ trait ContactDetailsVerification { this: BasicVerification =>
   }
 
   def verifyAddressFieldCharacterLimits(form: Form[_], validData: Map[String, String], field: String): Unit = {
-    verifyAddressLine1CharacterLimit(form, validData, s"$field.line1", 80)
-    verifyAddressCharacterLimit(form, validData, s"$field.line2", 30)
-    verifyAddressCharacterLimit(form, validData, s"$field.line3", 30)
-    verifyAddressCharacterLimit(form, validData, s"$field.line4", 30)
+    verifyAddressLine1CharacterLimit(form, validData, s"$field.line1", Mappings.AddressValidationLimits.line1)
+    verifyAddressCharacterLimit(form, validData, s"$field.line2", Mappings.AddressValidationLimits.line2)
+    verifyAddressCharacterLimit(form, validData, s"$field.line3", Mappings.AddressValidationLimits.line3)
+    verifyAddressCharacterLimit(form, validData, s"$field.line4", Mappings.AddressValidationLimits.line4)
   }
 }
 trait DateVerification { this: BasicVerification =>

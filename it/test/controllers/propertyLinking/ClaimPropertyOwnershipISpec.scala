@@ -159,17 +159,15 @@ class ClaimPropertyOwnershipISpec extends ISpecBase with HtmlComponentHelpers wi
   private def valuationFor(listYear: String, rateableValue: Option[BigDecimal] = Some(BigDecimal(1000))) =
     testPropertyValuation.copy(listYear = listYear, rateableValue = rateableValue)
 
-  val validPropertyHistory: PropertyHistory = testPropertyHistory.copy(history =
-    Seq(valuationFor("2017"), valuationFor("2023"), valuationFor(currentListYear))
-  )
+  val validPropertyHistory: PropertyHistory =
+    testPropertyHistory.copy(history = Seq(valuationFor("2017"), valuationFor("2023"), valuationFor(currentListYear)))
 
   val removedFromListHistory: PropertyHistory = testPropertyHistory.copy(history =
     Seq(valuationFor("2017"))
   )
 
-  val removedFrom2026History: PropertyHistory = testPropertyHistory.copy(history =
-    Seq(valuationFor("2017"), valuationFor("2023"))
-  )
+  val removedFrom2026History: PropertyHistory =
+    testPropertyHistory.copy(history = Seq(valuationFor("2017"), valuationFor("2023")))
 
   val removedFrom2017History: PropertyHistory = testPropertyHistory.copy(history =
     Seq(valuationFor("2023"), valuationFor(currentListYear))
