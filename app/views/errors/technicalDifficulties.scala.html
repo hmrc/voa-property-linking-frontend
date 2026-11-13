@@ -17,11 +17,17 @@
 @import utils.Formatters._
 @import java.time.LocalDateTime
 @import config.ApplicationConfig
+@import actions.requests.CcaWrappedRequestHelper.RequestOps
 
 @this(layout: layout)
 
 @(reference: Option[String], dateTime: LocalDateTime)(implicit request: RequestHeader, messages: Messages, config: ApplicationConfig)
 
+
+@goToLink = @{if(request.isLoggedIn){
+    config.dashboardUrl("home")
+} else {
+    config.vmvUrl("search")}}
 @layout(pageTitle = messages("internalServerError.title"), showTopNavigation = false) {
 
     <h1 class="govuk-heading-l">@messages("internalServerError.heading")</h1>
@@ -35,5 +41,8 @@
 
     <p class="govuk-body">@messages("internalServerError.date", formattedFullDate(dateTime.toLocalDate))</p>
     <p class="govuk-body">@messages("internalServerError.time", formatTimeWithAmPm(dateTime.toLocalTime))</p>
+
+    <p class="govuk-body"><a id="go-to-home-link" href="@goToLink" class="govuk-link">@messages("link.go.home")</a></p>
+
 
 }
