@@ -16,6 +16,7 @@
 
 package actions.requests
 
+import actions.registration.requests.RequestWithUserDetails
 import models.analytics.GoogleAnalyticsUserData
 import play.api.mvc.RequestHeader
 
@@ -29,6 +30,13 @@ object CcaWrappedRequestHelper {
       request match {
         case r: CcaWrappedRequest => r.isLoggedIn
         case _                    => false
+      }
+
+    def shouldShowTimeoutDialog: Boolean =
+      request match {
+        case r: CcaWrappedRequest         => r.isLoggedIn
+        case _: RequestWithUserDetails[_] => true
+        case _                            => false
       }
 
     def yourDetailsName: Option[String] =
