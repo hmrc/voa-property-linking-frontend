@@ -54,8 +54,10 @@ class RegistrationController @Inject() (
       registerOrganisationView: createAccount.registerOrganisation,
       registerAssistantAdminView: createAccount.registerAssistantAdmin,
       registerAssistantView: createAccount.registerAssistant,
+      registerVosView: createAccount.registerVos,
       registerConfirmationView: createAccount.registrationConfirmation,
       confirmationView: createAccount.confirmation,
+      confirmationVosView: createAccount.confirmationVos,
       @Named("personSession") val personalDetailsSessionRepo: SessionRepo
 )(implicit
       executionContext: ExecutionContext,
@@ -66,20 +68,23 @@ class RegistrationController @Inject() (
 
   def show: Action[AnyContent] =
     ggAuthenticated.async { implicit request =>
-      individualAccounts.withExternalId(request.externalId).flatMap {
-        case Some(_) =>
-          Future.successful(Redirect(config.dashboardUrl("home")))
-        case None =>
-          request.userDetails match {
-            case userDetails @ IndividualUserDetails() =>
-              individualShow(userDetails)
-            case userDetails @ OrganisationUserDetails() =>
-              orgShow(userDetails)
-            case _ @AgentUserDetails() =>
-              Future.successful(Ok(invalidAccountTypeView()))
-            case _ => Future.successful(Ok(invalidAccountTypeView()))
-          }
-      }
+      if (isVosUser(request))
+        Future.successful(Ok(registerVosView(VosContactDetails.form)))
+      else
+        individualAccounts.withExternalId(request.externalId).flatMap {
+          case Some(_) =>
+            Future.successful(Redirect(config.dashboardUrl("home")))
+          case None =>
+            request.userDetails match {
+              case userDetails @ IndividualUserDetails() =>
+                individualShow(userDetails)
+              case userDetails @ OrganisationUserDetails() =>
+                orgShow(userDetails)
+              case _ @AgentUserDetails() =>
+                Future.successful(Ok(invalidAccountTypeView()))
+              case _ => Future.successful(Ok(invalidAccountTypeView()))
+            }
+        }
     }
 
   def submitIndividual: Action[AnyContent] =
@@ -97,16 +102,28 @@ class RegistrationController @Inject() (
 
   def submitOrganisation: Action[AnyContent] =
     ggAuthenticated.async { implicit request =>
-      AdminUserUplift.organisation
-        .bindFromRequest()
-        .fold(
-          errors => Future.successful(BadRequest(registerOrganisationView(errors, FieldDataUplift()))),
-          (success: AdminOrganisationAccountDetailsUplift) =>
-            personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
-              continueRegistration(request)
-            }
-        )
+      if (isVosUser(request))
+        VosContactDetails.form
+          .bindFromRequest()
+          .fold(
+            errors => Future.successful(BadRequest(registerVosView(errors))),
+            success =>
+              Future.successful(Ok(confirmationVosView(None, None, success.email, Some(success.phone))))
+          )
+      else
+        AdminUserUplift.organisation
+          .bindFromRequest()
+          .fold(
+            errors => Future.successful(BadRequest(registerOrganisationView(errors, FieldDataUplift()))),
+            (success: AdminOrganisationAccountDetailsUplift) =>
+              personalDetailsSessionRepo.saveOrUpdate(success) flatMap { _ =>
+                continueRegistration(request)
+              }
+          )
     }
+
+  private def isVosUser(request: RequestWithUserDetails[_]): Boolean =
+    config.vosEnabled && request.groupIdentifier.contains("VOS")
 
   def submitAdminToExistingOrganisation: Action[AnyContent] =
     ggAuthenticated.async { implicit request =>
@@ -205,11 +222,19 @@ class RegistrationController @Inject() (
   def confirmation(personId: Long): Action[AnyContent] =
     authenticated { implicit request =>
       Ok(
-        confirmationView(
-          personId.toString,
-          request.organisationAccount.agentCode,
-          request.individualAccount.details.email
-        )
+        if (config.vosEnabled)
+          confirmationVosView(
+            Some(personId.toString),
+            request.organisationAccount.agentCode,
+            request.individualAccount.details.email,
+            None
+          )
+        else
+          confirmationView(
+            personId.toString,
+            request.organisationAccount.agentCode,
+            request.individualAccount.details.email
+          )
       )
     }
 

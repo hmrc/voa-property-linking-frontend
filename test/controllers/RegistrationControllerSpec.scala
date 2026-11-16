@@ -63,8 +63,10 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       registerOrganisationView = registerOrganisationView,
       registerAssistantAdminView = registerAssistantAdminView,
       registerAssistantView = registerAssistantView,
+      registerVosView = registerVosView,
       registerConfirmationView = registerConfirmationView,
       confirmationView = confirmationView,
+      confirmationVosView = confirmationVosView,
       personalDetailsSessionRepo = mockSessionRepo
     )
 
@@ -98,6 +100,35 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
       html.html.getElementsByClass("manualAddress").hasClass("govuk-!-display-block") shouldBe true
       html.html.getElementsByClass("lookupAddressCancel").hasClass("govuk-!-display-none") shouldBe true
     }
+
+  "Going to complete contact details for a VOS group" should
+    "show the VOS contact details page" in {
+      val user = userDetails(affinityGroup = Organisation).copy(groupIdentifier = "GROUP-VOS-123")
+
+      val res = testRegistrationController(user).show()(FakeRequest())
+
+      status(res) shouldBe OK
+      val html = HtmlPage(res)
+      html.shouldContainText("Lets register for VOS")
+      html.shouldContainText("Email address")
+      html.shouldContainText("Telephone number")
+      html.shouldContainText("Continue")
+    }
+
+  "Submitting VOS contact details" should "show the VOS confirmation page" in {
+    val user = userDetails(affinityGroup = Organisation).copy(groupIdentifier = "GROUP-VOS-123")
+    val request = FakeRequest().withBody(
+      AnyContentAsFormUrlEncoded(Map("email" -> Seq("vos@example.com"), "phone" -> Seq("01632 960 001")))
+    )
+
+    val res = testRegistrationController(user).submitOrganisation()(request)
+
+    status(res) shouldBe OK
+    val html = HtmlPage(res)
+    html.shouldContainText("Contact details entered")
+    html.verifyElementText("email", "vos@example.com")
+    html.verifyElementText("phone", "01632 960 001")
+  }
 
   "Going to the create account page, when logged in with an account that is an Agent" should
     "display the invalid account type page" in {
@@ -236,15 +267,13 @@ class RegistrationControllerSpec extends VoaPropertyLinkingSpec with MockitoSuga
     status(res) shouldBe OK
     val html = HtmlPage(res)
     // Page title
-    html.titleShouldMatch("Registration successful - Valuation Office - GOV.UK")
+    html.titleShouldMatch(
+      "We have sent your details to VOS, please check back in 1-5 business days - Valuation Office - GOV.UK"
+    )
     // Page should contains VOA Person ID value 100
     html.verifyElementText("personal-id", "100")
     // Page should contains VOA Agent code value 300
     html.verifyElementText("agent-code", "300")
-
-    html.verifyElementText("email-sent", "We have sent these details to")
-    html.verifyElementText("what-next", "What happens next")
-    html.verifyElementText("terms-of-use", "Terms of use")
 
   }
 

@@ -163,6 +163,10 @@ account.enrolment.link.success=Parhau
 
 #REGISTRATION CONFIRMATION PAGE
 registration.successful=Wedi cofrestru’n llwyddiannus
+registration.vos.successful=Mae eich cofrestriad wedi’i gwblhau
+registration.vos.contactDetails.title=Gadewch i ni gofrestru ar gyfer VOS
+registration.vos.contactDetails.received=Rydym wedi derbyn eich manylion cyswllt.
+registration.vos.contactDetails.confirmation=Manylion cyswllt wedi’u nodi
 registration.confirmation.voa.personal.id.number=Eich rhif Dynodydd Defnyddiwr (ID) Personol VO
 registration.confirmation.agent.code=Eich cod Asiant
 registration.confirmation.email.sent.to=Rydym wedi anfon y manylion yma at {0}

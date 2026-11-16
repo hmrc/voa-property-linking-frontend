@@ -146,11 +146,15 @@ trait FakeViews extends GdsComponents {
       govukButton,
       formWithCSRF
     )
+  lazy val registerVosView =
+    new views.html.createAccount.registerVos(layout, govukErrorSummary, govukInput, govukButton, formWithCSRF)
 
   lazy val registerConfirmationView =
     new views.html.createAccount.registrationConfirmation(layout, govukButton)
   lazy val confirmationView =
     new views.html.createAccount.confirmation(layout, govukButton, govukPanel)
+  lazy val confirmationVosView =
+    new views.html.createAccount.confirmationVos(layout, govukButton, govukPanel)
 
   lazy val revokeAgentSummaryView =
     new views.html.propertyrepresentation.revokeAgentSummary(layout, govukButton, govukPanel)

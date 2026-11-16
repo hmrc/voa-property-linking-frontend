@@ -218,6 +218,10 @@ account.enrolment.link.success=Continue
 
 #REGISTRATION CONFIRMATION PAGE
 registration.successful=Registration successful
+registration.vos.successful=We have sent your details to VOS, please check back in 1-5 business days
+registration.vos.contactDetails.title=Lets register for VOS
+registration.vos.contactDetails.received=We have received your contact details.
+registration.vos.contactDetails.confirmation=Contact details entered
 registration.confirmation.voa.personal.id.number=Your VO personal ID number
 registration.confirmation.agent.code=Your Agent code
 registration.confirmation.email.sent.to=We have sent these details to {0}
