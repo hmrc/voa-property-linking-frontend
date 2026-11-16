@@ -1253,6 +1253,7 @@ internalServerError.p.2=If you continue to experience problems, please contact u
 internalServerError.reference=Reference number: {0}
 internalServerError.date=Date: {0}
 internalServerError.time=Time: {0}
+internalServerError.link.home=Go to home page
 
 #TIME SUFFIX
 time.am={0}am
