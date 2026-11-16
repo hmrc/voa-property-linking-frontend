@@ -42,6 +42,7 @@
         case Some("InvalidArgument") => "fileUpload.InvalidArgument"
         case Some("EntityTooSmall") => "fileUpload.InvalidArgument"
         case Some("REJECTED") => "fileUpload.rejected"
+        case  Some("InvalidFileName") => "fileUpload.unsupportedCharacters.error"
         case _ => "fileUpload.failed"
     }
 }
@@ -78,6 +79,11 @@
         case (RatesBillType, _) => Some(controllers.propertyLinking.routes.ChooseEvidenceController.show.url)
         case (_, _) => Some(controllers.propertyLinking.routes.UploadController.show(EvidenceChoices.OTHER).url)
     }
+}
+
+@hintText = {
+    <p class="govuk-hint">@messages("fileUpload.allowedTypes")</p>
+    <p class="govuk-hint">@messages("fileUpload.unsupportedCharacters.hint")</p>
 }
 
 @layout(
@@ -118,14 +124,14 @@
             attributes = Map(
                 "accept" -> ".xls,.xlsb,.xlsx,.pdf,.docx,.doc,.jpg,.png",
                 "type" -> "file"),
-            errorMessage = Option(errorCode).filter(_.nonEmpty).map { err => ErrorMessage(content = Text(messages(errorMessageKey(errorCode)))) },
+            errorMessage = Option(errorCode).filter(_.nonEmpty).map { err => ErrorMessage.errorMessageWithDefaultStringsTranslated(content = Text(messages(errorMessageKey(errorCode)))) },
             label = Label(
                 isPageHeading = false,
                 classes = "govuk-visually-hidden",
                 content = Text(title)
             ),
             hint = Some(Hint(
-                content = Text(messages("fileUpload.allowedTypes")),
+                content = HtmlContent(hintText),
                 id = Some("fileTypesText")
             ))
         ))

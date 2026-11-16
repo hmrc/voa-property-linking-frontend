@@ -1373,6 +1373,8 @@ fileUpload.failed=Nid oedd modd lanlwytho’r ffeil a ddewiswyd - rhowch gynnig 
 fileUpload.InvalidArgument=Dewis bil ardrethi
 fileUpload.EntityTooLarge=Rhaid i’r ffeil a ddewiswyd fod yn llai na 10MB
 fileUpload.rejected=Rhaid i’r ffeil a ddewiswyd fod yn ddogfen Word, taenlen Excel, PDF, PNG neu JPG
+fileUpload.unsupportedCharacters.error=Rhaid i enw ffeil eich dogfen gynnwys llythrennau a i z, rhifau 0 i 9, atalnodau llawn, cysylltnodau a bylchau yn unig
+fileUpload.unsupportedCharacters.hint=Rhaid i enw ffeil eich dogfen gynnwys llythrennau a i z, rhifau 0 i 9, atalnodau llawn, cysylltnodau a bylchau yn unig. Er enghraifft, mae My.FileNAME-12a.pdf yn dderbyniol.
 
 label.selectValue=Dewiswch gyfeiriad
 addressHelp=Dylai hwn fod yn gyfeiriad cyswllt post a ffefrir ar gyfer eich busnes

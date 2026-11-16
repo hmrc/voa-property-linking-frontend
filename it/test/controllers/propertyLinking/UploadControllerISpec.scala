@@ -149,6 +149,8 @@ class UploadControllerISpec extends ISpecBase {
   val backLinkText = "Back"
   val captionText = "Add a property"
   val hintText = "The file must be a Word document, Excel spreadsheet, PDF or image (PNG or JPG) and be less than 10MB."
+  val hintText2 =
+    "The filename of your document must only include letters a to z, numbers 0 to 9, full stops, hyphens and spaces.” For example, My.FileNAME-12a.pdf is acceptable."
   val continueButtonText = "Continue"
   val fileNameText = "test_file.pdf"
   val errorText = "Error:"
@@ -159,6 +161,8 @@ class UploadControllerISpec extends ISpecBase {
   val captionTextWelsh = "Ychwanegu eiddo"
   val hintTextWelsh =
     "Rhaid i’r ffeil fod yn ddogfen Word, taenlen Excel, PDF neu ddelwedd (PNG neu JPG) a bod yn llai na 10MB."
+  val hintText2Welsh =
+    "Rhaid i enw ffeil eich dogfen gynnwys llythrennau a i z, rhifau 0 i 9, atalnodau llawn, cysylltnodau a bylchau yn unig. Er enghraifft, mae My.FileNAME-12a.pdf yn dderbyniol."
   val continueButtonTextWelsh = "Parhau"
   val errorTextWelsh = "Gwall:"
   val errorSummaryTextWelsh = "Mae yna broblem"
@@ -168,7 +172,8 @@ class UploadControllerISpec extends ISpecBase {
   val headingLocator = "h1"
   val captionLocator = "#main-content > div > div > span"
   val backLinkLocator = "#back-link"
-  val hintTextLocator = "choose-file-hint"
+  val hintTextLocator = "#choose-file-hint > p:nth-child(1)"
+  val hintText2Locator = "#choose-file-hint > p:nth-child(2)"
   val fileUploadComponentLocator = "choose-file"
   val evidenceLocator = "#main-content > div > div > dl > div > dt"
   val fileNameLocator = "#main-content > div > div > dl > div > dd.govuk-summary-list__value"
@@ -1467,6 +1472,7 @@ class UploadControllerISpec extends ISpecBase {
     val caption = if (language == English) captionText else captionTextWelsh
     val back = if (language == English) backLinkText else backLinkTextWelsh
     val hint = if (language == English) hintText else hintTextWelsh
+    val hint2 = if (language == English) hintText2 else hintText2Welsh
     val continue = if (language == English) continueButtonText else continueButtonTextWelsh
     val error = if (language == English) errorText else errorTextWelsh
     val errorMessage = if (language == English) errorMessageText else errorMessageTextWelsh
@@ -1497,8 +1503,9 @@ class UploadControllerISpec extends ISpecBase {
       document.select(backLinkLocator).attr("href") shouldBe backLink
     }
 
-    s"has hint text of $hint" in {
-      document.getElementById(hintTextLocator).text shouldBe hint
+    s"has hint text of $hint and $hint2" in {
+      document.select(hintTextLocator).text shouldBe hint
+      document.select(hintText2Locator).text shouldBe hint2
     }
 
     s"has a $continue button" in {
@@ -1682,7 +1689,7 @@ class UploadControllerISpec extends ISpecBase {
         .text() shouldBe "Rhaid i’r ffeil a ddewiswyd fod yn ddogfen Word, taenlen Excel, PDF, PNG neu JPG"
       document
         .select("#choose-file-error")
-        .text() shouldBe "Error: Rhaid i’r ffeil a ddewiswyd fod yn ddogfen Word, taenlen Excel, PDF, PNG neu JPG"
+        .text() shouldBe "Gwall: Rhaid i’r ffeil a ddewiswyd fod yn ddogfen Word, taenlen Excel, PDF, PNG neu JPG"
     }
 
     "display the correct content in English for when a upscan return 'EntityTooSmall'" in {
@@ -1696,7 +1703,7 @@ class UploadControllerISpec extends ISpecBase {
       val document = testupscanErrorContent(errorCode = "EntityTooSmall", Welsh)
       document.select("#main-content > div > div > div > div > h2").text() shouldBe errorSummaryTextWelsh
       document.select("#main-content > div > div > div > div > div > ul > li > a").text() shouldBe "Dewis bil ardrethi"
-      document.select("#choose-file-error").text() shouldBe "Error: Dewis bil ardrethi"
+      document.select("#choose-file-error").text() shouldBe "Gwall: Dewis bil ardrethi"
     }
 
     "display the correct content in English for when a upscan return 'EntityTooLarge'" in {
@@ -1714,7 +1721,29 @@ class UploadControllerISpec extends ISpecBase {
       document
         .select("#main-content > div > div > div > div > div > ul > li > a")
         .text() shouldBe "Rhaid i’r ffeil a ddewiswyd fod yn llai na 10MB"
-      document.select("#choose-file-error").text() shouldBe "Error: Rhaid i’r ffeil a ddewiswyd fod yn llai na 10MB"
+      document.select("#choose-file-error").text() shouldBe "Gwall: Rhaid i’r ffeil a ddewiswyd fod yn llai na 10MB"
+    }
+
+    "display the correct content in English for when Business-Rates-Attachments returns 'InvalidFileName'" in {
+      val document = testupscanErrorContent(errorCode = "InvalidFileName", English)
+      document.select("#main-content > div > div > div > div > h2").text() shouldBe errorSummaryText
+      document
+        .select("#main-content > div > div > div > div > div > ul > li > a")
+        .text() shouldBe "The filename of your document must only include letters a to z, numbers 0 to 9, full stops, hyphens and spaces"
+      document
+        .select("#choose-file-error")
+        .text() shouldBe "Error: The filename of your document must only include letters a to z, numbers 0 to 9, full stops, hyphens and spaces"
+    }
+
+    "display the correct content in Welsh for when Business-Rates-Attachments returns 'InvalidFileName'" in {
+      val document = testupscanErrorContent(errorCode = "InvalidFileName", Welsh)
+      document.select("#main-content > div > div > div > div > h2").text() shouldBe errorSummaryTextWelsh
+      document
+        .select("#main-content > div > div > div > div > div > ul > li > a")
+        .text() shouldBe "Rhaid i enw ffeil eich dogfen gynnwys llythrennau a i z, rhifau 0 i 9, atalnodau llawn, cysylltnodau a bylchau yn unig"
+      document
+        .select("#choose-file-error")
+        .text() shouldBe "Gwall: Rhaid i enw ffeil eich dogfen gynnwys llythrennau a i z, rhifau 0 i 9, atalnodau llawn, cysylltnodau a bylchau yn unig"
     }
   }
 
