@@ -60,6 +60,9 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
 
     "display the current time in 12 hour format" in
       page.shouldContainText("Time: 9:30am")
+
+    "display a link to return to the home page" in
+      page.shouldContainText("Go to home page")
   }
 
   "The technical difficulties page (PM)" should {
@@ -97,6 +100,9 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
 
     "display the current time in 12 hour format" in
       page.shouldContainText("Time: 9:30pm")
+
+    "display a link to return to the home page" in
+      page.shouldContainText("Go to home page")
   }
 
   "The technical difficulties page in Welsh (AM)" should {
@@ -135,6 +141,9 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
 
     "display the current time in 12 hour format in Welsh" in
       pageCy.shouldContainText("Amser: 9:30y.b")
+
+    "display a link to return to the home page" in
+      pageCy.shouldContainText("Ewch i’r hafan")
   }
 
   "The technical difficulties page in Welsh (PM)" should {
@@ -173,6 +182,9 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
 
     "display the current time in 12 hour format in Welsh" in
       pageCy.shouldContainText("Amser: 9:30y.h")
+
+    "display a link to return to the home page" in
+      pageCy.shouldContainText("Ewch i’r hafan")
   }
 
 }
