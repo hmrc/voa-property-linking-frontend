@@ -26,7 +26,7 @@ import models.upscan.FileStatus.{FAILED, FileStatus, READY, UPLOADING}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.api.http.HeaderNames
-import play.api.libs.json.{JsNull, Json}
+import play.api.libs.json.{JsNull, JsObject, Json}
 import play.api.test.Helpers._
 import repositories.PropertyLinkingSessionRepository
 import uk.gov.hmrc.http.{HeaderCarrier, SessionId}
@@ -263,6 +263,14 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
         document.getElementById("continue").text shouldBe continueButtonWelsh
       }
     }
+
+    "Show failed status when file name validation fails" which {
+      lazy val document = getUploadResultPage(English, EvidenceChoices.RATES_BILL, validationFailed = true)
+
+      "has a failed status" in {
+        document.select(fileUploadStatusSelector).text shouldBe failedStatusText
+      }
+    }
   }
 
   "UploadResultController onSubmit" should {
@@ -305,6 +313,14 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
         .headers("Location")
         .head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorCode=UNKNOWN"
     }
+
+    "Redirect to UploadController show when the file name validation fails" in {
+      val result = submitUploadResultPage(EvidenceChoices.RATES_BILL, FAILED, validationFailed = true)
+      result.status shouldBe SEE_OTHER
+      result
+        .headers("Location")
+        .head shouldBe "/business-rates-property-linking/my-organisation/claim/property-links/evidence/RATES_BILL/upload?errorCode=InvalidFileName"
+    }
   }
 
   "UploadResultController getUploadStatus" should {
@@ -332,16 +348,30 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
       result.body shouldBe Json.toJson(FileStatus.FAILED, "test-file.jpeg", JsNull).toString
       result.status shouldBe OK
     }
+
+    "Return FAILED when filename validation fails" in {
+      val result = getUploadStatus(READY, validationFailed = true)
+      result.status shouldBe OK
+
+      result.body shouldBe Json
+        .toJson(
+          FileStatus.FAILED,
+          "test-file.jpeg",
+          "http://localhost:9570/upscan/download/3a0b10d9-a18b-4ed2-b67b-64861453f131"
+        )
+        .toString
+    }
   }
 
   private def getUploadResultPage(
         language: Language,
         evidenceChoice: EvidenceChoices,
-        fileStatus: FileStatus = READY
+        fileStatus: FileStatus = READY,
+        validationFailed: Boolean = false
   ): Document = {
     commonStubs
     fileStatus match {
-      case READY     => fileUploadedStub
+      case READY     => fileUploadedStub(validationFailed)
       case UPLOADING => fileUploadingStub
       case FAILED    => fileUploadFailedStub()
     }
@@ -361,13 +391,15 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
   private def submitUploadResultPage(
         evidenceChoice: EvidenceChoices,
         fileStatus: FileStatus = READY,
-        failureReason: Option[String] = None
+        failureReason: Option[String] = None,
+        validationFailed: Boolean = false
   ) = {
     commonStubs
     fileStatus match {
-      case READY     => fileUploadedStub
-      case UPLOADING => fileUploadingStub
-      case FAILED    => failureReason.map(reason => fileUploadFailedStub(reason))
+      case READY                      => fileUploadedStub()
+      case UPLOADING                  => fileUploadingStub
+      case FAILED if validationFailed => fileUploadedStub(validationFailed = true)
+      case FAILED                     => failureReason.map(reason => fileUploadFailedStub(reason))
     }
 
     val res = await(
@@ -381,10 +413,10 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
     res
   }
 
-  private def getUploadStatus(fileStatus: FileStatus) = {
+  private def getUploadStatus(fileStatus: FileStatus, validationFailed: Boolean = false) = {
     commonStubs
     fileStatus match {
-      case READY     => fileUploadedStub
+      case READY     => fileUploadedStub(validationFailed)
       case UPLOADING => fileUploadingStub
       case FAILED    => fileUploadFailedStub()
     }
@@ -399,7 +431,7 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
     res
   }
 
-  def fileUploadedStub = {
+  def fileUploadedStub(validationFailed: Boolean = false) = {
     val attachmentJson = Json.parse(
       """{
         |    "_id" : "81eb7217-49dd-486d-a5fe-b2fbb10731cf",
@@ -466,10 +498,19 @@ class UploadResultControllerISpec extends ISpecBase with HtmlComponentHelpers {
         |}""".stripMargin
     )
 
+    val responseJson =
+      if (validationFailed)
+        attachmentJson.as[JsObject] ++ Json.obj(
+          "state"           -> "ValidationFailed",
+          "validationError" -> "InvalidFileName"
+        )
+      else
+        attachmentJson
+
     stubFor {
       get(s"/business-rates-attachments/attachments/$fileRef")
         .willReturn {
-          aResponse.withStatus(OK).withBody(Json.toJson(attachmentJson).toString())
+          aResponse.withStatus(OK).withBody(Json.toJson(responseJson).toString())
         }
     }
   }

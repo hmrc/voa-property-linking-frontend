@@ -24,7 +24,7 @@ import cats.data.OptionT
 import config.ApplicationConfig
 import controllers.PropertyLinkingController
 import models._
-import models.attachment.Attachment
+import models.attachment.{Attachment, ValidationFailed}
 import models.upscan.FileStatus.FileStatus
 import models.upscan.{FileMetadata, FileStatus, UploadedFileDetails}
 import play.api.Logging
@@ -94,8 +94,7 @@ class UploadResultController @Inject() (
       result.value
         .flatMap {
           case Some(attachment) =>
-            val fileStatus = attachment.scanResult.map(_.fileStatus).getOrElse(FileStatus.UPLOADING)
-            Future.successful(resultPage(fileStatus, Some(attachment)))
+            Future.successful(resultPage(getFileStatus(attachment), Some(attachment)))
           case None =>
             // todo I think this needs to be something else
             errorHandler.badRequestTemplate.map(html => BadRequest(html))
@@ -145,15 +144,16 @@ class UploadResultController @Inject() (
         case FileStatus.FAILED =>
           val result: Future[Result] = (
             for {
-              reference      <- OptionT(Future.successful(request.ses.fileReference))
-              attachment     <- OptionT.liftF(businessRatesAttachmentsService.getAttachment(reference))
-              scanResult     <- OptionT(Future.successful(attachment.scanResult))
-              failureDetails <- OptionT(Future.successful(scanResult.failureDetails))
-              result <-
-                OptionT.pure[Future](
-                  Redirect(routes.UploadController.show(evidenceChoices, Some(failureDetails.failureReason.toString)))
-                )
-            } yield result
+              reference  <- OptionT(Future.successful(request.ses.fileReference))
+              attachment <- OptionT.liftF(businessRatesAttachmentsService.getAttachment(reference))
+            } yield {
+              val errorCode = attachment.scanResult
+                .flatMap(_.failureDetails)
+                .map(_.failureReason.toString)
+                .orElse(attachment.validationError)
+
+              Redirect(routes.UploadController.show(evidenceChoices, errorCode))
+            }
           ).getOrElse(Redirect(routes.UploadController.show(evidenceChoices)))
           result
       }
@@ -183,7 +183,7 @@ class UploadResultController @Inject() (
       result.value
         .flatMap {
           case Some(attachment) =>
-            val fileStatus = attachment.scanResult.map(_.fileStatus).getOrElse(FileStatus.UPLOADING)
+            val fileStatus = getFileStatus(attachment)
             val fileName = attachment.fileName
             val fileDownloadLink = attachment.scanResult.map(_.downloadUrl)
             Future.successful(Ok(Json.toJson(fileStatus, fileName, fileDownloadLink)))
@@ -205,4 +205,10 @@ class UploadResultController @Inject() (
       )
       Future.successful(Ok(Json.toJson(messageKeys)))
     }
+
+  private def getFileStatus(attachment: Attachment): FileStatus =
+    if (attachment.state == ValidationFailed)
+      FileStatus.FAILED
+    else
+      attachment.scanResult.map(_.fileStatus).getOrElse(FileStatus.UPLOADING)
 }

@@ -34,7 +34,8 @@ case class Attachment(
       history: List[HistoryItem],
       scanResult: Option[ScanResult],
       initiateResult: Option[PreparedUpload],
-      principal: Principal
+      principal: Principal,
+      validationError: Option[String]
 )
 
 object Attachment {

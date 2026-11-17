@@ -209,7 +209,8 @@ trait FakeObjects {
     history = List(),
     scanResult = None,
     initiateResult = None,
-    principal = principal
+    principal = principal,
+    validationError = None
   )
   val noEvidencelinkBasis: NoEvidenceFlag.type = NoEvidenceFlag
   val uploadRatesBillData: UploadEvidenceData = uploadEvidenceData(fileInfo(RatesBillType))
