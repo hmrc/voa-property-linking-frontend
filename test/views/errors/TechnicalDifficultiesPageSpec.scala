@@ -185,7 +185,11 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
     lazy val view = new views.html.errors.technicalDifficulties(layout)
 
     lazy val html =
-      view(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(loggedInReq, messagesApi.preferred(loggedInReq), Configs.applicationConfig)
+      view(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(
+        loggedInReq,
+        messagesApi.preferred(loggedInReq),
+        Configs.applicationConfig
+      )
     lazy val page = HtmlPage(html)
 
     "display the home link for logged-in users" in {
@@ -200,12 +204,20 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
   "The technical difficulties page (logged-in user in Welsh)" should {
     val ref: String = shortString
     val loggedInReqCy: BasicAuthenticatedRequest[AnyContent] =
-      BasicAuthenticatedRequest(groupAccount(agent = false), detailedIndividualAccount, FakeRequest().withTransientLang("cy"))
+      BasicAuthenticatedRequest(
+        groupAccount(agent = false),
+        detailedIndividualAccount,
+        FakeRequest().withTransientLang("cy")
+      )
 
     lazy val view = new views.html.errors.technicalDifficulties(layout)
 
     lazy val html =
-      view(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(loggedInReqCy, messagesApi.preferred(loggedInReqCy), Configs.applicationConfig)
+      view(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(
+        loggedInReqCy,
+        messagesApi.preferred(loggedInReqCy),
+        Configs.applicationConfig
+      )
     lazy val page = HtmlPage(html)
 
     "display the Welsh home link for logged-in users" in {
