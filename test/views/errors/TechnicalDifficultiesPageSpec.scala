@@ -16,7 +16,9 @@
 
 package views.errors
 
+import actions.requests.BasicAuthenticatedRequest
 import java.time.LocalDateTime
+import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import tests.BaseUnitSpec
 import utils._
@@ -173,6 +175,58 @@ class TechnicalDifficultiesPageSpec extends BaseUnitSpec with NoMetricsOneAppPer
 
     "display the current time in 12 hour format in Welsh" in
       pageCy.shouldContainText("Amser: 9:30y.h")
+  }
+
+  "The technical difficulties page (logged-in user)" should {
+    val ref: String = shortString
+    val loggedInReq: BasicAuthenticatedRequest[AnyContent] =
+      BasicAuthenticatedRequest(groupAccount(agent = false), detailedIndividualAccount, FakeRequest())
+
+    lazy val view = new views.html.errors.technicalDifficulties(layout)
+
+    lazy val html =
+      view(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(
+        loggedInReq,
+        messagesApi.preferred(loggedInReq),
+        Configs.applicationConfig
+      )
+    lazy val page = HtmlPage(html)
+
+    "display the home link for logged-in users" in {
+      page.shouldContain("#go-to-home-link", 1)
+      page.shouldContainText("Go to home page")
+    }
+
+    "display the home link with correct href attribute pointing to dashboard home" in
+      page.shouldContain("a#go-to-home-link[href*='/home']", 1)
+  }
+
+  "The technical difficulties page (logged-in user in Welsh)" should {
+    val ref: String = shortString
+    val loggedInReqCy: BasicAuthenticatedRequest[AnyContent] =
+      BasicAuthenticatedRequest(
+        groupAccount(agent = false),
+        detailedIndividualAccount,
+        FakeRequest().withTransientLang("cy")
+      )
+
+    lazy val view = new views.html.errors.technicalDifficulties(layout)
+
+    lazy val html =
+      view(Some(ref), LocalDateTime.of(2017, 4, 1, 9, 30))(
+        loggedInReqCy,
+        messagesApi.preferred(loggedInReqCy),
+        Configs.applicationConfig
+      )
+    lazy val page = HtmlPage(html)
+
+    "display the Welsh home link for logged-in users" in {
+      page.shouldContain("#go-to-home-link", 1)
+      page.shouldContainText("Ewch i’r hafan")
+    }
+
+    "display the home link with correct href attribute pointing to dashboard home" in
+      page.shouldContain("a#go-to-home-link[href*='/home']", 1)
   }
 
 }

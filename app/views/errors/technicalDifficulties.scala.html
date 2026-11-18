@@ -17,6 +17,7 @@
 @import utils.Formatters._
 @import java.time.LocalDateTime
 @import config.ApplicationConfig
+@import actions.requests.CcaWrappedRequestHelper.RequestOps
 
 @this(layout: layout)
 
@@ -35,5 +36,9 @@
 
     <p class="govuk-body">@messages("internalServerError.date", formattedFullDate(dateTime.toLocalDate))</p>
     <p class="govuk-body">@messages("internalServerError.time", formatTimeWithAmPm(dateTime.toLocalTime))</p>
+
+  @if(request.isLoggedIn){
+      <p class="govuk-body"><a id="go-to-home-link" href="@{config.dashboardUrl("home")}" class="govuk-link">@messages("internalServerError.link.home")</a></p>
+  }
 
 }

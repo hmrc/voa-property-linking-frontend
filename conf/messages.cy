@@ -1117,6 +1117,7 @@ internalServerError.p.2=Os ydych yn parhau i gael problemau, cysylltwch â ni ar
 internalServerError.reference=Cyfeirnod: {0}
 internalServerError.date=Dyddiad: {0}
 internalServerError.time=Amser: {0}
+internalServerError.link.home=Ewch i’r hafan
 
 #TIME SUFFIX
 time.am={0}y.b
