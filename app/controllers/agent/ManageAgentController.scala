@@ -65,7 +65,6 @@ class ManageAgentController @Inject() (
   def showAgents(propertyLinkId: Option[Long] = None,
                  valuationId: Option[Long] = None,
                  propertyLinkSubmissionId: Option[String] = None): Action[AnyContent] = {
-    println("showAgents called with propertyLinkId: " + propertyLinkId + ", valuationId: " + valuationId + ", propertyLinkSubmissionId: " + propertyLinkSubmissionId)
     authenticated.async { implicit request =>
       for {
         organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
