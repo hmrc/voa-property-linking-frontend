@@ -102,7 +102,7 @@ class ManageAgentControllerSpec extends VoaPropertyLinkingSpec with MockitoSugar
 
     html.html
       .getElementById("back-link")
-      .attr("href") shouldBe controllers.agent.routes.ManageAgentController.showAgents.url
+      .attr("href") shouldBe controllers.agent.routes.ManageAgentController.showAgents().url
 
   }
 

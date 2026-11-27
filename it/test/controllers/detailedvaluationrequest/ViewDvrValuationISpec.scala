@@ -117,6 +117,16 @@ class ViewDvrValuationISpec extends ISpecBase {
   val sendCompletedCheckFormText = "Send my completed Check case form"
   val printThisPageText = "Print this page"
 
+  // Agents tab
+  val agentsHeadingText = "Agents assigned to this property"
+  val noAgentsText = "There are no agents assigned to this property."
+  val assignAgentLinkText = "Assign an agent to this property"
+  val helpAppointingAgentLinkText = "Help with appointing an agent"
+  val agentTableHeadingText = "Agent"
+  val openCasesTableHeadingText = "Open cases for this property"
+  val totalCasesTableHeadingText = "Total cases for this property"
+  val agentName = "org name"
+
   val titleTextWelsh = "ADDRESS - Y Swyddfa Brisio - GOV.UK"
   val backTextWelsh = "Yn ôl"
   val captionTextWelsh = "Eich eiddo"
@@ -152,6 +162,15 @@ class ViewDvrValuationISpec extends ISpecBase {
   val challengesTableClosedDateRowTextWelsh = "22 Gorffennaf 2020"
   val challengesTableSubmittedByRowTextWelsh = "Some other person 2"
 
+  // Agents tab welsh
+  val agentsHeadingTextWelsh = "Asiantiaid wedi’u penodi i’r eiddo hwn"
+  val noAgentsTextWelsh = "Nid oes unrhyw asiantiaid wedi eu haseinio i’r eiddo hwn."
+  val assignAgentLinkTextWelsh = "Penodi asiant i’r eiddo hwn"
+  val helpAppointingAgentLinkTextWelsh = "Cymorth gyda phenodi asiant"
+  val agentTableHeadingTextWelsh = "Asiant"
+  val openCasesTableHeadingTextWelsh = "Achosion agored ar gyfer yr eiddo hwn"
+  val totalCasesTableHeadingTextWelsh = "Cyfanswm yr achosion ar gyfer yr eiddo hwn"
+
   val agentsTabTextWelsh = "Asiantiaid (2)"
   val valuationHeadingTextWelsh = "Prisiad"
   val currentRateableValueTextWelsh = "Gwerth ardrethol cyfredol (1 Ebrill 2023 i’r presennol)"
@@ -180,6 +199,26 @@ class ViewDvrValuationISpec extends ISpecBase {
     s"/business-rates-property-linking/my-organisation/property-link/$submissionId/valuations/$valuationId/file/1L"
   val sendCheckFormHref = "#start-check-tab"
   val printPageHref = "javascript:window.print()"
+  val agentNameHref =
+    s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1111&propertyLinkId=$propertyLinkId&valuationId=$valuationId&propertyLinkSubmissionId=$submissionId"
+  val assignAgentHref =
+    s"/business-rates-property-linking/my-organisation/agents?valuationId=$valuationId&propertyLinkSubmissionId=$submissionId"
+  val helpAppointingAgentsHref = "https://www.gov.uk/guidance/appoint-an-agent"
+
+  // Agents tab locators
+  val agentsHeadingLocator = "#agents-tab > h2"
+  val agentTableHeadingLocator = "#agentCounts-table > thead > tr > th:nth-child(1)"
+  val openCasesTableHeadingLocator = "#agentCounts-table > thead > tr > th:nth-child(2)"
+  val totalCasesTableHeadingLocator = "#agentCounts-table > thead > tr > th:nth-child(3)"
+  val agentTableValueLocator = (row: Int) => s"#agent-name-$row > p > a"
+  val agentTableResponsiveHeadingLocator = (row: Int) => s"#agent-name-$row > span"
+  val openCasesTableValueLocator = (row: Int) => s"#open-cases-$row > p"
+  val openCasesResponsiveTableHeadingLocator = (row: Int) => s"#open-cases-$row > span"
+  val totalCasesTableValueLocator = (row: Int) => s"#total-cases-$row > p"
+  val totalCasesResponsiveTableHeadingLocator = (row: Int) => s"#total-cases-$row > span"
+  val assignAgentLinkLocator = "#assign-agent-link"
+  val helpAppointingAgentLinkLocator = "#help-appointing-agent-link"
+  val noAgentsLocator = "#no-agents-text"
 
   val backLocator = "#back-link"
   val captionLocator = "#client-name"
@@ -415,6 +454,8 @@ class ViewDvrValuationISpec extends ISpecBase {
         page.select(printThisPageLocator).text() shouldBe printThisPageText
         page.select(printThisPageLocator).attr("href") shouldBe printPageHref
       }
+
+      testAgentsTab(res, English, 2)
     }
 
     "display the correct page for an AGENT in English" when {
@@ -525,6 +566,7 @@ class ViewDvrValuationISpec extends ISpecBase {
         page.select(agentsTabLocator).text() shouldBe agentsTabText
         page.select(agentsTabLocator).attr("href") shouldBe agentsTabHref
       }
+
 
       s"has a heading of $valuationHeadingText" in {
         page.select(valuationHeadingLocator).text() shouldBe valuationHeadingText
@@ -739,6 +781,8 @@ class ViewDvrValuationISpec extends ISpecBase {
         page.select(printThisPageLocator).text() shouldBe printThisPageTextWelsh
         page.select(printThisPageLocator).attr("href") shouldBe printPageHref
       }
+
+      testAgentsTab(res, Welsh, 2)
     }
 
     "display the correct page for an AGENT in Welsh" when {
@@ -889,6 +933,52 @@ class ViewDvrValuationISpec extends ISpecBase {
         "Os ydych chi’n credu bod gennych chi hawl i Herio’r prisiad hwn, ac nad oes asesiad 2026 i godi gwiriad, gallwch ofyn am wiriad â llaw trwy anfon e-bost at ccaservicevo@hmrc.gov.uk gan nodi eich enw a chyfeiriad yr eiddo rydych chi am ei wirio."
 
       page.select("#challenge-conditions-info > li:nth-child(4)").text() shouldBe expected
+    }
+
+    def testAgentsTab(res: => WSResponse, language: Language, numberOfAgents: Int): Unit = {
+      lazy val page = Jsoup.parse(res.body)
+
+      val agentsHeading = if (language == English) agentsHeadingText else agentsHeadingTextWelsh
+      val noAgents = if (language == English) noAgentsText else noAgentsTextWelsh
+      val assignAgentLink = if (language == English) assignAgentLinkText else assignAgentLinkTextWelsh
+      val helpAppointingAgentLink =
+        if (language == English) helpAppointingAgentLinkText else helpAppointingAgentLinkTextWelsh
+      val agentTableHeading = if (language == English) agentTableHeadingText else agentTableHeadingTextWelsh
+      val openCasesTableHeading = if (language == English) openCasesTableHeadingText else openCasesTableHeadingTextWelsh
+      val totalCasesTableHeading =
+        if (language == English) totalCasesTableHeadingText else totalCasesTableHeadingTextWelsh
+
+      s"has a heading of $agentsHeadingText on the Agents tab in $language" in {
+        page.select(agentsHeadingLocator).text() shouldBe agentsHeading
+      }
+
+      s"has a $assignAgentLinkText link on the Agents tab in $language" in {
+        page.select(assignAgentLinkLocator).text() shouldBe assignAgentLink
+        page.select(assignAgentLinkLocator).attr("href") shouldBe assignAgentHref
+      }
+
+      s"has a $helpAppointingAgentLinkText link on the Agents tab in $language" in {
+        page.select(helpAppointingAgentLinkLocator).text() shouldBe helpAppointingAgentLink
+        page.select(helpAppointingAgentLinkLocator).attr("href") shouldBe helpAppointingAgentsHref
+      }
+
+      if (numberOfAgents == 0) {
+        s"has text of $noAgentsText on the Agents tab in $language" in {
+          page.select(noAgentsLocator).text() shouldBe noAgents
+        }
+      } else {
+        s"has a table heading of $agentTableHeadingText on the Agents tab in $language" in {
+          page.select(agentTableHeadingLocator).text() shouldBe agentTableHeading
+        }
+
+        s"has a table heading of $openCasesTableHeadingText on the Agents tab in $language" in {
+          page.select(openCasesTableHeadingLocator).text() shouldBe openCasesTableHeading
+        }
+
+        s"has a table heading of $totalCasesTableHeadingText on the Agents tab in $language" in {
+          page.select(totalCasesTableHeadingLocator).text() shouldBe totalCasesTableHeading
+        }
+      }
     }
   }
 
