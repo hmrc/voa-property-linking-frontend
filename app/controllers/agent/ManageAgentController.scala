@@ -62,31 +62,32 @@ class ManageAgentController @Inject() (
 
   val logger = Logger(this.getClass.getName)
 
-  def showAgents(propertyLinkId: Option[Long] = None,
-                 valuationId: Option[Long] = None,
-                 propertyLinkSubmissionId: Option[String] = None): Action[AnyContent] = {
+  def showAgents(
+        propertyLinkId: Option[Long] = None,
+        valuationId: Option[Long] = None,
+        propertyLinkSubmissionId: Option[String] = None
+  ): Action[AnyContent] =
     authenticated.async { implicit request =>
       for {
         organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
         propertyLinksCount  <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
         backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId) match {
-          case (Some(linkId), Some(valId), Some(submissionId)) =>
-            config.businessRatesValuationFrontendUrl(
-              s"property-link/$linkId/valuations/$valId?submissionId=$submissionId#agents-tab"
-            )
-          case (None, Some(valId), Some(submissionId)) =>
-            controllers.detailedvaluationrequest.routes.DvrController
-              .myOrganisationRequestDetailValuationCheck(
-                propertyLinkSubmissionId = submissionId,
-                valuationId = valId,
-                tabName = Some("agents-tab")
-              )
-              .url
-          case _ => config.dashboardUrl("home")
-        }
+                     case (Some(linkId), Some(valId), Some(submissionId)) =>
+                       config.businessRatesValuationFrontendUrl(
+                         s"property-link/$linkId/valuations/$valId?submissionId=$submissionId#agents-tab"
+                       )
+                     case (None, Some(valId), Some(submissionId)) =>
+                       controllers.detailedvaluationrequest.routes.DvrController
+                         .myOrganisationRequestDetailValuationCheck(
+                           propertyLinkSubmissionId = submissionId,
+                           valuationId = valId,
+                           tabName = Some("agents-tab")
+                         )
+                         .url
+                     case _ => config.dashboardUrl("home")
+                   }
       } yield Ok(myAgentsView(organisationsAgents.agents, propertyLinksCount, backLink))
     }
-  }
 
   def manageAgentProperties(
         agentCode: Long,
