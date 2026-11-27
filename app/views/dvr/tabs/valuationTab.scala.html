@@ -26,17 +26,6 @@
 
 @currentValuationsUrl = @{s"${currentValuationUrl.getOrElse(valuationUrl)}#valuation-tab"}
 
-
-@linkText = @{Html(s"""<strong><a id="business-rates-relief-link" class="govuk-link govuk-link--inverse govuk-body govuk-!-font-weight-bold" href="https://www.gov.uk/government/publications/budget-2025-retail-hospitality-and-leisure-factsheet/budget-2025-retail-hospitality-and-leisure-factsheet">${messages("auto.requestDetailedValuation.rv.caption.future.here")}</a></strong>""")}
-
-@governmentSupportPanel = {
-    <div class="govuk-panel govuk-panel--confirmation govuk-!-padding-bottom-0" id="government-support-panel">
-        <div class="govuk-panel__body">
-            <p class='govuk-body white'><strong>@Html(messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText))</strong><p>
-        </div>
-    </div>
-}
-
 @fromDate = @{
     model.assessment.currentFromDate.map(Formatters.formattedFullDate).getOrElse("")
 }
@@ -133,9 +122,6 @@
     <div class="govuk-grid-column-two-thirds">
 
         <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
-        @if((!model.isWelshProperty && model.isDraftList) || (!model.isWelshProperty &&  model.assessment.isCurrent)) {
-            @governmentSupportPanel
-        }
         <h2 id="rateable-value-caption" class="govuk-caption-l">@h2Caption</h2>
         <p class="govuk-heading-xl govuk-!-margin-bottom-4" id="grand-total-top">@model.rateableValueFormatted.getOrElse(messages("assessments.na"))</p>
 
