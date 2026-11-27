@@ -27,8 +27,7 @@
   govukTabs: GovukTabs,
   formWithCSRF: FormWithCSRF,
   govukSummaryList: GovukSummaryList,
-  requestFutureValuationTab: views.html.dvr.tabs.requestFutureValuationTab,
-  govukPanel: GovukPanel
+  requestFutureValuationTab: views.html.dvr.tabs.requestFutureValuationTab
 )
 
 @(submissionId: String, model: RequestDetailedValuationWithoutForm, owner: Boolean, backUrl: String, enquiryUrl: String, estimatorUrl: String, localCouncilRef: String, isPub: Boolean, pubEstimatorUrl: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
@@ -42,10 +41,14 @@
 
 @address = @{Formatters.capitalisedAddress(model.address)}
 
-@linkText = @{Html(s"""<a id="business-rates-relief-link" class="govuk-link govuk-link--inverse govuk-body" href="https://www.gov.uk/government/publications/budget-2025-retail-hospitality-and-leisure-factsheet/budget-2025-retail-hospitality-and-leisure-factsheet" >${messages("auto.requestDetailedValuation.rv.caption.future.here")}</a>""")}
+@linkText = @{Html(s"""<strong><a id="business-rates-relief-link" class="govuk-link govuk-link--inverse govuk-body govuk-!-font-weight-bold" href="https://www.gov.uk/government/publications/budget-2025-retail-hospitality-and-leisure-factsheet/budget-2025-retail-hospitality-and-leisure-factsheet">${messages("auto.requestDetailedValuation.rv.caption.future.here")}</a></strong>""")}
 
-@panelContent = @{
-    s"""<p class='govuk-body white'><strong>${messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText)}</strong><p>"""
+@governmentSupportPanel = {
+    <div class="govuk-panel govuk-panel--confirmation govuk-!-padding-bottom-0" id="government-support-panel">
+        <div class="govuk-panel__body">
+            <p class='govuk-body white'><strong>@Html(messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText))</strong><p>
+        </div>
+    </div>
 }
 
 @if(model.listType == ListType.DRAFT) {
@@ -132,10 +135,7 @@
                 @messages("auto.requestDetailedValuation.subhead.valuation")
             </h2>
         @if((!model.isWelsh && model.listType == ListType.DRAFT) || (!model.isWelsh && model.listType == ListType.CURRENT)) {
-                @govukPanel(Panel(
-                    content = HtmlContent(panelContent),
-                    attributes = Map("id" -> "government-support-panel")
-                ))
+                @governmentSupportPanel
             }
             <div id="rateable-value">
                 <span class="govuk-caption-l">
