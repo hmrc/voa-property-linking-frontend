@@ -17,7 +17,7 @@
 @import _root_.utils.Formatters.formatCurrencyRoundedToPounds
 @import config.ApplicationConfig
 
-@this(govukInsetText: GovukInsetText, govukPanel: GovukPanel)
+@this(govukInsetText: GovukInsetText)
 
 @(rateableValueFormatted: Option[String],
         effectiveDate: String,
@@ -71,10 +71,14 @@
     }
 }
 
-@linkText = @{Html(s"""<a id="business-rates-relief-link" class="govuk-link govuk-link--inverse govuk-body" href="https://www.gov.uk/government/publications/budget-2025-retail-hospitality-and-leisure-factsheet/budget-2025-retail-hospitality-and-leisure-factsheet" >${messages("auto.requestDetailedValuation.future.rv.here")}</a>""")}
+@linkText = @{Html(s"""<strong><a id="business-rates-relief-link" class="govuk-link govuk-link--inverse govuk-body govuk-!-font-weight-bold" href="https://www.gov.uk/government/publications/budget-2025-retail-hospitality-and-leisure-factsheet/budget-2025-retail-hospitality-and-leisure-factsheet">${messages("auto.requestDetailedValuation.rv.caption.future.here")}</a></strong>""")}
 
-@panelContent = @{
-    s"""<p class='govuk-body white'><strong>${messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText)}</strong><p>"""
+@governmentSupportPanel = {
+    <div class="govuk-panel govuk-panel--confirmation govuk-!-padding-bottom-0" id="government-support-panel">
+        <div class="govuk-panel__body">
+            <p class='govuk-body white'><strong>@Html(messages("auto.requestDetailedValuation.rv.caption.future.governmentSupport", linkText))</strong><p>
+        </div>
+    </div>
 }
 
 <div class="govuk-grid-row">
@@ -82,10 +86,7 @@
         <h2 class="govuk-heading-l">@messages("available.requestvaluation.valuationTab.title")</h2>
         @rateableValueFormatted.map { rv =>
             @if(!isWelsh){
-                @govukPanel(Panel(
-                    content = HtmlContent(panelContent),
-                    attributes = Map("id" -> "government-support-panel")
-                ))
+                @governmentSupportPanel
             }
             <span class="govuk-caption-l" id="future-valuation-caption">
                 @messages("auto.requestDetailedValuation.future.rv.caption", effectiveDate)
