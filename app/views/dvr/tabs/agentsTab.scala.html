@@ -86,7 +86,7 @@
         }else{
             <p id="no-agents-text" class="govuk-body"> @messages("available.requestvaluation.agentsTab.noAgents.p1")</p>
         }
-        <p class="govuk-body"><a id="assign-agent-link" class="govuk-link" href="@controllers.agent.routes.ManageAgentController.showAgents.url">@messages("available.requestvaluation.agentsTab.assignAnAgent")</a></p>
+        <p class="govuk-body"><a id="assign-agent-link" class="govuk-link" href="@controllers.agent.routes.ManageAgentController.showAgents(valuationId = Some(model.valuationId), propertyLinkSubmissionId = Some(model.submissionId)).url">@messages("available.requestvaluation.agentsTab.assignAnAgent")</a></p>
         <p class="govuk-body"><a id="help-appointing-agent-link" class="govuk-link" href="https://www.gov.uk/guidance/appoint-an-agent">@messages("available.requestvaluation.agentsTab.helpWithAppoint")</a></p>
     </div>
 </div>

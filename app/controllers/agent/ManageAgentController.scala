@@ -62,13 +62,32 @@ class ManageAgentController @Inject() (
 
   val logger = Logger(this.getClass.getName)
 
-  def showAgents: Action[AnyContent] =
+  def showAgents(propertyLinkId: Option[Long] = None,
+                 valuationId: Option[Long] = None,
+                 propertyLinkSubmissionId: Option[String] = None): Action[AnyContent] = {
+    println("showAgents called with propertyLinkId: " + propertyLinkId + ", valuationId: " + valuationId + ", propertyLinkSubmissionId: " + propertyLinkSubmissionId)
     authenticated.async { implicit request =>
       for {
         organisationsAgents <- agentRelationshipService.getMyOrganisationAgents()
         propertyLinksCount  <- agentRelationshipService.getMyOrganisationPropertyLinksCount()
-      } yield Ok(myAgentsView(organisationsAgents.agents, propertyLinksCount))
+        backLink = (propertyLinkId, valuationId, propertyLinkSubmissionId) match {
+          case (Some(linkId), Some(valId), Some(submissionId)) =>
+            config.businessRatesValuationFrontendUrl(
+              s"property-link/$linkId/valuations/$valId?submissionId=$submissionId#agents-tab"
+            )
+          case (None, Some(valId), Some(submissionId)) =>
+            controllers.detailedvaluationrequest.routes.DvrController
+              .myOrganisationRequestDetailValuationCheck(
+                propertyLinkSubmissionId = submissionId,
+                valuationId = valId,
+                tabName = Some("agents-tab")
+              )
+              .url
+          case _ => config.dashboardUrl("home")
+        }
+      } yield Ok(myAgentsView(organisationsAgents.agents, propertyLinksCount, backLink))
     }
+  }
 
   def manageAgentProperties(
         agentCode: Long,
@@ -101,7 +120,7 @@ class ManageAgentController @Inject() (
                            tabName = Some("agents-tab")
                          )
                          .url
-                     case _ => controllers.agent.routes.ManageAgentController.showAgents.url
+                     case _ => controllers.agent.routes.ManageAgentController.showAgents().url
                    }
       } yield Ok(manageAgentPropertiesView(ownerAuthResult, agentCode, agentDetails, listYears, backLink))
     }

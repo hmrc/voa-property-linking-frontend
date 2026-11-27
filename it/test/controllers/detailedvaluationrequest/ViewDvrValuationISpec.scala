@@ -202,7 +202,7 @@ class ViewDvrValuationISpec extends ISpecBase {
   val agentNameHref =
     s"/business-rates-property-linking/my-organisation/manage-agent/property-links?agentCode=1111&propertyLinkId=$propertyLinkId&valuationId=$valuationId&propertyLinkSubmissionId=$submissionId"
   val assignAgentHref =
-    s"/business-rates-property-linking/my-organisation/agents"
+    s"/business-rates-property-linking/my-organisation/agents?valuationId=$valuationId&propertyLinkSubmissionId=$submissionId"
   val helpAppointingAgentsHref = "https://www.gov.uk/guidance/appoint-an-agent"
 
   // Agents tab locators

@@ -136,7 +136,7 @@ POST        /my-organisation/appoint-new-agent/ratings-list-new                 
 #MANAGE AGENT
 GET         /my-organisation/manage-agent                                                                                 controllers.agent.ManageAgentController.showManageAgent
 GET         /my-organisation/manage-agent/property-links                                                                  controllers.agent.ManageAgentController.manageAgentProperties(agentCode: Long, searchParams: GetPropertyLinksParameters ?= GetPropertyLinksParameters(), propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None)
-GET         /my-organisation/agents                                                                                       controllers.agent.ManageAgentController.showAgents
+GET         /my-organisation/agents                                                                                       controllers.agent.ManageAgentController.showAgents(propertyLinkId: Option[Long] ?= None, valuationId: Option[Long] ?= None, propertyLinkSubmissionId: Option[String] ?= None)
 
 POST        /my-organisation/manage-agent/:agentCode                                                                      controllers.agent.ManageAgentController.submitManageAgent(agentCode: Long)
 GET         /my-organisation/manage-agent/:agentCode                                                                      controllers.agent.ManageAgentController.startManageAgent(agentCode: Long)

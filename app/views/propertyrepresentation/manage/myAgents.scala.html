@@ -22,7 +22,7 @@
 
 @this(govukTable : GovukTable, layout: layout)
 
-@(agents: List[AgentSummary], propertyLinkingCount: Int)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
+@(agents: List[AgentSummary], propertyLinkingCount: Int, backLink: String)(implicit request: Request[_], messages: Messages, config: ApplicationConfig)
 
 @ratingListText(agentSummary: AgentSummary) = @{
     agentSummary.listYears match {
@@ -39,7 +39,7 @@
 
 @layout(
     pageTitle = messages("propertyRepresentation.showAgents.title"),
-    backUri = Some(config.dashboardUrl("home")),
+    backUri = Some(backLink),
     mainClass = Some(MainClass.FullWidth)
 ) {
 
